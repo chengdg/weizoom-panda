@@ -1,0 +1,12 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '订单概况',
+		href: '#'
+	}];
+
+	W.pageContentComponent = './order/datas/OrderDatasPage.react';
+</script>
+{% endblock %}
