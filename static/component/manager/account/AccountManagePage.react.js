@@ -115,37 +115,44 @@ var AccountManagePage = React.createClass({
 				page: 1
 			}
 		};
+		var typeOptions = [{
+			text: '全部',
+			value: -1
+		}, {
+			text: '客户账号',
+			value: 'customer'
+		}, {
+			text: '代理商账号',
+			value: 'agency'
+		}, {
+			text: '运营账号',
+			value: 'yunying'
+		}];
 
 		return (
 		<div className="mt15 xui-outline-datasPage">
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormRangeInput label="重量:" name="weight" match="[]" />
+						<Reactman.FormInput label="账号名称:" name="name" match='~' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
+						<Reactman.FormInput label="登录账号:" name="username" match="~" />
 					</Reactman.FilterField>
-				</Reactman.FilterRow>
-
-				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormDateRangeInput label="促销结束:" name="promotion_finish_date" match="[t]" />
+						<Reactman.FormSelect label="账号类型:" name="account_type" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
 			
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="添加新商品" icon="plus" href="/outline/data/" />
+					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="#" field="index" width="40px" />
-					<Reactman.TableColumn name="商品" field="name" />
-					<Reactman.TableColumn name="重量" field="weight" width="60px"/>
-					<Reactman.TableColumn name="备注" field="comment" width="150px"/>
-					<Reactman.TableColumn name="价格" field="price" width="80px" />
-					<Reactman.TableColumn name="规格" field="models" width="100px" />
-					<Reactman.TableColumn name="创建日" field="created_at" width="160px" />
+					<Reactman.TableColumn name="账号名称" field="name" />
+					<Reactman.TableColumn name="登录账号" field="comment" />
 					<Reactman.TableColumn name="操作" field="action" width="80px" />
 				</Reactman.Table>
 			</Reactman.TablePanel>
