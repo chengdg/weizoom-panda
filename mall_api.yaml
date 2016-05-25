@@ -1,0 +1,78 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '1.0'
+info:
+  title: 商城api
+  description: 本文档描述的是商城相关的接口
+  version: "1.1.0"
+
+paths:
+  mall/get_products_orders:
+    post:
+      summary: 根据商品ID列表获取对应的订单信息。要求：按照下单时间倒序排
+      description: |
+        过滤条件：下单日期段、下单时间、订单号、订单状态。要求：分页
+      parameters:
+        - name: product_ids
+          in: query
+          description: 商品ID（多个以","隔开）
+          required: true
+          type: string
+          format: string
+        - name: order_id
+          in: query
+          description: 订单号（支持模糊查询）
+          required: false
+          type: string
+          format: string
+        - name: create_time 
+          in: query
+          description: 下单时间 (2016-05-16 08:01~2016-05-17 21:59)
+          required: false
+          type: string
+          format: string
+        - name: status
+          in: query
+          description: 订单状态 (weapp中的订单状态)
+          required: false
+          type: int
+          format: int
+        - name: cont_per_page
+          in: query
+          description: 每页订单个数
+          required: true
+          type: int
+          format: int
+      tags:
+        - order
+      responses:
+        200:
+          description: 成功调用
+          schema:
+            properties:
+              code:
+                required: true
+                type: number （200， 500）
+              data:
+                properties:
+                  reason:
+                     required: true
+                     type: 失败原因
+                  type:
+                     required: true
+                     type: 失败类型：mall:other
+                  orders:
+                     required: true
+                     type: | 
+                        订单信息[{order_id:2342,order_create_at:2016-05-16 12:25:30,product:{product_name:东坡肘子,product_money:50(商品单价),count:5(订单中商品个数)},order_money:250(订单金额),status:待发货(订单状态)},...]
+                  pageinfo:
+                     required: true
+                     type: | 
+                        分页信息（标准分页信息）"pageinfo": {"max_page": 3, "query_string": "product_ids=1,2,3&create_time=2016-05-16 08:01~2016-05-17 21:59", "has_head": false, "has_next": true, "object_count": 30, "cur_page": 1, "next": 2, "display_pages": [1, 2, 3], "has_prev": false, "has_tail": true, "prev":null}
+              errMsg:
+                required: true
+                type: string
+              innererrMsg:
+                required: true
+                type: string
+                
