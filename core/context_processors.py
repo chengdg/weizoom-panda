@@ -15,7 +15,7 @@ def top_navs(request):
 		'name': 'product',
 		'displayName': '商品',
 		'icon': 'credit-card',
-		'href': '/product/data_list/'
+		'href': '/product/product_list/'
 	}, {
 		'name': 'fans',
 		'displayName': '粉丝投放',

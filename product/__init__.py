@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-import data_list
+import product_list
+import new_product

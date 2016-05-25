@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:product.data_list:ProductDataListPage');
+var debug = require('debug')('m:product.product_list:ProductDataListPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
@@ -47,42 +47,14 @@ var ProductDataListPage = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if (field === 'models') {
-			var models = value;
-			var modelEls = models.map(function(model, index) {
-				return (
-					<div key={"model"+index}>{model.name} - {model.stocks}</div>
-				)
-			});
+		if (field === 'action') {
 			return (
-				<div style={{color:'red'}}>{modelEls}</div>
-			);
-		} else if (field === 'name') {
-			return (
-				<a href={'/outline/data/?id='+data.id}>{value}</a>
-			)
-		} else if (field === 'price') {
-			return (
-				<a onClick={this.onClickPrice} data-product-id={data.id}>{value}</a>
-			)
-		} else if (field === 'action') {
-			return (
-			<div>
-				<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>删除</a>
-				<a className="btn btn-link btn-xs mt5" href={'/outline/data/?id='+data.id}>编辑</a>
-				<a className="btn btn-link btn-xs mt5" onClick={this.onClickComment} data-product-id={data.id}>备注</a>
-			</div>
-			);
-		} else if (field === 'expand-row') {
-			return (
-				<div style={{paddingBottom:'20px'}}>
-				<div className="clearfix" style={{backgroundColor:'#EFEFEF', color:'#FF0000', padding:'5px', borderBottom:'solid 1px #CFCFCF'}}>
-					<div className="fl">促销结束日：{data.promotion_finish_time}</div>
-					<div className="fr">总金额: {data.price}元</div>
+				<div>
+					<a className="btn btn-link btn-xs">编辑</a>
+					<a className="btn btn-link btn-xs">彻底删除</a>
 				</div>
-				</div>
-			)
-		} else {
+			);
+		}else {
 			return value;
 		}
 	},
@@ -110,27 +82,25 @@ var ProductDataListPage = React.createClass({
 
 	render:function(){
 		var productsResource = {
-			resource: 'product.data_list',
+			resource: 'product.product_list',
 			data: {
 				page: 1
 			}
 		};
 
 		return (
-		<div className="mt15 xui-outline-datasPage">
+		<div className="mt15 xui-product-productListPage">
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="添加新商品" icon="plus" href="/outline/data/" />
+					<Reactman.TableActionButton text="添加新商品" icon="plus" href="/product/new_product/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="#" field="index" width="40px" />
-					<Reactman.TableColumn name="商品" field="name" />
-					<Reactman.TableColumn name="重量" field="weight" width="60px"/>
-					<Reactman.TableColumn name="备注" field="comment" width="150px"/>
-					<Reactman.TableColumn name="价格" field="price" width="80px" />
-					<Reactman.TableColumn name="规格" field="models" width="100px" />
-					<Reactman.TableColumn name="创建日" field="created_at" width="160px" />
-					<Reactman.TableColumn name="操作" field="action" width="80px" />
+					<Reactman.TableColumn name="商品信息" field="product_name" />
+					<Reactman.TableColumn name="商品价格" field="product_price" />
+					<Reactman.TableColumn name="销量" field="sales" />
+					<Reactman.TableColumn name="创建时间" field="created_at" />
+					<Reactman.TableColumn name="状态" field="status" />
+					<Reactman.TableColumn name="操作" field="action" />
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>

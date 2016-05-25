@@ -8,7 +8,7 @@ module.exports = {
 	entry: {
 		dev: [
 			'webpack/hot/only-dev-server',
-			'webpack-dev-server/client?http://localhost:4188',
+			// 'webpack-dev-server/client?http://localhost:4188',
 			path.resolve(__dirname, 'static/index.js')
 		],
 		dist: [
