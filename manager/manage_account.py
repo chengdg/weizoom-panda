@@ -7,13 +7,15 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from core.exceptionutil import unicode_full_stack
 from core import resource
 from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
 import nav
-import models
+from account.models import *
+
 
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
@@ -67,15 +69,43 @@ class AccountCreate(resource.Resource):
 
 		return render_to_response('manager/account_create.html', c)
 
-	def api_get(request):
-		rows = []
-		data = {
-			'rows': rows,
-		}
+	def api_put(request):
+		post = request.POST
+		account_type = int(post.get('account_type',''))
+		name = post.get('name','')
+		username = post.get('username','')
+		password = post.get('password','')
+		note = post.get('note','')
 
-		#构造response
-		response = create_response(200)
-		response.data = data
-
+		user = User.objects.create_user(username,username+'@weizoom.com',password)
+		user.first_name = name
+		user.save()
+		try:
+			UserProfile.objects.create(
+				user = user,
+				manager_id = request.user,
+				role = account_type,
+				name = name,
+				note = note
+			)
+			response = create_response(200)
+		except:
+			response = create_response(500)
+			response.errMsg = u'创建账号失败'
+			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
 
+def check_username(request):
+	"""
+	创建用户时，检查登录账号是否存在
+	"""
+	username = request.GET.get('username','')
+	user = User.objects.filter(username=username)
+	if user:
+		response = create_response(500)
+		response.innerErrMsg = unicode_full_stack()
+		response.errMsg = u'该登录名已存在'
+		return response.get_response()
+	else:
+		response = create_response(200)
+		return response.get_response()
