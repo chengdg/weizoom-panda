@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Action');
+var debug = require('debug')('m:manager.account_list:Action');
 var _ = require('underscore');
 
 var Reactman = require('reactman');

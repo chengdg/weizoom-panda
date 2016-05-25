@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:manager.account:AccountManagePage');
+var debug = require('debug')('m:manager.account_list:AccountManagePage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
