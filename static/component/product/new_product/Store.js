@@ -24,7 +24,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.data = {
 			'images':[],
-			'remark': ''
+			'remark': '',
+			'product_store':'0'
 		};
 	},
 

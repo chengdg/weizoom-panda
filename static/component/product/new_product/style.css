@@ -1,38 +1,73 @@
-/*input[name="name"], input[name="remark"]{
-	width: 300px;
-}
-.note{
-	position: absolute;
-	display: inline-block;
-	height: 34px;
-	line-height: 34px;
-	margin-bottom: 15px;
-	margin-left: 15px;
-	color: #aaa;;
+.modal-content{
+	background: rgb(224, 222, 222) !important;
 }
 
-input[name="weizoom_card_id_prefix"],
-input[name="money"],
-input[name="count"]{
-	width: 200px;
+.product-detail{
+	width: 400px;
+	margin: 0 auto;
 }
-select[name="card_kind"]{
-	width: 120px;
+
+.product-image{
+	width: 400px;
+	height: 350px;
+	display: block;
 }
-fieldset div:nth-child(6){
+
+.product-name-price{
+	padding-bottom: 8px;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding-top: 8px;
+}
+
+.product-choose, .product-name-price, .product-introduce{
+	padding-left: 8px;
+	background: #FFF;
+}
+
+.product-choose{
+    margin-top: 10px;
+	padding-top: 5px;
+    height: 40px;
+}
+
+.product-introduce{
+	margin-top: 10px;
+	height: 250px;
+}
+
+.product-introduce .title{
+    display: inline-block;
+    width: 382px;
+    border-bottom: 1px solid #CCC;
+	padding-top: 8px;
+	font-size: 16px;
+}
+
+.product-name, .product-price{
+	display: block;
+	font-size: 16px;
+}
+
+.product-price{
+	color: red;
+}
+
+.product-count, .choose-count{
 	display: inline-block;
 }
-fieldset div:nth-child(9){
-	display: inline-block;
+
+.choose-count{
+	padding-right: 5px;
 }
-.money_note, .count_note{
-	position: absolute;
+
+.product-count li{
+	list-style: none;
 	display: inline-block;
-	height: 34px;
-	line-height: 34px;
-	margin-bottom: 15px;
-	margin-left: 15px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	border: 1px solid #CCC;
+	padding-top: 2px;
+	font-size: 16px;
 }
-.errorHint{
-	width: 200px;
-}*/
