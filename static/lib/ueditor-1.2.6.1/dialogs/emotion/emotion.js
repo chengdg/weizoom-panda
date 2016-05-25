@@ -177,7 +177,7 @@ function createEmotionTable() {
     autoHeight();
     var faceVersion = "?v=1.1", //版本号
             tab = $G('tabBodys'), //获取将要生成的Div句柄
-            imagePath = '/static/ueditor-1.2.6.1/dialogs/emotion/images/weixin/' //获取显示表情和预览表情的路径
+            imagePath = '/static/lib/ueditor-1.2.6.1/dialogs/emotion/images/weixin/' //获取显示表情和预览表情的路径
             positionLine = 15 / 2, //中间数
             iWidth = iHeight = 24, //图片长宽
             iColWidth = 3, //表格剩余空间的显示比例
@@ -199,7 +199,7 @@ function createEmotionTable() {
 
                 textHTML.push( '<td class="weixin" border="1" width="24px" style="border-collapse:collapse;" align="center"  bgcolor="transparent" onclick="InsertSmiley(\'' + realUrl.replace( /'/g, "\\'" ) + '\',event)" onmouseover="over(this,\'' + sUrl + '\',\'' + posflag + '\')" onmouseout="out(this)">' );
                 textHTML.push( '<span>' );
-                textHTML.push( '<img  style="background-position:' + offset + 'px 0px;" title="' + infor + '" src="/static/ueditor-1.2.6.1/dialogs/emotion/images/0.gif" width="' + iWidth + '" height="' + iHeight + '"></img>' );
+                textHTML.push( '<img  style="background-position:' + offset + 'px 0px;" title="' + infor + '" src="/static/lib/ueditor-1.2.6.1/dialogs/emotion/images/0.gif" width="' + iWidth + '" height="' + iHeight + '"></img>' );
                 textHTML.push( '</span>' );
             } else {
                 textHTML.push( '<td width="24px" bgcolor="#FFFFFF">' );
