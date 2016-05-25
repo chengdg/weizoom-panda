@@ -37,13 +37,13 @@ var AccountCreatePage = React.createClass({
 	render:function(){
 		var optionsForAccountType = [{
 			text: '体验客户',
-			value: 'customer'
+			value: '1'
 		}, {
 			text: '代理商',
-			value: 'agency'
+			value: '2'
 		}, {
 			text: '运营',
-			value: 'yunying'
+			value: '3'
 		}];
 
 		return (
@@ -52,9 +52,10 @@ var AccountCreatePage = React.createClass({
 				<fieldset>
 					<legend className="pl10 pt10 pb10">账号信息</legend>
 					<Reactman.FormRadio label="账号类型:" name="account_type" value={this.state.account_type} options={optionsForAccountType} onChange={this.onChange} />
-					<Reactman.FormInput label="账号名称:" type="text" name="name" validate="require-string" placeholder="" value={this.state.name} onChange={this.onChange} />
-					<Reactman.FormInput label="登录账号:" type="text" name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
+					<Reactman.FormInput label="账号名称:" name="name" validate="require-string" placeholder="" value={this.state.name} onChange={this.onChange} />
+					<Reactman.FormInput label="登录账号:" name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
 					<Reactman.FormInput label="登录密码:" type="password" name="password" validate="require-notempty" placeholder="" value={this.state.password} onChange={this.onChange} />
+					<Reactman.FormText label="备注:" name="note" placeholder="" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>

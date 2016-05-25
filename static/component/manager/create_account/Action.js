@@ -27,7 +27,8 @@ var Action = {
 			name: data['name'],
 			username: data['username'],
 			password: data['password'],
-			account_type: data['account_type']
+			account_type: data['account_type'],
+			note: data['note']
 		};
 
 		//if (data.id === -1) {
