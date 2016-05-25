@@ -46,3 +46,36 @@ class Account(resource.Resource):
 		response.data = data
 
 		return response.get_response()
+
+class AccountCreate(resource.Resource):
+	app = 'manager'
+	resource = 'account_create'
+
+	@login_required
+	def get(request):
+		"""
+		响应GET
+		"""
+		product_id = request.GET.get('id', None)
+		jsons = {'items':[]}
+		c = RequestContext(request, {
+			'first_nav_name': FIRST_NAV,
+			'second_navs': nav.get_second_navs(),
+			'second_nav_name': SECOND_NAV,
+			'jsons': jsons
+		})
+
+		return render_to_response('manager/account_create.html', c)
+
+	def api_get(request):
+		rows = []
+		data = {
+			'rows': rows,
+		}
+
+		#构造response
+		response = create_response(200)
+		response.data = data
+
+		return response.get_response()
+

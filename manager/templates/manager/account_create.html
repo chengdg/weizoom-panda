@@ -1,0 +1,15 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '账号管理',
+		href: '/manager/account/'
+	}, {
+		name: '添加账号',
+		href: '#'
+	}];
+
+	W.pageContentComponent = './manager/account/AccountCreatePage.react';
+</script>
+{% endblock %}
