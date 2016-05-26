@@ -22,9 +22,16 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	init: function() {
-		this.data = {
-			'account_type':'1'
-		};
+		this.data = Reactman.loadJSON('user_profile_data');
+		if (this.data) {
+			this.data['account_type'] = String(this.data['account_type']);
+			//this.data['password'] = '****************';
+		} else {
+			this.data = {
+				'account_type':'1'
+			};
+		}
+		debug(this.data);
 	},
 
 	handleUpdateAccount: function(action) {
