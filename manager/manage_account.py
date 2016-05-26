@@ -71,25 +71,25 @@ class AccountCreate(resource.Resource):
 
 	def api_put(request):
 		post = request.POST
-		account_type = int(post.get('account_type',''))
+		account_type = post.get('account_type','')
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
 		note = post.get('note','')
-
-		user = User.objects.create_user(username,username+'@weizoom.com',password)
-		user.first_name = name
-		user.save()
 		try:
-			UserProfile.objects.create(
-				user = user,
-				manager_id = request.user,
-				role = account_type,
-				name = name,
-				note = note
-			)
+			user = User.objects.create_user(username,username+'@weizoom.com',password)
+			user.first_name = name
+			user.save()
+			user_profile = UserProfile.objects.get(user=user)
+			user_profile.manager_id = request.user.id
+			user_profile.role = account_type
+			user_profile.name = name
+			user_profile.note = note
+			user_profile.save()
 			response = create_response(200)
-		except:
+		except Exception,e:
+			print(e)
+			print('===========================')
 			response = create_response(500)
 			response.errMsg = u'创建账号失败'
 			response.innerErrMsg = unicode_full_stack()

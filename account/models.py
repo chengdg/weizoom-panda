@@ -32,11 +32,12 @@ ROLE2NAME = dict(ROLES)
 
 class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)
+	name = models.CharField(max_length=32) #账号名称
 	manager_id = models.IntegerField(default=0) #创建该用户的系统用户的id
 	role = models.IntegerField(default=CUSTOMER,choices=ROLES) #角色
-	name = models.CharField(max_length=32) #账号名称
 	is_active = models.BooleanField(default=True, verbose_name='用户是否有效')
 	note = models.CharField(max_length=1024, default='') #备注
+	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 
 	class Meta(object):
 		db_table = 'account_user_profile'
