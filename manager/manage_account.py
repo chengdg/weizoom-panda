@@ -20,6 +20,7 @@ from account.models import *
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
 
+#账号管理列表
 class Account(resource.Resource):
 	app = 'manager'
 	resource = 'account'
@@ -38,7 +39,16 @@ class Account(resource.Resource):
 		return render_to_response('manager/account_list.html', c)
 
 	def api_get(request):
+		accounts = UserProfile.objects.filter(manager_id = request.user.id)
+		user_ids = [account.user_id for account in accounts]
+		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
+		for account in accounts:
+			rows.append({
+				'id' : account.id,
+				'name' : account.name,
+				'username' : user_id2username[account.user_id]
+			})
 		data = {
 			'rows': rows,
 		}
@@ -49,6 +59,7 @@ class Account(resource.Resource):
 
 		return response.get_response()
 
+#创建账号
 class AccountCreate(resource.Resource):
 	app = 'manager'
 	resource = 'account_create'

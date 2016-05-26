@@ -73,15 +73,6 @@ var AccountManagePage = React.createClass({
 				<a className="btn btn-link btn-xs mt5" onClick={this.onClickComment} data-product-id={data.id}>备注</a>
 			</div>
 			);
-		} else if (field === 'expand-row') {
-			return (
-				<div style={{paddingBottom:'20px'}}>
-				<div className="clearfix" style={{backgroundColor:'#EFEFEF', color:'#FF0000', padding:'5px', borderBottom:'solid 1px #CFCFCF'}}>
-					<div className="fl">促销结束日：{data.promotion_finish_time}</div>
-					<div className="fr">总金额: {data.price}元</div>
-				</div>
-				</div>
-			)
 		} else {
 			return value;
 		}
@@ -152,7 +143,7 @@ var AccountManagePage = React.createClass({
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="#" field="index" width="40px" />
 					<Reactman.TableColumn name="账号名称" field="name" />
-					<Reactman.TableColumn name="登录账号" field="comment" />
+					<Reactman.TableColumn name="登录账号" field="username" />
 					<Reactman.TableColumn name="操作" field="action" width="80px" />
 				</Reactman.Table>
 			</Reactman.TablePanel>

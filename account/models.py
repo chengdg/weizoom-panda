@@ -35,8 +35,9 @@ class UserProfile(models.Model):
 	name = models.CharField(max_length=32) #账号名称
 	manager_id = models.IntegerField(default=0) #创建该用户的系统用户的id
 	role = models.IntegerField(default=CUSTOMER,choices=ROLES) #角色
-	is_active = models.BooleanField(default=True, verbose_name='用户是否有效')
 	note = models.CharField(max_length=1024, default='') #备注
+	status = models.IntegerField(default=1) #账号状态 1开启中，0停用中
+	is_active = models.BooleanField(default=True, verbose_name='用户是否有效') #是否删除
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 
 	class Meta(object):
