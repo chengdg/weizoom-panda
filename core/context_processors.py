@@ -27,7 +27,7 @@ def top_navs(request):
 		'icon': 'cog',
 		'href': '#'
 	}, {
-		'name': 'account_manage',
+		'name': 'manager',
 		'displayName': '账号管理',
 		'icon': 'cog',
 		'href': '/manager/account/'

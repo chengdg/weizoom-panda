@@ -23,6 +23,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {
+			'account_type':'1'
 		};
 	},
 

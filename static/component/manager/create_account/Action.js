@@ -23,26 +23,30 @@ var Action = {
 		});
 	},
 	saveAccount: function(data) {
-		var account = {
+		var account_info = {
 			name: data['name'],
 			username: data['username'],
 			password: data['password'],
-			account_type: data['account_type'],
+			account_type: parseInt(data['account_type']),
 			note: data['note']
 		};
 
 		//if (data.id === -1) {
 		Resource.put({
 			resource: 'manager.account_create',
-			data: account,
+			data: account_info,
 			success: function() {
-				Dispatcher.dispatch({
-					actionType: Constant.NEW_ACCOUNT_CREATE,
-					data: data
-				});
+				Reactman.PageAction.showHint('success', '创建账号成功');
+				setTimeout(function(){
+                    Dispatcher.dispatch({
+						actionType: Constant.NEW_ACCOUNT_CREATE,
+						data: data
+					});
+                },1000);
+
 			},
 			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMg);
+				Reactman.PageAction.showHint('error', data.errMsg);
 			}
 		});
 		//} else {
