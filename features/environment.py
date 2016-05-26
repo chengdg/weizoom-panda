@@ -48,11 +48,11 @@ def __clear_all_app_data():
 			module = __import__(module_name, {}, {}, ['*',])	
 			clean_modules.append(module)
 
-	for clean_module in clean_modules:
-		clean_module.clean()
+	# for clean_module in clean_modules:
+		# clean_module.clean()
 
 	#清空用户信息
-	account_models.UserProfile.objects.all().delete()
+	account_models.UserProfile.objects.filter(manager_id__gt=0).all().delete()
 
 def __create_system_user(username):
 	"""
