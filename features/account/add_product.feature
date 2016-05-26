@@ -20,7 +20,7 @@ Background:
 			"password":"123456"
 		}]
 	"""
-#@mall3 @weapp
+#@panda
 #Scenario:1 客户登录系统
 #	Given aini登录系统
 #	Then aini可以看到订单列表
@@ -33,7 +33,7 @@ Background:
 #	"""
 
 
-@mall3 @weapp
+@panda
 Scenario:2 客户添加商品
 	Given aini登录系统
 	When aini添加商品
@@ -97,8 +97,7 @@ Scenario:2 客户添加商品
 	"""
 
 
-
-@mall3 @weapp
+@panda
 Scenario:3 客户删除商品
 	Given aini登录系统
 	When anni添加商品

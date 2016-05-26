@@ -39,7 +39,7 @@ class Account(resource.Resource):
 		return render_to_response('manager/account_list.html', c)
 
 	def api_get(request):
-		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True)
+		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-created_at')
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
