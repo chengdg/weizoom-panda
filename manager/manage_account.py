@@ -39,7 +39,7 @@ class Account(resource.Resource):
 		return render_to_response('manager/account_list.html', c)
 
 	def api_get(request):
-		accounts = UserProfile.objects.filter(manager_id = request.user.id)
+		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True)
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
@@ -47,7 +47,8 @@ class Account(resource.Resource):
 			rows.append({
 				'id' : account.id,
 				'name' : account.name,
-				'username' : user_id2username[account.user_id]
+				'username' : user_id2username[account.user_id],
+				'status' : account.status
 			})
 		data = {
 			'rows': rows,

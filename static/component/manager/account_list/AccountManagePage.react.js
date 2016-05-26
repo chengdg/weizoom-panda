@@ -21,14 +21,14 @@ var AccountManagePage = React.createClass({
 	},
 
 	onClickDelete: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		Reactman.PageAction.showConfirm({
-			target: event.target, 
-			title: '确认删除吗?',
-			confirm: _.bind(function() {
-				Action.deleteProduct(productId);
-			}, this)
-		});
+		//var productId = parseInt(event.target.getAttribute('data-product-id'));
+		//Reactman.PageAction.showConfirm({
+		//	target: event.target,
+		//	title: '确认删除吗?',
+		//	confirm: _.bind(function() {
+		//		Action.deleteProduct(productId);
+		//	}, this)
+		//});
 	},
 
 	onChangeStore: function(event) {
@@ -36,63 +36,21 @@ var AccountManagePage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	onClickPrice: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		var product = this.refs.table.getData(productId);
-
-		Reactman.PageAction.showPopover({
-			target: event.target,
-			content: '<span style="color:red">' + product.name + ':' + product.price + '</span>'
-		});
-	},
-
 	rowFormatter: function(field, value, data) {
-		if (field === 'models') {
-			var models = value;
-			var modelEls = models.map(function(model, index) {
-				return (
-					<div key={"model"+index}>{model.name} - {model.stocks}</div>
-				)
-			});
+		if (field === 'name') {
 			return (
-				<div style={{color:'red'}}>{modelEls}</div>
-			);
-		} else if (field === 'name') {
-			return (
-				<a href={'/outline/data/?id='+data.id}>{value}</a>
-			)
-		} else if (field === 'price') {
-			return (
-				<a onClick={this.onClickPrice} data-product-id={data.id}>{value}</a>
+				<a href={'/manager/account_create/?id='+data.id}>{value}</a>
 			)
 		} else if (field === 'action') {
 			return (
 			<div>
-				<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>删除</a>
-				<a className="btn btn-link btn-xs mt5" href={'/outline/data/?id='+data.id}>编辑</a>
-				<a className="btn btn-link btn-xs mt5" onClick={this.onClickComment} data-product-id={data.id}>备注</a>
+				<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>编辑</a>
+				<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>关闭</a>
 			</div>
 			);
 		} else {
 			return value;
 		}
-	},
-
-	onClickComment: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		var product = this.refs.table.getData(productId);
-		Reactman.PageAction.showDialog({
-			title: "创建备注", 
-			component: CommentDialog, 
-			data: {
-				product: product
-			},
-			success: function(inputData, dialogState) {
-				var product = inputData.product;
-				var comment = dialogState.comment;
-				Action.updateProduct(product, 'comment', comment);
-			}
-		});
 	},
 
 	onConfirmFilter: function(data) {
@@ -141,10 +99,9 @@ var AccountManagePage = React.createClass({
 					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="#" field="index" width="40px" />
 					<Reactman.TableColumn name="账号名称" field="name" />
 					<Reactman.TableColumn name="登录账号" field="username" />
-					<Reactman.TableColumn name="操作" field="action" width="80px" />
+					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>
