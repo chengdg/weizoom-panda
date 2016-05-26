@@ -11,7 +11,7 @@ from outline import models as outline_models
 
 __author__ = 'kuki'
 
-@when(u"{user}添加商品")
+# @when(u"{user}添加商品")
 def step_impl(context, user):
 	infos = json.loads(context.text)
 	# owner_id = bdd_util.get_user_id_for(user)

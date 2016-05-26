@@ -33,7 +33,7 @@ Background:
 #	"""
 
 
-@panda
+@panda @hj
 Scenario:2 客户添加商品
 	Given aini登录系统
 	When aini添加商品
