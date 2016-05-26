@@ -231,6 +231,4 @@ else:
     ALLOWED_HOSTS = ['*', ]
     DEBUG = False
 
-
-
 UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路径
