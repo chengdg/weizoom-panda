@@ -70,8 +70,21 @@ class AccountCreate(resource.Resource):
 		"""
 		响应GET
 		"""
-		product_id = request.GET.get('id', None)
+		user_profile_id = request.GET.get('id', None)
 		jsons = {'items':[]}
+		if user_profile_id:
+			user_profile = UserProfile.objects.get(id=user_profile_id)
+			user_profile_data = {
+				'id': user_profile.id,
+				'name': user_profile.name,
+				'username': User.objects.get(id=user_profile.user_id).username,
+				'account_type': user_profile.role,
+				'note': user_profile.note,
+			}
+			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
+		else:
+			jsons['items'].append(('user_profile_data', json.dumps(None)))
+
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
