@@ -22,12 +22,12 @@ Background:
 	"""
 #@panda
 #Scenario:1 客户登录管理系统
-#	Given aini登录管理系统
-#	Then aini可以看到订单列表
+#	Given jobs登录管理系统
+#	Then jobs可以看到订单列表
 #	"""
 #		[]
 #	"""
-#	Then aini能获取商品列表
+#	Then jobs能获取商品列表
 #	"""
 #		[]
 #	"""
@@ -35,8 +35,8 @@ Background:
 
 @panda @hj
 Scenario:2 客户添加商品
-	Given aini登录管理系统
-	When aini添加商品
+	Given jobs登录管理系统
+	When jobs添加商品
 	"""
 		[{
 			"name": "商品1",
@@ -76,21 +76,26 @@ Scenario:2 客户添加商品
 	"""
 
 
-	Then aini能获得商品列表
+	Then jobs能获得商品列表
 	"""
 		[{
+			"name": "商品4",
+			"sales":"0",
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		},{
 			"name": "商品3",
-			"sales":0,
+			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		},{
 			"name": "商品2",
-			"sales":0,
+			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		},{
 			"name": "商品1",
-			"sales":0,
+			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		}]
@@ -99,7 +104,7 @@ Scenario:2 客户添加商品
 
 @panda
 Scenario:3 客户删除商品
-	Given aini登录管理系统
+	Given jobs登录管理系统
 	When anni添加商品
 	"""
 		[{
@@ -114,8 +119,8 @@ Scenario:3 客户删除商品
 			"stock_type": "无限"
 		}]
 	"""
-	When aini删除商品'叫花鸡'
-	Then aini能获得商品列表
+	When jobs删除商品'叫花鸡'
+	Then jobs能获得商品列表
 	"""
 		[{
 			"name": "五花肉",
