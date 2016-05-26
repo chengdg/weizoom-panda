@@ -102,21 +102,27 @@ Scenario:2 客户添加商品
 	"""
 
 
-@panda
+@panda @hj_q
 Scenario:3 客户删除商品
 	When aini使用密码123456登录系统
 	When aini添加商品
 	"""
 		[{
 			"name": "叫花鸡",
+			"promotion_name":"促销的商品1",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品1的简介"
 		},{
 			"name": "五花肉",
+			"promotion_name":"促销的商品1",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品1的简介"
 		}]
 	"""
 	When aini删除商品'叫花鸡'
@@ -124,7 +130,7 @@ Scenario:3 客户删除商品
 	"""
 		[{
 			"name": "五花肉",
-			"sales":0,
+			"sales": "0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		}]
