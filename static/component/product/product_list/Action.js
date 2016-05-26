@@ -15,21 +15,14 @@ var Constant = require('./Constant');
 var Action = {
 	deleteProduct: function(id) {
 		Resource.delete({
-			resource: 'outline.data',
+			resource: 'product.new_product',
 			data: {
 				id: id
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.OUTLINE_DATAS_UPDATE_PRODUCT
+				actionType: Constant.PRODUCT_LIST_UPDATE_PRODUCT
 			}
-		});
-	},
-
-	filterProducts: function(filterOptions) {
-		Dispatcher.dispatch({
-			actionType: Constant.OUTLINE_DATAS_FILTER_PRODUCTS,
-			data: filterOptions
 		});
 	},
 

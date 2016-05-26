@@ -36,6 +36,7 @@ class NewProduct(resource.Resource):
 		})
 		return render_to_response('product/new_product.html', c)
 
+	@login_required
 	def api_put(request):
 		post = request.POST
 		product_name = post.get('product_name','')
@@ -60,6 +61,13 @@ class NewProduct(resource.Resource):
 		product_images = json.loads(request.POST['images'])
 		for product_image in product_images:
 			models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_delete(request):
+		models.Product.objects.filter(owner=request.user, id=request.POST['id']).delete()
 
 		response = create_response(200)
 		return response.get_response()
