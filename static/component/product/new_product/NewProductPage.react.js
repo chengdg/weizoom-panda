@@ -32,6 +32,16 @@ var NewProductPage = React.createClass({
 
 	productPreview: function(){
 		var product = Store.getData();
+		if(product.images.length == 0){
+			Reactman.PageAction.showHint('error', '请先上传图片！');
+			return;
+		}
+
+		if(!product.hasOwnProperty('product_name') || !product.hasOwnProperty('product_price')){
+			Reactman.PageAction.showHint('error', '请先填写商品名称和价格！');
+			return;
+		}
+		
 		Reactman.PageAction.showDialog({
 			title: "商品预览",
 			component: ProductPreviewDialog,
@@ -51,10 +61,10 @@ var NewProductPage = React.createClass({
 	render:function(){
 		var optionsForStore = [{text: '无限', value: '0'}, {text: '有限', value: '1'}];
 		return (
-			<div className="xui-outlineData-page xui-formPage">
+			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<div><a href='javascript:void(0);' onClick={this.productPreview}>预览</a></div>
+						<div className="preview-btn"><a href='javascript:void(0);' onClick={this.productPreview}>商品预览</a></div>
 					</fieldset>
 					<fieldset>
 						<legend className="pl10 pt10 pb10">基本信息</legend>

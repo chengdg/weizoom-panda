@@ -21,11 +21,15 @@ var ProductPreviewDialog = Reactman.createDialog({
 			product_price: product.product_price
 		}
 	},
+
+	onBeforeCloseDialog: function(){
+		this.closeDialog();
+	},
 	
 	render:function(){
 		var path = this.state.images[0].path;
 		return (
-			<div className="xui-formPage">
+			<div className="xui-formPage xui-product-preview-div">
 				<div className="product-detail">
 					<div><img className='product-image' src={path}/></div>
 					<div className="product-name-price">
