@@ -20,17 +20,17 @@ Background:
 			"password":"123456"
 		}]
 	"""
-@mall3 @weapp
-Scenario:1 客户登录系统
-	Given aini登录系统
-	Then aini可以看到订单列表
-	"""
-		[]
-	"""
-	Then aini能获取商品列表
-	"""
-		[]
-	"""
+#@mall3 @weapp
+#Scenario:1 客户登录系统
+#	Given aini登录系统
+#	Then aini可以看到订单列表
+#	"""
+#		[]
+#	"""
+#	Then aini能获取商品列表
+#	"""
+#		[]
+#	"""
 
 
 @mall3 @weapp
@@ -39,37 +39,39 @@ Scenario:2 客户添加商品
 	When aini添加商品
 	"""
 		[{
-			"name": "叫花鸡",
-			"promotion_name":"促销的叫花鸡",
+			"name": "商品1",
+			"promotion_name":"促销的商品1",
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
 			"settlement_price":10.00,
-			"pic_url": "./test/imgs/hangzhou1.jpg",
-			"introduction": "叫花鸡的简介",
-			"model": {
-				"models": {
-					"standard": {
-						"price": 12.00,
-						"weight": 1.00,
-						"stock_type": "无限"
-						}
-					}
-				}
+			"introduction": "商品1的简介"	
+		},{
+			"name": "商品2",
+			"promotion_name":"促销的商品2",
+			"settlement_price":10.00,
+			"introduction": "商品2的简介",
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
 
 		},{
-			"name": "五花肉",
-			"promotion_name":"促销的五花肉",
+			"name": "商品3",
+			"promotion_name":"促销的商品3",		
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
 			"settlement_price":10.00,
-			"pic_url": "./test/imgs/hangzhou1.jpg",
-			"introduction": "叫花鸡的简介",
-			"model": {
-				"models": {
-					"standard": {
-						"price": 12.00,
-						"weight": 1.00,
-						"stock_type": "无限"
-						}
-					}
-				}
-
+			"introduction": "商品3的简介",
+		},{
+			"name": "商品4",
+			"promotion_name":"促销的商品4",
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
+			"settlement_price":10.00,
+			"introduction": "商品4的简介",
+			
 		}]
 	"""
 
@@ -77,12 +79,17 @@ Scenario:2 客户添加商品
 	Then aini能获得商品列表
 	"""
 		[{
-			"name": "五花肉",
+			"name": "商品3",
 			"sales":0,
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		},{
-			"name": "叫花鸡",
+			"name": "商品2",
+			"sales":0,
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		},{
+			"name": "商品1",
 			"sales":0,
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
@@ -98,26 +105,14 @@ Scenario:3 客户删除商品
 	"""
 		[{
 			"name": "叫花鸡",
-			"model": {
-				"models": {
-					"standard": {
-						"price": 12.00,
-						"weight": 1.00,
-						"stock_type": "无限"
-						}
-					}
-				}
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
 		},{
 			"name": "五花肉",
-			"model": {
-				"models": {
-					"standard": {
-						"price": 12.00,
-						"weight": 1.00,
-						"stock_type": "无限"
-						}
-					}
-				}
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限"
 		}]
 	"""
 	When aini删除商品'叫花鸡'
