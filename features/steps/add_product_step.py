@@ -16,8 +16,8 @@ PRODUCT_STORE_TEXT2VALUE={
 
 @when(u"{user}添加商品")
 def step_impl(context, user):
-	context.products = json.loads(context.text)
-	for product in context.products:
+	products = json.loads(context.text)
+	for product in products:
 		stock_value = PRODUCT_STORE_TEXT2VALUE[product['stock_type']]
 		product_info = {
 			'product_name': product['name'],
@@ -26,7 +26,8 @@ def step_impl(context, user):
 			'clear_price': product['settlement_price'],
 			'product_weight': product['weight'],
 			'product_store': stock_value,
-			'remark': product['introduction'],
+			'remark': product['introduction']
 		}
+		print product_info,"++++++++++"
 		response = context.client.put('/product/api/new_product/', product_info)
 		bdd_util.assert_api_call_success(response)

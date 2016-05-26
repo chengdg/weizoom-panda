@@ -2,7 +2,7 @@
 
 Feature:精简版云商通-添加商品、删除商品
 """
-	1.客户登录系统
+	1.客户登录管理系统
 	2.客户添加商品
 	3.客户删除商品
 
@@ -10,7 +10,7 @@ Feature:精简版云商通-添加商品、删除商品
 
 """
 Background:
-	Given jobs登录系统
+	Given jobs登录管理系统
 	When jobs添加账号
 	"""
 		[{
@@ -21,8 +21,8 @@ Background:
 		}]
 	"""
 #@panda
-#Scenario:1 客户登录系统
-#	Given aini登录系统
+#Scenario:1 客户登录管理系统
+#	Given aini登录管理系统
 #	Then aini可以看到订单列表
 #	"""
 #		[]
@@ -35,7 +35,7 @@ Background:
 
 @panda @hj
 Scenario:2 客户添加商品
-	Given aini登录系统
+	Given aini登录管理系统
 	When aini添加商品
 	"""
 		[{
@@ -43,7 +43,7 @@ Scenario:2 客户添加商品
 			"promotion_name":"促销的商品1",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
 			"settlement_price":10.00,
 			"introduction": "商品1的简介"	
 		},{
@@ -60,17 +60,17 @@ Scenario:2 客户添加商品
 			"promotion_name":"促销的商品3",		
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
 			"settlement_price":10.00,
-			"introduction": "商品3的简介",
+			"introduction": "商品3的简介"
 		},{
 			"name": "商品4",
 			"promotion_name":"促销的商品4",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
 			"settlement_price":10.00,
-			"introduction": "商品4的简介",
+			"introduction": "商品4的简介"
 			
 		}]
 	"""
@@ -99,7 +99,7 @@ Scenario:2 客户添加商品
 
 @panda
 Scenario:3 客户删除商品
-	Given aini登录系统
+	Given aini登录管理系统
 	When anni添加商品
 	"""
 		[{

@@ -36,17 +36,16 @@ class NewProduct(resource.Resource):
 		})
 		return render_to_response('product/new_product.html', c)
 
-	@login_required
 	def api_put(request):
 		post = request.POST
 		product_name = post.get('product_name','')
 		promotion_title = post.get('promotion_title','')
-		product_price = post.get('product_price','')
-		clear_price = post.get('clear_price','')
-		product_weight = post.get('product_weight','')
-		product_store = post.get('product_store','')
+		product_price = post.get('product_price',0)
+		clear_price = post.get('clear_price',0)
+		product_weight = post.get('product_weight',0)
+		product_store = int(post.get('product_store',-1))
 		remark = post.get('remark','')
-
+		images = post.get('images','')
 		product = models.Product.objects.create(
 			owner = request.user, 
 			product_name = product_name, 
@@ -58,14 +57,14 @@ class NewProduct(resource.Resource):
 		)
 
 		#获取商品图片
-		product_images = json.loads(request.POST['images'])
-		for product_image in product_images:
-			models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+		if images:
+			product_images = json.loads(request.POST['images'])
+			for product_image in product_images:
+				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 
 		response = create_response(200)
 		return response.get_response()
 
-	@login_required
 	def api_delete(request):
 		models.Product.objects.filter(owner=request.user, id=request.POST['id']).delete()
 
