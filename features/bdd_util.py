@@ -76,7 +76,10 @@ def login(user, password=None, **kwargs):
 
 	#client = WeappClient(HTTP_USER_AGENT='WebKit MicroMessenger Mozilla')
 	client = Client()
-	client.login(username=user, password='test')
+	if not password:
+		client.login(username=user, password='test')
+	else:
+		client.login(username=user, password=password)
 	client.user = User.objects.get(username=user)
 	client.user.profile = UserProfile.objects.get(user=client.user)
 
