@@ -38,7 +38,7 @@ class ProductList(resource.Resource):
 		return render_to_response('product/product_list.html', c)
 
 	def api_get(request):
-		products = models.Product.objects.filter(owner=request.user).order_by('-created_at')
+		products = models.Product.objects.filter(owner=request.user).order_by('-id')
 		product_images = models.ProductImage.objects.all()
 		#组装数据
 		rows = []

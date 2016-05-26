@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 
 from behave import *
-import bdd_util
+from features import bdd_util
 
 from product import models as product_models
 
@@ -28,9 +28,7 @@ def step_impl(context, user):
 			'product_store': stock_value,
 			'remark': product['introduction']
 		}
-		print product_info,"++++++++++"
 		response = context.client.put('/product/api/new_product/', product_info)
-		time.sleep(1)
 		bdd_util.assert_api_call_success(response)
 
 @then(u"{user}能获得商品列表")
@@ -54,7 +52,6 @@ def step_impl(context, user):
 @when(u"{user}删除商品'{product_name}'")
 def step_impl(context, user, product_name):
 	user_id = bdd_util.get_user_id_for(user)
-	product = outline_models.Product.objects.get(owner_id=user_id, name=product_name)
-
+	product = product_models.Product.objects.get(owner_id=user_id, product_name=product_name)
 	response = context.client.delete('/product/api/new_product/', {'id': product.id})
 	bdd_util.assert_api_call_success(response)
