@@ -25,8 +25,6 @@ from selenium.webdriver.chrome.options import Options
 
 import bdd_util
 
-from account import models as account_models
-
 def __clear_all_account_data():
 	"""
 	清空账号数据
@@ -48,11 +46,8 @@ def __clear_all_app_data():
 			module = __import__(module_name, {}, {}, ['*',])	
 			clean_modules.append(module)
 
-	# for clean_module in clean_modules:
-		# clean_module.clean()
-
-	#清空用户信息
-	account_models.UserProfile.objects.filter(manager_id__gt=0).all().delete()
+	for clean_module in clean_modules:
+		clean_module.clean()
 
 def __create_system_user(username):
 	"""

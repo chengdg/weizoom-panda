@@ -37,11 +37,11 @@ Scenario:1  管理员创建体验客户账号
 		[{
 			"account_name":"土小宝",
 			"login_account":"tuxiaobao",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		}]
 	"""
 
