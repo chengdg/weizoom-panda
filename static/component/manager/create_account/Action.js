@@ -43,7 +43,6 @@ var Action = {
 						data: data
 					});
                 },1000);
-
 			},
 			error: function(data) {
 				Reactman.PageAction.showHint('error', data.errMsg);

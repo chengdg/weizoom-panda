@@ -76,6 +76,11 @@ class AccountCreate(resource.Resource):
 		username = post.get('username','')
 		password = post.get('password','')
 		note = post.get('note','')
+
+		if not check_username_valid(username):
+			response = create_response(500)
+			response.errMsg = u'登录账号已存在，请重新输入'
+			return response.get_response()
 		try:
 			user = User.objects.create_user(username,username+'@weizoom.com',password)
 			user.first_name = name
@@ -95,17 +100,9 @@ class AccountCreate(resource.Resource):
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
 
-def check_username(request):
+def check_username_valid(username):
 	"""
 	创建用户时，检查登录账号是否存在
 	"""
-	username = request.GET.get('username','')
-	user = User.objects.filter(username=username)
-	if user:
-		response = create_response(500)
-		response.innerErrMsg = unicode_full_stack()
-		response.errMsg = u'该登录名已存在'
-		return response.get_response()
-	else:
-		response = create_response(200)
-		return response.get_response()
+	user = User.objects.filter(username = username)
+	return False if user else True
