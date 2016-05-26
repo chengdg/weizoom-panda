@@ -75,7 +75,7 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="商品重量:" type="text" name="product_weight" value={this.state.product_weight} onChange={this.onChange} validate="require-float"/>
 						<Reactman.FormRadio label="商品库存:" type="text" name="product_store" value={this.state.product_store} options={optionsForStore} onChange={this.onChange} />
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
-						<Reactman.FormRichTextInput label="备注:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
+						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
 					<fieldset>
 						<Reactman.FormSubmit onClick={this.onSubmit} />
