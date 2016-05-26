@@ -27,9 +27,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['account_type'] = String(this.data['account_type']);
 			//this.data['password'] = '****************';
 		} else {
-			this.data = {
-				'account_type':'1'
-			};
+			this.data = {};
 		}
 		debug(this.data);
 	},
