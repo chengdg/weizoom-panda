@@ -13,7 +13,7 @@ Feature:精简版云商通-创建体验客户、代理商、运营账号
 #password       密码
 #remarks        备注
 
-@panda @kuki
+@panda @account_create
 Scenario:1  管理员创建体验客户账号
 	Given jobs登录管理系统
 	When jobs添加账号
@@ -45,7 +45,7 @@ Scenario:1  管理员创建体验客户账号
 		}]
 	"""
 
-@panda
+@panda @account_create
 Scenario:2  管理员创建代理商账号
 	Given jobs登录管理系统
 	When jobs添加账号
@@ -68,9 +68,9 @@ Scenario:2  管理员创建代理商账号
 	"""
 
 
-@panda
+@panda @account_create
 Scenario:3  管理员创建运营账号
-	Given jobs登录系统
+	Given jobs登录管理系统
 	When jobs添加账号
 	"""
 		[{
