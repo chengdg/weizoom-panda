@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import subprocess
 
 from behave import *
-from features import bdd_util
+import bdd_util
 
 from django.test.client import Client
 
