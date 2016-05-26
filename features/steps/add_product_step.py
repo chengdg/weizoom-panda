@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 
 from behave import *
-from features import bdd_util
+import bdd_util
 
 from product import models as product_models
 

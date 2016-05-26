@@ -33,6 +33,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 				<div className="product-detail">
 					<div><img className='product-image' src={path}/></div>
 					<div className="product-name-price">
+						<span className="product-collect-title">收藏</span>
 						<span className="product-name">{this.state.product_name}</span>
 						<span className="product-price">￥{this.state.product_price}</span>
 					</div>

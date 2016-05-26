@@ -102,7 +102,7 @@ Scenario:2 客户添加商品
 	"""
 
 
-@panda @hj_q
+@panda @hj
 Scenario:3 客户删除商品
 	When aini使用密码123456登录系统
 	When aini添加商品
