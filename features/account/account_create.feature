@@ -63,7 +63,7 @@ Scenario:2  管理员创建代理商账号
 		[{
 			"account_name":"代理商公司",
 			"login_account":"daili",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		}]
 	"""
 
@@ -98,14 +98,14 @@ Scenario:3  管理员创建运营账号
 		[{
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"代理商公司",
 			"login_account":"daili",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"运营部门",
 			"login_account":"yunying",
-			"actions": ["编辑","开启"]
+			"actions": ["编辑","关闭"]
 		}]
 	"""

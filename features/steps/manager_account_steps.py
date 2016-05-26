@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 
 from behave import *
-from features import bdd_util
+import bdd_util
 
 from outline import models as outline_models
 
@@ -41,6 +41,7 @@ def step_impl(context, user):
             'note': info.get('ramarks', '')
         }
 		response = context.client.put('/manager/api/account_create/', params)
+		print(response)
 		bdd_util.assert_api_call_success(response)
 
 @then(u"{user}能获得账号管理列表")
