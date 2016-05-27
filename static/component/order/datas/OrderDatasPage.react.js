@@ -47,23 +47,9 @@ var OrderDatasPage = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if (field === 'models') {
-			var models = value;
-			var modelEls = models.map(function(model, index) {
-				return (
-					<div key={"model"+index}>{model.name} - {model.stocks}</div>
-				)
-			});
-			return (
-				<div style={{color:'red'}}>{modelEls}</div>
-			);
-		} else if (field === 'name') {
+		if (field === 'name') {
 			return (
 				<a href={'/outline/data/?id='+data.id}>{value}</a>
-			)
-		} else if (field === 'price') {
-			return (
-				<a onClick={this.onClickPrice} data-product-id={data.id}>{value}</a>
 			)
 		} else if (field === 'action') {
 			return (
@@ -73,16 +59,7 @@ var OrderDatasPage = React.createClass({
 				<a className="btn btn-link btn-xs mt5" onClick={this.onClickComment} data-product-id={data.id}>备注</a>
 			</div>
 			);
-		} else if (field === 'expand-row') {
-			return (
-				<div style={{paddingBottom:'20px'}}>
-				<div className="clearfix" style={{backgroundColor:'#EFEFEF', color:'#FF0000', padding:'5px', borderBottom:'solid 1px #CFCFCF'}}>
-					<div className="fl">促销结束日：{data.promotion_finish_time}</div>
-					<div className="fr">总金额: {data.price}元</div>
-				</div>
-				</div>
-			)
-		} else {
+		}else {
 			return value;
 		}
 	},
@@ -115,21 +92,34 @@ var OrderDatasPage = React.createClass({
 				page: 1
 			}
 		};
+		var typeOptions = [{
+			text: '全部',
+			value: -1
+		}, {
+			text: '待发货',
+			value: '0'
+		}, {
+			text: '已发货',
+			value: '1'
+		}, {
+			text: '已完成',
+			value: '2'
+		}];
 
 		return (
 		<div className="mt15 xui-outline-datasPage">
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormRangeInput label="重量:" name="weight" match="[]" />
+						<Reactman.FormInput label="订单编号:" name="order_id" match='~' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
+						<Reactman.FormDateRangeInput label="下单时间:" name="order_date" match="[t]" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
-
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormDateRangeInput label="促销结束:" name="promotion_finish_date" match="[t]" />
+						<Reactman.FormSelect label="订单状态:" name="order_status" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -140,9 +130,7 @@ var OrderDatasPage = React.createClass({
 					<Reactman.TableActionButton text="导出" href="/outline/data/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="#" field="index" width="40px" />
 					<Reactman.TableColumn name="商品" field="name" />
-					<Reactman.TableColumn name="重量" field="weight" width="60px"/>
 					<Reactman.TableColumn name="备注" field="comment" width="150px"/>
 					<Reactman.TableColumn name="价格" field="price" width="80px" />
 					<Reactman.TableColumn name="规格" field="models" width="100px" />
