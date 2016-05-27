@@ -52,7 +52,7 @@ def top_navs(request):
 				'name': 'customer',
 				'displayName': '客户概况',
 				'icon': 'credit-card',
-				'href': '/product/product_list/'
+				'href': '/customer/customer/'
 			}]
 		elif role == MANAGER:
 			top_navs = [{
