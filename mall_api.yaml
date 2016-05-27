@@ -1,13 +1,21 @@
 # this is an example of the Uber API
 # as a demonstration of an API spec in YAML
-swagger: '1.0'
+swagger: '2.0'
 info:
   title: 商城api
   description: 本文档描述的是商城相关的接口
   version: "1.1.0"
-
+# the domain of the service
+host: api.uber.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
 paths:
-  mall/get_products_orders:
+  /mall/get_orders_by_pids:
     post:
       summary: 根据商品ID列表获取对应的订单信息。要求：按照下单时间倒序排
       description: |
@@ -44,7 +52,7 @@ paths:
           type: int
           format: int
       tags:
-        - order
+        - 订单
       responses:
         200:
           description: 成功调用
@@ -52,7 +60,7 @@ paths:
             properties:
               code:
                 required: true
-                type: number （200， 500）
+                type: number
               data:
                 properties:
                   reason:
@@ -75,4 +83,222 @@ paths:
               innererrMsg:
                 required: true
                 type: string
-                
+        500:
+          description: 失败
+          schema:
+            $ref: '#/definitions/Error'
+            
+    get:
+      description: |
+        根据已经关联的商品ids获得订单信息
+      parameters:
+        - name: product_ids
+          in: query
+          description: 商品ID（多个以","隔开）
+          required: true
+          type: string
+          format: string
+      tags:
+        - 订单
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+        500:
+          description: 失败
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /mall/get_order_info:
+    get:
+      description: |
+        根据订单id获取订单详情
+      parameters:
+        - name: order_id
+          description: 订单id
+          required: true
+          type: string
+          format: string
+      tags:
+        - 订单
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order_info'
+        500:
+          description: 失败
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /mall/get_orders_by_customer_ids:
+    get:
+      description: |
+        展示所有体验客户下，所有【已发货】状态的订单
+      parameters:
+        - name: customer_ids
+          description: 体验客户ids
+          required: true
+          type: string
+          format: string
+      tags:
+        - 订单
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Yunying_Order'
+        500:
+          description: 失败
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      description: |
+        过滤条件：客户名称、下单日期段、来源商城。要求：分页
+      parameters:
+        - name: customer_name
+          in: query
+          description: 客户名称（支持模糊查询）
+          required: false
+          type: string
+          format: string
+        - name: create_time 
+          in: query
+          description: 下单时间 (2016-05-16 08:01~2016-05-17 21:59)
+          required: false
+          type: string
+          format: string
+        - name: from_mall
+          in: query
+          description: 来源商城
+          required: false
+          type: string
+          format: string
+        - name: cont_per_page
+          in: query
+          description: 每页订单个数
+          required: true
+          type: int
+          format: int
+      tags:
+        - 订单
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Yunying_Order'
+        500:
+          description: 失败
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Order:
+    type: object
+    properties:
+      order_id:
+        type: string
+        description: 订单编号
+      order_create_at:
+        type: string
+        description: 下单时间
+      product_img:
+        type: string
+        description: 订单图片url地址
+      order_name:
+        type: string
+        description: 订单名称
+      product_price:
+        type: float
+        description: 商品单价
+      product_amount:
+        type: int
+        description: 商品数量
+      ship_name:
+        type: string
+        description: 收货人
+      total_purchase_price:
+        type: float
+        description: 订单金额
+    status:
+        type: int
+        description: 订单状态
+
+  Order_info:
+    type: object
+    properties:
+      status:
+        type: int
+        description: 订单状态
+      ship_name:
+        type: string
+        description: 收货人
+      customer_message:
+        type: string
+        description: 买家留言
+      ship_tel:
+        type: string
+        description: 收货人电话
+      ship_address:
+        type: string
+        description: 收货人地址
+      express_company_name:
+        type: string
+        description: 物流公司名称
+      express_number:
+        type: string
+        description: 快递单号
+      product_img:
+        type: string
+        description: 订单商品图片url地址
+      order_name:
+        type: string
+        description: 订单名称
+      product_price:
+        type: float
+        description: 商品单价
+      product_amount:
+        type: int
+        description: 商品数量
+      
+      total_purchase_price:
+        type: float
+        description: 订单金额
+
+  Yunying_Order:
+    type: object
+    properties:
+      order_id:
+        type: string
+        description: 订单编号
+      order_create_at:
+        type: string
+        description: 下单时间
+     total_purchase_price:
+        type: float
+        description: 订单金额
+      customer_name:
+        type: string
+        description: 客户名称
+      from_mall:
+        type: string
+        description: 来源商城
+        
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
