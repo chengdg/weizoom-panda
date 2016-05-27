@@ -12,10 +12,12 @@ from core import resource
 from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
+from util import string_util
+
+from resource import models as resource_models
+from account.models import *
 import nav
 import models
-from resource import models as resource_models
-from util import string_util
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -32,8 +34,12 @@ class NewProduct(resource.Resource):
 		#获取业务数据
 		product_id = request.GET.get('id', None)
 		jsons = {'items':[]}
+		role = UserProfile.objects.get(user_id=request.user.id).role
 		if product_id:
-			product = models.Product.objects.get(owner=request.user, id=product_id)
+			if role == YUN_YING:
+				product = models.Product.objects.get(id=product_id)
+			else:
+				product = models.Product.objects.get(owner=request.user, id=product_id)
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -62,7 +68,8 @@ class NewProduct(resource.Resource):
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
-			'jsons': jsons
+			'jsons': jsons,
+			'role': role
 		})
 		return render_to_response('product/new_product.html', c)
 

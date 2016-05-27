@@ -7,12 +7,15 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 
 from core import resource
 from core.jsonresponse import create_response
 from core import paginator
+
 from util import db_util
 from resource import models as resource_models
+from account.models import *
 from util import string_util
 import nav
 import models
@@ -38,7 +41,12 @@ class ProductList(resource.Resource):
 		return render_to_response('product/product_list.html', c)
 
 	def api_get(request):
-		products = models.Product.objects.filter(owner=request.user).order_by('-id')
+		cur_page = request.GET.get('page', 1)
+		role = UserProfile.objects.get(user_id=request.user.id).role
+		if role == YUN_YING:
+			products = models.Product.objects.all().order_by('-id')
+		else:
+			products = models.Product.objects.filter(owner=request.user).order_by('-id')
 		product_images = models.ProductImage.objects.all()
 		#组装数据
 		rows = []
@@ -55,12 +63,14 @@ class ProductList(resource.Resource):
 				'id':image.id,
 				'path': image.path
 			}])
+		pageinfo, products = paginator.paginate(products, cur_page, 5, query_string=request.META['QUERY_STRING'])
 
 		for product in products:
 			# image_id = product_id2image_id[product.id]
 			# images = image_id2images[image_id]
 			rows.append({
 				'id': product.id,
+				'role': role,
 				'promotion_title': product.promotion_title,
 				'product_price': '%.2f' %product.product_price,
 				'product_name': product.product_name,
@@ -71,7 +81,7 @@ class ProductList(resource.Resource):
 			})
 		data = {
 			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response

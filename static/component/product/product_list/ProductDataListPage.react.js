@@ -45,7 +45,18 @@ var ProductDataListPage = React.createClass({
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>彻底删除</a>
 				</div>
 			);
-		}else {
+		}else if(field === 'product_name'){
+			var role = data['role'];
+			if(role == 3){
+				return(
+					<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}> {value}</a>
+				)
+			}else{
+				return(
+					<span>{value}</span>
+				)
+			}
+		} else {
 			return value;
 		}
 	},
