@@ -22,11 +22,18 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	init: function() {
-		this.data = {
-			'images':[],
-			'remark': '',
-			'product_store_type':'0'
-		};
+		this.data = Reactman.loadJSON('product');
+		
+		if (this.data) {
+			this.data['product_store_type'] = this.data['product_store'] > -1 ? '1' : '0';
+		} else {
+			this.data = {
+				'id':-1,
+				'images':[],
+				'remark': '',
+				'product_store_type':'0'
+			};
+		}
 	},
 
 	handleUpdateProduct: function(action) {

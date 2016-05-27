@@ -41,7 +41,7 @@ var ProductDataListPage = React.createClass({
 		if (field === 'action') {
 			return (
 				<div>
-					<a className="btn btn-link btn-xs">编辑</a>
+					<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}>编辑</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>彻底删除</a>
 				</div>
 			);

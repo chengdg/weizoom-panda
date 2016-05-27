@@ -25,19 +25,38 @@ var Action = {
 			remark: data['remark']
 		};
 
-		Resource.put({
-			resource: 'product.new_product',
-			data: product,
-			success: function() {
-				Dispatcher.dispatch({
-					actionType: Constant.NEW_PRODUCT_CREATE,
-					data: data
-				});
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMg);
-			}
-		});	
+		if (data.id === -1) {
+			Resource.put({
+				resource: 'product.new_product',
+				data: product,
+				success: function() {
+					Dispatcher.dispatch({
+						actionType: Constant.NEW_PRODUCT_CREATE,
+						data: data
+					});
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMg);
+				}
+			});
+		} else {
+			product['id'] = data.id;
+			Resource.post({
+				resource: 'product.new_product',
+				data: product,
+				success: function() {
+					Dispatcher.dispatch({
+						actionType: Constant.NEW_PRODUCT_CREATE,
+						data: data
+					});
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMg);
+				}
+			});
+		}		
+
+		
 	},
 
 	updateProduct: function(property, value) {

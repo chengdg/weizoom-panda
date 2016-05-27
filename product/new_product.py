@@ -29,10 +29,40 @@ class NewProduct(resource.Resource):
 		"""
 		显示商品创建页面
 		"""
+		#获取业务数据
+		product_id = request.GET.get('id', None)
+		jsons = {'items':[]}
+		if product_id:
+			product = models.Product.objects.get(owner=request.user, id=product_id)
+			product_data = {
+				'id': product.id,
+				'product_name': product.product_name,
+				'promotion_title': product.promotion_title,
+				'product_price': '%s' % product.product_price,
+				'clear_price': '%s' % product.clear_price,
+				'product_weight': product.product_weight,
+				'product_store': product.product_store,
+				'remark': string_util.raw_html(product.remark),
+				'images': [],
+			}
+	
+			#获取商品图片
+			product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
+			for image in resource_models.Image.objects.filter(id__in=product_image_ids):
+				product_data['images'].append({
+					'id': image.id,
+					'path': image.path
+				})
+
+			jsons['items'].append(('product', json.dumps(product_data)))
+		else:
+			jsons['items'].append(('product', json.dumps(None)))
+
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'jsons': jsons
 		})
 		return render_to_response('product/new_product.html', c)
 
@@ -62,6 +92,39 @@ class NewProduct(resource.Resource):
 			product_images = json.loads(request.POST['images'])
 			for product_image in product_images:
 				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		#更新商品
+		post = request.POST
+		product_name = post.get('product_name','')
+		promotion_title = post.get('promotion_title','')
+		product_price = post.get('product_price',0)
+		clear_price = post.get('clear_price',0)
+		product_weight = post.get('product_weight',0)
+		product_store = int(post.get('product_store',-1))
+		remark = post.get('remark','')
+		images = post.get('images','')
+		models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+			owner = request.user, 
+			product_name = product_name, 
+			promotion_title = promotion_title, 
+			product_price = product_price,
+			clear_price = clear_price,
+			product_weight = product_weight,
+			product_store = product_store,
+			remark = remark
+		)
+
+		#删除、重建商品图片
+		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+		models.ProductImage.objects.filter(product_id=product.id).delete()
+		product_images = json.loads(request.POST['images'])
+		for product_image in product_images:
+			models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 
 		response = create_response(200)
 		return response.get_response()
