@@ -31,7 +31,12 @@ def top_navs(request):
 				'href': '#'
 			}]
 		elif role == AGENCY:
-			top_navs = []
+			top_navs = [{
+				'name': 'customer',
+				'displayName': '客户概况',
+				'icon': 'cog',
+				'href': '#'
+			}]
 		elif role == YUN_YING:
 			top_navs = [{
 				'name': 'order',
@@ -43,6 +48,13 @@ def top_navs(request):
 				'displayName': '商品',
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
+			}]
+		elif role == MANAGER:
+			top_navs = [{
+				'name': 'manager',
+				'displayName': '账号管理',
+				'icon': 'cog',
+				'href': '/manager/account/'
 			}]
 		else:
 			top_navs = [{
