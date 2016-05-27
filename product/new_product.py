@@ -53,6 +53,7 @@ class NewProduct(resource.Resource):
 			product_price = product_price,
 			clear_price = clear_price,
 			product_weight = product_weight,
+			product_store = product_store,
 			remark = remark
 		)
 

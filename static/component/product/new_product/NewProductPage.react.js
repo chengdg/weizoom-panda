@@ -73,7 +73,8 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="商品价格:" type="text" name="product_price" value={this.state.product_price} onChange={this.onChange} validate="require-price" />
 						<Reactman.FormInput label="结算价:" type="text" name="clear_price" value={this.state.clear_price} onChange={this.onChange} validate="require-price"/>
 						<Reactman.FormInput label="商品重量:" type="text" name="product_weight" value={this.state.product_weight} onChange={this.onChange} validate="require-float"/>
-						<Reactman.FormRadio label="商品库存:" type="text" name="product_store" value={this.state.product_store} options={optionsForStore} onChange={this.onChange} />
+						<Reactman.FormRadio label="商品库存:" type="text" name="product_store_type" value={this.state.product_store_type} options={optionsForStore} onChange={this.onChange} />
+						<div> <StoreInfo onChange={this.onChange} productStore={this.state.product_store} Type={this.state.product_store_type}/> </div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
@@ -85,4 +86,21 @@ var NewProductPage = React.createClass({
 		)
 	}
 })
+
+var StoreInfo = React.createClass({
+	render: function() {
+		var store_type = this.props.Type;
+		if (store_type == '1'){
+			return(
+				<div>
+					<Reactman.FormInput label="库存数量" type="text" name="product_store" value={this.props.productStore} validate="require-int" onChange={this.props.onChange} />
+				</div>
+			)
+		}else {
+			return(
+				<div ></div>
+			)
+		}
+	}
+});
 module.exports = NewProductPage;

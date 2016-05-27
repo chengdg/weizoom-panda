@@ -220,7 +220,8 @@ LOGIN_URL = '/account/login/'
 if 'develop' == MODE:
     import logging
     logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
-    WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
+    WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4188/static/dev.bundle.js'
+    # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/bundle.js'
     DEBUG = True
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
