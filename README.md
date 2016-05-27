@@ -19,10 +19,10 @@ cnpm install
 ### 如何在本地开发调试？ ###
 
 答：初次搭建环境，按如下步骤：
-1. 在mysql中创建`panda`数据库: `create database panda`;
+1. 在mysql中创建`panda`数据库: `create database panda default character set utf8 `;
 1. 将`panda`数据库授权给`panda`用户：`grant all on panda.* to 'panda'@localhost identified by 'weizoom'`
 1. 执行 `rebuild.bat`，初始化数据库
 1. 启动 `start_bundle_server.bat`
-1. 启动 `start_server.bat | bunyan`
+1. 启动 `start_service.bat | bunyan`
 1. 访问 `http://127.0.0.1:4180/account/login/`
 1. 以 `manager:test`登陆系统
