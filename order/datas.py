@@ -14,6 +14,7 @@ from core import paginator
 from util import db_util
 import nav
 import models
+from account.models import *
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -32,9 +33,15 @@ class Datas(resource.Resource):
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV
 		})
-		
-		return render_to_response('order/datas.html', c)
-
+		user = UserProfile.objects.filter(user_id=request.user.id)
+		if user:
+			role = user.first().role
+			if role == YUN_YING:
+				return render_to_response('order/yunying_order_list.html', c)
+			else:
+				return render_to_response('order/datas.html', c)
+		else:
+			return render_to_response('order/datas.html', c)
 	def api_get(request):
 		rows = []
 		data = {
