@@ -24,7 +24,8 @@ Background:
 			"account_type":"体验客户",
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
-			"password":"123456"
+			"password":"123456",
+			"ramarks":"爱昵咖啡客户体验账号"
 		},{
 			"account_type":"运营",
 			"account_name":"运营部门",
