@@ -228,7 +228,7 @@ definitions:
       total_purchase_price:
         type: float
         description: 订单金额
-    status:
+      status:
         type: int
         description: 订单状态
 
@@ -268,7 +268,6 @@ definitions:
       product_amount:
         type: int
         description: 商品数量
-      
       total_purchase_price:
         type: float
         description: 订单金额
@@ -282,7 +281,7 @@ definitions:
       order_create_at:
         type: string
         description: 下单时间
-     total_purchase_price:
+      total_purchase_price:
         type: float
         description: 订单金额
       customer_name:
