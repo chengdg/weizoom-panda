@@ -213,9 +213,9 @@ definitions:
       product_img:
         type: string
         description: 订单图片url地址
-      order_name:
+      product_name:
         type: string
-        description: 订单名称
+        description: 商品名称
       product_price:
         type: float
         description: 商品单价

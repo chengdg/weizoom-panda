@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Store');
+var debug = require('debug')('m:order.yunying_datas:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');
@@ -16,17 +16,12 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateProduct': Constant.OUTLINE_DATAS_UPDATE_PRODUCT,
 		'handleFilterProducts': Constant.OUTLINE_DATAS_FILTER_PRODUCTS
 	},
 
 	init: function() {
 		this.data = {
 		};
-	},
-
-	handleUpdateProduct: function(action) {
-		this.__emitChange();
 	},
 
 	handleFilterProducts: function(action) {
