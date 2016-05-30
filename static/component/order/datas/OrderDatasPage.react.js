@@ -36,15 +36,6 @@ var OrderDatasPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	onClickPrice: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		var product = this.refs.table.getData(productId);
-
-		Reactman.PageAction.showPopover({
-			target: event.target,
-			content: '<span style="color:red">' + product.name + ':' + product.price + '</span>'
-		});
-	},
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'name') {
@@ -64,29 +55,12 @@ var OrderDatasPage = React.createClass({
 		}
 	},
 
-	onClickComment: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		var product = this.refs.table.getData(productId);
-		Reactman.PageAction.showDialog({
-			title: "创建备注", 
-			component: CommentDialog, 
-			data: {
-				product: product
-			},
-			success: function(inputData, dialogState) {
-				var product = inputData.product;
-				var comment = dialogState.comment;
-				Action.updateProduct(product, 'comment', comment);
-			}
-		});
-	},
-
 	onConfirmFilter: function(data) {
 		Action.filterProducts(data);
 	},
 
 	render:function(){
-		var productsResource = {
+		var ordersResource = {
 			resource: 'order.datas',
 			data: {
 				page: 1
@@ -114,12 +88,12 @@ var OrderDatasPage = React.createClass({
 						<Reactman.FormInput label="订单编号:" name="order_id" match='~' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormDateRangeInput label="下单时间:" name="order_date" match="[t]" />
+						<Reactman.FormSelect label="订单状态:" name="status" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="订单状态:" name="order_status" options={typeOptions} match="=" />
+						<Reactman.FormDateRangeInput label="下单时间:" name="order_create_at" match="[t]" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -129,13 +103,13 @@ var OrderDatasPage = React.createClass({
 					<Reactman.TableActionButton text="批量发货" href="/outline/data/" />
 					<Reactman.TableActionButton text="导出" href="/outline/data/" />
 				</Reactman.TableActionBar>
-				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="商品" field="name" />
-					<Reactman.TableColumn name="备注" field="comment" width="150px"/>
-					<Reactman.TableColumn name="价格" field="price" width="80px" />
-					<Reactman.TableColumn name="规格" field="models" width="100px" />
-					<Reactman.TableColumn name="创建日" field="created_at" width="160px" />
-					<Reactman.TableColumn name="操作" field="action" width="80px" />
+				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+					<Reactman.TableColumn name="商品" field="order_name" />
+					<Reactman.TableColumn name="单价/数量" field="product_price" />
+					<Reactman.TableColumn name="收货人" field="ship_name" />
+					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
+					<Reactman.TableColumn name="订单状态" field="status" />
+					<Reactman.TableColumn name="操作" field="action" />
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>
