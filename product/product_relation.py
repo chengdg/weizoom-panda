@@ -52,7 +52,6 @@ class ProductRelation(resource.Resource):
 		self_shop = []
 		for product in product_relations:
 			self_shop.append({
-				'weapp_product_id': product.weapp_product_id,
 				'self_user_name': product.self_user_name,
 				'self_first_name': product.self_first_name
 			})

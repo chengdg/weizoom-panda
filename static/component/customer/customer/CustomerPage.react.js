@@ -28,7 +28,6 @@ var CustomerPage = React.createClass({
 	rowFormatter: function(field, value, data) {
 		if (field === 'expand-row') {
 			var class_name = 'data-' +data['user_id'];
-			console.log(class_name,"======");
 			var product_infos = JSON.parse(data['product_infos'])
 			if(product_infos.length>0){
 				var products = product_infos.map(function(product,index){
