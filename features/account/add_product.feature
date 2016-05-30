@@ -53,7 +53,9 @@ Scenario:2 客户添加商品
 			"introduction": "商品2的简介",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品2的简介"
 
 		},{
 			"name": "商品3",
