@@ -79,12 +79,6 @@ Scenario:2 客户添加商品
 	Then aini能获得商品列表
 	"""
 		[{
-			"name": "商品4",
-			"price": 12.00,
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
 			"name": "商品3",
 			"price": 12.00,
 			"sales":"0",
