@@ -33,3 +33,28 @@ class ProductImage(models.Model):
 
 	class Meta(object):
 		db_table = 'product_image'
+
+
+class ProductRelation(models.Model):
+	"""
+	自营商城名称
+	"""
+	self_user_name = models.CharField(max_length=50, null=True)
+	self_first_name = models.CharField(max_length=50, null=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_relation'
+
+
+class ProductHasRelationWeapp(models.Model):
+	"""
+	商品图片
+	"""
+	product_id = models.IntegerField(default=0)
+	self_user_name = models.CharField(max_length=50, null=True)
+	weapp_product_id = models.IntegerField(default=0)
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_has_relation_weapp'
