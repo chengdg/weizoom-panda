@@ -1,0 +1,45 @@
+.product-relation-title{
+	width: 75%;
+	background: #CCC;
+	position: relative;
+	margin: 0 auto;
+    line-height: 35px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+.product-relation-title span{
+	display: inline-block;
+	font-size: 16px;
+}
+
+.self-shop-div{
+	height: 40px;
+	width: 75%;
+	margin: 0 auto;
+}
+
+.self-shop-name{
+	line-height: 30px;
+	width: 130px;
+	text-align: center;
+}
+
+.relation-btn-div{
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.relation-btn-div button{
+	width: 100px;
+}
+
+.relation-btn-div .relation-btn{
+    margin-right: 68px;
+    margin-left: 36px;
+}
+
+.modal-footer .btn-primary{
+	display: none;
+}

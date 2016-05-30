@@ -53,7 +53,9 @@ Scenario:2 客户添加商品
 			"introduction": "商品2的简介",
 			"price": 12.00,
 			"weight": 1.00,
-			"stock_type": "无限"
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品2的简介"
 
 		},{
 			"name": "商品3",
@@ -79,12 +81,6 @@ Scenario:2 客户添加商品
 	Then aini能获得商品列表
 	"""
 		[{
-			"name": "商品4",
-			"price": 12.00,
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
 			"name": "商品3",
 			"price": 12.00,
 			"sales":"0",

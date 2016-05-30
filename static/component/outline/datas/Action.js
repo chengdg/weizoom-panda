@@ -14,7 +14,7 @@ var Constant = require('./Constant');
 
 var Action = {
 	deleteProduct: function(id) {
-		Resource.delete({
+		Resource.get({
 			resource: 'outline.data',
 			data: {
 				id: id

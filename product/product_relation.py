@@ -23,9 +23,9 @@ import models
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
 
-class ProductList(resource.Resource):
+class ProductRelation(resource.Resource):
 	app = 'product'
-	resource = 'product_list'
+	resource = 'product_relation'
 
 	@login_required
 	def get(request):
@@ -38,43 +38,35 @@ class ProductList(resource.Resource):
 			'second_nav_name': SECOND_NAV
 		})
 		
-		return render_to_response('product/product_list.html', c)
+		return render_to_response('product/product_relation.html', c)
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		role = UserProfile.objects.get(user_id=request.user.id).role
-		products = models.Product.objects.filter(owner=request.user).order_by('-id')
+		user_profiles = UserProfile.objects.all()
+		products = models.Product.objects.all().order_by('-id')
 		product_images = models.ProductImage.objects.all()
+		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
+		
+		product_relations = models.ProductRelation.objects.all()
+		self_shop = []
+		for product in product_relations:
+			self_shop.append({
+				'self_user_name': product.self_user_name,
+				'self_first_name': product.self_first_name
+			})
 		#组装数据
 		rows = []
-
-		#获取商品图片
-		product_id2image_id = {}
-		image_id2images = {}
-
-		# product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
-		for product in product_images:
-			product_id2image_id[product.product_id] = product.image_id
-		for image in resource_models.Image.objects.all():
-			image_id2images[image.id] = json.dumps([{
-				'id':image.id,
-				'path': image.path
-			}])
-		pageinfo, products = paginator.paginate(products, cur_page, 5, query_string=request.META['QUERY_STRING'])
-
+		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		for product in products:
-			# image_id = product_id2image_id[product.id]
-			# images = image_id2images[image_id]
 			rows.append({
 				'id': product.id,
 				'role': role,
-				'promotion_title': product.promotion_title,
-				'product_price': '%.2f' %product.product_price,
 				'product_name': product.product_name,
-				# 'images': images,
-				'status': u'未上架',
-				'sales': '0',
-				'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+				'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
+				'total_sales': '1000',
+				'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+				'self_shop': json.dumps(self_shop)
 			})
 		data = {
 			'rows': rows,

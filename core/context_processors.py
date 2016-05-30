@@ -47,7 +47,7 @@ def top_navs(request):
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
-				'href': '/product/product_list/'
+				'href': '/product/product_relation/'
 			}, {
 				'name': 'customer',
 				'displayName': '客户概况',
