@@ -71,9 +71,9 @@ Background:
 		}]
 	"""
 
-@panda @yunying
+@panda @hj_yunying
 Scenario:1 运营账号查看所有商品列表
-	Given yunying使用密码123456登录系统
+	When yunying使用密码123456登录系统
 	Then yunying能获得所有商品列表
 	"""
 		[{

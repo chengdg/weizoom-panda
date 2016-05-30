@@ -64,7 +64,7 @@ class ProductRelation(resource.Resource):
 				'role': role,
 				'product_name': product.product_name,
 				'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
-				'total_sales': '1000',
+				'total_sales': '0',
 				'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 				'self_shop': json.dumps(self_shop)
 			})
