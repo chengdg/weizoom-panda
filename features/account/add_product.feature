@@ -65,15 +65,6 @@ Scenario:2 客户添加商品
 			"stock_type": "无限",
 			"settlement_price":10.00,
 			"introduction": "商品3的简介"
-		},{
-			"name": "商品4",
-			"promotion_name":"促销的商品4",
-			"price": 12.00,
-			"weight": 1.00,
-			"stock_type": "无限",
-			"settlement_price":10.00,
-			"introduction": "商品4的简介"
-
 		}]
 	"""
 
@@ -82,19 +73,19 @@ Scenario:2 客户添加商品
 	"""
 		[{
 			"name": "商品3",
-			"price": 12.00,
+			"price": "12.00",
 			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		},{
 			"name": "商品2",
-			"price": 12.00,
+			"price": "12.00",
 			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
 		},{
 			"name": "商品1",
-			"price": 12.00,
+			"price": "12.00",
 			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
@@ -130,7 +121,7 @@ Scenario:3 客户删除商品
 	"""
 		[{
 			"name": "五花肉",
-			"price":12.00,
+			"price": "12.00",
 			"sales": "0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]
@@ -141,7 +132,19 @@ Scenario:3 客户删除商品
 @panda @hj
 Scenario:4 客户编辑商品
 	When aini使用密码123456登录系统
-	When aini编辑商品
+	When aini添加商品
+	"""
+		[{
+			"name": "商品1",
+			"promotion_name":"促销的商品1",
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品1的简介"
+		}]
+	"""
+	When aini编辑商品'商品1'
 	"""
 		[{
 			"name": "商品11",
@@ -157,7 +160,7 @@ Scenario:4 客户编辑商品
 	"""
 		[{
 			"name": "商品11",
-			"price": 10.00,
+			"price": "10.00",
 			"sales":"0",
 			"status":"未上架",
 			"actions":["编辑","彻底删除"]

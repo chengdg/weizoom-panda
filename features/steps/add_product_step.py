@@ -32,6 +32,36 @@ def step_impl(context, user):
 		response = context.client.put('/product/api/new_product/', product_info)
 		bdd_util.assert_api_call_success(response)
 
+@when(u"{user}编辑商品'{product_name}'")
+def step_impl(context, user, product_name):
+	user_id = bdd_util.get_user_id_for(user)
+	edit_product = product_models.Product.objects.get(owner_id=user_id, product_name=product_name)
+	product_id = edit_product.id
+	products = json.loads(context.text)
+	for product in products:
+		stock_value = PRODUCT_STORE_TEXT2VALUE[product['stock_type']]
+		product_info = {
+			'id': product_id,
+			'product_name': product['name'],
+			'promotion_title': product['promotion_name'],
+			'product_price': product['price'],
+			'clear_price': product['settlement_price'],
+			'product_weight': product['weight'],
+			'product_store': stock_value,
+			'remark': product['introduction']
+		}
+		response = context.client.post('/product/api/new_product/', product_info)
+		bdd_util.assert_api_call_success(response)
+
+
+@when(u"{user}删除商品'{product_name}'")
+def step_impl(context, user, product_name):
+	user_id = bdd_util.get_user_id_for(user)
+	product = product_models.Product.objects.get(owner_id=user_id, product_name=product_name)
+	response = context.client.delete('/product/api/new_product/', {'id': product.id})
+	bdd_util.assert_api_call_success(response)
+
+
 @then(u"{user}能获得商品列表")
 def step_impl(context, user):
 	expected = json.loads(context.text)
@@ -42,6 +72,7 @@ def step_impl(context, user):
 		tmp = {
 			"name":item['product_name'],
 			"sales":item['sales'],
+			"price":item['product_price'],
 			"status":item['status']
 		}
 		tmp["actions"] = [u"编辑",u"彻底删除"]
@@ -49,10 +80,3 @@ def step_impl(context, user):
 	print("expected: {}".format(expected))
 	print("actual_data: {}".format(actual))
 	bdd_util.assert_list(expected, actual)
-
-@when(u"{user}删除商品'{product_name}'")
-def step_impl(context, user, product_name):
-	user_id = bdd_util.get_user_id_for(user)
-	product = product_models.Product.objects.get(owner_id=user_id, product_name=product_name)
-	response = context.client.delete('/product/api/new_product/', {'id': product.id})
-	bdd_util.assert_api_call_success(response)

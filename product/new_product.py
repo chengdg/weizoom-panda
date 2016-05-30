@@ -127,11 +127,12 @@ class NewProduct(resource.Resource):
 		)
 
 		#删除、重建商品图片
-		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
-		models.ProductImage.objects.filter(product_id=product.id).delete()
-		product_images = json.loads(request.POST['images'])
-		for product_image in product_images:
-			models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+		if images:
+			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+			models.ProductImage.objects.filter(product_id=product.id).delete()
+			product_images = json.loads(request.POST['images'])
+			for product_image in product_images:
+				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 
 		response = create_response(200)
 		return response.get_response()
