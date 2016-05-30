@@ -72,9 +72,9 @@ Background:
 	"""
 
 @panda @yunying
-Scenario:1 运营账号查看商品列表
+Scenario:1 运营账号查看所有商品列表
 	Given yunying使用密码123456登录系统
-	Then yunying能获得商品列表
+	Then yunying能获得所有商品列表
 	"""
 		[{
 			"name":"商品3",
@@ -139,22 +139,8 @@ Scenario:3 运营账号添加商品绑定
 		[{
 			"name": "商品1",
 			"id":"1",
-			"promotion_title": "促销的商品1",
-			"categories": "",
-			"detail": "商品1的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou1.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		}]
 	"""
 	Given bill登录系统
@@ -162,42 +148,19 @@ Scenario:3 运营账号添加商品绑定
 	"""
 		[{
 			"name": "商品1",
-			"id":"2",
-			"promotion_title": "促销的商品1",
-			"categories": "",
-			"detail": "商品1的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou1.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"id":"1",
+			"price": 10.00,
+			"stocks": "无限"
 		},{
 			"name": "商品2",
+			"id":"2",
+			"price": 10.00,
+			"stocks": "无限"
+		},{
+			"name": "商品3",
 			"id":"3",
-			"promotion_title": "促销的商品2",
-			"categories": "",
-			"detail": "商品2的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou2.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stocks": "无限"
 		}]
 		"""
 	Given yunying使用密码123456登录系统
@@ -224,7 +187,7 @@ Scenario:3 运营账号添加商品绑定
 			}]	
 		}]
 	"""
-	Then yunying能获得商品列表
+	Then yunying能获得所有商品列表
 	"""
 		[{
 			"name":"商品3",
@@ -262,22 +225,8 @@ Scenario:4 运营账号修改商品绑定
 		[{
 			"name": "商品1",
 			"id":"1",
-			"promotion_title": "促销的商品1",
-			"categories": "",
-			"detail": "商品1的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou1.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		}]
 	"""
 	Given bill登录系统
@@ -286,41 +235,13 @@ Scenario:4 运营账号修改商品绑定
 		[{
 			"name": "商品2",
 			"id":"2",
-			"promotion_title": "促销的商品2",
-			"categories": "",
-			"detail": "商品2的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou2.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		},{
 			"name": "商品3",
 			"id":"3",
-			"promotion_title": "促销的商品3",
-			"categories": "",
-			"detail": "商品3的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou3.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		}]
 		"""
 	Given yunying使用密码123456登录系统
@@ -346,7 +267,7 @@ Scenario:4 运营账号修改商品绑定
 			}]	
 		}]
 	"""
-	Then yunying能获得商品列表
+	Then yunying能获得所有商品列表
 	"""
 		[{
 			"name":"商品3",
@@ -380,22 +301,8 @@ Scenario:4 运营账号修改商品绑定
 		[{
 			"name": "商品3",
 			"id":"1",
-			"promotion_title": "促销的商品3",
-			"categories": "",
-			"detail": "商品3的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou3.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		}]
 	"""
 	Given bill登录系统
@@ -403,42 +310,13 @@ Scenario:4 运营账号修改商品绑定
 	"""
 		[{
 			"name": "商品1",
-			"id":"2",
-			"promotion_title": "促销的商品1",
-			"categories": "",
-			"detail": "商品1的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou1.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"id":"2","price": 10.00,
+			"stock_type": "无限"
 		},{
 			"name": "商品2",
 			"id":"3",
-			"promotion_title": "促销的商品2",
-			"categories": "",
-			"detail": "商品2的详情",
-			"status": "上架",
-			"swipe_images": [{
-				"url": "/standard_static/test_resource_img/hangzhou2.jpg"
-			}],
-			"model": {
-				"models": {
-					"standard": {
-						"price": 10.00,
-						"weight": 1.0,
-						"stock_type": "无限"
-					}
-				}
-			}
+			"price": 10.00,
+			"stock_type": "无限"
 		}]
 		"""
 	When yunying编辑商品关联
@@ -463,7 +341,7 @@ Scenario:4 运营账号修改商品绑定
 			}]	
 		}]
 	"""
-	Then yunying能获得商品列表
+	Then yunying能获得所有商品列表
 	"""
 		[{
 			"name":"商品3",
