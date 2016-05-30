@@ -16,7 +16,6 @@ var Action = require('./Action');
 
 var YunyingOrderDatasPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
 

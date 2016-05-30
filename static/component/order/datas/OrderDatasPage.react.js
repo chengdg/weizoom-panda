@@ -16,26 +16,19 @@ var Action = require('./Action');
 
 var OrderDatasPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
 
-	onClickDelete: function(event) {
+	onClickShip: function(event) {
 		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		Reactman.PageAction.showConfirm({
-			target: event.target, 
-			title: '确认删除吗?',
-			confirm: _.bind(function() {
-				Action.deleteProduct(productId);
-			}, this)
-		});
+		//Reactman.PageAction.showConfirm({
+		//	target: event.target,
+		//	title: '确认删除吗?',
+		//	confirm: _.bind(function() {
+		//		Action.deleteProduct(productId);
+		//	}, this)
+		//});
 	},
-
-	onChangeStore: function(event) {
-		var filterOptions = Store.getData().filterOptions;
-		this.refs.table.refresh(filterOptions);
-	},
-
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'name') {
@@ -45,9 +38,7 @@ var OrderDatasPage = React.createClass({
 		} else if (field === 'action') {
 			return (
 			<div>
-				<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>删除</a>
-				<a className="btn btn-link btn-xs mt5" href={'/outline/data/?id='+data.id}>编辑</a>
-				<a className="btn btn-link btn-xs mt5" onClick={this.onClickComment} data-product-id={data.id}>备注</a>
+				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-product-id={data.id}>发货</a>
 			</div>
 			);
 		}else {
@@ -104,7 +95,7 @@ var OrderDatasPage = React.createClass({
 					<Reactman.TableActionButton text="导出" href="/outline/data/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="商品" field="order_name" />
+					<Reactman.TableColumn name="商品" field="product_name" />
 					<Reactman.TableColumn name="单价/数量" field="product_price" />
 					<Reactman.TableColumn name="收货人" field="ship_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
