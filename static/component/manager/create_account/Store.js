@@ -27,6 +27,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['account_type'] = String(this.data['account_type']);
 		} else {
 			this.data = {
+				'id':-1,
 				'account_type':'1'
 			};
 		}
