@@ -48,6 +48,11 @@ class Account(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-id')
+		# username =  request.GET.get('__f-username-contain', None)
+		# if username:
+		# 	request.GET['__f-username-contain'] = ''
+		# 	print(username)
+
 		accounts = db_util.filter_query_set(accounts, request, filter2field)
 		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 		user_ids = [account.user_id for account in accounts]
