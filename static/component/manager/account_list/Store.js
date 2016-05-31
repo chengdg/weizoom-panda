@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Store');
+var debug = require('debug')('m:manager.account_list:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');
@@ -16,8 +16,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateProduct': Constant.OUTLINE_DATAS_UPDATE_PRODUCT,
-		'handleFilterProducts': Constant.OUTLINE_DATAS_FILTER_PRODUCTS,
+		'handleUpdateAccount': Constant.MANAGER_ACCOUNT_UPDATE_ACCOUNT,
+		'handleFilterAccounts': Constant.MANAGER_ACCOUNT_FILTER_ACCOUNTS
 	},
 
 	init: function() {
@@ -25,11 +25,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		};
 	},
 
-	handleUpdateProduct: function(action) {
+	handleUpdateAccount: function(action) {
 		this.__emitChange();
 	},
 
-	handleFilterProducts: function(action) {
+	handleFilterAccounts: function(action) {
 		this.data.filterOptions = action.data;
 		this.__emitChange();
 	},
