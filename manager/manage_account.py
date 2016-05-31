@@ -48,13 +48,20 @@ class Account(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-id')
-		# username =  request.GET.get('__f-username-contain', None)
-		# if username:
-		# 	request.GET['__f-username-contain'] = ''
-		# 	print(username)
 
-		accounts = db_util.filter_query_set(accounts, request, filter2field)
+		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		name = filters.get('name','')
+		username = filters.get('username','')
+		role = filters.get('role','')
+		if name:
+			accounts = accounts.filter(name__icontains=name)
+		if username:
+			user_ids = [user.id for user in User.objects.filter(username__icontains = username)]
+			accounts = accounts.filter(user_id__in=user_ids)
+		if role:
+			accounts = accounts.filter(role=role)
 		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
+
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
