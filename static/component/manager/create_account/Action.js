@@ -31,34 +31,42 @@ var Action = {
 			note: data['note']
 		};
 
-		//if (data.id === -1) {
-		Resource.put({
-			resource: 'manager.account_create',
-			data: account_info,
-			success: function() {
-				Reactman.PageAction.showHint('success', '创建账号成功');
-				setTimeout(function(){
-                    Dispatcher.dispatch({
-						actionType: Constant.NEW_ACCOUNT_CREATE,
-						data: data
-					});
-                },1000);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
-			}
-		});
-		//} else {
-		//	account['id'] = data.id;
-		//	Resource.post({
-		//		resource: 'manager.account_create',
-		//		data: account,
-		//		dispatch: {
-		//			dispatcher: Dispatcher,
-		//			actionType: Constant.NEW_ACCOUNT_CREATE
-		//		}
-		//	});
-		//}
+		if (data.id === -1) {
+			Resource.put({
+				resource: 'manager.account_create',
+				data: account_info,
+				success: function() {
+					Reactman.PageAction.showHint('success', '创建账号成功');
+					setTimeout(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.NEW_ACCOUNT_CREATE,
+							data: data
+						});
+					},1000);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				}
+			});
+		} else {
+			account_info['id'] = data.id;
+			Resource.post({
+				resource: 'manager.account_create',
+				data: account_info,
+				success: function() {
+					Reactman.PageAction.showHint('success', '编辑账号成功');
+					setTimeout(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.NEW_ACCOUNT_CREATE,
+							data: data
+						});
+					},1000);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				}
+			});
+		}
 	}
 };
 
