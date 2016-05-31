@@ -24,9 +24,9 @@ class LoginedAccount(resource.Resource):
 		username = request.POST.get('username', 'empty_username')
 		password = request.POST.get('password', 'empty_password')
 		user = auth.authenticate(username=username, password=password)
-		user_profile = UserProfile.objects.filter(user_id=user.id)
 		if user:
 			auth.login(request, user)
+			user_profile = UserProfile.objects.filter(user_id=user.id)
 			if user_profile:
 				role = user_profile[0].role
 				if role == MANAGER:

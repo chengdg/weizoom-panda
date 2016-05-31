@@ -33,7 +33,7 @@ var OrderDatasPage = React.createClass({
 	rowFormatter: function(field, value, data) {
 		if (field === 'name') {
 			return (
-				<a href={'/outline/data/?id='+data.id}>{value}</a>
+				<a href={'/order/data/?id='+data.id}>{value}</a>
 			)
 		} else if (field === 'action') {
 			return (
@@ -47,7 +47,7 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onConfirmFilter: function(data) {
-		Action.filterProducts(data);
+		Action.filterOrders(data);
 	},
 
 	render:function(){
@@ -91,8 +91,8 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="批量发货" href="/outline/data/" />
-					<Reactman.TableActionButton text="导出" href="/outline/data/" />
+					<Reactman.TableActionButton text="批量发货" href="/order/data/" />
+					<Reactman.TableActionButton text="导出" href="/order/data/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="商品" field="product_name" />

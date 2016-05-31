@@ -16,6 +16,7 @@ var Action = require('./Action');
 
 var AccountManagePage = React.createClass({
 	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
 
@@ -28,6 +29,11 @@ var AccountManagePage = React.createClass({
 		//		Action.deleteAccount(productId);
 		//	}, this)
 		//});
+	},
+
+	onChangeStore: function(event) {
+		var filterOptions = Store.getData().filterOptions;
+		this.refs.table.refresh(filterOptions);
 	},
 
 	rowFormatter: function(field, value, data) {

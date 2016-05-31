@@ -14,7 +14,7 @@ var Constant = require('./Constant');
 
 var Action = {
 
-	filterProducts: function(filterOptions) {
+	filterOrders: function(filterOptions) {
 		Dispatcher.dispatch({
 			actionType: Constant.ORDER_DATAS_FILTER_ORDERS,
 			data: filterOptions
