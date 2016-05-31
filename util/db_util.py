@@ -30,6 +30,7 @@ def get_filter_value(key, request):
 		return request.GET[key]
 
 def filter_query_set(query_set, request, filter2field):
+	print filter2field,"==========="
 	filters = dict([(get_filter_key(key, filter2field), get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 	print '-*-' * 20
 	print filters

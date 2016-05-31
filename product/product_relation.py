@@ -23,12 +23,10 @@ import models
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'	
 
-product_filter2field = {
-	'product_name_query': 'product_name'
-}
-
-user_filter2field = {
-	'customer_name_query': 'name'
+filter2field ={
+	'product_name_query': 'product_name',
+	'customer_name_query': 'customer_name',
+	'weapp_name_query': 'weapp_id'
 }
 
 class ProductRelation(resource.Resource):
@@ -55,13 +53,24 @@ class ProductRelation(resource.Resource):
 		products = models.Product.objects.all().order_by('-id')
 		product_relations = models.ProductRelation.objects.all()
 		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		product_name = filter_idct.get('product_name','')
+		customer_name = filter_idct.get('customer_name','')
+		weapp_id = filter_idct.get('weapp_id','')
 
-		products = db_util.filter_query_set(products, request, product_filter2field)
-		user_profiles = db_util.filter_query_set(user_profiles, request, user_filter2field)
+		if product_name:
+			products = products.filter(product_name__icontains=product_name)
+		if customer_name:
+			user_profiles = user_profiles.filter(name__icontains=customer_name)
+			user_ids = [user_profile.user_id for user_profile in user_profiles]
+			products = products.filter(owner_id__in=user_ids)
+		if weapp_id:
+			product_has_relationss = product_has_relations.filter(weapp_product_id__icontains=weapp_id)
+			product_ids = [product_has_relation.product_id for product_has_relation in product_has_relationss]
+			products = products.filter(id__in=product_ids)
 
 		product_images = models.ProductImage.objects.all()
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
-		
 		
 		self_shop = []
 		self_user_name2self_first_name = {}
@@ -92,16 +101,17 @@ class ProductRelation(resource.Resource):
 		rows = []
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		for product in products:
-			rows.append({
-				'id': product.id,
-				'role': role,
-				'product_name': product.product_name,
-				'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
-				'total_sales': '0',
-				'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-				'self_shop': json.dumps(self_shop),
-				'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
-			})
+			if product.owner_id in user_id2name:
+				rows.append({
+					'id': product.id,
+					'role': role,
+					'product_name': product.product_name,
+					'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
+					'total_sales': '0',
+					'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+					'self_shop': json.dumps(self_shop),
+					'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
+				})
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
@@ -110,5 +120,4 @@ class ProductRelation(resource.Resource):
 		#构造response
 		response = create_response(200)
 		response.data = data
-
 		return response.get_response()

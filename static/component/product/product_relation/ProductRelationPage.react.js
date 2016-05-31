@@ -88,13 +88,13 @@ var ProductRelationPage = React.createClass({
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="客户名称:" name="customer_name_query" match='~' />
+							<Reactman.FormInput label="客户名称:" name="customer_name_query" match='=' />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="商品名称:" name="product_name_query" match="~" />
+							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="云商通商品ID:" name="weapp_name_query" match="~" />
+							<Reactman.FormInput label="云商通商品ID:" name="weapp_name_query" match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
