@@ -18,11 +18,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
 		'handleProductRelationUpdate': Constant.PRODUCT_RELATION_UPDATE,
-		'handleProductRelationSave': Constant.PRODUCT_RELATION_WEAPP_SAVE
+		'handleProductRelationSave': Constant.PRODUCT_RELATION_WEAPP_SAVE,
+		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER
 	},
 
 	init: function() {
 		this.data = {};
+		this.filter = {}
 	},
 
 	handleProductRelationWeapp: function(action) {
@@ -31,13 +33,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleProductRelationUpdate: function(action){
-		console.log(action.data.value,"-----------");
-		console.log(action.data.property,"2222222");
 		var name = action.data.property;
 		var value = action.data.value;
-		console.log(this.data);
 		this.data[name] = value;
-		console.log("==========");
 		this.__emitChange();
 	},
 
@@ -51,10 +49,20 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			 	Reactman.PageAction.showHint('error', action.data.Msg);
 			}, 10);
 		}
+		this.__emitChange();
+	},
+
+	handleProductRelationDataFilter: function(action){
+		this.filter = action.data;
+		this.__emitChange();
 	},
 
 	getData: function() {
 		return this.data;
+	},
+
+	getFilter: function() {
+		return this.filter;
 	}
 });
 

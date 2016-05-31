@@ -39,7 +39,6 @@ var Action = {
 	saveProductRelation: function(data,product_id){
 		var relation = [];
 		relation.push(data)
-		console.log(relation,"------");
 		Resource.put({
 			resource: 'product.weapp_relation',
 			data: {
@@ -50,6 +49,13 @@ var Action = {
 				dispatcher: Dispatcher,
 				actionType: Constant.PRODUCT_RELATION_WEAPP_SAVE
 			}
+		});
+	},
+
+	filterDates: function(filterOptions){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_RELATION_DATAS_FILTER,
+			data: filterOptions
 		});
 	}
 };

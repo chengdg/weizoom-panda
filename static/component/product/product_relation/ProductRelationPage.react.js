@@ -15,6 +15,19 @@ var Action = require('./Action');
 var ProductRelationDialog = require('./ProductRelationDialog.react');
 
 var ProductRelationPage = React.createClass({
+
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return ({
+			relations: []
+		})
+	},
+
+	onChangeStore: function(event) {
+		var filterOptions = Store.getFilter();
+		this.refs.table.refresh(filterOptions);
+	},
+
 	productRelation: function(self_shop,product_id) {
 		console.log(product_id,"+++");
 		Action.getWeappProductRelation(product_id);
@@ -33,8 +46,19 @@ var ProductRelationPage = React.createClass({
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'weapp_name') {
+			var relations = data['relations'];
+			if(relations){
+				relations = JSON.parse(relations).map(function(relation,index){
+					return(
+						<div style={{display:'inline-block'}} key={index}>
+							<span style={{display:'inline-block', marginRight:'20px'}}>{relation['self_first_name']}:{relation['weapp_product_id']}</span>
+						</div>
+					)
+				});
+			}
 			return (
 				<div>
+					{relations}
 					<a className="btn btn-link btn-xs" onClick={this.productRelation.bind(this,data['self_shop'],data['id'])}>编辑</a>
 				</div>
 			);
@@ -47,6 +71,10 @@ var ProductRelationPage = React.createClass({
 		}
 	},
 
+	onConfirmFilter: function(data){
+		Action.filterDates(data);
+	},
+
 	render:function(){
 		var productsResource = {
 			resource: 'product.product_relation',
@@ -57,13 +85,26 @@ var ProductRelationPage = React.createClass({
 
 		return (
 			<div className="mt15 xui-product-productListPage">
+				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
+					<Reactman.FilterRow>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="客户名称:" name="customer_name_query" match='~' />
+						</Reactman.FilterField>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="商品名称:" name="product_name_query" match="~" />
+						</Reactman.FilterField>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="云商通商品ID:" name="weapp_name_query" match="~" />
+						</Reactman.FilterField>
+					</Reactman.FilterRow>
+				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar></Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" />
+						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" width="640px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
