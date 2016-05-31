@@ -6,10 +6,16 @@
 		name: '账号管理',
 		href: '/manager/account/'
 	}, {
-		name: '添加账号',
+		name: '账号信息',
 		href: '#'
 	}];
 
 	W.pageContentComponent = './manager/create_account/AccountCreatePage.react';
+    if('{{is_edit}}'=='True'){
+        W.is_edit = true;
+    }else{
+        W.is_edit = false;
+    }
+
 </script>
 {% endblock %}

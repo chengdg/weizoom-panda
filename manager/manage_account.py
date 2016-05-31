@@ -93,6 +93,7 @@ class AccountCreate(resource.Resource):
 		响应GET
 		"""
 		user_profile_id = request.GET.get('id', None)
+		is_edit = False
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
@@ -104,18 +105,20 @@ class AccountCreate(resource.Resource):
 				'note': user_profile.note,
 			}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
+			is_edit = True
 		else:
 			jsons['items'].append(('user_profile_data', json.dumps(None)))
-
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
-			'jsons': jsons
+			'jsons': jsons,
+			'is_edit': is_edit
 		})
 
 		return render_to_response('manager/account_create.html', c)
 
+	@login_required
 	def api_put(request):
 		post = request.POST
 		account_type = post.get('account_type','')
@@ -145,6 +148,29 @@ class AccountCreate(resource.Resource):
 			response = create_response(500)
 			response.errMsg = u'创建账号失败'
 			response.innerErrMsg = unicode_full_stack()
+		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		#更新账号
+		post = request.POST
+		password = post.get('password','')
+		note = post.get('note','')
+		try:
+			user_profile = UserProfile.objects.get(id=request.POST['id'])
+			user_id = user_profile.user_id
+			user = User.objects.get(id=user_id)
+			user_profile.note = note
+			user_profile.save()
+			user.password = password
+			user.save()
+		except Exception,e:
+			print(e)
+			print('===========================')
+			response = create_response(500)
+			response.errMsg = u'编辑账号失败'
+			response.innerErrMsg = unicode_full_stack()
+		response = create_response(200)
 		return response.get_response()
 
 def check_username_valid(username):

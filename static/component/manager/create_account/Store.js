@@ -25,7 +25,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
-			//this.data['password'] = '****************';
 		} else {
 			this.data = {
 				'account_type':'1'
