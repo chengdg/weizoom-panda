@@ -52,7 +52,7 @@ var Action = {
 			account_info['id'] = data.id;
 			Resource.post({
 				resource: 'manager.account_create',
-				data: account,
+				data: account_info,
 				success: function() {
 					Reactman.PageAction.showHint('success', '编辑账号成功');
 					setTimeout(function(){

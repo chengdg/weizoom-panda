@@ -162,7 +162,7 @@ class AccountCreate(resource.Resource):
 			user = User.objects.get(id=user_id)
 			user_profile.note = note
 			user_profile.save()
-			user.password = password
+			user.set_password(password)
 			user.save()
 		except Exception,e:
 			print(e)
