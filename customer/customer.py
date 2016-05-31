@@ -42,7 +42,7 @@ class Customer(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		rows = []
-		user_profiles = UserProfile.objects.all()
+		user_profiles = UserProfile.objects.filter(role=1) #role{1:客户}
 		products = product_models.Product.objects.all()
 		user_id2product_name = {}
 		for product in products:
@@ -50,7 +50,6 @@ class Customer(resource.Resource):
 				user_id2product_name[product.owner_id] = [product.product_name]
 			else:
 				user_id2product_name[product.owner_id].append(product.product_name)
-		print user_id2product_name,"========="
 		pageinfo, user_profiles = paginator.paginate(user_profiles, cur_page, 10, query_string=request.META['QUERY_STRING'])
 
 		for user in user_profiles:

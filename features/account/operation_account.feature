@@ -97,39 +97,21 @@ Scenario:1 运营账号查看所有商品列表
 		}]
 	"""
 
-@panda @yunying
-Scenario:2 运营账号查看商品详情
-	Given yunying使用密码123456登录系统
-	Then yunying能获得商品详情
-	"""
-		[{
-			"name": "商品3",
-			"promotion_name":"促销的商品3",
-			"price": 12.00,
-			"weight": 1.00,
-			"stock_type": "无限",
-			"settlement_price":10.00,
-			"introduction": "商品3的简介"		
-		},{
-			"name": "商品2",
-			"promotion_name":"促销的商品2",
-			"settlement_price":10.00,
-			"introduction": "商品2的简介",
-			"price": 12.00,
-			"weight": 1.00,
-			"stock_type": "无限",
-			"settlement_price":10.00,
-			"introduction": "商品2的简介"
-		},{
-			"name": "商品1",
-			"promotion_name":"促销的商品1",
-			"price": 12.00,
-			"weight": 1.00,
-			"stock_type": "无限",
-			"settlement_price":10.00,
-			"introduction": "商品1的简介"				
-		}]
-	"""
+# @panda @yunying
+# Scenario:2 运营账号查看商品详情
+# 	When yunying使用密码123456登录系统
+# 	Then yunying能获得'商品3'商品详情
+# 	"""
+# 		[{
+# 			"name": "商品3",
+# 			"promotion_name":"促销的商品3",
+# 			"price": "12.00",
+# 			"weight": "1.00",
+# 			"stock_type": "无限",
+# 			"settlement_price": "10.00",
+# 			"introduction": "商品3的简介"		
+# 		}]
+# 	"""
 
 @panda @yunying
 Scenario:3 运营账号添加商品绑定

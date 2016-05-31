@@ -33,7 +33,7 @@ random.seed(time.time())
 @login_required(login_url='/login/')
 def index(request):
 	return HttpResponseRedirect('/apps/powerme/powermes/')
-
+	
 
 #===============================================================================
 # show_error_page : 错误页面

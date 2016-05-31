@@ -49,7 +49,7 @@ class ProductRelation(models.Model):
 
 class ProductHasRelationWeapp(models.Model):
 	"""
-	商品图片
+	商品关联云商通ID
 	"""
 	product_id = models.IntegerField(default=0)
 	self_user_name = models.CharField(max_length=50, null=True)
