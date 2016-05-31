@@ -20,6 +20,12 @@ from account.models import *
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
 
+COUNT_PER_PAGE = 20
+
+filter2field = {
+	'account_type': 'role'
+}
+
 #账号管理列表
 class Account(resource.Resource):
 	app = 'manager'
@@ -38,8 +44,12 @@ class Account(resource.Resource):
 		
 		return render_to_response('manager/account_list.html', c)
 
+	@login_required
 	def api_get(request):
+		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-id')
+		accounts = db_util.filter_query_set(accounts, request, filter2field)
+		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
@@ -52,13 +62,25 @@ class Account(resource.Resource):
 			})
 		data = {
 			'rows': rows,
+			'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response
 		response = create_response(200)
 		response.data = data
-
 		return response.get_response()
+
+	@login_required
+	def api_delete(request):
+		try:
+			UserProfile.objects.get(manager_id = request.user.id, id=request.POST['id']).is_active = False
+			response = create_response(200)
+			return response.get_response()
+		except:
+			response = create_response(500)
+			response.errMsg = u'该账号不存在，请检查'
+			return response.get_response()
+
 
 #创建账号
 class AccountCreate(resource.Resource):

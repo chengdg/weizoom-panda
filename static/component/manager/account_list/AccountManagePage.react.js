@@ -16,7 +16,6 @@ var Action = require('./Action');
 
 var AccountManagePage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
 
@@ -26,14 +25,9 @@ var AccountManagePage = React.createClass({
 		//	target: event.target,
 		//	title: '确认删除吗?',
 		//	confirm: _.bind(function() {
-		//		Action.deleteProduct(productId);
+		//		Action.deleteAccount(productId);
 		//	}, this)
 		//});
-	},
-
-	onChangeStore: function(event) {
-		var filterOptions = Store.getData().filterOptions;
-		this.refs.table.refresh(filterOptions);
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -54,7 +48,7 @@ var AccountManagePage = React.createClass({
 	},
 
 	onConfirmFilter: function(data) {
-		Action.filterProducts(data);
+		Action.filterAccounts(data);
 	},
 
 	render:function(){
@@ -69,13 +63,13 @@ var AccountManagePage = React.createClass({
 			value: -1
 		}, {
 			text: '客户账号',
-			value: 'customer'
+			value: 1
 		}, {
 			text: '代理商账号',
-			value: 'agency'
+			value: 2
 		}, {
 			text: '运营账号',
-			value: 'yunying'
+			value: 3
 		}];
 
 		return (
