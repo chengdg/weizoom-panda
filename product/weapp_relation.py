@@ -49,6 +49,7 @@ class ProductRelation(resource.Resource):
 		product_id = post.get('product_id','')
 		try:
 			if relations:
+				print json.loads(relations),"=========="
 				models.ProductHasRelationWeapp.objects.filter(product_id=product_id).delete()
 				relations=json.loads(relations)
 				list_create = []

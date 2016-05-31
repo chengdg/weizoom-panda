@@ -53,7 +53,7 @@ class ProductHasRelationWeapp(models.Model):
 	"""
 	product_id = models.IntegerField(default=0)
 	self_user_name = models.CharField(max_length=50, null=True)
-	weapp_product_id = models.IntegerField(default=0)
+	weapp_product_id = models.CharField(max_length=50, null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	class Meta(object):

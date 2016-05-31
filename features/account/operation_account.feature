@@ -71,7 +71,7 @@ Background:
 		}]
 	"""
 
-@panda @hj_yunying
+@panda @yunying
 Scenario:1 运营账号查看所有商品列表
 	When yunying使用密码123456登录系统
 	Then yunying能获得所有商品列表
@@ -80,20 +80,17 @@ Scenario:1 运营账号查看所有商品列表
 			"name":"商品3",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":[{
-			}]
+			"weapp_id":[]
 		},{
 			"name":"商品2",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":[{
-			}]
+			"weapp_id":[]
 		},{
 			"name":"商品1",
 			"account_name":"爱昵咖啡",
 			"sales":"0",
-			"weapp_id":[{
-			}]
+			"weapp_id":[]
 		}]
 	"""
 
@@ -115,7 +112,7 @@ Scenario:1 运营账号查看所有商品列表
 
 @panda @yunying
 Scenario:3 运营账号添加商品绑定
-	Given yunying使用密码123456登录系统
+	When yunying使用密码123456登录系统
 	When yunying绑定商品关联的云商通商品
 	"""
 		[{
@@ -123,10 +120,10 @@ Scenario:3 运营账号添加商品绑定
 			"weapp_id":[]
 		},{
 			"name":"商品2",
-			"weapp_id":["微众家":1]	
+			"weapp_id":[{"微众家":"1"}]	
 		},{
 			"name":"商品1",
-			"weapp_id":["微众家":1,"微众商城":2]
+			"weapp_id":[{"微众家":"1"},{"微众商城":"2"}]
 		}]
 	"""
 	Then yunying能获得所有商品列表
@@ -140,29 +137,29 @@ Scenario:3 运营账号添加商品绑定
 			"name":"商品2",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":["微众家":1]	
+			"weapp_id":[{"微众家":"1"}]	
 		},{
 			"name":"商品1",
 			"account_name":"爱昵咖啡",
 			"sales":"0",
-			"weapp_id":["微众家":1,"微众商城":2]
+			"weapp_id":[{"微众家":"1"},{"微众商城":"2"}]
 		}]
 	"""
 
 @panda @yunying
 Scenario:4 运营账号修改商品绑定
-	Given yunying使用密码123456登录系统
+	When yunying使用密码123456登录系统
 	When yunying绑定商品关联的云商通商品
 	"""
 		[{
 			"name":"商品3",
-			"weapp_id":["微众家":1]
+			"weapp_id":[{"微众家":1}]
 		},{
 			"name":"商品2",
-			"weapp_id":["微众商城":2]	
+			"weapp_id":[{"微众商城":2}]	
 		},{
 			"name":"商品1",
-			"weapp_id":["微众家":3]
+			"weapp_id":[{"微众家":3}]
 		}]
 	"""
 	Then yunying能获得所有商品列表
@@ -171,30 +168,30 @@ Scenario:4 运营账号修改商品绑定
 			"name":"商品3",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":["微众家":1]
+			"weapp_id":[{"微众家":"1"}]
 		},{
 			"name":"商品2",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":["微众商城":2]
+			"weapp_id":[{"微众商城":"2"}]
 		},{
 			"name":"商品1",
 			"account_name":"爱昵咖啡",
 			"sales":"0",
-			"weapp_id":["微众家":3]
+			"weapp_id":[{"微众家":"3"}]
 		}]
 	"""
 	When yunying修改商品关联的云商通商品
 	"""
 		[{
 			"name":"商品3",
-			"weapp_id":["微众家":1,"微众商城":4]
+			"weapp_id":[{"微众家":1},{"微众商城":4}]
 		},{
 			"name":"商品2",
 			"weapp_id":[]	
 		},{
 			"name":"商品1",
-			"weapp_id":["微众商城":5]
+			"weapp_id":[{"微众商城":5}]
 		}]
 	"""
 	Then yunying能获得所有商品列表
@@ -203,7 +200,7 @@ Scenario:4 运营账号修改商品绑定
 			"name":"商品3",
 			"account_name":"土小宝",
 			"sales":"0",
-			"weapp_id":["微众家":1,"微众商城":4]
+			"weapp_id":[{"微众家":"1"},{"微众商城":"4"}]
 		},{
 			"name":"商品2",
 			"account_name":"土小宝",
@@ -213,6 +210,6 @@ Scenario:4 运营账号修改商品绑定
 			"name":"商品1",
 			"account_name":"爱昵咖啡",
 			"sales":"0",
-			"weapp_id":["微众商城":5]
+			"weapp_id":[{"微众商城":"5"}]
 		}]
 	"""

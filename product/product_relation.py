@@ -54,7 +54,7 @@ class ProductRelation(resource.Resource):
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		products = models.Product.objects.all().order_by('-id')
 		product_relations = models.ProductRelation.objects.all()
-		product_has_relations = models.ProductHasRelationWeapp.objects.all()
+		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 
 		products = db_util.filter_query_set(products, request, product_filter2field)
 		user_profiles = db_util.filter_query_set(user_profiles, request, user_filter2field)

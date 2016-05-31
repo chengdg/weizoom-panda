@@ -47,7 +47,18 @@ var ProductRelationDialog = Reactman.createDialog({
 	},
 
 	productRelationSave: function(){
-		Action.saveProductRelation(Store.getData(),this.state.product_id)
+		var relations = Store.getData();
+		var hasProp = false;  
+		for (var prop in relations){  
+			hasProp = true;  
+			break;  
+		}
+		console.log(relations,"======");
+		if(!hasProp){
+			Reactman.PageAction.showHint('error', "请输入关联的云商通商品ID");
+			return;
+		}
+		Action.saveProductRelation(relations,this.state.product_id)
 	},
 
 	productRelationCancle: function(){
