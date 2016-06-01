@@ -19,9 +19,9 @@ from account.models import *
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 
-class Datas(resource.Resource):
+class CustomerOrdersList(resource.Resource):
 	app = 'order'
-	resource = 'datas'
+	resource = 'customer_orders_list'
 	#客户查看的订单页面
 	@login_required
 	def get(request):
@@ -52,9 +52,9 @@ class Datas(resource.Resource):
 
 		return response.get_response()
 
-class YunyingDatas(resource.Resource):
+class YunyingOrdersList(resource.Resource):
 	app = 'order'
-	resource = 'yunying_datas'
+	resource = 'yunying_orders_list'
 	#运营查看的订单页面
 	@login_required
 	def get(request):

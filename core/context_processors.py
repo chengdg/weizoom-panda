@@ -13,7 +13,7 @@ def top_navs(request):
 				'name': 'order',
 				'displayName': '订单',
 				'icon': 'list-alt',
-				'href': '/order/datas/'
+				'href': '/order/customer_orders_list/'
 			}, {
 				'name': 'product',
 				'displayName': '商品',
@@ -42,7 +42,7 @@ def top_navs(request):
 				'name': 'order',
 				'displayName': '订单',
 				'icon': 'list-alt',
-				'href': '/order/yunying_datas/'
+				'href': '/order/yunying_orders_list/'
 			}, {
 				'name': 'product',
 				'displayName': '商品',
@@ -66,7 +66,7 @@ def top_navs(request):
 				'name': 'order',
 				'displayName': '订单',
 				'icon': 'list-alt',
-				'href': '/order/datas/'
+				'href': '/order/yunying_orders_list/'
 			}, {
 				'name': 'product',
 				'displayName': '商品',
@@ -94,7 +94,7 @@ def top_navs(request):
 			'name': 'order',
 			'displayName': '订单',
 			'icon': 'list-alt',
-			'href': '/order/datas/'
+			'href': '/order/yunying_orders_list/'
 		}, {
 			'name': 'product',
 			'displayName': '商品',

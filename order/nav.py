@@ -4,7 +4,7 @@ __author__ = 'hj'
 SECOND_NAVS = [{
 	'name': 'order-list',
 	'displayName': '订单',
-	'href': '/order/datas/'
+	'href': '/order/customer_orders_list/'
 }]
 
 def get_second_navs():
