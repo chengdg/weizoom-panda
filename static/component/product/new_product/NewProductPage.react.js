@@ -55,6 +55,15 @@ var NewProductPage = React.createClass({
 	},
 
 	onSubmit: function(){
+		var product = Store.getData();
+		if(product.product_name.length > 30 || product.promotion_title.length > 30){
+			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
+			return;
+		}
+		if(product.images.length == 0){
+			Reactman.PageAction.showHint('error', '请先上传图片！');
+			return ;
+		}
 		Action.saveNewProduct(Store.getData());
 	},
 
@@ -100,7 +109,7 @@ var StoreInfo = React.createClass({
 			)
 		}else {
 			return(
-				<div ></div>
+				<div></div>
 			)
 		}
 	}

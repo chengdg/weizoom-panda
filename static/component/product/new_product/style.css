@@ -13,6 +13,13 @@
 	display: block;
 }
 
+.product-image-count{
+	position: absolute;
+	bottom: 0px;
+	color: #000;
+	left: 200px;
+}
+
 .product-name-price{
 	padding-bottom: 8px;
 	margin: 0 auto;
@@ -34,6 +41,7 @@
 .product-introduce{
 	margin-top: 10px;
 	height: 250px;
+	overflow: hidden;
 }
 
 .product-introduce .title{
@@ -44,13 +52,18 @@
 	font-size: 16px;
 }
 
-.product-name, .product-price{
+.product-introduce .product-content{
+	padding-top: 5px;
+}
+
+.product-name, .product-price, .product-promotion-title{
 	display: block;
 	font-size: 16px;
 }
 
-.product-price{
+.product-price, .product-promotion-title{
 	color: red;
+	font-size: 14px;
 }
 
 .product-count, .choose-count{
