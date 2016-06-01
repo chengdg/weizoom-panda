@@ -18,7 +18,7 @@ from util import string_util
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
-
+COUNT_PER_PAGE = 10
 
 class CustomerOrderDetail(resource.Resource):
 	app = 'order'

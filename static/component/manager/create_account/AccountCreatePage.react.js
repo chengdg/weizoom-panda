@@ -23,7 +23,13 @@ var AccountCreatePage = React.createClass({
 	onChange: function(value, event) {
 		debug(value);
 		var property = event.target.getAttribute('name');
-		Action.updateAccount(property, value);
+		if(property == 'account_type'){
+			if(!W.is_edit){
+				Action.updateAccount(property, value);
+			}
+		}else{
+			Action.updateAccount(property, value);
+		}
 	},
 
 	onChangeStore: function() {
@@ -51,7 +57,7 @@ var AccountCreatePage = React.createClass({
 			<form className="form-horizontal mt15">
 				<fieldset>
 					<legend className="pl10 pt10 pb10">账号信息</legend>
-					<Reactman.FormRadio label="账号类型:" readonly={disabled} name="account_type" value={this.state.account_type} options={optionsForAccountType} onChange={this.onChange} />
+					<Reactman.FormRadio label="账号类型:" name="account_type" value={this.state.account_type} options={optionsForAccountType} onChange={this.onChange} />
 					<Reactman.FormInput label="账号名称:" readonly={disabled} name="name" validate="require-string" placeholder="" value={this.state.name} onChange={this.onChange} />
 					<Reactman.FormInput label="登录账号:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
 					<Reactman.FormInput label="登录密码:" type="password" name="password" validate="require-notempty" placeholder="" value={this.state.password} onChange={this.onChange} />
