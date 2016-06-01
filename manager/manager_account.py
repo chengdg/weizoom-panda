@@ -20,7 +20,7 @@ from account.models import *
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
 
-COUNT_PER_PAGE = 20
+COUNT_PER_PAGE = 10
 
 filter2field = {
 	'account_type': 'role'

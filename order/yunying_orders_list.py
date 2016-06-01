@@ -18,6 +18,7 @@ from account.models import *
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
+COUNT_PER_PAGE = 10
 
 class YunyingOrdersList(resource.Resource):
 	app = 'order'
@@ -38,10 +39,13 @@ class YunyingOrdersList(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
+		orders = []
 		rows = []
+		pageinfo, products = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+
 		data = {
 			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response

@@ -42,4 +42,7 @@ class LoginedAccount(resource.Resource):
 			else:
 				return HttpResponseRedirect('/order/yunying_orders_list/')
 		else:
-			return HttpResponseRedirect('/account/login/')
+			c = RequestContext(request, {
+				'errorMsg': u'用户名或密码错误'
+			})
+			return render_to_response('account/login.html', c)
