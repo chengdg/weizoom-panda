@@ -25,8 +25,6 @@ var Action = {
 			images: JSON.stringify(data['images']),
 			remark: data['remark']
 		};
-		console.log(data['product_store'],"========");
-
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'product.new_product',

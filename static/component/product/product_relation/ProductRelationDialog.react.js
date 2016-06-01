@@ -53,7 +53,6 @@ var ProductRelationDialog = Reactman.createDialog({
 			hasProp = true;  
 			break;  
 		}
-		console.log(relations,"======");
 		if(!hasProp){
 			Reactman.PageAction.showHint('error', "请输入关联的云商通商品ID");
 			return;

@@ -70,6 +70,11 @@
 	display: inline-block;
 }
 
+.product-content{
+    overflow: auto;
+    height: 200px;
+}
+
 .choose-count{
 	padding-right: 5px;
 }
@@ -106,4 +111,35 @@
     color: #CCC;
     margin-right: 10px;
     line-height: 40px;
+}
+
+input[name="product_price"],
+input[name="clear_price"],
+input[name="product_weight"]{
+	width: 200px;
+}
+
+fieldset div:nth-child(4){
+	display: inline-block;
+}
+
+fieldset div:nth-child(7){
+	display: inline-block;
+}
+
+fieldset div:nth-child(10){
+	display: inline-block;
+}
+
+.money_note, .count_note{
+	position: absolute;
+	display: inline-block;
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+
+.errorHint{
+	width: 200px;
 }

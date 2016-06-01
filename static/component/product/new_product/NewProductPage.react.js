@@ -57,8 +57,8 @@ var NewProductPage = React.createClass({
 	onSubmit: function(){
 		var user_has_products = W.user_has_products;
 		var product = Store.getData();
-		if(user_has_products>=3){
-			Reactman.PageAction.showHint('error', '您最多添加3件商品,请先删除其他商品再来添加!');
+		if(product.id == -1 && user_has_products >= 3){
+			Reactman.PageAction.showHint('error', '您最多添加3件商品,如有更多需要请联系客服!');
 			return;
 		}
 		if(product.product_name.length > 30 || product.promotion_title.length > 30){
@@ -69,7 +69,7 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先上传图片！');
 			return ;
 		}
-		Action.saveNewProduct(Store.getData());
+		Action.saveNewProduct(product);
 	},
 
 	render:function(){
@@ -87,8 +87,19 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} validate="require-string" />
 						<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.onChange} validate="require-price" />
+						<span className="money_note">
+							元
+						</span>
+						<div></div>
 						<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.onChange} validate="require-price"/>
+						<span className="money_note">
+							元
+						</span>
+						<div></div>
 						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.onChange} validate="require-float"/>
+						<span className="money_note">
+							Kg
+						</span>
 						<Reactman.FormRadio label="商品库存:" type="text" name="product_store_type" value={this.state.product_store_type} options={optionsForStore} onChange={this.onChange} />
 						<div> <StoreInfo onChange={this.onChange} productStore={this.state.product_store} Type={this.state.product_store_type}/> </div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>

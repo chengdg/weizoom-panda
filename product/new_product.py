@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 from core import resource
 from core.jsonresponse import create_response
+from core.exceptionutil import unicode_full_stack
 from core import paginator
 from util import db_util
 from util import string_util
@@ -85,24 +86,28 @@ class NewProduct(resource.Resource):
 		product_store = int(post.get('product_store',-1))
 		remark = post.get('remark','')
 		images = post.get('images','')
-		product = models.Product.objects.create(
-			owner = request.user, 
-			product_name = product_name, 
-			promotion_title = promotion_title, 
-			product_price = product_price,
-			clear_price = clear_price,
-			product_weight = product_weight,
-			product_store = product_store,
-			remark = remark
-		)
+		try:
+			product = models.Product.objects.create(
+				owner = request.user, 
+				product_name = product_name, 
+				promotion_title = promotion_title, 
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store,
+				remark = remark
+			)
 
-		#获取商品图片
-		if images:
-			product_images = json.loads(request.POST['images'])
-			for product_image in product_images:
-				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+			#获取商品图片
+			if images:
+				product_images = json.loads(request.POST['images'])
+				for product_image in product_images:
+					models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 
-		response = create_response(200)
+			response = create_response(200)
+		except:
+			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
 
 	@login_required
