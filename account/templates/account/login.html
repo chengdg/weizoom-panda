@@ -32,8 +32,11 @@
 				            <input class="form-control" id="username" name="username" type="text" placeholder="用户名">
 				            <input class="form-control mt10" id="password" name="password" type="password" placeholder="密码">
 				        </div>
-
-				        <div style="text-align: right;" class="mt20 mr10">
+                        <div class="ml20 mr20 errorInfo">
+                            {% if errorMsg %}
+                            <div class="error-info">{{errorMsg}}</div>{% endif %}
+                        </div>
+				        <div style="text-align: right;" class="mt20 mb10 mr10">
 				        	<!--
 				            <a href="/account/register/" class="btn btn-default">注册</a>
 				        	-->
@@ -47,7 +50,11 @@
         <script type="text/javascript" src="/static/lib/jquery/jquery-1.12.2.min.js"></script>
         <script type="text/javascript">
 	        $(document).ready(function() {
-		       $('#username').focus();
+		        $('#username').focus();
+                var $error = $('.errorInfo');
+                $('input').keyup(function() {
+                    $error.css({display:'none'});
+                });
 	        });
         </script>
 	</body>
