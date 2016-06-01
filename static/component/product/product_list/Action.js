@@ -13,26 +13,16 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	deleteProduct: function(id) {
+	deleteProduct: function(id,user_has_products) {
 		Resource.delete({
 			resource: 'product.new_product',
 			data: {
-				id: id
+				id: id,
+				user_has_products: user_has_products
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
 				actionType: Constant.PRODUCT_LIST_UPDATE_PRODUCT
-			}
-		});
-	},
-
-	updateProduct: function(product, field, data) {
-		Dispatcher.dispatch({
-			actionType: Constant.OUTLINE_DATAS_UPDATE_PRODUCT,
-			data: {
-				product: product,
-				field: field,
-				data: data
 			}
 		});
 	}

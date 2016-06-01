@@ -55,12 +55,7 @@ var NewProductPage = React.createClass({
 	},
 
 	onSubmit: function(){
-		var user_has_products = W.user_has_products;
 		var product = Store.getData();
-		if(product.id == -1 && user_has_products >= 3){
-			Reactman.PageAction.showHint('error', '您最多添加3件商品,如有更多需要请联系客服!');
-			return;
-		}
 		if(product.product_name.length > 30 || product.promotion_title.length > 30){
 			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 			return;

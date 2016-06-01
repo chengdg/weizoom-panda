@@ -37,10 +37,12 @@ class ProductList(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'user_has_products': user_has_products,
 		})
 		
 		return render_to_response('product/product_list.html', c)
@@ -50,13 +52,10 @@ class ProductList(resource.Resource):
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		products = models.Product.objects.filter(owner=request.user).order_by('-id')
 		product_images = models.ProductImage.objects.all()
-		#组装数据
-		rows = []
 
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
-
 		# product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
 		for product in product_images:
 			product_id2image_id[product.product_id] = product.image_id
@@ -66,7 +65,8 @@ class ProductList(resource.Resource):
 				'path': image.path
 			}])
 		pageinfo, products = paginator.paginate(products, cur_page, 5, query_string=request.META['QUERY_STRING'])
-
+		#组装数据
+		rows = []
 		for product in products:
 			# image_id = product_id2image_id[product.id]
 			# images = image_id2images[image_id]

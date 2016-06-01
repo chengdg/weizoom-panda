@@ -21,9 +21,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {};
+		this.data.user_has_products = '';
 	},
 
 	handleUpdateProduct: function(action) {
+		this.data.user_has_products = parseInt(action.data.user_has_products)-1;
 		this.__emitChange();
 	},
 

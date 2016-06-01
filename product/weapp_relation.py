@@ -66,7 +66,6 @@ class ProductRelation(resource.Resource):
 					models.Product.objects.filter(id=product_id).update(product_status=1)#{0:未上架,1:已上架}
 				else:
 					models.Product.objects.filter(id=product_id).update(product_status=0)
-				print len(product_has_relations),"=======wwwwwwwww======"
 			response = create_response(200)
 			response.data.code = 200
 			response.data.Msg = u'关联成功'
