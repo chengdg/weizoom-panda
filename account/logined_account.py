@@ -41,6 +41,5 @@ class LoginedAccount(resource.Resource):
 					return HttpResponseRedirect('/order/yunying_orders_list/')
 			else:
 				return HttpResponseRedirect('/order/yunying_orders_list/')
-			return HttpResponseRedirect('/order/yunying_orders_list/')
 		else:
 			return HttpResponseRedirect('/account/login/')
