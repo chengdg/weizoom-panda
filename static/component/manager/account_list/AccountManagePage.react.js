@@ -83,10 +83,10 @@ var AccountManagePage = React.createClass({
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="账号名称:" name="name" match='~' />
+						<Reactman.FormInput label="账号名称:" name="name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="登录账号:" name="username" match="~" />
+						<Reactman.FormInput label="登录账号:" name="username" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="账号类型:" name="account_type" options={typeOptions} match="=" />
