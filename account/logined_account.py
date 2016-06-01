@@ -32,15 +32,14 @@ class LoginedAccount(resource.Resource):
 				if role == MANAGER:
 					return HttpResponseRedirect('/manager/account/')
 				elif role == CUSTOMER:
-					return HttpResponseRedirect('/order/datas/')
+					return HttpResponseRedirect('/order/customer_orders_list/')
 				elif role == AGENCY:
-					return HttpResponseRedirect('/order/datas/')
+					return HttpResponseRedirect('/order/yunying_orders_list/')
 				elif role == YUN_YING:
-					return HttpResponseRedirect('/order/datas/')
+					return HttpResponseRedirect('/order/yunying_orders_list/')
 				else:
-					return HttpResponseRedirect('/order/datas/')
+					return HttpResponseRedirect('/order/yunying_orders_list/')
 			else:
-				return HttpResponseRedirect('/order/datas/')
-			return HttpResponseRedirect('/order/datas/')
+				return HttpResponseRedirect('/order/yunying_orders_list/')
 		else:
 			return HttpResponseRedirect('/account/login/')

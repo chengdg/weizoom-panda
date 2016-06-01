@@ -41,4 +41,4 @@ class Data(resource.Resource):
 			'second_nav_name': SECOND_NAV,
 			'jsons': jsons
 		})
-		return render_to_response('order/data.html', c)
+		return render_to_response('order/customer_order_detail.html', c)

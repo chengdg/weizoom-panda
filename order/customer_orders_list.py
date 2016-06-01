@@ -19,9 +19,9 @@ from account.models import *
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 
-class Datas(resource.Resource):
+class CustomerOrdersList(resource.Resource):
 	app = 'order'
-	resource = 'datas'
+	resource = 'customer_orders_list'
 	#客户查看的订单页面
 	@login_required
 	def get(request):
@@ -33,7 +33,7 @@ class Datas(resource.Resource):
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV
 		})
-		return render_to_response('order/datas.html', c)
+		return render_to_response('order/customer_orders_list.html', c)
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
@@ -44,37 +44,6 @@ class Datas(resource.Resource):
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
-		}
-
-		#构造response
-		response = create_response(200)
-		response.data = data
-
-		return response.get_response()
-
-class YunyingDatas(resource.Resource):
-	app = 'order'
-	resource = 'yunying_datas'
-	#运营查看的订单页面
-	@login_required
-	def get(request):
-		"""
-		响应GET
-		"""
-		c = RequestContext(request, {
-			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
-		})
-
-		return render_to_response('order/yunying_order_list.html', c)
-
-	def api_get(request):
-		cur_page = request.GET.get('page', 1)
-		rows = []
-		data = {
-			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response

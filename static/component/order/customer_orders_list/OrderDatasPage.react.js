@@ -33,7 +33,7 @@ var OrderDatasPage = React.createClass({
 	rowFormatter: function(field, value, data) {
 		if (field === 'name') {
 			return (
-				<a href={'/order/data/?id='+data.id}>{value}</a>
+				<a href={'/order/customer_order_detail/?id='+data.id}>{value}</a>
 			)
 		} else if (field === 'action') {
 			return (
