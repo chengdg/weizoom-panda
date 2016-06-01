@@ -28,7 +28,7 @@ class ProductRelation(resource.Resource):
 	@login_required
 	def api_get(request):
 		product_id = request.GET.get('product_id',0)
-		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id)
+		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}
 		if product_relations:
@@ -49,7 +49,6 @@ class ProductRelation(resource.Resource):
 		product_id = post.get('product_id','')
 		try:
 			if relations:
-				print json.loads(relations),"=========="
 				models.ProductHasRelationWeapp.objects.filter(product_id=product_id).delete()
 				relations=json.loads(relations)
 				list_create = []
@@ -60,6 +59,14 @@ class ProductRelation(resource.Resource):
 						weapp_product_id = v
 					))
 				models.ProductHasRelationWeapp.objects.bulk_create(list_create)
+
+				product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+				product_has_relations = product_has_relations.filter(product_id=product_id)
+				if len(product_has_relations)>0:
+					models.Product.objects.filter(id=product_id).update(product_status=1)#{0:未上架,1:已上架}
+				else:
+					models.Product.objects.filter(id=product_id).update(product_status=0)
+				print len(product_has_relations),"=======wwwwwwwww======"
 			response = create_response(200)
 			response.data.code = 200
 			response.data.Msg = u'关联成功'

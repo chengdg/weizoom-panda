@@ -23,6 +23,11 @@ import models
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
 
+product_status2text = {
+	0: u'未上架',
+	1: u'已上架'
+}
+
 class ProductList(resource.Resource):
 	app = 'product'
 	resource = 'product_list'
@@ -72,7 +77,7 @@ class ProductList(resource.Resource):
 				'product_price': '%.2f' %product.product_price,
 				'product_name': product.product_name,
 				# 'images': images,
-				'status': u'未上架',
+				'status': product_status2text[product.product_status],
 				'sales': '0',
 				'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 			})

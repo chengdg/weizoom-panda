@@ -51,8 +51,8 @@ class ProductRelation(resource.Resource):
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		products = models.Product.objects.all().order_by('-id')
-		product_relations = models.ProductRelation.objects.all()
-		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
+		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_idct.get('product_name','')
 		customer_name = filter_idct.get('customer_name','')

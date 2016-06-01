@@ -24,7 +24,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {};
-		this.filter = {}
+		this.filter = {};
 	},
 
 	handleProductRelationWeapp: function(action) {
