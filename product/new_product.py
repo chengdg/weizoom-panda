@@ -112,7 +112,10 @@ class NewProduct(resource.Resource):
 		product_price = post.get('product_price',0)
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
-		product_store = int(post.get('product_store',-1))
+		product_store = int(post.get('product_store',0))
+		product_store_type = int(post.get('product_store_type',-1))
+		if product_store_type == -1:
+			product_store = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
 		models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(

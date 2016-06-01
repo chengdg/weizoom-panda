@@ -59,7 +59,7 @@ var NewProductPage = React.createClass({
 	},
 
 	render:function(){
-		var optionsForStore = [{text: '无限', value: '0'}, {text: '有限', value: '1'}];
+		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
 		return (
@@ -92,7 +92,7 @@ var NewProductPage = React.createClass({
 var StoreInfo = React.createClass({
 	render: function() {
 		var store_type = this.props.Type;
-		if (store_type == '1'){
+		if (store_type == '0'){
 			return(
 				<div>
 					<Reactman.FormInput label="库存数量" type="text" name="product_store" value={this.props.productStore} validate="require-int" onChange={this.props.onChange} />

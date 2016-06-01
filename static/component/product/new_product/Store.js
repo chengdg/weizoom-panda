@@ -25,13 +25,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = Reactman.loadJSON('product');
 		
 		if (this.data) {
-			this.data['product_store_type'] = this.data['product_store'] > -1 ? '1' : '0';
+			this.data['product_store_type'] = this.data['product_store'] > -1 ? '0' : '-1';
+			this.data['product_store'] = this.data['product_store'] == -1 ? '' : this.data['product_store'];
 		} else {
 			this.data = {
 				'id':-1,
 				'images':[],
 				'remark': '',
-				'product_store_type':'0'
+				'product_store_type':'-1'
 			};
 		}
 	},

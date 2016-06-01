@@ -21,9 +21,11 @@ var Action = {
 			clear_price: data['clear_price'],
 			product_weight: data['product_weight'],
 			product_store: data['product_store'],
+			product_store_type: data['product_store_type'],
 			images: JSON.stringify(data['images']),
 			remark: data['remark']
 		};
+		console.log(data['product_store'],"========");
 
 		if (data.id === -1) {
 			Resource.put({
