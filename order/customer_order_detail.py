@@ -20,9 +20,9 @@ FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 
 
-class Data(resource.Resource):
+class CustomerOrderDetail(resource.Resource):
 	app = 'order'
-	resource = 'data'
+	resource = 'customer_order_detail'
 	
 	@login_required
 	def get(request):

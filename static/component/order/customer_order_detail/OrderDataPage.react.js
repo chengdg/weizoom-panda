@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:order.data:OrderDataPage');
+var debug = require('debug')('m:order.customer_order_detail:OrderDataPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 

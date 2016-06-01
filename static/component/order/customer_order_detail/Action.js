@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:order.data:Action');
+var debug = require('debug')('m:order.customer_order_detail:Action');
 var _ = require('underscore');
 
 var Reactman = require('reactman');
