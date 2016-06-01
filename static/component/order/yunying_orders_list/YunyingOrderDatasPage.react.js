@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:order.datas:YunyingOrderDatasPage');
+var debug = require('debug')('m:order.yunying_orders_list:YunyingOrderDatasPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
