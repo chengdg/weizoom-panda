@@ -29,7 +29,7 @@ var YunyingOrderDatasPage = React.createClass({
 
 	render:function(){
 		var ordersResource = {
-			resource: 'order.datas',
+			resource: 'order.yunying_orders_list',
 			data: {
 				page: 1
 			}

@@ -52,7 +52,7 @@ var OrderDatasPage = React.createClass({
 
 	render:function(){
 		var ordersResource = {
-			resource: 'order.datas',
+			resource: 'order.customer_orders_list',
 			data: {
 				page: 1
 			}

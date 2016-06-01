@@ -38,10 +38,13 @@ class YunyingOrdersList(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
+		orders = []
 		rows = []
+		pageinfo, products = paginator.paginate(orders, cur_page, 5, query_string=request.META['QUERY_STRING'])
+
 		data = {
 			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response
