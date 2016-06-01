@@ -35,6 +35,7 @@ class NewProduct(resource.Resource):
 		product_id = request.GET.get('id', None)
 		jsons = {'items':[]}
 		role = UserProfile.objects.get(user_id=request.user.id).role
+		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
@@ -69,6 +70,7 @@ class NewProduct(resource.Resource):
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
 			'jsons': jsons,
+			'user_has_products': user_has_products,
 			'role': role
 		})
 		return render_to_response('product/new_product.html', c)
