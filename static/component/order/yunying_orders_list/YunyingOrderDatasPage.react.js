@@ -16,7 +16,13 @@ var Action = require('./Action');
 
 var YunyingOrderDatasPage = React.createClass({
 	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
 		return Store.getData();
+	},
+
+	onChangeStore: function(event) {
+		var filterOptions = Store.getData().filterOptions;
+		this.refs.table.refresh(filterOptions);
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -56,7 +62,7 @@ var YunyingOrderDatasPage = React.createClass({
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="客户名称:" name="customer_name" match='~' />
+						<Reactman.FormInput label="客户名称:" name="customer_name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="来源商城:" name="from_mall" options={typeOptions} match="=" />

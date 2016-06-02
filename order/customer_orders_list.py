@@ -20,6 +20,9 @@ FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
 
+filter2field ={
+}
+
 class CustomerOrdersList(resource.Resource):
 	app = 'order'
 	resource = 'customer_orders_list'
@@ -38,9 +41,19 @@ class CustomerOrdersList(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
-		rows = []
+		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		order_id = filter_idct.get('order_id','')
+		status = filter_idct.get('status','')
+		order_create_at = filter_idct.get('order_create_at','')
 		orders = []
+		if order_id:
+			orders = orders.filter(order_id__icontains=order_id)
+		if status:
+			orders = orders.filter(status=status)
+		if order_create_at:
+			orders = orders.filter(order_create_at=order_create_at)
 
+		rows = []
 		#假数据
 		rows.append({
 			'order_id':'20160427170520421',

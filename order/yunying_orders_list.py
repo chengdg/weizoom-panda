@@ -20,6 +20,9 @@ FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
 
+filter2field ={
+}
+
 class YunyingOrdersList(resource.Resource):
 	app = 'order'
 	resource = 'yunying_orders_list'
@@ -39,9 +42,19 @@ class YunyingOrdersList(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
+		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		customer_name = filter_idct.get('customer_name','')
+		from_mall = filter_idct.get('from_mall','')
+		order_create_at = filter_idct.get('order_create_at','')
 		orders = []
-		rows = []
+		if customer_name:
+			orders = orders.filter(customer_name__icontains=customer_name)
+		if from_mall:
+			orders = orders.filter(from_mall=from_mall)
+		if order_create_at:
+			orders = orders.filter(order_create_at=order_create_at)
 
+		rows = []
 		#假数据
 		rows.append({
 			'order_id':'20160427170520421',

@@ -13,23 +13,35 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+var ShipDialog = require('./ShipDialog.react');
 
 var OrderDatasPage = React.createClass({
 	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
 
 	onClickShip: function(event) {
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		//Reactman.PageAction.showConfirm({
-		//	target: event.target,
-		//	title: '确认删除吗?',
-		//	confirm: _.bind(function() {
-		//		Action.deleteProduct(productId);
-		//	}, this)
-		//});
+		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		var order = this.refs.table.getData(orderId);
+		Reactman.PageAction.showDialog({
+			title: "发货信息",
+			component: ShipDialog,
+			data: {
+				order: order
+			},
+			success: function(inputData, dialogState) {
+				var order = inputData.order;
+				console.log(dialogState);
+				//var comment = dialogState.comment;
+				//Action.updateProduct(product, 'comment', comment);
+			}
+		});
 	},
-
+	onChangeStore: function(event) {
+		var filterOptions = Store.getData().filterOptions;
+		this.refs.table.refresh(filterOptions);
+	},
 	rowFormatter: function(field, value, data) {
 		if (field === 'product_price') {
 			return (
@@ -41,7 +53,7 @@ var OrderDatasPage = React.createClass({
 		} else if (field === 'action') {
 			return (
 			<div>
-				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-product-id={data.id}>发货</a>
+				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
 			</div>
 			);
 		} else if (field === 'expand-row') {
@@ -93,7 +105,7 @@ var OrderDatasPage = React.createClass({
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="订单编号:" name="order_id" match='~' />
+						<Reactman.FormInput label="订单编号:" name="order_id" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="订单状态:" name="status" options={typeOptions} match="=" />
