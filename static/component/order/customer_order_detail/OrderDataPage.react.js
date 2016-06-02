@@ -31,67 +31,98 @@ var OutlineDataPage = React.createClass({
 		Action.updateProduct(property, value);
 	},
 
-	onSubmit: function() {
-		Action.saveProduct(Store.getData());
-	},
-
-	componentDidMount: function() {
-		debug(ReactDOM.findDOMNode(this.refs.name));
+	rowFormatter: function(field, value, data) {
+		if(field === 'unit_price/quantity'){
+			return(
+				<span>{data["unit_price"]}/({data["quantity"]})</span>
+			)
+		} else {
+			return value;
+		}
 	},
 
 	render:function(){
-		var optionsForJoinPromotion = [{
-			text: '参加',
-			value: '1'
-		}, {
-			text: '不参加',
-			value: '0'
-		}];
-
-		var optionsForChannel = [{
-			text: '南京',
-			value: 'nanjing'
-		}, {
-			text: '北京',
-			value: 'beijing'
-		}, {
-			text: '上海',
-			value: 'shanghai'
-		}, {
-			text: '无锡',
-			value: 'wuxi'
-		}];
+		var order_id = W.order_id;
+		var productsResource = {
+			resource: 'order.customer_order_detail',
+			data: {
+				page: 1,
+				order_id: order_id
+			}
+		};
 
 		return (
-		<div className="xui-outlineData-page xui-formPage">
-			<form className="form-horizontal mt15">
-				<fieldset>
-					<legend className="pl10 pt10 pb10">商品信息</legend>
-					<Reactman.FormInput label="商品名:" name="name" validate="require-string" placeholder="" value={this.state.name} onChange={this.onChange} autoFocus={true} />
-					<Reactman.FormInput label="重量:" name="weight" validate="require-int" placeholder="" value={this.state.weight} onChange={this.onChange} />
-					<Reactman.FormInput label="价格:" name="price" validate="require-price" placeholder="输入价格" value={this.state.price} onChange={this.onChange} />
-					<Reactman.FormRadio label="参与双11促销:" name="isJoinPromotion" value={this.state.isJoinPromotion} options={optionsForJoinPromotion} onChange={this.onChange} />
-					<Reactman.FormDateTimeInput label="促销结束时间:" name="promotionFinishDate" placeholder="促销结束日期" value={this.state.promotionFinishDate} onChange={this.onChange} validate="require-string" />
-					<Reactman.FormCheckbox label="渠道:" name="channels" value={this.state.channels} options={optionsForChannel} onChange={this.onChange} />
-					<Reactman.FormImageUploader label="图片:" name="images" value={this.state.images} onChange={this.onChange} max={3} />
-					<Reactman.FormFileUploader label="文档:" name="documents" value={this.state.documents} onChange={this.onChange} max={3} />
-				</fieldset>
+			<div>
+				<OrderStatus />
+				<OrderLogistics />
+				<div className="mt15 xui-product-productListPage">
+					<Reactman.TablePanel>
+						<Reactman.TableActionBar>
+						</Reactman.TableActionBar>
+						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+							<Reactman.TableColumn name="商品" field="product_name" />
+							<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
+							<Reactman.TableColumn name="商品件数" field="total_count" />
+							<Reactman.TableColumn name="订单金额" field="order_money" />
+						</Reactman.Table>
+					</Reactman.TablePanel>
+				</div>
+			</div>
+		)
+	}
+})
 
-				<fieldset className="form-inline">
-					<legend className="pl10 pt10 pb10">商品规格</legend>
-					<ProductModelList name='models' value={this.state.models} onChange={this.onChange} />
-				</fieldset>
+var OrderStatus = React.createClass({
+	render:function(){
+		return (
+			<div style={{background:'#FFF',marginTop:'10px', border:'1px solid #CCC',fontSize:'16px',height:'100px'}}>
+				<div style={{padding:'5px 20px'}}>
+					<div>
+						<span>订单编号:20160427170520421</span>
+					</div>
+					<div style={{marginTop:'10px'}}>
+						<span>订单状态:待发货</span>
+					</div>
+					<div style={{margin:'0 auto',width:'200px'}}>
+						<button type="button" className="btn btn-primary" style={{width:'100px'}}>发货</button>
+					</div>
+				</div>
+			</div>
+		)
+	}
+})
 
-				<fieldset className="form-inline">
-					<legend className="pl10 pt10 pb10">其他信息</legend>
-					<Reactman.FormRichTextInput label="商品详情" name="detail" width={800} validate="require-notempty" value={this.state.detail} onChange={this.onChange} />
-				</fieldset>
-
-				<fieldset>
-					<Reactman.FormSubmit onClick={this.onSubmit} text="确 定"/>
-				</fieldset>
-			</form>
-		</div>
+var OrderLogistics = React.createClass({
+	render:function(){
+		return (
+			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>
+				<div style={{padding:'5px 20px'}}>
+					<div>
+						<span className="inline-block">收货人:某某某</span>
+						<span className="inline-block" style={{marginLeft:'130px'}}>收货人电话:13900000000</span>
+					</div>
+					<div>
+						<span>买家留言:xxxxxxxxxxx</span>
+					</div>
+					<div style={{borderBottom: '1px solid #ECE9E9'}}>
+						<span>收货地址:江苏省南京市秦淮区夫子庙</span>
+					</div>
+				</div>
+				<div style={{padding:'5px 20px'}}>
+					<div>
+						<span>物流公司名称:申通快递</span>
+					</div>
+					<div style={{marginBottom: '20px'}}>
+						<span>运单号:20165456895786</span>
+					</div>
+					<div>
+						<span>2015-05-26 22:11:28 由广东潮阳公司 发往 广东揭阳中转部</span>
+					</div>
+					<div>
+						<span>2015-06-30 23:11:12 广东深圳罗湖中转部 正在进行 发包 扫描 </span>
+					</div>
+				</div>
+			</div>
 		)
 	}
 })

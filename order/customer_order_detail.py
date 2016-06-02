@@ -28,17 +28,43 @@ class CustomerOrderDetail(resource.Resource):
 	def get(request):
 		#获取业务数据
 		order_id = request.GET.get('id', None)
-		jsons = {'items':[]}
-		if order_id:
-			order_data = []
-			jsons['items'].append(('order', json.dumps(order_data)))
-		else:
-			jsons['items'].append(('order', json.dumps(None)))
-
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
-			'jsons': jsons
+			'order_id': order_id
 		})
 		return render_to_response('order/customer_order_detail.html', c)
+
+	@login_required
+	def api_get(request):
+		cur_page = request.GET.get('page', 1)
+		order_id = request.GET.get('order_id', 0)
+		rows = [{
+			'product_name': u'[唯美农业]红枣夹核桃250g*2包',
+			'unit_price': '25.30',
+			'quantity': '2',
+			'total_count': '2',
+			'order_money': '50.60'
+		},{
+			'product_name': u'米琦尔大米',
+			'unit_price': '59',
+			'quantity': '1',
+			'total_count': '1',
+			'order_money': '59'
+		},{
+			'product_name': u'土小宝礼品装',
+			'unit_price': '60',
+			'quantity': '2',
+			'total_count': '2',
+			'order_money': '12.00'
+		}]
+		data = {
+			'rows': rows
+		}
+
+		#构造response
+		response = create_response(200)
+		response.data = data
+
+		return response.get_response()

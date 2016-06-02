@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:order.customer_order_detail::Store');
+var debug = require('debug')('m:outline.datas:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');
@@ -13,28 +13,17 @@ var Dispatcher = Reactman.Dispatcher;
 var StoreUtil = Reactman.StoreUtil;
 
 var Constant = require('./Constant');
-var window = window;
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleShipOrder': Constant.ORDER_DATA_SHIP_ORDER
+		'handleUpdateProduct': Constant.ORDER_DATA_SHIP_ORDER
 	},
 
 	init: function() {
-		this.data = Reactman.loadJSON('product');
-		if (this.data) {
-			this.data['isJoinPromotion'] = this.data['is_join_promotion'] ? '1' : '0';
-			this.data['promotionFinishDate'] = this.data['promotion_finish_date'];
-			this.data['channels'] = JSON.parse(this.data['channels']);
-		} else {
-			this.data = {
-			};
-		}
-		debug(this.data);
+		this.data = {};
 	},
 
-	handleShipOrder: function(action) {
-		this.data[action.data.property] = action.data.value;
+	handleUpdateProduct: function(action) {
 		this.__emitChange();
 	},
 

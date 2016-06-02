@@ -262,6 +262,9 @@ definitions:
       order_name:
         type: string
         description: 订单名称
+      order_logistics:
+        type: string
+        description: 订单物流
       product_price:
         type: float
         description: 商品单价
