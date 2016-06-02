@@ -53,7 +53,7 @@ class CustomerOrdersList(resource.Resource):
 			'total_purchase_price': '25.30',
 			'status': '待发货',
 		})
-		pageinfo, products = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 
 		# for order in orders:
 		# 	rows.append({
