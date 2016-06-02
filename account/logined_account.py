@@ -34,7 +34,7 @@ class LoginedAccount(resource.Resource):
 				elif role == CUSTOMER:
 					return HttpResponseRedirect('/order/customer_orders_list/')
 				elif role == AGENCY:
-					return HttpResponseRedirect('/order/yunying_orders_list/')
+					return HttpResponseRedirect('/customer/customer/')
 				elif role == YUN_YING:
 					return HttpResponseRedirect('/order/yunying_orders_list/')
 				else:

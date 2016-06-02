@@ -32,16 +32,15 @@ var NewProductPage = React.createClass({
 
 	productPreview: function(){
 		var product = Store.getData();
+		var is_true = this.validateProduct();
 		if(product.images.length == 0){
 			Reactman.PageAction.showHint('error', '请先上传图片！');
 			return;
 		}
-
-		if(!product.hasOwnProperty('product_name') || !product.hasOwnProperty('product_price')){
-			Reactman.PageAction.showHint('error', '请先填写商品名称和价格！');
+		if(is_true){
+			Reactman.PageAction.showHint('error', '请先填写带*的内容！');
 			return;
 		}
-		
 		Reactman.PageAction.showDialog({
 			title: "商品预览",
 			component: ProductPreviewDialog,
@@ -52,6 +51,25 @@ var NewProductPage = React.createClass({
 				console.log("success");
 			}
 		});
+	},
+
+	validateProduct: function(){
+		var is_true = false;
+		var product = Store.getData();
+		if(!product.hasOwnProperty('product_name') || !product.hasOwnProperty('product_price') || !product.hasOwnProperty('promotion_title')
+		 || !product.hasOwnProperty('remark') || !product.hasOwnProperty('clear_price') || !product.hasOwnProperty('product_weight')){
+			is_true = true;
+		}
+		if((product.hasOwnProperty('product_name') && product.product_name.length<=0) || (product.hasOwnProperty('product_price') && product.product_price.length<=0)){
+			is_true = true;
+		}
+		if((product.hasOwnProperty('promotion_title') && product.promotion_title.length<=0) || (product.hasOwnProperty('clear_price') && product.clear_price.length<=0)){
+			is_true = true;
+		}
+		if((product.hasOwnProperty('product_weight') && product.product_weight.length<=0) || (product.hasOwnProperty('remark') && product.remark.length<=0)){
+			is_true = true;
+		}
+		return is_true;
 	},
 
 	onSubmit: function(){

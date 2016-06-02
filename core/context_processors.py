@@ -34,8 +34,8 @@ def top_navs(request):
 			top_navs = [{
 				'name': 'customer',
 				'displayName': '客户概况',
-				'icon': 'cog',
-				'href': '#'
+				'icon': 'credit-card',
+				'href': '/customer/customer/'
 			}]
 		elif role == YUN_YING:
 			top_navs = [{
