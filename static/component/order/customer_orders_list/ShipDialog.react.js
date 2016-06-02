@@ -29,8 +29,8 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		if (this.state.comment === 'error') {
-			Reactman.PageAction.showHint('error', '不能关闭对话框');
+		if (this.state.ship_company === '-1') {
+			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
 			var order = this.props.data.order;
 			console.log(this.state);
