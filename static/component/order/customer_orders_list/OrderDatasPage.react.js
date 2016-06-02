@@ -54,6 +54,7 @@ var OrderDatasPage = React.createClass({
 		}else if (field === 'product_name') {
 			return (
 				<div>
+					<img src="/static/upload/20160601/1464765003058_988.jpg" width="60px" height="60px"></img>
 					{data.product_name}
 				</div>
 			);

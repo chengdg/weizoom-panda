@@ -13,34 +13,10 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	deleteProduct: function(id) {
-		Resource.delete({
-			resource: 'outline.data',
-			data: {
-				id: id
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.OUTLINE_DATAS_UPDATE_PRODUCT
-			}
-		});
-	},
-
-	filterProducts: function(filterOptions) {
+	filterOrders: function(filterOptions) {
 		Dispatcher.dispatch({
-			actionType: Constant.OUTLINE_DATAS_FILTER_PRODUCTS,
+			actionType: Constant.FILTER_ORDERS,
 			data: filterOptions
-		});
-	},
-
-	updateProduct: function(product, field, data) {
-		Dispatcher.dispatch({
-			actionType: Constant.OUTLINE_DATAS_UPDATE_PRODUCT,
-			data: {
-				product: product,
-				field: field,
-				data: data
-			}
 		});
 	}
 };

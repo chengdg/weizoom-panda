@@ -24,7 +24,7 @@ var YunyingOrderDatasPage = React.createClass({
 	},
 
 	onConfirmFilter: function(data) {
-		Action.filterProducts(data);
+		Action.filterOrders(data);
 	},
 
 	render:function(){
@@ -73,7 +73,7 @@ var YunyingOrderDatasPage = React.createClass({
 				<Reactman.TableActionBar>
 					<Reactman.TableActionButton text="导出发货文件" href="/outline/data/" />
 				</Reactman.TableActionBar>
-				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />
 					<Reactman.TableColumn name="下单时间" field="order_create_at" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />

@@ -41,7 +41,25 @@ class YunyingOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		orders = []
 		rows = []
-		pageinfo, products = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+
+		#假数据
+		rows.append({
+			'order_id':'20160427170520421',
+			'order_create_at': '2016-05-12',
+			'total_purchase_price': '25.30',
+			'customer_name': '北京微众文化传媒有限公司',
+			'from_mall': '微众家'
+		})
+		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+
+		# for order in orders:
+		# 	rows.append({
+		# 		'order_id': order.order_id,
+		# 		'order_create_at': order.order_create_at,
+		# 		'total_purchase_price': order.total_purchase_price,
+		# 		'customer_name': order.customer_name,
+		#  		'from_mall': order.from_mall
+		# 	})
 
 		data = {
 			'rows': rows,
