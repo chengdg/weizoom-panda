@@ -40,8 +40,33 @@ class CustomerOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		rows = []
 		orders = []
+
+		#假数据
+		rows.append({
+			'order_id':'20160427170520421',
+			'order_create_at': '2016-05-12',
+			'product_img': '/static/upload/20160601/1464765003058_988.jpg',
+			'product_name': '【唯美农业】红枣夹核桃250g*2包',
+			'product_price': '25.30',
+			'product_amount': '1',
+			'ship_name': '周康康',
+			'total_purchase_price': '25.30',
+			'status': '待发货',
+		})
 		pageinfo, products = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 
+		# for order in orders:
+		# 	rows.append({
+		# 		'order_id': order.order_id,
+		# 		'order_create_at': order.order_create_at,
+		# 		'product_img': order.product_img,
+		# 		'product_name': order.product_name,
+		# 		'product_price': order.product_price,
+		# 		'product_amount': order.product_amount,
+		# 		'ship_name': order.ship_name,
+		# 		'total_purchase_price': order.total_purchase_price,
+		# 		'status': order.status,
+		# 	})
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()

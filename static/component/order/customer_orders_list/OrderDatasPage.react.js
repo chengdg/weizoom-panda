@@ -31,17 +31,33 @@ var OrderDatasPage = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if (field === 'name') {
+		if (field === 'product_price') {
 			return (
-				<a href={'/order/customer_order_detail/?id='+data.id}>{value}</a>
-			)
+				<div style={{paddingLeft:'10px'}}>
+					<div>{data.product_price}</div>
+					<div>({data.product_amount}件)</div>
+				</div>
+			);
 		} else if (field === 'action') {
 			return (
 			<div>
 				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-product-id={data.id}>发货</a>
 			</div>
 			);
-		}else {
+		} else if (field === 'expand-row') {
+			return (
+				<div style={{textAlign:'left', padding:'5px'}}>
+					<span>订单编号: <a href={'/order/customer_order_detail/?id='+data.order_id}>{data.order_id}</a></span>
+					<span style={{paddingLeft:'100px'}}>下单时间: {data.order_create_at}</span>
+				</div>
+			)
+		}else if (field === 'product_name') {
+			return (
+				<div>
+					{data.product_name}
+				</div>
+			);
+		} else {
 			return value;
 		}
 	},
