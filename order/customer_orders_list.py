@@ -51,6 +51,8 @@ class CustomerOrdersList(resource.Resource):
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		product_ids = []
 		product_id2product_weapp_id = {}
+		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
+
 		for product_has_relation in product_has_relations:
 			if product_has_relation.product_id not in product_ids:
 				product_ids.append(product_has_relation.product_id)
@@ -60,18 +62,17 @@ class CustomerOrdersList(resource.Resource):
 					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]
 				else:
 					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
-
 		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
 		product = product_models.Product.objects.filter(id__in=product_ids)
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
+
 		product_weapp_id2info = {}
 		for product_id in product_ids:
 			image_id = product_images.get(product_id=product_id).image_id
 			url = images.get(id=image_id).path
 			product_name = product.get(id=product_id).product_name
 			product_weapp_ids = product_id2product_weapp_id[product_id]
-			print(product_weapp_ids)
 			for product_weapp_id in product_weapp_ids:
 				if not product_weapp_id2info.has_key(product_id):
 					product_weapp_id2info[product_weapp_id] = [{
@@ -83,7 +84,9 @@ class CustomerOrdersList(resource.Resource):
 						'product_name': product_name,
 						'product_img': url
 					})
+
 		print(product_weapp_id2info)
+		print('=========================')
 		orders = []
 
 		# if order_id:
@@ -92,14 +95,19 @@ class CustomerOrdersList(resource.Resource):
 		# 	orders = orders.filter(status=status)
 		# if order_create_at:
 		# 	orders = orders.filter(order_create_at=order_create_at)
-
-		product_ids = '11111,22222'
+		api_pids = '_'.join(api_pids)
+		product_ids = api_pids
 		account_type = 'customer'
 		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}'.format(product_ids,account_type)
 		url_request = urllib2.Request(api_url)
 		res_data = urllib2.urlopen(url_request)
 		res = json.loads(res_data.read())
-		print res['data']
+		if res['code'] == 200:
+			print res['data']
+			orders = res['data']['orders']
+			print(orders)
+		else:
+			print(res)
 
 		rows = []
 		#假数据
