@@ -11,10 +11,14 @@ from django.contrib.auth.decorators import login_required
 
 from core import resource
 from core.jsonresponse import create_response
-import nav
-import models
+from core.exceptionutil import unicode_full_stack
 from resource import models as resource_models
 from util import string_util
+
+import nav
+import models
+import urllib2
+import urllib
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -40,6 +44,19 @@ class CustomerOrderDetail(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
+		url = 'http://127.0.0.1:8002/panda/order_detail/?order_id=100'
+		url_request = urllib2.Request(url)
+		opener = urllib2.urlopen(url_request)
+		res = []
+		try:
+			res = opener.read()
+			data = json.loads(res)['data']['order']
+			print data,"+++++++"
+		except:
+			print '------------'
+		print res,"=========="
+		products = data['products']
+		print products,"---------"
 		rows = [{
 			'product_name': u'[唯美农业]红枣夹核桃250g*2包',
 			'unit_price': '25.30',
@@ -68,3 +85,9 @@ class CustomerOrderDetail(resource.Resource):
 		response.data = data
 
 		return response.get_response()
+
+def get_json(response):
+	#去掉头部信息，截取返回的json字符串
+	data_str = str(response).split('\n\n')[0].strip()
+	#解析json字符串，返回json对象
+	return decode_json_str(data_str)

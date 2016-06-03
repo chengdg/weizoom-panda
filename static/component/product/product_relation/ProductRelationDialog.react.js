@@ -29,8 +29,11 @@ var ProductRelationDialog = Reactman.createDialog({
 	onChange: function(event) {
 		var property = event.target.getAttribute('name');
 		var value = event.target.value;
-		if(value.indexOf('；')>=0){
-			Reactman.PageAction.showHint('error', "请输入英文分号");
+		var last_value = value.substr(value.length-1,1);
+		var reg = '0123456789;';
+		var index = reg.indexOf(last_value);
+		if(index < 0){
+			Reactman.PageAction.showHint('error', "请输入数字或英文分号");
 			return;
 		}
 		Action.updateProductRelation(property, value);
