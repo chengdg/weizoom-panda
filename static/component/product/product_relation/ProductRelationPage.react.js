@@ -29,7 +29,6 @@ var ProductRelationPage = React.createClass({
 	},
 
 	productRelation: function(self_shop,product_id) {
-		console.log(product_id,"+++");
 		Action.getWeappProductRelation(product_id);
 		Reactman.PageAction.showDialog({
 			title: "编辑云商通商品ID",
