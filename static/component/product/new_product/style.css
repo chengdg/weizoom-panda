@@ -3,8 +3,11 @@
 }
 
 .product-detail{
-	width: 400px;
-	margin: 0 auto;
+    width: 400px;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 730px;
 }
 
 .product-image{
@@ -40,8 +43,8 @@
 
 .product-introduce{
 	margin-top: 10px;
-	height: 250px;
-	overflow: hidden;
+	/*height: 250px;
+	overflow: hidden;*/
 }
 
 .product-introduce .title{
@@ -71,8 +74,8 @@
 }
 
 .product-content{
-    overflow: auto;
-    height: 200px;
+    /*overflow: auto;*/
+    /*height: 200px;*/
 }
 
 .choose-count{
