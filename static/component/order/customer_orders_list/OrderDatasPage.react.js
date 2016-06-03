@@ -22,21 +22,21 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickShip: function(event) {
-		var orderId = parseInt(event.target.getAttribute('data-order-id'));
-		var order = this.refs.table.getData(orderId);
-		Reactman.PageAction.showDialog({
-			title: "发货信息",
-			component: ShipDialog,
-			data: {
-				order: order
-			},
-			success: function(inputData, dialogState) {
-				var order = inputData.order;
-				console.log(dialogState);
-				//var comment = dialogState.comment;
-				//Action.updateProduct(product, 'comment', comment);
-			}
-		});
+		//var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		//var order = this.refs.table.getData(orderId);
+		//Reactman.PageAction.showDialog({
+		//	title: "发货信息",
+		//	component: ShipDialog,
+		//	data: {
+		//		order: order
+		//	},
+		//	success: function(inputData, dialogState) {
+		//		var order = inputData.order;
+		//		console.log(dialogState);
+		//		//var comment = dialogState.comment;
+		//		//Action.updateProduct(product, 'comment', comment);
+		//	}
+		//});
 	},
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData().filterOptions;
@@ -120,8 +120,8 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="批量发货" href="/order/data/" />
-					<Reactman.TableActionButton text="导出" href="/order/data/" />
+					<Reactman.TableActionButton text="批量发货" />
+					<Reactman.TableActionButton text="导出" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="商品" field="product_name" />

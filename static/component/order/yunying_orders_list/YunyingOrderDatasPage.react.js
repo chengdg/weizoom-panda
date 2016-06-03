@@ -80,7 +80,7 @@ var YunyingOrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="导出发货文件" href="/outline/data/" />
+					<Reactman.TableActionButton text="导出发货文件" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />

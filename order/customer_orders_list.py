@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import time
-
+import urllib, urllib2
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -85,12 +85,21 @@ class CustomerOrdersList(resource.Resource):
 					})
 		print(product_weapp_id2info)
 		orders = []
-		if order_id:
-			orders = orders.filter(order_id__icontains=order_id)
-		if status:
-			orders = orders.filter(status=status)
-		if order_create_at:
-			orders = orders.filter(order_create_at=order_create_at)
+
+		# if order_id:
+		# 	orders = orders.filter(order_id__icontains=order_id)
+		# if status:
+		# 	orders = orders.filter(status=status)
+		# if order_create_at:
+		# 	orders = orders.filter(order_create_at=order_create_at)
+
+		product_ids = '11111,22222'
+		account_type = 'customer'
+		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}'.format(product_ids,account_type)
+		url_request = urllib2.Request(api_url)
+		res_data = urllib2.urlopen(url_request)
+		res = json.loads(res_data.read())
+		print res['data']
 
 		rows = []
 		#假数据
