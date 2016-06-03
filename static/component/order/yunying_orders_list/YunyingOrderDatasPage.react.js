@@ -44,17 +44,20 @@ var YunyingOrderDatasPage = React.createClass({
 			text: '全部',
 			value: -1
 		}, {
-			text: '微众家',
-			value: '0'
-		}, {
-			text: '微众妈妈',
+			text: '微众商城',
 			value: '1'
 		}, {
-			text: '微众学生',
+			text: '微众家',
 			value: '2'
 		}, {
-			text: '微众商城',
+			text: '微众妈妈',
 			value: '3'
+		}, {
+			text: '微众学生',
+			value: '4'
+		}, {
+			text: '微众白富美',
+			value: '5'
 		}];
 
 		return (
