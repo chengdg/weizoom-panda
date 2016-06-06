@@ -43,6 +43,7 @@
 
 .product-introduce{
 	margin-top: 10px;
+    min-height: 200px;
 	/*height: 250px;
 	overflow: hidden;*/
 }

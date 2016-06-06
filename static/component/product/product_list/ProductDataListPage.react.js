@@ -13,6 +13,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+require('./style.css');
 var W = Reactman.W;
 
 var ProductDataListPage = React.createClass({
@@ -64,13 +65,20 @@ var ProductDataListPage = React.createClass({
 			);
 		}else if(field === 'product_name'){
 			var role = data['role'];
+			var img = <img className="product-img" src={data['image_path']} style={{width:'60px',height:'60px',marginRight:'10px'}}></img>
 			if(role == 3){
 				return(
-					<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}> {value}</a>
+					<span className="product-name">
+						{img}
+						<a title={value} href={'/product/new_product/?id='+data.id}>{value}</a>
+					</span>
 				)
 			}else{
 				return(
-					<span>{value}</span>
+					<span className="product-name">
+						{img}
+						<a title={value} style={{cursor:'default',textDecoration:'none'}}>{value}</a>
+					</span>
 				)
 			}
 		} else {
@@ -92,8 +100,8 @@ var ProductDataListPage = React.createClass({
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
 					</Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-						<Reactman.TableColumn name="商品信息" field="product_name" />
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
+						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
 						<Reactman.TableColumn name="商品价格" field="product_price" />
 						<Reactman.TableColumn name="销量" field="sales" />
 						<Reactman.TableColumn name="创建时间" field="created_at" />

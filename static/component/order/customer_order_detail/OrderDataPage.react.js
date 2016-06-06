@@ -47,7 +47,7 @@ var OrderDataPage = React.createClass({
 			);
 		}else if(field === 'total_count'){
 			return (
-				<div style={{margin:'10px 0 0 10px'}}>{value}</div>
+				<div style={{margin:'10px 0 0 10px'}}>{value}(件)</div>
 			);
 		}else if(field === 'order_money'){
 			Action.saveProduct(data);

@@ -12,9 +12,10 @@ from django.contrib.auth.decorators import login_required
 from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
-from resource import models as resource_models
-from util import string_util
 
+from resource import models as resource_models
+from product import models as product_models
+from util import string_util
 import nav
 import models
 import urllib2
@@ -56,22 +57,24 @@ class CustomerOrderDetail(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
-		url = 'http://127.0.0.1:8002/panda/order_detail/?order_id=100'
+		products = product_models.Product.objects.all()
+		url = 'http://127.0.0.1:8002/panda/order_detail/?order_id=2'
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
-		res = []
+		data = []
 		try:
 			res = opener.read()
 			data = json.loads(res)['data']['order']
-			print data,"+++++++"
 		except:
 			print '------------'
-		print res,"=========="
-		products = data['products']
+		product_id2name = {product.id:product.product_name for product in products}
+		order_products = data['products']
 		total_count = 0
-		for product in products:
+		for product in order_products:
 			total_count += product['count']
-			product['product_name'] = u'qwe'
+			product['purchase_price'] = '%.2f' %product['purchase_price']
+			product_id = product['product_id']
+			product['product_name'] = '' if product_id not in product_id2name else product_id2name[product_id]
 		orders=[{
 			'order_id': data['order_id'],#订单编号
 			'order_status': order_status2text[data['status']],#订单状态
@@ -82,9 +85,9 @@ class CustomerOrderDetail(resource.Resource):
 			'ship_address': data['ship_address'],#收货地址
 			'express_company_name': data['express_company_name'],#物流公司名称
 			'express_number': data['express_number'],#运单号
-			'order_money': data['total_purchase_price'],#订单金额
+			'order_money': '%.2f' %data['total_purchase_price'],#订单金额
 			'total_count': total_count,#商品件数
-			'products': json.dumps(products)# 购买商品
+			'products': json.dumps(order_products)# 购买商品
 
 		}]
 		# rows = [{
