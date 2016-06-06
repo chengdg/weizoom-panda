@@ -46,14 +46,18 @@ var OrderDatasPage = React.createClass({
 	getOrderProductsInfo: function(value,data){
 		var _this = this;
 		var product_infos = JSON.parse(data['product_infos']);
+		console.log(product_infos);
 		var product_items = product_infos.map(function(product,index){
 			if (value == 'product_name'){
 				return (
-					<span key={index}>{product["product_name"]}<br></br></span>
+					<span key={index}><img src={product["product_img"]} width="60px" height="60px"></img>{product["product_name"]}<br></br></span>
 				)
-			}else if (value == 'unit_price/quantity'){
+			}else if (value == 'product_price'){
 				return (
-					<span key={index} className="product-item-info">{product["purchase_price"]}/({product["count"]}件)<br></br></span>
+					<div key={index} style={{paddingLeft:'10px'}}>
+						<div>{product['purchase_price']}</div>
+						<div>({product['count']}件)</div>
+					</div>
 				)
 			}
 		})
@@ -62,19 +66,17 @@ var OrderDatasPage = React.createClass({
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'product_price') {
+			var product_price = this.getOrderProductsInfo('product_price',data);
 			return (
-				<div style={{paddingLeft:'10px'}}>
-					<div>{data.product_price}</div>
-					<div>({data.product_amount}件)</div>
-				</div>
+				<div>{product_price}</div>
 			);
-		} else if (field === 'action') {
+		}else if (field === 'action') {
 			return (
 			<div>
 				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
 			</div>
 			);
-		} else if (field === 'expand-row') {
+		}else if (field === 'expand-row') {
 			return (
 				<div style={{textAlign:'left', padding:'5px'}}>
 					<span>订单编号: <a href={'/order/customer_order_detail/?id='+data.order_id}>{data.order_id}</a></span>
@@ -82,12 +84,10 @@ var OrderDatasPage = React.createClass({
 				</div>
 			)
 		}else if (field === 'product_name') {
-			//var product = this.getOrderProductsInfo('product_name',data);
-			//var product_img = this.getOrderProductsInfo('product_img',data);
+			var product_name = this.getOrderProductsInfo('product_name',data);
 			return (
 				<div>
-					<img src="/static/upload/20160601/1464765003058_988.jpg" width="60px" height="60px"></img>
-					{data.product_name}
+					{product_name}
 				</div>
 			);
 		} else {

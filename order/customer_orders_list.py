@@ -21,7 +21,18 @@ from resource import models as resource_models
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
-
+order_status2text = {
+	0: u'待支付',
+	1: u'已取消',
+	2: u'已支付',
+	3: u'待发货',
+	4: u'已发货',
+	5: u'已完成',
+	6: u'退款中',
+	7: u'退款完成',
+	8: u'团购退款',
+	9: u'团购退款完成'
+}
 filter2field ={
 }
 
@@ -92,6 +103,8 @@ class CustomerOrdersList(resource.Resource):
 		# 	orders = orders.filter(order_create_at=order_create_at)
 		api_pids = '_'.join(api_pids)
 		product_ids = api_pids
+		print('product_ids：')
+		print(product_ids)
 		account_type = 'customer'
 		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}'.format(product_ids,account_type)
 		url_request = urllib2.Request(api_url)
@@ -105,36 +118,26 @@ class CustomerOrdersList(resource.Resource):
 			return response.get_response()
 
 		rows = []
-		#假数据
-		# rows.append({
-		# 	'order_id':'20160427170520421',
-		# 	'order_create_at': '2016-05-12',
-		# 	'product_img': '/static/upload/20160601/1464765003058_988.jpg',
-		# 	'product_name': '【唯美农业】红枣夹核桃250g*2包',
-		# 	'product_price': '25.30',
-		# 	'product_amount': '1',
-		# 	'ship_name': '周康康',
-		# 	'total_purchase_price': '25.30',
-		# 	'status': '待发货',
-		# })
 		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 
 		for order in orders:
+			print('order!!!!!!!!!!!')
+			print(order)
 			order_id = order['order_id']
 			product_infos = order['product_info']
-			print('product_infos:')
-			print(product_infos)
-			product_id = str(order['product_info'][0]['product_id'])
+			for product_info in product_infos:
+				product_id = str(product_info['product_id'])
+				product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
+				product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
+				product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
+				product_info['total_price'] = str('%.2f' % product_info['total_price'])
 			rows.append({
 				'order_id': order_id,
 				'order_create_at': order['created_at'],
-				'product_img': product_weapp_id2info[product_id][0]['product_img'],
-				'product_name': product_weapp_id2info[product_id][0]['product_name'],
-				# 'product_price': json.dumps(product_infos),
-				# 'product_amount': product_infos,
 				'ship_name': order['ship_name'],
-				# 'total_purchase_price': product_infos,
-				'status': order['status']
+				'total_purchase_price': str('%.2f' % order['order_money']),
+				'status': order_status2text[order['status']],
+				'product_infos': json.dumps(product_infos)
 			})
 		data = {
 			'rows': rows,
