@@ -22,26 +22,44 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickShip: function(event) {
-		//var orderId = parseInt(event.target.getAttribute('data-order-id'));
-		//var order = this.refs.table.getData(orderId);
-		//Reactman.PageAction.showDialog({
-		//	title: "发货信息",
-		//	component: ShipDialog,
-		//	data: {
-		//		order: order
-		//	},
-		//	success: function(inputData, dialogState) {
-		//		var order = inputData.order;
-		//		console.log(dialogState);
-		//		//var comment = dialogState.comment;
-		//		//Action.updateProduct(product, 'comment', comment);
-		//	}
-		//});
+		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		var order = this.refs.table.getData(orderId);
+		Reactman.PageAction.showDialog({
+			title: "发货信息",
+			component: ShipDialog,
+			data: {
+				order: order
+			},
+			success: function(inputData, dialogState) {
+				var order = inputData.order;
+				console.log(dialogState);
+				//var comment = dialogState.comment;
+				//Action.updateProduct(product, 'comment', comment);
+			}
+		});
 	},
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);
 	},
+
+	getOrderProductsInfo: function(value,data){
+		var _this = this;
+		var product_infos = JSON.parse(data['product_infos']);
+		var product_items = product_infos.map(function(product,index){
+			if (value == 'product_name'){
+				return (
+					<span key={index}>{product["product_name"]}<br></br></span>
+				)
+			}else if (value == 'unit_price/quantity'){
+				return (
+					<span key={index} className="product-item-info">{product["purchase_price"]}/({product["count"]}件)<br></br></span>
+				)
+			}
+		})
+		return product_items;
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'product_price') {
 			return (
@@ -64,6 +82,8 @@ var OrderDatasPage = React.createClass({
 				</div>
 			)
 		}else if (field === 'product_name') {
+			//var product = this.getOrderProductsInfo('product_name',data);
+			//var product_img = this.getOrderProductsInfo('product_img',data);
 			return (
 				<div>
 					<img src="/static/upload/20160601/1464765003058_988.jpg" width="60px" height="60px"></img>

@@ -84,11 +84,6 @@ class CustomerOrdersList(resource.Resource):
 						'product_name': product_name,
 						'product_img': url
 					})
-
-		print(product_weapp_id2info)
-		print('=========================')
-		orders = []
-
 		# if order_id:
 		# 	orders = orders.filter(order_id__icontains=order_id)
 		# if status:
@@ -103,39 +98,44 @@ class CustomerOrdersList(resource.Resource):
 		res_data = urllib2.urlopen(url_request)
 		res = json.loads(res_data.read())
 		if res['code'] == 200:
-			print res['data']
 			orders = res['data']['orders']
-			print(orders)
 		else:
 			print(res)
+			response = create_response(500)
+			return response.get_response()
 
 		rows = []
 		#假数据
-		rows.append({
-			'order_id':'20160427170520421',
-			'order_create_at': '2016-05-12',
-			'product_img': '/static/upload/20160601/1464765003058_988.jpg',
-			'product_name': '【唯美农业】红枣夹核桃250g*2包',
-			'product_price': '25.30',
-			'product_amount': '1',
-			'ship_name': '周康康',
-			'total_purchase_price': '25.30',
-			'status': '待发货',
-		})
+		# rows.append({
+		# 	'order_id':'20160427170520421',
+		# 	'order_create_at': '2016-05-12',
+		# 	'product_img': '/static/upload/20160601/1464765003058_988.jpg',
+		# 	'product_name': '【唯美农业】红枣夹核桃250g*2包',
+		# 	'product_price': '25.30',
+		# 	'product_amount': '1',
+		# 	'ship_name': '周康康',
+		# 	'total_purchase_price': '25.30',
+		# 	'status': '待发货',
+		# })
 		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 
-		# for order in orders:
-		# 	rows.append({
-		# 		'order_id': order.order_id,
-		# 		'order_create_at': order.order_create_at,
-		# 		'product_img': order.product_img,
-		# 		'product_name': order.product_name,
-		# 		'product_price': order.product_price,
-		# 		'product_amount': order.product_amount,
-		# 		'ship_name': order.ship_name,
-		# 		'total_purchase_price': order.total_purchase_price,
-		# 		'status': order.status,
-		# 	})
+		for order in orders:
+			order_id = order['order_id']
+			product_infos = order['product_info']
+			print('product_infos:')
+			print(product_infos)
+			product_id = str(order['product_info'][0]['product_id'])
+			rows.append({
+				'order_id': order_id,
+				'order_create_at': order['created_at'],
+				'product_img': product_weapp_id2info[product_id][0]['product_img'],
+				'product_name': product_weapp_id2info[product_id][0]['product_name'],
+				# 'product_price': json.dumps(product_infos),
+				# 'product_amount': product_infos,
+				'ship_name': order['ship_name'],
+				# 'total_purchase_price': product_infos,
+				'status': order['status']
+			})
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
