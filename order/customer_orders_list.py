@@ -101,16 +101,18 @@ class CustomerOrdersList(resource.Resource):
 		# 	orders = orders.filter(status=status)
 		# if order_create_at:
 		# 	orders = orders.filter(order_create_at=order_create_at)
+
 		api_pids = '_'.join(api_pids)
 		product_ids = api_pids
-		print('product_ids：')
+		print('product_ids:')
 		print(product_ids)
 		account_type = 'customer'
-		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}'.format(product_ids,account_type)
+		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(product_ids,account_type,cur_page)
 		url_request = urllib2.Request(api_url)
 		res_data = urllib2.urlopen(url_request)
 		res = json.loads(res_data.read())
 		if res['code'] == 200:
+			print(res['data'])
 			orders = res['data']['orders']
 		else:
 			print(res)
@@ -118,11 +120,10 @@ class CustomerOrdersList(resource.Resource):
 			return response.get_response()
 
 		rows = []
-		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+		pageinfo = res['data']['pageinfo']
+		pageinfo['total_count'] = pageinfo['object_count']
 
 		for order in orders:
-			print('order!!!!!!!!!!!')
-			print(order)
 			order_id = order['order_id']
 			product_infos = order['product_info']
 			for product_info in product_infos:
@@ -141,7 +142,7 @@ class CustomerOrdersList(resource.Resource):
 			})
 		data = {
 			'rows': rows,
-			'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo
 		}
 
 		#构造response
