@@ -13,25 +13,10 @@ var Resource = Reactman.Resource;
 
 var Store = require('./Store');
 var Action = require('./Action');
+var OrderLogistics = require('./OrderLogistics.react');
 require('./style.css')
 
-var OutlineDataPage = React.createClass({
-	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		debug(Store.getData());
-		return Store.getData();
-	},
-
-	onChangeStore: function() {
-		this.setState(Store.getData());
-	},
-
-	onChange: function(value, event) {
-		debug(value);
-		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
-	},
-
+var OrderDataPage = React.createClass({
 	getOrderProductsInfo: function(value,data){
 		var _this = this;
 		var products = JSON.parse(data['products']);
@@ -60,6 +45,15 @@ var OutlineDataPage = React.createClass({
 			return (
 				<div>{product}</div>
 			);
+		}else if(field === 'total_count'){
+			return (
+				<div style={{margin:'10px 0 0 10px'}}>{value}</div>
+			);
+		}else if(field === 'order_money'){
+			Action.saveProduct(data);
+			return (
+				<div style={{margin:'10px 0 0 10px'}}>{value}</div>
+			);
 		}else {
 			return value;
 		}
@@ -86,8 +80,8 @@ var OutlineDataPage = React.createClass({
 						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 							<Reactman.TableColumn name="商品" field="product_name" />
 							<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
-							<Reactman.TableColumn name="商品件数" field="total_count" />
-							<Reactman.TableColumn name="订单金额" field="order_money" />
+							<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
+							<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
 						</Reactman.Table>
 					</Reactman.TablePanel>
 				</div>
@@ -97,15 +91,32 @@ var OutlineDataPage = React.createClass({
 })
 
 var OrderStatus = React.createClass({
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return {
+			orde_datas: {}
+		}
+	},
+
+	onChangeStore: function(event) {
+		var orde_datas = Store.getData();
+		this.setState({
+			orde_datas: orde_datas
+		})
+	},
+
 	render:function(){
+		var orde_datas = this.state.orde_datas;
+		var order_id = orde_datas['order_id']? orde_datas['order_id']: '';
+		var order_status = orde_datas['order_status'];
 		return (
 			<div style={{background:'#FFF',marginTop:'10px', border:'1px solid #CCC',fontSize:'16px',height:'100px'}}>
 				<div style={{padding:'5px 20px'}}>
 					<div>
-						<span>订单编号:20160427170520421</span>
+						<span>订单编号:{order_id}</span>
 					</div>
 					<div style={{marginTop:'10px'}}>
-						<span>订单状态:待发货</span>
+						<span>订单状态:{order_status}</span>
 					</div>
 					<div style={{margin:'0 auto',width:'200px'}}>
 						<button type="button" className="btn btn-primary" style={{width:'100px'}}>发货</button>
@@ -115,39 +126,4 @@ var OrderStatus = React.createClass({
 		)
 	}
 })
-
-var OrderLogistics = React.createClass({
-	render:function(){
-		return (
-			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>
-				<div style={{padding:'5px 20px'}}>
-					<div>
-						<span className="inline-block">收货人:某某某</span>
-						<span className="inline-block" style={{marginLeft:'130px'}}>收货人电话:13900000000</span>
-					</div>
-					<div>
-						<span>买家留言:xxxxxxxxxxx</span>
-					</div>
-					<div style={{borderBottom: '1px solid #ECE9E9'}}>
-						<span>收货地址:江苏省南京市秦淮区夫子庙</span>
-					</div>
-				</div>
-				<div style={{padding:'5px 20px'}}>
-					<div>
-						<span>物流公司名称:申通快递</span>
-					</div>
-					<div style={{marginBottom: '20px'}}>
-						<span>运单号:20165456895786</span>
-					</div>
-					<div>
-						<span>2015-05-26 22:11:28 由广东潮阳公司 发往 广东揭阳中转部</span>
-					</div>
-					<div>
-						<span>2015-06-30 23:11:12 广东深圳罗湖中转部 正在进行 发包 扫描 </span>
-					</div>
-				</div>
-			</div>
-		)
-	}
-})
-module.exports = OutlineDataPage;
+module.exports = OrderDataPage;

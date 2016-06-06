@@ -13,13 +13,10 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	ShipOrder: function(property, value) {
+	saveProduct: function(data) {
 		Dispatcher.dispatch({
-			actionType: Constant.ORDER_DATA_SHIP_ORDER,
-			data: {
-				property: property,
-				value: value
-			}
+			actionType: Constant.ORDER_DATA_SAVE_PRODUCT,
+			data: data
 		});
 	}
 };

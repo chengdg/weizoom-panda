@@ -75,7 +75,7 @@ class CustomerOrderDetail(resource.Resource):
 		orders=[{
 			'order_id': data['order_id'],#订单编号
 			'order_status': order_status2text[data['status']],#订单状态
-			'order_express_details': data['order_express_details'],#订单物流
+			'order_express_details': json.dumps(data['order_express_details']) if data['order_express_details'] else '',#订单物流
 			'ship_name': data['ship_name'],#收货人
 			'ship_tel': data['ship_tel'],#收货人电话
 			'customer_message': data['customer_message'],#买家留言
