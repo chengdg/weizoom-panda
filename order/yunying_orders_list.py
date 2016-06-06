@@ -70,41 +70,49 @@ class YunyingOrdersList(resource.Resource):
 				product_ids.append(product_has_relation.product_id)
 
 		product_weapp_id2seller_name = {}
+		products = product_models.Product.objects.filter(id__in=product_ids)
+		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
 		for api_pid in api_pids:
-			print(api_pid)
+			if not product_weapp_id2seller_name.has_key(api_pid):
+				product_id = product_has_relations.get(weapp_product_id=api_pid).product_id
+				owner_id = products.get(id=product_id).owner_id
+				seller_name = all_sellers.get(user_id=owner_id).name
+				product_weapp_id2seller_name[api_pid] = [seller_name]
 
 		api_pids = '_'.join(api_pids)
-		account_type = 'yunying'
-		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
-		if filter_string!= '':
-			api_url +=  filter_string
-		print(api_url)
-		url_request = urllib2.Request(api_url)
-		res_data = urllib2.urlopen(url_request)
-		res = json.loads(res_data.read())
-		if res['code'] == 200:
-			print(res['data'])
-			orders = res['data']['orders']
-		else:
-			print(res)
-			response = create_response(500)
-			return response.get_response()
-
 		rows = []
-		pageinfo = res['data']['pageinfo']
-		pageinfo['total_count'] = pageinfo['object_count']
+		if api_pids != '':
+			account_type = 'yunying'
+			api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
+			if filter_string!= '':
+				api_url +=  filter_string
+			print(api_url)
+			url_request = urllib2.Request(api_url)
+			res_data = urllib2.urlopen(url_request)
+			res = json.loads(res_data.read())
+			if res['code'] == 200:
+				orders = res['data']['orders']
+			else:
+				print(res)
+				response = create_response(500)
+				return response.get_response()
 
-		for order in orders:
-			product_id = order['product_info'][0]['product_id']
-			print(product_id)
-			rows.append({
-				'order_id': order['order_id'],
-				'order_create_at': order['created_at'],
-				'total_purchase_price': str('%.2f' % order['order_money']),
-				'customer_name': product_weapp_id2seller_name[product_id],
-		 		'from_mall': order['store_name']
-			})
+			pageinfo = res['data']['pageinfo']
+			pageinfo['total_count'] = pageinfo['object_count']
 
+			for order in orders:
+				weapp_product_id = str(order['product_info'][0]['product_id'])
+				rows.append({
+					'order_id': order['order_id'],
+					'order_create_at': order['created_at'],
+					'total_purchase_price': str('%.2f' % order['order_money']),
+					'customer_name': product_weapp_id2seller_name[weapp_product_id],
+					'from_mall': order['store_name']
+				})
+		else:
+			orders = []
+			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			pageinfo = pageinfo.to_dict()
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo
