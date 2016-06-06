@@ -66,8 +66,6 @@ class CustomerOrdersList(resource.Resource):
 		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
 
 		for product_has_relation in product_has_relations:
-			# if product_has_relation.product_id not in product_ids:
-			# 	product_ids.append(product_has_relation.product_id)
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
 				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
@@ -75,9 +73,6 @@ class CustomerOrdersList(resource.Resource):
 				else:
 					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
 		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
-		# products = product_models.Product.objects.filter(id__in=product_ids,owner_id=request.user.id)
-		print(product_id2product_weapp_id)
-		print('product_id2product_weapp_id')
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
 
@@ -112,45 +107,49 @@ class CustomerOrdersList(resource.Resource):
 		print(filter_string)
 
 		api_pids = '_'.join(api_pids)
-		product_ids = api_pids
-		print('product_ids:')
-		print(product_ids)
-		account_type = 'customer'
-		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(product_ids,account_type,cur_page)
-		if filter_string!= '':
-			api_url +=  filter_string
-		print(api_url)
-		url_request = urllib2.Request(api_url)
-		res_data = urllib2.urlopen(url_request)
-		res = json.loads(res_data.read())
-		if res['code'] == 200:
-			orders = res['data']['orders']
-		else:
-			print(res)
-			response = create_response(500)
-			return response.get_response()
-
+		print('api_pids')
+		print(api_pids)
 		rows = []
-		pageinfo = res['data']['pageinfo']
-		pageinfo['total_count'] = pageinfo['object_count']
+		if api_pids != '':
+			account_type = 'customer'
+			api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
+			if filter_string!= '':
+				api_url +=  filter_string
+			print(api_url)
+			url_request = urllib2.Request(api_url)
+			res_data = urllib2.urlopen(url_request)
+			res = json.loads(res_data.read())
+			if res['code'] == 200:
+				orders = res['data']['orders']
+			else:
+				print(res)
+				response = create_response(500)
+				return response.get_response()
 
-		for order in orders:
-			order_id = order['order_id']
-			product_infos = order['product_info']
-			for product_info in product_infos:
-				product_id = str(product_info['product_id'])
-				product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
-				product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
-				product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
-				product_info['total_price'] = str('%.2f' % product_info['total_price'])
-			rows.append({
-				'order_id': order_id,
-				'order_create_at': order['created_at'],
-				'ship_name': order['ship_name'],
-				'total_purchase_price': str('%.2f' % order['order_money']),
-				'status': order_status2text[order['status']],
-				'product_infos': json.dumps(product_infos)
-			})
+			pageinfo = res['data']['pageinfo']
+			pageinfo['total_count'] = pageinfo['object_count']
+
+			for order in orders:
+				order_id = order['order_id']
+				product_infos = order['product_info']
+				for product_info in product_infos:
+					product_id = str(product_info['product_id'])
+					product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
+					product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
+					product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
+					product_info['total_price'] = str('%.2f' % product_info['total_price'])
+				rows.append({
+					'order_id': order_id,
+					'order_create_at': order['created_at'],
+					'ship_name': order['ship_name'],
+					'total_purchase_price': str('%.2f' % order['order_money']),
+					'status': order_status2text[order['status']],
+					'product_infos': json.dumps(product_infos)
+				})
+		else:
+			orders = []
+			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			pageinfo = pageinfo.to_dict()
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo

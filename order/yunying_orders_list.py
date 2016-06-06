@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import time
-
+import urllib, urllib2
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -15,6 +15,7 @@ from util import db_util
 import nav
 import models
 from account.models import *
+from product import models as product_models
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -45,38 +46,68 @@ class YunyingOrdersList(resource.Resource):
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_name = filter_idct.get('customer_name','')
 		from_mall = filter_idct.get('from_mall','')
-		order_create_at = filter_idct.get('order_create_at','')
-		orders = []
+		order_create_at_range = filter_idct.get('order_create_at','')
+
+		filter_string = ''
 		if customer_name:
-			orders = orders.filter(customer_name__icontains=customer_name)
-		if from_mall:
-			orders = orders.filter(from_mall=from_mall)
-		if order_create_at:
-			orders = orders.filter(order_create_at=order_create_at)
+			print(customer_name)
+		if from_mall != '-1':
+			print(from_mall)
+		if order_create_at_range:
+			start_time = order_create_at_range[0]
+			end_time = order_create_at_range[1]
+			filter_string = filter_string + '&start_time=' + start_time + '&end_time=' + end_time
+
+		print('filter_string:')
+		print(filter_string)
+
+		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+		product_ids = []
+		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
+
+		for product_has_relation in product_has_relations:
+			if product_has_relation.product_id not in product_ids:
+				product_ids.append(product_has_relation.product_id)
+
+		product_weapp_id2seller_name = {}
+		for api_pid in api_pids:
+			print(api_pid)
+
+		api_pids = '_'.join(api_pids)
+		account_type = 'yunying'
+		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
+		if filter_string!= '':
+			api_url +=  filter_string
+		print(api_url)
+		url_request = urllib2.Request(api_url)
+		res_data = urllib2.urlopen(url_request)
+		res = json.loads(res_data.read())
+		if res['code'] == 200:
+			print(res['data'])
+			orders = res['data']['orders']
+		else:
+			print(res)
+			response = create_response(500)
+			return response.get_response()
 
 		rows = []
-		#假数据
-		rows.append({
-			'order_id':'20160427170520421',
-			'order_create_at': '2016-05-12',
-			'total_purchase_price': '25.30',
-			'customer_name': '北京微众文化传媒有限公司',
-			'from_mall': '微众家'
-		})
-		pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+		pageinfo = res['data']['pageinfo']
+		pageinfo['total_count'] = pageinfo['object_count']
 
-		# for order in orders:
-		# 	rows.append({
-		# 		'order_id': order.order_id,
-		# 		'order_create_at': order.order_create_at,
-		# 		'total_purchase_price': order.total_purchase_price,
-		# 		'customer_name': order.customer_name,
-		#  		'from_mall': order.from_mall
-		# 	})
+		for order in orders:
+			product_id = order['product_info'][0]['product_id']
+			print(product_id)
+			rows.append({
+				'order_id': order['order_id'],
+				'order_create_at': order['created_at'],
+				'total_purchase_price': str('%.2f' % order['order_money']),
+				'customer_name': product_weapp_id2seller_name[product_id],
+		 		'from_mall': order['store_name']
+			})
 
 		data = {
 			'rows': rows,
-			'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo
 		}
 
 		#构造response
