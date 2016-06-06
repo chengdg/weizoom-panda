@@ -1,3 +1,17 @@
 .inline-block{
 	display: inline-block;
 }
+
+tr td{
+    padding: 0 !important;
+}
+
+.product-item-info{
+    display: block;
+    padding: 5px 0px 5px 5px;
+    border-bottom: 1px solid #CCC;
+}
+
+.product-item-info:last-child{
+	border-bottom: none;
+}

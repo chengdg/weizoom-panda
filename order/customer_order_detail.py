@@ -23,6 +23,18 @@ import urllib
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
+order_status2text = {
+	0: u'待支付',
+	1: u'已取消',
+	2: u'已支付',
+	3: u'待发货',
+	4: u'已发货',
+	5: u'已完成',
+	6: u'退款中',
+	7: u'退款完成',
+	8: u'团购退款',
+	9: u'团购退款完成'
+}
 
 class CustomerOrderDetail(resource.Resource):
 	app = 'order'
@@ -56,28 +68,46 @@ class CustomerOrderDetail(resource.Resource):
 			print '------------'
 		print res,"=========="
 		products = data['products']
-		print products,"---------"
-		rows = [{
-			'product_name': u'[唯美农业]红枣夹核桃250g*2包',
-			'unit_price': '25.30',
-			'quantity': '2',
-			'total_count': '2',
-			'order_money': '50.60'
-		},{
-			'product_name': u'米琦尔大米',
-			'unit_price': '59',
-			'quantity': '1',
-			'total_count': '1',
-			'order_money': '59'
-		},{
-			'product_name': u'土小宝礼品装',
-			'unit_price': '60',
-			'quantity': '2',
-			'total_count': '2',
-			'order_money': '12.00'
+		total_count = 0
+		for product in products:
+			total_count += product['count']
+			product['product_name'] = u'qwe'
+		orders=[{
+			'order_id': data['order_id'],#订单编号
+			'order_status': order_status2text[data['status']],#订单状态
+			'order_express_details': data['order_express_details'],#订单物流
+			'ship_name': data['ship_name'],#收货人
+			'ship_tel': data['ship_tel'],#收货人电话
+			'customer_message': data['customer_message'],#买家留言
+			'ship_address': data['ship_address'],#收货地址
+			'express_company_name': data['express_company_name'],#物流公司名称
+			'express_number': data['express_number'],#运单号
+			'order_money': data['total_purchase_price'],#订单金额
+			'total_count': total_count,#商品件数
+			'products': json.dumps(products)# 购买商品
+
 		}]
+		# rows = [{
+		# 	'product_name': u'[唯美农业]红枣夹核桃250g*2包',
+		# 	'unit_price': '25.30',
+		# 	'quantity': '2',
+		# 	'total_count': '2',
+		# 	'order_money': '50.60'
+		# },{
+		# 	'product_name': u'米琦尔大米',
+		# 	'unit_price': '59',
+		# 	'quantity': '1',
+		# 	'total_count': '1',
+		# 	'order_money': '59'
+		# },{
+		# 	'product_name': u'土小宝礼品装',
+		# 	'unit_price': '60',
+		# 	'quantity': '2',
+		# 	'total_count': '2',
+		# 	'order_money': '12.00'
+		# }]
 		data = {
-			'rows': rows
+			'rows': orders
 		}
 
 		#构造response

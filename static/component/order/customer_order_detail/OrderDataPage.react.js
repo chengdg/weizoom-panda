@@ -13,6 +13,7 @@ var Resource = Reactman.Resource;
 
 var Store = require('./Store');
 var Action = require('./Action');
+require('./style.css')
 
 var OutlineDataPage = React.createClass({
 	getInitialState: function() {
@@ -31,12 +32,35 @@ var OutlineDataPage = React.createClass({
 		Action.updateProduct(property, value);
 	},
 
+	getOrderProductsInfo: function(value,data){
+		var _this = this;
+		var products = JSON.parse(data['products']);
+		var product_items = products.map(function(product,index){
+			if (value == 'product_name'){
+				return (
+					<span className="product-item-info" key={index}>{product["product_name"]}<br></br></span>
+				)
+			}else if (value == 'unit_price/quantity'){
+				return (
+					<span key={index} className="product-item-info">{product["purchase_price"]}/({product["count"]}件)<br></br></span>
+				)
+			}
+		})
+		return product_items;
+	},
+
 	rowFormatter: function(field, value, data) {
-		if(field === 'unit_price/quantity'){
-			return(
-				<span>{data["unit_price"]}/({data["quantity"]})</span>
-			)
-		} else {
+		if(field === 'product_name'){
+			var product = this.getOrderProductsInfo('product_name',data);
+			return (
+				<div>{product}</div>
+			);
+		}else if(field === 'unit_price/quantity'){
+			var product = this.getOrderProductsInfo('unit_price/quantity',data);
+			return (
+				<div>{product}</div>
+			);
+		}else {
 			return value;
 		}
 	},
