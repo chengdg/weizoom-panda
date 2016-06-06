@@ -56,8 +56,8 @@ class CustomerOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
-		status = filter_idct.get('status','')
-		order_create_at = filter_idct.get('order_create_at','')
+		status = filter_idct.get('status','-1')
+		order_create_at_range = filter_idct.get('order_create_at__range','')
 
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		product_ids = []
@@ -95,12 +95,18 @@ class CustomerOrdersList(resource.Resource):
 						'product_name': product_name,
 						'product_img': url
 					})
-		# if order_id:
-		# 	orders = orders.filter(order_id__icontains=order_id)
-		# if status:
-		# 	orders = orders.filter(status=status)
-		# if order_create_at:
-		# 	orders = orders.filter(order_create_at=order_create_at)
+		filter_string = ''
+		if order_id:
+			filter_string = filter_string + '&order_id=' + order_id
+		if status != '-1':
+			filter_string = filter_string + '&status=' + status
+		if order_create_at_range:
+			start_time = order_create_at_range[0]
+			end_time = order_create_at_range[1]
+			filter_string = filter_string + '&start_time=' + start_time + '&end_time=' + end_time
+
+		print('filter_string:')
+		print(filter_string)
 
 		api_pids = '_'.join(api_pids)
 		product_ids = api_pids
@@ -108,11 +114,13 @@ class CustomerOrdersList(resource.Resource):
 		print(product_ids)
 		account_type = 'customer'
 		api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(product_ids,account_type,cur_page)
+		if filter_string!= '':
+			api_url +=  filter_string
+		print(api_url)
 		url_request = urllib2.Request(api_url)
 		res_data = urllib2.urlopen(url_request)
 		res = json.loads(res_data.read())
 		if res['code'] == 200:
-			print(res['data'])
 			orders = res['data']['orders']
 		else:
 			print(res)

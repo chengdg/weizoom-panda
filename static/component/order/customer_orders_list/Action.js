@@ -15,10 +15,23 @@ var Constant = require('./Constant');
 var Action = {
 
 	filterOrders: function(filterOptions) {
-		Dispatcher.dispatch({
-			actionType: Constant.ORDER_DATAS_FILTER_ORDERS,
-			data: filterOptions
-		});
+		if(filterOptions.hasOwnProperty('__f-order_create_at-range')){
+			var low = $('#order_create_at_low').val();
+			var high = $('#order_create_at_high').val();
+			if (low && high){
+				Dispatcher.dispatch({
+					actionType: Constant.ORDER_DATAS_FILTER_ORDERS,
+					data: filterOptions
+				});
+			}else{
+				Reactman.PageAction.showHint('error', '请输入完整的筛选日期');
+			}
+		}else{
+			Dispatcher.dispatch({
+				actionType: Constant.ORDER_DATAS_FILTER_ORDERS,
+				data: filterOptions
+			});
+		}
 	},
 
 	//updateProduct: function(product, field, data) {

@@ -46,7 +46,6 @@ var OrderDatasPage = React.createClass({
 	getOrderProductsInfo: function(value,data){
 		var _this = this;
 		var product_infos = JSON.parse(data['product_infos']);
-		console.log(product_infos);
 		var product_items = product_infos.map(function(product,index){
 			if (value == 'product_name'){
 				return (
@@ -72,9 +71,9 @@ var OrderDatasPage = React.createClass({
 			);
 		}else if (field === 'action') {
 			return (
-			<div>
-				<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
-			</div>
+				<div>
+					<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
+				</div>
 			);
 		}else if (field === 'expand-row') {
 			return (
@@ -108,16 +107,16 @@ var OrderDatasPage = React.createClass({
 		};
 		var typeOptions = [{
 			text: '全部',
-			value: -1
+			value: '-1'
 		}, {
 			text: '待发货',
-			value: '0'
+			value: '3'
 		}, {
 			text: '已发货',
-			value: '1'
+			value: '4'
 		}, {
 			text: '已完成',
-			value: '2'
+			value: '5'
 		}];
 
 		return (
