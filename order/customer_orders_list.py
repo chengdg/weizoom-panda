@@ -59,14 +59,15 @@ class CustomerOrdersList(resource.Resource):
 		status = filter_idct.get('status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 
-		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-		product_ids = []
+		products = product_models.Product.objects.filter(owner_id=request.user.id)
+		product_ids = [int(product.id) for product in products]
+		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
 		product_id2product_weapp_id = {}
 		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
 
 		for product_has_relation in product_has_relations:
-			if product_has_relation.product_id not in product_ids:
-				product_ids.append(product_has_relation.product_id)
+			# if product_has_relation.product_id not in product_ids:
+			# 	product_ids.append(product_has_relation.product_id)
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
 				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
@@ -74,7 +75,9 @@ class CustomerOrdersList(resource.Resource):
 				else:
 					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
 		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
-		product = product_models.Product.objects.filter(id__in=product_ids)
+		# products = product_models.Product.objects.filter(id__in=product_ids,owner_id=request.user.id)
+		print(product_id2product_weapp_id)
+		print('product_id2product_weapp_id')
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
 
@@ -82,7 +85,7 @@ class CustomerOrdersList(resource.Resource):
 		for product_id in product_ids:
 			image_id = product_images.get(product_id=product_id).image_id
 			url = images.get(id=image_id).path
-			product_name = product.get(id=product_id).product_name
+			product_name = products.get(id=product_id).product_name
 			product_weapp_ids = product_id2product_weapp_id[product_id]
 			for product_weapp_id in product_weapp_ids:
 				if not product_weapp_id2info.has_key(product_id):
