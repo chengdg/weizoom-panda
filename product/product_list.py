@@ -51,32 +51,29 @@ class ProductList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		products = models.Product.objects.filter(owner=request.user).order_by('-id')
-		product_images = models.ProductImage.objects.all()
+		product_images = models.ProductImage.objects.all().order_by('-id')
 
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
-		# product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
 		for product in product_images:
 			product_id2image_id[product.product_id] = product.image_id
 		for image in resource_models.Image.objects.all():
-			image_id2images[image.id] = json.dumps([{
-				'id':image.id,
-				'path': image.path
-			}])
+			image_id2images[image.id] = image.path
+
 		pageinfo, products = paginator.paginate(products, cur_page, 5, query_string=request.META['QUERY_STRING'])
 		#组装数据
 		rows = []
 		for product in products:
-			# image_id = product_id2image_id[product.id]
-			# images = image_id2images[image_id]
+			image_id = product_id2image_id[product.id]
+			image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 			rows.append({
 				'id': product.id,
 				'role': role,
 				'promotion_title': product.promotion_title,
 				'product_price': '%.2f' %product.product_price,
 				'product_name': product.product_name,
-				# 'images': images,
+				'image_path': image_path,
 				'status': product_status2text[product.product_status],
 				'sales': '0',
 				'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
