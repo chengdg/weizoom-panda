@@ -72,6 +72,7 @@ class CustomerOrdersList(resource.Resource):
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
 				api_pids.append(weapp_product_id)
 				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
 					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]

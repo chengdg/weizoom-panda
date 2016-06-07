@@ -47,23 +47,32 @@ class YunyingOrdersList(resource.Resource):
 		customer_name = filter_idct.get('customer_name','')
 		from_mall = filter_idct.get('from_mall','')
 		order_create_at_range = filter_idct.get('order_create_at','')
-
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
 
-		#获得所有绑定过云商通的商品id
 		product_ids = []
+		api_pids = []
+		#构造云商通内商品id，与panda数据库内商品id的关系
+		product_weapp_id2product_id = {}
 		for product_has_relation in product_has_relations:
+			#获得所有绑定过云商通的商品id
 			if product_has_relation.product_id not in product_ids:
 				product_ids.append(product_has_relation.product_id)
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
+				api_pids.append(weapp_product_id)
+				if not product_weapp_id2product_id.has_key(weapp_product_id):
+					product_weapp_id2product_id[weapp_product_id] = [product_has_relation.product_id]
+				else:
+					product_weapp_id2product_id[weapp_product_id].append(product_has_relation.product_id)
 
-		#构造pid与客户名称的对应关系
+		#构造云商通pid与客户名称的对应关系
 		products = product_models.Product.objects.filter(id__in=product_ids)
 		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
 		product_weapp_id2seller_name = {}
 		for api_pid in api_pids:
 			if not product_weapp_id2seller_name.has_key(api_pid):
-				product_id = product_has_relations.get(weapp_product_id=api_pid).product_id
+				product_id = product_weapp_id2product_id[api_pid][0]
 				owner_id = products.get(id=product_id).owner_id
 				seller_name = all_sellers.get(user_id=owner_id).name
 				product_weapp_id2seller_name[api_pid] = [seller_name]
