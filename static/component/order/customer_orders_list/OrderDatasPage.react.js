@@ -14,6 +14,7 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 var ShipDialog = require('./ShipDialog.react');
+require('./style.css')
 
 var OrderDatasPage = React.createClass({
 	getInitialState: function() {
@@ -70,11 +71,22 @@ var OrderDatasPage = React.createClass({
 				<div>{product_price}</div>
 			);
 		}else if (field === 'action') {
-			return (
-				<div>
-					<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
-				</div>
-			);
+			if(data.status === '待发货'){
+				return (
+					<div>
+						<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
+					</div>
+				);
+			}else if(data.status === '已发货'){
+				return (
+					<div className="orders-list-btn-group">
+						<a className="btn btn-link btn-xs" onClick={this.onClickComplete} data-order-id={data.order_id}>标记完成</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickChangeShip} data-order-id={data.order_id}>修改物流</a>
+					</div>
+				);
+			}else{
+				return value;
+			}
 		}else if (field === 'expand-row') {
 			return (
 				<div style={{textAlign:'left', padding:'5px'}}>
@@ -148,7 +160,7 @@ var OrderDatasPage = React.createClass({
 					<Reactman.TableColumn name="收货人" field="ship_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
 					<Reactman.TableColumn name="订单状态" field="status" />
-					<Reactman.TableColumn name="操作" field="action" />
+					<Reactman.TableColumn name="操作" field="action" width='60px'/>
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>

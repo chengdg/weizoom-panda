@@ -52,15 +52,69 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	render:function(){
+		//var options = [{
+		//	text: '请选择物流公司',
+		//	value: '-1'
+		//}];
+		//var company_names = ['申通快递','EMS','顺丰速运'];
+		//for(var item in company_names){
+		//	console.log(company_names[item]);
+		//}
+		//console.log(options);
 		var options = [{
 			text: '请选择物流公司',
 			value: '-1'
 		}, {
 			text: '申通快递',
-			value: '0'
+			value: '申通快递'
 		},{
-			text: '圆通快递',
-			value: '1'
+			text: 'EMS',
+			value: 'EMS'
+		},{
+			text: '顺丰速运',
+			value: '顺丰速运'
+		},{
+			text: '圆通速递',
+			value: '圆通速递'
+		},{
+			text: '中通速递',
+			value: '中通速递'
+		},{
+			text: '天天快递',
+			value: '天天快递'
+		},{
+			text: '韵达快运',
+			value: '韵达快运'
+		},{
+			text: '百世快递',
+			value: '百世快递'
+		},{
+			text: '全峰快递',
+			value: '全峰快递'
+		},{
+			text: '德邦物流',
+			value: '德邦物流'
+		},{
+			text: '宅急送',
+			value: '宅急送'
+		},{
+			text: '快捷速递',
+			value: '快捷速递'
+		},{
+			text: '比利时邮政',
+			value: '比利时邮政'
+		},{
+			text: '速尔快递',
+			value: '速尔快递'
+		},{
+			text: '国通快递',
+			value: '国通快递'
+		},{
+			text: '如风达',
+			value: '如风达'
+		},{
+			text: '邮政包裹/平邮',
+			value: '邮政包裹/平邮'
 		}];
 		return (
 		<div className="xui-formPage">
