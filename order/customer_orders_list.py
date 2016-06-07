@@ -62,16 +62,17 @@ class CustomerOrdersList(resource.Resource):
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
-		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
 		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
 
+		api_pids = []
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		product_id2product_weapp_id = {}
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
+				api_pids.append(weapp_product_id)
 				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
 					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]
 				else:
