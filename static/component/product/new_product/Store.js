@@ -32,7 +32,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'id':-1,
 				'images':[],
 				'remark': '',
-				'product_store_type':'-1'
+				'product_store_type':'-1',
+				'has_limit_time': '0'
 			};
 		}
 	},

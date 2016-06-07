@@ -49,6 +49,10 @@ class NewProduct(resource.Resource):
 				'clear_price': '%s' % product.clear_price,
 				'product_weight': product.product_weight,
 				'product_store': product.product_store,
+				'has_limit_time': '%s' %product.has_limit_time,
+				'valid_time_from': product.valid_time_from.strftime("%Y-%m-%d %H:%M"),
+				'valid_time_to': product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
+				'limit_clear_price': '%s' %product.limit_clear_price,
 				'remark': string_util.raw_html(product.remark),
 				'images': [],
 			}
@@ -82,19 +86,40 @@ class NewProduct(resource.Resource):
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
 		product_store = int(post.get('product_store',-1))
+		has_limit_time = int(post.get('has_limit_time',0))
+		limit_clear_price = post.get('limit_clear_price',0)
+		valid_time_from = post.get('valid_time_from','')
+		valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
 		images = post.get('images','')
 		try:
-			product = models.Product.objects.create(
-				owner = request.user, 
-				product_name = product_name, 
-				promotion_title = promotion_title, 
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store,
-				remark = remark
-			)
+			if has_limit_time == 1:
+				product = models.Product.objects.create(
+					owner = request.user, 
+					product_name = product_name, 
+					promotion_title = promotion_title, 
+					product_price = product_price,
+					clear_price = clear_price,
+					product_weight = product_weight,
+					product_store = product_store,
+					has_limit_time = has_limit_time,
+					limit_clear_price = limit_clear_price,
+					valid_time_from = valid_time_from,
+					valid_time_to = valid_time_to,
+					remark = remark
+				)
+			else:
+				product = models.Product.objects.create(
+					owner = request.user, 
+					product_name = product_name, 
+					promotion_title = promotion_title, 
+					product_price = product_price,
+					clear_price = clear_price,
+					product_weight = product_weight,
+					product_store = product_store,
+					has_limit_time = has_limit_time,
+					remark = remark
+				)
 
 			#获取商品图片
 			if images:
@@ -117,22 +142,43 @@ class NewProduct(resource.Resource):
 		product_price = post.get('product_price',0)
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
+		has_limit_time = int(post.get('has_limit_time',0))
+		limit_clear_price = post.get('limit_clear_price',0)
+		valid_time_from = post.get('valid_time_from','')
+		valid_time_to = post.get('valid_time_to','')
 		product_store = post.get('product_store',0)
 		product_store_type = int(post.get('product_store_type',-1))
 		if product_store_type == -1:
 			product_store = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
-		models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-			owner = request.user, 
-			product_name = product_name, 
-			promotion_title = promotion_title, 
-			product_price = product_price,
-			clear_price = clear_price,
-			product_weight = product_weight,
-			product_store = product_store,
-			remark = remark
-		)
+		if has_limit_time ==1:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				owner = request.user, 
+				product_name = product_name, 
+				promotion_title = promotion_title, 
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store,
+				has_limit_time = has_limit_time,
+				limit_clear_price = limit_clear_price,
+				valid_time_from = valid_time_from,
+				valid_time_to = valid_time_to,
+				remark = remark
+			)
+		else:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				owner = request.user, 
+				product_name = product_name, 
+				promotion_title = promotion_title, 
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store,
+				has_limit_time = has_limit_time,
+				remark = remark
+			)
 
 		#删除、重建商品图片
 		if images:

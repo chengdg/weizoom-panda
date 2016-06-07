@@ -123,6 +123,10 @@ input[name="product_weight"]{
 	width: 200px;
 }
 
+input[name="limit_clear_price"]{
+	width: 100px;
+}
+
 fieldset div:nth-child(4){
 	display: inline-block;
 }
@@ -135,6 +139,47 @@ fieldset div:nth-child(10){
 	display: inline-block;
 }
 
+fieldset div:nth-child(12){
+	display: inline-block;
+	width: 60px;
+	margin-left: 80px !important;
+	position: relative;
+}
+
+fieldset div:nth-child(12) div{
+	position: absolute;
+    left: 24px;
+    top: -19px;
+}
+
+fieldset div:nth-child(12) label{
+	width: 10px;
+	height: 0px !important;
+}
+
+/*fieldset div:nth-child(12){
+	display: inline-block;
+	width: 340px;
+	margin-left: 200px !important;
+}*/
+
+fieldset div:nth-child(13){
+	display: inline-block;
+}
+
+fieldset div:nth-child(13) label{
+	width: 80px !important;
+}
+
+fieldset div:nth-child(14){
+	display: inline-block;
+}
+
+fieldset div:nth-child(14) label{
+	width: 40px !important;
+	padding-left: 0px;
+}
+
 .money_note, .count_note{
 	position: absolute;
 	display: inline-block;
@@ -142,6 +187,21 @@ fieldset div:nth-child(10){
 	line-height: 34px;
 	margin-bottom: 15px;
 	margin-left: 15px;
+}
+
+.limit_money_note{
+	position: absolute;
+	display: inline-block;
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+
+.limit_money_note_tips{
+	display: block;
+	height: 34px;
+	margin-left: 178px;
 }
 
 .errorHint{

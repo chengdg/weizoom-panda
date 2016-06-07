@@ -14,9 +14,13 @@ class Product(models.Model):
 	product_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #商品价格 (元)
 	clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #结算价 (元)
 	product_weight = models.FloatField(default=0)  #商品重量 (kg)
-	product_store = models.IntegerField(default=0)  #商品库存 {0: 有限 ,-1:无限}
+	product_store = models.IntegerField(default=0)  #商品库存 {大于0: 有限 ,-1:无限}
 	product_status = models.IntegerField(default=0)  #商品状态 {0: 未上架 ,1:已上架}
 	remark = models.TextField(null=True)  #备注
+	valid_time_from = models.DateTimeField(null=True)  #有效范围开始时间
+	valid_time_to = models.DateTimeField(null=True)  #有效范围结束时间
+	limit_clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #限时结算价 (元)
+	has_limit_time = models.BooleanField(default=False)  #限时结算价是否需要 有效范期
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
 
 	class Meta(object):

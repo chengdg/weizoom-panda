@@ -74,6 +74,11 @@ var NewProductPage = React.createClass({
 
 	onSubmit: function(){
 		var product = Store.getData();
+		var has_limit_time = parseInt(product.has_limit_time[0]);
+		if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
+			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
+			return;
+		}
 		if(product.product_name.length > 30 || product.promotion_title.length > 30){
 			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 			return;
@@ -82,11 +87,13 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先上传图片！');
 			return ;
 		}
+		console.log(product,"========");
 		Action.saveNewProduct(product);
 	},
 
 	render:function(){
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
+		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
 		return (
@@ -107,6 +114,17 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.onChange} validate="require-price"/>
 						<span className="money_note">
 							元
+						</span>
+						<div></div>
+						<Reactman.FormInput label="限时结算价:" type="text" readonly={disabled} name="limit_clear_price" value={this.state.limit_clear_price} onChange={this.onChange}/>
+						<span className="limit_money_note">
+							元
+						</span>
+						<Reactman.FormCheckbox label="" name="has_limit_time" value={this.state.has_limit_time} options={optionsForCheckbox} onChange={this.onChange} />
+						<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" value={this.state.valid_time_from} readOnly onChange={this.onChange} />
+						<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.state.valid_time_to} readOnly onChange={this.onChange} />
+						<span className="limit_money_note_tips">
+							(注:如有让利活动推广时,可设置限时结算价,则优惠期间产生的订单按限时结算价统计账单)
 						</span>
 						<div></div>
 						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.onChange} validate="require-float"/>

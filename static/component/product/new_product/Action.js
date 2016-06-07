@@ -22,6 +22,10 @@ var Action = {
 			product_weight: data['product_weight'],
 			product_store: data['product_store'],
 			product_store_type: data['product_store_type'],
+			has_limit_time: data['has_limit_time'][0],
+			limit_clear_price: data['limit_clear_price'],
+			valid_time_from: data['valid_time_from'],
+			valid_time_to: data['valid_time_to'],
 			images: JSON.stringify(data['images']),
 			remark: data['remark']
 		};
