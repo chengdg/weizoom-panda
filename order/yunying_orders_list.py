@@ -48,6 +48,27 @@ class YunyingOrdersList(resource.Resource):
 		from_mall = filter_idct.get('from_mall','')
 		order_create_at_range = filter_idct.get('order_create_at','')
 
+		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
+
+		#获得所有绑定过云商通的商品id
+		product_ids = []
+		for product_has_relation in product_has_relations:
+			if product_has_relation.product_id not in product_ids:
+				product_ids.append(product_has_relation.product_id)
+
+		#构造pid与客户名称的对应关系
+		products = product_models.Product.objects.filter(id__in=product_ids)
+		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
+		product_weapp_id2seller_name = {}
+		for api_pid in api_pids:
+			if not product_weapp_id2seller_name.has_key(api_pid):
+				product_id = product_has_relations.get(weapp_product_id=api_pid).product_id
+				owner_id = products.get(id=product_id).owner_id
+				seller_name = all_sellers.get(user_id=owner_id).name
+				product_weapp_id2seller_name[api_pid] = [seller_name]
+
+		#查找
 		filter_string = ''
 		if customer_name:
 			print(customer_name)
@@ -57,31 +78,15 @@ class YunyingOrdersList(resource.Resource):
 			start_time = order_create_at_range[0]
 			end_time = order_create_at_range[1]
 			filter_string = filter_string + '&start_time=' + start_time + '&end_time=' + end_time
-
 		print('filter_string:')
 		print(filter_string)
 
-		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-		product_ids = []
-		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
-
-		for product_has_relation in product_has_relations:
-			if product_has_relation.product_id not in product_ids:
-				product_ids.append(product_has_relation.product_id)
-
-		product_weapp_id2seller_name = {}
-		products = product_models.Product.objects.filter(id__in=product_ids)
-		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
-		for api_pid in api_pids:
-			if not product_weapp_id2seller_name.has_key(api_pid):
-				product_id = product_has_relations.get(weapp_product_id=api_pid).product_id
-				owner_id = products.get(id=product_id).owner_id
-				seller_name = all_sellers.get(user_id=owner_id).name
-				product_weapp_id2seller_name[api_pid] = [seller_name]
-
 		api_pids = '_'.join(api_pids)
+		print('api_pids')
+		print(api_pids)
 		rows = []
 		if api_pids != '':
+			#请求接口获得数据
 			account_type = 'yunying'
 			api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
 			if filter_string!= '':

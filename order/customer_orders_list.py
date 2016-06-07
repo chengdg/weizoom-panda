@@ -62,9 +62,13 @@ class CustomerOrdersList(resource.Resource):
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
-		product_id2product_weapp_id = {}
 		api_pids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
+		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
+		image_ids = [product_image.image_id for product_image in product_images]
+		images = resource_models.Image.objects.filter(id__in=image_ids)
 
+		#构造panda数据库内商品id，与云商通内商品id的关系
+		product_id2product_weapp_id = {}
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
@@ -72,10 +76,8 @@ class CustomerOrdersList(resource.Resource):
 					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]
 				else:
 					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
-		product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids)
-		image_ids = [product_image.image_id for product_image in product_images]
-		images = resource_models.Image.objects.filter(id__in=image_ids)
 
+		#构造云商通内商品id，与panda数据库内商品名称与商品图片的关系
 		product_weapp_id2info = {}
 		for product_id in product_ids:
 			image_id = product_images.get(product_id=product_id).image_id
@@ -93,6 +95,7 @@ class CustomerOrdersList(resource.Resource):
 						'product_name': product_name,
 						'product_img': url
 					})
+		#查找
 		filter_string = ''
 		if order_id:
 			filter_string = filter_string + '&order_id=' + order_id
@@ -102,7 +105,6 @@ class CustomerOrdersList(resource.Resource):
 			start_time = order_create_at_range[0]
 			end_time = order_create_at_range[1]
 			filter_string = filter_string + '&start_time=' + start_time + '&end_time=' + end_time
-
 		print('filter_string:')
 		print(filter_string)
 
@@ -111,11 +113,11 @@ class CustomerOrdersList(resource.Resource):
 		print(api_pids)
 		rows = []
 		if api_pids != '':
+			#请求接口获得数据
 			account_type = 'customer'
 			api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
 			if filter_string!= '':
 				api_url +=  filter_string
-			print(api_url)
 			url_request = urllib2.Request(api_url)
 			res_data = urllib2.urlopen(url_request)
 			res = json.loads(res_data.read())
