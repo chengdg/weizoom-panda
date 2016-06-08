@@ -82,21 +82,22 @@ class CustomerOrdersList(resource.Resource):
 		#构造云商通内商品id，与panda数据库内商品名称与商品图片的关系
 		product_weapp_id2info = {}
 		for product_id in product_ids:
-			image_id = product_images.get(product_id=product_id).image_id
+			image_id = product_images.filter(product_id=product_id).first().image_id
 			url = images.get(id=image_id).path
 			product_name = products.get(id=product_id).product_name
-			product_weapp_ids = product_id2product_weapp_id[product_id]
-			for product_weapp_id in product_weapp_ids:
-				if not product_weapp_id2info.has_key(product_id):
-					product_weapp_id2info[product_weapp_id] = [{
-						'product_name': product_name,
-						'product_img': url
-					}]
-				else:
-					product_weapp_id2info[product_weapp_id].append({
-						'product_name': product_name,
-						'product_img': url
-					})
+			if product_id2product_weapp_id.has_key(product_id):
+				product_weapp_ids = product_id2product_weapp_id[product_id]
+				for product_weapp_id in product_weapp_ids:
+					if not product_weapp_id2info.has_key(product_id):
+						product_weapp_id2info[product_weapp_id] = [{
+							'product_name': product_name,
+							'product_img': url
+						}]
+					else:
+						product_weapp_id2info[product_weapp_id].append({
+							'product_name': product_name,
+							'product_img': url
+						})
 		#查找
 		filter_string = ''
 		if order_id:
