@@ -41,6 +41,9 @@ class NewProduct(resource.Resource):
 				product = models.Product.objects.get(id=product_id)
 			else:
 				product = models.Product.objects.get(owner=request.user, id=product_id)
+			limit_clear_price = ''
+			if product.limit_clear_price and product.limit_clear_price != -1:
+				limit_clear_price = product.limit_clear_price
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -49,10 +52,10 @@ class NewProduct(resource.Resource):
 				'clear_price': '%s' % product.clear_price,
 				'product_weight': product.product_weight,
 				'product_store': product.product_store,
-				'has_limit_time': '%s' %product.has_limit_time,
-				'valid_time_from': product.valid_time_from.strftime("%Y-%m-%d %H:%M"),
-				'valid_time_to': product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
-				'limit_clear_price': '%s' %product.limit_clear_price,
+				'has_limit_time': '%s' %(1 if product.has_limit_time else 0),
+				'valid_time_from': '' if not product.valid_time_from else product.valid_time_from.strftime("%Y-%m-%d %H:%M"),
+				'valid_time_to': '' if not product.valid_time_to else product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
+				'limit_clear_price': '%s' % limit_clear_price,
 				'remark': string_util.raw_html(product.remark),
 				'images': [],
 			}
@@ -87,7 +90,7 @@ class NewProduct(resource.Resource):
 		product_weight = post.get('product_weight',0)
 		product_store = int(post.get('product_store',-1))
 		has_limit_time = int(post.get('has_limit_time',0))
-		limit_clear_price = post.get('limit_clear_price',0)
+		limit_clear_price = post.get('limit_clear_price',-1)
 		valid_time_from = post.get('valid_time_from','')
 		valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
@@ -118,6 +121,7 @@ class NewProduct(resource.Resource):
 					product_weight = product_weight,
 					product_store = product_store,
 					has_limit_time = has_limit_time,
+					limit_clear_price = limit_clear_price,
 					remark = remark
 				)
 
@@ -143,7 +147,7 @@ class NewProduct(resource.Resource):
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
 		has_limit_time = int(post.get('has_limit_time',0))
-		limit_clear_price = post.get('limit_clear_price',0)
+		limit_clear_price = post.get('limit_clear_price',-1)
 		valid_time_from = post.get('valid_time_from','')
 		valid_time_to = post.get('valid_time_to','')
 		product_store = post.get('product_store',0)
@@ -177,6 +181,7 @@ class NewProduct(resource.Resource):
 				product_weight = product_weight,
 				product_store = product_store,
 				has_limit_time = has_limit_time,
+				limit_clear_price = limit_clear_price,
 				remark = remark
 			)
 

@@ -180,6 +180,10 @@ fieldset div:nth-child(14) label{
 	padding-left: 0px;
 }
 
+fieldset div:nth-child(17){
+	display: inline-block;
+}
+
 .money_note, .count_note{
 	position: absolute;
 	display: inline-block;
