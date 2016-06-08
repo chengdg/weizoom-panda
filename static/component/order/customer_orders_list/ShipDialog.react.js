@@ -15,9 +15,11 @@ var Action = require('./Action');
 
 var ShipDialog = Reactman.createDialog({
 	getInitialState: function() {
-		var order = this.props.data.order;
+		Store.addListener(this.onChangeStore);
+		var order_id = this.props.data.order_id;
+		console.log(order_id);
 		return {
-			order: order
+			order_id: order_id
 		}
 	},
 
@@ -28,12 +30,23 @@ var ShipDialog = Reactman.createDialog({
 		this.setState(newState);
 	},
 
+	onChangeStore: function(){
+		var infomations = Store.getData();
+		this.setState({
+			ship_company: infomations['ship_company'],
+			ship_number: infomations['ship_number'],
+			shiper_name: infomations['shiper_name']
+		})
+	},
+
 	onBeforeCloseDialog: function() {
 		if (this.state.ship_company === '-1') {
 			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
 			var order = this.props.data.order;
+			console.log('this.state');
 			console.log(this.state);
+			//TODO 给接口传递发货的参数
 			//Reactman.Resource.post({
 			//	resource: 'outline.data_comment',
 			//	data: {
@@ -52,15 +65,6 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	render:function(){
-		//var options = [{
-		//	text: '请选择物流公司',
-		//	value: '-1'
-		//}];
-		//var company_names = ['申通快递','EMS','顺丰速运'];
-		//for(var item in company_names){
-		//	console.log(company_names[item]);
-		//}
-		//console.log(options);
 		var options = [{
 			text: '请选择物流公司',
 			value: '-1'

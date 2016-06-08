@@ -14,7 +14,7 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 var ShipDialog = require('./ShipDialog.react');
-require('./style.css')
+require('./style.css');
 
 var OrderDatasPage = React.createClass({
 	getInitialState: function() {
@@ -24,15 +24,35 @@ var OrderDatasPage = React.createClass({
 
 	onClickShip: function(event) {
 		var orderId = parseInt(event.target.getAttribute('data-order-id'));
-		var order = this.refs.table.getData(orderId);
 		Reactman.PageAction.showDialog({
 			title: "发货信息",
 			component: ShipDialog,
 			data: {
-				order: order
+				order_id: orderId
 			},
 			success: function(inputData, dialogState) {
 				var order = inputData.order;
+				console.log('dialogState');
+				console.log(dialogState);
+				//var comment = dialogState.comment;
+				//Action.updateProduct(product, 'comment', comment);
+			}
+		});
+	},
+
+	onClickChangeShip: function(event) {
+		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		console.log(orderId);
+		Action.getOrderShipInformations(orderId);
+		Reactman.PageAction.showDialog({
+			title: "修改物流信息",
+			component: ShipDialog,
+			data: {
+				order_id: orderId
+			},
+			success: function(inputData, dialogState) {
+				var order = inputData.order;
+				console.log('dialogState');
 				console.log(dialogState);
 				//var comment = dialogState.comment;
 				//Action.updateProduct(product, 'comment', comment);

@@ -13,7 +13,6 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-
 	filterOrders: function(filterOptions) {
 		if(filterOptions.hasOwnProperty('__f-order_create_at-range')){
 			var low = $('#order_create_at_low').val();
@@ -32,6 +31,19 @@ var Action = {
 				data: filterOptions
 			});
 		}
+	},
+
+	getOrderShipInformations: function(orderId) {
+		Resource.get({
+			resource: 'order.order_ship_informations',
+			data: {
+				'order_id': orderId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.OrderShipInformations
+			}
+		});
 	},
 
 	//updateProduct: function(product, field, data) {
