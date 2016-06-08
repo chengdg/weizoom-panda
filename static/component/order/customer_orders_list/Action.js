@@ -41,21 +41,23 @@ var Action = {
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.OrderShipInformations
+				actionType: Constant.ORDER_SHIP_INFORMATIONS
 			}
 		});
 	},
 
-	//updateProduct: function(product, field, data) {
-	//	Dispatcher.dispatch({
-	//		actionType: Constant.OUTLINE_DATAS_UPDATE_PRODUCT,
-	//		data: {
-	//			product: product,
-	//			field: field,
-	//			data: data
-	//		}
-	//	});
-	//}
+	completeOrder: function(orderId) {
+		Resource.put({
+			resource: 'order.order_ship_informations',
+			data: {
+				order_id: orderId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.ORDER_DATAS_FILTER_ORDERS
+			}
+		});
+	}
 };
 
 module.exports = Action;

@@ -59,6 +59,19 @@ var OrderDatasPage = React.createClass({
 			}
 		});
 	},
+
+	onClickComplete: function(event) {
+		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		console.log(orderId);
+		Reactman.PageAction.showConfirm({
+			target: event.target,
+			title: '确认标记订单完成吗?',
+			confirm: _.bind(function() {
+				Action.completeOrder(orderId);
+			}, this)
+		});
+	},
+
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);

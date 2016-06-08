@@ -17,7 +17,7 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleFilterOrders': Constant.ORDER_DATAS_FILTER_ORDERS,
-		'handleOrderShipInformations': Constant.OrderShipInformations
+		'handleOrderShipInformations': Constant.ORDER_SHIP_INFORMATIONS
 	},
 
 	init: function() {

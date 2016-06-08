@@ -47,8 +47,9 @@ class OrderShipInformations(resource.Resource):
 
 	@login_required
 	def api_put(request):
-		post = request.POST
+		order_id = request.POST.get('order_id',0)
+		print('order_id!!!!!!')
+		print(order_id)
+
 		response = create_response(200)
-		response.data.code = 200
-		response.data.Msg = u'发货成功'
 		return response.get_response()
