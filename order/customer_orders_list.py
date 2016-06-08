@@ -116,41 +116,46 @@ class CustomerOrdersList(resource.Resource):
 		print(api_pids)
 		rows = []
 		if api_pids != '':
-			#请求接口获得数据
-			account_type = 'customer'
-			api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
-			if filter_string!= '':
-				api_url +=  filter_string
-			url_request = urllib2.Request(api_url)
-			res_data = urllib2.urlopen(url_request)
-			res = json.loads(res_data.read())
-			if res['code'] == 200:
-				orders = res['data']['orders']
-			else:
-				print(res)
-				response = create_response(500)
-				return response.get_response()
+			try:
+				#请求接口获得数据
+				account_type = 'customer'
+				api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
+				if filter_string!= '':
+					api_url +=  filter_string
+				url_request = urllib2.Request(api_url)
+				res_data = urllib2.urlopen(url_request)
+				res = json.loads(res_data.read())
+				if res['code'] == 200:
+					orders = res['data']['orders']
+				else:
+					# print(res)
+					response = create_response(500)
+					return response.get_response()
 
-			pageinfo = res['data']['pageinfo']
-			pageinfo['total_count'] = pageinfo['object_count']
+				pageinfo = res['data']['pageinfo']
+				pageinfo['total_count'] = pageinfo['object_count']
 
-			for order in orders:
-				order_id = order['order_id']
-				product_infos = order['product_info']
-				for product_info in product_infos:
-					product_id = str(product_info['product_id'])
-					product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
-					product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
-					product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
-					product_info['total_price'] = str('%.2f' % product_info['total_price'])
-				rows.append({
-					'order_id': order_id,
-					'order_create_at': order['created_at'],
-					'ship_name': order['ship_name'],
-					'total_purchase_price': str('%.2f' % order['order_money']),
-					'status': order_status2text[order['status']],
-					'product_infos': json.dumps(product_infos)
-				})
+				for order in orders:
+					order_id = order['order_id']
+					product_infos = order['product_info']
+					for product_info in product_infos:
+						product_id = str(product_info['product_id'])
+						product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
+						product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
+						product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
+						product_info['total_price'] = str('%.2f' % product_info['total_price'])
+					rows.append({
+						'order_id': order_id,
+						'order_create_at': order['created_at'],
+						'ship_name': order['ship_name'],
+						'total_purchase_price': str('%.2f' % order['order_money']),
+						'status': order_status2text[order['status']],
+						'product_infos': json.dumps(product_infos)
+					})
+			except:
+				orders = []
+				pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+				pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
@@ -159,7 +164,6 @@ class CustomerOrdersList(resource.Resource):
 			'rows': rows,
 			'pagination_info': pageinfo
 		}
-
 		#构造response
 		response = create_response(200)
 		response.data = data
