@@ -36,6 +36,17 @@ var AccountManagePage = React.createClass({
 		});
 	},
 
+	onClickDelete: function(event) {
+		var accountId = parseInt(event.target.getAttribute('data-account-id'));
+		Reactman.PageAction.showConfirm({
+			target: event.target,
+			title: '确认删除该账号吗?',
+			confirm: _.bind(function() {
+				Action.deleteAccount(accountId);
+			}, this)
+		});
+	},
+
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);

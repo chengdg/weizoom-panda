@@ -105,8 +105,9 @@ class ManagerAccount(resource.Resource):
 
 	@login_required
 	def api_delete(request):
+		account_id = request.POST.get('id','')
 		try:
-			UserProfile.objects.get(manager_id = request.user.id, id = request.POST['id']).update(
+			UserProfile.objects.filter(manager_id = request.user.id,id = account_id).update(
 				is_active = False
 			)
 			response = create_response(200)

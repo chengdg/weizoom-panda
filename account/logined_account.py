@@ -26,7 +26,7 @@ class LoginedAccount(resource.Resource):
 		user = auth.authenticate(username=username, password=password)
 		if user:
 			auth.login(request, user)
-			user_profile = UserProfile.objects.filter(user_id=user.id)
+			user_profile = UserProfile.objects.filter(user_id=user.id,status=1)
 			if user_profile:
 				role = user_profile[0].role
 				if role == MANAGER:
@@ -40,7 +40,10 @@ class LoginedAccount(resource.Resource):
 				else:
 					return HttpResponseRedirect('/order/yunying_orders_list/')
 			else:
-				return HttpResponseRedirect('/order/yunying_orders_list/')
+				c = RequestContext(request, {
+					'errorMsg': u'您的账号暂未启用'
+				})
+				return render_to_response('account/login.html', c)
 		else:
 			c = RequestContext(request, {
 				'errorMsg': u'用户名或密码错误'

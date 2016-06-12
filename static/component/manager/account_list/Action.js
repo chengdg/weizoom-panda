@@ -43,9 +43,17 @@ var Action = {
 			data: {
 				id: id
 			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.MANAGER_ACCOUNT_UPDATE_ACCOUNT
+			success: function() {
+				Reactman.PageAction.showHint('success', '删除账号成功');
+				setTimeout(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.MANAGER_ACCOUNT_UPDATE_ACCOUNT,
+						data: {}
+					});
+				},1000);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
 			}
 		});
 	},
