@@ -41,7 +41,7 @@ class LoginedAccount(resource.Resource):
 					return HttpResponseRedirect('/order/yunying_orders_list/')
 			else:
 				c = RequestContext(request, {
-					'errorMsg': u'您的账号暂未启用'
+					'errorMsg': u'您的账号无效,请联系客服'
 				})
 				return render_to_response('account/login.html', c)
 		else:
