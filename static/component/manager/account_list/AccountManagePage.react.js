@@ -20,15 +20,20 @@ var AccountManagePage = React.createClass({
 		return Store.getData();
 	},
 
-	onClickDelete: function(event) {
-		//var productId = parseInt(event.target.getAttribute('data-product-id'));
-		//Reactman.PageAction.showConfirm({
-		//	target: event.target,
-		//	title: '确认删除吗?',
-		//	confirm: _.bind(function() {
-		//		Action.deleteAccount(productId);
-		//	}, this)
-		//});
+	onClickChangeStatus: function(event) {
+		var accountId = parseInt(event.target.getAttribute('data-account-id'));
+		var method = event.target.getAttribute('data-method');
+		var title = '确认关闭该账号吗?';
+		if( method == 'open'){
+			title = '确认开启该账号吗?'
+		}
+		Reactman.PageAction.showConfirm({
+			target: event.target,
+			title: title,
+			confirm: _.bind(function() {
+				Action.changeAccountStatus(accountId,method);
+			}, this)
+		});
 	},
 
 	onChangeStore: function(event) {
@@ -42,12 +47,21 @@ var AccountManagePage = React.createClass({
 				<a href={'/manager/account_create/?id='+data.id}>{value}</a>
 			)
 		} else if (field === 'action') {
-			return (
-			<div>
-				<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>编辑</a>
-				<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>关闭</a>
-			</div>
-			);
+			if(data.status == 1){
+				return (
+				<div>
+					<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>编辑</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
+				</div>
+				);
+			}else{
+				return (
+				<div>
+					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
+				</div>
+				);
+			}
 		} else {
 			return value;
 		}

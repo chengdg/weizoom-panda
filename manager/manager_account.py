@@ -82,10 +82,33 @@ class ManagerAccount(resource.Resource):
 		response.data = data
 		return response.get_response()
 
+
+	@login_required
+	def api_post(request):
+		#更新账户状态
+		account_id = request.POST.get('id','')
+		status = request.POST.get('method','')
+		if status == 'close':
+			change_to_status = 0
+		else:
+			change_to_status = 1
+		try:
+			UserProfile.objects.filter(manager_id = request.user.id,id = account_id).update(
+				status = change_to_status
+			)
+			response = create_response(200)
+			return response.get_response()
+		except:
+			response = create_response(500)
+			response.errMsg = u'该账号不存在，请检查'
+			return response.get_response()
+
 	@login_required
 	def api_delete(request):
 		try:
-			UserProfile.objects.get(manager_id = request.user.id, id=request.POST['id']).is_active = False
+			UserProfile.objects.get(manager_id = request.user.id, id = request.POST['id']).update(
+				is_active = False
+			)
 			response = create_response(200)
 			return response.get_response()
 		except:

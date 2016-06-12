@@ -79,12 +79,12 @@ class AccountCreate(resource.Resource):
 			user = User.objects.create_user(username,username+'@weizoom.com',password)
 			user.first_name = name
 			user.save()
-			user_profile = UserProfile.objects.get(user=user)
-			user_profile.manager_id = request.user.id
-			user_profile.role = account_type
-			user_profile.name = name
-			user_profile.note = note
-			user_profile.save()
+			UserProfile.objects.filter(user=user).update(
+				manager_id = request.user.id,
+				role = account_type,
+				name = name,
+				note = note
+			)
 			response = create_response(200)
 		except Exception,e:
 			print(e)
