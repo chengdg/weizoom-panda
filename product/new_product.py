@@ -154,6 +154,8 @@ class NewProduct(resource.Resource):
 		product_store_type = int(post.get('product_store_type',-1))
 		if product_store_type == -1:
 			product_store = -1
+		if not limit_clear_price:
+			limit_clear_price = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
 		if has_limit_time ==1:
