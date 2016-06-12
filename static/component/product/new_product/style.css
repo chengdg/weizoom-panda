@@ -211,3 +211,7 @@ fieldset div:nth-child(17){
 .errorHint{
 	width: 200px;
 }
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
+	z-index: 1000 !important;
+}

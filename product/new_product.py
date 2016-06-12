@@ -182,6 +182,8 @@ class NewProduct(resource.Resource):
 				product_store = product_store,
 				has_limit_time = has_limit_time,
 				limit_clear_price = limit_clear_price,
+				valid_time_from = None,
+				valid_time_to = None,
 				remark = remark
 			)
 
