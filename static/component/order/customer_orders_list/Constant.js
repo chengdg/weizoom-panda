@@ -7,5 +7,6 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
 	ORDER_DATAS_FILTER_ORDERS: null,
-	ORDER_SHIP_INFORMATIONS: null
+	ORDER_SHIP_INFORMATIONS: null,
+	ORDER_DATAS_EXPORT: null
 });

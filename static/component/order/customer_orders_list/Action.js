@@ -57,6 +57,13 @@ var Action = {
 				actionType: Constant.ORDER_DATAS_FILTER_ORDERS
 			}
 		});
+	},
+
+	exportOrders: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_DATAS_EXPORT,
+			data: {}
+		});
 	}
 };
 

@@ -143,11 +143,16 @@ var OrderDatasPage = React.createClass({
 		Action.filterOrders(data);
 	},
 
+	onExport: function(){
+		Action.exportOrders();
+	},
+
 	render:function(){
 		var ordersResource = {
 			resource: 'order.customer_orders_list',
 			data: {
-				page: 1
+				page: 1,
+				is_for_list: true
 			}
 		};
 		var typeOptions = [{
@@ -185,7 +190,7 @@ var OrderDatasPage = React.createClass({
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
 					<Reactman.TableActionButton text="批量发货" />
-					<Reactman.TableActionButton text="导出" />
+					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="商品" field="product_name" />
