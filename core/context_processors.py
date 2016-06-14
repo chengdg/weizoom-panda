@@ -50,14 +50,12 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/yunying_orders_list/'
-			}
-			# , {
-			# 	'name': 'customer',
-			# 	'displayName': '客户概况',
-			# 	'icon': 'credit-card',
-			# 	'href': '/customer/customer/'
-			# }
-			]
+			}, {
+				'name': 'customer',
+				'displayName': '客户概况',
+				'icon': 'credit-card',
+				'href': '/customer/customer/'
+			}]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',
