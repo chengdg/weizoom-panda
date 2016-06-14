@@ -32,13 +32,13 @@ class LoginedAccount(resource.Resource):
 				if role == MANAGER:
 					return HttpResponseRedirect('/manager/account/')
 				elif role == CUSTOMER:
-					return HttpResponseRedirect('/order/customer_orders_list/')
+					return HttpResponseRedirect('/product/product_list/')
 				elif role == AGENCY:
 					return HttpResponseRedirect('/customer/customer/')
 				elif role == YUN_YING:
-					return HttpResponseRedirect('/order/yunying_orders_list/')
+					return HttpResponseRedirect('/product/product_relation/')
 				else:
-					return HttpResponseRedirect('/order/yunying_orders_list/')
+					return HttpResponseRedirect('/product/product_relation/')
 			else:
 				c = RequestContext(request, {
 					'errorMsg': u'您的账号无效,请联系客服'

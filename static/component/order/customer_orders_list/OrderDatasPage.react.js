@@ -65,7 +65,7 @@ var OrderDatasPage = React.createClass({
 		console.log(orderId);
 		Reactman.PageAction.showConfirm({
 			target: event.target,
-			title: '确认标记订单完成吗?',
+			title: '确认将该订单标记为完成?',
 			confirm: _.bind(function() {
 				Action.completeOrder(orderId);
 			}, this)
