@@ -30,9 +30,9 @@ random.seed(time.time())
 #===============================================================================
 # index : 用户首页
 #===============================================================================
-@login_required(login_url='/login/')
+@login_required
 def index(request):
-	return HttpResponseRedirect('/apps/powerme/powermes/')
+	return HttpResponseRedirect('/account/login/')
 	
 
 #===============================================================================
