@@ -34,7 +34,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 		return (
 			<div className="xui-formPage xui-product-preview-div">
 				<div className="product-detail">
-					<div style={{position:'relative'}}>
+					<div style={{position:'relative',background:'#FFF',padding:'10px 0 22px 0'}}>
 						<img className='product-image' src={path}/>
 						<span className='product-image-count'>1/{img_count}</span>
 					</div>

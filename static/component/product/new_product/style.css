@@ -1,9 +1,13 @@
 .modal-content{
+    width: 700px;
+}
+
+.modal-content{
 	background: rgb(224, 222, 222) !important;
 }
 
 .product-detail{
-    width: 400px;
+    width: 640px;
     margin: 0 auto;
     overflow-y: auto;
     overflow-x: hidden;
@@ -11,16 +15,17 @@
 }
 
 .product-image{
-	width: 400px;
-	height: 350px;
-	display: block;
+    width: 400px;
+    height: 350px;
+    display: block;
+    margin: 0 auto;
 }
 
 .product-image-count{
 	position: absolute;
 	bottom: 0px;
 	color: #000;
-	left: 200px;
+	left: 300px;
 }
 
 .product-name-price{
@@ -50,7 +55,7 @@
 
 .product-introduce .title{
     display: inline-block;
-    width: 382px;
+    width: 600px;
     border-bottom: 1px solid #CCC;
 	padding-top: 8px;
 	font-size: 16px;
@@ -74,9 +79,9 @@
 	display: inline-block;
 }
 
-.product-content{
-    /*overflow: auto;*/
-    /*height: 200px;*/
+.product-content img{
+    max-width: 640px;
+    /*width: 100%;*/
 }
 
 .choose-count{

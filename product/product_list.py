@@ -65,7 +65,7 @@ class ProductList(resource.Resource):
 		#组装数据
 		rows = []
 		for product in products:
-			image_id = product_id2image_id[product.id]
+			image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id]
 			image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 			rows.append({
 				'id': product.id,

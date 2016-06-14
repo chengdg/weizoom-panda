@@ -89,11 +89,15 @@ var NewProductPage = React.createClass({
 			return;
 		}
 		if(has_limit_time ==1 && product.hasOwnProperty('valid_time_from') && product.hasOwnProperty('valid_time_to') && (product.valid_time_from>product.valid_time_to)){
-			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期!');
+			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
 			return;
 		}
 		if(has_limit_time ==1 && (!product.hasOwnProperty('limit_clear_price') || product.limit_clear_price.length<=0) ){
 			Reactman.PageAction.showHint('error', '请填写限时结算价!');
+			return;
+		}
+		if(product.hasOwnProperty('limit_clear_price') && parseFloat(product.limit_clear_price)>parseFloat(product.clear_price)){
+			Reactman.PageAction.showHint('error', '限时结算价不能大于结算价,请重新输入!');
 			return;
 		}
 		if(product.product_name.length > 30 || (product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30)){
