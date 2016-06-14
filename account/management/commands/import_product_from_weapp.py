@@ -44,7 +44,7 @@ class Command(BaseCommand):
 							weizoom_mama = int(weizoom_mama)
 						relations['weizoom_mama'] = '%s'%weizoom_mama
 				if data == u'微众学生':
-					weizoom_xuesheng = '%s'%table.cell(cur_col,i).value
+					weizoom_xuesheng = table.cell(cur_col,i).value
 					if weizoom_xuesheng:
 						if ';' not in '%s'%weizoom_xuesheng:
 							weizoom_xuesheng = int(weizoom_xuesheng)
