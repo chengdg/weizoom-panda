@@ -71,7 +71,7 @@ class ProductList(resource.Resource):
 				'id': product.id,
 				'role': role,
 				'promotion_title': product.promotion_title,
-				'product_price': '%.2f' %product.product_price,
+				'clear_price': '%.2f' %product.clear_price,
 				'product_name': product.product_name,
 				'image_path': image_path,
 				'status': product_status2text[product.product_status],

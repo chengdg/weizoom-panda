@@ -56,14 +56,13 @@ var NewProductPage = React.createClass({
 	validateProduct: function(){
 		var is_true = false;
 		var product = Store.getData();
-		if(!product.hasOwnProperty('product_name') || !product.hasOwnProperty('product_price') || !product.hasOwnProperty('promotion_title')
-		 || !product.hasOwnProperty('remark') || !product.hasOwnProperty('clear_price') || !product.hasOwnProperty('product_weight')){
+		if(!product.hasOwnProperty('product_name') || !product.hasOwnProperty('remark') || !product.hasOwnProperty('clear_price') || !product.hasOwnProperty('product_weight')){
 			is_true = true;
 		}
-		if((product.hasOwnProperty('product_name') && product.product_name.length<=0) || (product.hasOwnProperty('product_price') && product.product_price.length<=0)){
+		if(product.hasOwnProperty('product_name') && product.product_name.length<=0){
 			is_true = true;
 		}
-		if((product.hasOwnProperty('promotion_title') && product.promotion_title.length<=0) || (product.hasOwnProperty('clear_price') && product.clear_price.length<=0)){
+		if(product.hasOwnProperty('clear_price') && product.clear_price.length<=0){
 			is_true = true;
 		}
 		if((product.hasOwnProperty('product_weight') && product.product_weight.length<=0) || (product.hasOwnProperty('remark') && product.remark.length<=0)){
@@ -97,7 +96,7 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请填写限时结算价!');
 			return;
 		}
-		if(product.product_name.length > 30 || product.promotion_title.length > 30){
+		if(product.product_name.length > 30 || (product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30)){
 			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 			return;
 		}
@@ -122,8 +121,8 @@ var NewProductPage = React.createClass({
 					<fieldset>
 						<legend className="pl10 pt10 pb10">基本信息</legend>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
-						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} validate="require-string" />
-						<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.onChange} validate="require-price" />
+						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
+						<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.onChange} />
 						<span className="money_note">
 							元
 						</span>

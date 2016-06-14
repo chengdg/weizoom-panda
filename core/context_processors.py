@@ -10,26 +10,28 @@ def top_navs(request):
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		if role == CUSTOMER:
 			top_navs = [{
-				'name': 'order',
-				'displayName': '订单',
-				'icon': 'list-alt',
-				'href': '/order/customer_orders_list/'
-			}, {
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
-			}, {
-				'name': 'fans',
-				'displayName': '粉丝投放',
-				'icon': 'cog',
-				'href': '#'
-			}, {
-				'name': 'reconcile',
-				'displayName': '对账',
-				'icon': 'cog',
-				'href': '#'
-			}]
+			},{
+				'name': 'order',
+				'displayName': '订单',
+				'icon': 'list-alt',
+				'href': '/order/customer_orders_list/'
+			}
+			# , {
+			# 	'name': 'fans',
+			# 	'displayName': '粉丝投放',
+			# 	'icon': 'cog',
+			# 	'href': '#'
+			# }, {
+			# 	'name': 'reconcile',
+			# 	'displayName': '对账',
+			# 	'icon': 'cog',
+			# 	'href': '#'
+			# }
+			]
 		elif role == AGENCY:
 			top_navs = [{
 				'name': 'customer',
@@ -39,15 +41,15 @@ def top_navs(request):
 			}]
 		elif role == YUN_YING:
 			top_navs = [{
-				'name': 'order',
-				'displayName': '订单',
-				'icon': 'list-alt',
-				'href': '/order/yunying_orders_list/'
-			}, {
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
 				'href': '/product/product_relation/'
+			},{
+				'name': 'order',
+				'displayName': '订单',
+				'icon': 'list-alt',
+				'href': '/order/yunying_orders_list/'
 			}, {
 				'name': 'customer',
 				'displayName': '客户概况',
@@ -63,26 +65,28 @@ def top_navs(request):
 			}]
 		else:
 			top_navs = [{
-				'name': 'order',
-				'displayName': '订单',
-				'icon': 'list-alt',
-				'href': '/order/yunying_orders_list/'
-			}, {
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
 			}, {
-				'name': 'fans',
-				'displayName': '粉丝投放',
-				'icon': 'cog',
-				'href': '#'
-			}, {
-				'name': 'reconcile',
-				'displayName': '对账',
-				'icon': 'cog',
-				'href': '#'
-			}, {
+				'name': 'order',
+				'displayName': '订单',
+				'icon': 'list-alt',
+				'href': '/order/yunying_orders_list/'
+			},
+			# {
+			# 	'name': 'fans',
+			# 	'displayName': '粉丝投放',
+			# 	'icon': 'cog',
+			# 	'href': '#'
+			# }, {
+			# 	'name': 'reconcile',
+			# 	'displayName': '对账',
+			# 	'icon': 'cog',
+			# 	'href': '#'
+			# },
+			{
 				'name': 'manager',
 				'displayName': '账号管理',
 				'icon': 'cog',
@@ -91,26 +95,28 @@ def top_navs(request):
 		return {'top_navs': top_navs}
 	except:
 		top_navs = [{
-			'name': 'order',
-			'displayName': '订单',
-			'icon': 'list-alt',
-			'href': '/order/yunying_orders_list/'
-		}, {
 			'name': 'product',
 			'displayName': '商品',
 			'icon': 'credit-card',
 			'href': '/product/product_list/'
-		}, {
-			'name': 'fans',
-			'displayName': '粉丝投放',
-			'icon': 'cog',
-			'href': '#'
-		}, {
-			'name': 'reconcile',
-			'displayName': '对账',
-			'icon': 'cog',
-			'href': '#'
-		}, {
+		},{
+			'name': 'order',
+			'displayName': '订单',
+			'icon': 'list-alt',
+			'href': '/order/yunying_orders_list/'
+		}
+		# ,  {
+		# 	'name': 'fans',
+		# 	'displayName': '粉丝投放',
+		# 	'icon': 'cog',
+		# 	'href': '#'
+		# }, {
+		# 	'name': 'reconcile',
+		# 	'displayName': '对账',
+		# 	'icon': 'cog',
+		# 	'href': '#'
+		# }
+		, {
 			'name': 'manager',
 			'displayName': '账号管理',
 			'icon': 'cog',

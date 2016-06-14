@@ -102,7 +102,7 @@ var ProductDataListPage = React.createClass({
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
-						<Reactman.TableColumn name="商品价格" field="product_price" />
+						<Reactman.TableColumn name="结算价" field="clear_price" />
 						<Reactman.TableColumn name="销量" field="sales" />
 						<Reactman.TableColumn name="创建时间" field="created_at" />
 						<Reactman.TableColumn name="状态" field="status" />

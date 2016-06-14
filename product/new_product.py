@@ -48,7 +48,7 @@ class NewProduct(resource.Resource):
 				'id': product.id,
 				'product_name': product.product_name,
 				'promotion_title': product.promotion_title,
-				'product_price': '%s' % product.product_price,
+				'product_price': '%s' % product.product_price if product.product_price>0 else '',
 				'clear_price': '%s' % product.clear_price,
 				'product_weight': product.product_weight,
 				'product_store': product.product_store,
