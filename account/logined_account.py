@@ -41,7 +41,7 @@ class LoginedAccount(resource.Resource):
 					return HttpResponseRedirect('/product/product_relation/')
 			else:
 				c = RequestContext(request, {
-					'errorMsg': u'您的账号无效,请联系客服'
+					'errorMsg': u'您输入的账号无效，请联系客服：400-688-6929'
 				})
 				return render_to_response('account/login.html', c)
 		else:

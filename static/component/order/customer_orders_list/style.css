@@ -1,3 +1,6 @@
 .orders-list-btn-group a{
 	display: block;
 }
+.modal-content{
+	width: 720px;
+}

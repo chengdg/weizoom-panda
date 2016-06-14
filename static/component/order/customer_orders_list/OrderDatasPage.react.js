@@ -14,6 +14,7 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 var ShipDialog = require('./ShipDialog.react');
+var OrderBatchDelivery = require('./OrderBatchDelivery.react');
 require('./style.css');
 
 var OrderDatasPage = React.createClass({
@@ -69,6 +70,20 @@ var OrderDatasPage = React.createClass({
 			confirm: _.bind(function() {
 				Action.completeOrder(orderId);
 			}, this)
+		});
+	},
+
+	onOrderBatchDelivery: function(event) {
+		Reactman.PageAction.showDialog({
+			title: "批量发货",
+			component: OrderBatchDelivery,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log('dialogState');
+				console.log(dialogState);
+				//var comment = dialogState.comment;
+				//Action.updateProduct(product, 'comment', comment);
+			}
 		});
 	},
 
@@ -189,7 +204,7 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="批量发货" />
+					<Reactman.TableActionButton text="批量发货" onClick={this.onOrderBatchDelivery}/>
 					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
