@@ -34,23 +34,33 @@ class Command(BaseCommand):
 				if data == u'微众家':
 					weizoom_jia = table.cell(cur_col,i).value
 					if weizoom_jia:
-						relations['weizoom_jia'] = int(weizoom_jia)
+						if ';' not in '%s'%weizoom_jia:
+							weizoom_jia = int(weizoom_jia)
+						relations['weizoom_jia'] = '%s'%weizoom_jia
 				if data == u'微众妈妈':
 					weizoom_mama = table.cell(cur_col,i).value
 					if weizoom_mama:
-						relations['weizoom_mama'] = int(weizoom_mama)
+						if ';' not in '%s'%weizoom_mama:
+							weizoom_mama = int(weizoom_mama)
+						relations['weizoom_mama'] = '%s'%weizoom_mama
 				if data == u'微众学生':
-					weizoom_xuesheng = table.cell(cur_col,i).value
+					weizoom_xuesheng = '%s'%table.cell(cur_col,i).value
 					if weizoom_xuesheng:
-						relations['weizoom_xuesheng'] = int(weizoom_xuesheng)
+						if ';' not in '%s'%weizoom_xuesheng:
+							weizoom_xuesheng = int(weizoom_xuesheng)
+						relations['weizoom_xuesheng'] = '%s'%weizoom_xuesheng
 				if data == u'微众商城':
 					weizoom_shop = table.cell(cur_col,i).value
 					if weizoom_shop:
-						relations['weizoom_shop'] = int(weizoom_shop)
+						if ';' not in '%s'%weizoom_shop:
+							weizoom_shop = int(weizoom_shop)
+						relations['weizoom_shop'] = '%s'%weizoom_shop
 				if data == u'微众白富美':
 					weizoom_baifumei = table.cell(cur_col,i).value
 					if weizoom_baifumei:
-						relations['weizoom_baifumei'] = int(weizoom_baifumei)
+						if ';' not in '%s'%weizoom_baifumei:
+							weizoom_baifumei = int(weizoom_baifumei)
+						relations['weizoom_baifumei'] = '%s'%weizoom_baifumei
 				if data == u'商品名称':
 					product_name = table.cell(cur_col,i).value
 				if data == u'促销标题':
