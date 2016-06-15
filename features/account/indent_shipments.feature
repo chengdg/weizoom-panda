@@ -106,7 +106,7 @@ Background:
 
 
 	Given jobs使用密码1登录云商通系统
-    When jobs上架信息为'武汉鸭脖'和"耐克男鞋"的商品
+    When jobs上架信息为'武汉鸭脖'和'耐克男鞋'的商品
     """
     {
     	"information":"武汉鸭脖",
@@ -145,7 +145,7 @@ Background:
 		
 
 @panda @customer
-Scenario:3 运营查看订单列表
+#Scenario:3 运营查看订单列表
 	Given yunying使用密码123456登录管理系统
 	Then yunying能获得订单列表
 	"""
