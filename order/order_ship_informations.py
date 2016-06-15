@@ -28,9 +28,6 @@ class OrderShipInformations(resource.Resource):
 	@login_required
 	def api_get(request):
 		order_id = request.GET.get('order_id',0)
-		print('order_id!!!!!!')
-		print(order_id)
-
 		#组装数据
 		rows = {}
 		rows['ship_company'] = '申通快递'
@@ -48,7 +45,6 @@ class OrderShipInformations(resource.Resource):
 	@login_required
 	def api_put(request):
 		#给接口传递发货的参数
-
 		params = {
 			'order_id' : request.POST.get('order_id',''),
 			'express_company_name' : request.POST.get('express_company_name',''),
@@ -63,13 +59,59 @@ class OrderShipInformations(resource.Resource):
 		res = json.loads(res_data.read())
 		print(res)
 		if res['data']['result'] == u'SUCCESS':
-			print('res!!!!!!!!!!!!!')
-			print(res)
 			response = create_response(200)
 			return response.get_response()
 		else:
-			print(res)
 			response = create_response(500)
 			response.errMsg = res['data']['msg']
 			return response.get_response()
 
+	@login_required
+	def api_post(request):
+		#给接口传递修改物流信息的参数
+		params = {
+			'order_id' : request.POST.get('order_id',''),
+			'express_company_name' : request.POST.get('express_company_name',''),
+			'express_number' : request.POST.get('express_number',''),
+			'leader_name' : request.POST.get('leader_name',''),
+			'operator_name' : request.user.username
+		}
+		json_params = urllib.urlencode(params)
+		api_url = 'http://api.zeus.com/mall/delivery/?_method=post'
+		url_request = urllib2.Request(api_url,json_params)
+		res_data = urllib2.urlopen(url_request)
+		res = json.loads(res_data.read())
+		print(res)
+		if res['data']['result'] == u'SUCCESS':
+			response = create_response(200)
+			return response.get_response()
+		else:
+			response = create_response(500)
+			response.errMsg = res['data']['msg']
+			return response.get_response()
+
+class OrderCompleteShip(resource.Resource):
+	app = 'order'
+	resource = 'order_complete_ship'
+
+	@login_required
+	def api_post(request):
+		#修改订单状态（目前仅支持完成）
+		params = {
+			'order_id' : request.POST.get('order_id',''),
+			'action' : 'finish',
+			'operator_name' : request.user.username
+		}
+		json_params = urllib.urlencode(params)
+		api_url = 'http://api.zeus.com/mall/delivery/?_method=post'
+		url_request = urllib2.Request(api_url,json_params)
+		res_data = urllib2.urlopen(url_request)
+		res = json.loads(res_data.read())
+		print(res)
+		if res['data']['result'] == u'SUCCESS':
+			response = create_response(200)
+			return response.get_response()
+		else:
+			response = create_response(500)
+			response.errMsg = res['data']['msg']
+			return response.get_response()
