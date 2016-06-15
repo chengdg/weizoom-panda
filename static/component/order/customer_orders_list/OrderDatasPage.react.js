@@ -24,7 +24,7 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickShip: function(event) {
-		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		var orderId = event.target.getAttribute('data-order-id');
 		Reactman.PageAction.showDialog({
 			title: "发货信息",
 			component: ShipDialog,
@@ -42,7 +42,7 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickChangeShip: function(event) {
-		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		var orderId = event.target.getAttribute('data-order-id');
 		console.log(orderId);
 		Action.getOrderShipInformations(orderId);
 		Reactman.PageAction.showDialog({
@@ -62,7 +62,7 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickComplete: function(event) {
-		var orderId = parseInt(event.target.getAttribute('data-order-id'));
+		var orderId = event.target.getAttribute('data-order-id');
 		console.log(orderId);
 		Reactman.PageAction.showConfirm({
 			target: event.target,

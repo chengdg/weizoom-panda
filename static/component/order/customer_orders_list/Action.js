@@ -47,16 +47,16 @@ var Action = {
 	},
 
 	completeOrder: function(orderId) {
-		Resource.put({
-			resource: 'order.order_ship_informations',
-			data: {
-				order_id: orderId
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.ORDER_DATAS_FILTER_ORDERS
-			}
-		});
+		//Resource.put({
+		//	resource: 'order.order_ship_informations',
+		//	data: {
+		//		order_id: orderId
+		//	},
+		//	dispatch: {
+		//		dispatcher: Dispatcher,
+		//		actionType: Constant.ORDER_DATAS_FILTER_ORDERS
+		//	}
+		//});
 	},
 
 	exportOrders: function(){
