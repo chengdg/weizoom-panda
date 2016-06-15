@@ -17,7 +17,7 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleFilterOrders': Constant.ORDER_DATAS_FILTER_ORDERS,
-		'handleOrderShipInformations': Constant.ORDER_SHIP_INFORMATIONS,
+		//'handleOrderShipInformations': Constant.ORDER_SHIP_INFORMATIONS,
 		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
 	},
 
@@ -31,10 +31,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleOrderShipInformations: function(action) {
-		this.data = action.data.rows;
-		this.__emitChange();
-	},
+	//handleOrderShipInformations: function(action) {
+	//	this.data = action.data.rows;
+	//	this.__emitChange();
+	//},
 
 	handleOrderDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;

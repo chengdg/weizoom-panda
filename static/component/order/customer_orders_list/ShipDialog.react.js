@@ -9,7 +9,7 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var Store = require('./Store');
+var Store = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
