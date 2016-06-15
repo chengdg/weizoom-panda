@@ -107,9 +107,10 @@ class ManagerAccount(resource.Resource):
 	def api_delete(request):
 		account_id = request.POST.get('id','')
 		try:
-			UserProfile.objects.filter(manager_id = request.user.id,id = account_id).update(
-				is_active = False
-			)
+			user_profile = UserProfile.objects.get(manager_id = request.user.id,id = account_id)
+			user_id = user_profile.user_id
+			user_profile.delete()
+			User.objects.filter(id = user_id).delete()
 			response = create_response(200)
 			return response.get_response()
 		except:
