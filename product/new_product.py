@@ -85,7 +85,7 @@ class NewProduct(resource.Resource):
 		post = request.POST
 		product_name = post.get('product_name','')
 		promotion_title = post.get('promotion_title','')
-		product_price = post.get('product_price',0)
+		product_price = post.get('product_price',-1)
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
 		product_store = int(post.get('product_store',-1))

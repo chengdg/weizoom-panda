@@ -67,6 +67,8 @@ class Command(BaseCommand):
 					promotion_title = table.cell(cur_col,i).value
 				if data == u'商品价格':
 					product_price = table.cell(cur_col,i).value
+					if not product_price:
+						product_price = -1
 				if data == u'结算价':
 					clear_price = table.cell(cur_col,i).value
 				if data == u'限时结算价':
