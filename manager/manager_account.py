@@ -15,7 +15,7 @@ from core import paginator
 from util import db_util
 import nav
 from account.models import *
-
+from product.models import *
 
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
@@ -111,6 +111,10 @@ class ManagerAccount(resource.Resource):
 			user_id = user_profile.user_id
 			user_profile.delete()
 			User.objects.filter(id = user_id).delete()
+			products = Product.objects.filter(owner_id=user_id)
+			product_ids = [product.id for product in products]
+			products.delete()
+			ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
 			response = create_response(200)
 			return response.get_response()
 		except:

@@ -106,7 +106,7 @@ class YunyingOrdersList(resource.Resource):
 			try:
 				#请求接口获得数据
 				params = {
-					'account_type': 'customer',
+					'status': 5,#运营只查看已完成的订单
 					'product_ids': api_pids,
 					'page':cur_page
 				}
@@ -120,19 +120,40 @@ class YunyingOrdersList(resource.Resource):
 					response = create_response(500)
 					return response.get_response()
 
+				webapp_ids = [order['webapp_id'] for order in orders]
+				webapp_ids = '_'.join(webapp_ids)
+				from_mall_response = requests.get(ZEUS_HOST+'/mall/store_name/',params={'webapp_ids':webapp_ids})
+				from_mall_res = json.loads(from_mall_response.text)
+				if from_mall_res['code'] == 200:
+					webapp_id2store_name = from_mall_res['data']['webapp_id2store_name']
+					print('webapp_id2store_name!!!!!!!!')
+					print(webapp_id2store_name)
+				else:
+					print(res)
+
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 
 				for order in orders:
-					weapp_product_id = str(order['product_info'][0]['product_id'])
+					# print(order)
+					return_product_infos = order['products']
+					total_purchase_price = 0
+					for return_product_info in return_product_infos:
+						product_id = str(return_product_info['id'])
+						if product_weapp_id2seller_name.has_key(product_id):
+							weapp_product_id = product_id
+							total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+					webapp_id = order['webapp_id']
 					rows.append({
 						'order_id': order['order_id'],
 						'order_create_at': order['created_at'],
-						'total_purchase_price': str('%.2f' % order['order_money']),
+						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'customer_name': product_weapp_id2seller_name[weapp_product_id],
-						'from_mall': order['store_name']
+						'from_mall': webapp_id2store_name[webapp_id]
 					})
-			except:
+			except Exception,e:
+				print('eeeeeeeeeeeeeeeeeee')
+				print(e)
 				orders = []
 				pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
 				pageinfo = pageinfo.to_dict()

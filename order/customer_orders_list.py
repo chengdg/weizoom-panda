@@ -130,7 +130,7 @@ class CustomerOrdersList(resource.Resource):
 				if res['code'] == 200:
 					orders = res['data']['orders']
 				else:
-					# print(res)
+					print(res)
 					response = create_response(500)
 					return response.get_response()
 
@@ -139,7 +139,6 @@ class CustomerOrdersList(resource.Resource):
 
 				for order in orders:
 					order_id = order['order_id']
-					print(order)
 					product_infos = []
 					return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
 					total_purchase_price = 0
