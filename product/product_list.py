@@ -19,6 +19,9 @@ from account.models import *
 from util import string_util
 import nav
 import models
+import urllib2
+import urllib
+import requests
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -52,7 +55,21 @@ class ProductList(resource.Resource):
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		products = models.Product.objects.filter(owner=request.user).order_by('-id')
 		product_images = models.ProductImage.objects.all().order_by('-id')
-
+		product_ids = ['%s'%product.id for product in products]
+		if len(product_ids)>1:
+			product_ids = '_'.join(product_ids)
+		# 请求接口获得数据
+		url = 'http://127.0.0.1:8002/mall/product_sales/?product_ids='+product_ids
+		url_request = urllib2.Request(url)
+		opener = urllib2.urlopen(url_request)
+		data = []
+		res = opener.read()
+		if json.loads(res)['code'] == 200:
+			data = json.loads(res)['data']
+			print data,"-----"
+		else:
+			response = create_response(500)
+			return response.get_response()
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
@@ -67,6 +84,7 @@ class ProductList(resource.Resource):
 		for product in products:
 			image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id]
 			image_path = '' if image_id not in image_id2images else image_id2images[image_id]
+			sales = 0 if product.id not in data else data[product.id]
 			rows.append({
 				'id': product.id,
 				'role': role,
@@ -75,7 +93,7 @@ class ProductList(resource.Resource):
 				'product_name': product.product_name,
 				'image_path': image_path,
 				'status': product_status2text[product.product_status],
-				'sales': '0',
+				'sales': '%s' %sales,
 				'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 			})
 		data = {
@@ -88,3 +106,10 @@ class ProductList(resource.Resource):
 		response.data = data
 
 		return response.get_response()
+		data = [
+			{
+				11:55,
+				23:88
+			}
+		]
+		id2sales = {order.product:order.sales for order in orders}

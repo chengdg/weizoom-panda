@@ -27,6 +27,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		if (this.data) {
 			this.data['product_store_type'] = this.data['product_store'] > -1 ? '0' : '-1';
 			this.data['product_store'] = this.data['product_store'] == -1 ? '' : this.data['product_store'];
+			console.log(this.data['product_weight']);
 		} else {
 			this.data = {
 				'id':-1,

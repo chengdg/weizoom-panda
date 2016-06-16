@@ -12,6 +12,7 @@ from django.conf import settings
 from product import models as product_models
 from account import models as account_models
 from resource import models as resource_models
+from account.models import *
 
 class Command(BaseCommand):
 	def handle(self, **options):
@@ -29,7 +30,9 @@ class Command(BaseCommand):
 			relations = {}
 			for i in range(0,ncols):
 				data = table.cell(0, i).value
-				if data == u'panda账号':
+				product_price = -1
+				limit_clear_price = -1
+				if data == u'panda客户账号':
 					account_name=table.cell(cur_col,i).value
 				if data == u'微众家':
 					weizoom_jia = table.cell(cur_col,i).value
@@ -67,8 +70,6 @@ class Command(BaseCommand):
 					promotion_title = table.cell(cur_col,i).value
 				if data == u'商品价格':
 					product_price = table.cell(cur_col,i).value
-					if not product_price:
-						product_price = -1
 				if data == u'结算价':
 					clear_price = table.cell(cur_col,i).value
 				if data == u'限时结算价':
@@ -76,7 +77,7 @@ class Command(BaseCommand):
 				if data == u'有效期':
 					valid_time = table.cell(cur_col,i).value
 					has_limit_time = 1
-					if valid_time == u'无':
+					if not valid_time:
 						valid_time_from = None
 						valid_time_to = None
 						has_limit_time = 0
@@ -98,6 +99,18 @@ class Command(BaseCommand):
 					remark = table.cell(cur_col,i).value
 
 			try:
+				#创建用户
+				if not User.objects.filter(username=account_name):
+					user = User.objects.create_user(account_name,account_name+'@weizoom.com','weizoom')
+					user.first_name = account_name
+					user.save()
+					UserProfile.objects.filter(user=user).update(
+						manager_id = user.id,
+						role = 1,
+						name = account_name,
+						note = ''
+					)
+
 				#创建商品
 				user_profile = account_models.UserProfile.objects.get(name=account_name)
 				product = product_models.Product.objects.create(

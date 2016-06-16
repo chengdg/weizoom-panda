@@ -18,7 +18,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 			product_name: product.product_name,
 			images: product.images,
 			promotion_title: product.promotion_title,
-			product_price: product.product_price,
+			clear_price: product.clear_price,
 			remark: product.remark
 		}
 	},
@@ -42,7 +42,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 						<span className="product-collect-title">收藏</span>
 						<span className="product-name">{this.state.product_name}</span>
 						<span className="product-promotion-title">{this.state.promotion_title}</span>
-						<span className="product-price">￥{this.state.product_price}</span>
+						<span className="product-price">￥{this.state.clear_price}</span>
 					</div>
 					<div className="product-choose">
 						<span className='choose-count'>请选择</span>

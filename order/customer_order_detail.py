@@ -20,6 +20,7 @@ import nav
 import models
 import urllib2
 import urllib
+import requests
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -58,27 +59,29 @@ class CustomerOrderDetail(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.all()
-		url = 'http://127.0.0.1:8002/panda/order_detail/?order_id=2'
+		# 请求接口获得数据
+		url = 'http://127.0.0.1:8002/mall/order_detail/?order_id=20160615143712504'
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
 		data = []
-		try:
-			res = opener.read()
+		res = opener.read()
+		if json.loads(res)['code'] == 200:
 			data = json.loads(res)['data']['order']
-		except:
-			print '------------'
+		else:
+			response = create_response(500)
+			return response.get_response()
 		product_id2name = {product.id:product.product_name for product in products}
-		order_products = data['products']
+		order_products = data['product']
 		total_count = 0
 		for product in order_products:
 			total_count += product['count']
 			product['purchase_price'] = '%.2f' %product['purchase_price']
-			product_id = product['product_id']
+			product_id = product['id']
 			product['product_name'] = '' if product_id not in product_id2name else product_id2name[product_id]
 		orders=[{
 			'order_id': data['order_id'],#订单编号
 			'order_status': order_status2text[data['status']],#订单状态
-			'order_express_details': json.dumps(data['order_express_details']) if data['order_express_details'] else '',#订单物流
+			'order_express_details': json.dumps(data['express_details']) if data['express_details'] else '',#订单物流
 			'ship_name': data['ship_name'],#收货人
 			'ship_tel': data['ship_tel'],#收货人电话
 			'customer_message': data['customer_message'],#买家留言

@@ -50,7 +50,7 @@ class NewProduct(resource.Resource):
 				'promotion_title': product.promotion_title,
 				'product_price': '%s' % product.product_price if product.product_price>0 else '',
 				'clear_price': '%s' % product.clear_price,
-				'product_weight': product.product_weight,
+				'product_weight': '%s'% product.product_weight,
 				'product_store': product.product_store,
 				'has_limit_time': '%s' %(1 if product.has_limit_time else 0),
 				'valid_time_from': '' if not product.valid_time_from else product.valid_time_from.strftime("%Y-%m-%d %H:%M"),
@@ -95,6 +95,10 @@ class NewProduct(resource.Resource):
 		valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
 		images = post.get('images','')
+		if not product_price:
+			product_price = -1
+		if not limit_clear_price:
+			limit_clear_price = -1
 		try:
 			if has_limit_time == 1:
 				product = models.Product.objects.create(
@@ -143,19 +147,21 @@ class NewProduct(resource.Resource):
 		post = request.POST
 		product_name = post.get('product_name','')
 		promotion_title = post.get('promotion_title','')
-		product_price = post.get('product_price',0)
+		product_price = post.get('product_price',-1)
 		clear_price = post.get('clear_price',0)
 		product_weight = post.get('product_weight',0)
 		has_limit_time = int(post.get('has_limit_time',0))
 		limit_clear_price = post.get('limit_clear_price',-1)
-		valid_time_from = post.get('valid_time_from','')
-		valid_time_to = post.get('valid_time_to','')
+		valid_time_from = post.get('valid_time_from',None)
+		valid_time_to = post.get('valid_time_to',None)
 		product_store = post.get('product_store',0)
 		product_store_type = int(post.get('product_store_type',-1))
 		if product_store_type == -1:
 			product_store = -1
 		if not limit_clear_price:
 			limit_clear_price = -1
+		if not product_price:
+			product_price = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
 		if has_limit_time ==1:
