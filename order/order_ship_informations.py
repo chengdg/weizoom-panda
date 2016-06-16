@@ -56,7 +56,6 @@ class OrderShipInformations(resource.Resource):
 		}
 		print('params!!!!!!!!!!!')
 		print(params)
-		# params = json.dumps(params)
 		if __method == 'put':
 			#发货
 			r = requests.post('http://api.zeus.com/mall/delivery/?_method=put',data=params)

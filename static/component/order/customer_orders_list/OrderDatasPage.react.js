@@ -33,11 +33,8 @@ var OrderDatasPage = React.createClass({
 				__method: 'put'
 			},
 			success: function(inputData, dialogState) {
-				var order = inputData.order;
 				console.log('dialogState');
 				console.log(dialogState);
-				//var comment = dialogState.comment;
-				//Action.updateProduct(product, 'comment', comment);
 			}
 		});
 	},
@@ -54,11 +51,8 @@ var OrderDatasPage = React.createClass({
 				__method: 'post'
 			},
 			success: function(inputData, dialogState) {
-				var order = inputData.order;
 				console.log('dialogState');
 				console.log(dialogState);
-				//var comment = dialogState.comment;
-				//Action.updateProduct(product, 'comment', comment);
 			}
 		});
 	},
