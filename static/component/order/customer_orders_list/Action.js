@@ -46,6 +46,13 @@ var Action = {
 		});
 	},
 
+	updateOrderShipInformations: function() {
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_DATAS_FILTER_ORDERS,
+			data: {}
+		});
+	},
+
 	completeOrder: function(orderId) {
 		Resource.post({
 			resource: 'order.order_complete_ship',

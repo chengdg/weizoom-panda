@@ -32,9 +32,9 @@ var OrderDatasPage = React.createClass({
 				order_id: orderId,
 				__method: 'put'
 			},
-			success: function(inputData, dialogState) {
-				console.log('dialogState');
-				console.log(dialogState);
+			success: function() {
+				console.log('success');
+				Action.updateOrderShipInformations();
 			}
 		});
 	},
@@ -51,8 +51,8 @@ var OrderDatasPage = React.createClass({
 				__method: 'post'
 			},
 			success: function(inputData, dialogState) {
-				console.log('dialogState');
-				console.log(dialogState);
+				console.log('success');
+				Action.updateOrderShipInformations();
 			}
 		});
 	},
