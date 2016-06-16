@@ -16,6 +16,7 @@ from core.exceptionutil import unicode_full_stack
 from resource import models as resource_models
 from product import models as product_models
 from util import string_util
+from panda.settings import ZEUS_HOST
 import nav
 import models
 import urllib2
@@ -60,7 +61,7 @@ class CustomerOrderDetail(resource.Resource):
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.all()
 		# 请求接口获得数据
-		url = 'http://127.0.0.1:8002/mall/order_detail/?order_id=20160615143712504'
+		url = ZEUS_HOST+'/mall/order_detail/?order_id=20160615143712504'
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
 		data = []
@@ -91,7 +92,6 @@ class CustomerOrderDetail(resource.Resource):
 			'order_money': '%.2f' %data['total_purchase_price'],#订单金额
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
-
 		}]
 		data = {
 			'rows': orders

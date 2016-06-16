@@ -17,6 +17,7 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
+from panda.settings import ZEUS_HOST
 import nav
 import models
 import urllib2
@@ -59,14 +60,13 @@ class ProductList(resource.Resource):
 		if len(product_ids)>1:
 			product_ids = '_'.join(product_ids)
 		# 请求接口获得数据
-		url = 'http://127.0.0.1:8002/mall/product_sales/?product_ids='+product_ids
+		url = ZEUS_HOST+'/mall/product_sales/?product_ids='+product_ids
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
 		data = []
 		res = opener.read()
 		if json.loads(res)['code'] == 200:
 			data = json.loads(res)['data']
-			print data,"-----"
 		else:
 			response = create_response(500)
 			return response.get_response()
@@ -104,12 +104,4 @@ class ProductList(resource.Resource):
 		#构造response
 		response = create_response(200)
 		response.data = data
-
 		return response.get_response()
-		data = [
-			{
-				11:55,
-				23:88
-			}
-		]
-		id2sales = {order.product:order.sales for order in orders}
