@@ -73,7 +73,7 @@ var ExpressMessage = React.createClass({
 		if(order_express_details){
 			var order_express = JSON.parse(order_express_details).map(function(order_expres,index){
 				<div key={index}>
-					<span>order_expres['time'] order_expres['context']</span>
+					<span>order_expres['ftime'] order_expres['context']</span>
 				</div>
 			})
 			return (

@@ -90,37 +90,10 @@ class CustomerOrderDetail(resource.Resource):
 			'products': json.dumps(order_products)# 购买商品
 
 		}]
-		# rows = [{
-		# 	'product_name': u'[唯美农业]红枣夹核桃250g*2包',
-		# 	'unit_price': '25.30',
-		# 	'quantity': '2',
-		# 	'total_count': '2',
-		# 	'order_money': '50.60'
-		# },{
-		# 	'product_name': u'米琦尔大米',
-		# 	'unit_price': '59',
-		# 	'quantity': '1',
-		# 	'total_count': '1',
-		# 	'order_money': '59'
-		# },{
-		# 	'product_name': u'土小宝礼品装',
-		# 	'unit_price': '60',
-		# 	'quantity': '2',
-		# 	'total_count': '2',
-		# 	'order_money': '12.00'
-		# }]
 		data = {
 			'rows': orders
 		}
-
 		#构造response
 		response = create_response(200)
 		response.data = data
-
 		return response.get_response()
-
-def get_json(response):
-	#去掉头部信息，截取返回的json字符串
-	data_str = str(response).split('\n\n')[0].strip()
-	#解析json字符串，返回json对象
-	return decode_json_str(data_str)
