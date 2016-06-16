@@ -121,7 +121,6 @@ class CustomerOrdersList(resource.Resource):
 			try:
 				#请求接口获得数据
 				params = {
-					'account_type': 'customer',
 					'product_ids': api_pids,
 					'page':cur_page
 				}
@@ -140,22 +139,32 @@ class CustomerOrdersList(resource.Resource):
 
 				for order in orders:
 					order_id = order['order_id']
-					product_infos = order['product_info']
-					for product_info in product_infos:
-						product_id = str(product_info['product_id'])
-						product_info['product_name'] = product_weapp_id2info[product_id][0]['product_name']
-						product_info['product_img'] = product_weapp_id2info[product_id][0]['product_img']
-						product_info['purchase_price'] = str('%.2f' % product_info['purchase_price'])
-						product_info['total_price'] = str('%.2f' % product_info['total_price'])
+					print(order)
+					product_infos = []
+					return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
+					total_purchase_price = 0
+					for return_product_info in return_product_infos:
+						product_id = str(return_product_info['id'])
+						if product_weapp_id2info.has_key(product_id):#只展示关联商品id的订单
+							product_infos.append({
+								'product_name': product_weapp_id2info[product_id][0]['product_name'],
+								'product_img': product_weapp_id2info[product_id][0]['product_img'],
+								'purchase_price': return_product_info['price'],
+								'count': return_product_info['count'],
+								'total_price': return_product_info['total_price']
+							})
+							total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
 					rows.append({
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],
-						'total_purchase_price': str('%.2f' % order['order_money']),
+						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'status': order_status2text[order['status']],
 						'product_infos': json.dumps(product_infos)
 					})
-			except:
+			except Exception,e:
+				print('eeeeeeeeeeeeeeeeeee')
+				print(e)
 				orders = []
 				pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
 				pageinfo = pageinfo.to_dict()
