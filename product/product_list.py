@@ -63,6 +63,7 @@ class ProductList(resource.Resource):
 			product_ids = '%s' %product_ids[0]
 		# 请求接口获得数据
 		url = ZEUS_HOST+'/mall/product_sales/?product_ids='+product_ids
+		print url, '====='
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
 		data = []
