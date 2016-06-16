@@ -61,7 +61,7 @@ class CustomerOrderDetail(resource.Resource):
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.all()
 		# 请求接口获得数据
-		url = ZEUS_HOST+'/mall/order_detail/?order_id=20160615143712504'
+		url = ZEUS_HOST+'/mall/order_detail/?order_id'+order_id
 		url_request = urllib2.Request(url)
 		opener = urllib2.urlopen(url_request)
 		data = []
