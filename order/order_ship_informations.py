@@ -18,8 +18,7 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
-import nav
-import models
+from panda.settings import ZEUS_HOST
 
 class OrderShipInformations(resource.Resource):
 	app = 'order'
@@ -58,10 +57,10 @@ class OrderShipInformations(resource.Resource):
 		print(params)
 		if __method == 'put':
 			#发货
-			r = requests.post('http://api.zeus.com/mall/delivery/?_method=put',data=params)
+			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=put',data=params)
 		else:
 			#修改物流
-			r = requests.post('http://api.zeus.com/mall/delivery/?_method=post',data=params)
+			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=post',data=params)
 		res = json.loads(r.text)
 		print('res!!!!!!!')
 		print(res)
@@ -85,7 +84,7 @@ class OrderCompleteShip(resource.Resource):
 			'action' : 'finish',
 			'operator_name' : request.user.username
 		}
-		r = requests.post('http://api.zeus.com/mall/order/?_method=post',data=params)
+		r = requests.post(ZEUS_HOST+'/mall/order/?_method=post',data=params)
 		res = json.loads(r.text)
 		print('res!!!!!!!')
 		print(res)

@@ -16,6 +16,7 @@ import nav
 import models
 from account.models import *
 from product import models as product_models
+from panda.settings import ZEUS_HOST
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -110,7 +111,7 @@ class YunyingOrdersList(resource.Resource):
 					'page':cur_page
 				}
 				params.update(filter_params)
-				r = requests.get('http://api.zeus.com/panda/order_list/',params=params)
+				r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
