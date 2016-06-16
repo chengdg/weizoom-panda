@@ -118,9 +118,7 @@ var OrderStatus = React.createClass({
 					<div style={{marginTop:'10px'}}>
 						<span>订单状态:{order_status}</span>
 					</div>
-					<div style={{margin:'0 auto',width:'200px'}}>
-						<button type="button" className="btn btn-primary" style={{width:'100px'}}>发货</button>
-					</div>
+					
 				</div>
 			</div>
 		)

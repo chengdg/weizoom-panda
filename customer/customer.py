@@ -67,6 +67,8 @@ class Customer(resource.Resource):
 		product_ids = ['%s'%product.id for product in products]
 		if len(product_ids)>1:
 			product_ids = '_'.join(product_ids)
+		else:
+			product_ids = '%s' %product_ids[0]
 		# 请求接口获得数据
 		url = ZEUS_HOST+'/mall/product_sales/?product_ids='+product_ids
 		url_request = urllib2.Request(url)
