@@ -29,7 +29,8 @@ var OrderDatasPage = React.createClass({
 			title: "发货信息",
 			component: ShipDialog,
 			data: {
-				order_id: orderId
+				order_id: orderId,
+				__method: 'put'
 			},
 			success: function(inputData, dialogState) {
 				var order = inputData.order;
@@ -49,7 +50,8 @@ var OrderDatasPage = React.createClass({
 			title: "修改物流信息",
 			component: ShipDialog,
 			data: {
-				order_id: orderId
+				order_id: orderId,
+				__method: 'post'
 			},
 			success: function(inputData, dialogState) {
 				var order = inputData.order;

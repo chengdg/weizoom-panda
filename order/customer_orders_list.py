@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import time
-import urllib, urllib2
+import requests
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -101,17 +101,16 @@ class CustomerOrdersList(resource.Resource):
 							'product_img': url
 						})
 		#查找
-		filter_string = ''
+		filter_params = {}
 		if order_id:
-			filter_string = filter_string + '&order_id=' + order_id
+			filter_params['order_id'] = order_id
 		if status != '-1':
-			filter_string = filter_string + '&status=' + status
+			filter_params['status'] = status
 		if order_create_at_range:
 			start_time = order_create_at_range[0]
 			end_time = order_create_at_range[1]
-			filter_string = filter_string + '&start_time=' + start_time + '&end_time=' + end_time
-		print('filter_string:')
-		print(filter_string)
+			filter_params['start_time'] = start_time
+			filter_params['end_time'] = end_time
 
 		api_pids = '_'.join(api_pids)
 		print('api_pids')
@@ -120,13 +119,14 @@ class CustomerOrdersList(resource.Resource):
 		if api_pids != '':
 			try:
 				#请求接口获得数据
-				account_type = 'customer'
-				api_url = 'http://api.zeus.com/panda/order_list/?product_ids={}&account_type={}&page={}'.format(api_pids,account_type,cur_page)
-				if filter_string!= '':
-					api_url +=  filter_string
-				url_request = urllib2.Request(api_url)
-				res_data = urllib2.urlopen(url_request)
-				res = json.loads(res_data.read())
+				params = {
+					'account_type': 'customer',
+					'product_ids': api_pids,
+					'page':cur_page
+				}
+				params.update(filter_params)
+				r = requests.get('http://api.zeus.com/panda/order_list/',params=params)
+				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
 				else:

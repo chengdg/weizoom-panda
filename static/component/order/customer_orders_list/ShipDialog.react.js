@@ -17,8 +17,10 @@ var ShipDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var order_id = this.props.data.order_id;
+		var __method = this.props.data.__method;
 		return {
-			order_id: order_id
+			order_id: order_id,
+			__method: __method
 		}
 	},
 
@@ -39,19 +41,20 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
+		console.log('this.state!!!!!!!!!!!');
+		console.log(this.state);
 		if (this.state.ship_company === '-1') {
 			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
-			console.log('this.state');
-			console.log(this.state);
-			//给接口传递发货的参数
+			//给接口传递发货信息的参数
 			Reactman.Resource.put({
 				resource: 'order.order_ship_informations',
 				data: {
 					order_id: this.state.order_id,
 					express_company_name: this.state.ship_company,
 					express_number: this.state.ship_number,
-					leader_name: this.state.shiper_name
+					leader_name: this.state.shiper_name,
+					__method: this.state.__method
 				},
 				success: function() {
 					this.closeDialog();
