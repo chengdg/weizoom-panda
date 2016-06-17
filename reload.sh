@@ -1,0 +1,1 @@
+uwsgi --reload /panda/web/panda.pid

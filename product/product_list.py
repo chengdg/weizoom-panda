@@ -20,8 +20,6 @@ from util import string_util
 from panda.settings import ZEUS_HOST
 import nav
 import models
-import urllib2
-import urllib
 import requests
 
 FIRST_NAV = 'product'
