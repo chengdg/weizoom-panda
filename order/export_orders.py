@@ -60,7 +60,7 @@ class ExportOrders(resource.Resource):
 			product_infos = json.loads(order['product_infos'])
 			for product_info in product_infos:
 				product_names.append(product_info['product_name'])
-				product_price.append( product_info['purchase_price'])
+				product_price.append(str('%.2f' % product_info['purchase_price']))
 				product_count.append( str(product_info['count'])+u'件')
 			product_names = ','.join(product_names)
 			product_price = ','.join(product_price)
