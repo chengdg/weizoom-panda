@@ -19,6 +19,12 @@ var Action = {
 			actionType: Constant.FILTER_ORDERS,
 			data: filterOptions
 		});
+	},
+	exportOrders: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_DATAS_EXPORT,
+			data: {}
+		});
 	}
 };
 

@@ -33,11 +33,16 @@ var YunyingOrderDatasPage = React.createClass({
 		Action.filterOrders(data);
 	},
 
+	onExport: function(){
+		//Action.exportOrders();
+	},
+
 	render:function(){
 		var ordersResource = {
 			resource: 'order.yunying_orders_list',
 			data: {
-				page: 1
+				page: 1,
+				is_for_list: true
 			}
 		};
 		var typeOptions = [{
@@ -80,7 +85,7 @@ var YunyingOrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="导出发货文件" />
+					<Reactman.TableActionButton text="导出发货文件" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />

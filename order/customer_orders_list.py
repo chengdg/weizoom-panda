@@ -184,7 +184,6 @@ class CustomerOrdersList(resource.Resource):
 			#构造response
 			response = create_response(200)
 			response.data = data
-
 			return response.get_response()
 		else:
 			return rows

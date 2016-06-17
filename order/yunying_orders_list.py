@@ -43,6 +43,7 @@ class YunyingOrdersList(resource.Resource):
 		return render_to_response('order/yunying_orders_list.html', c)
 
 	def api_get(request):
+		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_name = filter_idct.get('customer_name','')
@@ -162,13 +163,15 @@ class YunyingOrdersList(resource.Resource):
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
 			pageinfo = pageinfo.to_dict()
-		data = {
-			'rows': rows,
-			'pagination_info': pageinfo
-		}
 
-		#构造response
-		response = create_response(200)
-		response.data = data
-
-		return response.get_response()
+		if is_for_list:
+			data = {
+				'rows': rows,
+				'pagination_info': pageinfo
+			}
+			#构造response
+			response = create_response(200)
+			response.data = data
+			return response.get_response()
+		else:
+			return rows

@@ -74,17 +74,17 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onOrderBatchDelivery: function(event) {
-		Reactman.PageAction.showDialog({
-			title: "批量发货",
-			component: OrderBatchDelivery,
-			data: {},
-			success: function(inputData, dialogState) {
-				console.log('dialogState');
-				console.log(dialogState);
-				//var comment = dialogState.comment;
-				//Action.updateProduct(product, 'comment', comment);
-			}
-		});
+		//Reactman.PageAction.showDialog({
+		//	title: "批量发货",
+		//	component: OrderBatchDelivery,
+		//	data: {},
+		//	success: function(inputData, dialogState) {
+		//		console.log('dialogState');
+		//		console.log(dialogState);
+		//		//var comment = dialogState.comment;
+		//		//Action.updateProduct(product, 'comment', comment);
+		//	}
+		//});
 	},
 
 	onChangeStore: function(event) {

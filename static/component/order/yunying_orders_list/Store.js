@@ -16,7 +16,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleFilterOrders': Constant.FILTER_ORDERS
+		'handleFilterOrders': Constant.FILTER_ORDERS,
+		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
 	},
 
 	init: function() {
@@ -28,7 +29,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data.filterOptions = action.data;
 		this.__emitChange();
 	},
-
+	handleOrderDatasExport: function(action){
+		var filterOptions = this.data.filterOptions;
+		console.log('filterOptions');
+		console.log(filterOptions);
+		var filter_str = '';
+		window.location.href = '/order/yunying_export_orders';
+	},
 	getData: function() {
 		return this.data;
 	}
