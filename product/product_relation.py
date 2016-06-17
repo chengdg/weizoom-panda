@@ -100,14 +100,51 @@ class ProductRelation(resource.Resource):
 		#组装数据
 		rows = []
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
+
+		product_ids = ''
+		#构造panda数据库内商品id，与云商通内商品id的关系
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				product_ids = product_ids + '_' +weapp_product_id
+
+		product_weapp_id2product_id = {}
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
+				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
+		#请求接口获得数据
+		id2sales = {}
+		try:
+			params = {
+				'product_ids': product_ids[1:]
+			}
+			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				product_sales = res['data']['product_sales']
+				if product_sales:
+					for product_sale in product_sales:
+						product_id = str(product_sale['product_id'])
+						if product_id in product_weapp_id2product_id:
+							p_id = product_weapp_id2product_id[product_id]
+							p_sales = product_sale['sales']
+							id2sales[p_id] = p_sales
+			else:
+				print(res)
+		except Exception,e:
+			print(e)
+
 		for product in products:
 			if product.owner_id in user_id2name:
+				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				rows.append({
 					'id': product.id,
 					'role': role,
 					'product_name': product.product_name,
 					'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
-					'total_sales': '0',
+					'total_sales': '%s' %sales,
 					'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 					'self_shop': json.dumps(self_shop),
 					'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
