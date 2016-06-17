@@ -32,7 +32,21 @@ random.seed(time.time())
 #===============================================================================
 @login_required
 def index(request):
-	return HttpResponseRedirect('/account/login/')
+	user_profile = UserProfile.objects.filter(user_id=request.user.id,status=1)
+	if user_profile:
+		role = user_profile[0].role
+		if role == MANAGER:
+			return HttpResponseRedirect('/manager/account/')
+		elif role == CUSTOMER:
+			return HttpResponseRedirect('/product/product_list/')
+		elif role == AGENCY:
+			return HttpResponseRedirect('/customer/customer/')
+		elif role == YUN_YING:
+			return HttpResponseRedirect('/product/product_relation/')
+		else:
+			return HttpResponseRedirect('/product/product_relation/')
+	else:
+		return HttpResponseRedirect('/account/login/')
 	
 
 #===============================================================================

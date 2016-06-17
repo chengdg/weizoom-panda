@@ -35,8 +35,6 @@ class OrderShipInformations(resource.Resource):
 			'leader_name' : request.POST.get('leader_name',''),
 			'operator_name' : request.user.username
 		}
-		print('params!!!!!!!!!!!')
-		print(params)
 		if __method == 'put':
 			#发货
 			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=put',data=params)
