@@ -36,28 +36,29 @@ var OrderLogistics = React.createClass({
 		var ship_tel = orde_datas['ship_tel']?orde_datas['ship_tel']:'';
 		var customer_message = orde_datas['customer_message']?orde_datas['customer_message']:'';
 		var ship_address = orde_datas['ship_address']?orde_datas['ship_address']:'';
+		var ship_area = orde_datas['ship_area']?orde_datas['ship_area']:'';
 		var express_company_name = orde_datas['express_company_name']?orde_datas['express_company_name']:'';
 		var express_number = orde_datas['express_number']?orde_datas['express_number']:'';
 		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:[];
 		return (
 			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>
 				<div style={{padding:'5px 20px'}}>
-					<div>
+					<div style={{marginTop:'5px'}}>
 						<span className="inline-block">收货人:{ship_name}</span>
 						<span className="inline-block" style={{marginLeft:'130px'}}>收货人电话:{ship_tel}</span>
 					</div>
-					<div>
-						<span>买家留言:{customer_message}</span>
+					<div style={{marginTop:'5px'}}>
+						<span>收货地址:{ship_area},{ship_address}</span>
 					</div>
-					<div style={{borderBottom: '1px solid #ECE9E9'}}>
-						<span>收货地址:{ship_address}</span>
+					<div style={{borderBottom: '1px solid #ECE9E9',marginTop:'5px'}}>
+						<span>买家留言:{customer_message}</span>
 					</div>
 				</div>
 				<div style={{padding:'5px 20px'}}>
-					<div>
+					<div style={{marginTop:'5px'}}>
 						<span>物流公司名称:{express_company_name}</span>
 					</div>
-					<div style={{marginBottom: '20px'}}>
+					<div style={{marginBottom: '20px',marginTop:'5px'}}>
 						<span>运单号:{express_number}</span>
 					</div>
 					<ExpressMessage orderExpress={order_express_details}/>

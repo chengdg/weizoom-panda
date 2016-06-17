@@ -92,6 +92,7 @@ class CustomerOrderDetail(resource.Resource):
 			'ship_name': data['ship_name'],#收货人
 			'ship_tel': data['ship_tel'],#收货人电话
 			'customer_message': data['customer_message'],#买家留言
+			'ship_area': data['ship_area'],#收货区域
 			'ship_address': data['ship_address'],#收货地址
 			'express_company_name': data['express_company_name'],#物流公司名称
 			'express_number': data['express_number'],#运单号
