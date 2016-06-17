@@ -31,6 +31,26 @@ var OrderLogistics = React.createClass({
 	},
 
 	render:function(){
+		var options = {
+			'':'',
+			'shentong': '申通快递',
+			'ems': 'EMS',
+			'yuantong': '圆通速递',
+			'shunfeng': '顺丰速运',
+			'zhongtong': '中通速递',
+			'tiantian': '天天快递',
+			'yunda': '韵达快运',
+			'huitongkuaidi': '百世快递',
+			'quanfengkuaidi': '全峰快递',
+			'debangwuliu': '德邦物流',
+			'zhaijisong': '宅急送',
+			'kuaijiesudi': '快捷速递',
+			'bpost': '比利时邮政',
+			'suer': '速尔快递',
+			'guotongkuaidi': '国通快递',
+			'youzhengguonei': '邮政包裹/平邮',
+			'rufengda': '如风达',
+		};
 		var orde_datas = this.state.orde_datas;
 		var ship_name = orde_datas['ship_name']?orde_datas['ship_name']:'';
 		var ship_tel = orde_datas['ship_tel']?orde_datas['ship_tel']:'';
@@ -40,6 +60,7 @@ var OrderLogistics = React.createClass({
 		var express_company_name = orde_datas['express_company_name']?orde_datas['express_company_name']:'';
 		var express_number = orde_datas['express_number']?orde_datas['express_number']:'';
 		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:[];
+		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
 		return (
 			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>
 				<div style={{padding:'5px 20px'}}>

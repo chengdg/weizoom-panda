@@ -156,8 +156,9 @@ var NewProductPage = React.createClass({
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
-					<fieldset>
+					<fieldset style={{position:'relative'}}>
 						{role == 3? '': <Reactman.FormSubmit onClick={this.onSubmit} />}
+						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={{position:'absolute',top:'40px',left:'270px'}} onClick={this.productPreview}>商品预览</a>
 					</fieldset>
 				</form>
 			</div>
