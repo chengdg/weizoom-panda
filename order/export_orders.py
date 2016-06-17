@@ -20,6 +20,27 @@ from excel_response import ExcelResponse
 from customer_orders_list import CustomerOrdersList
 from yunying_orders_list import YunyingOrdersList
 
+express_company_name2text = {
+	'':'',
+	'shentong': u'申通快递',
+	'ems': u'EMS',
+	'yuantong': u'圆通速递',
+	'shunfeng': u'顺丰速运',
+	'zhongtong': u'中通速递',
+	'tiantian': u'天天快递',
+	'yunda': u'韵达快运',
+	'huitongkuaidi': u'百世快递',
+	'quanfengkuaidi': u'全峰快递',
+	'debangwuliu': u'德邦物流',
+	'zhaijisong': u'宅急送',
+	'kuaijiesudi': u'快捷速递',
+	'bpost': u'比利时邮政',
+	'suer': u'速尔快递',
+	'guotongkuaidi': u'国通快递',
+	'youzhengguonei': u'邮政包裹/平邮',
+	'rufengda': u'如风达'
+}
+
 class ExportOrders(resource.Resource):
 	app = 'order'
 	resource = 'export_orders'
@@ -63,7 +84,7 @@ class ExportOrders(resource.Resource):
 				order['ship_address'],
 				leader_name,
 				leader_name_message,
-				order['express_company_name'],
+				express_company_name2text[order['express_company_name']],
 				order['express_number'],
 				order['delivery_time'],
 				order['customer_message']
