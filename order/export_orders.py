@@ -98,25 +98,15 @@ class YunyingExportOrders(resource.Resource):
 	@login_required
 	def get(request):
 		orders = YunyingOrdersList.api_get(request)
-		# titles = [
-		# 	u'商品', u'单价/数量', u'收货人', u'订单金额', u'订单状态'
-		# ]
+		titles = [
+			u'订单编号', u'物流公司', u'快递单号'
+		]
 		table = []
-		# table.append(titles)
-		# for order in orders:
-		# 	product_names = []
-		# 	product_price_count = []
-		# 	product_infos = json.loads(order['product_infos'])
-		# 	for product_info in product_infos:
-		# 		product_names.append(product_info['product_name'])
-		# 		product_price_count.append( product_info['purchase_price']+'('+str(product_info['count'])+u'件)')
-		# 	product_names = ','.join(product_names)
-		# 	product_price_count = ','.join(product_price_count)
-		# 	table.append([
-		# 		product_names,
-		# 		product_price_count,
-		# 		order['ship_name'],
-		# 		order['total_purchase_price'],
-		# 		order['status']
-		# 	])
+		table.append(titles)
+		for order in orders:
+			table.append([
+				order['order_id'],
+				express_company_name2text[order['express_company_name']],
+				order['express_number']
+			])
 		return ExcelResponse(table,output_name=u'发货文件'.encode('utf8'),force_csv=False)

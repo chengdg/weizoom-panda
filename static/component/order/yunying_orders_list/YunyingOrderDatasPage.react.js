@@ -34,7 +34,7 @@ var YunyingOrderDatasPage = React.createClass({
 	},
 
 	onExport: function(){
-		//Action.exportOrders();
+		Action.exportOrders();
 	},
 
 	render:function(){
