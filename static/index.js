@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 	ReactDOM.render(
 		<Reactman.Page 
-			sitename="panda" 
+			sitename="微众体验系统后台" 
 			userName={W.userName}
 			topNavs={W.topNavs} 
 			activeTopNav={W.activeTopNav} 
