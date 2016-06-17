@@ -61,7 +61,7 @@ class ProductList(resource.Resource):
 			product_ids = '%s' %product_ids[0]
 
 		#请求接口获得数据
-		data = {}
+		id2sales = {}
 		try:
 			params = {
 				'product_ids': product_ids
@@ -69,7 +69,13 @@ class ProductList(resource.Resource):
 			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
-				data = res['data']
+				product_sales = res['data']['product_sales']
+				if product_sales:
+					product_sales = json.loads(product_sales)
+					for product_sale in product_sales:
+						p_id = product_sale['product_id']
+						p_sales = product_sale['sales']
+						id2sales[p_id] = p_sales
 			else:
 				print(res)
 		except Exception,e:
@@ -89,7 +95,7 @@ class ProductList(resource.Resource):
 		for product in products:
 			image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id]
 			image_path = '' if image_id not in image_id2images else image_id2images[image_id]
-			sales = 0 if product.id not in data else data[product.id]
+			sales = 0 if product.id not in id2sales else id2sales[product.id]
 			rows.append({
 				'id': product.id,
 				'role': role,

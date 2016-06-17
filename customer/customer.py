@@ -69,17 +69,27 @@ class Customer(resource.Resource):
 			product_ids = '_'.join(product_ids)
 		else:
 			product_ids = '%s' %product_ids[0]
-		# 请求接口获得数据
-		url = ZEUS_HOST+'/mall/product_sales/?product_ids='+product_ids
-		url_request = urllib2.Request(url)
-		opener = urllib2.urlopen(url_request)
-		sales = []
-		res = opener.read()
-		if json.loads(res)['code'] == 200:
-			sales = json.loads(res)['data']
-		else:
-			response = create_response(500)
-			return response.get_response()
+
+		#请求接口获得数据
+		id2sales = {}
+		try:
+			params = {
+				'product_ids': product_ids
+			}
+			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				product_sales = res['data']['product_sales']
+				if product_sales:
+					product_sales = json.loads(product_sales)
+					for product_sale in product_sales:
+						p_id = product_sale['product_id']
+						p_sales = product_sale['sales']
+						id2sales[p_id] = p_sales
+			else:
+				print(res)
+		except Exception,e:
+			print(e)
 
 		rows = []
 		for user in user_profiles:
@@ -89,7 +99,7 @@ class Customer(resource.Resource):
 			if product_ids:
 				for product_id in product_ids:
 					name = '' if product_id not in product_id2name else product_id2name[product_id]
-					sale = 0 if product.id not in sales else sales[product_id]
+					sale = 0 if product.id not in id2sales else id2sales[product_id]
 					total_sales += sale
 					product_infos.append({
 						'name': name,
