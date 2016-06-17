@@ -59,7 +59,7 @@ class CustomerOrderDetail(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
-		products = product_models.Product.objects.all()
+		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		#请求接口获得数据
 		data = []
 		try:
@@ -85,14 +85,13 @@ class CustomerOrderDetail(resource.Resource):
 			for weapp_product_id in weapp_product_ids:
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
-
 		product_id2name = {product.id:product.product_name for product in products}
 		order_products = data['product']
 		total_count = 0
 		for product in order_products:
 			total_count += product['count']
 			product['purchase_price'] = '%.2f' %product['purchase_price']
-			weapp_product_id = product['id']
+			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
 			product['product_name'] = '' if product_id not in product_id2name else product_id2name[product_id]
 		orders=[{
