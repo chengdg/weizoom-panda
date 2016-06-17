@@ -16,7 +16,7 @@ from account.models import *
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		file_name_dir = '%s' %'/panda/account/management/commands/product_module.xlsx'
+		file_name_dir = '%s' %'./account/management/commands/product_module.xlsx'
 		table_title_list = []
 		data = xlrd.open_workbook(file_name_dir)
 		table = data.sheet_by_index(0)
@@ -105,14 +105,17 @@ class Command(BaseCommand):
 					user.first_name = account_name
 					user.save()
 					UserProfile.objects.filter(user=user).update(
-						manager_id = user.id,
+						manager_id = 3,
 						role = 1,
 						name = account_name,
 						note = ''
 					)
+				else:
+					user = User.objects.get(username=account_name)
 
 				#创建商品
-				user_profile = account_models.UserProfile.objects.get(name=account_name)
+				user_id = user.id
+				user_profile = account_models.UserProfile.objects.get(user_id=user_id)
 				product = product_models.Product.objects.create(
 					owner = user_profile.user, 
 					product_name = product_name, 
