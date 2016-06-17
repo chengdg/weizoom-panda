@@ -104,61 +104,65 @@ class YunyingOrdersList(resource.Resource):
 		print(api_pids)
 		rows = []
 		if api_pids != '':
-			try:
-				#请求接口获得数据
-				params = {
-					'status': 5,#运营只查看已完成的订单
-					'product_ids': api_pids,
-					'page':cur_page,
-					'count_per_page': COUNT_PER_PAGE
-				}
-				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
-				print(params)
-				res = json.loads(r.text)
-				if res['code'] == 200:
-					orders = res['data']['orders']
-				else:
-					print(res)
-					response = create_response(500)
-					return response.get_response()
+			# try:
+			#请求接口获得数据
+			params = {
+				'status': 5,#运营只查看已完成的订单
+				'product_ids': api_pids,
+				'page':cur_page,
+				'count_per_page': COUNT_PER_PAGE
+			}
+			params.update(filter_params)
+			r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				orders = res['data']['orders']
+			else:
+				print(res)
+				response = create_response(500)
+				return response.get_response()
 
-				#从接口获得来源商城名称
-				webapp_ids = [order['webapp_id'] for order in orders]
-				webapp_ids = '_'.join(webapp_ids)
-				from_mall_response = requests.get(ZEUS_HOST+'/mall/store_name/',params={'webapp_ids':webapp_ids})
-				from_mall_res = json.loads(from_mall_response.text)
-				if from_mall_res['code'] == 200:
-					webapp_id2store_name = from_mall_res['data']['webapp_id2store_name']
-				else:
-					print(res)
+			#从接口获得来源商城名称
+			webapp_ids = [order['webapp_id'] for order in orders]
+			webapp_ids = '_'.join(webapp_ids)
+			from_mall_response = requests.get(ZEUS_HOST+'/mall/store_name/',params={'webapp_ids':webapp_ids})
+			from_mall_res = json.loads(from_mall_response.text)
+			webapp_id2store_name = {}
+			if from_mall_res['code'] == 200:
+				store_names = from_mall_res['data']['store_names']
+				for store_name in store_names:
+					webapp_id = store_name['webapp_id']
+					store_name = store_name['store_name']
+					webapp_id2store_name[webapp_id] = [store_name]
+			else:
+				print(res)
 
-				pageinfo = res['data']['pageinfo']
-				pageinfo['total_count'] = pageinfo['object_count']
+			pageinfo = res['data']['pageinfo']
+			pageinfo['total_count'] = pageinfo['object_count']
 
-				for order in orders:
-					# print(order)
-					return_product_infos = order['products']
-					total_purchase_price = 0
-					for return_product_info in return_product_infos:
-						product_id = str(return_product_info['id'])
-						if product_weapp_id2seller_name.has_key(product_id):
-							weapp_product_id = product_id
-							total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
-					webapp_id = order['webapp_id']
-					rows.append({
-						'order_id': order['order_id'],
-						'order_create_at': order['created_at'],
-						'total_purchase_price': str('%.2f' % total_purchase_price),
-						'customer_name': product_weapp_id2seller_name[weapp_product_id],
-						'from_mall': webapp_id2store_name[webapp_id]
-					})
-			except Exception,e:
-				print('eeeeeeeeeeeeeeeeeee')
-				print(e)
-				orders = []
-				pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
-				pageinfo = pageinfo.to_dict()
+			for order in orders:
+				# print(order)
+				return_product_infos = order['products']
+				total_purchase_price = 0
+				for return_product_info in return_product_infos:
+					product_id = str(return_product_info['id'])
+					if product_weapp_id2seller_name.has_key(product_id):
+						weapp_product_id = product_id
+						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+				webapp_id = order['webapp_id']
+				rows.append({
+					'order_id': order['order_id'],
+					'order_create_at': order['created_at'],
+					'total_purchase_price': str('%.2f' % total_purchase_price),
+					'customer_name': product_weapp_id2seller_name[weapp_product_id],
+					'from_mall': webapp_id2store_name[webapp_id]
+				})
+			# except Exception,e:
+			# 	print('eeeeeeeeeeeeeeeeeee')
+			# 	print(e)
+			# 	orders = []
+			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
