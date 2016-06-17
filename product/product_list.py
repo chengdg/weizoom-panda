@@ -55,16 +55,21 @@ class ProductList(resource.Resource):
 		products = models.Product.objects.filter(owner=request.user).order_by('-id')
 		product_images = models.ProductImage.objects.all().order_by('-id')
 		product_ids = ['%s'%product.id for product in products]
-		if len(product_ids)>1:
-			product_ids = '_'.join(product_ids)
-		else:
-			product_ids = '%s' %product_ids[0]
+		product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
+
+		product_ids = ''
+		#构造panda数据库内商品id，与云商通内商品id的关系
+		product_id2product_weapp_id = {}
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				product_ids = product_ids + '_' +weapp_product_id
 
 		#请求接口获得数据
 		id2sales = {}
 		try:
 			params = {
-				'product_ids': product_ids
+				'product_ids': product_ids[1:]
 			}
 			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
 			res = json.loads(r.text)
