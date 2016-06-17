@@ -122,6 +122,7 @@ class YunyingOrdersList(resource.Resource):
 					response = create_response(500)
 					return response.get_response()
 
+				#从接口获得来源商城名称
 				webapp_ids = [order['webapp_id'] for order in orders]
 				webapp_ids = '_'.join(webapp_ids)
 				from_mall_response = requests.get(ZEUS_HOST+'/mall/store_name/',params={'webapp_ids':webapp_ids})

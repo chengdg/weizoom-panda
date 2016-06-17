@@ -55,7 +55,6 @@ class CustomerOrdersList(resource.Resource):
 
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
-		print(is_for_list)
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
@@ -114,61 +113,64 @@ class CustomerOrdersList(resource.Resource):
 			filter_params['end_time'] = end_time
 
 		api_pids = '_'.join(api_pids)
-		print('api_pids')
+		print('api_pids:')
 		print(api_pids)
 		rows = []
 		if api_pids != '':
-			try:
-				#请求接口获得数据
-				params = {
-					'product_ids': api_pids,
-					'page':cur_page,
-					'count_per_page': COUNT_PER_PAGE
-				}
-				params.update(filter_params)
-				print(params)
-				r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
-				res = json.loads(r.text)
-				if res['code'] == 200:
-					orders = res['data']['orders']
-				else:
-					print(res)
-					response = create_response(500)
-					return response.get_response()
+			# try:
+			#请求接口获得数据
+			params = {
+				'product_ids': api_pids,
+				'page':cur_page,
+				'count_per_page': COUNT_PER_PAGE
+			}
+			params.update(filter_params)
+			print(params)
+			r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				orders = res['data']['orders']
+			else:
+				print(res)
+				response = create_response(500)
+				return response.get_response()
 
-				pageinfo = res['data']['pageinfo']
-				pageinfo['total_count'] = pageinfo['object_count']
+			pageinfo = res['data']['pageinfo']
+			pageinfo['total_count'] = pageinfo['object_count']
 
-				for order in orders:
-					order_id = order['order_id']
-					product_infos = []
-					return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
-					total_purchase_price = 0
-					for return_product_info in return_product_infos:
-						product_id = str(return_product_info['id'])
-						if product_weapp_id2info.has_key(product_id):#只展示关联商品id的订单
-							product_infos.append({
-								'product_name': product_weapp_id2info[product_id][0]['product_name'],
-								'product_img': product_weapp_id2info[product_id][0]['product_img'],
-								'purchase_price': return_product_info['price'],
-								'count': return_product_info['count'],
-								'total_price': return_product_info['total_price']
-							})
-							total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
-					rows.append({
-						'order_id': order_id,
-						'order_create_at': order['created_at'],
-						'ship_name': order['ship_name'],
-						'total_purchase_price': str('%.2f' % total_purchase_price),
-						'status': order_status2text[order['status']],
-						'product_infos': json.dumps(product_infos)
-					})
-			except Exception,e:
-				print('eeeeeeeeeeeeeeeeeee')
-				print(e)
-				orders = []
-				pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
-				pageinfo = pageinfo.to_dict()
+			for order in orders:
+				order_id = order['order_id']
+				product_infos = []
+				return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
+				total_purchase_price = 0
+				for return_product_info in return_product_infos:
+					product_id = str(return_product_info['id'])
+					if product_weapp_id2info.has_key(product_id):#只展示关联商品id的订单
+						product_infos.append({
+							'product_name': product_weapp_id2info[product_id][0]['product_name'],
+							'product_img': product_weapp_id2info[product_id][0]['product_img'],
+							'purchase_price': return_product_info['price'],
+							'count': return_product_info['count'],
+							'total_price': return_product_info['total_price']
+						})
+						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+				rows.append({
+					'order_id': order_id,
+					'order_create_at': order['created_at'],
+					'ship_name': order['ship_name'],
+					'total_purchase_price': str('%.2f' % total_purchase_price),
+					'status': order_status2text[order['status']],
+					'product_infos': json.dumps(product_infos),
+					'express_company_name': order['express_company_name'],
+					'express_number': order['express_number'],
+					'leader_name': order['leader_name']
+				})
+			# except Exception,e:
+			# 	print('eeeeeeeeeeeeeeeeeee')
+			# 	print(e)
+			# 	orders = []
+			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)

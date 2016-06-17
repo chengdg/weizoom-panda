@@ -44,13 +44,12 @@ class OrderShipInformations(resource.Resource):
 	@login_required
 	def api_put(request):
 		#给接口传递发货的参数
-		leader_name = request.POST.get('leader_name','')
 		__method = request.POST.get('__method','')
 		params = {
 			'order_id' : request.POST.get('order_id',''),
 			'express_company_name' : request.POST.get('express_company_name',''),
 			'express_number' : request.POST.get('express_number',''),
-			'leader_name' : leader_name,
+			'leader_name' : request.POST.get('leader_name',''),
 			'operator_name' : request.user.username
 		}
 		print('params!!!!!!!!!!!')

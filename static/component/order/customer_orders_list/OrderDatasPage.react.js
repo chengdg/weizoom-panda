@@ -42,7 +42,7 @@ var OrderDatasPage = React.createClass({
 	onClickChangeShip: function(event) {
 		var orderId = event.target.getAttribute('data-order-id');
 		console.log(orderId);
-		Action.getOrderShipInformations(orderId);
+		//Action.getOrderShipInformations(orderId);
 		Reactman.PageAction.showDialog({
 			title: "修改物流信息",
 			component: ShipDialog,
