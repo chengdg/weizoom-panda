@@ -20,6 +20,27 @@ from excel_response import ExcelResponse
 from customer_orders_list import CustomerOrdersList
 from yunying_orders_list import YunyingOrdersList
 
+express_company_name2text = {
+	'':'',
+	'shentong': u'申通快递',
+	'ems': u'EMS',
+	'yuantong': u'圆通速递',
+	'shunfeng': u'顺丰速运',
+	'zhongtong': u'中通速递',
+	'tiantian': u'天天快递',
+	'yunda': u'韵达快运',
+	'huitongkuaidi': u'百世快递',
+	'quanfengkuaidi': u'全峰快递',
+	'debangwuliu': u'德邦物流',
+	'zhaijisong': u'宅急送',
+	'kuaijiesudi': u'快捷速递',
+	'bpost': u'比利时邮政',
+	'suer': u'速尔快递',
+	'guotongkuaidi': u'国通快递',
+	'youzhengguonei': u'邮政包裹/平邮',
+	'rufengda': u'如风达'
+}
+
 class ExportOrders(resource.Resource):
 	app = 'order'
 	resource = 'export_orders'
@@ -63,7 +84,7 @@ class ExportOrders(resource.Resource):
 				order['ship_address'],
 				leader_name,
 				leader_name_message,
-				order['express_company_name'],
+				express_company_name2text[order['express_company_name']],
 				order['express_number'],
 				order['delivery_time'],
 				order['customer_message']
@@ -77,25 +98,15 @@ class YunyingExportOrders(resource.Resource):
 	@login_required
 	def get(request):
 		orders = YunyingOrdersList.api_get(request)
-		# titles = [
-		# 	u'商品', u'单价/数量', u'收货人', u'订单金额', u'订单状态'
-		# ]
+		titles = [
+			u'订单编号', u'物流公司', u'快递单号'
+		]
 		table = []
-		# table.append(titles)
-		# for order in orders:
-		# 	product_names = []
-		# 	product_price_count = []
-		# 	product_infos = json.loads(order['product_infos'])
-		# 	for product_info in product_infos:
-		# 		product_names.append(product_info['product_name'])
-		# 		product_price_count.append( product_info['purchase_price']+'('+str(product_info['count'])+u'件)')
-		# 	product_names = ','.join(product_names)
-		# 	product_price_count = ','.join(product_price_count)
-		# 	table.append([
-		# 		product_names,
-		# 		product_price_count,
-		# 		order['ship_name'],
-		# 		order['total_purchase_price'],
-		# 		order['status']
-		# 	])
+		table.append(titles)
+		for order in orders:
+			table.append([
+				order['order_id'],
+				express_company_name2text[order['express_company_name']],
+				order['express_number']
+			])
 		return ExcelResponse(table,output_name=u'发货文件'.encode('utf8'),force_csv=False)
