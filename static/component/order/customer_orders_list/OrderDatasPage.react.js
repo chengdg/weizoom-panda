@@ -40,14 +40,18 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onClickChangeShip: function(event) {
-		var orderId = event.target.getAttribute('data-order-id');
-		console.log(orderId);
-		//Action.getOrderShipInformations(orderId);
+		var order_id = event.target.getAttribute('data-order-id');
+		var express_company_name = event.target.getAttribute('data-order-express_company_name');
+		var express_number = event.target.getAttribute('data-order-express_number');
+		var leader_name = event.target.getAttribute('data-order-leader_name');
 		Reactman.PageAction.showDialog({
 			title: "修改物流信息",
 			component: ShipDialog,
 			data: {
-				order_id: orderId,
+				order_id: order_id,
+				express_company_name: express_company_name,
+				express_number: express_number,
+				leader_name: leader_name,
 				__method: 'post'
 			},
 			success: function(inputData, dialogState) {
@@ -125,7 +129,7 @@ var OrderDatasPage = React.createClass({
 				return (
 					<div className="orders-list-btn-group">
 						<a className="btn btn-link btn-xs" onClick={this.onClickComplete} data-order-id={data.order_id}>标记完成</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickChangeShip} data-order-id={data.order_id}>修改物流</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickChangeShip} data-order-id={data.order_id} data-order-express_company_name={data.express_company_name} data-order-express_number={data.express_number} data-order-leader_name={data.leader_name}>修改物流</a>
 					</div>
 				);
 			}else{

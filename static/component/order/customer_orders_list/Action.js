@@ -33,19 +33,6 @@ var Action = {
 		}
 	},
 
-	getOrderShipInformations: function(orderId) {
-		Resource.get({
-			resource: 'order.order_ship_informations',
-			data: {
-				'order_id': orderId
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.ORDER_SHIP_INFORMATIONS
-			}
-		});
-	},
-
 	updateOrderShipInformations: function() {
 		Dispatcher.dispatch({
 			actionType: Constant.ORDER_DATAS_FILTER_ORDERS,

@@ -25,23 +25,6 @@ class OrderShipInformations(resource.Resource):
 	resource = 'order_ship_informations'
 
 	@login_required
-	def api_get(request):
-		order_id = request.GET.get('order_id',0)
-		#组装数据
-		rows = {}
-		rows['ship_company'] = 'shentong'
-		rows['ship_number'] = '2016002157544125'
-		rows['shiper_name'] = '小张'
-
-		data = {
-			'rows': rows
-		}
-		#构造response
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
-
-	@login_required
 	def api_put(request):
 		#给接口传递发货的参数
 		__method = request.POST.get('__method','')

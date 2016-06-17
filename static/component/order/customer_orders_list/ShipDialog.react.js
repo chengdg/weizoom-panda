@@ -17,9 +17,15 @@ var ShipDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var order_id = this.props.data.order_id;
+		var ship_company = this.props.data.express_company_name;
+		var ship_number = this.props.data.express_number;
+		var shiper_name = this.props.data.leader_name;
 		var __method = this.props.data.__method;
 		return {
 			order_id: order_id,
+			ship_company: ship_company,
+			ship_number: ship_number,
+			shiper_name: shiper_name,
 			__method: __method
 		}
 	},
