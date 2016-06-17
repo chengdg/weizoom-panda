@@ -119,28 +119,40 @@ class CustomerOrdersList(resource.Resource):
 		if api_pids != '':
 			# try:
 			#请求接口获得数据
-			params = {
-				'product_ids': api_pids,
-				'page':cur_page,
-				'count_per_page': COUNT_PER_PAGE
-			}
-			params.update(filter_params)
-			r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				orders = res['data']['orders']
+			if is_for_list:
+				params = {
+					'product_ids': api_pids,
+					'page':cur_page,
+					'count_per_page': COUNT_PER_PAGE
+				}
+				params.update(filter_params)
+				r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					orders = res['data']['orders']
+				else:
+					print(res)
+					response = create_response(500)
+					return response.get_response()
+				pageinfo = res['data']['pageinfo']
+				pageinfo['total_count'] = pageinfo['object_count']
 			else:
-				print(res)
-				response = create_response(500)
-				return response.get_response()
-
-			pageinfo = res['data']['pageinfo']
-			pageinfo['total_count'] = pageinfo['object_count']
+				params = {'product_ids': api_pids}
+				params.update(filter_params)
+				r = requests.get(ZEUS_HOST+'/panda/order_export/',params=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					orders = res['data']['orders']
+				else:
+					print(res)
+					response = create_response(500)
+					return response.get_response()
 
 			for order in orders:
 				order_id = order['order_id']
 				product_infos = []
 				return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
+				total_weight = 0
 				total_purchase_price = 0
 				for return_product_info in return_product_infos:
 					product_id = str(return_product_info['id'])
@@ -152,18 +164,38 @@ class CustomerOrdersList(resource.Resource):
 							'count': return_product_info['count'],
 							'total_price': return_product_info['total_price']
 						})
+						total_weight +=  return_product_info['weight']
 						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
-				rows.append({
-					'order_id': order_id,
-					'order_create_at': order['created_at'],
-					'ship_name': order['ship_name'],
-					'total_purchase_price': str('%.2f' % total_purchase_price),
-					'status': order_status2text[order['status']],
-					'product_infos': json.dumps(product_infos),
-					'express_company_name': order['express_company_name'],
-					'express_number': order['express_number'],
-					'leader_name': order['leader_name']
-				})
+
+				if is_for_list:
+					rows.append({
+						'order_id': order_id,
+						'order_create_at': order['created_at'],
+						'ship_name': order['ship_name'],
+						'total_purchase_price': str('%.2f' % total_purchase_price),
+						'status': order_status2text[order['status']],
+						'product_infos': json.dumps(product_infos),
+						'express_company_name': order['express_company_name'],
+						'express_number': order['express_number'],
+						'leader_name': order['leader_name']
+					})
+				else:
+					rows.append({
+						'order_id': order_id,
+						'order_create_at': order['created_at'],
+						'ship_name': order['ship_name'],
+						'total_purchase_price': str('%.2f' % total_purchase_price),
+						'total_weight': total_weight,
+						'status': order_status2text[order['status']],
+						'product_infos': json.dumps(product_infos),
+						'express_company_name': order['express_company_name'],
+						'express_number': order['express_number'],
+						'leader_name': order['leader_name'],
+						'ship_tel': order['ship_tel'],
+						'ship_address': order['ship_address'],
+						'delivery_time': order['delivery_time'],
+						'customer_message': order['customer_message']
+					})
 			# except Exception,e:
 			# 	print('eeeeeeeeeeeeeeeeeee')
 			# 	print(e)

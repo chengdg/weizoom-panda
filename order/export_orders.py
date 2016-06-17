@@ -28,25 +28,45 @@ class ExportOrders(resource.Resource):
 	def get(request):
 		orders = CustomerOrdersList.api_get(request)
 		titles = [
-			u'商品', u'单价/数量', u'收货人', u'订单金额', u'订单状态'
+			u'订单号',u'下单时间',u'商品名称', u'商品单价', u'商品数量', u'销售额', u'商品总重量', u'订单状态', u'收货人', u'联系电话', u'收货地址', u'发货人', u'发货人备注', u'物流公司', u'快递单号', u'发货时间', u'用户备注'
 		]
 		table = []
 		table.append(titles)
 		for order in orders:
 			product_names = []
-			product_price_count = []
+			product_price = []
+			product_count = []
 			product_infos = json.loads(order['product_infos'])
 			for product_info in product_infos:
 				product_names.append(product_info['product_name'])
-				product_price_count.append( product_info['purchase_price']+'('+str(product_info['count'])+u'件)')
+				product_price.append( product_info['purchase_price'])
+				product_count.append( str(product_info['count'])+u'件')
 			product_names = ','.join(product_names)
-			product_price_count = ','.join(product_price_count)
+			product_price = ','.join(product_price)
+			product_count = ','.join(product_count)
+			if order['leader_name'].find('|') == -1:
+				leader_name = order['leader_name']
+				leader_name_message = ''
+			else:
+				leader_name,leader_name_message = order['leader_name'].split('|')
 			table.append([
+				order['order_id'],
+				order['order_create_at'],
 				product_names,
-				product_price_count,
-				order['ship_name'],
+				product_price,
+				product_count,
 				order['total_purchase_price'],
-				order['status']
+				order['total_weight'],
+				order['status'],
+				order['ship_name'],
+				order['ship_tel'],
+				order['ship_address'],
+				leader_name,
+				leader_name_message,
+				order['express_company_name'],
+				order['express_number'],
+				order['delivery_time'],
+				order['customer_message']
 			])
 		return ExcelResponse(table,output_name=u'订单列表'.encode('utf8'),force_csv=False)
 
