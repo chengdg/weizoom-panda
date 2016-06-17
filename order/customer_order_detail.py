@@ -60,17 +60,23 @@ class CustomerOrderDetail(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.all()
-		# 请求接口获得数据
-		url = ZEUS_HOST+'/mall/order_detail/?order_id'+order_id
-		url_request = urllib2.Request(url)
-		opener = urllib2.urlopen(url_request)
+		#请求接口获得数据
 		data = []
-		res = opener.read()
-		if json.loads(res)['code'] == 200:
-			data = json.loads(res)['data']['order']
-		else:
-			response = create_response(500)
-			return response.get_response()
+		try:
+			params = {
+				'order_id': order_id
+			}
+			r = requests.get(ZEUS_HOST+'/mall/order_detail/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				data = res['data']['order']
+			else:
+				print(res)
+				response = create_response(500)
+				return response.get_response()
+		except Exception,e:
+			print(e)
+
 		product_id2name = {product.id:product.product_name for product in products}
 		order_products = data['product']
 		total_count = 0

@@ -61,17 +61,22 @@ class ProductList(resource.Resource):
 			product_ids = '_'.join(product_ids)
 		else:
 			product_ids = '%s' %product_ids[0]
-		# 请求接口获得数据
-		url = ZEUS_HOST+'/mall/product_sales/?product_ids='+product_ids
-		url_request = urllib2.Request(url)
-		opener = urllib2.urlopen(url_request)
-		data = []
-		res = opener.read()
-		if json.loads(res)['code'] == 200:
-			data = json.loads(res)['data']
-		else:
-			response = create_response(500)
-			return response.get_response()
+
+		#请求接口获得数据
+		data = {}
+		try:
+			params = {
+				'product_ids': product_ids
+			}
+			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				data = res['data']
+			else:
+				print(res)
+		except Exception,e:
+			print(e)
+
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
