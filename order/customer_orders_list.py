@@ -164,7 +164,8 @@ class CustomerOrdersList(resource.Resource):
 							'count': return_product_info['count'],
 							'total_price': return_product_info['total_price']
 						})
-						total_weight +=  return_product_info['weight']
+						if not is_for_list:
+							total_weight +=  return_product_info['weight']
 						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
 
 				if is_for_list:
