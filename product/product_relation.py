@@ -17,8 +17,10 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
+from panda.settings import ZEUS_HOST
 import nav
 import models
+import requests
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'	
@@ -101,12 +103,12 @@ class ProductRelation(resource.Resource):
 		rows = []
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 
-		product_ids = ''
+		p_ids = ''
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
-				product_ids = product_ids + '_' +weapp_product_id
+				p_ids = p_ids + '_' +weapp_product_id
 
 		product_weapp_id2product_id = {}
 		for product_has_relation in product_has_relations:
@@ -118,7 +120,7 @@ class ProductRelation(resource.Resource):
 		id2sales = {}
 		try:
 			params = {
-				'product_ids': product_ids[1:]
+				'product_ids': p_ids[1:]
 			}
 			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
 			res = json.loads(r.text)
@@ -135,7 +137,7 @@ class ProductRelation(resource.Resource):
 				print(res)
 		except Exception,e:
 			print(e)
-
+			
 		for product in products:
 			if product.owner_id in user_id2name:
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
