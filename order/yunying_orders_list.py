@@ -83,8 +83,9 @@ class YunyingOrdersList(resource.Resource):
 		filter_params = {}
 		if customer_name:
 			try:
-				customer_id = all_sellers.get(name=customer_name).user_id
-				cur_customer_products = products.filter(owner_id=customer_id)
+				sellers = all_sellers.filter(name__icontains=customer_name)
+				customer_ids = [seller.user_id for seller in sellers]
+				cur_customer_products = products.filter(owner_id__in=customer_ids)
 				cur_customer_product_ids = [cur_customer_product.id for cur_customer_product in cur_customer_products]
 				cur_customer_relations = product_has_relations.filter(product_id__in=cur_customer_product_ids)
 				cur_customer_weapp_ids = [cur_customer_relation.weapp_product_id for cur_customer_relation in cur_customer_relations]
