@@ -75,9 +75,11 @@ var NewProductPage = React.createClass({
 		var product = Store.getData();
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var has_limit_time = parseInt(product.has_limit_time[0]);
-		if(product.hasOwnProperty('limit_clear_price') && !isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
-			Reactman.PageAction.showHint('error', '限时结算价只能保留两位有效数字,请重新输入!');
-			return;
+		if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
+			if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
+				Reactman.PageAction.showHint('error', '限时结算价只能保留两位有效数字,请重新输入!');
+				return;
+			}
 		}
 		if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
 			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');

@@ -19,8 +19,7 @@ from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
 import nav
-import urllib2
-import urllib
+import requests
 
 FIRST_NAV = 'customer'
 SECOND_NAV = 'customer'
@@ -65,16 +64,21 @@ class Customer(resource.Resource):
 
 		products = product_models.Product.objects.all().order_by('-id')
 		product_ids = ['%s'%product.id for product in products]
-		if len(product_ids)>1:
-			product_ids = '_'.join(product_ids)
-		else:
-			product_ids = '%s' %product_ids[0]
+		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
+
+		product_ids = ''
+		#构造panda数据库内商品id，与云商通内商品id的关系
+		product_id2product_weapp_id = {}
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				product_ids = product_ids + '_' +weapp_product_id
 
 		#请求接口获得数据
 		id2sales = {}
 		try:
 			params = {
-				'product_ids': product_ids
+				'product_ids': product_ids[1:]
 			}
 			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
 			res = json.loads(r.text)
