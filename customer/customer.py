@@ -68,11 +68,17 @@ class Customer(resource.Resource):
 
 		product_ids = ''
 		#构造panda数据库内商品id，与云商通内商品id的关系
-		product_id2product_weapp_id = {}
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
 				product_ids = product_ids + '_' +weapp_product_id
+
+		product_weapp_id2product_id = {}
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
+				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 
 		#请求接口获得数据
 		id2sales = {}
@@ -85,11 +91,12 @@ class Customer(resource.Resource):
 			if res['code'] == 200:
 				product_sales = res['data']['product_sales']
 				if product_sales:
-					product_sales = json.loads(product_sales)
 					for product_sale in product_sales:
-						p_id = product_sale['product_id']
-						p_sales = product_sale['sales']
-						id2sales[p_id] = p_sales
+						product_id = str(product_sale['product_id'])
+						if product_id in product_weapp_id2product_id:
+							p_id = product_weapp_id2product_id[product_id]
+							p_sales = product_sale['sales']
+							id2sales[p_id] = p_sales
 			else:
 				print(res)
 		except Exception,e:
@@ -103,7 +110,7 @@ class Customer(resource.Resource):
 			if product_ids:
 				for product_id in product_ids:
 					name = '' if product_id not in product_id2name else product_id2name[product_id]
-					sale = 0 if product.id not in id2sales else id2sales[product_id]
+					sale = 0 if product_id not in id2sales else id2sales[product_id]
 					total_sales += sale
 					product_infos.append({
 						'name': name,
