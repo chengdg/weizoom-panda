@@ -86,7 +86,10 @@ class ProductList(resource.Resource):
 						if product_id in product_weapp_id2product_id:
 							p_id = product_weapp_id2product_id[product_id]
 							p_sales = product_sale['sales']
-							id2sales[p_id] = p_sales
+							if p_id not in id2sales:
+								id2sales[p_id] = p_sales
+							else:
+								id2sales[p_id] += p_sales
 			else:
 				print(res)
 		except Exception,e:
