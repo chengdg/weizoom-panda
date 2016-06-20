@@ -17,7 +17,11 @@ var ShipDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var order_id = this.props.data.order_id;
-		var ship_company = this.props.data.express_company_name;
+		if(this.props.data.express_company_name){
+			var ship_company = this.props.data.express_company_name;
+		}else{
+			var ship_company = '-1';
+		}
 		var ship_number = this.props.data.express_number;
 		var shiper_name = this.props.data.leader_name;
 		var __method = this.props.data.__method;
@@ -47,8 +51,6 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log('this.state!!!!!!!!!!!');
-		console.log(this.state);
 		if (this.state.ship_company === '-1') {
 			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
