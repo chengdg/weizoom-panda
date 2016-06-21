@@ -3,8 +3,8 @@ __author__ = 'hj'
 
 SECOND_NAVS = [{
 	'name': 'customer',
-	'displayName': '客户概况',
-	'href': '/customer/customer/'
+	'displayName': '客户统计',
+	'href': '/customer/statistics/'
 }]
 
 def get_second_navs():

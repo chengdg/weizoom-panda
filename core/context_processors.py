@@ -35,9 +35,9 @@ def top_navs(request):
 		elif role == AGENCY:
 			top_navs = [{
 				'name': 'customer',
-				'displayName': '客户概况',
+				'displayName': '客户统计',
 				'icon': 'credit-card',
-				'href': '/customer/customer/'
+				'href': '/customer/statistics/'
 			}]
 		elif role == YUN_YING:
 			top_navs = [{
@@ -52,9 +52,9 @@ def top_navs(request):
 				'href': '/order/yunying_orders_list/'
 			}, {
 				'name': 'customer',
-				'displayName': '客户概况',
+				'displayName': '客户统计',
 				'icon': 'credit-card',
-				'href': '/customer/customer/'
+				'href': '/customer/statistics/'
 			}]
 		elif role == MANAGER:
 			top_navs = [{

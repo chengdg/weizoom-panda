@@ -40,7 +40,7 @@ def index(request):
 		elif role == CUSTOMER:
 			return HttpResponseRedirect('/product/product_list/')
 		elif role == AGENCY:
-			return HttpResponseRedirect('/customer/customer/')
+			return HttpResponseRedirect('/customer/statistics/')
 		elif role == YUN_YING:
 			return HttpResponseRedirect('/product/product_relation/')
 		else:

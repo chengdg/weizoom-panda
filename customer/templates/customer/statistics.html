@@ -1,0 +1,12 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [ {
+		name: '客户统计',
+		href: '#'
+	}];
+
+	W.pageContentComponent = './customer/statistic/CustomerStatisticPage.react';
+</script>
+{% endblock %}

@@ -16,7 +16,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleCustomerDataFilter': Constant.CUSTOMER_DATAS_FILTER
+		'handleCustomerDataFilter': Constant.CUSTOMER_DATAS_FILTER,
+		'handleCustomerDataExport': Constant.CUSTOMER_DATAS_EXPORT
 	},
 
 	init: function() {
@@ -24,11 +25,23 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleCustomerDataFilter: function(action){
-		this.filter = action.data;
+		this.data = action.data;
 		this.__emitChange();
 	},
 
-	getData: function() {
+	handleCustomerDataExport: function(action){
+		var filterOptions = this.data;
+		console.log('filterOptions');
+		console.log(filterOptions);
+		var filter_str = '';
+		for (var key in filterOptions){
+			filter_str = key +'=' + filterOptions[key];
+		}
+		console.log('/customer/customer_exported/?'+filter_str)
+		window.location.href = '/customer/customer_exported/?'+filter_str;
+	},
+
+	getFilter: function() {
 		return this.data;
 	}
 });

@@ -18,6 +18,13 @@ var Action = {
 			actionType: Constant.CUSTOMER_DATAS_FILTER,
 			data: filterOptions
 		});
+	},
+
+	exportOrders: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CUSTOMER_DATAS_EXPORT,
+			data: {}
+		});
 	}
 };
 
