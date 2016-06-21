@@ -57,6 +57,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
+	handleUpdateProduct: function(action) {
+		this.relationData[action.data.property] = action.data.value;
+		this.__emitChange();
+	},
+
 	getData: function() {
 		return this.data;
 	},

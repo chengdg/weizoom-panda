@@ -85,11 +85,12 @@ class ProductRelation(resource.Resource):
 			self_user_name2self_first_name[product.self_user_name] = product.self_first_name
 
 		product_id2relations = {}
+		product_id2self_user_name = {}
 		for product_has_relation in product_has_relations:
 			product_id = product_has_relation.product_id
 			self_user_name = product_has_relation.self_user_name
 			weapp_product_id = product_has_relation.weapp_product_id
-			self_first_name = self_user_name2self_first_name[self_user_name] 
+			self_first_name = self_user_name2self_first_name[self_user_name]
 			if product_id not in product_id2relations:
 				product_id2relations[product_id] = [{
 					'self_first_name': self_first_name,
@@ -100,6 +101,11 @@ class ProductRelation(resource.Resource):
 					'self_first_name': self_first_name,
 					'weapp_product_id': weapp_product_id 
 				})
+
+			if product_id not in product_id2self_user_name:
+				product_id2self_user_name[product_id] = [self_user_name]
+			else:
+				product_id2self_user_name[product_id].append(self_user_name)
 		#组装数据
 		rows = []
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
@@ -142,10 +148,11 @@ class ProductRelation(resource.Resource):
 		# 		print(res)
 		# except Exception,e:
 		# 	print(e)
-			
+		print product_id2self_user_name,"===="
 		for product in products:
 			if product.owner_id in user_id2name:
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
+				self_user_name = [] if product.id not in product_id2self_user_name else product_id2self_user_name[product.id]
 				rows.append({
 					'id': product.id,
 					'role': role,
@@ -153,6 +160,7 @@ class ProductRelation(resource.Resource):
 					'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
 					'total_sales': '%s' %sales,
 					'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+					'self_user_name': self_user_name,
 					'self_shop': json.dumps(self_shop),
 					'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
 				})
