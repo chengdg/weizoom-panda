@@ -120,6 +120,7 @@ class YunyingOrdersList(resource.Resource):
 				if res['code'] == 200:
 					orders = res['data']['orders']
 				else:
+					print('res!!!!!!!!!!!!!!!!!!!!')
 					print(res)
 					response = create_response(500)
 					return response.get_response()
@@ -137,7 +138,8 @@ class YunyingOrdersList(resource.Resource):
 						store_name = store_name['store_name']
 						webapp_id2store_name[webapp_id] = [store_name]
 				else:
-					print(res)
+					print('from_mall_res!!!!!!!!!!!!!!!!!')
+					print(from_mall_res)
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
@@ -152,6 +154,7 @@ class YunyingOrdersList(resource.Resource):
 				if res['code'] == 200:
 					orders = res['data']['orders']
 				else:
+					print('res!!!!!!!!!!!!!!!!!')
 					print(res)
 					response = create_response(500)
 					return response.get_response()
