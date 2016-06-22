@@ -57,58 +57,52 @@ var ProductRelationPage = React.createClass({
 		if (field === 'weapp_name') {
 			var relations = data['relations'];
 			var id = data['id'];
-			console.log(data['self_user_name'],"=====");
-			if(relations){
-				relations = JSON.parse(relations).map(function(relation,index){
-					return(
-						<div style={{display:'inline-block'}} key={index}>
-							<span style={{display:'inline-block', marginRight:'20px'}}>{relation['self_first_name']}:{relation['weapp_product_id']}</span>
-						</div>
-					)
-				});
-			}
-			// var self_user_name = data['self_user_name'];
-			// var w_b_checked = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'checked':null;
-			// var w_j_checked = self_user_name.toString().indexOf('weizoom_jia')>-1?'checked':null;
-			// var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
-			// var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
-			// var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
-			// var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
-			// var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
-			// var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
-			// var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
-			// var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
-			// return (
-			// 	<div id={id}>
-			// 		<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px'}}>
-			// 			<input type="checkbox" disabled={w_b_disabled} checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei"/>
-			// 			<span>微众白富美</span>
-			// 		</label>
-			// 		<label className="checkbox-inline" style={{marginRight:'15px'}}>
-			// 			<input type="checkbox" disabled={w_j_disabled} checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia"/>
-			// 			<span>微众家</span>
-			// 		</label>
-			// 		<label className="checkbox-inline" style={{marginRight:'15px'}}>
-			// 			<input type="checkbox" disabled={w_m_disabled} checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama"/>
-			// 			<span>微众妈妈</span>
-			// 		</label>
-			// 		<label className="checkbox-inline" style={{marginRight:'15px'}}>
-			// 			<input type="checkbox" disabled={w_s_disabled} checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop"/>
-			// 			<span>微众商城</span>
-			// 		</label>
-			// 		<label className="checkbox-inline" style={{marginRight:'15px'}}>
-			// 			<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
-			// 			<span>微众学生</span>
-			// 		</label>
-			// 		<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['id'])}>同步</a>
-			// 	</div>
-			// );
-			return(
-				<div>
-					{relations}
-					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['id'])}>编辑</a>
+			// console.log(data['self_user_name'],"=====");
+			// if(relations){
+			// 	relations = JSON.parse(relations).map(function(relation,index){
+			// 		return(
+			// 			<div style={{display:'inline-block'}} key={index}>
+			// 				<span style={{display:'inline-block', marginRight:'20px'}}>{relation['self_first_name']}:{relation['weapp_product_id']}</span>
+			// 			</div>
+			// 		)
+			// 	});
+			// }
+			var self_user_name = data['self_user_name'];
+			var w_b_checked = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'checked':null;
+			var w_j_checked = self_user_name.toString().indexOf('weizoom_jia')>-1?'checked':null;
+			var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
+			var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
+			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
+			var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
+			var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
+			var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
+			var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
+			var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
+			return (
+				<div id={id}>
+					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px'}}>
+						<input type="checkbox" disabled={w_b_disabled} checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei"/>
+						<span>微众白富美</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+						<input type="checkbox" disabled={w_j_disabled} checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia"/>
+						<span>微众家</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+						<input type="checkbox" disabled={w_m_disabled} checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama"/>
+						<span>微众妈妈</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+						<input type="checkbox" disabled={w_s_disabled} checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop"/>
+						<span>微众商城</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+						<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
+						<span>微众学生</span>
+					</label>
+					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['id'])}>同步</a>
 				</div>
-			)
+			);
 		}else if(field === 'product_name'){
 			return(
 				<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}>{value}</a>
