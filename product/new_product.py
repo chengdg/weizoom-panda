@@ -208,8 +208,10 @@ class NewProduct(resource.Resource):
 
 	def api_delete(request):
 		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
-		models.Product.objects.filter(owner=request.user, id=request.POST['id']).delete()
-
+		products = models.Product.objects.filter(owner=request.user, id=request.POST['id'])
+		product_ids = [product.id for product in products]
+		products.delete()
+		models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
 		response = create_response(200)
 		response.data.user_has_products = user_has_products
 		return response.get_response()

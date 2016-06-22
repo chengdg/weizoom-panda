@@ -50,7 +50,7 @@ class YunyingOrdersList(resource.Resource):
 		from_mall = filter_idct.get('from_mall','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-
+		
 		product_ids = []
 		api_pids = []
 		#构造云商通内商品id，与panda数据库内商品id的关系
@@ -75,12 +75,9 @@ class YunyingOrdersList(resource.Resource):
 		for api_pid in api_pids:
 			if not product_weapp_id2seller_name.has_key(api_pid):
 				product_id = product_weapp_id2product_id[api_pid][0]
-				try:
-					owner_id = products.get(id=product_id).owner_id
-					seller_name = all_sellers.get(user_id=owner_id).name
-					product_weapp_id2seller_name[api_pid] = [seller_name]
-				except:
-					pass
+				owner_id = products.get(id=product_id).owner_id
+				seller_name = all_sellers.get(user_id=owner_id).name
+				product_weapp_id2seller_name[api_pid] = [seller_name]
 
 		#查找
 		filter_params = {}
