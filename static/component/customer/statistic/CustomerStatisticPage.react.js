@@ -100,7 +100,6 @@ var CustomerStatisticPage = React.createClass({
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} pagination={true} formatter={this.rowFormatter} expandRow={true} ref="table">
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
-						<Reactman.TableColumn name="分类" field="classify" />
 						<Reactman.TableColumn name="开始推广时间" field="brand_time" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
 						<Reactman.TableColumn name="订单数" field="total_order_number" />
