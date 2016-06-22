@@ -75,9 +75,12 @@ class YunyingOrdersList(resource.Resource):
 		for api_pid in api_pids:
 			if not product_weapp_id2seller_name.has_key(api_pid):
 				product_id = product_weapp_id2product_id[api_pid][0]
-				owner_id = products.get(id=product_id).owner_id
-				seller_name = all_sellers.get(user_id=owner_id).name
-				product_weapp_id2seller_name[api_pid] = [seller_name]
+				try:
+					owner_id = products.get(id=product_id).owner_id
+					seller_name = all_sellers.get(user_id=owner_id).name
+					product_weapp_id2seller_name[api_pid] = [seller_name]
+				except:
+					pass
 
 		#查找
 		filter_params = {}
