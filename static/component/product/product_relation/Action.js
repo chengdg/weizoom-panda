@@ -57,6 +57,19 @@ var Action = {
 			actionType: Constant.PRODUCT_RELATION_DATAS_FILTER,
 			data: filterOptions
 		});
+	},
+
+	relationFromWeapp: function(product_data){
+		Resource.get({
+			resource: 'product.weapp_relation',
+			data: {
+				'product_data': product_data
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_RELATION_WEAPP
+			}
+		});
 	}
 };
 

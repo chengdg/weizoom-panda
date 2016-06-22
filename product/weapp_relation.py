@@ -28,6 +28,8 @@ class ProductRelation(resource.Resource):
 	@login_required
 	def api_get(request):
 		product_id = request.GET.get('product_id',0)
+		product_data = request.GET.get('product_data',0)
+		print product_data,"========+++++++======="
 		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}

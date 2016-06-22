@@ -27,30 +27,49 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	productRelation: function(self_shop,product_id) {
-		Action.getWeappProductRelation(product_id);
-		Reactman.PageAction.showDialog({
-			title: "编辑云商通商品ID",
-			component: ProductRelationDialog,
-			data: {
-				self_shop: JSON.parse(self_shop),
-				product_id: product_id
-			},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
-		// var obj = document.getElementById(product_id);
-		// obj = obj.getElementsByTagName('input');
-		// var check_val = [];
-		// for(var k=0;k<=obj.length-1;k++){
-		// 	if(obj[k]['checked']){
-		// 		check_val.push(obj[k].value);
+	productRelation: function(self_shop,self_user_name,product_info) {
+		// Action.getWeappProductRelation(product_id);
+		// Reactman.PageAction.showDialog({
+		// 	title: "编辑云商通商品ID",
+		// 	component: ProductRelationDialog,
+		// 	data: {
+		// 		self_shop: JSON.parse(self_shop),
+		// 		product_id: product_id
+		// 	},
+		// 	success: function(inputData, dialogState) {
+		// 		console.log("success");
 		// 	}
-		// }
-
-		// console.log(check_val,"--------");
-		// console.log(check_val.join(','),"--------");
+		// });
+		var product_id = product_info['product_id']
+		var obj = document.getElementById(product_id);
+		obj = obj.getElementsByTagName('input');
+		var check_val = [];
+		for(var k=0;k<=obj.length-1;k++){
+			var has_relation = true;
+			if(obj[k]['checked']){
+				for(var index in self_user_name){
+					if (self_user_name[index] == obj[k].value){
+						has_relation = false;
+					}
+				}
+				if(has_relation){
+					check_val.push(obj[k].value);
+				}
+			}
+		}
+		var product_data = [{
+			'weizoom_self': check_val.join(','),//选择的商城
+			'product_id': product_id,//商品id
+			'owner_id': product_info['owner_id'],//所属账号的user id
+			'product_name': product_info['product_name'],//商品名称
+			'clear_price': product_info['clear_price'],//商品结算价
+			'product_weight': product_info['product_weight'],//商品重量
+			'product_store': product_info['product_store'],//商品库存(-1:无限)
+			'image_path': product_info['image_path'],//轮播图路径
+			'detail': product_info['remark']//商品详情
+		}]
+		console.log(product_data,"---------");
+		Action.relationFromWeapp(JSON.stringify(product_data));
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -100,7 +119,7 @@ var ProductRelationPage = React.createClass({
 						<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
 						<span>微众学生</span>
 					</label>
-					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['id'])}>同步</a>
+					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['self_user_name'],data['product_info'])}>同步</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
