@@ -204,7 +204,6 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="批量发货" onClick={this.onOrderBatchDelivery}/>
 					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">

@@ -63,6 +63,12 @@ var Action = {
 			actionType: Constant.MANAGER_ACCOUNT_FILTER_ACCOUNTS,
 			data: filterOptions
 		});
+	},
+	exportAccounts: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.MANAGER_ACCOUNT_EXPORT,
+			data: {}
+		});
 	}
 };
 

@@ -81,12 +81,15 @@ var AccountManagePage = React.createClass({
 	onConfirmFilter: function(data) {
 		Action.filterAccounts(data);
 	},
-
+	onExport: function(){
+		Action.exportAccounts();
+	},
 	render:function(){
 		var productsResource = {
 			resource: 'manager.account',
 			data: {
-				page: 1
+				page: 1,
+				is_for_list: true
 			}
 		};
 		var typeOptions = [{
@@ -121,6 +124,7 @@ var AccountManagePage = React.createClass({
 			
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
+					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">

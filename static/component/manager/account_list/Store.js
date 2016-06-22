@@ -17,7 +17,8 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.MANAGER_ACCOUNT_UPDATE_ACCOUNT,
-		'handleFilterAccounts': Constant.MANAGER_ACCOUNT_FILTER_ACCOUNTS
+		'handleFilterAccounts': Constant.MANAGER_ACCOUNT_FILTER_ACCOUNTS,
+		'handleAccountDatasExport': Constant.MANAGER_ACCOUNT_EXPORT
 	},
 
 	init: function() {
@@ -36,7 +37,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	getData: function() {
 		return this.data;
-	}
+	},
+	handleAccountDatasExport: function(action){
+		var filterOptions = this.data.filterOptions;
+		console.log('filterOptions');
+		console.log(filterOptions);
+		var filter_str = '';
+		window.location.href = '/manager/account_export';
+	},
 });
 
 module.exports = Store;

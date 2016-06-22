@@ -16,11 +16,12 @@ from util import db_util
 import nav
 from account.models import *
 from product.models import *
+from excel_response import ExcelResponse
 
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
 
-COUNT_PER_PAGE = 10
+COUNT_PER_PAGE = 20
 
 filter2field = {
 	'account_type': 'role'
@@ -46,6 +47,7 @@ class ManagerAccount(resource.Resource):
 
 	@login_required
 	def api_get(request):
+		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-id')
 
@@ -60,27 +62,40 @@ class ManagerAccount(resource.Resource):
 			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
-		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
+
+		if is_for_list:
+			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
 		for account in accounts:
-			rows.append({
-				'id' : account.id,
-				'name' : account.name,
-				'username' : user_id2username[account.user_id],
-				'status' : account.status
-			})
-		data = {
-			'rows': rows,
-			'pagination_info': pageinfo.to_dict()
-		}
-
-		#构造response
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
+			if is_for_list:
+				rows.append({
+					'id' : account.id,
+					'name' : account.name,
+					'username' : user_id2username[account.user_id],
+					'status' : account.status
+				})
+			else:
+				rows.append({
+					'name' : account.name,
+					'username' : user_id2username[account.user_id],
+					'role' : ROLE2NAME[account.role],
+					'note' : account.note
+				})
+		if is_for_list:
+			data = {
+				'rows': rows,
+				'pagination_info': pageinfo.to_dict()
+			}
+			#构造response
+			response = create_response(200)
+			response.data = data
+			return response.get_response()
+		else:
+			return rows
+		
 
 
 	@login_required
@@ -121,3 +136,24 @@ class ManagerAccount(resource.Resource):
 			response = create_response(500)
 			response.errMsg = u'该账号不存在，请检查'
 			return response.get_response()
+
+class ExportAccounts(resource.Resource):
+	app = 'manager'
+	resource = 'account_export'
+
+	@login_required
+	def get(request):
+		accounts = ManagerAccount.api_get(request)
+		titles = [
+			u'账号类型', u'账号名称',u'登录账号', u'备注'
+		]
+		table = []
+		table.append(titles)
+		for account in accounts:
+			table.append([
+				account['role'],
+				account['name'],
+				account['username'],
+				account['note'],
+			])
+		return ExcelResponse(table,output_name=u'账号管理文件'.encode('utf8'),force_csv=False)
