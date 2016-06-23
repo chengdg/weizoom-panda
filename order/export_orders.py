@@ -81,7 +81,7 @@ class ExportOrders(resource.Resource):
 				order['status'],
 				order['ship_name'],
 				order['ship_tel'],
-				order['ship_area']+' '+order['ship_address'],
+				order['ship_address'],
 				leader_name,
 				leader_name_message,
 				express_company_name2text[order['express_company_name']],
