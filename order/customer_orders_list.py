@@ -194,6 +194,7 @@ class CustomerOrdersList(resource.Resource):
 						'leader_name': order['leader_name'],
 						'ship_tel': order['ship_tel'],
 						'ship_address': order['ship_address'],
+						'ship_area': order['ship_area'],
 						'delivery_time': order['delivery_time'],
 						'customer_message': order['customer_message']
 					})
