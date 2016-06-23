@@ -62,3 +62,11 @@ def create_profile(instance, created, **kwargs):
 			
 
 signals.post_save.connect(create_profile, sender=User, dispatch_uid = "account.create_profile")
+
+
+class AccountHasSupplier(models.Model):
+	account_id = models.IntegerField(default=0) #UserProfile id
+	supplier_id = models.IntegerField(default=0) # 供货商id
+
+	class Meta(object):
+		db_table = 'account_has_supplier'

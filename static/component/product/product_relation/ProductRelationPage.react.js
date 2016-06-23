@@ -88,34 +88,40 @@ var ProductRelationPage = React.createClass({
 			// }
 			var self_user_name = data['self_user_name'];
 			var w_b_checked = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'checked':null;
+			var w_c_checked = self_user_name.toString().indexOf('weizoom_club')>-1?'checked':null;
 			var w_j_checked = self_user_name.toString().indexOf('weizoom_jia')>-1?'checked':null;
 			var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
 			var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
 			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
 			var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
+			var w_c_disabled = self_user_name.toString().indexOf('weizoom_club')>-1?'disabled':'';
 			var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
 			var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
 			var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
 			var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
 			return (
 				<div id={id}>
-					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px'}}>
+					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
 						<input type="checkbox" disabled={w_b_disabled} checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei"/>
 						<span>微众白富美</span>
 					</label>
-					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
+						<input type="checkbox" disabled={w_c_disabled} checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club"/>
+						<span>微众俱乐部</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" disabled={w_j_disabled} checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia"/>
 						<span>微众家</span>
 					</label>
-					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" disabled={w_m_disabled} checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama"/>
 						<span>微众妈妈</span>
 					</label>
-					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" disabled={w_s_disabled} checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop"/>
 						<span>微众商城</span>
 					</label>
-					<label className="checkbox-inline" style={{marginRight:'15px'}}>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
 						<span>微众学生</span>
 					</label>
@@ -164,7 +170,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" width="640px"/>
+						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" width="440px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>

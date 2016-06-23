@@ -13,7 +13,9 @@ from core import resource
 from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
+from panda.settings import ZEUS_HOST
 import nav
+import requests
 from account.models import *
 
 
@@ -79,12 +81,54 @@ class AccountCreate(resource.Resource):
 			user = User.objects.create_user(username,username+'@weizoom.com',password)
 			user.first_name = name
 			user.save()
-			UserProfile.objects.filter(user=user).update(
+			user_profile = UserProfile.objects.filter(user=user)
+			user_profile.update(
 				manager_id = request.user.id,
 				role = account_type,
 				name = name,
 				note = note
 			)
+			
+			try:
+				account_zypt_infos = []
+				params = {
+					'mall_type': 1
+				}
+				r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					account_zypt_infos = res['data']
+				else:
+					print(res)
+			except Exception,e:
+				print(e)
+
+			if account_zypt_infos:
+				list_create = []
+				for account_zypt_info in account_zypt_infos:
+					#请求接口获得数据
+					try:
+						params = {
+							'owner_id': int(account_zypt_info['user_id']),
+							'name': user_profile[0].name + '_panda',
+							'remark': '',
+							'responsible_person': u'aq',
+							'supplier_tel': '7889',
+							'supplier_address': 'qwe'
+						}
+						r = requests.post(ZEUS_HOST+'/mall/supplier/?_method=put',params=params)
+						res = json.loads(r.text)
+						if res['code'] == 200:
+							supplier_datas = res['data']
+							if supplier_datas:
+								AccountHasSupplier.objects.create(
+									account_id = user_profile[0].id,
+									supplier_id = int(supplier_datas['id'])
+								)
+						else:
+							print(res)
+					except Exception,e:
+						print(e)
 			response = create_response(200)
 		except Exception,e:
 			print(e)
