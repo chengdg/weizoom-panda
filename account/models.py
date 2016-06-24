@@ -65,8 +65,10 @@ signals.post_save.connect(create_profile, sender=User, dispatch_uid = "account.c
 
 
 class AccountHasSupplier(models.Model):
+	user_id = models.IntegerField(default=0) #对应自营平台user_id
 	account_id = models.IntegerField(default=0) #UserProfile id
 	supplier_id = models.IntegerField(default=0) # 供货商id
+	store_name = models.CharField(max_length=1024, default='') #供货商名称
 
 	class Meta(object):
 		db_table = 'account_has_supplier'

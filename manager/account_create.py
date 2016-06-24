@@ -108,8 +108,9 @@ class AccountCreate(resource.Resource):
 				for account_zypt_info in account_zypt_infos:
 					#请求接口获得数据
 					try:
+						user_id = int(account_zypt_info['user_id'])
 						params = {
-							'owner_id': int(account_zypt_info['user_id']),
+							'owner_id': user_id,
 							'name': user_profile[0].name + '_panda',
 							'remark': '',
 							'responsible_person': u'aq',
@@ -122,7 +123,9 @@ class AccountCreate(resource.Resource):
 							supplier_datas = res['data']
 							if supplier_datas:
 								AccountHasSupplier.objects.create(
+									user_id = user_id,
 									account_id = user_profile[0].id,
+									store_name = account_zypt_info['store_name'],
 									supplier_id = int(supplier_datas['id'])
 								)
 						else:

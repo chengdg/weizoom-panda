@@ -18,8 +18,19 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
+from panda.settings import ZEUS_HOST
 import nav
 import models
+import requests
+
+SELF_NAMETEXT2VALUE = {
+	u'微众家': 'weizoom_jia',
+	u'微众妈妈': 'weizoom_mama' ,
+	u'微众学生': 'weizoom_xuesheng',
+	u'微众白富美': 'weizoom_baifumei',
+	u'微众商城': 'weizoom_shop',
+	u'微众俱乐部': 'weizoom_club'
+}
 
 class ProductRelation(resource.Resource):
 	app = 'product'
@@ -27,9 +38,53 @@ class ProductRelation(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		product_id = request.GET.get('product_id',0)
+		# product_id = request.GET.get('product_id',0)
 		product_data = request.GET.get('product_data',0)
-		print product_data,"========+++++++======="
+		account_has_suppliers = AccountHasSupplier.objects.all()
+		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
+		product_data = '' if not product_data else json.loads(product_data)
+		try:
+			if product_data:
+				sync_product_datas = []
+				product_id = product_data[0]['product_id']
+				weizoom_self = product_data[0]['weizoom_self'].split(',')
+				if product_data[0]['product_store'] > -1:
+					stock_type = 1
+				else:
+					stock_type = 0
+				params = {
+					'owner_ids': product_data[0]['owner_ids'],
+					'suppliers': product_data[0]['supplier_ids'],
+					'name': product_data[0]['product_name'],
+					'purchase_price': product_data[0]['clear_price'],
+					'stock_type': stock_type,
+					'promotion_title': '',
+					'price': '',
+					'weight': '',
+					'stocks': product_data[0]['product_store'],
+					'detail': '',
+					'swipe_images': ''
+				}
+				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					sync_product_datas = res['data']
+					if sync_product_datas:
+						list_create = []
+						for sync_product_data in sync_product_datas:
+							owner_id = sync_product_data['owner_id']
+							name = '' if int(owner_id) not in user_id2store_name else user_id2store_name[int(owner_id)]
+							if name in SELF_NAMETEXT2VALUE.keys() and SELF_NAMETEXT2VALUE[name] in weizoom_self:
+								list_create.append(models.ProductHasRelationWeapp(
+									product_id = product_id,
+									self_user_name = SELF_NAMETEXT2VALUE[name],
+									weapp_product_id = sync_product_data['product_id']
+								))
+						models.ProductHasRelationWeapp.objects.bulk_create(list_create)
+				else:
+					print(res)
+		except Exception,e:
+			print(e)
 		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}

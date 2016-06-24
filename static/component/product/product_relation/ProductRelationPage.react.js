@@ -57,10 +57,15 @@ var ProductRelationPage = React.createClass({
 				}
 			}
 		}
+		if (check_val.length==0){
+			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
+			return;
+		}
 		var product_data = [{
 			'weizoom_self': check_val.join(','),//选择的商城
 			'product_id': product_id,//商品id
-			'owner_id': product_info['owner_id'],//所属账号的user id
+			'owner_ids': product_info['owner_id'],//所属账号的user id
+			'supplier_ids': product_info['supplier_ids'],//供货商 id
 			'product_name': product_info['product_name'],//商品名称
 			'clear_price': product_info['clear_price'],//商品结算价
 			'product_weight': product_info['product_weight'],//商品重量
@@ -68,7 +73,6 @@ var ProductRelationPage = React.createClass({
 			'image_path': product_info['image_path'],//轮播图路径
 			'detail': product_info['remark']//商品详情
 		}]
-		console.log(product_data,"---------");
 		Action.relationFromWeapp(JSON.stringify(product_data));
 	},
 

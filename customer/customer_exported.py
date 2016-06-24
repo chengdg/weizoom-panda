@@ -19,14 +19,13 @@ class CustomerExported(resource.Resource):
 		is_export = True
 		customer_list = getCustomerData(request,is_export)
 		titles = [
-			u'客户名称', u'分类', u'开始推广时间', u'总销量', u'订单数', u'总金额', u'现金', u'微众卡', u'优惠券'
+			u'客户名称', u'开始推广时间', u'总销量', u'订单数', u'总金额', u'现金', u'微众卡', u'优惠券'
 		]
 		order_table = []
 		order_table.append(titles)
 		for customer in customer_list:
 			info = [
 				customer['customer_name'],
-				customer['classify'],
 				customer['brand_time'],
 				customer['total_sales'],
 				customer['total_order_number'],
