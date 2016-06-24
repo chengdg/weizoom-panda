@@ -94,7 +94,14 @@ def getCustomerData(request,is_export):
 			#获得所有绑定过云商通的云商通商品id
 			api_pids.append(weapp_product_id)
 			product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
-	
+
+	product_id2time = {}
+	for product_has_relation in product_has_relations:
+		product_id = product_has_relation.product_id
+		if product_id not in product_id2time:
+			product_id2time[product_id] = [product_has_relation.created_at]
+		else:
+			product_id2time[product_id].append(product_has_relation.created_at)
 	id2orders = {}		
 	api_pids = '_'.join(api_pids)
 	try:
@@ -129,15 +136,18 @@ def getCustomerData(request,is_export):
 		total_order_number = 0 #订单数
 		total_final_price = 0 #现金
 		total_order_money = 0 #总金额
+		brand_time = ''
 		if product_ids:
 			for product_id in product_ids:
 				name = '' if product_id not in product_id2name else product_id2name[product_id]
 				sale = 0 if product_id not in id2sales else id2sales[product_id]
+				time = '' if product_id not in product_id2time else product_id2time[product_id]
+				brand_time = time
 				total_sales += sale
 				product_infos.append({
 					'name': name,
 					'sales': '%s' %sale,
-					'time': '2016-06-01'
+					'time': '' if not time else time[0].strftime("%Y-%m-%d")
 				})
 				if product_id in id2orders:
 					orders = id2orders[product_id]
@@ -160,7 +170,7 @@ def getCustomerData(request,is_export):
 			'total_coupon_money': '%.2f' %total_coupon_money,
 			'total_final_price': '%.2f' %total_final_price,
 			'total_order_money': '%.2f' %total_order_money,
-			'brand_time': '2016-06-01',
+			'brand_time': '' if not brand_time else brand_time[0].strftime("%Y-%m-%d"),
 			'feedback': u'查看报告',
 			'product_infos': json.dumps(product_infos)
 		})

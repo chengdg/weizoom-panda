@@ -111,11 +111,11 @@ class AccountCreate(resource.Resource):
 						user_id = int(account_zypt_info['user_id'])
 						params = {
 							'owner_id': user_id,
-							'name': user_profile[0].name + '_panda',
+							'name': 'p-' + user_profile[0].name,
 							'remark': '',
-							'responsible_person': u'aq',
-							'supplier_tel': '7889',
-							'supplier_address': 'qwe'
+							'responsible_person': u'8000FT',
+							'supplier_tel': '13112345678',
+							'supplier_address': u'中国 北京'
 						}
 						r = requests.post(ZEUS_HOST+'/mall/supplier/?_method=put',params=params)
 						res = json.loads(r.text)

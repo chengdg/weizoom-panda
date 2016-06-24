@@ -48,6 +48,16 @@ class ProductRelation(resource.Resource):
 				sync_product_datas = []
 				product_id = product_data[0]['product_id']
 				weizoom_self = product_data[0]['weizoom_self'].split(',')
+				image_paths = product_data[0]['image_path'].split(',')
+				swipe_images = []
+				if image_paths:
+					for image_path in image_paths:
+						swipe_images.append({
+							'id': -1,
+							'url': '%s' %image_path,
+							'width': 100,
+							'height': 100
+						})
 				if product_data[0]['product_store'] > -1:
 					stock_type = 1
 				else:
@@ -63,7 +73,7 @@ class ProductRelation(resource.Resource):
 					'weight': '',
 					'stocks': product_data[0]['product_store'],
 					'detail': '',
-					'swipe_images': ''
+					'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
 				}
 				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
 				res = json.loads(r.text)

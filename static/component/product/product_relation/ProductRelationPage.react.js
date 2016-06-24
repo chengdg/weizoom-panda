@@ -71,7 +71,7 @@ var ProductRelationPage = React.createClass({
 			'product_weight': product_info['product_weight'],//商品重量
 			'product_store': product_info['product_store'],//商品库存(-1:无限)
 			'image_path': product_info['image_path'],//轮播图路径
-			'detail': product_info['remark']//商品详情
+			// 'detail': product_info['remark']//商品详情
 		}]
 		Action.relationFromWeapp(JSON.stringify(product_data));
 	},
