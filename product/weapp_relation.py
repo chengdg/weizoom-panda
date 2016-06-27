@@ -32,6 +32,15 @@ SELF_NAMETEXT2VALUE = {
 	u'微众俱乐部': 'weizoom_club'
 }
 
+SELF_SHOP2TEXT = {
+	'weizoom_jia': u'微众家',
+	'weizoom_mama': u'微众妈妈',
+	'weizoom_xuesheng': u'微众学生',
+	'weizoom_baifumei': u'微众白富美',
+	'weizoom_shop': u'微众商城',
+	'weizoom_club': u'微众俱乐部'
+}
+
 class ProductRelation(resource.Resource):
 	app = 'product'
 	resource = 'weapp_relation'
@@ -43,11 +52,25 @@ class ProductRelation(resource.Resource):
 		account_has_suppliers = AccountHasSupplier.objects.all()
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
+		data = {}
 		try:
 			if product_data:
 				sync_product_datas = []
+				account_id = product_data[0]['account_id']
 				product_id = product_data[0]['product_id']
 				weizoom_self = product_data[0]['weizoom_self'].split(',')
+				weizoom_self_text = []
+				for name in weizoom_self:
+					weizoom_self_text.append(SELF_SHOP2TEXT[name])
+				account_has_suppliers = AccountHasSupplier.objects.filter(account_id=account_id,store_name__in=weizoom_self_text)
+				supplier_ids = []
+				user_ids = []
+				for account_has_supplier in account_has_suppliers:
+					supplier_id = str(account_has_supplier.supplier_id)
+					user_id = str(account_has_supplier.user_id)
+					supplier_ids.append(supplier_id)
+					user_ids.append(user_id)
+
 				image_paths = product_data[0]['image_path'].split(',')
 				swipe_images = []
 				if image_paths:
@@ -63,8 +86,8 @@ class ProductRelation(resource.Resource):
 				else:
 					stock_type = 0
 				params = {
-					'owner_ids': product_data[0]['owner_ids'],
-					'suppliers': product_data[0]['supplier_ids'],
+					'owner_ids': '_'.join(user_ids),#所属账号的user id
+					'suppliers': '_'.join(supplier_ids),#供货商 id
 					'name': product_data[0]['product_name'],
 					'purchase_price': product_data[0]['clear_price'],
 					'stock_type': stock_type,
@@ -90,20 +113,28 @@ class ProductRelation(resource.Resource):
 									self_user_name = SELF_NAMETEXT2VALUE[name],
 									weapp_product_id = sync_product_data['product_id']
 								))
+								data['code'] = 200
+								data['Msg'] = u'关联成功'
+							else:
+								data['code'] = 500
+								data['Msg'] = u'关联失败'
 						models.ProductHasRelationWeapp.objects.bulk_create(list_create)
 				else:
 					print(res)
+					data['code'] = 500
+					data['Msg'] = u'关联失败'
 		except Exception,e:
 			print(e)
+			data['code'] = 500
+			data['Msg'] = u'关联失败'
 		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}
 		if product_relations:
 			for product in product_relations:
 				relations[product.self_user_name] = product.weapp_product_id
-		data = {
-			'rows': relations
-		}
+
+		data['rows'] = relations
 		#构造response
 		response = create_response(200)
 		response.data = data

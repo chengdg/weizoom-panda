@@ -130,22 +130,22 @@ class ProductRelation(resource.Resource):
 		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
 		account_ids = [user_profile.id for user_profile in user_profiles]
 		account_has_suppliers = account_has_suppliers.filter(account_id__in=account_ids)
-		account_id2supplier_ids = {}
-		account_id2user_ids = {}
-		for account_has_supplier in account_has_suppliers:
-			account_id = account_has_supplier.account_id
-			supplier_id = str(account_has_supplier.supplier_id)
-			user_id = str(account_has_supplier.user_id)
-			if account_id not in account_id2supplier_ids:
-				account_id2supplier_ids[account_id] = [supplier_id]
-			else:
-				account_id2supplier_ids[account_id].append(supplier_id)
+		# account_id2supplier_ids = {}
+		# account_id2user_ids = {}
+		# for account_has_supplier in account_has_suppliers:
+		# 	account_id = account_has_supplier.account_id
+		# 	supplier_id = str(account_has_supplier.supplier_id)
+		# 	user_id = str(account_has_supplier.user_id)
+		# 	if account_id not in account_id2supplier_ids:
+		# 		account_id2supplier_ids[account_id] = [supplier_id]
+		# 	else:
+		# 		account_id2supplier_ids[account_id].append(supplier_id)
 
-			if account_id not in account_id2user_ids:
-				account_id2user_ids[account_id] = [user_id]
-			else:
-				account_id2user_ids[account_id].append(user_id)
-		print  account_id2user_ids,"============="
+		# 	if account_id not in account_id2user_ids:
+		# 		account_id2user_ids[account_id] = [user_id]
+		# 	else:
+		# 		account_id2user_ids[account_id].append(user_id)
+		# print  account_id2user_ids,"============="
 		#组装数据
 		rows = []
 		host = request.get_host()
@@ -163,12 +163,13 @@ class ProductRelation(resource.Resource):
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				self_user_name = [] if product.id not in product_id2self_user_name else product_id2self_user_name[product.id]
 				account_id = -1 if owner_id not in user_id2account_id else user_id2account_id[owner_id]
-				supplier_ids = [] if account_id not in account_id2supplier_ids else account_id2supplier_ids[account_id]
-				user_ids = [] if account_id not in account_id2user_ids else account_id2user_ids[account_id]
+				# supplier_ids = [] if account_id not in account_id2supplier_ids else account_id2supplier_ids[account_id]
+				# user_ids = [] if account_id not in account_id2user_ids else account_id2user_ids[account_id]
 				product_info = {
-					'owner_id': '_'.join(user_ids),
+					# 'owner_id': '_'.join(user_ids),#所属账号的user id
+					'account_id': account_id,
 					'product_id': product.id,
-					'supplier_ids': '_'.join(supplier_ids),
+					# 'supplier_ids': '_'.join(supplier_ids),#供货商 id
 					'product_name': product.product_name,
 					'promotion_title': product.promotion_title if product.promotion_title else '',
 					'clear_price': '%s' %product.clear_price,

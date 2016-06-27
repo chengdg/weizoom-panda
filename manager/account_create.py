@@ -106,6 +106,8 @@ class AccountCreate(resource.Resource):
 			if account_zypt_infos:
 				list_create = []
 				for account_zypt_info in account_zypt_infos:
+					print account_zypt_info,"=========ssss2222==========="
+					print account_zypt_info['store_name']
 					#请求接口获得数据
 					try:
 						user_id = int(account_zypt_info['user_id'])
