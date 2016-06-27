@@ -134,12 +134,12 @@ class ProductRelation(resource.Resource):
 			print(e)
 			data['code'] = 500
 			data['Msg'] = u'关联失败'
-		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
+		# product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}
-		if product_relations:
-			for product in product_relations:
-				relations[product.self_user_name] = product.weapp_product_id
+		# if product_relations:
+		# 	for product in product_relations:
+		# 		relations[product.self_user_name] = product.weapp_product_id
 
 		data['rows'] = relations
 		#构造response

@@ -15,7 +15,7 @@ from account.models import *
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		user_profiles = UserProfile.objects.all()
+		user_profiles = UserProfile.objects.filter(role=1)
 		print "=====start======"
 		for user_profile in user_profiles:
 			try:
@@ -30,7 +30,7 @@ class Command(BaseCommand):
 				else:
 					print(res)
 			except Exception,e:
-				print "=====error====="
+				print "=====[/account/zypt_info]error====="
 				print(e)
 
 			if account_zypt_infos:
@@ -62,6 +62,6 @@ class Command(BaseCommand):
 						else:
 							print(res)
 					except Exception,e:
-						print "=====error====="
+						print "=====[/mall/supplier]error====="
 						print(e)
 		print "=====end====="
