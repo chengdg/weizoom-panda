@@ -119,6 +119,13 @@ class ProductRelation(resource.Resource):
 								data['code'] = 500
 								data['Msg'] = u'关联失败'
 						models.ProductHasRelationWeapp.objects.bulk_create(list_create)
+						if data['code'] == 200:
+							product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+							product_has_relations = product_has_relations.filter(product_id=product_id)
+							if len(product_has_relations)>0:
+								models.Product.objects.filter(id=product_id).update(product_status=1)#{0:未上架,1:已上架}
+							else:
+								models.Product.objects.filter(id=product_id).update(product_status=0)
 				else:
 					print(res)
 					data['code'] = 500
