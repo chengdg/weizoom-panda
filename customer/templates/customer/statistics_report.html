@@ -1,0 +1,13 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [ {
+		name: '体验报告',
+		href: '#'
+	}];
+
+	W.pageContentComponent = './customer/statistics_report/OpenStatisticReport.react';
+	W.user_id = {{user_id}}
+</script>
+{% endblock %}
