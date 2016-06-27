@@ -81,7 +81,8 @@ class ProductRelation(resource.Resource):
 							'width': 100,
 							'height': 100
 						})
-				if product_data[0]['product_store'] > -1:
+				product_price = float(product_data[0]['product_price'])
+				if int(product_data[0]['product_store']) > -1:
 					stock_type = 1
 				else:
 					stock_type = 0
@@ -93,7 +94,7 @@ class ProductRelation(resource.Resource):
 						'purchase_price': product_data[0]['clear_price'],
 						'stock_type': stock_type,
 						'promotion_title': product_data[0]['promotion_title'],
-						'price': product_data[0]['product_price'],
+						'price': product_price if product_price > -1 else '',
 						'weight': product_data[0]['product_weight'],
 						'stocks': product_data[0]['product_store'],
 						'detail': '',
