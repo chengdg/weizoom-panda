@@ -65,7 +65,7 @@ var YunyingOrderDatasPage = React.createClass({
 			value: '3808'
 		}, {
 			text: '微众俱乐部',
-			value: '3808'
+			value: '3936'
 		}];
 
 		return (

@@ -61,6 +61,13 @@ var OpenStatisticReport = React.createClass({
 			}
 		};
 
+		var datesResource = {
+			resource: 'customer.statistics_report_date',
+			data: {
+				user_id: W.user_id
+			}
+		};
+
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<div>一、多商品销量</div>
@@ -75,25 +82,25 @@ var OpenStatisticReport = React.createClass({
 					<Reactman.TableColumn name="小计" field="product_sales" />
 				</Reactman.Table>
 				<div>二、订单销售趋势</div>
-				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
+				<Reactman.Table resource={datesResource} formatter={this.rowFormatter} ref="table">
 					<Reactman.TableColumn name="第一周" field="first_week" />
 					<Reactman.TableColumn name="第二周" field="second_week" />
 					<Reactman.TableColumn name="第三周" field="third_week" />
 					<Reactman.TableColumn name="第四周" field="fourth_week" />
 				</Reactman.Table>
 				<div>三、购买用户数据</div>
-				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
+				<Reactman.Table resource={datesResource} formatter={this.rowFormatter} ref="table">
 					<Reactman.TableColumn name="总人数" field="all_purchase_number" />
 					<Reactman.TableColumn name="一次购买" field="one_time_purchase" />
 					<Reactman.TableColumn name="复购用户" field="re_purchase" />
 				</Reactman.Table>
 				<div>四、体验反馈数据</div>
-				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
+				<Reactman.Table resource={datesResource} formatter={this.rowFormatter} ref="table">
 					<Reactman.TableColumn name="反馈总人数" field="feedback_all_number" />
 					<Reactman.TableColumn name="反馈条数" field="feedback_number" />
 				</Reactman.Table>
 				<div>五、平台订单数</div>
-				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
+				<Reactman.Table resource={datesResource} formatter={this.rowFormatter} ref="table">
 					<Reactman.TableColumn name="微众白富美" field="weizoom_baifumei_orders_number" />
 					<Reactman.TableColumn name="微众俱乐部" field="weizoom_club_orders_number" />
 					<Reactman.TableColumn name="微众家" field="weizoom_jia_orders_number" />
