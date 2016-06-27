@@ -18,6 +18,7 @@ from resource import models as resource_models
 from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
+from panda.settings import PANDA_HOST
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
@@ -148,7 +149,6 @@ class ProductRelation(resource.Resource):
 		# print  account_id2user_ids,"============="
 		#组装数据
 		rows = []
-		host = request.get_host()
 		for product in products:
 			owner_id = product.owner_id
 			if owner_id in user_id2name:
@@ -158,7 +158,7 @@ class ProductRelation(resource.Resource):
 					if image_id in image_id2images:
 						img_path = image_id2images[image_id]
 						if 'http' not in image_id2images[image_id]:
-							img_path = host + image_id2images[image_id]
+							img_path = PANDA_HOST + image_id2images[image_id]
 						image_path.append(img_path)
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				self_user_name = [] if product.id not in product_id2self_user_name else product_id2self_user_name[product.id]
