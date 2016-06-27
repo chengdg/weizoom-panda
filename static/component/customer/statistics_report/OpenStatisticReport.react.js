@@ -35,30 +35,7 @@ var OpenStatisticReport = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if (field === 'expand-row') {
-			var class_name = 'data-' +data['user_id'];
-			var product_infos = JSON.parse(data['product_infos'])
-			if(product_infos.length>0){
-				var products = product_infos.map(function(product,index){
-				return(
-						<div style={{backgroundColor: '#EFEFEF',height: '22px'}} key={index}>
-							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px'}}>{product.name} </div>
-							<div className="xui-expand-row-info" style={{float: 'right',paddingRight:'200px'}}>上架时间:{product.time}</div>
-							<div className="xui-expand-row-info" style={{float: 'right',paddingRight:'100px'}}>销量:{product.sales} </div>
-						</div>
-					)
-				});
-				return (
-					<div className={class_name} style={{display:'none'}}>{products}</div>
-				)
-			}else{
-				return (
-					<div className={class_name} style={{backgroundColor: '#EFEFEF',height: '22px',display:'none'}}>
-						<div style={{float: 'left',paddingLeft:'15px'}}>暂无商品</div>
-					</div>
-				)
-			}
-		}else if(field === 'customer_name'){
+		if(field === 'customer_name'){
 			var class_name = 'data-' +data['user_id'];
 			return (
 				<a href="javascript:void(0);" onClick={this.showProduct.bind(this,class_name)}>{value}</a>
@@ -95,6 +72,7 @@ var OpenStatisticReport = React.createClass({
 					<Reactman.TableColumn name="微众妈妈" field="weizoom_mama" />
 					<Reactman.TableColumn name="微众商城" field="weizoom_shop" />
 					<Reactman.TableColumn name="微众学生" field="weizoom_xuesheng" />
+					<Reactman.TableColumn name="小计" field="product_sales" />
 				</Reactman.Table>
 				<div>二、订单销售趋势</div>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
