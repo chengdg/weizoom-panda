@@ -173,6 +173,7 @@ class ProductRelation(resource.Resource):
 					'product_name': product.product_name,
 					'promotion_title': product.promotion_title if product.promotion_title else '',
 					'clear_price': '%s' %product.clear_price,
+					'product_price': '%s' %product.product_price,
 					'product_weight': '%s' %product.product_weight,
 					'product_store': '%s' %product.product_store,
 					'remark': '%s' %product.remark,

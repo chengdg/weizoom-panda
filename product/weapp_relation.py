@@ -53,7 +53,6 @@ class ProductRelation(resource.Resource):
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
 		data = {}
-		response = create_response(500)
 		try:
 			if product_data:
 				sync_product_datas = []
@@ -93,9 +92,9 @@ class ProductRelation(resource.Resource):
 						'name': product_data[0]['product_name'],
 						'purchase_price': product_data[0]['clear_price'],
 						'stock_type': stock_type,
-						'promotion_title': '',
-						'price': '',
-						'weight': '',
+						'promotion_title': product_data[0]['promotion_title'],
+						'price': product_data[0]['product_price'],
+						'weight': product_data[0]['product_weight'],
 						'stocks': product_data[0]['product_store'],
 						'detail': '',
 						'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
@@ -118,7 +117,6 @@ class ProductRelation(resource.Resource):
 									self_user_name = SELF_NAMETEXT2VALUE[name],
 									weapp_product_id = sync_product_data['product_id']
 								))
-								response = create_response(200)
 								data['code'] = 200
 								data['Msg'] = u'关联成功'
 							else:
@@ -143,16 +141,16 @@ class ProductRelation(resource.Resource):
 			print "------------"
 			data['code'] = 500
 			data['Msg'] = u'关联失败'
-		# product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
+		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
 		#组装数据
 		relations = {}
-		# if product_relations:
-		# 	for product in product_relations:
-		# 		relations[product.self_user_name] = product.weapp_product_id
+		if product_relations:
+			for product in product_relations:
+				relations[product.self_user_name] = product.weapp_product_id
 
 		data['rows'] = relations
 		#构造response
-		# response = create_response(200)
+		response = create_response(200)
 		response.data = data
 		return response.get_response()
 
