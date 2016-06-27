@@ -53,6 +53,7 @@ class ProductRelation(resource.Resource):
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
 		data = {}
+		response = create_response(500)
 		try:
 			if product_data:
 				sync_product_datas = []
@@ -113,9 +114,11 @@ class ProductRelation(resource.Resource):
 									self_user_name = SELF_NAMETEXT2VALUE[name],
 									weapp_product_id = sync_product_data['product_id']
 								))
+								response = create_response(200)
 								data['code'] = 200
 								data['Msg'] = u'关联成功'
 							else:
+								print sync_product_data,"==========="
 								data['code'] = 500
 								data['Msg'] = u'关联失败'
 						models.ProductHasRelationWeapp.objects.bulk_create(list_create)
@@ -128,10 +131,12 @@ class ProductRelation(resource.Resource):
 								models.Product.objects.filter(id=product_id).update(product_status=0)
 				else:
 					print(res)
+					print "+++++++++++"
 					data['code'] = 500
 					data['Msg'] = u'关联失败'
 		except Exception,e:
 			print(e)
+			print "------------"
 			data['code'] = 500
 			data['Msg'] = u'关联失败'
 		# product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
@@ -143,7 +148,7 @@ class ProductRelation(resource.Resource):
 
 		data['rows'] = relations
 		#构造response
-		response = create_response(200)
+		# response = create_response(200)
 		response.data = data
 		return response.get_response()
 
