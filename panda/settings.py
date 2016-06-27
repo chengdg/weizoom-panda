@@ -224,18 +224,21 @@ if 'develop' == MODE:
     WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4188/static/bundle.js'
     # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
     ZEUS_HOST = 'http://api.zeus.com'
+    PANDA_HOST = 'http://dev.padna.com'
     DEBUG = True
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
+    PANDA_HOST = 'http://panda.weapp.weizzz.com/'
     DEBUG = True
 else:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
+    PANDA_HOST = 'http://chaozhi.weizoom.com/'
     DEBUG = False
 
 UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路径

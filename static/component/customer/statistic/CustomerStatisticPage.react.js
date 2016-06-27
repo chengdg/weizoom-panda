@@ -64,6 +64,10 @@ var CustomerStatisticPage = React.createClass({
 			return (
 				<a href="javascript:void(0);" onClick={this.showProduct.bind(this,class_name)}>{value}</a>
 			)
+		}else if(field === 'feedback'){
+			return (
+				<a href="javascript:void(0);">{value}</a>
+			)
 		}else{
 			return value;
 		}

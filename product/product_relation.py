@@ -18,10 +18,12 @@ from resource import models as resource_models
 from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
+from panda.settings import PANDA_HOST
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
 import requests
+import sys,os
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'	
@@ -55,6 +57,8 @@ class ProductRelation(resource.Resource):
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		products = models.Product.objects.all().order_by('-id')
 		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
+		product_images = models.ProductImage.objects.all().order_by('-id')
+		account_has_suppliers = AccountHasSupplier.objects.all()
 		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_idct.get('product_name','')
@@ -72,9 +76,6 @@ class ProductRelation(resource.Resource):
 			product_ids = [product_has_relation.product_id for product_has_relation in product_has_relationss]
 			products = products.filter(id__in=product_ids)
 
-		product_images = models.ProductImage.objects.all()
-		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
-		
 		self_shop = []
 		self_user_name2self_first_name = {}
 		for product in product_relations:
@@ -106,62 +107,89 @@ class ProductRelation(resource.Resource):
 				product_id2self_user_name[product_id] = [self_user_name]
 			else:
 				product_id2self_user_name[product_id].append(self_user_name)
+
+		#获取商品图片
+		product_id2image_id = {}
+		image_id2images = {}
+		for product in product_images:
+			if product.product_id not in product_id2image_id:
+				product_id2image_id[product.product_id] = [product.image_id]
+			else:
+				product_id2image_id[product.product_id].append(product.image_id)
+		for image in resource_models.Image.objects.all():
+			image_id2images[image.id] = image.path
+		
+		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
+		#从weapp获取销量
+		p_ids = [product.id for product in products]
+		product_has_relations = product_has_relations.filter(product_id__in=p_ids)
+		id2sales = sales_from_weapp(product_has_relations)
+		
+		p_owner_ids = [product.owner_id for product in products]
+		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
+		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
+		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
+		account_ids = [user_profile.id for user_profile in user_profiles]
+		account_has_suppliers = account_has_suppliers.filter(account_id__in=account_ids)
+		# account_id2supplier_ids = {}
+		# account_id2user_ids = {}
+		# for account_has_supplier in account_has_suppliers:
+		# 	account_id = account_has_supplier.account_id
+		# 	supplier_id = str(account_has_supplier.supplier_id)
+		# 	user_id = str(account_has_supplier.user_id)
+		# 	if account_id not in account_id2supplier_ids:
+		# 		account_id2supplier_ids[account_id] = [supplier_id]
+		# 	else:
+		# 		account_id2supplier_ids[account_id].append(supplier_id)
+
+		# 	if account_id not in account_id2user_ids:
+		# 		account_id2user_ids[account_id] = [user_id]
+		# 	else:
+		# 		account_id2user_ids[account_id].append(user_id)
+		# print  account_id2user_ids,"============="
 		#组装数据
 		rows = []
-		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
-
-		id2sales = sales_from_weapp(product_has_relations)
-		# p_ids = ''
-		# #构造panda数据库内商品id，与云商通内商品id的关系
-		# for product_has_relation in product_has_relations:
-		# 	weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		# 	for weapp_product_id in weapp_product_ids:
-		# 		p_ids = p_ids + '_' +weapp_product_id
-
-		# product_weapp_id2product_id = {}
-		# for product_has_relation in product_has_relations:
-		# 	weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		# 	for weapp_product_id in weapp_product_ids:
-		# 		#获得所有绑定过云商通的云商通商品id
-		# 		product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
-		# #请求接口获得数据
-		# id2sales = {}
-		# try:
-		# 	params = {
-		# 		'product_ids': p_ids[1:]
-		# 	}
-		# 	r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
-		# 	res = json.loads(r.text)
-		# 	if res['code'] == 200:
-		# 		product_sales = res['data']['product_sales']
-		# 		if product_sales:
-		# 			for product_sale in product_sales:
-		# 				product_id = str(product_sale['product_id'])
-		# 				if product_id in product_weapp_id2product_id:
-		# 					p_id = product_weapp_id2product_id[product_id]
-		# 					p_sales = product_sale['sales']
-		# 					if p_id not in id2sales:
-		# 						id2sales[p_id] = p_sales
-		# 					else:
-		# 						id2sales[p_id] += p_sales
-		# 	else:
-		# 		print(res)
-		# except Exception,e:
-		# 	print(e)
-		print product_id2self_user_name,"===="
 		for product in products:
-			if product.owner_id in user_id2name:
+			owner_id = product.owner_id
+			if owner_id in user_id2name:
+				image_ids = -1 if product.id not in product_id2image_id else product_id2image_id[product.id]
+				image_path = []
+				for image_id in image_ids:
+					if image_id in image_id2images:
+						img_path = image_id2images[image_id]
+						if 'http' not in image_id2images[image_id]:
+							img_path = PANDA_HOST + image_id2images[image_id]
+						image_path.append(img_path)
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				self_user_name = [] if product.id not in product_id2self_user_name else product_id2self_user_name[product.id]
+				account_id = -1 if owner_id not in user_id2account_id else user_id2account_id[owner_id]
+				# supplier_ids = [] if account_id not in account_id2supplier_ids else account_id2supplier_ids[account_id]
+				# user_ids = [] if account_id not in account_id2user_ids else account_id2user_ids[account_id]
+				product_info = {
+					# 'owner_id': '_'.join(user_ids),#所属账号的user id
+					'account_id': account_id,
+					'product_id': product.id,
+					# 'supplier_ids': '_'.join(supplier_ids),#供货商 id
+					'product_name': product.product_name,
+					'promotion_title': product.promotion_title if product.promotion_title else '',
+					'clear_price': '%s' %product.clear_price,
+					'product_price': '%s' %product.product_price,
+					'product_weight': '%s' %product.product_weight,
+					'product_store': '%s' %product.product_store,
+					'remark': '%s' %product.remark,
+					'image_path': ','.join(image_path)
+				}
 				rows.append({
 					'id': product.id,
 					'role': role,
+					'owner_id': owner_id,
 					'product_name': product.product_name,
-					'customer_name': '' if product.owner_id not in user_id2name else user_id2name[product.owner_id],
+					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
 					'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 					'self_user_name': self_user_name,
 					'self_shop': json.dumps(self_shop),
+					'product_info': product_info,
 					'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
 				})
 		data = {
