@@ -224,7 +224,7 @@ if 'develop' == MODE:
     WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4188/static/bundle.js'
     # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
     ZEUS_HOST = 'http://api.zeus.com'
-    PANDA_HOST = 'http://dev.padna.com'
+    PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
