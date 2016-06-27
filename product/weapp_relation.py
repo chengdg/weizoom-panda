@@ -46,9 +46,9 @@ class ProductRelation(resource.Resource):
 	resource = 'weapp_relation'
 
 	@login_required
-	def api_get(request):
+	def api_post(request):
 		# product_id = request.GET.get('product_id',0)
-		product_data = request.GET.get('product_data',0)
+		product_data = request.POST.get('product_data',0)
 		account_has_suppliers = AccountHasSupplier.objects.all()
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
@@ -97,7 +97,7 @@ class ProductRelation(resource.Resource):
 						'price': product_price if product_price > -1 else '',
 						'weight': product_data[0]['product_weight'],
 						'stocks': product_data[0]['product_store'],
-						'detail': '',
+						'detail': product_data[0]['detail'],
 						'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
 					}
 					r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)

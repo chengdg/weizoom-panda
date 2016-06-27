@@ -60,7 +60,7 @@ var Action = {
 	},
 
 	relationFromWeapp: function(product_data){
-		Resource.get({
+		Resource.post({
 			resource: 'product.weapp_relation',
 			data: {
 				'product_data': product_data
