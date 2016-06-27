@@ -86,20 +86,24 @@ class ProductRelation(resource.Resource):
 					stock_type = 1
 				else:
 					stock_type = 0
-				params = {
-					'owner_ids': '_'.join(user_ids),#所属账号的user id
-					'suppliers': '_'.join(supplier_ids),#供货商 id
-					'name': product_data[0]['product_name'],
-					'purchase_price': product_data[0]['clear_price'],
-					'stock_type': stock_type,
-					'promotion_title': '',
-					'price': '',
-					'weight': '',
-					'stocks': product_data[0]['product_store'],
-					'detail': '',
-					'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
-				}
-				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
+				try:
+					params = {
+						'owner_ids': '_'.join(user_ids),#所属账号的user id
+						'suppliers': '_'.join(supplier_ids),#供货商 id
+						'name': product_data[0]['product_name'],
+						'purchase_price': product_data[0]['clear_price'],
+						'stock_type': stock_type,
+						'promotion_title': '',
+						'price': '',
+						'weight': '',
+						'stocks': product_data[0]['product_store'],
+						'detail': '',
+						'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
+					}
+					r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
+				except Exception,e:
+					data['code'] = 500
+					data['Msg'] = u'关联失败'
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					sync_product_datas = res['data']

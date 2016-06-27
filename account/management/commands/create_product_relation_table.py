@@ -24,7 +24,7 @@ class Command(BaseCommand):
 				params = {
 					'mall_type': 1
 				}
-				r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
+				r = requests.get(ZEUS_HOST+'/account/account_zypt_info/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					account_zypt_infos = res['data']
@@ -56,7 +56,7 @@ class Command(BaseCommand):
 								AccountHasSupplier.objects.create(
 									user_id = user_id,
 									account_id = user_profile.id,
-									store_name = account_zypt_info['store_name'],
+									store_name = account_zypt_info['store_name'].encode('utf8'),
 									supplier_id = int(supplier_datas['id'])
 								)
 								print account_zypt_info['store_name'],"===success==="
