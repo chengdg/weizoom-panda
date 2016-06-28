@@ -33,7 +33,7 @@ class Command(BaseCommand):
 			for i in range(0,ncols):
 				data = table.cell(0, i).value
 				if data == u'俱乐部ID':
-					club_weapp_id = table.cell(cur_col,i).value
+					club_weapp_id = int(table.cell(cur_col,i).value)
 				if data == u'体验系统id':
 					product_id = table.cell(cur_col,i).value
 			try:
