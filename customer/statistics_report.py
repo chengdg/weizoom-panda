@@ -92,9 +92,9 @@ class StatisticsReport(resource.Resource):
 					elif account_zypt_info['store_name'] == u'微众学生':
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_xuesheng'
 					else:
-						# webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
+						webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
 						#TODO 为方便测试，先将不算自营平台的算为微众白富美的订单
-						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_baifumei'
+						# webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_baifumei'
 			else:
 				print(res)
 		except Exception,e:
