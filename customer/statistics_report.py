@@ -126,44 +126,43 @@ class StatisticsReport(resource.Resource):
 				store_username = webapp_id2store_username[order['webapp_id']]
 				return_product_infos = order['products'] #返回的订单数据
 				print return_product_infos
-				print ('=====================')
+				print ('return_product_infos=====================')
 				order_status = order['status']
 				if order_status in [2,3,4,5,6]:
 					for return_product_info in return_product_infos:
 						product_weapp_id = str(return_product_info['id'])
 						product_id = product_weapp_id2product_id[product_weapp_id]
+					count = return_product_infos[0]['count']
 					if store_username == 'weizoom_baifumei':
 						if not pid2weizoom_baifumei_sales.has_key(product_id):
-							pid2weizoom_baifumei_sales[product_id] = 1
+							pid2weizoom_baifumei_sales[product_id] = count
 						else:
-							pid2weizoom_baifumei_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_baifumei_sales[product_id] += count
 					elif store_username == 'weizoom_club':
 						if not pid2weizoom_club_sales.has_key(product_id):
-							pid2weizoom_club_sales[product_id] = 1
+							pid2weizoom_club_sales[product_id] = count
 						else:
-							pid2weizoom_club_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_club_sales[product_id] += count
 					elif store_username == 'weizoom_jia':
 						if not pid2weizoom_jia_sales.has_key(product_id):
-							pid2weizoom_jia_sales[product_id] = 1
+							pid2weizoom_jia_sales[product_id] = count
 						else:
-							print('count!!!!!!!!!!')
-							print(return_product_infos[0]['count'])
-							pid2weizoom_jia_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_jia_sales[product_id] += count
 					elif store_username == 'weizoom_mama':
 						if not pid2weizoom_mama_sales.has_key(product_id):
-							pid2weizoom_mama_sales[product_id] = 1
+							pid2weizoom_mama_sales[product_id] = count
 						else:
-							pid2weizoom_mama_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_mama_sales[product_id] += count
 					elif store_username == 'weizoom_shop':
 						if not pid2weizoom_shop_sales.has_key(product_id):
-							pid2weizoom_shop_sales[product_id] = 1
+							pid2weizoom_shop_sales[product_id] = count
 						else:
-							pid2weizoom_shop_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_shop_sales[product_id] += count
 					elif store_username == 'weizoom_xuesheng':
 						if not pid2weizoom_xuesheng_sales.has_key(product_id):
-							pid2weizoom_xuesheng_sales[product_id] = 1
+							pid2weizoom_xuesheng_sales[product_id] = count
 						else:
-							pid2weizoom_xuesheng_sales[product_id] += return_product_infos[0]['count']
+							pid2weizoom_xuesheng_sales[product_id] += count
 
 			for product in products:
 				weizoom_baifumei = pid2weizoom_baifumei_sales[product.id] if pid2weizoom_baifumei_sales.has_key(product.id) else 0
