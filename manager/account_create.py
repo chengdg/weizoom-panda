@@ -107,7 +107,6 @@ class AccountCreate(resource.Resource):
 				list_create = []
 				for account_zypt_info in account_zypt_infos:
 					print account_zypt_info,"=========ssss2222==========="
-					print account_zypt_info['store_name']
 					#请求接口获得数据
 					try:
 						user_id = int(account_zypt_info['user_id'])
@@ -127,7 +126,7 @@ class AccountCreate(resource.Resource):
 								AccountHasSupplier.objects.create(
 									user_id = user_id,
 									account_id = user_profile[0].id,
-									store_name = account_zypt_info['store_name'],
+									store_name = account_zypt_info['store_name'].encode('utf8'),
 									supplier_id = int(supplier_datas['id'])
 								)
 						else:
