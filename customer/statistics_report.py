@@ -92,9 +92,9 @@ class StatisticsReport(resource.Resource):
 					elif account_zypt_info['store_name'] == u'微众学生':
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_xuesheng'
 					else:
-						# webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
+						webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
 						#TODO 为方便测试，先将不算自营平台的算为微众白富美的订单
-						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_baifumei'
+						# webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_baifumei'
 			else:
 				print(res)
 		except Exception,e:
@@ -132,42 +132,42 @@ class StatisticsReport(resource.Resource):
 						product_id = product_weapp_id2product_id[product_weapp_id]
 					if store_username == 'weizoom_baifumei':
 						if not pid2weizoom_baifumei_sales.has_key(product_id):
-							pid2weizoom_baifumei_sales[product_id] = [order['id']]
+							pid2weizoom_baifumei_sales[product_id] = 1
 						else:
-							pid2weizoom_baifumei_sales[product_id].append(order['id'])
+							pid2weizoom_baifumei_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_club':
 						if not pid2weizoom_club_sales.has_key(product_id):
-							pid2weizoom_club_sales[product_id] = [order['id']]
+							pid2weizoom_club_sales[product_id] = 1
 						else:
-							pid2weizoom_club_sales[product_id].append(order['id'])
+							pid2weizoom_club_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_jia':
 						if not pid2weizoom_jia_sales.has_key(product_id):
-							pid2weizoom_jia_sales[product_id] = [order['id']]
+							pid2weizoom_jia_sales[product_id] = 1
 						else:
-							pid2weizoom_jia_sales[product_id].append(order['id'])
+							pid2weizoom_jia_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_mama':
 						if not pid2weizoom_mama_sales.has_key(product_id):
-							pid2weizoom_mama_sales[product_id] = [order['id']]
+							pid2weizoom_mama_sales[product_id] = 1
 						else:
-							pid2weizoom_mama_sales[product_id].append(order['id'])
+							pid2weizoom_mama_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_shop':
 						if not pid2weizoom_shop_sales.has_key(product_id):
-							pid2weizoom_shop_sales[product_id] = [order['id']]
+							pid2weizoom_shop_sales[product_id] = 1
 						else:
-							pid2weizoom_shop_sales[product_id].append(order['id'])
+							pid2weizoom_shop_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_xuesheng':
 						if not pid2weizoom_xuesheng_sales.has_key(product_id):
-							pid2weizoom_xuesheng_sales[product_id] = [order['id']]
+							pid2weizoom_xuesheng_sales[product_id] = 1
 						else:
-							pid2weizoom_xuesheng_sales[product_id].append(order['id'])
+							pid2weizoom_xuesheng_sales[product_id] += return_product_infos[0]['count']
 
 			for product in products:
-				weizoom_baifumei = len(pid2weizoom_baifumei_sales[product.id]) if pid2weizoom_baifumei_sales.has_key(product.id) else 0
-				weizoom_club = len(pid2weizoom_club_sales[product.id]) if pid2weizoom_club_sales.has_key(product.id) else 0
-				weizoom_jia = len(pid2weizoom_jia_sales[product.id]) if pid2weizoom_jia_sales.has_key(product.id) else 0
-				weizoom_mama = len(pid2weizoom_mama_sales[product.id]) if pid2weizoom_mama_sales.has_key(product.id) else 0
-				weizoom_shop = len(pid2weizoom_shop_sales[product.id]) if pid2weizoom_shop_sales.has_key(product.id) else 0
-				weizoom_xuesheng = len(pid2weizoom_xuesheng_sales[product.id]) if pid2weizoom_xuesheng_sales.has_key(product.id) else 0
+				weizoom_baifumei = pid2weizoom_baifumei_sales[product.id] if pid2weizoom_baifumei_sales.has_key(product.id) else 0
+				weizoom_club = pid2weizoom_club_sales[product.id] if pid2weizoom_club_sales.has_key(product.id) else 0
+				weizoom_jia = pid2weizoom_jia_sales[product.id] if pid2weizoom_jia_sales.has_key(product.id) else 0
+				weizoom_mama = pid2weizoom_mama_sales[product.id] if pid2weizoom_mama_sales.has_key(product.id) else 0
+				weizoom_shop = pid2weizoom_shop_sales[product.id] if pid2weizoom_shop_sales.has_key(product.id) else 0
+				weizoom_xuesheng = pid2weizoom_xuesheng_sales[product.id] if pid2weizoom_xuesheng_sales.has_key(product.id) else 0
 				product_sales = weizoom_baifumei+weizoom_club+weizoom_jia+weizoom_mama+weizoom_shop+weizoom_xuesheng
 				rows.append({
 					'product_name': product.product_name,
@@ -238,9 +238,7 @@ class StatisticsReportData(resource.Resource):
 					elif account_zypt_info['store_name'] == u'微众学生':
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_xuesheng'
 					else:
-						# webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
-						#TODO 为方便测试，先将不算自营平台的算为微众白富美的订单
-						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_baifumei'
+						webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
 			else:
 				print(res)
 		except Exception,e:
