@@ -49,7 +49,7 @@ class ManagerAccount(resource.Resource):
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(manager_id = request.user.id,is_active = True).order_by('-id')
+		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
 
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
