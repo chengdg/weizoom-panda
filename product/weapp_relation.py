@@ -47,12 +47,13 @@ class ProductRelation(resource.Resource):
 
 	@login_required
 	def api_post(request):
-		# product_id = request.GET.get('product_id',0)
 		product_data = request.POST.get('product_data',0)
 		account_has_suppliers = AccountHasSupplier.objects.all()
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
 		data = {}
+		data['code'] = 500
+		data['errMsg'] = u'关联失败'
 		try:
 			if product_data:
 				sync_product_datas = []
@@ -82,28 +83,23 @@ class ProductRelation(resource.Resource):
 							'height': 100
 						})
 				product_price = float(product_data[0]['product_price'])
-				if int(product_data[0]['product_store']) > -1:
-					stock_type = 1
-				else:
-					stock_type = 0
-				try:
-					params = {
-						'owner_ids': '_'.join(user_ids),#所属账号的user id
-						'suppliers': '_'.join(supplier_ids),#供货商 id
-						'name': product_data[0]['product_name'],
-						'purchase_price': product_data[0]['clear_price'],
-						'stock_type': stock_type,
-						'promotion_title': product_data[0]['promotion_title'],
-						'price': product_price if product_price > -1 else '',
-						'weight': product_data[0]['product_weight'],
-						'stocks': product_data[0]['product_store'],
-						'detail': product_data[0]['detail'],
-						'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
-					}
-					r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
-				except Exception,e:
-					data['code'] = 500
-					data['Msg'] = u'关联失败'
+				stock_type = 1 if int(product_data[0]['product_store']) > -1 else 0
+
+				params = {
+					'owner_ids': '_'.join(user_ids),#所属账号的user id
+					'suppliers': '_'.join(supplier_ids),#供货商 id
+					'name': product_data[0]['product_name'],
+					'purchase_price': product_data[0]['clear_price'],
+					'stock_type': stock_type,
+					'promotion_title': product_data[0]['promotion_title'],
+					'price': product_price if product_price > -1 else '',
+					'weight': product_data[0]['product_weight'],
+					'stocks': product_data[0]['product_store'],
+					'detail': product_data[0]['detail'],
+					'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
+				}
+				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
+
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					sync_product_datas = res['data']
@@ -119,11 +115,8 @@ class ProductRelation(resource.Resource):
 									weapp_product_id = sync_product_data['product_id']
 								))
 								data['code'] = 200
-								data['Msg'] = u'关联成功'
-							else:
-								print sync_product_data,"==========="
-								data['code'] = 500
-								data['Msg'] = u'关联失败'
+								data['errMsg'] = u'关联成功'
+
 						models.ProductHasRelationWeapp.objects.bulk_create(list_create)
 						if data['code'] == 200:
 							product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
@@ -134,21 +127,11 @@ class ProductRelation(resource.Resource):
 								models.Product.objects.filter(id=product_id).update(product_status=0)
 				else:
 					print(res)
-					print "+++++++++++"
-					data['code'] = 500
-					data['Msg'] = u'关联失败'
+					
 		except Exception,e:
 			print(e)
-			print "------------"
-			data['code'] = 500
-			data['Msg'] = u'关联失败'
-		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
-		#组装数据
-		relations = {}
-		if product_relations:
-			for product in product_relations:
-				relations[product.self_user_name] = product.weapp_product_id
 
+		relations = {}
 		data['rows'] = relations
 		#构造response
 		response = create_response(200)

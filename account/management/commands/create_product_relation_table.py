@@ -24,7 +24,7 @@ class Command(BaseCommand):
 				params = {
 					'mall_type': 1
 				}
-				r = requests.get(ZEUS_HOST+'/account/account_zypt_info/',params=params)
+				r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					account_zypt_infos = res['data']
