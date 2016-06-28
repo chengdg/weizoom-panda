@@ -46,6 +46,23 @@ class ProductRelation(resource.Resource):
 	resource = 'weapp_relation'
 
 	@login_required
+	def api_get(request):
+		product_id = request.GET.get('product_id',0)
+		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
+		#组装数据
+		relations = {}
+		if product_relations:
+			for product in product_relations:
+				relations[product.self_user_name] = product.weapp_product_id
+		data = {
+			'rows': relations
+		}
+		#构造response
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
+	@login_required
 	def api_post(request):
 		product_data = request.POST.get('product_data',0)
 		account_has_suppliers = AccountHasSupplier.objects.all()
