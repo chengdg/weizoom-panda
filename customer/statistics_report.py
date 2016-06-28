@@ -125,39 +125,41 @@ class StatisticsReport(resource.Resource):
 			for order in orders:
 				store_username = webapp_id2store_username[order['webapp_id']]
 				return_product_infos = order['products'] #返回的订单数据
-				for return_product_info in return_product_infos:
-					product_weapp_id = str(return_product_info['id'])
-					product_id = product_weapp_id2product_id[product_weapp_id]
-				if store_username == 'weizoom_baifumei':
-					if not pid2weizoom_baifumei_sales.has_key(product_id):
-						pid2weizoom_baifumei_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_baifumei_sales[product_id].append(order['id'])
-				elif store_username == 'weizoom_club':
-					if not pid2weizoom_club_sales.has_key(product_id):
-						pid2weizoom_club_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_club_sales[product_id].append(order['id'])
-				elif store_username == 'weizoom_jia':
-					if not pid2weizoom_jia_sales.has_key(product_id):
-						pid2weizoom_jia_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_jia_sales[product_id].append(order['id'])
-				elif store_username == 'weizoom_mama':
-					if not pid2weizoom_mama_sales.has_key(product_id):
-						pid2weizoom_mama_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_mama_sales[product_id].append(order['id'])
-				elif store_username == 'weizoom_shop':
-					if not pid2weizoom_shop_sales.has_key(product_id):
-						pid2weizoom_shop_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_shop_sales[product_id].append(order['id'])
-				elif store_username == 'weizoom_xuesheng':
-					if not pid2weizoom_xuesheng_sales.has_key(product_id):
-						pid2weizoom_xuesheng_sales[product_id] = [order['id']]
-					else:
-						pid2weizoom_xuesheng_sales[product_id].append(order['id'])
+				order_status = order['status']
+				if order_status in [2,3,4,5,6]:
+					for return_product_info in return_product_infos:
+						product_weapp_id = str(return_product_info['id'])
+						product_id = product_weapp_id2product_id[product_weapp_id]
+					if store_username == 'weizoom_baifumei':
+						if not pid2weizoom_baifumei_sales.has_key(product_id):
+							pid2weizoom_baifumei_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_baifumei_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_club':
+						if not pid2weizoom_club_sales.has_key(product_id):
+							pid2weizoom_club_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_club_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_jia':
+						if not pid2weizoom_jia_sales.has_key(product_id):
+							pid2weizoom_jia_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_jia_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_mama':
+						if not pid2weizoom_mama_sales.has_key(product_id):
+							pid2weizoom_mama_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_mama_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_shop':
+						if not pid2weizoom_shop_sales.has_key(product_id):
+							pid2weizoom_shop_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_shop_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_xuesheng':
+						if not pid2weizoom_xuesheng_sales.has_key(product_id):
+							pid2weizoom_xuesheng_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_xuesheng_sales[product_id].append(order['id'])
 
 			for product in products:
 				weizoom_baifumei = len(pid2weizoom_baifumei_sales[product.id]) if pid2weizoom_baifumei_sales.has_key(product.id) else 0
@@ -253,11 +255,11 @@ class StatisticsReportData(resource.Resource):
 		pid2weizoom_mama_sales = {}
 		pid2weizoom_shop_sales = {}
 		pid2weizoom_xuesheng_sales = {}
-
 		first_week = 0
 		second_week = 0
 		third_week = 0
 		fourth_week = 0
+		webapp_user_ids = []
 
 		if api_pids != '':
 			first_bind_relation_time = product_has_relations.first().created_at
@@ -272,6 +274,8 @@ class StatisticsReportData(resource.Resource):
 				return response.get_response()
 
 			for order in orders:
+				#计算购买用户数据
+				webapp_user_ids.append(order['webapp_user_id'])
 				#获得云商通商品id与对应的自营平台的总销量之间的关系
 				store_username = webapp_id2store_username[order['webapp_id']]
 				return_product_infos = order['products'] #返回的订单数据
@@ -311,14 +315,15 @@ class StatisticsReportData(resource.Resource):
 
 				#计算订单周销售趋势
 				order_time = datetime.datetime.strptime(order['created_at'],"%Y-%m-%d %H:%M:%S")
-				if first_bind_relation_time< order_time < first_bind_relation_time+datetime.timedelta(weeks=1):
+				if first_bind_relation_time< order_time <= first_bind_relation_time+datetime.timedelta(weeks=1):
 					first_week += 1
-				elif first_bind_relation_time+datetime.timedelta(weeks=1) < order_time < first_bind_relation_time+datetime.timedelta(weeks=2):
+				elif first_bind_relation_time+datetime.timedelta(weeks=1) < order_time <= first_bind_relation_time+datetime.timedelta(weeks=2):
 					second_week += 1
-				elif first_bind_relation_time+datetime.timedelta(weeks=2) < order_time < first_bind_relation_time+datetime.timedelta(weeks=3):
+				elif first_bind_relation_time+datetime.timedelta(weeks=2) < order_time <= first_bind_relation_time+datetime.timedelta(weeks=3):
 					third_week += 1
-				elif first_bind_relation_time+datetime.timedelta(weeks=3) < order_time < first_bind_relation_time+datetime.timedelta(weeks=4):
+				elif first_bind_relation_time+datetime.timedelta(weeks=3) < order_time <= first_bind_relation_time+datetime.timedelta(weeks=4):
 					fourth_week += 1
+
 			weizoom_baifumei_orders_number = 0
 			weizoom_club_orders_number = 0
 			weizoom_jia_orders_number = 0
@@ -333,14 +338,18 @@ class StatisticsReportData(resource.Resource):
 				weizoom_shop_orders_number += len(pid2weizoom_shop_sales[product.id]) if pid2weizoom_shop_sales.has_key(product.id) else 0
 				weizoom_xuesheng_orders_number += len(pid2weizoom_xuesheng_sales[product.id]) if pid2weizoom_xuesheng_sales.has_key(product.id) else 0
 
+			one_time_purchase_list = [x for x in webapp_user_ids if webapp_user_ids.count(x) == 1]
+			all_purchase_number = len(list(set(webapp_user_ids)))
+			one_time_purchase = len(one_time_purchase_list)
+			re_purchase = all_purchase_number-one_time_purchase
 			rows.append({
 				'first_week': first_week,
 				'second_week': second_week,
 				'third_week': third_week,
 				'fourth_week': fourth_week,
-				'all_purchase_number': '',
-				'one_time_purchase': '',
-				're_purchase':'',
+				'all_purchase_number': all_purchase_number,
+				'one_time_purchase': one_time_purchase,
+				're_purchase':re_purchase,
 				'weizoom_baifumei_orders_number': weizoom_baifumei_orders_number,
 				'weizoom_club_orders_number': weizoom_club_orders_number,
 				'weizoom_jia_orders_number': weizoom_jia_orders_number,
