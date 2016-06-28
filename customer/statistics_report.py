@@ -125,6 +125,8 @@ class StatisticsReport(resource.Resource):
 			for order in orders:
 				store_username = webapp_id2store_username[order['webapp_id']]
 				return_product_infos = order['products'] #返回的订单数据
+				print return_product_infos
+				print ('=====================')
 				order_status = order['status']
 				if order_status in [2,3,4,5,6]:
 					for return_product_info in return_product_infos:
@@ -144,6 +146,8 @@ class StatisticsReport(resource.Resource):
 						if not pid2weizoom_jia_sales.has_key(product_id):
 							pid2weizoom_jia_sales[product_id] = 1
 						else:
+							print('count!!!!!!!!!!')
+							print(return_product_infos[0]['count'])
 							pid2weizoom_jia_sales[product_id] += return_product_infos[0]['count']
 					elif store_username == 'weizoom_mama':
 						if not pid2weizoom_mama_sales.has_key(product_id):
@@ -274,7 +278,7 @@ class StatisticsReportData(resource.Resource):
 			for order in orders:
 				#计算购买用户数据
 				webapp_user_ids.append(order['webapp_user_id'])
-				#获得云商通商品id与对应的自营平台的总销量之间的关系
+				#获得云商通商品id与对应的自营平台的订单数之间的关系
 				store_username = webapp_id2store_username[order['webapp_id']]
 				return_product_infos = order['products'] #返回的订单数据
 				for return_product_info in return_product_infos:
