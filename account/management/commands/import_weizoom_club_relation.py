@@ -16,7 +16,7 @@ from account.models import *
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		file_name_dir = '%s' %'./account/management/commands/product_module.xlsx'
+		file_name_dir = '%s' %'./account/management/commands/weizoom_club.xlsx'
 		table_title_list = []
 		data = xlrd.open_workbook(file_name_dir)
 		table = data.sheet_by_index(0)
@@ -26,11 +26,24 @@ class Command(BaseCommand):
 		for i in range(0,ncols):
 			table_content=table.cell(0,i).value
 			table_title_list.append(table_content)
+		print "-----start-----"
 		for cur_col in range(1,nrows):
-			relations = {}
+			#关联云商通ID
+			list_create = []
 			for i in range(0,ncols):
 				data = table.cell(0, i).value
-				product_price = -1
-				limit_clear_price = -1
-				if data == u'panda客户账号':
-					account_name=table.cell(cur_col,i).value
+				if data == u'俱乐部ID':
+					club_weapp_id = table.cell(cur_col,i).value
+				if data == u'体验系统id':
+					product_id = table.cell(cur_col,i).value
+			try:
+				product_models.ProductHasRelationWeapp.objects.create(
+					product_id = product_id,
+					self_user_name = 'weizoom_club',
+					weapp_product_id = club_weapp_id
+				)
+				print product_id,"===sucess=="
+			except Exception,e:
+				print(e)
+				print "===error=="
+		print "-----end-----"

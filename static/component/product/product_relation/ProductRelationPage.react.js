@@ -175,7 +175,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" width="440px"/>
+						<Reactman.TableColumn name="同步商品" field="weapp_name" width="440px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
