@@ -76,11 +76,12 @@ class YunyingOrdersList(resource.Resource):
 		#构造云商通供货商id与客户名称的对应关系
 		# products = product_models.Product.objects.filter(id__in=product_ids)
 		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
+		account_id2seller_name = dict((account.id, account.name) for account in all_sellers)
 		supplier_id2seller_name = {}
 		for supplier_id in supplier_ids:
 			if not supplier_id2seller_name.has_key(supplier_id):
 				account_id = account_has_suppliers.filter(supplier_id=int(supplier_id)).first().account_id
-				seller_name = all_sellers.get(id=account_id).name
+				seller_name = account_id2seller_name[account_id]
 				supplier_id2seller_name[supplier_id] = [seller_name]
 		#查找
 		filter_params = {}
