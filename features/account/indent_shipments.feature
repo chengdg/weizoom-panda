@@ -3,8 +3,9 @@
 Feature:云商通-新增商品-订单发货
 """
 	1.用jobs在云商通系统中新增并上架商品
-    3.在微信上下订单
-    4.用运营账号在管理系统中进行订单发货 
+    2.在微信上下订单
+    3.用运营账号在管理系统中进行订单发货 
+    4.批量发货
 """
 
 Background:
@@ -146,8 +147,8 @@ Background:
 
 @panda @customer
 #Scenario:3 运营查看订单列表
-	Given yunying使用密码123456登录管理系统
-	Then yunying能获得订单列表
+	Given tuxiaobao使用密码123456登录管理系统
+	Then tuxiaobao能获得订单列表
 	"""
 		[{
 			"order_no":001,
@@ -175,14 +176,14 @@ Background:
 			}]
 		}]
 	"""
-	And yunying选择订单编号'001'进行发货
+	And tuxiaobao选择订单编号'001'进行发货
 	"""
 	{
 		"company":"中通快递",
 		"code":101,
 		"consigner":"徐梓豪"
 	}
-	Then yunying获得订单列表
+	Then tuxiaobao获得订单列表
 	"""
 		[{
 			"order_no":001,
@@ -210,3 +211,41 @@ Background:
 			}]
 		}]
 	"""
+
+@penda @xzh
+Scenairo:4 批量发货
+	Given tuxiaobao登录系统
+	When tuxiaobao将订单'001','002'批量发货
+	Then tuxiaobao获得订单列表
+	"""
+		[{
+			"order_no":001,
+			"order_time":"2016-06-07",
+			"member": "徐梓豪",
+			"status":"已发货",
+			"actions": ["完成"],
+			"order_price":60.00,
+			"products": [{
+				"name": "武汉鸭脖",
+				"price":180.00,
+				"count":3
+			}]
+		},{
+			"order_no":002,
+			"order_time":"2016-06-07",
+			"member": "徐梓豪",
+			"status":"已发货",
+			"actions": ["完成"],
+			"order_price":450.00,
+			"products":[{
+				"name":"耐克男鞋",
+				"price":450.00,
+				"count": 1
+			}]
+		}]
+	"""
+	When jobs登录系统:weapp
+	Then jobs获得订单列表
+	| order_id |     order_time     |      pay_time     |  each_price | number | costumer | order_price | statues |
+	|    001   |2016-06-28 15:14:22 |2016-06-28 15:14:22|     56.00   |  3.00  |  徐梓豪  |    168.00   |  已发货 |
+	|    002   |2016-06-28 15:14:22 |2016-06-28 15:14:22|    450.00   |  3.00  |  徐梓豪  |    450.00   |  已发货 |
