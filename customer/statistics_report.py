@@ -51,7 +51,7 @@ class StatisticsReport(resource.Resource):
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
 		
-		account_has_suppliers = AccountHasSupplier.objects.all()
+		account_has_suppliers = AccountHasSupplier.objects.filter(user_id=int(user_id))
 		supplier_ids = []
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
@@ -204,7 +204,7 @@ class StatisticsReportData(resource.Resource):
 		products = product_models.Product.objects.filter(owner_id=user_id)
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
-		account_has_suppliers = AccountHasSupplier.objects.all()
+		account_has_suppliers = AccountHasSupplier.objects.filter(user_id=int(user_id))
 		supplier_ids = []
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
