@@ -77,10 +77,14 @@ class YunyingOrdersList(resource.Resource):
 		# products = product_models.Product.objects.filter(id__in=product_ids)
 		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
 		account_id2seller_name = dict((account.id, account.name) for account in all_sellers)
+		print account_id2seller_name
+		print('==============')
 		supplier_id2seller_name = {}
 		for supplier_id in supplier_ids:
 			if not supplier_id2seller_name.has_key(supplier_id):
 				account_id = account_has_suppliers.filter(supplier_id=int(supplier_id)).first().account_id
+				print('account_id')
+				print account_id
 				seller_name = account_id2seller_name[account_id]
 				supplier_id2seller_name[supplier_id] = [seller_name]
 		#查找
@@ -115,7 +119,7 @@ class YunyingOrdersList(resource.Resource):
 					'count_per_page': COUNT_PER_PAGE
 				}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_list_by_supplier/',params=params)
+				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']

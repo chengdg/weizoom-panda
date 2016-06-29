@@ -156,7 +156,8 @@ class AccountCreate(resource.Resource):
 			user_profile.note = note
 			user_profile.name = name
 			user_profile.save()
-			user.set_password(password)
+			if password!='':
+				user.set_password(password)
 			user.first_name = name
 			user.save()
 		except Exception,e:

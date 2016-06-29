@@ -39,7 +39,6 @@ var AccountCreatePage = React.createClass({
 	onSubmit: function() {
 		Action.saveAccount(Store.getData());
 	},
-
 	render:function(){
 		var optionsForAccountType = [{
 			text: '体验客户',
@@ -51,7 +50,16 @@ var AccountCreatePage = React.createClass({
 			text: '运营',
 			value: '3'
 		}];
+		
 		var disabled = W.is_edit ? 'disabled' : '';
+		if(W.is_edit){
+			var label_name = '修改密码:';
+			var validate = "";
+		}else{
+			var label_name = '登录密码:';
+			var validate = "require-notempty";
+		}
+		
 		return (
 		<div className="xui-outlineData-page xui-formPage">
 			<form className="form-horizontal mt15">
@@ -60,7 +68,7 @@ var AccountCreatePage = React.createClass({
 					<Reactman.FormRadio label="账号类型:" name="account_type" value={this.state.account_type} options={optionsForAccountType} onChange={this.onChange} />
 					<Reactman.FormInput label="账号名称:" name="name" validate="require-string" placeholder="" value={this.state.name} onChange={this.onChange} />
 					<Reactman.FormInput label="登录账号:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
-					<Reactman.FormInput label="登录密码:" type="password" name="password" validate="require-notempty" placeholder="" value={this.state.password} onChange={this.onChange} />
+					<Reactman.FormInput label={label_name} type="password" name="password" validate={validate} placeholder="" value={this.state.password} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" name="note" placeholder="" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
