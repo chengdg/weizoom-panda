@@ -51,18 +51,18 @@ class StatisticsReport(resource.Resource):
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
 		
-		account_has_suppliers = AccountHasSupplier.objects.filter(user_id=int(user_id))
-		supplier_ids = []
-		for account_has_supplier in account_has_suppliers:
-			if str(account_has_supplier.supplier_id) not in supplier_ids:
-				supplier_ids.append(str(account_has_supplier.supplier_id))
+		# account_has_suppliers = AccountHasSupplier.objects.filter(user_id=int(user_id))
+		# supplier_ids = []
+		# for account_has_supplier in account_has_suppliers:
+		# 	if str(account_has_supplier.supplier_id) not in supplier_ids:
+		# 		supplier_ids.append(str(account_has_supplier.supplier_id))
 
-		# api_pids = []
-		# for product_has_relation in product_has_relations:
-		# 	weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		# 	for weapp_product_id in weapp_product_ids:
-		# 		#获得所有绑定过云商通的云商通商品id
-		# 		api_pids.append(weapp_product_id)
+		api_pids = []
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
+				api_pids.append(weapp_product_id)
 		
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		product_weapp_id2product_id = {}
@@ -72,9 +72,9 @@ class StatisticsReport(resource.Resource):
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 		
-		supplier_ids = '_'.join(supplier_ids)
-		print('supplier_ids:')
-		print(supplier_ids)
+		api_pids = '_'.join(api_pids)
+		print('api_pids:')
+		print(api_pids)
 
 		try:
 			webapp_id2store_username = {}
@@ -118,9 +118,9 @@ class StatisticsReport(resource.Resource):
 		pid2weizoom_shop_sales = {}
 		pid2weizoom_xuesheng_sales = {}
 
-		if supplier_ids != '':
-			params = {'supplier_ids': supplier_ids}
-			r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=params)
+		if api_pids != '':
+			params = {'product_ids': api_pids}
+			r = requests.get(ZEUS_HOST+'/panda/order_export/',params=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
 				orders = res['data']['orders']
@@ -205,17 +205,18 @@ class StatisticsReportData(resource.Resource):
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
 		account_has_suppliers = AccountHasSupplier.objects.filter(user_id=int(user_id))
-		supplier_ids = []
-		for account_has_supplier in account_has_suppliers:
-			if str(account_has_supplier.supplier_id) not in supplier_ids:
-				supplier_ids.append(str(account_has_supplier.supplier_id))
+		
+		# supplier_ids = []
+		# for account_has_supplier in account_has_suppliers:
+		# 	if str(account_has_supplier.supplier_id) not in supplier_ids:
+		# 		supplier_ids.append(str(account_has_supplier.supplier_id))
 
-		# api_pids = []
-		# for product_has_relation in product_has_relations:
-		# 	weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		# 	for weapp_product_id in weapp_product_ids:
-		# 		#获得所有绑定过云商通的云商通商品id
-		# 		api_pids.append(weapp_product_id)
+		api_pids = []
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				#获得所有绑定过云商通的云商通商品id
+				api_pids.append(weapp_product_id)
 		
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		product_weapp_id2product_id = {}
@@ -225,9 +226,9 @@ class StatisticsReportData(resource.Resource):
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 		
-		supplier_ids = '_'.join(supplier_ids)
-		print('supplier_ids:')
-		print(supplier_ids)
+		api_pids = '_'.join(api_pids)
+		print('api_pids:')
+		print(api_pids)
 
 		try:
 			webapp_id2store_username = {}
@@ -274,10 +275,10 @@ class StatisticsReportData(resource.Resource):
 		fourth_week = 0
 		webapp_user_ids = []
 
-		if supplier_ids != '':
+		if api_pids != '':
 			first_bind_relation_time = product_has_relations.first().created_at
-			params = {'supplier_ids': supplier_ids}
-			r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=params)
+			params = {'product_ids': api_pids}
+			r = requests.get(ZEUS_HOST+'/panda/order_export',params=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
 				orders = res['data']['orders']
