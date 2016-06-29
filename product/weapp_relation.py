@@ -68,6 +68,7 @@ class ProductRelation(resource.Resource):
 		account_has_suppliers = AccountHasSupplier.objects.all()
 		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
+		response = create_response(200)
 		data = {}
 		data['code'] = 500
 		data['errMsg'] = u'关联失败'
@@ -101,7 +102,9 @@ class ProductRelation(resource.Resource):
 						})
 				product_price = float(product_data[0]['product_price'])
 				stock_type = 1 if int(product_data[0]['product_store']) > -1 else 0
-
+				print image_paths,"-------"
+				print user_ids,"=========="
+				print supplier_ids,"++++++++++"
 				params = {
 					'owner_ids': '_'.join(user_ids),#所属账号的user id
 					'suppliers': '_'.join(supplier_ids),#供货商 id
@@ -147,11 +150,11 @@ class ProductRelation(resource.Resource):
 					
 		except Exception,e:
 			print(e)
+			response.innerErrMsg = unicode_full_stack()
 
 		relations = {}
 		data['rows'] = relations
 		#构造response
-		response = create_response(200)
 		response.data = data
 		return response.get_response()
 
