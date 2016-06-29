@@ -72,21 +72,39 @@ Background:
 Scenario:1 运营人员查看多商品销量列表
 	Given yunying登录系统
 	When yunying查看多商品销量列表
-	|  goods  | weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei | total |
-	|武汉鸭脖 |    0.00     |     0.00     |      10.00   |       0.00       | 10.00 |
-	|耐克男鞋 |    0.00     |     0.00     |      0.00    |       0.00       |  0.00 | 
+		|  goods  | weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei | total |
+		|武汉鸭脖 |    0.00     |     0.00     |      10.00   |       0.00       | 10.00 |
+		|耐克男鞋 |    0.00     |     0.00     |      0.00    |       0.00       |  0.00 | 
+	When jobs登录系统:weapp
+	Then jobs取消订单'对应订单编号001'
+	Then yunying查看多商品销量列表
+			|  goods  | weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei | total |
+			|武汉鸭脖 |    0.00     |     0.00     |      0.00    |       0.00       | 10.00 |
+			|耐克男鞋 |    0.00     |     0.00     |      0.00    |       0.00       |  0.00 | 
 
 @penda @hj
 Scenario:2 运营人员查看订单销售趋势列表
 	Then yunying查看订单销售趋势列表
-	|first_week|second_week|third_week|fourth_week|
-	|   10.00  |    0.00   |   0.00   |   0.00    |
+		|first_week|second_week|third_week|fourth_week|
+		|   10.00  |    0.00   |   0.00   |   0.00    |
+	When jobs登录系统:weapp
+	Then jobs取消订单'对应订单编号001'
+	Then yunying查看订单销售趋势列表
+		|first_week|second_week|third_week|fourth_week|
+		|   10.00  |    0.00   |   0.00   |   0.00    |
+
 
 @penda @hj
 Scenario:3 运营人员查看购买用户数据列表
 	Then yunying查看购买用户数据列表
-	|total_people| buy_sinal | buy_again |
-	|     1.00   |   1.00    |   0.00    |
+		|total_people| buy_sinal | buy_again |
+		|     1.00   |   1.00    |   0.00    |
+	When jobs登录系统:weapp
+	Then jobs取消订单'对应订单编号001'
+	Then yunying查看购买用户数据列表
+		|total_people| buy_sinal | buy_again |
+		|     0.00   |   1.00    |   0.00    |
+
 
 @penda @hj
 Scenario:4 运营人员查看体验反馈数据列表
@@ -120,5 +138,11 @@ Scenario:4 运营人员查看体验反馈数据列表
 Scenario:5 运营人员查看平台订单数列表
 	When yunying登录管理系统
 	Then yunying查看平台订单数列表
-	| weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei |
-	|    0.00     |     0.00     |    10.00     |        0.00      | 
+		| weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei |
+		|    0.00     |     0.00     |    10.00     |        0.00      | 
+	When jobs登录系统:weapp
+	Then jobs取消订单'对应订单编号001'
+	Then yunying查看平台订单数列表
+		| weizoom_jia | weizoom_mama | weizoom_shop | weizoom_baifumei |
+		|    0.00     |     0.00     |    10.00     |        0.00      |
+
