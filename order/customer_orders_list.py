@@ -130,7 +130,7 @@ class CustomerOrdersList(resource.Resource):
 					'count_per_page': COUNT_PER_PAGE
 				}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_list_by_supplier/',params=params)
+				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
