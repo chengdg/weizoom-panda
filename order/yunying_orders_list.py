@@ -149,7 +149,7 @@ class YunyingOrdersList(resource.Resource):
 					'supplier_ids': supplier_ids
 				}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=params)
+				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
