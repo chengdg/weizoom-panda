@@ -31,14 +31,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = action.data.rows;
 		if(action.data['code']==200){
 			setTimeout(function() {
-			 	Reactman.PageAction.showHint('success', action.data.Msg);
+			 	Reactman.PageAction.showHint('success', action.data.errMsg);
 			}, 10);
+			this.__emitChange();
 		}else{
 			setTimeout(function() {
-			 	Reactman.PageAction.showHint('error', action.data.Msg);
+			 	Reactman.PageAction.showHint('error', action.data.errMsg);
 			}, 10);
 		}
-		this.__emitChange();
 	},
 
 	handleProductRelationUpdate: function(action){

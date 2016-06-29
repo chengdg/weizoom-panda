@@ -58,13 +58,12 @@ class ProductRelation(resource.Resource):
 		products = models.Product.objects.all().order_by('-id')
 		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
 		product_images = models.ProductImage.objects.all().order_by('-id')
-		account_has_suppliers = AccountHasSupplier.objects.all()
 		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_idct.get('product_name','')
 		customer_name = filter_idct.get('customer_name','')
 		weapp_id = filter_idct.get('weapp_id','')
-
+		#查询
 		if product_name:
 			products = products.filter(product_name__icontains=product_name)
 		if customer_name:
@@ -120,7 +119,7 @@ class ProductRelation(resource.Resource):
 			image_id2images[image.id] = image.path
 		
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
-		#从weapp获取销量
+		#从weapp获取销量sales_from_weapp
 		p_ids = [product.id for product in products]
 		product_has_relations = product_has_relations.filter(product_id__in=p_ids)
 		id2sales = sales_from_weapp(product_has_relations)
@@ -129,30 +128,13 @@ class ProductRelation(resource.Resource):
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
-		account_ids = [user_profile.id for user_profile in user_profiles]
-		account_has_suppliers = account_has_suppliers.filter(account_id__in=account_ids)
-		# account_id2supplier_ids = {}
-		# account_id2user_ids = {}
-		# for account_has_supplier in account_has_suppliers:
-		# 	account_id = account_has_supplier.account_id
-		# 	supplier_id = str(account_has_supplier.supplier_id)
-		# 	user_id = str(account_has_supplier.user_id)
-		# 	if account_id not in account_id2supplier_ids:
-		# 		account_id2supplier_ids[account_id] = [supplier_id]
-		# 	else:
-		# 		account_id2supplier_ids[account_id].append(supplier_id)
 
-		# 	if account_id not in account_id2user_ids:
-		# 		account_id2user_ids[account_id] = [user_id]
-		# 	else:
-		# 		account_id2user_ids[account_id].append(user_id)
-		# print  account_id2user_ids,"============="
 		#组装数据
 		rows = []
 		for product in products:
 			owner_id = product.owner_id
 			if owner_id in user_id2name:
-				image_ids = -1 if product.id not in product_id2image_id else product_id2image_id[product.id]
+				image_ids = [] if product.id not in product_id2image_id else product_id2image_id[product.id]
 				image_path = []
 				for image_id in image_ids:
 					if image_id in image_id2images:
@@ -163,13 +145,10 @@ class ProductRelation(resource.Resource):
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				self_user_name = [] if product.id not in product_id2self_user_name else product_id2self_user_name[product.id]
 				account_id = -1 if owner_id not in user_id2account_id else user_id2account_id[owner_id]
-				# supplier_ids = [] if account_id not in account_id2supplier_ids else account_id2supplier_ids[account_id]
-				# user_ids = [] if account_id not in account_id2user_ids else account_id2user_ids[account_id]
+
 				product_info = {
-					# 'owner_id': '_'.join(user_ids),#所属账号的user id
 					'account_id': account_id,
 					'product_id': product.id,
-					# 'supplier_ids': '_'.join(supplier_ids),#供货商 id
 					'product_name': product.product_name,
 					'promotion_title': product.promotion_title if product.promotion_title else '',
 					'clear_price': '%s' %product.clear_price,

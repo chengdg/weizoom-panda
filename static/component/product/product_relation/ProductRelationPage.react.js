@@ -65,8 +65,7 @@ var ProductRelationPage = React.createClass({
 			'weizoom_self': check_val.join(','),//选择的商城
 			'product_id': product_id,//商品id
 			'account_id': product_info['account_id'], //所属账号 id
-			'product_price': product_info['product_price'],//
-			// 'supplier_ids': product_info['supplier_ids'],//供货商 id
+			'product_price': product_info['product_price'],
 			'product_name': product_info['product_name'],//商品名称
 			'clear_price': product_info['clear_price'],//商品结算价
 			'product_weight': product_info['product_weight'],//商品重量
@@ -176,7 +175,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="云商通商品ID" field="weapp_name" width="440px"/>
+						<Reactman.TableColumn name="同步商品" field="weapp_name" width="440px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
