@@ -1,10 +1,14 @@
 #auther 徐梓豪 2016.06.08
+#editor 徐梓豪 2016.06.29
 
 Feature:运营商过滤订单信息
 """
 	1.通过客户名称查询
 	2.通过来源商城查询
 	3.通过下单时间查询
+	4.通过商品名称查询
+		通过商品名称模糊查询
+		通过商品名称精确查询
 """
 
 Background
@@ -71,61 +75,102 @@ Background
 
 	When 微信用户批量消费aini在云商通商家'微众家'关联的商品
 		|	order_id	  | date       | consumer |    type   |businessman|   product | payment  | payment_method | freight |   price  | product_integral |  	 coupon  		| paid_amount |	weizoom_card 		| alipay | wechat | cash |      action       |  order_status   |
-		|对应订单编号001  | 2016-06-12 | bill     |    购买   | 微众商城   | 武汉鸭脖  | 支付    | 支付宝         | 10      |   9.99   |      20.00       |                		|   199.80      |           		  | 199.80 | 0      | 0    |    jobs,支付      |  待发货         |
-		|对应订单编号002  | 2016-06-12 | tom      |    购买   | 微众家     | 耐克男鞋  | 支付    | 支付宝         | 15      |  298.00  |       1.00       |        				|         298.00      |       	            | 298.00 | 0      | 0    |    jobs,支付      |  待发货         |	
+		|20160628174526794| 2016-06-12 | bill     |    购买   | 微众商城   | 武汉鸭脖  | 支付    | 支付宝         | 10      |   9.99   |      20.00       |                		|   199.80      |           		  | 199.80 | 0      | 0    |    jobs,支付      |  待发货         |
+		|20160628174526795| 2016-06-12 | tom      |    购买   | 微众家     | 耐克男鞋  | 支付    | 支付宝         | 15      |  298.00  |       1.00       |        				|         298.00      |       	            | 298.00 | 0      | 0    |    jobs,支付      |  待发货         |	
 
 	Then yunying查看订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
-		|对应订单编号002|2016-06-12|    298.00   |   tom    |   微众家    |
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |   微众家    |
+		|20160628174526795|2016-06-12|    298.00   |   tom    |   微众家    |
 
 
 @penda @tuxiaobao
 #Scenario1:运营通过'客户名称'过滤订单列表
 	When yunying使用密码123456登录系统
-	#模糊匹配
+	#模糊查询
 	Whenn yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"001"
+		"order_id":"794"
 	}
 	"""
 	Then yunying能获得订单号中包含"001"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |  微众商城   |
 	"""
 	#完全匹配
 	When yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"对应订单编号002"
+		"order_id":"20160628174526795"
 	}
 	"""
 
-	Then yunying能获得订单号中是"对应订单编号002"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号002|2016-06-12|    298.00   |   tom    |   微众家    |
+	Then yunying能获得订单号中是"20160628174526795"的订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526795|2016-06-12|    298.00   |   tom    |   微众家    |
 
 	When yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"对应订单编号001"
+		"order_id":"20160628174526794"
 	}
 	"""
 
-	Then yunying能获得订单号中是"对应订单编号002"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
+	Then yunying能获得订单号中是"20160628174526794"的订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |  微众商城   |
 
 	#无查询结果
 	When yunying设置订单的查询条件
 	"""
 	{
-		"order_id":"对应订单编号003"
+		"order_id":"20160628174526797"
 	}
 	"""
 	Then yunying能获得订单号中是"对应订单编号003"的订单列表
 		|    order_id   |   date   | order_price | consumer | businessman | 
-	
+
+@penda @tuxiaobao
+#Scenario2:运营通过来源商城过滤订单列表
+	When yunying登录系统:penda
+	Then yunying选择来源商城'微众商城'进行查询
+	Then yunying获得来源商城是'微众商城'的订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+	Then yunying选择来源商城'微众家'进行查询
+	Then yunying获得来源商城是'微众家'的订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |  微众商城   |
+		|20160628174526795|2016-06-12|    298.00   |   tom    |   微众家    |
+
+@penda @tuxiaobao
+#Scenario3:运营通过下单时间过滤订单列表
+	When yunying登录系统:penda
+	Then yunying选择下单时间为'2016-06-12 00:00'-'2016-06-13 00:00'进行查询
+	Then yunying获得订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |   微众家    |
+		|20160628174526795|2016-06-12|    298.00   |   tom    |   微众家    |
+	Then yunying选择下单时间为'2016-06-10 00:00'-'2016-06-11 00:00'进行查询
+	Then yunying获得订单列表
+		|     order_id    |   date   | order_price | consumer | businessman |
+
+@penda @tuxiaobao
+#Scenario4:运营通过商品名称过滤订单列表	
+	When yunying登录系统:penda
+	Then yunying使用商品名称包含'鸭脖'为条件过滤订单列表
+	Then yunying获得订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526794|2016-06-12|    199.80   |   bill   |   微众家    |
+	Then yunying使用商品名称包含'耐克男鞋'为条件过滤订单列表
+	Then yunying获得订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+		|20160628174526795|2016-06-12|    298.80   |   tom    |   微众家    |
+	Then yuning使用商品名称包括'嘿嘿哈'为条件过滤订单列表
+	Then yunying获得订单列表
+		|     order_id    |   date   | order_price | consumer | businessman | 
+
+
+
 
 
