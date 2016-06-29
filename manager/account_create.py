@@ -88,9 +88,8 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
-
 			account_zypt_infos = []
-			if account_type == 1:
+			if int(account_type) == 1:
 				try:
 					params = {
 						'mall_type': 1
@@ -131,6 +130,7 @@ class AccountCreate(resource.Resource):
 								)
 						else:
 							print(res)
+							print "=====ssss====="
 					except Exception,e:
 						print(e)
 			response = create_response(200)
