@@ -68,14 +68,18 @@ class CustomerOrdersList(resource.Resource):
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
 
-		api_pids = []
+		user_profile_id = account_models.UserProfile.objects.get(user_id=request.user.id).id
+		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
+		supplier_ids = []
+		for account_has_supplier in account_has_suppliers:
+			if str(account_has_supplier.supplier_id) not in supplier_ids:
+				supplier_ids.append(str(account_has_supplier.supplier_id))
+		
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		product_id2product_weapp_id = {}
 		for product_has_relation in product_has_relations:
 			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 			for weapp_product_id in weapp_product_ids:
-				#获得所有绑定过云商通的云商通商品id
-				api_pids.append(weapp_product_id)
 				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
 					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]
 				else:
@@ -112,21 +116,21 @@ class CustomerOrdersList(resource.Resource):
 			filter_params['start_time'] = start_time
 			filter_params['end_time'] = end_time
 
-		api_pids = '_'.join(api_pids)
-		print('api_pids:')
-		print(api_pids)
+		supplier_ids = '_'.join(supplier_ids)
+		print('supplier_ids:')
+		print(supplier_ids)
 		rows = []
-		if api_pids != '':
+		if supplier_ids != '':
 			# try:
 			#请求接口获得数据
 			if is_for_list:
 				params = {
-					'product_ids': api_pids,
+					'supplier_ids': supplier_ids,
 					'page':cur_page,
 					'count_per_page': COUNT_PER_PAGE
 				}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_list/',params=params)
+				r = requests.get(ZEUS_HOST+'/panda/order_list_by_supplier/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
@@ -137,9 +141,9 @@ class CustomerOrdersList(resource.Resource):
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
-				params = {'product_ids': api_pids}
+				params = {'supplier_ids': supplier_ids}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_export/',params=params)
+				r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=supplier_ids)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
