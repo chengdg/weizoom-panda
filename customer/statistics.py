@@ -168,7 +168,7 @@ def getCustomerData(request,is_export):
 			'user_id': user.user_id,
 			'customer_name': user.name,
 			'total_order_number': '%s' %total_order_number,
-			'total_sales': '%.2f' %total_sales,
+			'total_sales': '%s' %total_sales,
 			'total_weizoom_card_money': '%.2f' %total_weizoom_card_money,
 			'total_coupon_money': '%.2f' %total_coupon_money,
 			'total_final_price': '%.2f' %total_final_price,
