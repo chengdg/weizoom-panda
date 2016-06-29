@@ -143,7 +143,7 @@ class CustomerOrdersList(resource.Resource):
 			else:
 				params = {'supplier_ids': supplier_ids}
 				params.update(filter_params)
-				r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=supplier_ids)
+				r = requests.get(ZEUS_HOST+'/panda/order_export_by_supplier/',params=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					orders = res['data']['orders']
