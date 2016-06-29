@@ -88,25 +88,25 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
-			
-			try:
-				account_zypt_infos = []
-				params = {
-					'mall_type': 1
-				}
-				r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
-				res = json.loads(r.text)
-				if res['code'] == 200:
-					account_zypt_infos = res['data']
-				else:
-					print(res)
-			except Exception,e:
-				print(e)
+
+			account_zypt_infos = []
+			if account_type == 1:
+				try:
+					params = {
+						'mall_type': 1
+					}
+					r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
+					res = json.loads(r.text)
+					if res['code'] == 200:
+						account_zypt_infos = res['data']
+					else:
+						print(res)
+				except Exception,e:
+					print(e)
 
 			if account_zypt_infos:
 				list_create = []
 				for account_zypt_info in account_zypt_infos:
-					print account_zypt_info,"=========ssss2222==========="
 					#请求接口获得数据
 					try:
 						user_id = int(account_zypt_info['user_id'])
