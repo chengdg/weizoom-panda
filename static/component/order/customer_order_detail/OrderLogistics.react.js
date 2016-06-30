@@ -59,8 +59,16 @@ var OrderLogistics = React.createClass({
 		var ship_area = orde_datas['ship_area']?orde_datas['ship_area']:'';
 		var express_company_name = orde_datas['express_company_name']?orde_datas['express_company_name']:'';
 		var express_number = orde_datas['express_number']?orde_datas['express_number']:'';
-		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:[];
+		var order_express_details = orde_datas['order_express_details'];
 		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
+		var order_express = '';
+		if(order_express_details.length>0){
+			order_express = JSON.parse(order_express_details).map(function(order_expres,index){
+				<div key={index}>
+					<span>order_expres['ftime'] order_expres['context']</span>
+				</div>
+			})
+		}
 		return (
 			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>
 				<div style={{padding:'5px 20px'}}>
@@ -82,34 +90,36 @@ var OrderLogistics = React.createClass({
 					<div style={{marginBottom: '20px',marginTop:'5px'}}>
 						<span>运单号:{express_number}</span>
 					</div>
-					<ExpressMessage orderExpress={order_express_details}/>
+					<div>
+						{order_express}
+					</div>
 				</div>
 			</div>
 		)
 	}
 })
 
-var ExpressMessage = React.createClass({
-	render:function(){
-		var order_express_details = this.props.orderExpress.length>0?this.props.orderExpress:'';
-		console.log(order_express_details,"========");
-		if(order_express_details){
-			var order_express = JSON.parse(order_express_details).map(function(order_expres,index){
-				<div key={index}>
-					<span>order_expres['ftime'] order_expres['context']</span>
-				</div>
-			})
-			return (
-				<div>
-					{order_express}
-				</div>
-			)
-		}else{
-			return(
-				<div></div>
-			)
-		}
+// var ExpressMessage = React.createClass({
+// 	render:function(){
+// 		var order_express_details = this.props.orderExpress.length>0?this.props.orderExpress:'';
+// 		console.log(order_express_details,"========");
+// 		if(order_express_details){
+// 			var order_express = JSON.parse(order_express_details).map(function(order_expres,index){
+// 				<div key={index}>
+// 					<span>order_expres['ftime'] order_expres['context']</span>
+// 				</div>
+// 			})
+// 			return (
+// 				<div>
+// 					{order_express}
+// 				</div>
+// 			)
+// 		}else{
+// 			return(
+// 				<div></div>
+// 			)
+// 		}
 		
-	}
-})
+// 	}
+// })
 module.exports = OrderLogistics;
