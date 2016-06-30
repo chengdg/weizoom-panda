@@ -59,7 +59,7 @@ var OrderLogistics = React.createClass({
 		var ship_area = orde_datas['ship_area']?orde_datas['ship_area']:'';
 		var express_company_name = orde_datas['express_company_name']?orde_datas['express_company_name']:'';
 		var express_number = orde_datas['express_number']?orde_datas['express_number']:'';
-		var order_express_details = orde_datas['order_express_details'];
+		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:'';
 		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
 		var order_express = '';
 		console.log(order_express_details,"order_express_details");
