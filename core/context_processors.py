@@ -15,6 +15,11 @@ def top_navs(request):
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
 			},{
+				'name': 'fans',
+				'displayName': '粉丝投放',
+				'icon': 'list-alt',
+				'href': '/fans/fans/'
+			},{
 				'name': 'order',
 				'displayName': '订单',
 				'icon': 'list-alt',
