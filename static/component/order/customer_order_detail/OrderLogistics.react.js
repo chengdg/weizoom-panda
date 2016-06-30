@@ -92,6 +92,7 @@ var OrderLogistics = React.createClass({
 var ExpressMessage = React.createClass({
 	render:function(){
 		var order_express_details = this.props.orderExpress.length>0?this.props.orderExpress:'';
+		console.log(order_express_details,"========");
 		if(order_express_details){
 			var order_express = JSON.parse(order_express_details).map(function(order_expres,index){
 				<div key={index}>

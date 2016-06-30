@@ -109,6 +109,8 @@ class CustomerOrderDetail(resource.Resource):
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
 		}]
+		print ('express_details:')
+		print (data['express_details'])
 		data = {
 			'rows': orders
 		}
