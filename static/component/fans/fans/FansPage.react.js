@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+require('./style.css')
 
 var CustomerPage = React.createClass({
 	showProduct:function(class_name){
@@ -54,6 +55,24 @@ var CustomerPage = React.createClass({
 					<span style={{marginLeft:'10px'}}>ID:{data['fans_id']}</span>
 				</div>
 			)
+		}else if(field === 'purchase_index'){
+			var percentage = data['purchase_index']+'%';
+			return (
+				<div className="xa-scales-div" title={percentage}>
+					<div className="xa-scale-div" style={{width:data['purchase_index']}}>
+
+					</div>
+				</div>
+			)
+		}else if(field === 'diffusion_index'){
+			var percentage = data['diffusion_index']+'%';
+			return (
+				<div className="xa-scales-div" title={percentage}>
+					<div className="xa-scale-div" style={{width:data['diffusion_index']}}>
+
+					</div>
+				</div>
+			)
 		}else{
 			return value;
 		}
@@ -84,8 +103,8 @@ var CustomerPage = React.createClass({
 						<Reactman.TableColumn name="投放日期" field="recommend_time" />
 						<Reactman.TableColumn name="粉丝" field="fans" />
 						<Reactman.TableColumn name="性别" field="sex" />
-						<Reactman.TableColumn name="购买指数" field="purchase_index" />
-						<Reactman.TableColumn name="推荐传播指数" field="diffusion_index" />
+						<Reactman.TableColumn name="购买指数" field="purchase_index" width='150'/>
+						<Reactman.TableColumn name="推荐传播指数" field="diffusion_index" width='150'/>
 						<Reactman.TableColumn name="状态" field="status" />
 					</Reactman.Table>
 				</Reactman.TablePanel>
