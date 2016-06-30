@@ -66,9 +66,11 @@ var OrderLogistics = React.createClass({
 		if(order_express_details.length>0){
 			console.log(JSON.parse(order_express_details),"++++++");
 			order_express = JSON.parse(order_express_details).map(function(order_expres,index){
-				<div key={index}>
-					<span>order_expres['ftime'] order_expres['context']</span>
-				</div>
+				return(
+					<div key={index}>
+						<span>order_expres['ftime'] order_expres['context']</span>
+					</div>
+				)
 			})
 		}
 		return (
