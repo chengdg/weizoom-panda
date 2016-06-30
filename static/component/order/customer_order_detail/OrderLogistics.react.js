@@ -62,7 +62,9 @@ var OrderLogistics = React.createClass({
 		var order_express_details = orde_datas['order_express_details'];
 		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
 		var order_express = '';
+		console.log(order_express_details,"order_express_details");
 		if(order_express_details.length>0){
+			console.log(JSON.parse(order_express_details),"++++++");
 			order_express = JSON.parse(order_express_details).map(function(order_expres,index){
 				<div key={index}>
 					<span>order_expres['ftime'] order_expres['context']</span>
