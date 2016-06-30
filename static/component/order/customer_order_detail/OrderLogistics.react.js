@@ -100,28 +100,4 @@ var OrderLogistics = React.createClass({
 		)
 	}
 })
-
-// var ExpressMessage = React.createClass({
-// 	render:function(){
-// 		var order_express_details = this.props.orderExpress.length>0?this.props.orderExpress:'';
-// 		console.log(order_express_details,"========");
-// 		if(order_express_details){
-// 			var order_express = JSON.parse(order_express_details).map(function(order_expres,index){
-// 				<div key={index}>
-// 					<span>order_expres['ftime'] order_expres['context']</span>
-// 				</div>
-// 			})
-// 			return (
-// 				<div>
-// 					{order_express}
-// 				</div>
-// 			)
-// 		}else{
-// 			return(
-// 				<div></div>
-// 			)
-// 		}
-		
-// 	}
-// })
 module.exports = OrderLogistics;
