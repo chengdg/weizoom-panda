@@ -117,13 +117,14 @@ def getCustomerData(request,is_export):
 			orders = res['data']['orders']
 			if orders:
 				for order in orders:
-					weapp_id = str(order['products'][0]['id'])
-					if weapp_id in product_weapp_id2product_id:
-						p_id = product_weapp_id2product_id[weapp_id]
-						if p_id not in id2orders:
-							id2orders[p_id] = [order]
-						else:
-							id2orders[p_id].append(order)
+					if int(order['status']) in [3,4,5]:
+						weapp_id = str(order['products'][0]['id'])
+						if weapp_id in product_weapp_id2product_id:
+							p_id = product_weapp_id2product_id[weapp_id]
+							if p_id not in id2orders:
+								id2orders[p_id] = [order]
+							else:
+								id2orders[p_id].append(order)
 		else:
 			print(res)
 	except Exception,e:
