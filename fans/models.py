@@ -12,7 +12,8 @@ class Fans(models.Model):
 	spread_index = models.FloatField(default=0) #传播指数
 	status = models.IntegerField(default=0) #投放状态
 	related_order_id = models.CharField(max_length=1024, default='') #关联订单号
-	created_at = models.DateTimeField(auto_now_add=True) #投放日期
+	pushed_date = models.DateTimeField() #投放日期
+	created_at = models.DateTimeField(auto_now_add=True) #创建日期
 
 	class Meta(object):
 		db_table = 'fans_fans'
