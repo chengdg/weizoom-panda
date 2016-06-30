@@ -58,6 +58,7 @@ class CustomerOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
+		filter_product_name = filter_idct.get('product_name','')
 		status = filter_idct.get('status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 
@@ -108,6 +109,8 @@ class CustomerOrdersList(resource.Resource):
 		filter_params = {}
 		if order_id:
 			filter_params['order_id'] = order_id
+		if filter_product_name:
+			filter_params['product_name'] = filter_product_name
 		if status != '-1':
 			filter_params['status'] = status
 		if order_create_at_range:

@@ -47,6 +47,7 @@ class YunyingOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_name = filter_idct.get('customer_name','')
+		filter_product_name = filter_idct.get('product_name','')
 		from_mall = filter_idct.get('from_mall','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
@@ -93,7 +94,8 @@ class YunyingOrdersList(resource.Resource):
 			for cur_account_has_supplier in cur_account_has_suppliers:
 				if str(cur_account_has_supplier.supplier_id) not in supplier_ids:
 					supplier_ids.append(str(cur_account_has_supplier.supplier_id))
-
+		if filter_product_name:
+			filter_params['product_name'] = filter_product_name
 		if from_mall != '-1':
 			filter_params['webapp_id'] = from_mall
 		if order_create_at_range:

@@ -262,7 +262,7 @@ class StatisticsReportData(resource.Resource):
 			print(e)
 
 		rows = []
-		#商品id与各个平台对应的销量之间的关系
+		#商品id与各个平台对应的订单数之间的关系
 		pid2weizoom_baifumei_sales = {}
 		pid2weizoom_club_sales = {}
 		pid2weizoom_jia_sales = {}

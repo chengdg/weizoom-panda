@@ -192,6 +192,9 @@ var OrderDatasPage = React.createClass({
 						<Reactman.FormInput label="订单编号:" name="order_id" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
+						<Reactman.FormInput label="商品名称:" name="product_name" match='=' />
+					</Reactman.FilterField>
+					<Reactman.FilterField>
 						<Reactman.FormSelect label="订单状态:" name="status" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>

@@ -76,6 +76,9 @@ var YunyingOrderDatasPage = React.createClass({
 						<Reactman.FormInput label="客户名称:" name="customer_name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
+						<Reactman.FormInput label="商品名称:" name="product_name" match='=' />
+					</Reactman.FilterField>
+					<Reactman.FilterField>
 						<Reactman.FormSelect label="来源商城:" name="from_mall" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
