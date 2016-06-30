@@ -58,7 +58,17 @@ var Action = {
 			actionType: Constant.ORDER_DATAS_EXPORT,
 			data: {}
 		});
-	}
+	},
+
+	updateShip: function(property, value) {
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_DATAS_UPDATE_SHIP,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
 };
 
 module.exports = Action;

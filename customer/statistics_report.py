@@ -295,8 +295,6 @@ class StatisticsReportData(resource.Resource):
 				return_product_infos = order['products'] #返回的订单数据
 				for return_product_info in return_product_infos:
 					product_weapp_id = str(return_product_info['id'])
-					# print('product_weapp_id')
-					# print(product_weapp_id)
 					product_id = product_weapp_id2product_id[product_weapp_id]
 				if store_username == 'weizoom_baifumei':
 					if not pid2weizoom_baifumei_sales.has_key(product_id):
