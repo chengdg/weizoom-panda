@@ -91,11 +91,14 @@ def getCustomerData(request,is_export):
 		if str(account_has_supplier.supplier_id) not in supplier_ids:
 			supplier_ids.append(str(account_has_supplier.supplier_id))
 
+	api_pids = []
+
 	#构造panda数据库内商品id，与云商通内商品id的关系
 	product_weapp_id2product_id = {}
 	for product_has_relation in product_has_relations:
 		weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 		for weapp_product_id in weapp_product_ids:
+			api_pids.append(weapp_product_id)
 			product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 
 	product_id2time = {}
@@ -107,11 +110,13 @@ def getCustomerData(request,is_export):
 			product_id2time[product_id].append(product_has_relation.created_at)
 	id2orders = {}		
 	supplier_ids = '_'.join(supplier_ids)
+	api_pids = '_'.join(api_pids)
 	try:
 		params = {
-			'supplier_ids': supplier_ids
+			'product_ids': api_pids
+			# 'supplier_ids': supplier_ids
 		}
-		r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
+		r = requests.post(ZEUS_HOST+'/panda/order_list/',data=params)
 		res = json.loads(r.text)
 		if res['code'] == 200:
 			orders = res['data']['orders']
