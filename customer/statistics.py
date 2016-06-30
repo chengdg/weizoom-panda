@@ -115,6 +115,7 @@ def getCustomerData(request,is_export):
 		res = json.loads(r.text)
 		if res['code'] == 200:
 			orders = res['data']['orders']
+			print orders,"=======orders======="
 			if orders:
 				for order in orders:
 					if int(order['status']) in [3,4,5]:
@@ -129,7 +130,7 @@ def getCustomerData(request,is_export):
 			print(res)
 	except Exception,e:
 		print(e)
-
+	print id2orders,"=======id2orders========"
 	rows = []
 	for user in user_profiles:
 		product_ids = [] if user.user_id not in user_id2product_id else user_id2product_id[user.user_id]
