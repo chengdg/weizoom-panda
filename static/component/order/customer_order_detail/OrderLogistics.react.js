@@ -68,7 +68,7 @@ var OrderLogistics = React.createClass({
 			order_express = JSON.parse(order_express_details).map(function(order_expres,index){
 				return(
 					<div key={index}>
-						<span>order_expres['ftime'] order_expres['context']</span>
+						<span>{order_expres['ftime']} {order_expres['context']}</span>
 					</div>
 				)
 			})
