@@ -61,7 +61,7 @@ class CustomerOrdersList(resource.Resource):
 		filter_product_name = filter_idct.get('product_name','')
 		status = filter_idct.get('status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
-		api_pids = []
+
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
@@ -72,6 +72,8 @@ class CustomerOrdersList(resource.Resource):
 		user_profile_id = account_models.UserProfile.objects.get(user_id=request.user.id).id
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
 		supplier_ids = []
+		api_pids = []
+		is_search_product_name = False
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
 				supplier_ids.append(str(account_has_supplier.supplier_id))
@@ -110,6 +112,7 @@ class CustomerOrdersList(resource.Resource):
 		if order_id:
 			filter_params['order_id'] = order_id
 		if filter_product_name:
+			is_search_product_name = True
 			#如果按照商品名称查询，则传递product_ids参数给接口
 			product_ids = [int(product.id) for product in products.filter(product_name__icontains=filter_product_name)]
 			for product_id in product_ids:
@@ -117,6 +120,7 @@ class CustomerOrdersList(resource.Resource):
 					product_weapp_ids = product_id2product_weapp_id[product_id]
 					for product_weapp_id in product_weapp_ids:
 						api_pids.append(product_weapp_id)
+			api_pids = '_'.join(api_pids)
 		if status != '-1':
 			filter_params['status'] = status
 		if order_create_at_range:
@@ -133,15 +137,27 @@ class CustomerOrdersList(resource.Resource):
 			# try:
 			#请求接口获得数据
 			if is_for_list:
-				if api_pids:
-					api_pids = '_'.join(api_pids)
-					#按照商品名搜索、传递商品id
-					params = {
-						'product_ids': api_pids,
-						'supplier_ids': supplier_ids,
-						'page':cur_page,
-						'count_per_page': COUNT_PER_PAGE
-					}
+				if is_search_product_name:
+					if api_pids!= '':
+						#按照商品名搜索、传递商品id
+						params = {
+							'product_ids': api_pids,
+							'supplier_ids': supplier_ids,
+							'page':cur_page,
+							'count_per_page': COUNT_PER_PAGE
+						}
+					else:
+						orders = []
+						pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+						pageinfo = pageinfo.to_dict()
+						data = {
+							'rows': rows,
+							'pagination_info': pageinfo
+						}
+						#构造response
+						response = create_response(200)
+						response.data = data
+						return response.get_response()
 				else:
 					params = {
 						'supplier_ids': supplier_ids,
@@ -160,9 +176,12 @@ class CustomerOrdersList(resource.Resource):
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
-				if api_pids:
-					api_pids = '_'.join(api_pids)
-					params = {'supplier_ids': supplier_ids,'product_ids': api_pids}
+				if is_search_product_name:
+					if api_pids!= '':
+						#按照商品名搜索、传递商品id
+						params = {'supplier_ids': supplier_ids,'product_ids': api_pids}
+					else:
+						return rows
 				else:
 					params = {'supplier_ids': supplier_ids}
 				params.update(filter_params)
