@@ -127,9 +127,10 @@ class ManagerAccount(resource.Resource):
 			user_profile.delete()
 			User.objects.filter(id = user_id).delete()
 			products = Product.objects.filter(owner_id=user_id)
-			product_ids = [product.id for product in products]
-			products.delete()
-			ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+			if products:
+				product_ids = [product.id for product in products]
+				products.delete()
+				ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
 			AccountHasSupplier.objects.filter(account_id=account_id).delete()
 			response = create_response(200)
 			return response.get_response()
