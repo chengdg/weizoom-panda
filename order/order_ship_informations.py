@@ -2,7 +2,7 @@
 import json
 import time
 import requests
-import csv
+import xlrd
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -20,7 +20,7 @@ from resource import models as resource_models
 from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
-from panda.settings import PROJECT_HOME
+from panda.settings import BASE_DIR
 
 class OrderShipInformations(resource.Resource):
 	app = 'order'
@@ -87,7 +87,7 @@ class OrderBatchDelivery(resource.Resource):
 		#给接口传递批量发货的参数
 		file_url = request.POST.get('document_path','')
 		# 读取文件
-		json_data, error_rows = _read_file(file_url)
+		json_data, error_rows = _read_file(file_url[1:])
 		print json_data
 		print ('json_data')
 
@@ -107,35 +107,35 @@ class OrderBatchDelivery(resource.Resource):
 		# 	return response.get_response()
 
 def _read_file(file_url):
-	data = []
+	datas = []
 	error_rows = []
-	print ('file_url')
-	print file_url
-	file_path = os.path.join(PROJECT_HOME, '..', file_url)
+	file_url_dictionary = file_url.split('/')[2]
+	file_name = file_url.split('/')[3]
+	file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
 	print ('file_path')
 	print (file_path)
+	
+	data = xlrd.open_workbook(file_path)
+	table = data.sheet_by_index(0)
+	nrows = table.nrows   #行数
+	for i in range(1,nrows):
+		item = dict()
+		order_id = table.cell(i,1).value
+		express_company_name = table.cell(i,2).value
+		express_number = table.cell(i,3).value
+		
+		#EXCEL中直接输入的数字可能会被当成浮点数
+		if type(order_id) == float:
+			order_id = str(int(order_id))
+		if type(express_number) == float:
+			express_number = str(int(express_number))
+		
+		if (order_id and express_company_name and express_number)!= '':
+			item['order_id'] = order_id
+			item['express_company_name'] = express_company_name
+			item['express_number'] = express_number
+			datas.append(item)
+		else:
+			error_rows.append(', '.join(i))
 
-	# with open(file_path) as csvfile:
-	# 	reader = csv.reader(csvfile, delimiter=':', quotechar='|')
-	# 	for row in reader:
-	# 		try:
-	# 			if len(row) > 0:
-	# 				item = dict()
-	# 				row = row[0].split(',')
-	# 				if not (len(row[0]) or len(row[1]) or len(row[2])):
-	# 					continue
-	# 				item['order_id'] = row[0].decode('gbk')
-	# 				item['express_company_name'] = row[1].decode('gbk')
-	# 				item['express_number'] = row[2].decode('gbk')
-	# 				data.append(item)
-	# 		except:
-	# 			error_rows.append(', '.join(row))
-	# 		# print(', '.join(row))
-
-	# 	csvfile.close()
-
-	# if len(error_rows) > 0:
-	# 	alert_message = u"批量发货失败，读取文件错误的行为：error_rows:{}".format(error_rows)
-	# 	watchdog_warning(alert_message)
-
-	# return data, error_rows
+	return datas, error_rows
