@@ -43,8 +43,8 @@ var OrderBatchDelivery = Reactman.createDialog({
 				success: function() {
 					this.closeDialog();
 				},
-				error: function() {
-					Reactman.PageAction.showHint('error', '批量发货失败!');
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
 				},
 				scope: this
 			})

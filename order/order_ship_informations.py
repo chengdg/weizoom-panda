@@ -22,6 +22,27 @@ from util import string_util
 from panda.settings import ZEUS_HOST
 from panda.settings import BASE_DIR
 
+text2express_company_name = {
+	'':'',
+	u'申通快递': 'shentong',
+	u'EMS': 'ems' ,
+	u'圆通速递': 'yuantong',
+	u'顺丰速运': 'shunfeng',
+	u'中通速递': 'zhongtong',
+	u'天天快递': 'tiantian',
+	u'韵达快运': 'yunda',
+	u'百世快递': 'huitongkuaidi',
+	u'全峰快递': 'quanfengkuaidi',
+	u'德邦物流': 'debangwuliu',
+	u'宅急送': 'zhaijisong',
+	u'快捷速递': 'kuaijiesudi',
+	u'比利时邮政': 'bpost',
+	u'速尔快递': 'suer',
+	u'国通快递': 'guotongkuaidi',
+	u'邮政包裹/平邮': 'youzhengguonei',
+	u'如风达': 'rufengda'
+}
+
 class OrderShipInformations(resource.Resource):
 	app = 'order'
 	resource = 'order_ship_informations'
@@ -44,8 +65,6 @@ class OrderShipInformations(resource.Resource):
 			#修改物流
 			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=post',data=params)
 		res = json.loads(r.text)
-		print('res!!!!!!!')
-		print(res)
 		if res['data']['result'] == u'SUCCESS':
 			response = create_response(200)
 			return response.get_response()
@@ -68,8 +87,6 @@ class OrderCompleteShip(resource.Resource):
 		}
 		r = requests.post(ZEUS_HOST+'/mall/order/?_method=post',data=params)
 		res = json.loads(r.text)
-		print('res!!!!!!!')
-		print(res)
 		if res['data']['result'] == u'SUCCESS':
 			response = create_response(200)
 			return response.get_response()
@@ -87,24 +104,36 @@ class OrderBatchDelivery(resource.Resource):
 		#给接口传递批量发货的参数
 		file_url = request.POST.get('document_path','')
 		# 读取文件
-		json_data, error_rows = _read_file(file_url[1:])
-		print json_data
-		print ('json_data')
-
-		response = create_response(200)
-		return response.get_response()
-		
+		datas, error_rows = _read_file(file_url[1:])
+		if error_rows:
+			response = create_response(500)
+			error_rows = ','.join(error_rows)
+			response.errMsg = u'文件第'+error_rows+u'行格式错误'
+			return response.get_response()
+		datas = json.dumps(datas)
+		params = {
+			'datas' : datas
+		}
 		#发货
-		# r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=put',data=params)
-		# res = json.loads(r.text)
-		# print(res)
-		# if res['data']['result'] == u'SUCCESS':
-		# 	response = create_response(200)
-		# 	return response.get_response()
-		# else:
-		# 	response = create_response(500)
-		# 	response.errMsg = res['data']['msg']
-		# 	return response.get_response()
+		r = requests.post(ZEUS_HOST+'/panda/batch_delivery/?_method=put',data=params)
+		res = json.loads(r.text)
+		if res['code'] == 200:
+			err_msg = ''
+			datas = res['data']
+			for data in datas:
+				if not data['result']:
+					err_msg = u"订单:"+data['order_id']+','+data['msg']
+			if err_msg!='':
+				response = create_response(500)
+				response.errMsg = err_msg
+				return response.get_response()
+			else:
+				response = create_response(200)
+				return response.get_response()
+		else:
+			response = create_response(500)
+			response.errMsg = res['data']['msg']
+			return response.get_response()
 
 def _read_file(file_url):
 	datas = []
@@ -112,8 +141,6 @@ def _read_file(file_url):
 	file_url_dictionary = file_url.split('/')[2]
 	file_name = file_url.split('/')[3]
 	file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
-	print ('file_path')
-	print (file_path)
 	
 	data = xlrd.open_workbook(file_path)
 	table = data.sheet_by_index(0)
@@ -132,10 +159,13 @@ def _read_file(file_url):
 		
 		if (order_id and express_company_name and express_number)!= '':
 			item['order_id'] = order_id
-			item['express_company_name'] = express_company_name
-			item['express_number'] = express_number
-			datas.append(item)
+			if express_company_name not in text2express_company_name:
+				error_rows.append(str(i))
+			else:
+				item['express_company_name'] = text2express_company_name[express_company_name]
+				item['express_number'] = express_number
+				datas.append(item)
 		else:
-			error_rows.append(', '.join(i))
+			error_rows.append(str(i))
 
 	return datas, error_rows

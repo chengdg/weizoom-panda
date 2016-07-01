@@ -110,7 +110,15 @@ class CustomerOrdersList(resource.Resource):
 		if order_id:
 			filter_params['order_id'] = order_id
 		if filter_product_name:
-			filter_params['product_name'] = filter_product_name
+			api_pids = []
+			product_ids = [int(product.id) for product in products.filter(product_name__icontains=filter_product_name)]
+			for product_id in product_ids:
+				if product_id2product_weapp_id.has_key(product_id):
+					product_weapp_ids = product_id2product_weapp_id[product_id]
+					for product_weapp_id in product_weapp_ids:
+						api_pids.append(product_weapp_id)
+			print 'api_pids:'
+			print api_pids
 		if status != '-1':
 			filter_params['status'] = status
 		if order_create_at_range:
