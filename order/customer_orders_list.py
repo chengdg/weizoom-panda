@@ -61,7 +61,7 @@ class CustomerOrdersList(resource.Resource):
 		filter_product_name = filter_idct.get('product_name','')
 		status = filter_idct.get('status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
-
+		api_pids = []
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_ids = [int(product.id) for product in products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
@@ -110,15 +110,13 @@ class CustomerOrdersList(resource.Resource):
 		if order_id:
 			filter_params['order_id'] = order_id
 		if filter_product_name:
-			api_pids = []
+			#如果按照商品名称查询，则传递product_ids参数给接口
 			product_ids = [int(product.id) for product in products.filter(product_name__icontains=filter_product_name)]
 			for product_id in product_ids:
 				if product_id2product_weapp_id.has_key(product_id):
 					product_weapp_ids = product_id2product_weapp_id[product_id]
 					for product_weapp_id in product_weapp_ids:
 						api_pids.append(product_weapp_id)
-			print 'api_pids:'
-			print api_pids
 		if status != '-1':
 			filter_params['status'] = status
 		if order_create_at_range:
@@ -135,11 +133,21 @@ class CustomerOrdersList(resource.Resource):
 			# try:
 			#请求接口获得数据
 			if is_for_list:
-				params = {
-					'supplier_ids': supplier_ids,
-					'page':cur_page,
-					'count_per_page': COUNT_PER_PAGE
-				}
+				if api_pids:
+					api_pids = '_'.join(api_pids)
+					#按照商品名搜索、传递商品id
+					params = {
+						'product_ids': api_pids,
+						'supplier_ids': supplier_ids,
+						'page':cur_page,
+						'count_per_page': COUNT_PER_PAGE
+					}
+				else:
+					params = {
+						'supplier_ids': supplier_ids,
+						'page':cur_page,
+						'count_per_page': COUNT_PER_PAGE
+					}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
 				res = json.loads(r.text)
@@ -152,7 +160,11 @@ class CustomerOrdersList(resource.Resource):
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
-				params = {'supplier_ids': supplier_ids}
+				if api_pids:
+					api_pids = '_'.join(api_pids)
+					params = {'supplier_ids': supplier_ids,'product_ids': api_pids}
+				else:
+					params = {'supplier_ids': supplier_ids}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 				res = json.loads(r.text)
