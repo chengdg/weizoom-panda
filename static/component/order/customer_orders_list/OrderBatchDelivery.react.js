@@ -35,20 +35,19 @@ var OrderBatchDelivery = Reactman.createDialog({
 		} else {
 			console.log('================');
 			console.log(this.state.documents[0].path);
-			// Reactman.Resource.post({
-			// 	resource: 'outline.data_comment',
-			// 	data: {
-			// 		product_id: product.id,
-			// 		comment: this.state.comment
-			// 	},
-			// 	success: function() {
-			// 		this.closeDialog();
-			// 	},
-			// 	error: function() {
-			// 		Reactman.PageAction.showHint('error', '评论失败!');
-			// 	},
-			// 	scope: this
-			// })
+			Reactman.Resource.post({
+				resource: 'order.order_batch_delivery',
+				data: {
+					document_path: this.state.documents[0].path
+				},
+				success: function() {
+					this.closeDialog();
+				},
+				error: function() {
+					Reactman.PageAction.showHint('error', '批量发货失败!');
+				},
+				scope: this
+			})
 		}
 	},
 
