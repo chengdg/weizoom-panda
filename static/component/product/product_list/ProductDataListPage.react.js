@@ -43,16 +43,17 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onValidateAddProduct: function(){
-		var user_has_products = W.user_has_products;
-		if(Store.getData().user_has_products){
-			user_has_products = Store.getData().user_has_products;
-		}
-		if(user_has_products >= 3){
-			Reactman.PageAction.showHint('error', '达到最大商品数,如有更多需要请联系客服400-688-6929!');
-			return;
-		}else{
-			W.gotoPage('/product/new_product/');
-		}
+		// var user_has_products = W.user_has_products;
+		// if(Store.getData().user_has_products){
+		// 	user_has_products = Store.getData().user_has_products;
+		// }
+		// if(user_has_products >= 3){
+		// 	Reactman.PageAction.showHint('error', '达到最大商品数,如有更多需要请联系客服400-688-6929!');
+		// 	return;
+		// }else{
+		// 	W.gotoPage('/product/new_product/');
+		// }
+		W.gotoPage('/product/new_product/');
 	},
 
 	rowFormatter: function(field, value, data) {
