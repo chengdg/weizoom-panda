@@ -147,6 +147,7 @@ class CustomerOrdersList(resource.Resource):
 							'count_per_page': COUNT_PER_PAGE
 						}
 					else:
+						#如果商品不存在，直接返回空列表
 						orders = []
 						pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
 						pageinfo = pageinfo.to_dict()

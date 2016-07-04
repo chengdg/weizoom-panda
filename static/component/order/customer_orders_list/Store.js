@@ -41,10 +41,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleOrderDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;
-		console.log('filterOptions');
-		console.log(filterOptions);
 		var filter_str = '';
-		window.location.href = '/order/export_orders';
+		for (var key in filterOptions){
+			filter_str = filter_str + key + '=' + filterOptions[key] + '&';
+		}
+		filter_str = filter_str.substring(0,filter_str.length-1);
+		window.location.href = '/order/export_orders/?'+filter_str;
 	},
 	getData: function() {
 		return this.data;

@@ -79,10 +79,8 @@ var OrderDatasPage = React.createClass({
 			component: OrderBatchDelivery,
 			data: {},
 			success: function(inputData, dialogState) {
-				console.log('dialogState');
-				console.log(dialogState);
-				//var comment = dialogState.comment;
-				//Action.updateProduct(product, 'comment', comment);
+				console.log('success');
+				Action.updateOrderShipInformations();
 			}
 		});
 	},
