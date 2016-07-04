@@ -20,7 +20,7 @@ class Command(BaseCommand):
 		already_has_weibo_ids = [fans.weibo_id for fans in current_all_fans]
 		for i in range(0,nrows):
 			item = dict()
-			weibo_id = str(int(table.cell(i,0).value))
+			weibo_id = str(int(table.cell(i,0).value))[:7]
 			if weibo_id not in already_has_weibo_ids:
 				item['weibo_id'] = weibo_id
 				item['name'] = table.cell(i,1).value
@@ -31,8 +31,18 @@ class Command(BaseCommand):
 				weibo_id = data['weibo_id'],
 				name = data['name'],
 				fans_url = data['fans_url'],
-				male = random.choice([True, False])
+				male = random.choice([True, False]),
+				purchasing_index = get_5_98_random(),
+				spread_index = get_5_98_random()
 			)
 			print "==="+u'导入粉丝'+data['weibo_id']+"==="
 		print "====="+u'导入粉丝完毕'+"====="
 		print "====="+u'本次导入粉丝数量:'+str(len(datas))+"====="
+
+def get_5_98_random():
+	random_float = float("%.1f" % (random.random()*10))
+	if random_float > 9.8:
+		return random_float - 1
+	elif random_float < 5:
+		return random_float + 5
+	return random_float
