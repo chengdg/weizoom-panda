@@ -44,7 +44,7 @@ class Command(BaseCommand):
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in today_supplier_ids:
 				today_supplier_ids.append(str(account_has_supplier.supplier_id))
-		print ("====="+u'今日投放供应商id为'+"=====")
+		print ("====="+'today create supplier ids:'+"=====")
 		print today_supplier_ids
 		print ("====================================")
 		#请求接口，获得今天需要投放的供应商id本期(1周)对应的订单数
@@ -69,7 +69,7 @@ class Command(BaseCommand):
 							supplier_id2orders[order['supplier']].append(order)
 		except Exception,e:
 			print(e)
-			print ("====="+u'请求接口出错'+"=====")
+			print ("====="+'error in zeus'+"=====")
 
 		#根据每个今天需要投放的用户进行粉丝投放
 		for seller in all_sellers:
@@ -172,6 +172,6 @@ class Command(BaseCommand):
 					))
 				fans_models.UserHasFans.objects.bulk_create(list_create)
 
-			print ("====="+u'投放完毕，user_id:' + str(seller.user_id) +"=====")
+			print ("====="+'create user_has_fans success, user_id:' + str(seller.user_id) +"=====")
 		
-		print ("====="+u'投放粉丝完毕'+"=====")
+		print ("====="+'create user_has_fans all success'+"=====")

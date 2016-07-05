@@ -35,9 +35,9 @@ class Command(BaseCommand):
 				purchasing_index = get_5_98_random(),
 				spread_index = get_5_98_random()
 			)
-			print "==="+u'导入粉丝'+data['weibo_id']+"==="
-		print "====="+u'导入粉丝完毕'+"====="
-		print "====="+u'本次导入粉丝数量:'+str(len(datas))+"====="
+			print "==="+'creating fans:'+data['weibo_id']+"==="
+		print "====="+'creating fans success'+"====="
+		print "====="+'total create fans amount:'+str(len(datas))+"====="
 
 def get_5_98_random():
 	random_float = float("%.1f" % (random.random()*10))
