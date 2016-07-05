@@ -113,10 +113,9 @@ def getCustomerData(request,is_export):
 	api_pids = '_'.join(api_pids)
 	try:
 		params = {
-			'product_ids': api_pids
-			# 'supplier_ids': supplier_ids
+			'supplier_ids': supplier_ids
 		}
-		r = requests.get(ZEUS_HOST+'/panda/order_list/',data=params)
+		r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
 		res = json.loads(r.text)
 		if res['code'] == 200:
 			orders = res['data']['orders']
