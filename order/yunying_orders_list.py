@@ -21,7 +21,18 @@ from panda.settings import ZEUS_HOST
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
-
+order_status2text = {
+	0: u'待支付',
+	1: u'已取消',
+	2: u'已支付',
+	3: u'待发货',
+	4: u'已发货',
+	5: u'已完成',
+	6: u'退款中',
+	7: u'退款完成',
+	8: u'团购退款',
+	9: u'团购退款完成'
+}
 filter2field ={
 }
 
@@ -49,6 +60,7 @@ class YunyingOrdersList(resource.Resource):
 		customer_name = filter_idct.get('customer_name','')
 		filter_product_name = filter_idct.get('product_name','')
 		from_mall = filter_idct.get('from_mall','-1')
+		order_status = filter_idct.get('order_status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		
@@ -105,6 +117,8 @@ class YunyingOrdersList(resource.Resource):
 			print api_pids
 		if from_mall != '-1':
 			filter_params['webapp_id'] = from_mall
+		if order_status != '-1':
+			filter_params['status'] = order_status
 		if order_create_at_range:
 			start_time = order_create_at_range[0]
 			end_time = order_create_at_range[1]
@@ -121,7 +135,6 @@ class YunyingOrdersList(resource.Resource):
 					if api_pids!= '':
 						#按照商品名搜索、传递商品id
 						params = {
-							'status': 5,
 							'product_ids': api_pids,
 							'supplier_ids': supplier_ids,
 							'page':cur_page,
@@ -141,7 +154,6 @@ class YunyingOrdersList(resource.Resource):
 						return response.get_response()
 				else:
 					params = {
-						'status': 5,#运营只查看已完成的订单
 						'supplier_ids': supplier_ids,
 						'page':cur_page,
 						'count_per_page': COUNT_PER_PAGE
@@ -179,7 +191,6 @@ class YunyingOrdersList(resource.Resource):
 				if is_search_product_name:
 					if api_pids!= '':
 						params = {
-							'status': 5,
 							'supplier_ids': supplier_ids,
 							'product_ids': api_pids
 						}
@@ -187,7 +198,6 @@ class YunyingOrdersList(resource.Resource):
 						return rows
 				else:
 					params = {
-						'status': 5,
 						'supplier_ids': supplier_ids
 					}
 				params.update(filter_params)
@@ -214,7 +224,8 @@ class YunyingOrdersList(resource.Resource):
 						'order_create_at': order['created_at'],
 						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'customer_name': supplier_id2seller_name[str(order['supplier'])],
-						'from_mall': webapp_id2store_name[webapp_id]
+						'from_mall': webapp_id2store_name[webapp_id],
+						'order_status': order_status2text[order['status']]
 					})
 				else:
 					rows.append({
