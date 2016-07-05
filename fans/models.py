@@ -5,11 +5,13 @@ DELIVERED = 0
 READED = 1
 SHARED = 2
 ORDERED = 3
+RECOMMEND = 4
 STATUS = (
 	(DELIVERED, u'已妥投，未阅读'),
 	(READED, u'已阅读，未分享'),
 	(SHARED, u'已阅读，已分享'),
-	(ORDERED, u'已下单')
+	(ORDERED, u'已下单'),
+	(RECOMMEND, u'已下单，已推荐')
 )
 STATUS2NAME = dict(STATUS)
 
@@ -37,7 +39,7 @@ class UserHasFans(models.Model):
 	fans_id = models.IntegerField(default=0) #粉丝id
 	status = models.IntegerField(default=DELIVERED) #投放状态
 	related_order_id = models.CharField(max_length=1024, default='') #关联订单号
-	pushed_date = models.DateTimeField() #投放日期
+	pushed_date = models.DateTimeField(auto_now_add=True) #投放日期
 
 	class Meta(object):
 		db_table = 'fans_user_has_fans'
