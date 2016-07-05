@@ -23,7 +23,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleFansDataFilter: function(action){
-		this.filter = action.data;
+		this.data = action.data;
 		this.__emitChange();
 	},
 
