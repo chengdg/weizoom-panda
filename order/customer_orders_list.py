@@ -198,12 +198,12 @@ class CustomerOrdersList(resource.Resource):
 			for order in orders:
 				order_id = order['order_id']
 				product_infos = []
-				return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
+				return_product_infos = order['products'] #返回的订单数据，包含了所需要的product信息
 				total_weight = 0
 				total_purchase_price = 0
 				for return_product_info in return_product_infos:
 					product_id = str(return_product_info['id'])
-					if product_weapp_id2info.has_key(product_id):#只展示关联商品id的订单
+					if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
 						product_infos.append({
 							'product_name': product_weapp_id2info[product_id][0]['product_name'],
 							'product_img': product_weapp_id2info[product_id][0]['product_img'],

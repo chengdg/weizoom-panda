@@ -36,7 +36,17 @@ var YunyingOrderDatasPage = React.createClass({
 	onExport: function(){
 		Action.exportOrders();
 	},
-
+	rowFormatter: function(field, value, data) {
+		if (field === 'order_id') {
+			return (
+				<div style={{textAlign:'left'}}>
+					<a href={'/order/customer_order_detail/?id='+data.order_id} target="_blank">{data.order_id}</a>
+				</div>
+			)
+		}else {
+			return value;
+		}
+	},
 	render:function(){
 		var ordersResource = {
 			resource: 'order.yunying_orders_list',
@@ -120,7 +130,7 @@ var YunyingOrderDatasPage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />
-					<Reactman.TableColumn name="下单时间" field="order_create_at" />
+					<Reactman.TableColumn name="商品名称" field="product_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
 					<Reactman.TableColumn name="订单状态" field="order_status" />
 					<Reactman.TableColumn name="客户名称" field="customer_name" />

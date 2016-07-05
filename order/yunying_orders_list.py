@@ -83,6 +83,19 @@ class YunyingOrdersList(resource.Resource):
 				else:
 					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
 
+		all_products = product_models.Product.objects.all()
+		product_id2product_name = dict((product.id, product.product_name) for product in all_products)
+		#构造云商通内商品id，与panda数据库内商品名称的关系
+		product_weapp_id2product_name = {}
+		for product_id,product_name in product_id2product_name.items():
+			# product_name = product_id2product_name[product_id]
+			if product_id2product_weapp_id.has_key(product_id):
+				product_weapp_ids = product_id2product_weapp_id[product_id]
+				for product_weapp_id in product_weapp_ids:
+					if not product_weapp_id2product_name.has_key(product_id):
+						product_weapp_id2product_name[product_weapp_id] = product_name
+					else:
+						product_weapp_id2product_name[product_weapp_id].append(product_name)
 
 		#构造云商通供货商id与客户名称的对应关系
 		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
@@ -213,15 +226,22 @@ class YunyingOrdersList(resource.Resource):
 
 			for order in orders:
 				return_product_infos = order['products']
+				product_infos = []
 				if is_for_list:
 					total_purchase_price = 0
 					for return_product_info in return_product_infos:
 						product_id = str(return_product_info['id'])
 						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+						if product_weapp_id2product_name.has_key(product_id):
+							product_name = product_weapp_id2product_name[product_id]
+							product_infos.append(
+								product_name +','+str(return_product_info['count'])+u'件'
+							)
+					product_infos = ';'.join(product_infos)
 					webapp_id = order['webapp_id']
 					rows.append({
 						'order_id': order['order_id'],
-						'order_create_at': order['created_at'],
+						'product_name': product_infos,
 						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'customer_name': supplier_id2seller_name[str(order['supplier'])],
 						'from_mall': webapp_id2store_name[webapp_id],
