@@ -172,6 +172,6 @@ class Command(BaseCommand):
 					))
 				fans_models.UserHasFans.objects.bulk_create(list_create)
 
-			print ("====="+'create user_has_fans success, user_id:' + str(seller.user_id) +"=====")
+			print ("====="+'create user_has_fans success, account_id:' + str(seller.id) +"=====")
 		
 		print ("====="+'create user_has_fans all success'+"=====")
