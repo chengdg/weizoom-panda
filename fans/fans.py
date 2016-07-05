@@ -84,7 +84,7 @@ class Fans(resource.Resource):
 				orders = res['data']['orders']
 			else:
 				print(res)
-		order_ids = [] if not orders else [order.order_id for order in orders]
+		order_ids = [] if not orders else [order['order_id'] for order in orders]
 
 		rows=[]
 		i = 0
