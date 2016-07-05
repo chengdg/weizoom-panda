@@ -23,7 +23,7 @@ class Accounts(resource.Resource):
 	@login_required
 	def api_get(request):
 		user_profiles = UserProfile.objects.filter(role=CUSTOMER)
-		account_has_suppliers = AccountHasSupplier.objects.all()
+		account_has_suppliers = AccountHasSupplier.objects.filter(store_name__startswith='微众')
 		users = User.objects.all()
 		user_id2username = {user.id:user.username for user in users}
 
