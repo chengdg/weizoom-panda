@@ -79,9 +79,10 @@ class Command(BaseCommand):
 			supplier = account_models.AccountHasSupplier.objects.filter(user_id=seller.user_id)
 			supplier_ids = [s.supplier_id for s in supplier]
 			for supplier_id in supplier_ids:
-				total_order_number += len(supplier_id2orders[supplier_id])
-				for order in supplier_id2orders[supplier_id]:
-					order_ids.append(order['order_id'])
+				if supplier_id in supplier_id2orders:
+					total_order_number += len(supplier_id2orders[supplier_id])
+					for order in supplier_id2orders[supplier_id]:
+						order_ids.append(order['order_id'])
 
 			fans_count = int(total_order_number/0.2) #每次投放粉丝数
 			if fans_count < 210:
