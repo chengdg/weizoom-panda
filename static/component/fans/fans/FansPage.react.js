@@ -15,6 +15,16 @@ var Action = require('./Action');
 require('./style.css')
 
 var CustomerPage = React.createClass({
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return ({});
+	},
+
+	onChangeStore: function(event) {
+		var filterOptions = Store.getData();
+		this.refs.table.refresh(filterOptions);
+	},
+
 	showProduct:function(class_name){
 		var display = document.getElementsByClassName(class_name)[0].style.display;
 		if (display == 'none'){
@@ -73,9 +83,33 @@ var CustomerPage = React.createClass({
 					</div>
 				</div>
 			)
+		}else if(field === 'status'){
+			var order_id = data['order_id'];
+			var src = '';
+			if(order_id != ''){
+				src = '/order/customer_order_detail/?id='+order_id;
+			}
+			if(src != ''){
+				return (
+					<div>
+						<a href={src} target="_blank">{value}</a>
+					</div>
+				)
+			}else{
+				return (
+					<div>
+						{value}
+					</div>
+				)
+			}
+			
 		}else{
 			return value;
 		}
+	},
+
+	onConfirmFilter: function(data){
+		Action.filterDates(data);
 	},
 
 	render:function(){
@@ -85,13 +119,25 @@ var CustomerPage = React.createClass({
 				page: 1
 			}
 		};
-
+		var optionsForStatus = [{
+			text: '全部', value: '-1'
+		},{
+			text: '已妥投，未阅读', value: '0'
+		},{
+			text: '已阅读，未分享', value: '1'
+		},{
+			text: '已阅读，已分享', value: '2'
+		},{
+			text: '已下单', value: '3'
+		},{
+			text: '已下单，已推荐', value: '4'
+		}];
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="状态:" name="weapp_name_query" match="=" />
+							<Reactman.FormSelect label="状态:" name="status" options={optionsForStatus} match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
