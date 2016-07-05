@@ -54,7 +54,6 @@ class Fans(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		status = filter_idct.get('status',-1)
-		print status,"++++++++++++++=2222222222========"
 		user_has_fans = fans_models.UserHasFans.objects.filter(user_id=request.user.id)
 		#查询
 		if status != -1:
@@ -75,17 +74,21 @@ class Fans(resource.Resource):
 		print(supplier_ids)
 		orders = []
 		if supplier_ids != '':
-			params = {
-				'supplier_ids': supplier_ids
-			}
-			r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				orders = res['data']['orders']
-			else:
-				print(res)
+			try:
+				params = {
+					'supplier_ids': supplier_ids
+				}
+				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					orders = res['data']['orders']
+				else:
+					print(res)
+			except Exception,e:
+				print(e)
 		order_ids = [] if not orders else [order['order_id'] for order in orders]
-
+		print ('order_ids')
+		print (order_ids)
 		rows=[]
 		i = 0
 		for user_fans in user_has_fans:
