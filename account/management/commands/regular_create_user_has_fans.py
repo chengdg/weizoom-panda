@@ -54,8 +54,8 @@ class Command(BaseCommand):
 			start_time = (datetime.datetime.now()-datetime.timedelta(weeks=1)).strftime("%Y-%m-%d %H:%M:%S")
 			params = {
 				'supplier_ids': today_supplier_ids,
-				# 'start_time': start_time,
-				# 'end_time': date_now
+				'start_time': start_time,
+				'end_time': date_now
 			}
 			r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 			res = json.loads(r.text)
@@ -103,7 +103,8 @@ class Command(BaseCommand):
 			for delivered_fans_id in delivered_fans_ids:
 				list_create.append(fans_models.UserHasFans(
 					user_id = seller.user_id,
-					fans_id = delivered_fans_id
+					fans_id = delivered_fans_id,
+					status = fans_models.DELIVERED
 				))
 			fans_models.UserHasFans.objects.bulk_create(list_create)
 			
@@ -130,8 +131,6 @@ class Command(BaseCommand):
 			fans_models.UserHasFans.objects.bulk_create(list_create)
 
 			#已下单
-			remain_fans_ids = selected_fans_ids[int(fans_count*0.37):]
-			print len(remain_fans_ids)
 			actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
 			ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
 			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
@@ -159,13 +158,20 @@ class Command(BaseCommand):
 				))
 				i+=1
 			fans_models.UserHasFans.objects.bulk_create(list_create)
+			already_create_fans_ids = delivered_fans_ids+readed_fans_ids+shared_fans_ids+ordered_fans_ids+recommend_fans_ids
+			remain_fans_ids = list(set(selected_fans_ids).difference(set(already_create_fans_ids)))
+			if len(remain_fans_ids)>0:
+				#如果还有剩余未投放的粉丝（订单数过少导致）
+				#已妥投，未阅读
+				list_create = []
+				for remain_fans_id in remain_fans_ids:
+					list_create.append(fans_models.UserHasFans(
+						user_id = seller.user_id,
+						fans_id = remain_fans_id,
+						status = fans_models.DELIVERED
+					))
+				fans_models.UserHasFans.objects.bulk_create(list_create)
 
-			# if len(actual_ordered_fans_ids)
 			print ("====="+u'投放完毕，user_id:' + str(seller.user_id) +"=====")
-			print len(delivered_fans_ids)
-			print len(readed_fans_ids)
-			print len(shared_fans_ids)
-			print len(ordered_fans_ids)
-			print len(recommend_fans_ids)
 		
 		print ("====="+u'投放粉丝完毕'+"=====")
