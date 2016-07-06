@@ -37,10 +37,10 @@ class Command(BaseCommand):
 			all_sellers = all_sellers_min | all_sellers_max
 		else:
 			all_sellers = account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
-		#for test
+		#测试使用
 		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
-		user_ids = [seller.user_id for seller in all_sellers]
-		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(user_id__in=user_ids)
+		account_ids = [seller.account_id for seller in all_sellers]
+		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		today_supplier_ids = []
 		supplier_id2orders = {}
 		for account_has_supplier in account_has_suppliers:
