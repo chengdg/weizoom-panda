@@ -36,7 +36,9 @@ class Command(BaseCommand):
 			all_sellers_max = account_models.UserProfile.objects.filter(id__startswith=id_start_with_max,role=account_models.CUSTOMER)
 			all_sellers = all_sellers_min | all_sellers_max
 		else:
-			all_sellers =account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
+			all_sellers = account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
+		#for test
+		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(user_id__in=user_ids)
 		today_supplier_ids = []
@@ -52,15 +54,20 @@ class Command(BaseCommand):
 			today_supplier_ids = '_'.join(today_supplier_ids)
 			date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 			start_time = (datetime.datetime.now()-datetime.timedelta(weeks=1)).strftime("%Y-%m-%d %H:%M:%S")
+
 			params = {
 				'supplier_ids': today_supplier_ids,
 				'start_time': start_time,
 				'end_time': date_now
 			}
+			print (params)
+			print ('===================')
 			r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
 				orders = res['data']['orders']
+				print orders
+				print 'orders'
 				if orders:
 					for order in orders:
 						if order['supplier'] not in supplier_id2orders:

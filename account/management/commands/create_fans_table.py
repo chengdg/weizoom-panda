@@ -18,6 +18,7 @@ class Command(BaseCommand):
 		nrows = table.nrows   #行数
 		current_all_fans = fans_models.Fans.objects.all()
 		already_has_weibo_ids = [fans.weibo_id for fans in current_all_fans]
+		print "====="+'loading xlsx file'+"====="
 		for i in range(0,nrows):
 			item = dict()
 			weibo_id = str(int(table.cell(i,0).value))[:7]
