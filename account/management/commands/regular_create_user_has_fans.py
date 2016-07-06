@@ -38,7 +38,7 @@ class Command(BaseCommand):
 			all_sellers = account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
 
 		#FOR TEST
-		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
+		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 
 		account_ids = [seller.id for seller in all_sellers]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
@@ -140,10 +140,8 @@ class Command(BaseCommand):
 			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
 			#已下单，未推荐
 			list_create = []
-			print order_ids
 			ordered_index = 0
 			for ordered_fans_id in ordered_fans_ids:
-				print ordered_index
 				list_create.append(fans_models.UserHasFans(
 					user_id = seller.user_id,
 					fans_id = ordered_fans_id,
@@ -159,7 +157,6 @@ class Command(BaseCommand):
 			list_create = []
 			recommend_index = ordered_index
 			for recommend_fans_id in recommend_fans_ids:
-				print recommend_index
 				list_create.append(fans_models.UserHasFans(
 					user_id = seller.user_id,
 					fans_id = recommend_fans_id,
