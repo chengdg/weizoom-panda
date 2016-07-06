@@ -73,7 +73,8 @@ class Command(BaseCommand):
 		except Exception,e:
 			print(e)
 			print ("====="+'error in zeus'+"=====")
-
+		print supplier_id2orders
+		print 'supplier_id2orders====================='
 		#根据每个今天需要投放的用户进行粉丝投放
 		for seller in all_sellers:
 			total_order_number = 0
@@ -137,6 +138,8 @@ class Command(BaseCommand):
 			fans_models.UserHasFans.objects.bulk_create(list_create)
 
 			#已下单
+			print 'total_order_number'
+			print total_order_number
 			actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
 			print 'actual_ordered_fans_ids'
 			print actual_ordered_fans_ids
