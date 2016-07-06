@@ -16,51 +16,38 @@ var Action = require('./Action');
 var OrderBatchDelivery = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return {}
+		return Store.getData();
 	},
 
 	onChange: function(value, event) {
 		debug(value);
 		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
-		//var newState = {};
-		//newState[property] = value;
-		//this.setState(newState);
+		Action.updateShip(property, value);
 	},
 
 	onChangeStore: function(){
 		this.setState(Store.getData());
-		//var infomations = Store.getData();
-		//console.log(infomations);
-		//this.setState({
-		//	ship_company: infomations['ship_company'],
-		//	ship_number: infomations['ship_number'],
-		//	shiper_name: infomations['shiper_name']
-		//})
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log(this.state.documents);
-		if (!this.state.documents) {
+		if (!this.state.documents[0]) {
 			Reactman.PageAction.showHint('error', '请上传文件');
 		} else {
-			console.log('this.state');
-			console.log(this.state);
-			//TODO 给接口传递批量发货的参数
-			//Reactman.Resource.post({
-			//	resource: 'outline.data_comment',
-			//	data: {
-			//		product_id: product.id,
-			//		comment: this.state.comment
-			//	},
-			//	success: function() {
-			//		this.closeDialog();
-			//	},
-			//	error: function() {
-			//		Reactman.PageAction.showHint('error', '评论失败!');
-			//	},
-			//	scope: this
-			//})
+			console.log('================');
+			console.log(this.state.documents[0].path);
+			Reactman.Resource.post({
+				resource: 'order.order_batch_delivery',
+				data: {
+					document_path: this.state.documents[0].path
+				},
+				success: function() {
+					this.closeDialog();
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
 		}
 	},
 

@@ -102,9 +102,6 @@ class ProductRelation(resource.Resource):
 						})
 				product_price = float(product_data[0]['product_price'])
 				stock_type = 1 if int(product_data[0]['product_store']) > -1 else 0
-				print image_paths,"-------"
-				print user_ids,"=========="
-				print supplier_ids,"++++++++++"
 				params = {
 					'owner_ids': '_'.join(user_ids),#所属账号的user id
 					'suppliers': '_'.join(supplier_ids),#供货商 id

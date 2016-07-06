@@ -84,6 +84,51 @@ class ProductRelation(resource.Resource):
 			})
 			self_user_name2self_first_name[product.self_user_name] = product.self_first_name
 
+		#获取商品图片
+		product_id2image_id = {}
+		image_id2images = {}
+		for product in product_images:
+			if product.product_id not in product_id2image_id:
+				product_id2image_id[product.product_id] = [product.image_id]
+			else:
+				product_id2image_id[product.product_id].append(product.image_id)
+		for image in resource_models.Image.objects.all():
+			image_id2images[image.id] = image.path
+		
+		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
+		#从weapp获取销量sales_from_weapp	
+		p_ids = [product.id for product in products]
+
+		weapp_product_ids = []
+		product_weapp_id2product_id = {}
+		for product_has_relation in product_has_relations.filter(product_id__in=p_ids):
+			if product_has_relation.weapp_product_id:
+				weapp_ids = product_has_relation.weapp_product_id.split(';')
+				for weapp_product_id in weapp_ids:
+					weapp_product_ids.append(weapp_product_id)
+					product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
+
+		product_status = []
+		try:
+			params = {
+				'product_ids': '_'.join(weapp_product_ids)
+			}
+			r = requests.get(ZEUS_HOST+'/mall/product_status/',data=params)
+			res = json.loads(r.text)
+			if res['code'] == 200:
+				product_status = res['data']['product_status']
+			else:
+				print(res)
+		except Exception,e:
+			print(e)
+		print ('product_status:',product_status)
+		if product_status:
+			for product_statu in product_status:
+				if product_statu['is_deleted'] == True:
+					weapp_id = str(product_statu['product_id'])
+					product_id = -1 if weapp_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_id]
+					product_has_relations.filter(product_id=product_id).delete()
+
 		product_id2relations = {}
 		product_id2self_user_name = {}
 		for product_has_relation in product_has_relations:
@@ -107,21 +152,6 @@ class ProductRelation(resource.Resource):
 			else:
 				product_id2self_user_name[product_id].append(self_user_name)
 
-		#获取商品图片
-		product_id2image_id = {}
-		image_id2images = {}
-		for product in product_images:
-			if product.product_id not in product_id2image_id:
-				product_id2image_id[product.product_id] = [product.image_id]
-			else:
-				product_id2image_id[product.product_id].append(product.image_id)
-		for image in resource_models.Image.objects.all():
-			image_id2images[image.id] = image.path
-		
-		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
-		#从weapp获取销量sales_from_weapp
-		p_ids = [product.id for product in products]
-		product_has_relations = product_has_relations.filter(product_id__in=p_ids)
 		id2sales = sales_from_weapp(product_has_relations)
 		
 		p_owner_ids = [product.owner_id for product in products]

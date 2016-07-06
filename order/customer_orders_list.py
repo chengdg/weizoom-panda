@@ -58,6 +58,7 @@ class CustomerOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
+		filter_product_name = filter_idct.get('product_name','')
 		status = filter_idct.get('status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 
@@ -71,6 +72,8 @@ class CustomerOrdersList(resource.Resource):
 		user_profile_id = account_models.UserProfile.objects.get(user_id=request.user.id).id
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
 		supplier_ids = []
+		api_pids = []
+		is_search_product_name = False
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
 				supplier_ids.append(str(account_has_supplier.supplier_id))
@@ -108,6 +111,16 @@ class CustomerOrdersList(resource.Resource):
 		filter_params = {}
 		if order_id:
 			filter_params['order_id'] = order_id
+		if filter_product_name:
+			is_search_product_name = True
+			#如果按照商品名称查询，则传递product_ids参数给接口
+			product_ids = [int(product.id) for product in products.filter(product_name__icontains=filter_product_name)]
+			for product_id in product_ids:
+				if product_id2product_weapp_id.has_key(product_id):
+					product_weapp_ids = product_id2product_weapp_id[product_id]
+					for product_weapp_id in product_weapp_ids:
+						api_pids.append(product_weapp_id)
+			api_pids = '_'.join(api_pids)
 		if status != '-1':
 			filter_params['status'] = status
 		if order_create_at_range:
@@ -124,11 +137,34 @@ class CustomerOrdersList(resource.Resource):
 			# try:
 			#请求接口获得数据
 			if is_for_list:
-				params = {
-					'supplier_ids': supplier_ids,
-					'page':cur_page,
-					'count_per_page': COUNT_PER_PAGE
-				}
+				if is_search_product_name:
+					if api_pids!= '':
+						#按照商品名搜索、传递商品id
+						params = {
+							'product_ids': api_pids,
+							'supplier_ids': supplier_ids,
+							'page':cur_page,
+							'count_per_page': COUNT_PER_PAGE
+						}
+					else:
+						#如果商品不存在，直接返回空列表
+						orders = []
+						pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+						pageinfo = pageinfo.to_dict()
+						data = {
+							'rows': rows,
+							'pagination_info': pageinfo
+						}
+						#构造response
+						response = create_response(200)
+						response.data = data
+						return response.get_response()
+				else:
+					params = {
+						'supplier_ids': supplier_ids,
+						'page':cur_page,
+						'count_per_page': COUNT_PER_PAGE
+					}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
 				res = json.loads(r.text)
@@ -141,7 +177,14 @@ class CustomerOrdersList(resource.Resource):
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
-				params = {'supplier_ids': supplier_ids}
+				if is_search_product_name:
+					if api_pids!= '':
+						#按照商品名搜索、传递商品id
+						params = {'supplier_ids': supplier_ids,'product_ids': api_pids}
+					else:
+						return rows
+				else:
+					params = {'supplier_ids': supplier_ids}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 				res = json.loads(r.text)
@@ -155,12 +198,12 @@ class CustomerOrdersList(resource.Resource):
 			for order in orders:
 				order_id = order['order_id']
 				product_infos = []
-				return_product_infos = order['products'] #返回的订单数据，包含了不需要的product信息
+				return_product_infos = order['products'] #返回的订单数据，包含了所需要的product信息
 				total_weight = 0
 				total_purchase_price = 0
 				for return_product_info in return_product_infos:
 					product_id = str(return_product_info['id'])
-					if product_weapp_id2info.has_key(product_id):#只展示关联商品id的订单
+					if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
 						product_infos.append({
 							'product_name': product_weapp_id2info[product_id][0]['product_name'],
 							'product_img': product_weapp_id2info[product_id][0]['product_img'],

@@ -21,7 +21,18 @@ from panda.settings import ZEUS_HOST
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
 COUNT_PER_PAGE = 10
-
+order_status2text = {
+	0: u'待支付',
+	1: u'已取消',
+	2: u'已支付',
+	3: u'待发货',
+	4: u'已发货',
+	5: u'已完成',
+	6: u'退款中',
+	7: u'退款完成',
+	8: u'团购退款',
+	9: u'团购退款完成'
+}
 filter2field ={
 }
 
@@ -47,34 +58,46 @@ class YunyingOrdersList(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_name = filter_idct.get('customer_name','')
+		filter_product_name = filter_idct.get('product_name','')
 		from_mall = filter_idct.get('from_mall','-1')
+		order_status = filter_idct.get('order_status','-1')
 		order_create_at_range = filter_idct.get('order_create_at__range','')
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		
 		account_has_suppliers = AccountHasSupplier.objects.all()
 		supplier_ids = []
+		api_pids = []
+		is_search_product_name = False
+
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
 				supplier_ids.append(str(account_has_supplier.supplier_id))
-		# product_ids = []
-		# api_pids = []
-		# #构造云商通内商品id，与panda数据库内商品id的关系
-		# product_weapp_id2product_id = {}
-		# for product_has_relation in product_has_relations:
-		# 	#获得所有绑定过云商通的商品id
-		# 	if product_has_relation.product_id not in product_ids:
-		# 		product_ids.append(product_has_relation.product_id)
-		# 	weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		# 	for weapp_product_id in weapp_product_ids:
-		# 		#获得所有绑定过云商通的云商通商品id
-		# 		api_pids.append(weapp_product_id)
-		# 		if not product_weapp_id2product_id.has_key(weapp_product_id):
-		# 			product_weapp_id2product_id[weapp_product_id] = [product_has_relation.product_id]
-		# 		else:
-		# 			product_weapp_id2product_id[weapp_product_id].append(product_has_relation.product_id)
+		
+		#构造panda数据库内商品id，与云商通内商品id的关系
+		product_id2product_weapp_id = {}
+		for product_has_relation in product_has_relations:
+			weapp_product_ids = product_has_relation.weapp_product_id.split(';')
+			for weapp_product_id in weapp_product_ids:
+				if not product_id2product_weapp_id.has_key(product_has_relation.product_id):
+					product_id2product_weapp_id[product_has_relation.product_id] = [weapp_product_id]
+				else:
+					product_id2product_weapp_id[product_has_relation.product_id].append(weapp_product_id)
+
+		all_products = product_models.Product.objects.all()
+		product_id2product_name = dict((product.id, product.product_name) for product in all_products)
+		#构造云商通内商品id，与panda数据库内商品名称的关系
+		product_weapp_id2product_name = {}
+		for product_id,product_name in product_id2product_name.items():
+			# product_name = product_id2product_name[product_id]
+			if product_id2product_weapp_id.has_key(product_id):
+				product_weapp_ids = product_id2product_weapp_id[product_id]
+				for product_weapp_id in product_weapp_ids:
+					if not product_weapp_id2product_name.has_key(product_id):
+						product_weapp_id2product_name[product_weapp_id] = product_name
+					else:
+						product_weapp_id2product_name[product_weapp_id].append(product_name)
 
 		#构造云商通供货商id与客户名称的对应关系
-		# products = product_models.Product.objects.filter(id__in=product_ids)
 		all_sellers = UserProfile.objects.filter(role=CUSTOMER)
 		account_id2seller_name = dict((account.id, account.name) for account in all_sellers)
 		supplier_id2seller_name = {}
@@ -93,9 +116,22 @@ class YunyingOrdersList(resource.Resource):
 			for cur_account_has_supplier in cur_account_has_suppliers:
 				if str(cur_account_has_supplier.supplier_id) not in supplier_ids:
 					supplier_ids.append(str(cur_account_has_supplier.supplier_id))
-
+		if filter_product_name:
+			is_search_product_name = True
+			products = product_models.Product.objects.filter(product_name__icontains=filter_product_name)
+			product_ids = [int(product.id) for product in products]
+			for product_id in product_ids:
+				if product_id2product_weapp_id.has_key(product_id):
+					product_weapp_ids = product_id2product_weapp_id[product_id]
+					for product_weapp_id in product_weapp_ids:
+						api_pids.append(product_weapp_id)
+			api_pids = '_'.join(api_pids)
+			print 'api_pids'
+			print api_pids
 		if from_mall != '-1':
 			filter_params['webapp_id'] = from_mall
+		if order_status != '-1':
+			filter_params['status'] = order_status
 		if order_create_at_range:
 			start_time = order_create_at_range[0]
 			end_time = order_create_at_range[1]
@@ -108,12 +144,33 @@ class YunyingOrdersList(resource.Resource):
 			# try:
 			#请求接口获得数据
 			if is_for_list:
-				params = {
-					'status': 5,#运营只查看已完成的订单
-					'supplier_ids': supplier_ids,
-					'page':cur_page,
-					'count_per_page': COUNT_PER_PAGE
-				}
+				if is_search_product_name:
+					if api_pids!= '':
+						#按照商品名搜索、传递商品id
+						params = {
+							'product_ids': api_pids,
+							'supplier_ids': supplier_ids,
+							'page':cur_page,
+							'count_per_page': COUNT_PER_PAGE
+						}
+					else:
+						orders = []
+						pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+						pageinfo = pageinfo.to_dict()
+						data = {
+							'rows': rows,
+							'pagination_info': pageinfo
+						}
+						#构造response
+						response = create_response(200)
+						response.data = data
+						return response.get_response()
+				else:
+					params = {
+						'supplier_ids': supplier_ids,
+						'page':cur_page,
+						'count_per_page': COUNT_PER_PAGE
+					}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
 				res = json.loads(r.text)
@@ -144,10 +201,18 @@ class YunyingOrdersList(resource.Resource):
 				pageinfo['total_count'] = pageinfo['object_count']
 			else:
 				#请求导出的接口
-				params = {
-					'status': 5,
-					'supplier_ids': supplier_ids
-				}
+				if is_search_product_name:
+					if api_pids!= '':
+						params = {
+							'supplier_ids': supplier_ids,
+							'product_ids': api_pids
+						}
+					else:
+						return rows
+				else:
+					params = {
+						'supplier_ids': supplier_ids
+					}
 				params.update(filter_params)
 				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 				res = json.loads(r.text)
@@ -161,18 +226,32 @@ class YunyingOrdersList(resource.Resource):
 
 			for order in orders:
 				return_product_infos = order['products']
+				product_infos = []
 				if is_for_list:
 					total_purchase_price = 0
 					for return_product_info in return_product_infos:
 						product_id = str(return_product_info['id'])
 						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+						if product_weapp_id2product_name.has_key(product_id):
+							product_name = product_weapp_id2product_name[product_id]
+							if return_product_info['model_names']:
+								model_names = '_'.join(return_product_info['model_names'])
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'+','+model_names
+								)
+							else:
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'
+								)
+					product_infos = ';'.join(product_infos)
 					webapp_id = order['webapp_id']
 					rows.append({
 						'order_id': order['order_id'],
-						'order_create_at': order['created_at'],
+						'product_name': product_infos,
 						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'customer_name': supplier_id2seller_name[str(order['supplier'])],
-						'from_mall': webapp_id2store_name[webapp_id]
+						'from_mall': webapp_id2store_name[webapp_id],
+						'order_status': order_status2text[order['status']]
 					})
 				else:
 					rows.append({

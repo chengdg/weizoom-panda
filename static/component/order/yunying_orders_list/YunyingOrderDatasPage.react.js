@@ -36,7 +36,17 @@ var YunyingOrderDatasPage = React.createClass({
 	onExport: function(){
 		Action.exportOrders();
 	},
-
+	rowFormatter: function(field, value, data) {
+		if (field === 'order_id') {
+			return (
+				<div style={{textAlign:'left'}}>
+					<a href={'/order/customer_order_detail/?id='+data.order_id} target="_blank">{data.order_id}</a>
+				</div>
+			)
+		}else {
+			return value;
+		}
+	},
 	render:function(){
 		var ordersResource = {
 			resource: 'order.yunying_orders_list',
@@ -68,6 +78,28 @@ var YunyingOrderDatasPage = React.createClass({
 			value: '3936'
 		}];
 
+		var orderStatusOptions = [{
+			text: '全部',
+			value: '-1'
+		}, {
+			text: '待发货',
+			value: '3'
+		}, {
+			text: '已发货',
+			value: '4'
+		}, {
+			text: '已完成',
+			value: '5'
+		}, {
+			text: '退款中',
+			value: '6'
+		}, {
+			text: '退款完成',
+			value: '7'
+		}, {
+			text: '已取消',
+			value: '1'
+		}];
 		return (
 		<div className="mt15 xui-outline-datasPage">
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
@@ -76,12 +108,18 @@ var YunyingOrderDatasPage = React.createClass({
 						<Reactman.FormInput label="客户名称:" name="customer_name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="来源商城:" name="from_mall" options={typeOptions} match="=" />
+						<Reactman.FormInput label="商品名称:" name="product_name" match='=' />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
 						<Reactman.FormDateRangeInput label="下单时间:" name="order_create_at" match="[t]" />
+					</Reactman.FilterField>
+					<Reactman.FilterField>
+						<Reactman.FormSelect label="来源商城:" name="from_mall" options={typeOptions} match="=" />
+					</Reactman.FilterField>
+					<Reactman.FilterField>
+						<Reactman.FormSelect label="订单状态:" name="order_status" options={orderStatusOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -92,8 +130,9 @@ var YunyingOrderDatasPage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />
-					<Reactman.TableColumn name="下单时间" field="order_create_at" />
+					<Reactman.TableColumn name="商品名称" field="product_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
+					<Reactman.TableColumn name="订单状态" field="order_status" />
 					<Reactman.TableColumn name="客户名称" field="customer_name" />
 					<Reactman.TableColumn name="来源商城" field="from_mall" />
 				</Reactman.Table>

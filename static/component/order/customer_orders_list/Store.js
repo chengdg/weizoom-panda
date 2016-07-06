@@ -18,11 +18,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleFilterOrders': Constant.ORDER_DATAS_FILTER_ORDERS,
 		//'handleOrderShipInformations': Constant.ORDER_SHIP_INFORMATIONS,
-		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
+		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
+		'handleOrderUpdateShip':Constant.ORDER_DATAS_UPDATE_SHIP
 	},
 
 	init: function() {
 		this.data = {
+			documents: []
 		};
 	},
 
@@ -31,17 +33,20 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	//handleOrderShipInformations: function(action) {
-	//	this.data = action.data.rows;
-	//	this.__emitChange();
-	//},
+	handleOrderUpdateShip: function(action) {
+		debug('update %s to %s', action.data.property, JSON.stringify(action.data.value));
+		this.data[action.data.property] = action.data.value;
+		this.__emitChange();
+	},
 
 	handleOrderDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;
-		console.log('filterOptions');
-		console.log(filterOptions);
 		var filter_str = '';
-		window.location.href = '/order/export_orders';
+		for (var key in filterOptions){
+			filter_str = filter_str + key + '=' + filterOptions[key] + '&';
+		}
+		filter_str = filter_str.substring(0,filter_str.length-1);
+		window.location.href = '/order/export_orders/?'+filter_str;
 	},
 	getData: function() {
 		return this.data;

@@ -74,17 +74,15 @@ var OrderDatasPage = React.createClass({
 	},
 
 	onOrderBatchDelivery: function(event) {
-		//Reactman.PageAction.showDialog({
-		//	title: "批量发货",
-		//	component: OrderBatchDelivery,
-		//	data: {},
-		//	success: function(inputData, dialogState) {
-		//		console.log('dialogState');
-		//		console.log(dialogState);
-		//		//var comment = dialogState.comment;
-		//		//Action.updateProduct(product, 'comment', comment);
-		//	}
-		//});
+		Reactman.PageAction.showDialog({
+			title: "批量发货",
+			component: OrderBatchDelivery,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log('success');
+				Action.updateOrderShipInformations();
+			}
+		});
 	},
 
 	onChangeStore: function(event) {
@@ -135,11 +133,10 @@ var OrderDatasPage = React.createClass({
 			}else{
 				return value;
 			}
-		}else if (field === 'expand-row') {
+		}else if (field === 'order_id') {
 			return (
-				<div style={{textAlign:'left', padding:'5px'}}>
-					<span>订单编号: <a href={'/order/customer_order_detail/?id='+data.order_id}>{data.order_id}</a></span>
-					<span style={{paddingLeft:'100px'}}>下单时间: {data.order_create_at}</span>
+				<div style={{textAlign:'left'}}>
+					<a href={'/order/customer_order_detail/?id='+data.order_id}>{data.order_id}</a>
 				</div>
 			)
 		}else if (field === 'product_name') {
@@ -192,6 +189,9 @@ var OrderDatasPage = React.createClass({
 						<Reactman.FormInput label="订单编号:" name="order_id" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
+						<Reactman.FormInput label="商品名称:" name="product_name" match='=' />
+					</Reactman.FilterField>
+					<Reactman.FilterField>
 						<Reactman.FormSelect label="订单状态:" name="status" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
@@ -204,14 +204,17 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
+					<Reactman.TableActionButton text="批量发货" onClick={this.onOrderBatchDelivery}/>
 					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+					<Reactman.TableColumn name="订单编号" field="order_id" />
 					<Reactman.TableColumn name="商品" field="product_name" />
 					<Reactman.TableColumn name="单价/数量" field="product_price" />
 					<Reactman.TableColumn name="收货人" field="ship_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
 					<Reactman.TableColumn name="订单状态" field="status" />
+					<Reactman.TableColumn name="下单时间" field="order_create_at" />
 					<Reactman.TableColumn name="操作" field="action" width='60px'/>
 				</Reactman.Table>
 			</Reactman.TablePanel>
