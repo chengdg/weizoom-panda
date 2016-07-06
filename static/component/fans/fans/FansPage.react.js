@@ -137,8 +137,12 @@ var CustomerPage = React.createClass({
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>
+							<Reactman.FormDateRangeInput label="投放日期:" name="recommend_time" match="[t]" />
+						</Reactman.FilterField>
+						<Reactman.FilterField>
 							<Reactman.FormSelect label="状态:" name="status" options={optionsForStatus} match="=" />
 						</Reactman.FilterField>
+						<Reactman.FilterField></Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
