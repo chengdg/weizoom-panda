@@ -96,16 +96,12 @@ class ProductRelation(resource.Resource):
 			image_id2images[image.id] = image.path
 		
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
-		#从weapp获取销量sales_from_weapp
-		product_id_list = [str(product.id) for product in products]
-		# weapp_product_ids = [str(product_has_relation.weapp_product_id) for product_has_relation in product_has_relations]
-		
+		#从weapp获取销量sales_from_weapp	
 		p_ids = [product.id for product in products]
-		product_has_relations = product_has_relations.filter(product_id__in=p_ids)
 
 		weapp_product_ids = []
 		product_weapp_id2product_id = {}
-		for product_has_relation in product_has_relations:
+		for product_has_relation in product_has_relations.filter(product_id__in=p_ids):
 			if product_has_relation.weapp_product_id:
 				weapp_ids = product_has_relation.weapp_product_id.split(';')
 				for weapp_product_id in weapp_ids:
