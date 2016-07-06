@@ -137,27 +137,33 @@ class Command(BaseCommand):
 			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
 			#已下单，未推荐
 			list_create = []
-			i = 0
+			print order_ids
+			ordered_index = 0
 			for ordered_fans_id in ordered_fans_ids:
+				print ordered_index
 				list_create.append(fans_models.UserHasFans(
 					user_id = seller.user_id,
 					fans_id = ordered_fans_id,
 					status = fans_models.ORDERED,
-					related_order_id = order_ids[i]
+					related_order_id = order_ids[ordered_index]
 				))
-				i+=1
-			fans_models.UserHasFans.objects.bulk_create(list_create)
+				ordered_index += 1
 
+			fans_models.UserHasFans.objects.bulk_create(list_create)
+			
+			
 			#已下单，已推荐
 			list_create = []
+			recommend_index = ordered_index
 			for recommend_fans_id in recommend_fans_ids:
+				print recommend_index
 				list_create.append(fans_models.UserHasFans(
 					user_id = seller.user_id,
 					fans_id = recommend_fans_id,
 					status = fans_models.RECOMMEND,
-					related_order_id = order_ids[i]
+					related_order_id = order_ids[recommend_index]
 				))
-				i+=1
+				recommend_index += 1
 			fans_models.UserHasFans.objects.bulk_create(list_create)
 			already_create_fans_ids = delivered_fans_ids+readed_fans_ids+shared_fans_ids+ordered_fans_ids+recommend_fans_ids
 			remain_fans_ids = list(set(selected_fans_ids).difference(set(already_create_fans_ids)))
