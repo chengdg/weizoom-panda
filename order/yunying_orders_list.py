@@ -234,9 +234,15 @@ class YunyingOrdersList(resource.Resource):
 						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
 						if product_weapp_id2product_name.has_key(product_id):
 							product_name = product_weapp_id2product_name[product_id]
-							product_infos.append(
-								product_name +','+str(return_product_info['count'])+u'件'
-							)
+							if return_product_info['model_names']:
+								model_names = '_'.join(return_product_info['model_names'])
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'+','+model_names
+								)
+							else:
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'
+								)
 					product_infos = ';'.join(product_infos)
 					webapp_id = order['webapp_id']
 					rows.append({
