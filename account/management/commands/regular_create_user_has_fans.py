@@ -80,7 +80,7 @@ class Command(BaseCommand):
 			total_order_number = 0
 			supplier_ids = []
 			order_ids = []
-			supplier = account_models.AccountHasSupplier.objects.filter(user_id=seller.user_id)
+			supplier = account_models.AccountHasSupplier.objects.filter(account_id=seller.id)
 			supplier_ids = [s.supplier_id for s in supplier]
 			for supplier_id in supplier_ids:
 				if supplier_id in supplier_id2orders:
@@ -91,8 +91,6 @@ class Command(BaseCommand):
 			fans_count = int(total_order_number/0.2) #每次投放粉丝数
 			if fans_count < 210:
 				fans_count = 210 #投放人数下限不能低于210
-			print ('fans_count')
-			print fans_count
 			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
 			if user_has_fans.count() > 0:
 				except_fans_ids = [u.fans_id for u in user_has_fans]
