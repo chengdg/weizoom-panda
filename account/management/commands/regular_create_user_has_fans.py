@@ -30,15 +30,13 @@ class Command(BaseCommand):
 			id_start_with_max = 8
 		elif day_of_week == 4:#周五
 			id_start_with = 9
-		
 		if day_of_week != 4:
 			all_sellers_min = account_models.UserProfile.objects.filter(id__startswith=id_start_with_min,role=account_models.CUSTOMER)
 			all_sellers_max = account_models.UserProfile.objects.filter(id__startswith=id_start_with_max,role=account_models.CUSTOMER)
 			all_sellers = all_sellers_min | all_sellers_max
 		else:
 			all_sellers = account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
-		#测试使用
-		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
+
 		account_ids = [seller.id for seller in all_sellers]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		today_supplier_ids = []
@@ -73,8 +71,7 @@ class Command(BaseCommand):
 		except Exception,e:
 			print(e)
 			print ("====="+'error in zeus'+"=====")
-		print supplier_id2orders
-		print 'supplier_id2orders====================='
+
 		#根据每个今天需要投放的用户进行粉丝投放
 		for seller in all_sellers:
 			total_order_number = 0
@@ -100,8 +97,7 @@ class Command(BaseCommand):
 			selected_fans_ids = []
 			all_fans_ids = [fan.id for fan in fans]
 			selected_fans_ids = random.sample(all_fans_ids,fans_count) #从id池中随机获取fans_count个元素
-			print ('selected_fans_ids')
-			print selected_fans_ids
+
 			#已妥投，未阅读
 			delivered_fans_ids = selected_fans_ids[0:int(fans_count*0.18)]
 			list_create = []
@@ -136,17 +132,9 @@ class Command(BaseCommand):
 			fans_models.UserHasFans.objects.bulk_create(list_create)
 
 			#已下单
-			print 'total_order_number'
-			print total_order_number
 			actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
-			print 'actual_ordered_fans_ids'
-			print actual_ordered_fans_ids
 			ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
-			print 'ordered_fans_ids'
-			print ordered_fans_ids
 			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
-			print 'recommend_fans_ids'
-			print recommend_fans_ids
 			#已下单，未推荐
 			list_create = []
 			i = 0
