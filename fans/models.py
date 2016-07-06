@@ -22,7 +22,6 @@ class Fans(models.Model):
 	weibo_id = models.CharField(max_length=24, default='') #粉丝id
 	name = models.CharField(max_length=2048, default='') #粉丝名称
 	fans_url = models.CharField(max_length=2048, default='') #粉丝头像
-	male = models.BooleanField(default=True) #性别,1-男:0-女
 	purchasing_index = models.FloatField(default=0) #购买指数
 	spread_index = models.FloatField(default=0) #传播指数
 	created_at = models.DateTimeField(auto_now_add=True) #创建日期

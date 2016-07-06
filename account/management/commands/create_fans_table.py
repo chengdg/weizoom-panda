@@ -32,7 +32,6 @@ class Command(BaseCommand):
 				weibo_id = data['weibo_id'],
 				name = data['name'],
 				fans_url = data['fans_url'],
-				male = random.choice([True, False]),
 				purchasing_index = get_5_98_random(),
 				spread_index = get_5_98_random()
 			)
