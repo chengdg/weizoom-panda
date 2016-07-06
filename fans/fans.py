@@ -71,7 +71,7 @@ class Fans(resource.Resource):
 				fans = fans_id2fans[user_fans.fans_id]
 				status = user_fans.status
 				rows.append({
-					'recommend_time': user_fans.pushed_date.strftime("%Y-%m-%d %H:%M"),
+					'recommend_time': user_fans.pushed_date.strftime("%Y-%m-%d"),
 					'fans_pic': fans.fans_url,
 					'fans_id': fans.weibo_id,
 					'purchase_index': fans.purchasing_index * 10,
