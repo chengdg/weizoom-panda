@@ -31,11 +31,11 @@ class Command(BaseCommand):
 		elif day_of_week == 4:#周五
 			id_start_with = 9
 		if day_of_week != 4:
-			all_sellers_min = account_models.UserProfile.objects.filter(id__startswith=id_start_with_min,role=account_models.CUSTOMER)
-			all_sellers_max = account_models.UserProfile.objects.filter(id__startswith=id_start_with_max,role=account_models.CUSTOMER)
+			all_sellers_min = account_models.UserProfile.objects.filter(id__endswith=id_start_with_min,role=account_models.CUSTOMER)
+			all_sellers_max = account_models.UserProfile.objects.filter(id__endswith=id_start_with_max,role=account_models.CUSTOMER)
 			all_sellers = all_sellers_min | all_sellers_max
 		else:
-			all_sellers = account_models.UserProfile.objects.filter(id__startswith=id_start_with,role=account_models.CUSTOMER)
+			all_sellers = account_models.UserProfile.objects.filter(id__endswith=id_start_with,role=account_models.CUSTOMER)
 
 		#FOR TEST
 		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
