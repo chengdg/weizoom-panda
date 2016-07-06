@@ -148,7 +148,6 @@ var CustomerPage = React.createClass({
 					<Reactman.Table resource={productsResource} pagination={true} formatter={this.rowFormatter} expandRow={true} ref="table">
 						<Reactman.TableColumn name="投放日期" field="recommend_time" />
 						<Reactman.TableColumn name="粉丝" field="fans" />
-						<Reactman.TableColumn name="性别" field="sex" />
 						<Reactman.TableColumn name="购买指数" field="purchase_index" width='150'/>
 						<Reactman.TableColumn name="推荐传播指数" field="diffusion_index" width='150'/>
 						<Reactman.TableColumn name="状态" field="status" />

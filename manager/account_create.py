@@ -81,6 +81,7 @@ class AccountCreate(resource.Resource):
 			user = User.objects.create_user(username,username+'@weizoom.com',password)
 			user.first_name = name
 			user.save()
+			user_id = user.id
 			user_profile = UserProfile.objects.filter(user=user)
 			user_profile.update(
 				manager_id = request.user.id,
@@ -100,8 +101,16 @@ class AccountCreate(resource.Resource):
 						account_zypt_infos = res['data']
 					else:
 						print(res)
+						User.objects.filter(id=user_id).delete()
+						UserProfile.objects.filter(user_id=user_id).delete()
 				except Exception,e:
 					print(e)
+					User.objects.filter(id=user_id).delete()
+					UserProfile.objects.filter(user_id=user_id).delete()
+					response = create_response(500)
+					response.errMsg = u'创建账号失败'
+					response.innerErrMsg = unicode_full_stack()
+					return response.get_response()
 
 			if account_zypt_infos:
 				list_create = []
@@ -130,9 +139,16 @@ class AccountCreate(resource.Resource):
 								)
 						else:
 							print(res)
-							print "=====ssss====="
+							User.objects.filter(id=user_id).delete()
+							UserProfile.objects.filter(user_id=user_id).delete()
 					except Exception,e:
 						print(e)
+						User.objects.filter(id=user_id).delete()
+						UserProfile.objects.filter(user_id=user_id).delete()
+						response = create_response(500)
+						response.errMsg = u'创建账号失败'
+						response.innerErrMsg = unicode_full_stack()
+						return response.get_response()
 			response = create_response(200)
 		except Exception,e:
 			print(e)
