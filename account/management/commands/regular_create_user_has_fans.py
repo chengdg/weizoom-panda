@@ -60,14 +60,10 @@ class Command(BaseCommand):
 				'start_time': start_time,
 				'end_time': date_now
 			}
-			print (params)
-			print ('===================')
 			r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
 				orders = res['data']['orders']
-				print orders
-				print 'orders'
 				if orders:
 					for order in orders:
 						if order['supplier'] not in supplier_id2orders:
@@ -94,7 +90,8 @@ class Command(BaseCommand):
 			fans_count = int(total_order_number/0.2) #每次投放粉丝数
 			if fans_count < 210:
 				fans_count = 210 #投放人数下限不能低于210
-			
+			print ('fans_count')
+			print fans_count
 			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
 			if user_has_fans.count() > 0:
 				except_fans_ids = [u.fans_id for u in user_has_fans]
@@ -104,7 +101,8 @@ class Command(BaseCommand):
 			selected_fans_ids = []
 			all_fans_ids = [fan.id for fan in fans]
 			selected_fans_ids = random.sample(all_fans_ids,fans_count) #从id池中随机获取fans_count个元素
-			
+			print ('selected_fans_ids')
+			print selected_fans_ids
 			#已妥投，未阅读
 			delivered_fans_ids = selected_fans_ids[0:int(fans_count*0.18)]
 			list_create = []
@@ -140,8 +138,14 @@ class Command(BaseCommand):
 
 			#已下单
 			actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
+			print 'actual_ordered_fans_ids'
+			print actual_ordered_fans_ids
 			ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
+			print 'ordered_fans_ids'
+			print ordered_fans_ids
 			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
+			print 'recommend_fans_ids'
+			print recommend_fans_ids
 			#已下单，未推荐
 			list_create = []
 			i = 0
