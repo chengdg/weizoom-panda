@@ -47,51 +47,54 @@ class Command(BaseCommand):
 		for seller in all_sellers:
 			if user_id2brand_time.has_key(seller.user_id):
 				account_ids.append(seller.id)
-		
-		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
-		today_supplier_ids = []
-		supplier_id2orders = {}
-		for account_has_supplier in account_has_suppliers:
-			if str(account_has_supplier.supplier_id) not in today_supplier_ids:
-				today_supplier_ids.append(str(account_has_supplier.supplier_id))
-		print ("====="+'today create supplier ids:'+"=====")
-		print today_supplier_ids
-		print ("====================================")
-
-		try:
-			supplier_ids = '_'.join(today_supplier_ids)
-			date_now = "2016-7-6 0:0:0"
-			start_time = "2000-7-6 0:0:0"
-
-			params = {
-				'supplier_ids': supplier_ids,
-				'start_time': start_time,
-				'end_time': date_now
-			}
-			r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				orders = res['data']['orders']
-				if orders:
-					for order in orders:
-						if order['supplier'] not in supplier_id2orders:
-							supplier_id2orders[order['supplier']] = [order]
-						else:
-							supplier_id2orders[order['supplier']].append(order)
-		except Exception,e:
-			print(e)
-			print ("====="+'error in zeus'+"=====")
 
 		#根据每个今天需要投放的用户进行粉丝投放
 		push_sellers = all_sellers.filter(id__in=account_ids)
 		for seller in push_sellers:
+			account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=seller.id)
+			today_supplier_ids = []
+			supplier_id2orders = {}
 			if user_id2brand_time.has_key(seller.user_id):
 				brand_time = user_id2brand_time[seller.user_id]
-				date_now = datetime.datetime.now()
-				if (date_now-brand_time) > datetime.timedelta(days=35):
+				yesterday_time = datetime.datetime.now()-datetime.timedelta(days=1)
+				
+				if (yesterday_time-brand_time) > datetime.timedelta(days=35):
 					need_day = 35
+					start_time = brand_time
+					end_time = brand_time + datetime.timedelta(days=35)
 				else:
-					need_day = int((date_now-brand_time).days)
+					need_day = int((yesterday_time-brand_time).days)
+					start_time = brand_time
+					end_time = yesterday_time
+			
+			for account_has_supplier in account_has_suppliers:
+				if str(account_has_supplier.supplier_id) not in today_supplier_ids:
+					today_supplier_ids.append(str(account_has_supplier.supplier_id))
+			
+			print ("====="+'today create supplier ids:'+"=====")
+			print today_supplier_ids
+			print ("====================================")
+
+			try:
+				supplier_ids = '_'.join(today_supplier_ids)
+				params = {
+					'supplier_ids': supplier_ids,
+					'start_time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
+					'end_time': end_time.strftime("%Y-%m-%d %H:%M:%S")
+				}
+				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					orders = res['data']['orders']
+					if orders:
+						for order in orders:
+							if order['supplier'] not in supplier_id2orders:
+								supplier_id2orders[order['supplier']] = [order]
+							else:
+								supplier_id2orders[order['supplier']].append(order)
+			except Exception,e:
+				print(e)
+				print ("====="+'error in zeus'+"=====")
 
 			total_order_number = 0
 			supplier_ids = []
@@ -104,7 +107,11 @@ class Command(BaseCommand):
 					for order in supplier_id2orders[supplier_id]:
 						order_ids.append(order['order_id'])
 
-			fans_count = need_day*33 #每次投放粉丝数
+
+			fans_count = int(total_order_number/0.2)*need_day #每天每次投放粉丝数
+			if fans_count < 33*need_day:
+				fans_count = 33*need_day #投放人数下限不能低于33
+
 			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
 			if user_has_fans.count() > 0:
 				except_fans_ids = [u.fans_id for u in user_has_fans]
