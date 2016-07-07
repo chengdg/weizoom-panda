@@ -11,6 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from fans import models as fans_models
 from account import models as account_models
+from product import models as product_models
 from panda.settings import ZEUS_HOST
 
 class Command(BaseCommand):
@@ -40,7 +41,41 @@ class Command(BaseCommand):
 		#FOR TEST
 		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
-		account_ids = [seller.id for seller in all_sellers]
+		user_ids = [seller.user_id for seller in all_sellers]
+		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
+		product_ids = ['%s'%product.id for product in all_products]
+		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
+		
+		#获取用户id与panda商品id之间的关系
+		product_id2user_id = {}
+		for product in all_products:
+			if product.id not in product_id2user_id:
+				product_id2user_id[product.id] = product.owner_id
+		
+		#获取用户id与开始推广时间之间的关系
+		user_id2brand_time = {}
+		for product_has_relation in product_has_relations:
+			product_id = product_has_relation.product_id
+			user_id = product_id2user_id[product_id]
+			if user_id not in user_id2brand_time:
+				user_id2brand_time[user_id] = product_has_relation.created_at
+			else:
+				#选择同步数据库内时间最早的一条数据作为开始推广时间
+				if product_has_relation.created_at < user_id2brand_time[user_id]:
+					user_id2brand_time[user_id] = product_has_relation.created_at
+
+		#选择出需要投放的account_ids
+		account_ids = []
+		for seller in all_sellers:
+			if user_id2brand_time.has_key(seller.user_id):
+				brand_time = user_id2brand_time[seller.user_id]
+				date_now = datetime.datetime.now()
+				if (date_now-brand_time) > datetime.timedelta(days=35):
+					#已结超过35天推广期
+					pass
+				else:
+					account_ids.append(seller.id)
+		
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		today_supplier_ids = []
 		supplier_id2orders = {}
@@ -50,7 +85,7 @@ class Command(BaseCommand):
 		print ("====="+'today create supplier ids:'+"=====")
 		print today_supplier_ids
 		print ("====================================")
-		#请求接口，获得今天需要投放的供应商id本期(1周)对应的订单数
+		#请求接口，获得需要投放的供应商id本期(1天)对应的订单数
 		try:
 			today_supplier_ids = '_'.join(today_supplier_ids)
 			date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -76,7 +111,8 @@ class Command(BaseCommand):
 			print ("====="+'error in zeus'+"=====")
 
 		#根据每个今天需要投放的用户进行粉丝投放
-		for seller in all_sellers:
+		push_sellers = all_sellers.filter(id__in=account_ids)
+		for seller in push_sellers:
 			total_order_number = 0
 			supplier_ids = []
 			order_ids = []
