@@ -15,31 +15,31 @@ from panda.settings import ZEUS_HOST
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		day_of_week = datetime.datetime.now().weekday() #0-6是星期一到星期日
-		if day_of_week == 0:#周一
-			id_start_with_min = 1
-			id_start_with_max = 2
-		elif day_of_week == 1:#周二
-			id_start_with_min = 3
-			id_start_with_max = 4
-		elif day_of_week == 2:#周三
-			id_start_with_min = 5
-			id_start_with_max = 6
-		elif day_of_week == 3:#周四
-			id_start_with_min = 7
-			id_start_with_max = 8
-		elif day_of_week == 4:#周五
-			id_start_with = 9
-		if day_of_week != 4:
-			all_sellers_min = account_models.UserProfile.objects.filter(id__endswith=id_start_with_min,role=account_models.CUSTOMER)
-			all_sellers_max = account_models.UserProfile.objects.filter(id__endswith=id_start_with_max,role=account_models.CUSTOMER)
-			all_sellers = all_sellers_min | all_sellers_max
-		else:
-			all_sellers = account_models.UserProfile.objects.filter(id__endswith=id_start_with,role=account_models.CUSTOMER)
+		# day_of_week = datetime.datetime.now().weekday() #0-6是星期一到星期日
+		# if day_of_week == 0:#周一
+		# 	id_start_with_min = 1
+		# 	id_start_with_max = 2
+		# elif day_of_week == 1:#周二
+		# 	id_start_with_min = 3
+		# 	id_start_with_max = 4
+		# elif day_of_week == 2:#周三
+		# 	id_start_with_min = 5
+		# 	id_start_with_max = 6
+		# elif day_of_week == 3:#周四
+		# 	id_start_with_min = 7
+		# 	id_start_with_max = 8
+		# elif day_of_week == 4:#周五
+		# 	id_start_with = 9
+		# if day_of_week != 4:
+		# 	all_sellers_min = account_models.UserProfile.objects.filter(id__endswith=id_start_with_min,role=account_models.CUSTOMER)
+		# 	all_sellers_max = account_models.UserProfile.objects.filter(id__endswith=id_start_with_max,role=account_models.CUSTOMER)
+		# 	all_sellers = all_sellers_min | all_sellers_max
+		# else:
+		# 	all_sellers = account_models.UserProfile.objects.filter(id__endswith=id_start_with,role=account_models.CUSTOMER)
 
 		#FOR TEST
 		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
-
+		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
 		account_ids = [seller.id for seller in all_sellers]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		today_supplier_ids = []
@@ -54,7 +54,7 @@ class Command(BaseCommand):
 		try:
 			today_supplier_ids = '_'.join(today_supplier_ids)
 			date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-			start_time = (datetime.datetime.now()-datetime.timedelta(weeks=1)).strftime("%Y-%m-%d %H:%M:%S")
+			start_time = (datetime.datetime.now()-datetime.timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
 
 			params = {
 				'supplier_ids': today_supplier_ids,
@@ -89,14 +89,14 @@ class Command(BaseCommand):
 						order_ids.append(order['order_id'])
 
 			fans_count = int(total_order_number/0.2) #每次投放粉丝数
-			if fans_count < 210:
-				fans_count = 210 #投放人数下限不能低于210
+			if fans_count < 33:
+				fans_count = 33 #投放人数下限不能低于33
 			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
 			if user_has_fans.count() > 0:
 				except_fans_ids = [u.fans_id for u in user_has_fans]
 				fans = fans_models.Fans.objects.all().exclude(id__in=except_fans_ids)[0:fans_count+500]
 			else:
-				fans = fans_models.Fans.objects.all()[0:fans_count+1000]
+				fans = fans_models.Fans.objects.all()[0:fans_count+500]
 			selected_fans_ids = []
 			all_fans_ids = [fan.id for fan in fans]
 			selected_fans_ids = random.sample(all_fans_ids,fans_count) #从id池中随机获取fans_count个元素
