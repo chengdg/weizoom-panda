@@ -84,8 +84,8 @@ def getCustomerData(request,is_export):
 	product_id2name = {product.id:product.product_name for product in products}
 	#从云商通获取销量
 	id2sales = sales_from_weapp(product_has_relations)
-	
-	account_has_suppliers = AccountHasSupplier.objects.all()
+	account_ids = [user_profile.id for user_profile in user_profiles]
+	account_has_suppliers = AccountHasSupplier.objects.filter(account_id__in=account_ids)
 	supplier_ids = []
 	for account_has_supplier in account_has_suppliers:
 		if str(account_has_supplier.supplier_id) not in supplier_ids:
@@ -115,7 +115,7 @@ def getCustomerData(request,is_export):
 		params = {
 			'supplier_ids': supplier_ids
 		}
-		r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
+		r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
 		res = json.loads(r.text)
 		if res['code'] == 200:
 			orders = res['data']['orders']
