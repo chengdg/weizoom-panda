@@ -119,8 +119,6 @@ def getCustomerData(request,is_export):
 		res = json.loads(r.text)
 		if res['code'] == 200:
 			orders = res['data']['orders']
-			print ('orders:')
-			print (orders)
 			if orders:
 				for order in orders:
 					if int(order['status']) in [3,4,5]:
@@ -181,7 +179,7 @@ def getCustomerData(request,is_export):
 			'total_coupon_money': '%.2f' %total_coupon_money,
 			'total_final_price': '%.2f' %total_final_price,
 			'total_order_money': '%.2f' %total_order_money,
-			'brand_time': '' if not brand_time else brand_time[0].strftime("%Y-%m-%d"),
+			'brand_time': '' if not brand_time else min(brand_time).strftime("%Y-%m-%d"),
 			'feedback': u'查看报告',
 			'product_infos': json.dumps(product_infos)
 		})
