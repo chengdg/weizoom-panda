@@ -101,7 +101,7 @@ class ProductRelation(resource.Resource):
 							'height': 100
 						})
 				print ('+++user_ids+++:',user_ids)
-				print ('+++suppliers+++:',suppliers)
+				print ('+++suppliers+++:',supplier_ids)
 				product_price = float(product_data[0]['product_price'])
 				stock_type = 1 if int(product_data[0]['product_store']) > -1 else 0
 				params = {
