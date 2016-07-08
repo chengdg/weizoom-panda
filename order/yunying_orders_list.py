@@ -141,6 +141,7 @@ class YunyingOrdersList(resource.Resource):
 		supplier_ids = '_'.join(supplier_ids)
 		rows = []
 		if supplier_ids != '':
+			# try:
 			#请求接口获得数据
 			if is_for_list:
 				if is_search_product_name:
@@ -224,53 +225,57 @@ class YunyingOrdersList(resource.Resource):
 					return response.get_response()
 
 			for order in orders:
-				order_status = order['status']
-				if ((order_status in [3,4,5,6,7]) or (order_status==1 and order['payment_time']!='')):
-					return_product_infos = order['products']
-					product_infos = []
-					if is_for_list:
-						total_purchase_price = 0
-						for return_product_info in return_product_infos:
-							product_id = str(return_product_info['id'])
-							total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
-							if product_weapp_id2product_name.has_key(product_id):
-								product_name = product_weapp_id2product_name[product_id]
-								if return_product_info['model_names']:
-									model_names = '_'.join(return_product_info['model_names'])
-									product_infos.append(
-										product_name +','+str(return_product_info['count'])+u'件'+','+model_names
-									)
-								else:
-									product_infos.append(
-										product_name +','+str(return_product_info['count'])+u'件'
-									)
+				return_product_infos = order['products']
+				product_infos = []
+				if is_for_list:
+					total_purchase_price = 0
+					for return_product_info in return_product_infos:
+						product_id = str(return_product_info['id'])
+						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+						if product_weapp_id2product_name.has_key(product_id):
+							product_name = product_weapp_id2product_name[product_id]
+							if return_product_info['model_names']:
+								model_names = '_'.join(return_product_info['model_names'])
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'+','+model_names
+								)
 							else:
-								#panda里面没有商品数据
-								if return_product_info['model_names']:
-									model_names = '_'.join(return_product_info['model_names'])
-									product_infos.append(
-										return_product_info['name'] +','+str(return_product_info['count'])+u'件'+','+model_names
-									)
-								else:
-									product_infos.append(
-										return_product_info['name'] +','+str(return_product_info['count'])+u'件'
-									)
-						product_infos = ';'.join(product_infos)
-						webapp_id = order['webapp_id']
-						rows.append({
-							'order_id': order['order_id'],
-							'product_name': product_infos,
-							'total_purchase_price': str('%.2f' % total_purchase_price),
-							'customer_name': supplier_id2seller_name[str(order['supplier'])],
-							'from_mall': webapp_id2store_name[webapp_id],
-							'order_status': order_status2text[order['status']]
-						})
-					else:
-						rows.append({
-							'order_id': order['order_id'],
-							'express_company_name': order['express_company_name'],
-							'express_number': order['express_number']
-						})
+								product_infos.append(
+									product_name +','+str(return_product_info['count'])+u'件'
+								)
+						else:
+							#panda里面没有商品数据
+							if return_product_info['model_names']:
+								model_names = '_'.join(return_product_info['model_names'])
+								product_infos.append(
+									return_product_info['name'] +','+str(return_product_info['count'])+u'件'+','+model_names
+								)
+							else:
+								product_infos.append(
+									return_product_info['name'] +','+str(return_product_info['count'])+u'件'
+								)
+					product_infos = ';'.join(product_infos)
+					webapp_id = order['webapp_id']
+					rows.append({
+						'order_id': order['order_id'],
+						'product_name': product_infos,
+						'total_purchase_price': str('%.2f' % total_purchase_price),
+						'customer_name': supplier_id2seller_name[str(order['supplier'])],
+						'from_mall': webapp_id2store_name[webapp_id],
+						'order_status': order_status2text[order['status']]
+					})
+				else:
+					rows.append({
+						'order_id': order['order_id'],
+						'express_company_name': order['express_company_name'],
+						'express_number': order['express_number']
+					})
+			# except Exception,e:
+			# 	print('eeeeeeeeeeeeeeeeeee')
+			# 	print(e)
+			# 	orders = []
+			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)

@@ -134,6 +134,7 @@ class CustomerOrdersList(resource.Resource):
 		print(supplier_ids)
 		rows = []
 		if supplier_ids != '':
+			# try:
 			#请求接口获得数据
 			if is_for_list:
 				if is_search_product_name:
@@ -195,65 +196,69 @@ class CustomerOrdersList(resource.Resource):
 					return response.get_response()
 
 			for order in orders:
-				order_status = order['status']
-				if ((order_status in [3,4,5,6,7]) or (order_status==1 and order['payment_time']!='')):
-					order_id = order['order_id']
-					product_infos = []
-					return_product_infos = order['products'] #返回的订单数据，包含了所需要的product信息
-					total_weight = 0
-					total_purchase_price = 0
-					for return_product_info in return_product_infos:
-						product_id = str(return_product_info['id'])
-						if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
-							product_infos.append({
-								'product_name': product_weapp_id2info[product_id][0]['product_name'],
-								'product_img': product_weapp_id2info[product_id][0]['product_img'],
-								'purchase_price': return_product_info['price'],
-								'count': return_product_info['count'],
-								'total_price': return_product_info['total_price']
-							})
-						else:
-							product_infos.append({
-								'product_name': return_product_info['name'],
-								'product_img': return_product_info['thumbnails_url'],
-								'purchase_price': return_product_info['price'],
-								'count': return_product_info['count'],
-								'total_price': return_product_info['total_price']
-							})
-						if not is_for_list:
-							total_weight +=  return_product_info['weight']
-						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额	
-					
-					if is_for_list:
-						rows.append({
-							'order_id': order_id,
-							'order_create_at': order['created_at'],
-							'ship_name': order['ship_name'],
-							'total_purchase_price': str('%.2f' % total_purchase_price),
-							'status': order_status2text[order['status']],
-							'product_infos': json.dumps(product_infos),
-							'express_company_name': order['express_company_name'],
-							'express_number': order['express_number'],
-							'leader_name': order['leader_name']
+				order_id = order['order_id']
+				product_infos = []
+				return_product_infos = order['products'] #返回的订单数据，包含了所需要的product信息
+				total_weight = 0
+				total_purchase_price = 0
+				for return_product_info in return_product_infos:
+					product_id = str(return_product_info['id'])
+					if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
+						product_infos.append({
+							'product_name': product_weapp_id2info[product_id][0]['product_name'],
+							'product_img': product_weapp_id2info[product_id][0]['product_img'],
+							'purchase_price': return_product_info['price'],
+							'count': return_product_info['count'],
+							'total_price': return_product_info['total_price']
 						})
 					else:
-						rows.append({
-							'order_id': order_id,
-							'order_create_at': order['created_at'],
-							'ship_name': order['ship_name'],
-							'total_purchase_price': str('%.2f' % total_purchase_price),
-							'total_weight': total_weight,
-							'status': order_status2text[order['status']],
-							'product_infos': json.dumps(product_infos),
-							'express_company_name': order['express_company_name'],
-							'express_number': order['express_number'],
-							'leader_name': order['leader_name'],
-							'ship_tel': order['ship_tel'],
-							'ship_address': order['ship_address'],
-							'ship_area': order['ship_area'],
-							'delivery_time': order['delivery_time'],
-							'customer_message': order['customer_message']
+						product_infos.append({
+							'product_name': return_product_info['name'],
+							'product_img': return_product_info['thumbnails_url'],
+							'purchase_price': return_product_info['price'],
+							'count': return_product_info['count'],
+							'total_price': return_product_info['total_price']
 						})
+					if not is_for_list:
+						total_weight +=  return_product_info['weight']
+					total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额	
+				
+				if is_for_list:
+					rows.append({
+						'order_id': order_id,
+						'order_create_at': order['created_at'],
+						'ship_name': order['ship_name'],
+						'total_purchase_price': str('%.2f' % total_purchase_price),
+						'status': order_status2text[order['status']],
+						'product_infos': json.dumps(product_infos),
+						'express_company_name': order['express_company_name'],
+						'express_number': order['express_number'],
+						'leader_name': order['leader_name']
+					})
+				else:
+					rows.append({
+						'order_id': order_id,
+						'order_create_at': order['created_at'],
+						'ship_name': order['ship_name'],
+						'total_purchase_price': str('%.2f' % total_purchase_price),
+						'total_weight': total_weight,
+						'status': order_status2text[order['status']],
+						'product_infos': json.dumps(product_infos),
+						'express_company_name': order['express_company_name'],
+						'express_number': order['express_number'],
+						'leader_name': order['leader_name'],
+						'ship_tel': order['ship_tel'],
+						'ship_address': order['ship_address'],
+						'ship_area': order['ship_area'],
+						'delivery_time': order['delivery_time'],
+						'customer_message': order['customer_message']
+					})
+			# except Exception,e:
+			# 	print('eeeeeeeeeeeeeeeeeee')
+			# 	print(e)
+			# 	orders = []
+			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
+			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
