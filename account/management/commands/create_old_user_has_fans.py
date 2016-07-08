@@ -20,9 +20,9 @@ from panda.settings import ZEUS_HOST
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		#FOR TEST
-		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
+		#FOR TEST,zhangxue
+		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]
@@ -61,7 +61,6 @@ class Command(BaseCommand):
 			if user_id2brand_time.has_key(seller.user_id):
 				brand_time = user_id2brand_time[seller.user_id]
 				yesterday_time = datetime.datetime.now()-datetime.timedelta(days=1)
-				
 				if (yesterday_time-brand_time) > datetime.timedelta(days=35):
 					need_day = 35
 					start_time = brand_time
