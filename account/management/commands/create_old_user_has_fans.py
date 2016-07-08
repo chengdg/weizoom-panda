@@ -20,7 +20,7 @@ from panda.settings import ZEUS_HOST
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
+		all_sellers = account_models.UserProfile.objects.filter(id__gte=195,role=account_models.CUSTOMER)
 		#FOR TEST,zhangxue
 		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
@@ -70,141 +70,144 @@ class Command(BaseCommand):
 					start_time = brand_time
 					end_time = yesterday_time
 			
-			for account_has_supplier in account_has_suppliers:
-				if str(account_has_supplier.supplier_id) not in today_supplier_ids:
-					today_supplier_ids.append(str(account_has_supplier.supplier_id))
-			
-			print ("====="+'today create supplier ids:'+"=====")
-			print today_supplier_ids
-			print ("====================================")
+			if need_day > 0 :
+				for account_has_supplier in account_has_suppliers:
+					if str(account_has_supplier.supplier_id) not in today_supplier_ids:
+						today_supplier_ids.append(str(account_has_supplier.supplier_id))
+				
+				print ("====="+'today create supplier ids:'+"=====")
+				print today_supplier_ids
+				print ("====================================")
 
-			try:
-				supplier_ids = '_'.join(today_supplier_ids)
-				params = {
-					'supplier_ids': supplier_ids,
-					'start_time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
-					'end_time': end_time.strftime("%Y-%m-%d %H:%M:%S")
-				}
-				r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
-				res = json.loads(r.text)
-				if res['code'] == 200:
-					orders = res['data']['orders']
-					if orders:
-						for order in orders:
-							order_status = order['status']
-							if order_status in [3,4,5]:#订单数只统计【待发货、已发货、已完成】
-								if order['supplier'] not in supplier_id2orders:
-									supplier_id2orders[order['supplier']] = [order]
-								else:
-									supplier_id2orders[order['supplier']].append(order)
-			except Exception,e:
-				print(e)
-				print ("====="+'error in zeus'+"=====")
+				try:
+					supplier_ids = '_'.join(today_supplier_ids)
+					params = {
+						'supplier_ids': supplier_ids,
+						'start_time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
+						'end_time': end_time.strftime("%Y-%m-%d %H:%M:%S")
+					}
+					r = requests.post(ZEUS_HOST+'/panda/order_export_by_supplier/',data=params)
+					res = json.loads(r.text)
+					if res['code'] == 200:
+						orders = res['data']['orders']
+						if orders:
+							for order in orders:
+								order_status = order['status']
+								if order_status in [3,4,5]:#订单数只统计【待发货、已发货、已完成】
+									if order['supplier'] not in supplier_id2orders:
+										supplier_id2orders[order['supplier']] = [order]
+									else:
+										supplier_id2orders[order['supplier']].append(order)
+				except Exception,e:
+					print(e)
+					print ("====="+'error in zeus'+"=====")
 
-			total_order_number = 0
-			supplier_ids = []
-			order_ids = []
-			supplier = account_models.AccountHasSupplier.objects.filter(account_id=seller.id)
-			supplier_ids = [s.supplier_id for s in supplier]
-			for supplier_id in supplier_ids:
-				if supplier_id in supplier_id2orders:
-					total_order_number += len(supplier_id2orders[supplier_id])
-					for order in supplier_id2orders[supplier_id]:
-						order_ids.append(order['order_id'])
+				total_order_number = 0
+				supplier_ids = []
+				order_ids = []
+				supplier = account_models.AccountHasSupplier.objects.filter(account_id=seller.id)
+				supplier_ids = [s.supplier_id for s in supplier]
+				for supplier_id in supplier_ids:
+					if supplier_id in supplier_id2orders:
+						total_order_number += len(supplier_id2orders[supplier_id])
+						for order in supplier_id2orders[supplier_id]:
+							order_ids.append(order['order_id'])
+				if total_order_number > 0:
+					fans_count_per_day = int(total_order_number/need_day/0.2)
+				else:
+					total_order_number = 0
+				if fans_count_per_day < 33:
+					fans_count = 33*need_day #投放人数下限不能低于33
+				else:
+					fans_count = int(total_order_number/need_day/0.2)*need_day
 
-			fans_count_per_day = int(total_order_number/need_day/0.2)
-			if fans_count_per_day < 33:
-				fans_count = 33*need_day #投放人数下限不能低于33
-			else:
-				fans_count = int(total_order_number/need_day/0.2)*need_day
+				user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
+				if user_has_fans.count() > 0:
+					except_fans_ids = [u.fans_id for u in user_has_fans]
+					fans = fans_models.Fans.objects.all().exclude(id__in=except_fans_ids)[0:fans_count+500]
+				else:
+					fans = fans_models.Fans.objects.all()[0:fans_count+500]
+				selected_fans_ids = []
+				all_fans_ids = [fan.id for fan in fans]
+				selected_fans_ids = random.sample(all_fans_ids,fans_count) #从id池中随机获取fans_count个元素
 
-			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
-			if user_has_fans.count() > 0:
-				except_fans_ids = [u.fans_id for u in user_has_fans]
-				fans = fans_models.Fans.objects.all().exclude(id__in=except_fans_ids)[0:fans_count+500]
-			else:
-				fans = fans_models.Fans.objects.all()[0:fans_count+500]
-			selected_fans_ids = []
-			all_fans_ids = [fan.id for fan in fans]
-			selected_fans_ids = random.sample(all_fans_ids,fans_count) #从id池中随机获取fans_count个元素
-
-			#已妥投，未阅读
-			delivered_fans_ids = selected_fans_ids[0:int(fans_count*0.18)]
-			list_create = []
-			for delivered_fans_id in delivered_fans_ids:
-				list_create.append(fans_models.UserHasFans(
-					user_id = seller.user_id,
-					fans_id = delivered_fans_id,
-					status = fans_models.DELIVERED
-				))
-			fans_models.UserHasFans.objects.bulk_create(list_create)
-			
-			#已阅读，未分享
-			readed_fans_ids = selected_fans_ids[int(fans_count*0.18):int(fans_count*0.25)]
-			list_create = []
-			for readed_fans_id in readed_fans_ids:
-				list_create.append(fans_models.UserHasFans(
-					user_id = seller.user_id,
-					fans_id = readed_fans_id,
-					status = fans_models.READED
-				))
-			fans_models.UserHasFans.objects.bulk_create(list_create)
-			
-			#已阅读，已分享
-			shared_fans_ids = selected_fans_ids[int(fans_count*0.25):int(fans_count*0.37)]
-			list_create = []
-			for shared_fans_id in shared_fans_ids:
-				list_create.append(fans_models.UserHasFans(
-					user_id = seller.user_id,
-					fans_id = shared_fans_id,
-					status = fans_models.SHARED
-				))
-			fans_models.UserHasFans.objects.bulk_create(list_create)
-
-			#已下单
-			actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
-			ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
-			recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
-			#已下单，未推荐
-			list_create = []
-			ordered_index = 0
-			for ordered_fans_id in ordered_fans_ids:
-				list_create.append(fans_models.UserHasFans(
-					user_id = seller.user_id,
-					fans_id = ordered_fans_id,
-					status = fans_models.ORDERED,
-					related_order_id = order_ids[ordered_index]
-				))
-				ordered_index += 1
-
-			fans_models.UserHasFans.objects.bulk_create(list_create)
-			
-			
-			#已下单，已推荐
-			list_create = []
-			recommend_index = ordered_index
-			for recommend_fans_id in recommend_fans_ids:
-				list_create.append(fans_models.UserHasFans(
-					user_id = seller.user_id,
-					fans_id = recommend_fans_id,
-					status = fans_models.RECOMMEND,
-					related_order_id = order_ids[recommend_index]
-				))
-				recommend_index += 1
-			fans_models.UserHasFans.objects.bulk_create(list_create)
-			already_create_fans_ids = delivered_fans_ids+readed_fans_ids+shared_fans_ids+ordered_fans_ids+recommend_fans_ids
-			remain_fans_ids = list(set(selected_fans_ids).difference(set(already_create_fans_ids)))
-			if len(remain_fans_ids)>0:
-				#如果还有剩余未投放的粉丝（订单数过少导致）
 				#已妥投，未阅读
+				delivered_fans_ids = selected_fans_ids[0:int(fans_count*0.18)]
 				list_create = []
-				for remain_fans_id in remain_fans_ids:
+				for delivered_fans_id in delivered_fans_ids:
 					list_create.append(fans_models.UserHasFans(
 						user_id = seller.user_id,
-						fans_id = remain_fans_id,
+						fans_id = delivered_fans_id,
 						status = fans_models.DELIVERED
 					))
 				fans_models.UserHasFans.objects.bulk_create(list_create)
+				
+				#已阅读，未分享
+				readed_fans_ids = selected_fans_ids[int(fans_count*0.18):int(fans_count*0.25)]
+				list_create = []
+				for readed_fans_id in readed_fans_ids:
+					list_create.append(fans_models.UserHasFans(
+						user_id = seller.user_id,
+						fans_id = readed_fans_id,
+						status = fans_models.READED
+					))
+				fans_models.UserHasFans.objects.bulk_create(list_create)
+				
+				#已阅读，已分享
+				shared_fans_ids = selected_fans_ids[int(fans_count*0.25):int(fans_count*0.37)]
+				list_create = []
+				for shared_fans_id in shared_fans_ids:
+					list_create.append(fans_models.UserHasFans(
+						user_id = seller.user_id,
+						fans_id = shared_fans_id,
+						status = fans_models.SHARED
+					))
+				fans_models.UserHasFans.objects.bulk_create(list_create)
+
+				#已下单
+				actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
+				ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
+				recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
+				#已下单，未推荐
+				list_create = []
+				ordered_index = 0
+				for ordered_fans_id in ordered_fans_ids:
+					list_create.append(fans_models.UserHasFans(
+						user_id = seller.user_id,
+						fans_id = ordered_fans_id,
+						status = fans_models.ORDERED,
+						related_order_id = order_ids[ordered_index]
+					))
+					ordered_index += 1
+
+				fans_models.UserHasFans.objects.bulk_create(list_create)
+				
+				
+				#已下单，已推荐
+				list_create = []
+				recommend_index = ordered_index
+				for recommend_fans_id in recommend_fans_ids:
+					list_create.append(fans_models.UserHasFans(
+						user_id = seller.user_id,
+						fans_id = recommend_fans_id,
+						status = fans_models.RECOMMEND,
+						related_order_id = order_ids[recommend_index]
+					))
+					recommend_index += 1
+				fans_models.UserHasFans.objects.bulk_create(list_create)
+				already_create_fans_ids = delivered_fans_ids+readed_fans_ids+shared_fans_ids+ordered_fans_ids+recommend_fans_ids
+				remain_fans_ids = list(set(selected_fans_ids).difference(set(already_create_fans_ids)))
+				if len(remain_fans_ids)>0:
+					#如果还有剩余未投放的粉丝（订单数过少导致）
+					#已妥投，未阅读
+					list_create = []
+					for remain_fans_id in remain_fans_ids:
+						list_create.append(fans_models.UserHasFans(
+							user_id = seller.user_id,
+							fans_id = remain_fans_id,
+							status = fans_models.DELIVERED
+						))
+					fans_models.UserHasFans.objects.bulk_create(list_create)
 
 			print ("====="+'create user_has_fans success, account_id:' + str(seller.id) +"=====")
 			print ("====="+'create user_has_fans success, need_day:' + str(need_day) +"=====")
