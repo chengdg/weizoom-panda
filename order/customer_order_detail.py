@@ -93,7 +93,7 @@ class CustomerOrderDetail(resource.Resource):
 			product['purchase_price'] = '%.2f' %product['purchase_price']
 			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
-			product['product_name'] = '' if product_id not in product_id2name else product_id2name[product_id]
+			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
 		express_details = ''
 		if data['express_details']:
 			express_details = json.dumps(data['express_details'])
