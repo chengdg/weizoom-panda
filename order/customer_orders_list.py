@@ -211,10 +211,18 @@ class CustomerOrdersList(resource.Resource):
 							'count': return_product_info['count'],
 							'total_price': return_product_info['total_price']
 						})
-						if not is_for_list:
-							total_weight +=  return_product_info['weight']
-						total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
-
+					else:
+						product_infos.append({
+							'product_name': return_product_info['name'],
+							'product_img': return_product_info['thumbnails_url'],
+							'purchase_price': return_product_info['price'],
+							'count': return_product_info['count'],
+							'total_price': return_product_info['total_price']
+						})
+					if not is_for_list:
+						total_weight +=  return_product_info['weight']
+					total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额	
+				
 				if is_for_list:
 					rows.append({
 						'order_id': order_id,

@@ -243,6 +243,17 @@ class YunyingOrdersList(resource.Resource):
 								product_infos.append(
 									product_name +','+str(return_product_info['count'])+u'件'
 								)
+						else:
+							#panda里面没有商品数据
+							if return_product_info['model_names']:
+								model_names = '_'.join(return_product_info['model_names'])
+								product_infos.append(
+									return_product_info['name'] +','+str(return_product_info['count'])+u'件'+','+model_names
+								)
+							else:
+								product_infos.append(
+									return_product_info['name'] +','+str(return_product_info['count'])+u'件'
+								)
 					product_infos = ';'.join(product_infos)
 					webapp_id = order['webapp_id']
 					rows.append({
