@@ -105,9 +105,9 @@ def getCustomerData(request,is_export):
 	for product_has_relation in product_has_relations:
 		product_id = product_has_relation.product_id
 		if product_id not in product_id2time:
-			product_id2time[product_id] = [product_has_relation.created_at]
+			product_id2time[product_id] = [product_has_relation.created_at.strftime("%Y-%m-%d")]
 		else:
-			product_id2time[product_id].append(product_has_relation.created_at)
+			product_id2time[product_id].append(product_has_relation.created_at.strftime("%Y-%m-%d"))
 	id2orders = {}		
 	supplier_ids = '_'.join(supplier_ids)
 	api_pids = '_'.join(api_pids)
@@ -150,13 +150,14 @@ def getCustomerData(request,is_export):
 			for product_id in product_ids:
 				name = '' if product_id not in product_id2name else product_id2name[product_id]
 				sale = 0 if product_id not in id2sales else id2sales[product_id]
-				time = '' if product_id not in product_id2time else product_id2time[product_id]
-				brand_time.append(time[0])
+				times = '' if product_id not in product_id2time else product_id2time[product_id]
+				if times:
+					brand_time.extend(times)
 				total_sales += sale
 				product_infos.append({
 					'name': name,
 					'sales': '%s' %sale,
-					'time': '' if not time else time[0].strftime("%Y-%m-%d")
+					'time': '' if not times else min(times)
 				})
 				if product_id in id2orders:
 					orders = id2orders[product_id]
@@ -178,7 +179,7 @@ def getCustomerData(request,is_export):
 			'total_coupon_money': '%.2f' %total_coupon_money,
 			'total_final_price': '%.2f' %total_final_price,
 			'total_order_money': '%.2f' %total_order_money,
-			'brand_time': '' if not brand_time else min(brand_time).strftime("%Y-%m-%d"),
+			'brand_time': '' if not brand_time else min(brand_time),
 			'feedback': u'查看报告',
 			'product_infos': json.dumps(product_infos)
 		})
