@@ -14,6 +14,10 @@ from account import models as account_models
 from product import models as product_models
 from panda.settings import ZEUS_HOST
 
+#####################################
+#创建历史的粉丝投放数据
+#####################################
+
 class Command(BaseCommand):
 	def handle(self, **options):
 		#FOR TEST
