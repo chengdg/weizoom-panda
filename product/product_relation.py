@@ -57,7 +57,7 @@ class ProductRelation(resource.Resource):
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		products = models.Product.objects.all().order_by('-id')
 		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
-		product_images = models.ProductImage.objects.all().order_by('-id')
+		product_images = models.ProductImage.objects.all().order_by('id')
 		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_idct.get('product_name','')
@@ -92,7 +92,7 @@ class ProductRelation(resource.Resource):
 				product_id2image_id[product.product_id] = [product.image_id]
 			else:
 				product_id2image_id[product.product_id].append(product.image_id)
-		for image in resource_models.Image.objects.all():
+		for image in resource_models.Image.objects.all().order_by('id'):
 			image_id2images[image.id] = image.path
 		
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])

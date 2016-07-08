@@ -14,11 +14,15 @@ from account import models as account_models
 from product import models as product_models
 from panda.settings import ZEUS_HOST
 
+#####################################
+#创建历史的粉丝投放数据
+#####################################
+
 class Command(BaseCommand):
 	def handle(self, **options):
-		#FOR TEST
-		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
+		#FOR TEST,zhangxue
+		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]
@@ -57,7 +61,6 @@ class Command(BaseCommand):
 			if user_id2brand_time.has_key(seller.user_id):
 				brand_time = user_id2brand_time[seller.user_id]
 				yesterday_time = datetime.datetime.now()-datetime.timedelta(days=1)
-				
 				if (yesterday_time-brand_time) > datetime.timedelta(days=35):
 					need_day = 35
 					start_time = brand_time
@@ -88,10 +91,12 @@ class Command(BaseCommand):
 					orders = res['data']['orders']
 					if orders:
 						for order in orders:
-							if order['supplier'] not in supplier_id2orders:
-								supplier_id2orders[order['supplier']] = [order]
-							else:
-								supplier_id2orders[order['supplier']].append(order)
+							order_status = order['status']
+							if order_status in [3,4,5]:#订单数只统计【待发货、已发货、已完成】
+								if order['supplier'] not in supplier_id2orders:
+									supplier_id2orders[order['supplier']] = [order]
+								else:
+									supplier_id2orders[order['supplier']].append(order)
 			except Exception,e:
 				print(e)
 				print ("====="+'error in zeus'+"=====")

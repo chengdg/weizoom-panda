@@ -14,33 +14,15 @@ from account import models as account_models
 from product import models as product_models
 from panda.settings import ZEUS_HOST
 
+#####################################
+#每天投放粉丝
+#####################################
+
 class Command(BaseCommand):
 	def handle(self, **options):
-		# day_of_week = datetime.datetime.now().weekday() #0-6是星期一到星期日
-		# if day_of_week == 0:#周一
-		# 	id_start_with_min = 1
-		# 	id_start_with_max = 2
-		# elif day_of_week == 1:#周二
-		# 	id_start_with_min = 3
-		# 	id_start_with_max = 4
-		# elif day_of_week == 2:#周三
-		# 	id_start_with_min = 5
-		# 	id_start_with_max = 6
-		# elif day_of_week == 3:#周四
-		# 	id_start_with_min = 7
-		# 	id_start_with_max = 8
-		# elif day_of_week == 4:#周五
-		# 	id_start_with = 9
-		# if day_of_week != 4:
-		# 	all_sellers_min = account_models.UserProfile.objects.filter(id__endswith=id_start_with_min,role=account_models.CUSTOMER)
-		# 	all_sellers_max = account_models.UserProfile.objects.filter(id__endswith=id_start_with_max,role=account_models.CUSTOMER)
-		# 	all_sellers = all_sellers_min | all_sellers_max
-		# else:
-		# 	all_sellers = account_models.UserProfile.objects.filter(id__endswith=id_start_with,role=account_models.CUSTOMER)
-
-		#FOR TEST
-		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
+		# FOR TEST,zhangxue
+		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]
@@ -102,10 +84,12 @@ class Command(BaseCommand):
 				orders = res['data']['orders']
 				if orders:
 					for order in orders:
-						if order['supplier'] not in supplier_id2orders:
-							supplier_id2orders[order['supplier']] = [order]
-						else:
-							supplier_id2orders[order['supplier']].append(order)
+						order_status = order['status']
+						if order_status in [3,4,5]:#订单数只统计【待发货、已发货、已完成】
+							if order['supplier'] not in supplier_id2orders:
+								supplier_id2orders[order['supplier']] = [order]
+							else:
+								supplier_id2orders[order['supplier']].append(order)
 		except Exception,e:
 			print(e)
 			print ("====="+'error in zeus'+"=====")
