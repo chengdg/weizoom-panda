@@ -24,7 +24,11 @@ class Command(BaseCommand):
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]
 		product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
-		weapp_product_ids = [product_has_relation.weapp_product_id for product_has_relation in product_has_relations]
+		weapp_product_ids = []
+		for product_has_relation in product_has_relations:
+			product_id = product_has_relation.weapp_product_id.split(';')
+			for p in product_id:
+				weapp_product_ids.append(p)
 		try:
 			weapp_product_ids = '_'.join(weapp_product_ids)
 			params = {
