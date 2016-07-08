@@ -145,13 +145,13 @@ def getCustomerData(request,is_export):
 		total_order_number = 0 #订单数
 		total_final_price = 0 #现金
 		total_order_money = 0 #总金额
-		brand_time = ''
+		brand_time = []
 		if product_ids:
 			for product_id in product_ids:
 				name = '' if product_id not in product_id2name else product_id2name[product_id]
 				sale = 0 if product_id not in id2sales else id2sales[product_id]
 				time = '' if product_id not in product_id2time else product_id2time[product_id]
-				brand_time = time
+				brand_time.append(time[0])
 				total_sales += sale
 				product_infos.append({
 					'name': name,
@@ -169,7 +169,6 @@ def getCustomerData(request,is_export):
 						for product in products:
 							order_money = product['count'] * product['purchase_price']
 							total_order_money += order_money
-
 		rows.append({
 			'user_id': user.user_id,
 			'customer_name': user.name,
