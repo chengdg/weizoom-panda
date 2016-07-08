@@ -92,10 +92,12 @@ class Command(BaseCommand):
 					orders = res['data']['orders']
 					if orders:
 						for order in orders:
-							if order['supplier'] not in supplier_id2orders:
-								supplier_id2orders[order['supplier']] = [order]
-							else:
-								supplier_id2orders[order['supplier']].append(order)
+							order_status = order['status']
+							if order_status in [3,4,5]:#订单数只统计【待发货、已发货、已完成】
+								if order['supplier'] not in supplier_id2orders:
+									supplier_id2orders[order['supplier']] = [order]
+								else:
+									supplier_id2orders[order['supplier']].append(order)
 			except Exception,e:
 				print(e)
 				print ("====="+'error in zeus'+"=====")
