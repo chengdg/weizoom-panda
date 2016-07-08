@@ -133,8 +133,7 @@ def getCustomerData(request,is_export):
 			print(res)
 	except Exception,e:
 		print(e)
-	print ('id2orders:')
-	print (id2orders)
+
 	rows = []
 	for user in user_profiles:
 		product_ids = [] if user.user_id not in user_id2product_id else user_id2product_id[user.user_id]
@@ -150,13 +149,13 @@ def getCustomerData(request,is_export):
 			for product_id in product_ids:
 				name = '' if product_id not in product_id2name else product_id2name[product_id]
 				sale = 0 if product_id not in id2sales else id2sales[product_id]
-				time = '' if product_id not in product_id2time else product_id2time[product_id]
-				brand_time.append(time[0])
+				time = '' if product_id not in product_id2time else product_id2time[product_id][0]
+				brand_time.append(time)
 				total_sales += sale
 				product_infos.append({
 					'name': name,
 					'sales': '%s' %sale,
-					'time': '' if not time else time[0].strftime("%Y-%m-%d")
+					'time': '' if not time else time.strftime("%Y-%m-%d")
 				})
 				if product_id in id2orders:
 					orders = id2orders[product_id]
