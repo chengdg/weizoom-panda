@@ -100,6 +100,8 @@ class ProductRelation(resource.Resource):
 							'width': 100,
 							'height': 100
 						})
+				print ('+++user_ids+++:',user_ids)
+				print ('+++suppliers+++:',suppliers)
 				product_price = float(product_data[0]['product_price'])
 				stock_type = 1 if int(product_data[0]['product_store']) > -1 else 0
 				params = {
@@ -144,9 +146,11 @@ class ProductRelation(resource.Resource):
 								models.Product.objects.filter(id=product_id).update(product_status=0)
 				else:
 					print(res)
+					print("==========")
 					
 		except Exception,e:
 			print(e)
+			print("++++++++++++")
 			response.innerErrMsg = unicode_full_stack()
 
 		relations = {}
