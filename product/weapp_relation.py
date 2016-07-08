@@ -117,7 +117,7 @@ class ProductRelation(resource.Resource):
 					'detail': product_data[0]['detail'],
 					'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
 				}
-				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',params=params)
+				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',data=params)
 				print ('+++r+++:',r.text)
 				res = json.loads(r.text)
 				if res['code'] == 200:
