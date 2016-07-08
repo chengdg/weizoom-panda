@@ -43,10 +43,13 @@ class Command(BaseCommand):
 			print ("====="+'error in zeus'+"=====")
 
 		for product_has_relation in product_has_relations:
-			weapp_pid = product_has_relation.weapp_product_id
-			old_created_at = product_has_relation.created_at.strftime("%Y-%m-%d %H:%M:%S")
-			if weapp_pid2created_at[weapp_pid] < old_created_at:
-				actual_created_at = datetime.datetime.strptime(weapp_pid2created_at[weapp_pid],"%Y-%m-%d %H:%M:%S")
-				product_models.ProductHasRelationWeapp.objects.filter(weapp_product_id=weapp_pid).update(created_at=actual_created_at)
+			product_id = product_has_relation.weapp_product_id.split(';')
+			for p in product_id:
+				weapp_pid = p
+				old_created_at = product_has_relation.created_at.strftime("%Y-%m-%d %H:%M:%S")
+				if weapp_pid2created_at.has_key(weapp_pid):
+					if weapp_pid2created_at[weapp_pid] < old_created_at:
+						actual_created_at = datetime.datetime.strptime(weapp_pid2created_at[weapp_pid],"%Y-%m-%d %H:%M:%S")
+						product_models.ProductHasRelationWeapp.objects.filter(weapp_product_id=weapp_pid).update(created_at=actual_created_at)
 
 		print ("====="+'success'+"=====")
