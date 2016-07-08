@@ -107,10 +107,11 @@ class Command(BaseCommand):
 					for order in supplier_id2orders[supplier_id]:
 						order_ids.append(order['order_id'])
 
-
-			fans_count = int(total_order_number/0.2)*need_day #每天每次投放粉丝数
-			if fans_count < 33*need_day:
+			fans_count_per_day = int(total_order_number/need_day/0.2)
+			if fans_count_per_day < 33:
 				fans_count = 33*need_day #投放人数下限不能低于33
+			else:
+				fans_count = int(total_order_number/need_day/0.2)*need_day
 
 			user_has_fans = fans_models.UserHasFans.objects.filter(user_id=seller.user_id)
 			if user_has_fans.count() > 0:
