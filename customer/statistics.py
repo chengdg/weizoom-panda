@@ -150,12 +150,13 @@ def getCustomerData(request,is_export):
 				name = '' if product_id not in product_id2name else product_id2name[product_id]
 				sale = 0 if product_id not in id2sales else id2sales[product_id]
 				time = '' if product_id not in product_id2time else product_id2time[product_id][0]
-				brand_time.append(time)
+				if time!='':
+					brand_time.append(time)
 				total_sales += sale
 				product_infos.append({
 					'name': name,
 					'sales': '%s' %sale,
-					'time': '' if not time else time.strftime("%Y-%m-%d")
+					'time': '' if time=='' else time.strftime("%Y-%m-%d")
 				})
 				if product_id in id2orders:
 					orders = id2orders[product_id]
@@ -168,6 +169,8 @@ def getCustomerData(request,is_export):
 						for product in products:
 							order_money = product['count'] * product['purchase_price']
 							total_order_money += order_money
+		print 'brand_time=========='
+		print brand_time
 		rows.append({
 			'user_id': user.user_id,
 			'customer_name': user.name,
