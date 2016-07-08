@@ -54,41 +54,43 @@ class ExportOrders(resource.Resource):
 		table = []
 		table.append(titles)
 		for order in orders:
-			product_names = []
-			product_price = []
-			product_count = []
-			product_infos = json.loads(order['product_infos'])
-			for product_info in product_infos:
-				product_names.append(product_info['product_name'])
-				product_price.append(str('%.2f' % product_info['purchase_price']))
-				product_count.append( str(product_info['count'])+u'件')
-			product_names = ','.join(product_names)
-			product_price = ','.join(product_price)
-			product_count = ','.join(product_count)
-			if order['leader_name'].find('|') == -1:
-				leader_name = order['leader_name']
-				leader_name_message = ''
-			else:
-				leader_name,leader_name_message = order['leader_name'].split('|')
-			table.append([
-				order['order_id'],
-				order['order_create_at'],
-				product_names,
-				product_price,
-				product_count,
-				order['total_purchase_price'],
-				order['total_weight'],
-				order['status'],
-				order['ship_name'],
-				order['ship_tel'],
-				order['ship_area']+' '+order['ship_address'],
-				leader_name,
-				leader_name_message,
-				express_company_name2text[order['express_company_name']],
-				order['express_number'],
-				order['delivery_time'],
-				order['customer_message']
-			])
+			order_status = order['status']
+			if ((order_status in [3,4,5,6,7]) or (order_status==1 and order['payment_time']!='')):
+				product_names = []
+				product_price = []
+				product_count = []
+				product_infos = json.loads(order['product_infos'])
+				for product_info in product_infos:
+					product_names.append(product_info['product_name'])
+					product_price.append(str('%.2f' % product_info['purchase_price']))
+					product_count.append( str(product_info['count'])+u'件')
+				product_names = ','.join(product_names)
+				product_price = ','.join(product_price)
+				product_count = ','.join(product_count)
+				if order['leader_name'].find('|') == -1:
+					leader_name = order['leader_name']
+					leader_name_message = ''
+				else:
+					leader_name,leader_name_message = order['leader_name'].split('|')
+				table.append([
+					order['order_id'],
+					order['order_create_at'],
+					product_names,
+					product_price,
+					product_count,
+					order['total_purchase_price'],
+					order['total_weight'],
+					order['status'],
+					order['ship_name'],
+					order['ship_tel'],
+					order['ship_area']+' '+order['ship_address'],
+					leader_name,
+					leader_name_message,
+					express_company_name2text[order['express_company_name']],
+					order['express_number'],
+					order['delivery_time'],
+					order['customer_message']
+				])
 		return ExcelResponse(table,output_name=u'订单列表'.encode('utf8'),force_csv=False)
 
 class YunyingExportOrders(resource.Resource):
@@ -104,9 +106,11 @@ class YunyingExportOrders(resource.Resource):
 		table = []
 		table.append(titles)
 		for order in orders:
-			table.append([
-				order['order_id'],
-				express_company_name2text[order['express_company_name']],
-				order['express_number']
-			])
+			order_status = order['status']
+			if ((order_status in [3,4,5,6,7]) or (order_status==1 and order['payment_time']!='')):
+				table.append([
+					order['order_id'],
+					express_company_name2text[order['express_company_name']],
+					order['express_number']
+				])
 		return ExcelResponse(table,output_name=u'发货文件'.encode('utf8'),force_csv=False)
