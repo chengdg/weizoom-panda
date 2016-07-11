@@ -92,8 +92,6 @@ class Fans(resource.Resource):
 		account_ids = [user_profile.id for user_profile in user_profiles]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		supplier_ids = []
-		api_pids = []
-		is_search_product_name = False
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
 				supplier_ids.append(str(account_has_supplier.supplier_id))
@@ -113,7 +111,7 @@ class Fans(resource.Resource):
 					print(res)
 			except Exception,e:
 				print(e)
-
+			print('===orders===',orders)
 			if orders:
 				order_id2order = {}
 				for order in orders:
@@ -142,11 +140,11 @@ class Fans(resource.Resource):
 					}
 
 		rows=[]
-		i = 0
 		for user_fans in user_has_fans:
 			if user_fans.fans_id in fans_id2fans:
 				fans = fans_id2fans[user_fans.fans_id]
 				order_id = user_fans.related_order_id
+				print ('--order_id--',order_id)
 				order_ids = order_id.split('_')
 				order_infos = []
 				for o_id in order_ids:
