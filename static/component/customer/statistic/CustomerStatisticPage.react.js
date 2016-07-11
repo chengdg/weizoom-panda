@@ -66,7 +66,7 @@ var CustomerStatisticPage = React.createClass({
 			)
 		}else if(field === 'feedback'){
 			return (
-				<a href="javascript:void(0);" href={'/customer/statistics_report/?id='+data.user_id}>{value}</a>
+				<a href="javascript:void(0);" href={'/customer/statistics_report/?user_id='+data.user_id}>{value}</a>
 			)
 		}else{
 			return value;

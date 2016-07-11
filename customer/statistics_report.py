@@ -35,7 +35,7 @@ class StatisticsReport(resource.Resource):
 		"""
 		显示商品列表
 		"""
-		user_id = request.GET.get('id', '')
+		user_id = request.GET.get('user_id', '')
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),

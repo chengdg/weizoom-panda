@@ -96,7 +96,7 @@ var OrderDatasPage = React.createClass({
 		var product_items = product_infos.map(function(product,index){
 			if (value == 'product_name'){
 				return (
-					<span key={index}><img src={product["product_img"]} width="60px" height="60px"></img>{product["product_name"]}<br></br></span>
+					<span key={index}><img src={product["product_img"]} width="60px" height="60px"></img>{product["product_name"]}<br></br><div style={{marginLeft:'60px',marginTop:'-17px'}}>{product["model_names"]}</div><br></br></span>
 				)
 			}else if (value == 'product_price'){
 				return (
