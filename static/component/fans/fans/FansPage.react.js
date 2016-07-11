@@ -25,36 +25,47 @@ var CustomerPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	showProduct:function(class_name){
+	showOrder:function(class_name){
 		var display = document.getElementsByClassName(class_name)[0].style.display;
 		if (display == 'none'){
 			document.getElementsByClassName(class_name)[0].style.display = "block";
 		}else{
 			document.getElementsByClassName(class_name)[0].style.display = "none";
 		}
-
 	},
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'expand-row') {
-			var product_infos = data['fans_id'];
-			if(product_infos==0){
-				var products = product_infos.map(function(product,index){
-				return(
-						<div style={{backgroundColor: '#EFEFEF',height: '22px'}} key={index}>
-							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px'}}>{product.name} </div>
-							<div className="xui-expand-row-info" style={{float: 'right',paddingRight:'200px'}}>上架时间:{product.time}</div>
-							<div className="xui-expand-row-info" style={{float: 'right',paddingRight:'100px'}}>销量:{product.sales} </div>
+			var order_infos = data['order_infos'];
+			var class_name = 'data-' +data['user_id'];
+			if(order_infos){
+				var products = JSON.parse(order_infos).map(function(order,index){
+					var order_id = data['order_id'];
+					var src = '/order/customer_order_detail/?id='+order_id;
+					return(
+							<div style={{marginTop:'5px'}} key={index}>
+								<div className="xui-expand-row-info" style={{float: 'left',width:'180px'}}>
+									<a href={src} target="_blank">{order.order_id}</a> 
+								</div>
+								<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>{order.status} </div>
+								<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>{order.total_order_money}(元)</div>
+								<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>{order.purchase_price}(元)/{order.total_count}(件)</div>
+								<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'300px'}}>{order.product_name}</div>
+								<div style={{clear:'both'}}></div>
+							</div>
+						)
+					});
+				return (
+					<div className={class_name} style={{display:'none',margin:'5px 0px 5px 5px'}}>
+						<div>
+							<div className="xui-expand-row-info" style={{float: 'left',width:'180px'}}>订单号<br></br></div>
+							<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>状态<br></br></div>
+							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>总金额<br></br></div>
+							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>单价/件数<br></br></div>
+							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'300px'}}>商品名称<br></br></div>
+							<div style={{clear:'both'}}></div>
+							{products}
 						</div>
-					)
-				});
-				return (
-					<div className={class_name} style={{display:'none'}}>{products}</div>
-				)
-			}else{
-				return (
-					<div style={{backgroundColor: '#EFEFEF',height: '22px',display:'none'}}>
-						<div style={{float: 'left',paddingLeft:'15px'}}></div>
 					</div>
 				)
 			}
@@ -85,6 +96,7 @@ var CustomerPage = React.createClass({
 			)
 		}else if(field === 'status'){
 			var order_id = data['order_id'];
+			var class_name = 'data-' +data['user_id'];
 			var src = '';
 			if(order_id != ''){
 				src = '/order/customer_order_detail/?id='+order_id;
@@ -92,7 +104,7 @@ var CustomerPage = React.createClass({
 			if(src != ''){
 				return (
 					<div>
-						<a href={src} target="_blank">{value}</a>
+						<a href="javascript:void(0);" target="_blank" onClick={this.showOrder.bind(this,class_name)}>{value}</a>
 					</div>
 				)
 			}else{
