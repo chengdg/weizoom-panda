@@ -161,7 +161,6 @@ class Fans(resource.Resource):
 					'order_id': user_fans.related_order_id,
 					'order_infos': '' if not order_infos else json.dumps(order_infos)
 				})
-				print ('--order_infos--',order_infos)
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
