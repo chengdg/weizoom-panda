@@ -90,7 +90,7 @@ class Fans(resource.Resource):
 
 		user_profiles = account_models.UserProfile.objects.filter(user_id__in=user_ids)
 		account_ids = [user_profile.id for user_profile in user_profiles]
-		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
+		account_has_suppliers = account_models.AccountHasSupplier.objects.all()
 		supplier_ids = []
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
@@ -162,6 +162,7 @@ class Fans(resource.Resource):
 					'order_id': user_fans.related_order_id,
 					'order_infos': '' if not order_infos else json.dumps(order_infos)
 				})
+				print ('--order_infos--',order_infos)
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
