@@ -90,7 +90,7 @@ class Fans(resource.Resource):
 
 		user_profiles = account_models.UserProfile.objects.filter(user_id__in=user_ids)
 		account_ids = [user_profile.id for user_profile in user_profiles]
-		account_has_suppliers = account_models.AccountHasSupplier.objects.all()
+		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		supplier_ids = []
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
@@ -144,7 +144,6 @@ class Fans(resource.Resource):
 			if user_fans.fans_id in fans_id2fans:
 				fans = fans_id2fans[user_fans.fans_id]
 				order_id = user_fans.related_order_id
-				print ('--order_id--',order_id)
 				order_ids = order_id.split('_')
 				order_infos = []
 				for o_id in order_ids:

@@ -43,7 +43,7 @@ var CustomerPage = React.createClass({
 			console.log(order_infos,"========");
 			if(order_infos){
 				var products = JSON.parse(order_infos).map(function(order,index){
-					var order_id = data['order_id'];
+					var order_id = order['order_id'];
 					var src = '/order/customer_order_detail/?id='+order_id;
 					return(
 							<div style={{marginTop:'5px'}} key={index}>
