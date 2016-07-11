@@ -97,10 +97,10 @@ var OrderDatasPage = React.createClass({
 			if (value == 'product_name'){
 				return (
 					<div key={index}>
-						<div style={{display:'inline-block'}}>
+						<div style={{display:'inline-block',float: 'left'}}>
 							<img src={product["product_img"]} width="60px" height="60px"></img>
 						</div>
-						<div style={{display:'inline-block',width:'80%'}}>
+						<div style={{display:'inline-block',minHeight: '60px'}}>
 							<div className="orders-list-product-name">{product["product_name"]}</div>
 							<div className="orders-list-model-names">{product["model_names"]}</div>
 						</div>
