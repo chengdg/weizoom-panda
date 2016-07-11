@@ -10,8 +10,30 @@ tr td{
     display: block;
     padding: 5px 0px 5px 5px;
     border-bottom: 1px solid #CCC;
+    height: 71px;
+    padding-top: 20px;
+    position: relative;
 }
 
 .product-item-info:last-child{
 	border-bottom: none;
+}
+
+.product-img{
+	width: 60px;
+	height: 60px;
+	margin-right: 10px;
+}
+
+.product-name, .product-model-name{
+	display: inline-block;
+	position: absolute;
+}
+
+.product-name{
+	top: 15px;
+}
+
+.product-model-name{
+	top: 35px;
 }

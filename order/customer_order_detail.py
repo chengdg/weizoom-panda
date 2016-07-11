@@ -60,6 +60,16 @@ class CustomerOrderDetail(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
+		product_images = product_models.ProductImage.objects.all().order_by('-id')
+
+		#获取商品图片
+		product_id2image_id = {}
+		image_id2images = {}
+		for product in product_images:
+			product_id2image_id[product.product_id] = product.image_id
+		for image in resource_models.Image.objects.all():
+			image_id2images[image.id] = image.path
+
 		#请求接口获得数据
 		data = []
 		try:
@@ -94,6 +104,8 @@ class CustomerOrderDetail(resource.Resource):
 			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
 			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
+			image_id = '' if product_id not in product_id2image_id else product_id2image_id[product_id]
+			product['product_img'] = product['thumbnails_url'] if image_id not in image_id2images else image_id2images[image_id]
 		express_details = ''
 		if data['express_details']:
 			express_details = json.dumps(data['express_details'])

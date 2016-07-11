@@ -98,7 +98,7 @@ class ProductRelation(resource.Resource):
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		#从weapp获取销量sales_from_weapp	
 		p_ids = [product.id for product in products]
-
+		p_has_relations = product_has_relations.filter(product_id__in=p_ids)
 		weapp_product_ids = []
 		product_weapp_id2product_id = {}
 		for product_has_relation in product_has_relations.filter(product_id__in=p_ids):
@@ -152,7 +152,7 @@ class ProductRelation(resource.Resource):
 			else:
 				product_id2self_user_name[product_id].append(self_user_name)
 
-		id2sales = sales_from_weapp(product_has_relations)
+		id2sales = sales_from_weapp(p_has_relations)
 		
 		p_owner_ids = [product.owner_id for product in products]
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)

@@ -22,8 +22,18 @@ var OrderDataPage = React.createClass({
 		var products = JSON.parse(data['products']);
 		var product_items = products.map(function(product,index){
 			if (value == 'product_name'){
+				var product_model_name = product['product_model_name'];
+				var model_name = ''
+				if(product_model_name && product_model_name!='standard'){
+					model_name = '规格:' + product_model_name;
+				}
 				return (
-					<span className="product-item-info" key={index}>{product["product_name"]}<br></br></span>
+					<span className="product-item-info" key={index} style={{paddingTop:'5px'}}>
+						<img className="product-img" src={product['product_img']}></img>
+						<span className='product-name'>{product["product_name"]}</span>
+						<span className='product-model-name'>{model_name}</span>
+						<br></br>
+					</span>
 				)
 			}else if (value == 'unit_price/quantity'){
 				return (
@@ -40,6 +50,7 @@ var OrderDataPage = React.createClass({
 			return (
 				<div>{product}</div>
 			);
+			
 		}else if(field === 'unit_price/quantity'){
 			var product = this.getOrderProductsInfo('unit_price/quantity',data);
 			return (
@@ -47,12 +58,12 @@ var OrderDataPage = React.createClass({
 			);
 		}else if(field === 'total_count'){
 			return (
-				<div style={{margin:'10px 0 0 10px'}}>{value}(件)</div>
+				<div style={{margin:'20px 0 0 10px'}}>{value}(件)</div>
 			);
 		}else if(field === 'order_money'){
 			Action.saveProduct(data);
 			return (
-				<div style={{margin:'10px 0 0 10px'}}>{value}</div>
+				<div style={{margin:'20px 0 0 10px'}}>{value}</div>
 			);
 		}else {
 			return value;
