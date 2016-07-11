@@ -187,6 +187,15 @@ var OrderDatasPage = React.createClass({
 		}, {
 			text: '已完成',
 			value: '5'
+		}, {
+			text: '退款中',
+			value: '6'
+		}, {
+			text: '退款完成',
+			value: '7'
+		}, {
+			text: '已取消',
+			value: '1'
 		}];
 
 		return (
