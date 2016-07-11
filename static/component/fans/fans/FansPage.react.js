@@ -26,18 +26,21 @@ var CustomerPage = React.createClass({
 	},
 
 	showOrder:function(class_name){
+		console.log(class_name,"+++++++");
 		var display = document.getElementsByClassName(class_name)[0].style.display;
 		if (display == 'none'){
 			document.getElementsByClassName(class_name)[0].style.display = "block";
 		}else{
 			document.getElementsByClassName(class_name)[0].style.display = "none";
 		}
+		console.log(class_name,"+++++++");
 	},
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'expand-row') {
 			var order_infos = data['order_infos'];
 			var class_name = 'data-' +data['user_id'];
+			console.log(order_infos,"========");
 			if(order_infos){
 				var products = JSON.parse(order_infos).map(function(order,index){
 					var order_id = data['order_id'];
