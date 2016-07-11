@@ -22,7 +22,7 @@ class Command(BaseCommand):
 	def handle(self, **options):
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
 		#FOR TEST,zhangxue
-		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
+		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]
@@ -182,7 +182,7 @@ class Command(BaseCommand):
 						user_id = seller.user_id,
 						fans_id = ordered_fans_id,
 						status = fans_models.ORDERED,
-						related_order_id = order_ids[ordered_index]
+						related_order_id = '_'.join(order_ids[ordered_index])
 					))
 					ordered_index += 1
 
@@ -197,7 +197,7 @@ class Command(BaseCommand):
 						user_id = seller.user_id,
 						fans_id = recommend_fans_id,
 						status = fans_models.RECOMMEND,
-						related_order_id = order_ids[recommend_index]
+						related_order_id = '_'.join(order_ids[recommend_index])
 					))
 					recommend_index += 1
 				fans_models.UserHasFans.objects.bulk_create(list_create)
