@@ -22,7 +22,7 @@ class Command(BaseCommand):
 	def handle(self, **options):
 		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
 		#FOR TEST,zhangxue
-		all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
+		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]
 		all_products = product_models.Product.objects.filter(owner_id__in=user_ids)
 		product_ids = ['%s'%product.id for product in all_products]

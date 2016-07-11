@@ -49,12 +49,13 @@ class ExportOrders(resource.Resource):
 	def get(request):
 		orders = CustomerOrdersList.api_get(request)
 		titles = [
-			u'订单号',u'下单时间',u'商品名称', u'商品单价', u'商品数量', u'销售额', u'商品总重量', u'订单状态', u'收货人', u'联系电话', u'收货地址', u'发货人', u'发货人备注', u'物流公司', u'快递单号', u'发货时间', u'用户备注'
+			u'订单号',u'下单时间',u'商品名称',u'商品规格', u'商品单价', u'商品数量', u'销售额', u'商品总重量', u'订单状态', u'收货人', u'联系电话', u'收货地址', u'发货人', u'发货人备注', u'物流公司', u'快递单号', u'发货时间', u'用户备注'
 		]
 		table = []
 		table.append(titles)
 		for order in orders:
 			product_names = []
+			product_models = []
 			product_price = []
 			product_count = []
 			product_infos = json.loads(order['product_infos'])
@@ -62,9 +63,12 @@ class ExportOrders(resource.Resource):
 				product_names.append(product_info['product_name'])
 				product_price.append(str('%.2f' % product_info['purchase_price']))
 				product_count.append( str(product_info['count'])+u'件')
+				if product_info['model_names']:
+					product_models.append(product_info['model_names'])
 			product_names = ','.join(product_names)
 			product_price = ','.join(product_price)
 			product_count = ','.join(product_count)
+			product_models = ','.join(product_models)
 			if order['leader_name'].find('|') == -1:
 				leader_name = order['leader_name']
 				leader_name_message = ''
@@ -74,6 +78,7 @@ class ExportOrders(resource.Resource):
 				order['order_id'],
 				order['order_create_at'],
 				product_names,
+				product_models,
 				product_price,
 				product_count,
 				order['total_purchase_price'],
