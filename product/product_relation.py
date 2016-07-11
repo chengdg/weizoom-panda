@@ -113,7 +113,7 @@ class ProductRelation(resource.Resource):
 			params = {
 				'product_ids': '_'.join(weapp_product_ids)
 			}
-			r = requests.get(ZEUS_HOST+'/mall/product_status/',data=params)
+			r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
 			res = json.loads(r.text)
 			if res['code'] == 200:
 				product_status = res['data']['product_status']
