@@ -102,20 +102,26 @@ class Command(BaseCommand):
 					print(e)
 					print ("====="+'error in zeus'+"=====")
 
-				total_order_number = 0
 				supplier_ids = []
-				order_ids = []
+				webapp_user_id2order_id = {}
 				supplier = account_models.AccountHasSupplier.objects.filter(account_id=seller.id)
 				supplier_ids = [s.supplier_id for s in supplier]
 				for supplier_id in supplier_ids:
 					if supplier_id in supplier_id2orders:
-						total_order_number += len(supplier_id2orders[supplier_id])
 						for order in supplier_id2orders[supplier_id]:
-							order_ids.append(order['order_id'])
+							if order['webapp_user_id'] not in webapp_user_id2order_id:
+								webapp_user_id2order_id[order['webapp_user_id']] = [order['order_id']]
+							else:
+								webapp_user_id2order_id[order['webapp_user_id']].append(order['order_id'])
+				
+				#把订单号按照下单用户进行分割，一个用户重复下单的订单号存为一个list
+				order_ids = webapp_user_id2order_id.values()
+				total_order_number = len(order_ids)
+				
 				if total_order_number > 0:
 					fans_count_per_day = int(total_order_number/need_day/0.2)
 				else:
-					total_order_number = 0
+					fans_count_per_day = 0
 				if fans_count_per_day < 33:
 					fans_count = 33*need_day #投放人数下限不能低于33
 				else:
@@ -143,7 +149,7 @@ class Command(BaseCommand):
 				fans_models.UserHasFans.objects.bulk_create(list_create)
 				
 				#已阅读，未分享
-				readed_fans_ids = selected_fans_ids[int(fans_count*0.18):int(fans_count*0.25)]
+				readed_fans_ids = selected_fans_ids[int(fans_count*0.18):int(fans_count*0.43)]
 				list_create = []
 				for readed_fans_id in readed_fans_ids:
 					list_create.append(fans_models.UserHasFans(
@@ -154,7 +160,7 @@ class Command(BaseCommand):
 				fans_models.UserHasFans.objects.bulk_create(list_create)
 				
 				#已阅读，已分享
-				shared_fans_ids = selected_fans_ids[int(fans_count*0.25):int(fans_count*0.37)]
+				shared_fans_ids = selected_fans_ids[int(fans_count*0.43):int(fans_count*0.8)]
 				list_create = []
 				for shared_fans_id in shared_fans_ids:
 					list_create.append(fans_models.UserHasFans(
@@ -165,7 +171,7 @@ class Command(BaseCommand):
 				fans_models.UserHasFans.objects.bulk_create(list_create)
 
 				#已下单
-				actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.37):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
+				actual_ordered_fans_ids = selected_fans_ids[int(fans_count*0.8):][0:total_order_number] #[投放粉丝池中剩下的全部][0:订单数]
 				ordered_fans_ids = actual_ordered_fans_ids[0:int(len(actual_ordered_fans_ids)*0.8)] #未推荐：云商通实际下单人数的80%
 				recommend_fans_ids = actual_ordered_fans_ids[int(len(actual_ordered_fans_ids)*0.8):] #已推荐：云商通实际下单人数的20%
 				#已下单，未推荐
