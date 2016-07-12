@@ -44,7 +44,7 @@ var CustomerPage = React.createClass({
 					var src = '/order/customer_order_detail/?id='+order_id;
 					return(
 							<div style={{marginTop:'5px'}} key={index}>
-								<div className="xui-expand-row-info" style={{float: 'left',width:'180px'}}>
+								<div className="xui-expand-row-info" style={{float: 'left',width:'190px'}}>
 									<a href={src} target="_blank">{order.order_id}</a> 
 								</div>
 								<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>{order.status} </div>
@@ -58,7 +58,7 @@ var CustomerPage = React.createClass({
 				return (
 					<div className={class_name} style={{display:'none !important',margin:'5px 0px 5px 5px'}}>
 						<div>
-							<div className="xui-expand-row-info" style={{float: 'left',width:'180px'}}>订单号<br></br></div>
+							<div className="xui-expand-row-info" style={{float: 'left',width:'190px'}}>订单号<br></br></div>
 							<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>状态<br></br></div>
 							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>总金额<br></br></div>
 							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>单价/件数<br></br></div>
