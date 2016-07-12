@@ -112,8 +112,8 @@ class Fans(resource.Resource):
 			except Exception,e:
 				print(e)
 			print('===orders===',orders)
+			order_id2order = {}
 			if orders:
-				order_id2order = {}
 				for order in orders:
 					order_id = order['order_id']
 					product_infos = order['products']
