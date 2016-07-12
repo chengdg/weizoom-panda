@@ -235,7 +235,7 @@ class YunyingOrdersList(resource.Resource):
 						if product_weapp_id2product_name.has_key(product_id):
 							product_name = product_weapp_id2product_name[product_id]
 							if return_product_info['model_names']:
-								model_names = '_'.join(return_product_info['model_names'])
+								model_names = '/'.join(return_product_info['model_names'])
 								product_infos.append(
 									product_name +','+str(return_product_info['count'])+u'件'+','+model_names
 								)
@@ -246,7 +246,7 @@ class YunyingOrdersList(resource.Resource):
 						else:
 							#panda里面没有商品数据
 							if return_product_info['model_names']:
-								model_names = '_'.join(return_product_info['model_names'])
+								model_names = '/'.join(return_product_info['model_names'])
 								product_infos.append(
 									return_product_info['name'] +','+str(return_product_info['count'])+u'件'+','+model_names
 								)

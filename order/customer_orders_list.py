@@ -205,7 +205,7 @@ class CustomerOrdersList(resource.Resource):
 					product_id = str(return_product_info['id'])
 					if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
 						if return_product_info['model_names']:
-							model_names = u'规格：'+'_'.join(return_product_info['model_names'])
+							model_names = u'规格：'+'/'.join(return_product_info['model_names'])
 						else:
 							model_names = ''
 						product_infos.append({
@@ -218,7 +218,7 @@ class CustomerOrdersList(resource.Resource):
 						})
 					else:
 						if return_product_info['model_names']:
-							model_names = u'规格：'+'_'.join(return_product_info['model_names'])
+							model_names = u'规格：'+'/'.join(return_product_info['model_names'])
 						else:
 							model_names = ''
 						product_infos.append({
