@@ -108,7 +108,7 @@ class CustomerOrderDetail(resource.Resource):
 			product['product_img'] = product['thumbnails_url'] if image_id not in image_id2images else image_id2images[image_id]
 			custom_model_properties = []
 			if product['custom_model_properties']:
-				for custom_model_propertie in custom_model_properties:
+				for custom_model_propertie in product['custom_model_properties']:
 					property_value = custom_model_propertie['property_value']
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
