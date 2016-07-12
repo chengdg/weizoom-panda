@@ -17,13 +17,30 @@ var OrderLogistics = require('./OrderLogistics.react');
 require('./style.css')
 
 var OrderDataPage = React.createClass({
+	getInitialState: function() {	
+		return {
+			orde_datas: ''
+		}
+	},
+
+	onChangeStore: function(event) {
+		var orde_datas = Store.getData();
+		this.setState({
+			orde_datas: orde_datas
+		})
+	},
+
+	componentDidMount: function(){
+		Action.saveProduct(W.order_id);
+		Store.addListener(this.onChangeStore);
+	},
+
 	getOrderProductsInfo: function(value,data){
 		var _this = this;
 		var products = JSON.parse(data['products']);
 		var product_items = products.map(function(product,index){
 			if (value == 'product_name'){
 				var product_model_name = product['custom_models'];
-				console.log(product_model_name,"=======")
 				var model_name = ''
 				if(product_model_name && product_model_name!='standard'){
 					model_name = '规格:' + product_model_name;
@@ -62,9 +79,8 @@ var OrderDataPage = React.createClass({
 				<div style={{margin:'20px 0 0 10px'}}>{value}(件)</div>
 			);
 		}else if(field === 'order_money'){
-			Action.saveProduct(data);
 			return (
-				<div style={{margin:'20px 0 0 10px'}}>{value}</div>
+				<div style={{margin:'20px 0 0 10px'}}>{value}(元)</div>
 			);
 		}else {
 			return value;
@@ -80,45 +96,50 @@ var OrderDataPage = React.createClass({
 				order_id: order_id
 			}
 		};
-
-		return (
-			<div>
-				<OrderStatus />
-				<OrderLogistics />
-				<div className="mt15 xui-product-productListPage">
-					<Reactman.TablePanel>
-						<Reactman.TableActionBar>
-						</Reactman.TableActionBar>
-						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-							<Reactman.TableColumn name="商品" field="product_name" />
-							<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
-							<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
-							<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
-						</Reactman.Table>
-					</Reactman.TablePanel>
+		var orde_datas = this.state.orde_datas;
+		if (orde_datas){
+			return (
+				<div>
+					<OrderStatus ordeDatas={orde_datas}/>
+					<OrderLogistics ordeDatas={orde_datas}/>
+					<div className="mt15 xui-product-productListPage">
+						<Reactman.TablePanel>
+							<Reactman.TableActionBar>
+							</Reactman.TableActionBar>
+							<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+								<Reactman.TableColumn name="商品" field="product_name" />
+								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
+								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
+								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+							</Reactman.Table>
+						</Reactman.TablePanel>
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}else{
+			return (
+				<div>
+					<div className="mt15 xui-product-productListPage">
+						<Reactman.TablePanel>
+							<Reactman.TableActionBar>
+							</Reactman.TableActionBar>
+							<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+								<Reactman.TableColumn name="商品" field="product_name" />
+								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
+								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
+								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+							</Reactman.Table>
+						</Reactman.TablePanel>
+					</div>
+				</div>
+			)
+		}	
 	}
 })
 
 var OrderStatus = React.createClass({
-	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return {
-			orde_datas: {}
-		}
-	},
-
-	onChangeStore: function(event) {
-		var orde_datas = Store.getData();
-		this.setState({
-			orde_datas: orde_datas
-		})
-	},
-
 	render:function(){
-		var orde_datas = this.state.orde_datas;
+		var orde_datas = this.props.ordeDatas;
 		var order_id = orde_datas['order_id']? orde_datas['order_id']: '';
 		var order_status = orde_datas['order_status'];
 		return (

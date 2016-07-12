@@ -104,7 +104,7 @@ var CustomerPage = React.createClass({
 			if(src != ''){
 				return (
 					<div>
-						<a href="javascript:void(0);" target="_blank" onClick={this.showOrder.bind(this,class_name)}>{value}</a>
+						<a href="javascript:void(0);" onClick={this.showOrder.bind(this,class_name)}>{value}</a>
 					</div>
 				)
 			}else{

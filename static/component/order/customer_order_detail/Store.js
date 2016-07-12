@@ -24,8 +24,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleSaveProduct: function(action) {
-		console.log(action.data,"=========");
-		this.data = action.data;
+		this.data = action.data.rows[0];
 		this.__emitChange();
 	},
 

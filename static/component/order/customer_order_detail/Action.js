@@ -13,10 +13,16 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	saveProduct: function(data) {
-		Dispatcher.dispatch({
-			actionType: Constant.ORDER_DATA_SAVE_PRODUCT,
-			data: data
+	saveProduct: function(orderId) {
+		Resource.get({
+			resource: 'order.customer_order_detail',
+			data: {
+				order_id: orderId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.ORDER_DATA_SAVE_PRODUCT
+			}
 		});
 	}
 };

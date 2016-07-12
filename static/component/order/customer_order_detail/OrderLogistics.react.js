@@ -16,20 +16,6 @@ var Action = require('./Action');
 require('./style.css')
 
 var OrderLogistics = React.createClass({
-	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return {
-			orde_datas: {}
-		}
-	},
-
-	onChangeStore: function(event) {
-		var orde_datas = Store.getData();
-		this.setState({
-			orde_datas: orde_datas
-		})
-	},
-
 	render:function(){
 		var options = {
 			'':'',
@@ -49,9 +35,9 @@ var OrderLogistics = React.createClass({
 			'suer': '速尔快递',
 			'guotongkuaidi': '国通快递',
 			'youzhengguonei': '邮政包裹/平邮',
-			'rufengda': '如风达',
+			'rufengda': '如风达'
 		};
-		var orde_datas = this.state.orde_datas;
+		var orde_datas = this.props.ordeDatas;
 		var ship_name = orde_datas['ship_name']?orde_datas['ship_name']:'';
 		var ship_tel = orde_datas['ship_tel']?orde_datas['ship_tel']:'';
 		var customer_message = orde_datas['customer_message']?orde_datas['customer_message']:'';
@@ -62,9 +48,7 @@ var OrderLogistics = React.createClass({
 		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:'';
 		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
 		var order_express = '';
-		console.log(order_express_details,"order_express_details");
 		if(order_express_details.length>0){
-			console.log(JSON.parse(order_express_details),"++++++");
 			order_express = JSON.parse(order_express_details).map(function(order_expres,index){
 				return(
 					<div key={index}>
