@@ -106,6 +106,13 @@ class CustomerOrderDetail(resource.Resource):
 			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
 			image_id = '' if product_id not in product_id2image_id else product_id2image_id[product_id]
 			product['product_img'] = product['thumbnails_url'] if image_id not in image_id2images else image_id2images[image_id]
+			custom_model_properties = []
+			if product['custom_model_properties']:
+				for custom_model_propertie in custom_model_properties:
+					property_value = custom_model_propertie['property_value']
+					custom_model_properties.append(property_value)
+			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
+
 		express_details = ''
 		if data['express_details']:
 			express_details = json.dumps(data['express_details'])

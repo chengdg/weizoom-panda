@@ -154,7 +154,7 @@ class Fans(resource.Resource):
 				rows.append({
 					'fans_pic': fans.fans_url,
 					'fans_id': fans.weibo_id,
-					'user_id': user_fans.user_id,
+					'user_id': user_fans.id,
 					'purchase_index': fans.purchasing_index * 10,
 					'diffusion_index': fans.spread_index * 10,
 					'status': fans_models.STATUS2NAME[status],

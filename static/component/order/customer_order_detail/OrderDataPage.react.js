@@ -22,11 +22,12 @@ var OrderDataPage = React.createClass({
 		var products = JSON.parse(data['products']);
 		var product_items = products.map(function(product,index){
 			if (value == 'product_name'){
-				var product_model_name = product['product_model_name'];
+				var product_model_name = product['custom_models'];
+				console.log(product_model_name,"=======")
 				var model_name = ''
-				// if(product_model_name && product_model_name!='standard'){
-				// 	model_name = '规格:' + product_model_name;
-				// }
+				if(product_model_name && product_model_name!='standard'){
+					model_name = '规格:' + product_model_name;
+				}
 				return (
 					<span className="product-item-info" key={index} style={{paddingTop:'5px'}}>
 						<img className="product-img" src={product['product_img']}></img>

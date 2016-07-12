@@ -26,21 +26,18 @@ var CustomerPage = React.createClass({
 	},
 
 	showOrder:function(class_name){
-		console.log(class_name,"+++++++");
 		var display = document.getElementsByClassName(class_name)[0].style.display;
 		if (display == 'none'){
 			document.getElementsByClassName(class_name)[0].style.display = "block";
 		}else{
 			document.getElementsByClassName(class_name)[0].style.display = "none";
 		}
-		console.log(class_name,"+++++++");
 	},
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'expand-row') {
 			var order_infos = data['order_infos'];
 			var class_name = 'data-' +data['user_id'];
-			console.log(order_infos,"========");
 			if(order_infos){
 				var products = JSON.parse(order_infos).map(function(order,index){
 					var order_id = order['order_id'];
@@ -59,7 +56,7 @@ var CustomerPage = React.createClass({
 						)
 					});
 				return (
-					<div className={class_name} style={{display:'none',margin:'5px 0px 5px 5px'}}>
+					<div className={class_name} style={{display:'none !important',margin:'5px 0px 5px 5px'}}>
 						<div>
 							<div className="xui-expand-row-info" style={{float: 'left',width:'180px'}}>订单号<br></br></div>
 							<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>状态<br></br></div>
