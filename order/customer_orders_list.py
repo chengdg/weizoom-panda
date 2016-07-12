@@ -97,7 +97,7 @@ class CustomerOrdersList(resource.Resource):
 			if product_id2product_weapp_id.has_key(product_id):
 				product_weapp_ids = product_id2product_weapp_id[product_id]
 				for product_weapp_id in product_weapp_ids:
-					if not product_weapp_id2info.has_key(product_id):
+					if not product_weapp_id2info.has_key(product_weapp_id):
 						product_weapp_id2info[product_weapp_id] = [{
 							'product_name': product_name,
 							'product_img': url
