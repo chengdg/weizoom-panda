@@ -33,7 +33,6 @@ var OrderDatasPage = React.createClass({
 				__method: 'put'
 			},
 			success: function() {
-				console.log('success');
 				Action.updateOrderShipInformations();
 			}
 		});
@@ -55,7 +54,6 @@ var OrderDatasPage = React.createClass({
 				__method: 'post'
 			},
 			success: function(inputData, dialogState) {
-				console.log('success');
 				Action.updateOrderShipInformations();
 			}
 		});

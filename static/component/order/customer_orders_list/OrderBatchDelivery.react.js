@@ -41,6 +41,7 @@ var OrderBatchDelivery = Reactman.createDialog({
 					document_path: this.state.documents[0].path
 				},
 				success: function() {
+					Reactman.PageAction.showHint('success', '批量发货成功');
 					this.closeDialog();
 				},
 				error: function(data) {
