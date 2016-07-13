@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import auth
 
 from core import resource
@@ -40,6 +41,35 @@ class ProductList(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		print "==============="
+		product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+		products = models.Product.objects.all()
+		users = User.objects.all()
+		product_id2user_id = {product.id:product.owner_id for product in products}
+		user_id2name = {user.id:user.username for user in users}
+		print product_has_relations,"======="
+		product_id2weapp_product_id = {}
+		for product_has_relation in product_has_relations:
+			product_id = product_has_relation.product_id
+			weapp_product_id = product_has_relation.weapp_product_id
+			if product_id not in product_id2weapp_product_id:
+				product_id2weapp_product_id[product_id] = [weapp_product_id]
+			else:
+				product_id2weapp_product_id[product_id].append(weapp_product_id)
+
+		product_ids = []
+		user_ids = []
+		for (k,v) in product_id2weapp_product_id.items():
+			if len(v) > 2:
+				product_ids.append(k)
+				user_id = product_id2user_id[k]
+				if user_id not in user_ids:
+					user_ids.append(user_id)
+		for user_id in user_ids:
+			username = user_id2name[user_id]
+			print "username/user_id",username,user_id
+		print 'total_counts',len(user_ids)
+
 		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
