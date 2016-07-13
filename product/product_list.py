@@ -64,16 +64,18 @@ class ProductList(resource.Resource):
 				for (k,v) in product_id2weapp_product_id.items():
 					if len(v) > 2:
 						product_ids.append(k)
-						user_id = product_id2user_id[k]
-						if user_id not in user_ids:
-							user_ids.append(user_id)
+						if k in product_id2user_id:
+							user_id = product_id2user_id[k]
+							if user_id not in user_ids:
+								user_ids.append(user_id)
 				for user_id in user_ids:
-					username = user_id2name[user_id]
-					print "username/user_id",username,user_id
-				print 'total_counts',len(user_ids)
+					if user_id in user_id2name:
+						username = user_id2name[user_id]
+						print ("username/user_id",username,user_id)
+				print ('total_counts',len(user_ids))
 			except Exception,e:
 				print (e)
-				print "------------"
+				print "-----error-------"
 
 		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
 		c = RequestContext(request, {
