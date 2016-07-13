@@ -98,7 +98,7 @@ class ProductRelation(resource.Resource):
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		#从weapp获取销量sales_from_weapp	
 		p_ids = [product.id for product in products]
-		p_has_relations = product_has_relations.filter(product_id__in=p_ids)
+		p_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids).exclude(weapp_product_id='')
 		weapp_product_ids = []
 		product_weapp_id2product_id = {}
 		for product_has_relation in product_has_relations.filter(product_id__in=p_ids):
