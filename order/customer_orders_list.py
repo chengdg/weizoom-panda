@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+__author__ = 'lihanyi'
+
 import json
 import time
 import requests
@@ -7,7 +9,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
-
+# from eaglet.core import watchdog
+# from eaglet.core.exceptionutil import unicode_full_stack
 from core import resource
 from core.jsonresponse import create_response
 from core import paginator
@@ -18,6 +21,7 @@ from account import models as account_models
 from product import models as product_models
 from resource import models as resource_models
 from panda.settings import ZEUS_HOST
+
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -134,7 +138,6 @@ class CustomerOrdersList(resource.Resource):
 		print(supplier_ids)
 		rows = []
 		if supplier_ids != '':
-			# try:
 			#请求接口获得数据
 			if is_for_list:
 				if is_search_product_name:
@@ -166,6 +169,7 @@ class CustomerOrdersList(resource.Resource):
 						'count_per_page': COUNT_PER_PAGE
 					}
 				params.update(filter_params)
+				# try:
 				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
 				res = json.loads(r.text)
 				if res['code'] == 200:
@@ -176,6 +180,12 @@ class CustomerOrdersList(resource.Resource):
 					return response.get_response()
 				pageinfo = res['data']['pageinfo']
 				pageinfo['total_count'] = pageinfo['object_count']
+				# except:
+				# 	watchdog.error(u'连接zeus接口失败，接口:{}, 原因:{}'.format(
+				# 			'order_list_by_supplier',
+				# 			unicode_full_stack()
+				# 		), self.express_config.watchdog_type
+				# 	)
 			else:
 				if is_search_product_name:
 					if api_pids!= '':
@@ -263,12 +273,6 @@ class CustomerOrdersList(resource.Resource):
 						'delivery_time': order['delivery_time'],
 						'customer_message': order['customer_message']
 					})
-			# except Exception,e:
-			# 	print('eeeeeeeeeeeeeeeeeee')
-			# 	print(e)
-			# 	orders = []
-			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
-			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)

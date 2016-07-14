@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+__author__ = 'lihanyi'
+
 import json
 import time
 import requests
@@ -141,7 +143,6 @@ class YunyingOrdersList(resource.Resource):
 		supplier_ids = '_'.join(supplier_ids)
 		rows = []
 		if supplier_ids != '':
-			# try:
 			#请求接口获得数据
 			if is_for_list:
 				if is_search_product_name:
@@ -270,12 +271,6 @@ class YunyingOrdersList(resource.Resource):
 						'express_company_name': order['express_company_name'],
 						'express_number': order['express_number']
 					})
-			# except Exception,e:
-			# 	print('eeeeeeeeeeeeeeeeeee')
-			# 	print(e)
-			# 	orders = []
-			# 	pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
-			# 	pageinfo = pageinfo.to_dict()
 		else:
 			orders = []
 			pageinfo, orders = paginator.paginate(orders, cur_page, COUNT_PER_PAGE)
