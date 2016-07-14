@@ -39,7 +39,7 @@ def sales_from_weapp(product_has_relations):
 	if product_ids:
 		try:
 			params = {
-				'product_ids': product_ids[1:]
+				'product_ids': product_ids
 			}
 			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
 			res = json.loads(r.text)
