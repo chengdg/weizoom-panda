@@ -46,23 +46,6 @@ class ProductRelation(resource.Resource):
 	resource = 'weapp_relation'
 
 	@login_required
-	def api_get(request):
-		product_id = request.GET.get('product_id',0)
-		product_relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).order_by('self_user_name')
-		#组装数据
-		relations = {}
-		if product_relations:
-			for product in product_relations:
-				relations[product.self_user_name] = product.weapp_product_id
-		data = {
-			'rows': relations
-		}
-		#构造response
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
-
-	@login_required
 	def api_post(request):
 		product_data = request.POST.get('product_data',0)
 		account_has_suppliers = AccountHasSupplier.objects.all()
@@ -118,7 +101,6 @@ class ProductRelation(resource.Resource):
 					'swipe_images': '' if not swipe_images else json.dumps(swipe_images)
 				}
 				r = requests.post(ZEUS_HOST+'/mall/sync_product/?_method=put',data=params)
-				print ('+++r+++:',r.text)
 				res = json.loads(r.text)
 				if res['code'] == 200:
 					sync_product_datas = res['data']
@@ -146,49 +128,13 @@ class ProductRelation(resource.Resource):
 								models.Product.objects.filter(id=product_id).update(product_status=0)
 				else:
 					print(res)
-					print("==========")
 					
 		except Exception,e:
 			print(e)
-			print("++++++++++++")
 			response.innerErrMsg = unicode_full_stack()
 
 		relations = {}
 		data['rows'] = relations
 		#构造response
 		response.data = data
-		return response.get_response()
-
-	@login_required
-	def api_put(request):
-		post = request.POST
-		relations = post.get('relations','')
-		product_id = post.get('product_id','')
-		try:
-			if relations:
-				models.ProductHasRelationWeapp.objects.filter(product_id=product_id).delete()
-				relations=json.loads(relations)
-				list_create = []
-				for (k,v) in relations[0].items():
-					list_create.append(models.ProductHasRelationWeapp(
-						product_id = product_id,
-						self_user_name = k,
-						weapp_product_id = v
-					))
-				models.ProductHasRelationWeapp.objects.bulk_create(list_create)
-
-				product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-				product_has_relations = product_has_relations.filter(product_id=product_id)
-				if len(product_has_relations)>0:
-					models.Product.objects.filter(id=product_id).update(product_status=1)#{0:未上架,1:已上架}
-				else:
-					models.Product.objects.filter(id=product_id).update(product_status=0)
-			response = create_response(200)
-			response.data.code = 200
-			response.data.Msg = u'关联成功'
-		except:
-			response = create_response(500)
-			response.data.code = 500
-			response.innerErrMsg = unicode_full_stack()
-			response.data.Msg = u'关联失败'
 		return response.get_response()

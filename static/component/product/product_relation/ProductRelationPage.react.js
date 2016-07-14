@@ -12,7 +12,6 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-var ProductRelationDialog = require('./ProductRelationDialog.react');
 
 var ProductRelationPage = React.createClass({
 
@@ -27,19 +26,7 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	productRelation: function(self_shop,self_user_name,product_info) {
-		// Action.getWeappProductRelation(product_id);
-		// Reactman.PageAction.showDialog({
-		// 	title: "编辑云商通商品ID",
-		// 	component: ProductRelationDialog,
-		// 	data: {
-		// 		self_shop: JSON.parse(self_shop),
-		// 		product_id: product_id
-		// 	},
-		// 	success: function(inputData, dialogState) {
-		// 		console.log("success");
-		// 	}
-		// });
+	productRelation: function(self_user_name,product_info) {
 		var product_id = product_info['product_id']
 		var obj = document.getElementById(product_id);
 		obj = obj.getElementsByTagName('input');
@@ -79,18 +66,7 @@ var ProductRelationPage = React.createClass({
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'weapp_name') {
-			var relations = data['relations'];
 			var id = data['id'];
-			// console.log(data['self_user_name'],"=====");
-			// if(relations){
-			// 	relations = JSON.parse(relations).map(function(relation,index){
-			// 		return(
-			// 			<div style={{display:'inline-block'}} key={index}>
-			// 				<span style={{display:'inline-block', marginRight:'20px'}}>{relation['self_first_name']}:{relation['weapp_product_id']}</span>
-			// 			</div>
-			// 		)
-			// 	});
-			// }
 			var self_user_name = data['self_user_name'];
 			var w_b_checked = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'checked':null;
 			var w_c_checked = self_user_name.toString().indexOf('weizoom_club')>-1?'checked':null;
@@ -130,7 +106,7 @@ var ProductRelationPage = React.createClass({
 						<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
 						<span>微众学生</span>
 					</label>
-					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_shop'],data['self_user_name'],data['product_info'])}>同步</a>
+					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
@@ -163,9 +139,6 @@ var ProductRelationPage = React.createClass({
 						</Reactman.FilterField>
 						<Reactman.FilterField>
 							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
-						</Reactman.FilterField>
-						<Reactman.FilterField>
-							<Reactman.FormInput label="云商通商品ID:" name="weapp_name_query" match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>

@@ -26,6 +26,9 @@ import requests
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
+filter2field ={
+	'product_name_query': 'product_name'
+}
 
 product_status2text = {
 	0: u'未上架',
@@ -89,11 +92,19 @@ class ProductList(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
+		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		product_name = filter_idct.get('product_name','')
+
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		products = models.Product.objects.filter(owner=request.user).order_by('-id')
-		product_images = models.ProductImage.objects.all().order_by('-id')
+
+		#查询
+		if product_name:
+			products = products.filter(product_name__icontains=product_name)
+
 		product_ids = ['%s'%product.id for product in products]
 		product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
+		product_images = models.ProductImage.objects.filter(product_id__in=product_ids).order_by('-id')
 
 		#从weapp获取商品销量
 		id2sales = sales_from_weapp(product_has_relations)
@@ -106,7 +117,7 @@ class ProductList(resource.Resource):
 		for image in resource_models.Image.objects.all():
 			image_id2images[image.id] = image.path
 
-		pageinfo, products = paginator.paginate(products, cur_page, 5, query_string=request.META['QUERY_STRING'])
+		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 		#组装数据
 		rows = []
 		for product in products:

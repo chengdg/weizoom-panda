@@ -16,12 +16,14 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT
+		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
+		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER
 	},
 
 	init: function() {
 		this.data = {};
 		this.data.user_has_products = '';
+		this.filter = {};
 	},
 
 	handleUpdateProduct: function(action) {
@@ -29,8 +31,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
+	handleProductDataFilter: function(action){
+		this.filter = action.data;
+		this.__emitChange();
+	},
+
 	getData: function() {
 		return this.data;
+	},
+
+	getFilter: function() {
+		return this.filter;
 	}
 });
 

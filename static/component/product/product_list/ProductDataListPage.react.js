@@ -23,7 +23,8 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
-		this.refs.table.refresh();
+		var filterOptions = Store.getFilter();
+		this.refs.table.refresh(filterOptions);
 	},
 
 	onClickDelete: function(event) {
@@ -43,16 +44,6 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onValidateAddProduct: function(){
-		// var user_has_products = W.user_has_products;
-		// if(Store.getData().user_has_products){
-		// 	user_has_products = Store.getData().user_has_products;
-		// }
-		// if(user_has_products >= 3){
-		// 	Reactman.PageAction.showHint('error', '达到最大商品数,如有更多需要请联系客服400-688-6929!');
-		// 	return;
-		// }else{
-		// 	W.gotoPage('/product/new_product/');
-		// }
 		W.gotoPage('/product/new_product/');
 	},
 
@@ -87,6 +78,10 @@ var ProductDataListPage = React.createClass({
 		}
 	},
 
+	onConfirmFilter: function(data){
+		Action.filterDates(data);
+	},
+
 	render:function(){
 		var productsResource = {
 			resource: 'product.product_list',
@@ -97,6 +92,13 @@ var ProductDataListPage = React.createClass({
 
 		return (
 			<div className="mt15 xui-product-productListPage">
+				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
+					<Reactman.FilterRow>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
+						</Reactman.FilterField>
+					</Reactman.FilterRow>
+				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>

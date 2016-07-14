@@ -25,6 +25,13 @@ var Action = {
 				actionType: Constant.PRODUCT_LIST_UPDATE_PRODUCT
 			}
 		});
+	},
+
+	filterDates: function(filterOptions){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_DATAS_FILTER,
+			data: filterOptions
+		});
 	}
 };
 

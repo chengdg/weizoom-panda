@@ -30,8 +30,7 @@ SECOND_NAV = 'product-list'
 
 filter2field ={
 	'product_name_query': 'product_name',
-	'customer_name_query': 'customer_name',
-	'weapp_name_query': 'weapp_id'
+	'customer_name_query': 'customer_name'
 }
 
 class ProductRelation(resource.Resource):
@@ -62,7 +61,7 @@ class ProductRelation(resource.Resource):
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_idct.get('product_name','')
 		customer_name = filter_idct.get('customer_name','')
-		weapp_id = filter_idct.get('weapp_id','')
+
 		#查询
 		if product_name:
 			products = products.filter(product_name__icontains=product_name)
@@ -70,19 +69,6 @@ class ProductRelation(resource.Resource):
 			user_profiles = user_profiles.filter(name__icontains=customer_name)
 			user_ids = [user_profile.user_id for user_profile in user_profiles]
 			products = products.filter(owner_id__in=user_ids)
-		if weapp_id:
-			product_has_relationss = product_has_relations.filter(weapp_product_id__icontains=weapp_id)
-			product_ids = [product_has_relation.product_id for product_has_relation in product_has_relationss]
-			products = products.filter(id__in=product_ids)
-
-		self_shop = []
-		self_user_name2self_first_name = {}
-		for product in product_relations:
-			self_shop.append({
-				'self_user_name': product.self_user_name,
-				'self_first_name': product.self_first_name
-			})
-			self_user_name2self_first_name[product.self_user_name] = product.self_first_name
 
 		#获取商品图片
 		product_id2image_id = {}
@@ -96,7 +82,7 @@ class ProductRelation(resource.Resource):
 			image_id2images[image.id] = image.path
 		
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
-		#从weapp获取销量sales_from_weapp	
+			
 		p_ids = [product.id for product in products]
 		p_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids).exclude(weapp_product_id='')
 		weapp_product_ids = []
@@ -121,7 +107,7 @@ class ProductRelation(resource.Resource):
 				print(res)
 		except Exception,e:
 			print(e)
-		print ('product_status:',product_status)
+
 		if product_status:
 			for product_statu in product_status:
 				if product_statu['is_deleted'] == True:
@@ -129,29 +115,17 @@ class ProductRelation(resource.Resource):
 					product_id = -1 if weapp_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_id]
 					product_has_relations.filter(product_id=product_id).delete()
 
-		product_id2relations = {}
 		product_id2self_user_name = {}
 		for product_has_relation in product_has_relations:
 			product_id = product_has_relation.product_id
 			self_user_name = product_has_relation.self_user_name
-			weapp_product_id = product_has_relation.weapp_product_id
-			self_first_name = self_user_name2self_first_name[self_user_name]
-			if product_id not in product_id2relations:
-				product_id2relations[product_id] = [{
-					'self_first_name': self_first_name,
-					'weapp_product_id': weapp_product_id 
-				}]
-			else:
-				product_id2relations[product_id].append({
-					'self_first_name': self_first_name,
-					'weapp_product_id': weapp_product_id 
-				})
 
 			if product_id not in product_id2self_user_name:
 				product_id2self_user_name[product_id] = [self_user_name]
 			else:
 				product_id2self_user_name[product_id].append(self_user_name)
 
+		#从weapp获取销量sales_from_weapp
 		id2sales = sales_from_weapp(p_has_relations)
 		
 		p_owner_ids = [product.owner_id for product in products]
@@ -197,9 +171,7 @@ class ProductRelation(resource.Resource):
 					'total_sales': '%s' %sales,
 					'weapp_name': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 					'self_user_name': self_user_name,
-					'self_shop': json.dumps(self_shop),
-					'product_info': product_info,
-					'relations': '' if product.id not in product_id2relations else json.dumps(product_id2relations[product.id])
+					'product_info': product_info
 				})
 		data = {
 			'rows': rows,

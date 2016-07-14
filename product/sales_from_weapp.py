@@ -18,21 +18,17 @@ import models
 import requests
 
 def sales_from_weapp(product_has_relations):
-	# product_ids = ''
 	product_ids = []
-	#构造panda数据库内商品id，与云商通内商品id的关系
-	for product_has_relation in product_has_relations:
-		weapp_product_ids = product_has_relation.weapp_product_id.split(';')
-		for weapp_product_id in weapp_product_ids:
-			# product_ids = product_ids + '_' +weapp_product_id
-			product_ids.append(weapp_product_id)
-
+	
 	product_weapp_id2product_id = {}
 	for product_has_relation in product_has_relations:
 		weapp_product_ids = product_has_relation.weapp_product_id.split(';')
 		for weapp_product_id in weapp_product_ids:
 			#获得所有绑定过云商通的云商通商品id
+			product_ids.append(weapp_product_id)
+			#构造panda数据库内商品id，与云商通内商品id的关系
 			product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
+
 	#请求接口获得数据
 	id2sales = {}
 	product_ids = '_'.join(product_ids)
