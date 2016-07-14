@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+__author__ = 'hj'
+
 import json
 import time
 import base64

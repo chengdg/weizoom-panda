@@ -32,6 +32,13 @@ var Action = {
 			actionType: Constant.PRODUCT_DATAS_FILTER,
 			data: filterOptions
 		});
+	},
+
+	exportProducts: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_DATAS_EXPORT,
+			data: {}
+		});
 	}
 };
 

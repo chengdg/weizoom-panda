@@ -17,7 +17,8 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
-		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER
+		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
+		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT
 	},
 
 	init: function() {
@@ -34,6 +35,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleProductDataFilter: function(action){
 		this.filter = action.data;
 		this.__emitChange();
+	},
+
+	handleProductDataExport: function(action){
+		var filterOptions = this.filter;
+		var filter_str = '';
+		for (var key in filterOptions){
+			filter_str = key +'=' + filterOptions[key];
+		}
+		window.location.href = '/product/product_exported/?'+filter_str;
 	},
 
 	getData: function() {

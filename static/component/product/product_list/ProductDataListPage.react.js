@@ -82,6 +82,10 @@ var ProductDataListPage = React.createClass({
 		Action.filterDates(data);
 	},
 
+	onExport: function(){
+		Action.exportProducts();
+	},
+
 	render:function(){
 		var productsResource = {
 			resource: 'product.product_list',
@@ -101,6 +105,7 @@ var ProductDataListPage = React.createClass({
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
+						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
 						<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
