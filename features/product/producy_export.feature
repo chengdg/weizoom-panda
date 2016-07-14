@@ -69,7 +69,7 @@ Background:
 			"price": "12.00",
 			"sales":"0",
 			"status":"未上架",
-			"actions":["编辑","彻底删除"]
+			"actions":["编辑","删除"]
 		}]
 	"""
 @penda @hj
