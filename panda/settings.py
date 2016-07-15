@@ -242,3 +242,7 @@ else:
     DEBUG = False
 
 UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路径
+
+EAGLET_CLIENT_ZEUS_HOST = 'api.zeus.com'
+ZEUS_SERVICE_NAME = 'zeus'
+SYNC_ACCOUNTS = ['5']

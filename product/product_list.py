@@ -48,7 +48,7 @@ class ProductList(resource.Resource):
 		if u_id == 4:
 			try:
 				product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
-				products = models.Product.objects.all()
+				products = models.Product.objects.filter(is_deleted=False)
 				users = User.objects.all()
 				product_id2user_id = {product.id:product.owner_id for product in products}
 				user_id2name = {user.id:user.username for user in users}
@@ -80,7 +80,8 @@ class ProductList(resource.Resource):
 				print (e)
 				print "-----error-------"
 
-		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
+		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id,
+															  is_deleted=False))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
@@ -153,7 +154,8 @@ def getProductData(request,is_export):
 	product_name = filter_idct.get('product_name','')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
-	products = models.Product.objects.filter(owner=request.user).order_by('-id')
+	products = models.Product.objects.filter(owner=request.user,
+											 is_deleted=False).order_by('-id')
 
 	#查询
 	if product_name:
