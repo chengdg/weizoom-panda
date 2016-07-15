@@ -74,10 +74,17 @@ var NewProductPage = React.createClass({
 	onSubmit: function(){
 		var product = Store.getData();
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
+		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_limit_time = parseInt(product.has_limit_time[0]);
 		if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
 			if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
 				Reactman.PageAction.showHint('error', '限时结算价只能保留两位有效数字,请重新输入!');
+				return;
+			}
+		}
+		if(product.hasOwnProperty('product_price') && product.product_price.length>0){
+			if(!reg_2.test(product.product_price.trim())){
+				Reactman.PageAction.showHint('error', '商品价格是数字且保留两位有效数字,请重新输入!');
 				return;
 			}
 		}
