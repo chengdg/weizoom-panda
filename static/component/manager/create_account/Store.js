@@ -26,6 +26,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
 			this.data['purchase_method'] = String(this.data['purchase_method']);
+			if (this.data['purchase_method'] != '2'){
+				this.data['points'] = '';
+			}
 		} else {
 			this.data = {
 				'id':-1,

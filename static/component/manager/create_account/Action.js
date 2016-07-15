@@ -38,7 +38,6 @@ var Action = {
 			account_type: parseInt(data['account_type']),
 			note: data['note']
 		};
-		console.log(account_info);
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'manager.account_create',

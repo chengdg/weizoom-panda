@@ -203,6 +203,19 @@ class AccountCreate(resource.Resource):
 		name = post.get('name','')
 		password = post.get('password','')
 		note = post.get('note','')
+		account_type = post.get('account_type','')
+		if account_type == '1':
+			company_name = post.get('company_name','')
+			company_type = post.get('company_type','')
+			purchase_method = int(post.get('purchase_method',1))
+			if purchase_method == 2:
+				points = int(post.get('points',0))
+			else:
+				points = 0
+			contacter = post.get('contacter','')
+			phone = post.get('phone','')
+			valid_time_from = post.get('valid_time_from','')
+			valid_time_to = post.get('valid_time_to','')
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
 			user_id = user_profile.user_id
@@ -210,6 +223,17 @@ class AccountCreate(resource.Resource):
 			user_profile.note = note
 			user_profile.name = name
 			user_profile.save()
+			if int(account_type) == 1:
+				UserProfile.objects.filter(id=request.POST['id']).update(
+					company_name = company_name,
+					company_type = company_type,
+					purchase_method = purchase_method,
+					points = points,
+					contacter = contacter,
+					phone = phone,
+					valid_time_from = valid_time_from,
+					valid_time_to = valid_time_to
+				)
 			if password!='':
 				user.set_password(password)
 			user.first_name = name
