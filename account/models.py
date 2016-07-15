@@ -35,6 +35,14 @@ class UserProfile(models.Model):
 	name = models.CharField(max_length=32) #账号名称
 	manager_id = models.IntegerField(default=0) #创建该用户的系统用户的id
 	role = models.IntegerField(default=MANAGER,choices=ROLES) #角色
+	company_name = models.CharField(max_length=32, default='') #公司名称
+	company_type = models.CharField(max_length=1024, default='') #经营类目
+	purchase_method = models.IntegerField(default=1) #采购方式
+	points = models.FloatField(default=0) #零售价返点
+	contacter = models.CharField(max_length=32, default='') #联系人
+	phone = models.CharField(max_length=16, default='') #手机号
+	valid_time_from = models.DateTimeField(null=True) #有效范围开始时间
+	valid_time_to = models.DateTimeField(null=True) #有效范围结束时间
 	note = models.CharField(max_length=1024, default='') #备注
 	status = models.IntegerField(default=1) #账号状态 1开启中，0停用中
 	is_active = models.BooleanField(default=True, verbose_name='用户是否有效') #是否删除

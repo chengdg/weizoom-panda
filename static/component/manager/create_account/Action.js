@@ -25,12 +25,20 @@ var Action = {
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],
+			company_name: data['company_name'],
+			company_type: data['company_type'],
+			purchase_method: data['purchase_method'],
+			points: data['points'],
+			contacter: data['contacter'],
+			phone: data['phone'],
+			valid_time_from: data['valid_time_from'],
+			valid_time_to: data['valid_time_to'],
 			username: data['username'],
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
 			note: data['note']
 		};
-
+		console.log(account_info);
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'manager.account_create',

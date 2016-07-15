@@ -25,10 +25,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
+			this.data['purchase_method'] = String(this.data['purchase_method']);
 		} else {
 			this.data = {
 				'id':-1,
-				'account_type':'1'
+				'account_type':'1',
+				'purchase_method': '2'
 			};
 		}
 		debug(this.data);

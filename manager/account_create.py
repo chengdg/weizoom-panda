@@ -45,13 +45,30 @@ class AccountCreate(resource.Resource):
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
-			user_profile_data = {
-				'id': user_profile.id,
-				'name': user_profile.name,
-				'username': User.objects.get(id=user_profile.user_id).username,
-				'account_type': user_profile.role,
-				'note': user_profile.note,
-			}
+			if user_profile.role == CUSTOMER:
+				user_profile_data = {
+					'id': user_profile.id,
+					'name': user_profile.name,
+					'company_name': user_profile.company_name,
+					'company_type': user_profile.company_type,
+					'purchase_method': user_profile.purchase_method,
+					'points': user_profile.points,
+					'contacter': user_profile.contacter,
+					'phone': user_profile.phone,
+					'valid_time_from': '' if not user_profile.valid_time_from else user_profile.valid_time_from.strftime("%Y-%m-%d %H:%M"),
+					'valid_time_to': '' if not user_profile.valid_time_to else user_profile.valid_time_to.strftime("%Y-%m-%d %H:%M"),
+					'username': User.objects.get(id=user_profile.user_id).username,
+					'account_type': user_profile.role,
+					'note': user_profile.note,
+				}
+			else:
+				user_profile_data = {
+					'id': user_profile.id,
+					'name': user_profile.name,
+					'username': User.objects.get(id=user_profile.user_id).username,
+					'account_type': user_profile.role,
+					'note': user_profile.note,
+				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True
 		else:
@@ -70,6 +87,15 @@ class AccountCreate(resource.Resource):
 	def api_put(request):
 		post = request.POST
 		account_type = post.get('account_type','')
+		if account_type == '1':
+			company_name = post.get('company_name','')
+			company_type = post.get('company_type','')
+			purchase_method = int(post.get('purchase_method',1))
+			points = int(post.get('points',0))
+			contacter = post.get('contacter','')
+			phone = post.get('phone','')
+			valid_time_from = post.get('valid_time_from','')
+			valid_time_to = post.get('valid_time_to','')
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -93,6 +119,16 @@ class AccountCreate(resource.Resource):
 			)
 			account_zypt_infos = []
 			if int(account_type) == 1:
+				user_profile.update(
+					company_name = company_name,
+					company_type = company_type,
+					purchase_method = purchase_method,
+					points = points,
+					contacter = contacter,
+					phone = phone,
+					valid_time_from = valid_time_from,
+					valid_time_to = valid_time_to
+				)
 				try:
 					params = {
 						'mall_type': 1
