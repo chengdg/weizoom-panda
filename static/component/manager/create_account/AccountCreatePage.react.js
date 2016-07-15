@@ -72,7 +72,7 @@ var AccountCreatePage = React.createClass({
 				return;
 			}
 		}
-		// Action.saveAccount(Store.getData());
+		Action.saveAccount(Store.getData());
 	},
 	render:function(){
 		var optionsForAccountType = [{

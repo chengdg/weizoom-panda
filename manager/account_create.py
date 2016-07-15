@@ -91,7 +91,7 @@ class AccountCreate(resource.Resource):
 			company_name = post.get('company_name','')
 			company_type = post.get('company_type','')
 			purchase_method = int(post.get('purchase_method',1))
-			points = int(post.get('points',0))
+			points = float(post.get('points',0))
 			contacter = post.get('contacter','')
 			phone = post.get('phone','')
 			valid_time_from = post.get('valid_time_from','')
@@ -209,7 +209,7 @@ class AccountCreate(resource.Resource):
 			company_type = post.get('company_type','')
 			purchase_method = int(post.get('purchase_method',1))
 			if purchase_method == 2:
-				points = int(post.get('points',0))
+				points = float(post.get('points',0))
 			else:
 				points = 0
 			contacter = post.get('contacter','')
