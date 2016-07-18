@@ -135,6 +135,9 @@ var ShipDialog = Reactman.createDialog({
 		},{
 			text: '邮政包裹/平邮',
 			value: 'youzhengguonei'
+		},{
+			text: '优速物流',
+			value: 'youshuwuliu'
 		}];
 		return (
 		<div className="xui-formPage">

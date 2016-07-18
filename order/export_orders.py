@@ -40,7 +40,8 @@ express_company_name2text = {
 	'suer': u'速尔快递',
 	'guotongkuaidi': u'国通快递',
 	'youzhengguonei': u'邮政包裹/平邮',
-	'rufengda': u'如风达'
+	'rufengda': u'如风达',
+	'youshuwuliu': u'优速物流'
 }
 
 class ExportOrders(resource.Resource):

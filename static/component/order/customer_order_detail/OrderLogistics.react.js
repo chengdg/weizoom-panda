@@ -35,7 +35,8 @@ var OrderLogistics = React.createClass({
 			'suer': '速尔快递',
 			'guotongkuaidi': '国通快递',
 			'youzhengguonei': '邮政包裹/平邮',
-			'rufengda': '如风达'
+			'rufengda': '如风达',
+			'youshuwuliu': '优速物流'
 		};
 		var orde_datas = this.props.ordeDatas;
 		var ship_name = orde_datas['ship_name']?orde_datas['ship_name']:'';
