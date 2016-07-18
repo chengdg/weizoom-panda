@@ -6,7 +6,7 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	PRODUCT_LIST_UPDATE_PRODUCT: null,
-	PRODUCT_DATAS_FILTER: null,
-	PRODUCT_DATAS_EXPORT: null
+	ADD_PRODUCT_MODEL_VALUE: null,
+	NEW_PRODUCT_MODEL: null,
+	UPDATE_PRODUCT_MODEL: null
 });

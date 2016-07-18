@@ -12,6 +12,7 @@ from django.contrib import auth
 
 from core import resource
 from core.jsonresponse import create_response
+from core.exceptionutil import unicode_full_stack
 from core import paginator
 
 from util import db_util
@@ -45,12 +46,35 @@ class ProductModel(resource.Resource):
 		return render_to_response('product/product_model.html', c)
 
 	def api_get(request):
-		is_export = False
-		rows = [{
-			'product_model_name': u'尺码',
-			'model_type': 0,
-			'model_name': 'XL',
-		}]
+		product_model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
+		property_ids = [product_model_property.id for product_model_property in product_model_properties]
+		product_model_property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
+		property_id2model_property_value = {}
+		for model_property_value in product_model_property_values:
+			if model_property_value.property_id not in property_id2model_property_value:
+				property_id2model_property_value[model_property_value.property_id] = [{
+					'name': model_property_value.name,
+					'pic_url': model_property_value.pic_url,
+					'id': model_property_value.id
+				}]
+			else:
+				property_id2model_property_value[model_property_value.property_id].append({
+					'name': model_property_value.name,
+					'pic_url': model_property_value.pic_url,
+					'id': model_property_value.id
+				})
+
+		rows = []
+		for product_model_property in product_model_properties:
+			model_name = ''
+			if product_model_property.id in property_id2model_property_value:
+				model_name = property_id2model_property_value[product_model_property.id]
+			rows.append({
+				'id': product_model_property.id,
+				'product_model_name': product_model_property.name,
+				'model_type': product_model_property.type,
+				'model_name': '' if not model_name else json.dumps(model_name),
+			})
 		
 		data = {
 			'rows': rows,
@@ -60,4 +84,28 @@ class ProductModel(resource.Resource):
 		#构造response
 		response = create_response(200)
 		response.data = data
+		return response.get_response()
+
+	def api_put(request):
+		try:
+			models.ProductModelProperty.objects.create(
+				owner = request.user
+			)
+			response = create_response(200)
+		except:
+			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
+		return response.get_response()
+
+	def api_post(request):
+		model_id = request.POST.get('id',0)
+		name = request.POST.get('name',0)
+		try:
+			models.ProductModelProperty.objects.filter(id=int(model_id)).update(
+				name = name
+			)
+			response = create_response(200)
+		except:
+			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()

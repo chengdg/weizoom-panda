@@ -63,3 +63,39 @@ class ProductHasRelationWeapp(models.Model):
 
 	class Meta(object):
 		db_table = 'product_has_relation_weapp'
+
+
+
+PRODUCT_MODEL_PROPERTY_TYPE_TEXT = 0
+PRODUCT_MODEL_PROPERTY_TYPE_IMAGE = 1
+
+class ProductModelProperty(models.Model):
+	"""
+	ProductModelProperty：商品规格属性
+	"""
+	owner = models.ForeignKey(User)
+	name = models.CharField(max_length=256,null=True)  # 商品规格属性名
+	type = models.IntegerField(default=PRODUCT_MODEL_PROPERTY_TYPE_TEXT)  # 属性类型
+	is_deleted = models.BooleanField(default=False)  # 是否删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'mall_product_model_property'
+		verbose_name = '商品规格属性'
+		verbose_name_plural = '商品规格属性'
+
+
+class ProductModelPropertyValue(models.Model):
+	"""
+	ProductModelPropertyValue：商品规格属性值
+	"""
+	property_id = models.IntegerField(default=0) #ProductModelProperty id
+	name = models.CharField(max_length=256)  # 商品名称
+	pic_url = models.CharField(max_length=1024)  # 商品图
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'mall_product_model_property_value'
+		verbose_name = '商品规格属性值'
+		verbose_name_plural = '商品规格属性值'

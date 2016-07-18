@@ -13,24 +13,38 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	deleteProduct: function(id,user_has_products) {
-		Resource.delete({
-			resource: 'product.new_product',
+	addProductModelValue: function(property, value) {
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_PRODUCT_MODEL_VALUE,
 			data: {
-				id: id,
-				user_has_products: user_has_products
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.PRODUCT_LIST_UPDATE_PRODUCT
+				property: property,
+				value: value
 			}
 		});
 	},
 
-	filterDates: function(filterOptions){
-		Dispatcher.dispatch({
-			actionType: Constant.PRODUCT_DATAS_FILTER,
-			data: filterOptions
+	addProductModel: function(filterOptions){
+		Resource.put({
+			resource: 'product.product_model',
+			data: {},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.NEW_PRODUCT_MODEL
+			}
+		});
+	},
+
+	updateProductModel: function(id,name){
+		Resource.post({
+			resource: 'product.product_model',
+			data: {
+				'id':id,
+				'name':name
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.UPDATE_PRODUCT_MODEL
+			}
 		});
 	},
 

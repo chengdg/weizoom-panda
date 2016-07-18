@@ -16,34 +16,32 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
-		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
-		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT
+		'handleAddProductModelValue': Constant.ADD_PRODUCT_MODEL_VALUE,
+		'handleCreateNewProductModel': Constant.NEW_PRODUCT_MODEL,
+		'handleUpdateProductModel': Constant.UPDATE_PRODUCT_MODEL,
 	},
 
 	init: function() {
-		this.data = {};
-		this.data.user_has_products = '';
+		this.data = {
+			'images': [],
+			'model_value': '',
+		};
 		this.filter = {};
 	},
 
-	handleUpdateProduct: function(action) {
-		this.data.user_has_products = parseInt(action.data.user_has_products)-1;
+	handleAddProductModelValue: function(action) {
+		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handleProductDataFilter: function(action){
-		this.filter = action.data;
+	handleCreateNewProductModel: function(action){
+		console.log(action.data,"--------");
 		this.__emitChange();
 	},
 
-	handleProductDataExport: function(action){
-		var filterOptions = this.filter;
-		var filter_str = '';
-		for (var key in filterOptions){
-			filter_str = key +'=' + filterOptions[key];
-		}
-		window.location.href = '/product/product_exported/?'+filter_str;
+	handleUpdateProductModel: function(action){
+		console.log(action.data,"---22-----");
+		this.__emitChange();
 	},
 
 	getData: function() {
