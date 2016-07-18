@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from datetime import datetime
+import datetime
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
@@ -26,19 +26,39 @@ class LoginedAccount(resource.Resource):
 		user = auth.authenticate(username=username, password=password)
 		if user:
 			auth.login(request, user)
-			user_profile = UserProfile.objects.filter(user_id=user.id,status=1)
+			user_profile = UserProfile.objects.filter(user_id=user.id,status__in=[1,2])
+
 			if user_profile:
-				role = user_profile[0].role
-				if role == MANAGER:
-					return HttpResponseRedirect('/manager/account/')
-				elif role == CUSTOMER:
-					return HttpResponseRedirect('/product/product_list/')
-				elif role == AGENCY:
-					return HttpResponseRedirect('/customer/customer/')
-				elif role == YUN_YING:
-					return HttpResponseRedirect('/product/product_relation/')
-				else:
-					return HttpResponseRedirect('/product/product_relation/')
+				user_profile = user_profile.first()
+				if user_profile.valid_time_from and user_profile.valid_time_to:
+					date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+					valid_time_from = user_profile.valid_time_from.strftime("%Y-%m-%d %H:%M:%S")
+					valid_time_to = user_profile.valid_time_to.strftime("%Y-%m-%d %H:%M:%S")
+					#判断账号是否过期
+					if date_now >= valid_time_to or date_now <= valid_time_from:
+						user_profile.status = 2
+						user_profile.save()
+						c = RequestContext(request, {
+							'errorMsg': u'您输入的账号无效，请联系客服：400-688-6929'
+						})
+						return render_to_response('account/login.html', c)
+					#判断账号是否开启
+					if valid_time_from <= date_now and date_now < valid_time_to and user_profile.status != 0:
+						user_profile.status = 1
+						user_profile.save()
+
+				if user_profile.status == 1:
+					role = user_profile.role
+					if role == MANAGER:
+						return HttpResponseRedirect('/manager/account/')
+					elif role == CUSTOMER:
+						return HttpResponseRedirect('/product/product_list/')
+					elif role == AGENCY:
+						return HttpResponseRedirect('/customer/customer/')
+					elif role == YUN_YING:
+						return HttpResponseRedirect('/product/product_relation/')
+					else:
+						return HttpResponseRedirect('/product/product_relation/')
 			else:
 				c = RequestContext(request, {
 					'errorMsg': u'您输入的账号无效，请联系客服：400-688-6929'
