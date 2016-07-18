@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
 from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
 from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
@@ -15,6 +16,7 @@ from account.models import *
 import nav
 import models
 from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME, SYNC_ACCOUNTS
+from account.models import AccountHasSupplier
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -99,6 +101,10 @@ class NewProduct(resource.Resource):
         if not limit_clear_price:
             limit_clear_price = -1
         try:
+            # images = [dict(order=1, url=image.get('path')) for image in json.loads(request.POST['images'])]
+
+            # 库存
+            # stocks = product_store if product_store > 0 else 0
             if has_limit_time == 1:
                 product = models.Product.objects.create(
                     owner=request.user,
@@ -129,39 +135,6 @@ class NewProduct(resource.Resource):
                     remark=remark
                 )
 
-                images = [dict(order=1, url=image.get('path')) for image in json.loads(request.POST['images'])]
-                # 库存
-                stocks = product_store if product_store > 0 else 0
-                params = {
-                    'supplier': request.user.id,
-                    'name': product_name,
-                    'promotion_title': promotion_title,
-                    'purchase_price': clear_price,
-                    'price': product_price,
-                    'weight': product_weight,
-                    'stock_type': 'unbound' if product_store == -1 else product_store,
-                    'images': json.dumps(images),
-                    'product_id': product.id,
-                    'model_type': 'single',
-                    'stocks': stocks,
-                    # 商品需要同步到哪个自营平台
-                    'accounts': json.dumps(SYNC_ACCOUNTS)
-                }
-                resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
-                    'resource': 'mall.product',
-                    'data': params
-                })
-                # print resp.get('code'), resp.get('data')
-                # print '+++++++++++++++++++++++++++++++++++++++++++++++++++'
-                if resp:
-					if resp.get('code') == 200:
-
-						models.ProductHasRelationWeapp.objects.create(
-							product_id=product.id,
-							weapp_product_id=resp.get('data').get('product').get('id'),
-							self_user_name=request.user.username
-						)
-
             # 获取商品图片
             if images:
                 product_images = json.loads(request.POST['images'])
@@ -171,8 +144,10 @@ class NewProduct(resource.Resource):
             response = create_response(200)
         except:
             response = create_response(500)
-            response.innerErrMsg = unicode_full_stack()
-            print unicode_full_stack()
+            msg = unicode_full_stack()
+
+            response.innerErrMsg = msg
+            watchdog.error(message=msg)
         return response.get_response()
 
     @login_required
@@ -227,31 +202,7 @@ class NewProduct(resource.Resource):
                 product_store=product_store,
                 remark=remark
             )
-            # 同步到云上通
-            images = [dict(order=1, url=image.get('path')) for image in json.loads(request.POST['images'])]
-            # 库存
-            stocks = product_store if product_store > 0 else 0
-            params = {
-                'supplier': request.user.id,
-                'name': product_name,
-                'promotion_title': promotion_title,
-                'purchase_price': clear_price,
-                'price': product_price,
-                'weight': product_weight,
-                'stock_type': 'unbound' if product_store == -1 else product_store,
-                'swipe_images': json.dumps(images),
-                'product_id': request.POST['id'],
-                'model_type': 'single',
-                'stocks': stocks,
-                # 商品需要同步到哪个自营平台
-                'accounts': json.dumps(SYNC_ACCOUNTS)
-            }
-            resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-                'resource': 'mall.product',
-                'data': params
-            })
-            if resp and resp.get('code'):
-                print '+++++++++++++++++++++++=='
+
         # 删除、重建商品图片
         if images:
             product = models.Product.objects.get(owner=request.user, id=request.POST['id'])

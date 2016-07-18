@@ -245,4 +245,4 @@ UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路�
 
 EAGLET_CLIENT_ZEUS_HOST = 'api.zeus.com'
 ZEUS_SERVICE_NAME = 'zeus'
-SYNC_ACCOUNTS = ['5']
+SYNC_ACCOUNTS = ['5', '3']

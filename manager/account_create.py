@@ -110,13 +110,13 @@ class AccountCreate(resource.Resource):
 				})
 				if resp['code'] == 200:
 					supplier_datas = resp['data']
-					# if supplier_datas:
-					# 	AccountHasSupplier.objects.create(
-					# 		user_id = user_id,
-					# 		account_id = user_profile[0].id,
-					# 		store_name = account_zypt_info['store_name'].encode('utf8'),
-					# 		supplier_id = int(supplier_datas['id'])
-					# 	)
+					if supplier_datas:
+						AccountHasSupplier.objects.create(
+							user_id = user_id,
+							account_id = user_profile[0].id,
+							# store_name = account_zypt_info['store_name'].encode('utf8'),
+							supplier_id = int(supplier_datas['id'])
+						)
 					pass
 				else:
 					User.objects.filter(id=user_id).delete()

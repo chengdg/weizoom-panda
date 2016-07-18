@@ -64,3 +64,16 @@ class ProductHasRelationWeapp(models.Model):
 
 	class Meta(object):
 		db_table = 'product_has_relation_weapp'
+
+
+class ProductSyncWeappAccount(models.Model):
+    """
+    商品被同步到了哪个平台（适配老逻辑）
+    """
+    product_id = models.IntegerField(default=0)
+    self_user_name = models.CharField(max_length=50, null=True, help_text='对应平台的用户名')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta(object):
+        db_table = 'product_sync_weapp_account'
+
