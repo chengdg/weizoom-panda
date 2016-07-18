@@ -6,8 +6,9 @@ Feature:精简版云商通-创建体验客户、代理商、运营账号
 	1.管理员创建体验客户账号
 	2.管理员创建代理商账号
 	3.管理员创建运营账号
-	4.创建账号时增加了字段
-
+	4.管理员创建采购方式为'固定底价'的的体验客户
+	5.管理员创建采购方式为'零售价返点'的的体验客户
+	6.管理员创建采购方式为'以贷抵款'的的体验客户
 """
 #account_type   账号类型
 #account_name   账号名称
@@ -117,3 +118,51 @@ Scenario:3  管理员创建运营账号
 			"actions": ["编辑","关闭"]
 		}]
 	"""
+@panda @account_create
+Scenario:4 管理员创建采购方式为'固定底价'的的体验客户
+	Given manager登录管理系统
+	When manager添加账号
+	[{
+		"account_type":"体验客户",
+		"company_name":"武汉鸭脖",
+		"shop_name":"武汉鸭脖",
+		"purchase_type":"固定底价",
+		"tel_person":"徐梓豪",
+		"tel_number":"13813984402",
+		"login_account":"wuhanyabo",
+		"password":"1",
+		"ramarks":"1"
+	}]
+
+@panda @account_create
+Scenario:5 管理员创建采购方式为'零售价返点'的的体验客户
+	Given manager登录管理系统
+	When manager添加账号
+	[{
+		"account_type":"体验客户",
+		"company_name":"武汉鸭脖",
+		"shop_name":"武汉鸭脖",
+		"purchase_type":"零售价返点",
+		"return_number":"2.37",
+		"tel_person":"徐梓豪",
+		"tel_number":"13813984402",
+		"login_account":"wuhanyabo",
+		"password":"1",
+		"ramarks":"1"
+	}]
+
+@panda @account_create
+Scenario:5 管理员创建采购方式为'以贷抵款'的的体验客户
+	Given manager登录管理系统
+	When manager添加账号
+	[{
+		"account_type":"体验客户",
+		"company_name":"武汉鸭脖",
+		"shop_name":"武汉鸭脖",
+		"purchase_type":"以贷抵款",
+		"tel_person":"徐梓豪",
+		"tel_number":"13813984402",
+		"login_account":"wuhanyabo",
+		"password":"1",
+		"ramarks":"1"
+	}]

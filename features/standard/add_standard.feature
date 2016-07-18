@@ -4,7 +4,7 @@ Feature:运营人员新增规格样式
 	1.新增显示样式为'文字'的规格样式
 	2.新增显示样式为'图片'的规格样式
 	3.删除规格值的中一个规格
-	4.
+	4.删除一整个规格样式
 """
 
 Background:
@@ -63,10 +63,18 @@ Scenrio:2 新增显示样式为'图片'的规格样式
 		|    颜色     |    图像   |              |
 
 @penda @hj
-Scenario:3删除规格值的中一个规格
+Scenario:3 删除规格值的中一个规格
 	Given yunying登录系统
 	When yunying删除规格样式'尺码'中的规格'XL'
 	Then yunying查看规格列表
 		|standard_name| show_type |  standard |
 		|    尺码     |    文字   |M,X,XXL,XXL|
 		|    颜色     |    图像   |           |
+
+@penda @hj
+Scenario:4 删除一整个规格样式
+	Given yunying登录系统
+	When yunying删除规格样式'颜色'
+	Then yunying查看规格列表
+		|standard_name| show_type |  standard |
+		|    尺码     |    文字   |M,X,XXL,XXL|
