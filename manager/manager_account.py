@@ -3,7 +3,7 @@ __author__ = 'lihanyi'
 
 import json
 import time
-
+import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -71,7 +71,19 @@ class ManagerAccount(resource.Resource):
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
+		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		for account in accounts:
+			#关闭已过期的账号/开启可以登录的账号
+			if account.valid_time_from and account.valid_time_to:
+				valid_time_from = account.valid_time_from.strftime("%Y-%m-%d %H:%M:%S")
+				valid_time_to = account.valid_time_to.strftime("%Y-%m-%d %H:%M:%S")
+				if valid_time_from <= date_now and date_now < valid_time_to and account.status != 0:
+					account.status = 1
+					account.save()
+				elif date_now >= valid_time_to or date_now <= valid_time_from:
+					account.status = 2
+					account.save()
+
 			if is_for_list:
 				rows.append({
 					'id' : account.id,

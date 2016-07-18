@@ -26,6 +26,10 @@ ROLES = (
 )
 ROLE2NAME = dict(ROLES)
 
+STATUS_STOPED = 0
+STATUS_RUNNING = 1
+STATUS_NOT_IN_VALID_TIME = 2
+
 #===============================================================================
 # UserProfile ： 用户信息
 #===============================================================================
@@ -44,7 +48,7 @@ class UserProfile(models.Model):
 	valid_time_from = models.DateTimeField(null=True) #有效范围开始时间
 	valid_time_to = models.DateTimeField(null=True) #有效范围结束时间
 	note = models.CharField(max_length=1024, default='') #备注
-	status = models.IntegerField(default=1) #账号状态 1开启中，0停用中
+	status = models.IntegerField(default=1) #账号状态 0停用中，1开启中，2不在有效期内
 	is_active = models.BooleanField(default=True, verbose_name='用户是否有效') #是否删除
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 
