@@ -46,7 +46,9 @@ class ProductModel(resource.Resource):
 		return render_to_response('product/product_model.html', c)
 
 	def api_get(request):
+		cur_page = request.GET.get('page', 1)
 		product_model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
+		pageinfo, product_model_properties = paginator.paginate(product_model_properties, cur_page, 20, query_string=request.META['QUERY_STRING'])
 		property_ids = [product_model_property.id for product_model_property in product_model_properties]
 		product_model_property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 		property_id2model_property_value = {}
@@ -78,7 +80,7 @@ class ProductModel(resource.Resource):
 		
 		data = {
 			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
+			'pagination_info': pageinfo.to_dict()
 		}
 
 		#构造response
