@@ -1,8 +1,8 @@
 #author: 张雪 2016-5-6
 
-Feature:精简版云商通-创建体验客户、代理商、运营账号
+Feature:精简版云商通-创建合作客户、代理商、运营账号
 """
-	1.管理员创建体验客户账号
+	1.管理员创建合作客户账号
 	2.管理员创建代理商账号
 	3.管理员创建运营账号
 
@@ -14,18 +14,18 @@ Feature:精简版云商通-创建体验客户、代理商、运营账号
 #remarks        备注
 
 @panda @account_create
-Scenario:1  管理员创建体验客户账号
+Scenario:1  管理员创建合作客户账号
 	Given jobs登录管理系统
 	When jobs添加账号
 	"""
 		[{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
 			"password":"123456",
 			"ramarks":"爱昵咖啡客户体验账号"
 		},{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"土小宝",
 			"login_account":"tuxiaobao",
 			"password":"123456",
@@ -86,7 +86,7 @@ Scenario:3  管理员创建运营账号
 			"password":"123456",
 			"ramarks":"代理商有限公司"
 		},{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
 			"password":"123456",

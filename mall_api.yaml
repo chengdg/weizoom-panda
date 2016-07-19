@@ -139,10 +139,10 @@ paths:
   /mall/get_orders_by_customer_ids:
     get:
       description: |
-        展示所有体验客户下，所有【已发货】状态的订单
+        展示所有合作客户下，所有【已发货】状态的订单
       parameters:
         - name: customer_ids
-          description: 体验客户ids
+          description: 合作客户ids
           required: true
           type: string
           format: string

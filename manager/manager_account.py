@@ -89,6 +89,9 @@ class ManagerAccount(resource.Resource):
 					'id' : account.id,
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
+					'company_type' : account.company_type if account.role==1 else '--',
+					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'account_type' : ROLE2NAME[account.role],
 					'status' : account.status
 				})
 			else:

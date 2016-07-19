@@ -20,15 +20,24 @@ AGENCY = 2
 YUN_YING = 3
 ROLES = (
 	(MANAGER, u'管理员'),
-	(CUSTOMER, u'体验客户'),
-	(AGENCY, u'代理'),
+	(CUSTOMER, u'合作客户'),
+	(AGENCY, u'代理商'),
 	(YUN_YING, u'运营')
 )
 ROLE2NAME = dict(ROLES)
 
+#账号状态
 STATUS_STOPED = 0
 STATUS_RUNNING = 1
 STATUS_NOT_IN_VALID_TIME = 2
+
+#采购方式
+METHOD = (
+	(1, u'固定底价'),
+	(2, u'零售价返点'),
+	(3, u'以货抵款')
+)
+METHOD2NAME = dict(METHOD)
 
 #===============================================================================
 # UserProfile ： 用户信息
