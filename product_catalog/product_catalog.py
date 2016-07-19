@@ -26,7 +26,7 @@ FIRST_NAV = 'product_catalog'
 SECOND_NAV = 'product_catalog'
 # COUNT_PER_PAGE = 10
 
-class Fans(resource.Resource):
+class ProductCatalog(resource.Resource):
 	app = 'product_catalog'
 	resource = 'product_catalogs'
 
@@ -43,7 +43,6 @@ class Fans(resource.Resource):
 		return render_to_response('product_catalog/product_catalogs.html', c)
 
 	def api_get(request):
-		cur_page = request.GET.get('page', 1)
 		catalogs = product_catalog_models.ProductCatalog.objects.all().order_by('-created_at')
 		rows = []
 		for catalog in catalogs:
@@ -113,3 +112,26 @@ class Fans(resource.Resource):
 			response = create_response(500)
 			response.errMsg = u'删除失败'
 			return response.get_response()
+
+class GetAllFirstCatalog(resource.Resource):
+	app = 'product_catalog'
+	resource = 'get_all_first_catalog'
+
+	@login_required
+	def api_get(request):
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1).order_by('-created_at')
+		rows = [{
+			'text': u'无',
+			'value': -1
+		}]
+		for catalog in catalogs:
+			rows.append({
+				'text': catalog.catalog_name,
+				'value': catalog.id
+			})
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()

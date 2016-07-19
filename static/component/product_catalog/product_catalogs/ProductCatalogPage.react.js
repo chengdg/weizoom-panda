@@ -30,19 +30,31 @@ var ProductCatalogPage = React.createClass({
 		var father_catalog = event.target.getAttribute('data-father-catalog');
 		var catalog_name = event.target.getAttribute('data-catalog-name');
 		var note = event.target.getAttribute('data-note');
-		Reactman.PageAction.showDialog({
-			title: "添加/修改分类",
-			component: AddCatalogDialog,
-			data: {
-				catalog_id: catalog_id,
-				father_catalog: father_catalog,
-				catalog_name: catalog_name,
-				note: note,
+		Reactman.Resource.get({
+			resource: 'product_catalog.get_all_first_catalog',
+			data: {},
+			success: function(data) {
+				var options = data.rows;
+				Reactman.PageAction.showDialog({
+					title: "添加/修改分类",
+					component: AddCatalogDialog,
+					data: {
+						catalog_id: catalog_id,
+						father_catalog: father_catalog,
+						catalog_name: catalog_name,
+						note: note,
+						options: options
+					},
+					success: function() {
+						Action.updateCatalogs();
+					}
+				});
 			},
-			success: function() {
-				Action.updateCatalogs();
-			}
-		});
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			},
+			scope: this
+		})
 	},
 	onClickDelete: function(event) {
 		var catalog_id = parseInt(event.target.getAttribute('data-id'));
@@ -104,8 +116,7 @@ var ProductCatalogPage = React.createClass({
 	render:function(){
 		var catalogsResource = {
 			resource: 'product_catalog.product_catalogs',
-			data: {
-			}
+			data: {}
 		};
 		return (
 			<div className="mt15 xui-product-productListPage">

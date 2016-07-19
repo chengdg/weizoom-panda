@@ -24,11 +24,13 @@ var AddCatalogDialog = Reactman.createDialog({
 		}
 		var catalog_name = this.props.data.catalog_name;
 		var note = this.props.data.note;
+		var options = this.props.data.options;
 		return {
 			catalog_id: catalog_id,
 			father_catalog: father_catalog,
 			catalog_name: catalog_name,
-			note: note
+			note: note,
+			options: options
 		}
 	},
 
@@ -49,13 +51,11 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log(this.state.catalog_id);
 		if (this.state.catalog_id){
 			Reactman.Resource.post({
 				resource: 'product_catalog.product_catalogs',
 				data: {
 					catalog_id: this.state.catalog_id,
-					father_catalog: this.state.father_catalog,
 					catalog_name: this.state.catalog_name,
 					note: this.state.note
 				},
@@ -89,16 +89,11 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	render:function(){
-		var options = [{
-			text: '无',
-			value: '-1'
-		}];
-
 		return (
 		<div className="xui-formPage">
 			<form className="form-horizontal mt15">
 				<fieldset>
-					<Reactman.FormSelect label="上级分类:" name="father_catalog" validate="require-notempty" value={this.state.father_catalog} options={options} onChange={this.onChange}/>
+					<Reactman.FormSelect label="上级分类:" name="father_catalog" value={this.state.father_catalog} options={this.state.options} onChange={this.onChange}/>
 					<Reactman.FormInput label="分类名称:" name="catalog_name" validate="require-notempty" value={this.state.catalog_name} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" type="text" name="note" value={this.state.note} onChange={this.onChange} inDialog={true} width={300} height={200}/>
 				</fieldset>
