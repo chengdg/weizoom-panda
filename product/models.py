@@ -90,7 +90,7 @@ class ProductModelPropertyValue(models.Model):
 	ProductModelPropertyValue：商品规格属性值
 	"""
 	property_id = models.IntegerField(default=0) #ProductModelProperty id
-	name = models.CharField(max_length=256)  # 商品名称
+	name = models.CharField(max_length=256)  # 规格属性值
 	pic_url = models.CharField(max_length=1024)  # 商品图
 	is_deleted = models.BooleanField(default=False)  # 是否已删除
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间

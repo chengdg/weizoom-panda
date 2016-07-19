@@ -16,9 +16,14 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleAddProductModelValue': Constant.ADD_PRODUCT_MODEL_VALUE,
 		'handleCreateNewProductModel': Constant.NEW_PRODUCT_MODEL,
 		'handleUpdateProductModel': Constant.UPDATE_PRODUCT_MODEL,
+		'handleDeleteProductModel': Constant.DELETE_PRODUCT_MODEL,
+
+		'handleAddProductModelValue': Constant.ADD_PRODUCT_MODEL_VALUE,
+		'handleCreateProductModelValue': Constant.NEW_PRODUCT_MODEL_VALUE,
+		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
+		'handleClearProductModelValue': Constant.CLEAR_PRODUCT_MODEL_VALUE,
 	},
 
 	init: function() {
@@ -34,13 +39,38 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
+	handleCreateProductModelValue: function(action){
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '添加成功');
+		}, 10);
+		
+		this.__emitChange();
+	},
+
+	handleDeleteProductModelValue: function(action) {
+		this.__emitChange();
+	},
+
 	handleCreateNewProductModel: function(action){
-		console.log(action.data,"--------");
 		this.__emitChange();
 	},
 
 	handleUpdateProductModel: function(action){
-		console.log(action.data,"---22-----");
+		this.__emitChange();
+	},
+
+	handleDeleteProductModel: function(action) {
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '删除成功');
+		}, 10);
+		this.__emitChange();
+	},
+
+	handleClearProductModelValue: function(){
+		this.data = {
+			'images': [],
+			'model_value': '',
+		};
 		this.__emitChange();
 	},
 

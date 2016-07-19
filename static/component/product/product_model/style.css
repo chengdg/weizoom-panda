@@ -18,6 +18,9 @@
 .xa-editModelPropertyValue{
     overflow: hidden;
     border: solid 1px #BFBFBF;
+    position: relative;
+    width: auto;
+    height: 37px;
 }
 
 li.model_li{
@@ -35,4 +38,12 @@ li.model_li{
 
 button.xui-close{
 	line-height: 16px;
+}
+
+.modal-footer{
+	display: none;
+}
+
+.xui-form-imageUploader{
+	width: 260px;
 }

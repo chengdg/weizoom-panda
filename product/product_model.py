@@ -98,14 +98,32 @@ class ProductModel(resource.Resource):
 		return response.get_response()
 
 	def api_post(request):
-		model_id = request.POST.get('id',0)
-		name = request.POST.get('name',0)
+		model_id = int(request.POST.get('id',0))
+		name = request.POST.get('name','')
+		model_type = request.POST.get('model_type',0)
+		model_type_id = int(request.POST.get('model_id',0))
 		try:
-			models.ProductModelProperty.objects.filter(id=int(model_id)).update(
-				name = name
-			)
+			if model_id!=0 and model_type_id==0:
+				models.ProductModelProperty.objects.filter(id=model_id).update(
+					name = name
+				)
+			if model_type_id!=0 and model_id==0:
+				models.ProductModelProperty.objects.filter(id=model_type_id).update(
+					type = int(model_type)
+				)
 			response = create_response(200)
 		except:
 			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
+		return response.get_response()
+
+	def api_delete(request):
+		model_id = request.POST.get('model_id',0)
+		response = create_response(500)
+		try:
+			if model_id!=0:
+				models.ProductModelProperty.objects.filter(id=model_id).delete()
+				response = create_response(200)
+		except:
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()

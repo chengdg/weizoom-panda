@@ -23,6 +23,34 @@ var Action = {
 		});
 	},
 
+	saveProductModelValue: function(model_id,model_value,path){
+		Resource.put({
+			resource: 'product.product_model_value',
+			data: {
+				'model_id':model_id,
+				'model_value':model_value,
+				'path':path	
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.NEW_PRODUCT_MODEL_VALUE
+			}
+		});
+	},
+
+	deleteProductModelValue:function(value_id){
+		Resource.delete({
+			resource: 'product.product_model_value',
+			data: {
+				'value_id':value_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.DELETE_PRODUCT_MODEL_VALUE
+			}
+		});
+	},
+
 	addProductModel: function(filterOptions){
 		Resource.put({
 			resource: 'product.product_model',
@@ -48,9 +76,36 @@ var Action = {
 		});
 	},
 
-	exportProducts: function(){
+	deleteProductModel:function(model_id){
+		Resource.delete({
+			resource: 'product.product_model',
+			data: {
+				'model_id':model_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.DELETE_PRODUCT_MODEL
+			}
+		});
+	},
+
+	updateProductModelType: function(model_id,model_type){
+		Resource.post({
+			resource: 'product.product_model',
+			data: {
+				'model_id':model_id,
+				'model_type':model_type
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.UPDATE_PRODUCT_MODEL
+			}
+		});
+	},
+
+	clearProductModelValue: function(){
 		Dispatcher.dispatch({
-			actionType: Constant.PRODUCT_DATAS_EXPORT,
+			actionType: Constant.CLEAR_PRODUCT_MODEL_VALUE,
 			data: {}
 		});
 	}

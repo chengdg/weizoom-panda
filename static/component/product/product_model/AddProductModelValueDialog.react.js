@@ -17,7 +17,10 @@ require('./style.css');
 var AddProductModelValueDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return Store.getData();
+		return {
+			'images': [],
+			'model_value': '',
+		};
 	},
 
 	onChange: function(value, event) {
@@ -29,22 +32,21 @@ var AddProductModelValueDialog = Reactman.createDialog({
 		this.setState(Store.getData());
 	},
 
-	productRelationSave: function(){
-		var relations = Store.getData();
-		var hasProp = false;  
-		for (var prop in relations){  
-			hasProp = true;  
-			break;  
-		}
-		if(!hasProp){
-			Reactman.PageAction.showHint('error', "请输入关联的云商通商品ID");
+	onSubmit: function(){
+		var _this = this;
+		var model_id = this.props.data.model_id;
+		var model_type = this.props.data.model_type;
+		var model_value = this.state.model_value;
+		var images = this.state.images;
+		if(model_type==1 && images.length==0){
+			Reactman.PageAction.showHint('error', '请上传图片');
 			return;
 		}
-		Action.saveProductRelation(relations,this.state.product_id)
-	},
-
-	productRelationCancle: function(){
-		this.closeDialog();
+		var path = model_type==1?images[0]['path']:''
+		Action.saveProductModelValue(model_id,model_value,path);
+		setTimeout(function() {
+		 	_this.closeDialog();
+		}, 500);
 	},
 
 	render:function(){
@@ -54,6 +56,9 @@ var AddProductModelValueDialog = Reactman.createDialog({
 					<fieldset>
 						<Reactman.FormInput label="名称:" type="text" name="model_value" value={this.state.model_value} onChange={this.onChange} validate="require-string" />
 						<Reactman.FormImageUploader label="图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
+					</fieldset>
+					<fieldset>
+						<Reactman.FormSubmit onClick={this.onSubmit} />
 					</fieldset>
 				</form>
 			</div>
