@@ -9,6 +9,7 @@ Feature:精简版云商通-创建体验客户、代理商、运营账号
 	4.管理员创建采购方式为'固定底价'的的体验客户
 	5.管理员创建采购方式为'零售价返点'的的体验客户
 	6.管理员创建采购方式为'以贷抵款'的的体验客户
+	7.账号列表字段变化，新增三个字段
 """
 #account_type   账号类型
 #account_name   账号名称
@@ -35,7 +36,12 @@ Scenario:1  管理员创建体验客户账号
 			"ramarks":"爱昵咖啡客户体验账号"
 		},{
 			"account_type":"体验客户",
-			"account_name":"土小宝",
+			"company_name":"土小宝专营店",
+			"shop_name":"土小宝专卖",
+			"manage_type":"休闲食品",
+			"purchase_type":"以货抵款",
+			"connect_man":"土小宝",
+			"mobile_number":"13813985507",
 			"login_account":"tuxiaobao",
 			"password":"123456",
 			"ramarks":"土小宝客户体验账号"
@@ -46,10 +52,16 @@ Scenario:1  管理员创建体验客户账号
 		[{
 			"account_name":"土小宝",
 			"login_account":"tuxiaobao",
+			"manage_type":"休闲食品",
+			"purchase_type":"固定底价",
+			"account_type":"体验客户",
 			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
+			"manage_type":"休闲食品",
+			"purchase_type":"以货抵款",
+			"account_type":"体验客户",
 			"actions": ["编辑","关闭"]
 		}]
 	"""
@@ -72,6 +84,9 @@ Scenario:2  管理员创建代理商账号
 		[{
 			"account_name":"代理商公司",
 			"login_account":"daili",
+			"manage_type":"-",
+			"purchase_type":"-",
+			"account_type":"代理商",
 			"actions": ["编辑","关闭"]
 		}]
 	"""
@@ -96,25 +111,39 @@ Scenario:3  管理员创建运营账号
 			"ramarks":"代理商有限公司"
 		},{
 			"account_type":"体验客户",
-			"account_name":"爱昵咖啡",
-			"login_account":"aini",
+			"company_name":"土小宝专营店",
+			"shop_name":"土小宝专卖",
+			"manage_type":"休闲食品",
+			"purchase_type":"以货抵款",
+			"connect_man":"土小宝",
+			"mobile_number":"13813985507",
+			"login_account":"tuxiaobao",
 			"password":"123456",
-			"ramarks":"爱昵咖啡客户体验账号"
+			"ramarks":"土小宝客户体验账号"
 		}]
 	"""
 	Then jobs能获得账号管理列表
 	"""
 		[{
-			"account_name":"爱昵咖啡",
-			"login_account":"aini",
+			"account_name":"土小宝",
+			"login_account":"tuxiaobao",
+			"manage_type":"休闲食品",
+			"purchase_type":"固定底价",
+			"account_type":"体验客户",
 			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"代理商公司",
 			"login_account":"daili",
+			"manage_type":"-",
+			"purchase_type":"-",
+			"account_type":"代理商",
 			"actions": ["编辑","关闭"]
 		},{
 			"account_name":"运营部门",
 			"login_account":"yunying",
+			"manage_type":"-",
+			"purchase_type":"-",
+			"account_type":"运营",
 			"actions": ["编辑","关闭"]
 		}]
 	"""
@@ -126,12 +155,22 @@ Scenario:4 管理员创建采购方式为'固定底价'的的体验客户
 		"account_type":"体验客户",
 		"company_name":"武汉鸭脖",
 		"shop_name":"武汉鸭脖",
+		"manage_type":"休闲食品",
 		"purchase_type":"固定底价",
 		"tel_person":"徐梓豪",
 		"tel_number":"13813984402",
 		"login_account":"wuhanyabo",
 		"password":"1",
 		"ramarks":"1"
+	}]
+	Then manager获得账号列表
+	[{
+		"account_name":"土小宝",
+		"login_account":"tuxiaobao",
+		"manage_type":"休闲食品",
+		"purchase_type":"固定底价",
+		"account_type":"体验客户",
+		"actions": ["编辑","关闭"]
 	}]
 
 @panda @account_create
@@ -142,6 +181,7 @@ Scenario:5 管理员创建采购方式为'零售价返点'的的体验客户
 		"account_type":"体验客户",
 		"company_name":"武汉鸭脖",
 		"shop_name":"武汉鸭脖",
+		"manage_type":"休闲食品",
 		"purchase_type":"零售价返点",
 		"return_number":"2.37",
 		"tel_person":"徐梓豪",
@@ -149,6 +189,15 @@ Scenario:5 管理员创建采购方式为'零售价返点'的的体验客户
 		"login_account":"wuhanyabo",
 		"password":"1",
 		"ramarks":"1"
+	}]
+	Then manager获得账号列表
+	[{
+		"account_name":"土小宝",
+		"login_account":"tuxiaobao",
+		"manage_type":"休闲食品",
+		"purchase_type":"零售价返点",
+		"account_type":"体验客户",
+		"actions": ["编辑","关闭"]
 	}]
 
 @panda @account_create
@@ -165,4 +214,14 @@ Scenario:5 管理员创建采购方式为'以贷抵款'的的体验客户
 		"login_account":"wuhanyabo",
 		"password":"1",
 		"ramarks":"1"
+	}]
+
+	Then manager获得账号列表
+	[{
+		"account_name":"土小宝",
+		"login_account":"tuxiaobao",
+		"manage_type":"休闲食品",
+		"purchase_type":"以贷抵款",
+		"account_type":"体验客户",
+		"actions": ["编辑","关闭"]
 	}]

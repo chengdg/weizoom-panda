@@ -6,7 +6,6 @@ Feature:运营人员查看客户报告所需数据
 	3.运营人员查看购买用户数据列表
 	4.运营人员查看体验反馈数据列表
 	5.运营人员查看平台订单数列表 
-	
 """
 Background:
 	Given manager登录管理系统
@@ -14,10 +13,16 @@ Background:
 	"""
 		[{
 			"account_type":"体验客户",
-			"account_name":"土小宝",
-			"login_account":"tuxiaobao",
-			"password":123456,
-			"ramarks":"土小宝客户体验账号"
+			"company_name":"爱昵咖啡有限责任公司",
+			"shop_name":"爱昵咖啡",
+			"manage_type":"休闲食品",
+			"purchase_type":"固定底价",
+			"connect_man":"aini",
+			"mobile_number":"13813985506",
+			"login_account":"aini",
+			"password":"123456",
+			"valid_time":"2016-07-15"至"2017-07-15",
+			"ramarks":"爱昵咖啡客户体验账号"
 		},{
 			"account_type":"运营",
 			"account_name":"运营部门",
@@ -30,27 +35,50 @@ Background:
 	When tuxiaobao添加商品
 	"""
 		[{
-			"commodity_name":"武汉鸭脖",
-			"title"："周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食",
-			"product_price":9.9,
-			"setlement_price":9.9,
-			"product_weight":0.23,
-			"repertory":{
-						"is_limit":"on",
-						"limit_num":500
-			},
-			"picture":"",
-			"description":"周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食"
-			},{
-			"commodity_name":"NIKE耐克男鞋便减震舒适休闲跑步鞋",
-			"title"："旗舰店—618粉丝狂欢， 赢200元粉丝券！",
-			"product_price":322,
-			"setlement_price":298,
-			"product_weight":0.5,
-			"repertory":{
-						"is_limit":"off"
-			},
-			"description":"旗舰店—618粉丝狂欢，关注微信公众号"jdxyyz" 赢200元粉丝券！"
+			"name": "武汉鸭脖",
+			"promotion_name":"武汉鸭脖",
+			"price": 10.00,
+			"weight": 1.00,
+			"stock_number": "5000",
+			"settlement_price":10.00,
+			"introduction": "这是一种很好吃的鸭脖"
+			"standard_promotion":"是",
+			"standard":{
+						"standard_name":"颜色",
+						"standard":"黑色","红色"
+						},{
+						"standard_name":"尺码",
+						"standard":"X,XL"
+						}
+			"standard_price":{
+						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
+						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
+						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
+						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
+						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
+						},{
+			"name": "耐克男鞋",
+			"promotion_name":"耐克男鞋",
+			"price": 198.00,
+			"weight": 1.00,
+			"stock_number": "5000",
+			"settlement_price":200.00,
+			"introduction": "耐克男鞋"
+			"standard_promotion":"是",
+			"standard":{
+						"standard_name":"颜色",
+						"standard":"黑色","红色"
+						},{
+						"standard_name":"尺码",
+						"standard":"X,XL"
+						}
+			"standard_price":{
+						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
+						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
+						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
+						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
+						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
+						}
 		}]
 	"""
 	Given yunying使用密码123456登录系统
