@@ -98,7 +98,7 @@ class AccountCreate(resource.Resource):
 			#请求接口获得数据
 			try:
 				params = {
-					'name': 'p-' + user_profile[0].name,
+					'name': user_profile[0].name,
 					'remark': '',
 					'responsible_person': u'8000FT',
 					'supplier_tel': '13112345678',
