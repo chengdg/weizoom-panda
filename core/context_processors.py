@@ -55,11 +55,16 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/yunying_orders_list/'
-			}, {
+			},{
 				'name': 'customer',
 				'displayName': '客户统计',
 				'icon': 'credit-card',
 				'href': '/customer/statistics/'
+			},{
+				'name': 'product_catalog',
+				'displayName': '商品分类',
+				'icon': 'credit-card',
+				'href': '/product_catalog/product_catalogs/'
 			}]
 		elif role == MANAGER:
 			top_navs = [{

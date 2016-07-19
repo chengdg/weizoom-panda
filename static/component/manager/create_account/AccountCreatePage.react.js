@@ -117,7 +117,7 @@ var AccountCreatePage = React.createClass({
 							Type = {this.state.account_type}
 						/>
 					</div>
-					<Reactman.FormInput label="登录账号:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
+					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
 					<Reactman.FormInput label={label_name} type="password" name="password" validate={validate} placeholder="" value={this.state.password} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" name="note" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
 				</fieldset>
@@ -142,12 +142,27 @@ var AccountInfo = React.createClass({
 			text: '以货抵款',
 			value: '3'
 		}];
+		
+		var optionsForType = [{
+			text: '厨房电器',
+			value: 'nanjing'
+		}, {
+			text: '日用百货',
+			value: 'beijing'
+		}, {
+			text: '食品粮油',
+			value: 'shanghai'
+		}, {
+			text: '男女服装',
+			value: 'wuxi'
+		}];
+
 		if (account_type == '1'){
 			return(
 				<div>
 					<Reactman.FormInput label="公司名称:" type="text" name="company_name" value={this.props.company_name} onChange={this.props.onChange} />
 					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
-					<Reactman.FormInput label="经营类目:" type="text" name="company_type" validate="require-notempty" value={this.props.company_type} onChange={this.props.onChange} />
+					<Reactman.FormCheckbox label="经营类目:" name="company_type" value={this.props.company_type} options={optionsForType} onChange={this.props.onChange} />
 					<Reactman.FormRadio label="采购方式:" name="purchase_method" value={this.props.purchase_method} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
 					<div>
 						<PurchaseMethod onChange = {this.props.onChange}

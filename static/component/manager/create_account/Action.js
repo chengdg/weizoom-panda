@@ -26,7 +26,7 @@ var Action = {
 		var account_info = {
 			name: data['name'],
 			company_name: data['company_name'],
-			company_type: data['company_type'],
+			company_type: JSON.stringify(data['company_type']),
 			purchase_method: data['purchase_method'],
 			points: data['points'],
 			contacter: data['contacter'],

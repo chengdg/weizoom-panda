@@ -1,0 +1,14 @@
+.xa-scales-div{
+	min-height:5px;
+	width:100px;
+	margin:auto;
+	margin-top:8px;
+    margin-left: 0;
+	border:2px solid #0099ff;
+	cursor: pointer;
+	overflow: hidden;
+}
+.xa-scale-div{
+	min-height:5px;
+	background-color:#0099ff;
+}

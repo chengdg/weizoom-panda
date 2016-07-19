@@ -65,6 +65,13 @@ var AccountManagePage = React.createClass({
 					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
 				</div>
 				);
+			}else if(data.status == 2){
+				return (
+				<div>
+					<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>开启</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
+				</div>
+				);
 			}else{
 				return (
 				<div>
