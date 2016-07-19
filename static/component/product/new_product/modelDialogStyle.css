@@ -1,0 +1,16 @@
+.modal-content{
+    width: 700px;
+}
+
+.modal-content{
+	background: #FFF !important;
+}
+
+.model_li{
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.modal-footer{
+	display: none;
+}

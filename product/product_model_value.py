@@ -25,7 +25,7 @@ import nav
 import models
 import requests
 
-class ProductModel(resource.Resource):
+class ProductModelValue(resource.Resource):
 	app = 'product'
 	resource = 'product_model_value'
 

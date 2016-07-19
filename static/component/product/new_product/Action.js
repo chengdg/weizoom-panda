@@ -73,6 +73,28 @@ var Action = {
 			}
 		});
 	},
+
+	addProductModelValue: function(value_id){
+		Dispatcher.dispatch({
+			actionType: Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
+			data: {
+				value_id: value_id
+			}
+		});
+	},
+
+	saveModelValue: function(value_ids){
+		Resource.get({
+			resource: 'product.product_has_model',
+			data: {
+				'value_ids':value_ids.join(',')
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.SAVE_PRODUCT_MODEL_VALUE
+			}
+		});
+	}
 };
 
 module.exports = Action;

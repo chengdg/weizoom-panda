@@ -117,7 +117,7 @@ var ProductModelListPage = React.createClass({
 					</label>
 				</div>
 			)
-		} else if(field === 'model_name'){
+		} else if(field === 'product_model_value'){
 			var _this = this;
 			var model_name = data['model_name'];
 			var model_type = parseInt(data['model_type']);
@@ -132,7 +132,7 @@ var ProductModelListPage = React.createClass({
 						var show_img_or_text = <span title={model['name']}>{model["name"]}</span>;
 					}
 					return(
-						<li data-value-id="1" data-model-name={model['name']} className="model_li" key={index}>
+						<li data-model-name={model['name']} className="model_li" key={index}>
 	                        <div className='xa-editModelPropertyValue' onMouseOver={_this.onMouseOver.bind(null,class_name)} onMouseOut={_this.onMouseOut.bind(null,class_name)}>  
 	                            {show_img_or_text}  
 	                        </div>
@@ -194,7 +194,7 @@ var ProductModelListPage = React.createClass({
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="规格名" field="product_model_name" width="200px"/>
 						<Reactman.TableColumn name="显示样式" field="model_type" width="200px"/>
-						<Reactman.TableColumn name="规格值" field="model_name" />
+						<Reactman.TableColumn name="规格值" field="product_model_value" />
 						<Reactman.TableColumn name="操作" field="action" width="100px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>

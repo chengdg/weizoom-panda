@@ -10,6 +10,7 @@ var _ = require('underscore');
 
 var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
+var AddProductModelDialog = require('./AddProductModelDialog.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -122,6 +123,7 @@ var NewProductPage = React.createClass({
 
 	render:function(){
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
+		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
@@ -135,33 +137,11 @@ var NewProductPage = React.createClass({
 						<legend className="pl10 pt10 pb10">基本信息</legend>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
-						<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.onChange} />
-						<span className="money_note">
-							元
-						</span>
-						<div></div>
-						<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.onChange} validate="require-price"/>
-						<span className="money_note">
-							元
-						</span>
-						<div></div>
-						<Reactman.FormInput label="限时结算价:" type="text" readonly={disabled} name="limit_clear_price" value={this.state.limit_clear_price} onChange={this.onChange}/>
-						<span className="limit_money_note">
-							元
-						</span>
-						<Reactman.FormCheckbox label="" name="has_limit_time" value={this.state.has_limit_time} options={optionsForCheckbox} onChange={this.onChange} />
-						<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" value={this.state.valid_time_from} readOnly onChange={this.onChange} />
-						<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.state.valid_time_to} readOnly onChange={this.onChange} />
-						<span className="limit_money_note_tips">
-							(注:如有让利活动推广时,可设置限时结算价,则优惠期间产生的订单按限时结算价统计账单)
-						</span>
-						<div></div>
-						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.onChange} validate="require-float"/>
-						<span className="money_note">
-							Kg
-						</span>
-						<Reactman.FormRadio label="商品库存:" type="text" name="product_store_type" value={this.state.product_store_type} options={optionsForStore} onChange={this.onChange} />
-						<div> <StoreInfo onChange={this.onChange} productStore={this.state.product_store} Type={this.state.product_store_type}/> </div>
+						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
+						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>
+
+						
+						
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
@@ -187,6 +167,75 @@ var StoreInfo = React.createClass({
 		}else {
 			return(
 				<div></div>
+			)
+		}
+	}
+});
+
+var ProductModelInfo = React.createClass({
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return Store.getData();
+	},
+
+	onChangeStore: function(){
+		this.setState(Store.getData());
+	},
+
+	addProductModel: function(){
+		Reactman.PageAction.showDialog({
+			title: "选择商品规格",
+			component: AddProductModelDialog,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
+	render: function() {
+		var model_type = this.props.Modeltype;
+		var disabled = this.props.Disabled;
+		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
+		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
+		var optionsForCheckbox = [{text: '', value: '1'}]
+		console.log(model_type,"======");
+		if (model_type == '0'){
+			return(
+				<div className="product_info_fieldset">
+					<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} />
+					<span className="money_note">
+						元
+					</span>
+					<div></div>
+					<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.props.onChange} validate="require-price"/>
+					<span className="money_note">
+						元
+					</span>
+					<div></div>
+					<Reactman.FormInput label="限时结算价:" type="text" readonly={disabled} name="limit_clear_price" value={this.state.limit_clear_price} onChange={this.props.onChange}/>
+					<span className="limit_money_note">
+						元
+					</span>
+					<Reactman.FormCheckbox label="" name="has_limit_time" value={this.state.has_limit_time} options={optionsForCheckbox} onChange={this.props.onChange} />
+					<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" value={this.state.valid_time_from} readOnly onChange={this.props.onChange} />
+					<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.state.valid_time_to} readOnly onChange={this.props.onChange} />
+					<span className="limit_money_note_tips">
+						(注:如有让利活动推广时,可设置限时结算价,则优惠期间产生的订单按限时结算价统计账单)
+					</span>
+					<div></div>
+					<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
+					<span className="money_note">
+						Kg
+					</span>
+					<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.productStore} validate="require-int" onChange={this.props.onChange} />
+				</div>
+			)
+		}else {
+			return(
+				<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
+					<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>
+				</div>
 			)
 		}
 	}
