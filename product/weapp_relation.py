@@ -83,7 +83,7 @@ class ProductRelation(resource.Resource):
                     params = {
                         'supplier': weapp_supplier_id,
                         'name': product.product_name,
-                        'promotion_title': product.promotion_title,
+                        'promotion_title': product.promotion_title if product.promotion_title else '',
                         'purchase_price': product.clear_price,
                         'price': product.product_price,
                         'weight': product.product_weight,
