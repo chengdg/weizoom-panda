@@ -42,7 +42,11 @@ var AddProductModelValueDialog = Reactman.createDialog({
 			Reactman.PageAction.showHint('error', '请上传图片');
 			return;
 		}
-		var path = model_type==1?images[0]['path']:''
+		if(images.length>1){
+			Reactman.PageAction.showHint('error', '最多上传一张图片!');
+			return;
+		}
+		var path = images.length>0?images[0]['path']:''
 		Action.saveProductModelValue(model_id,model_value,path);
 		setTimeout(function() {
 		 	_this.closeDialog();
@@ -56,6 +60,9 @@ var AddProductModelValueDialog = Reactman.createDialog({
 					<fieldset>
 						<Reactman.FormInput label="名称:" type="text" name="model_value" value={this.state.model_value} onChange={this.onChange} validate="require-string" />
 						<Reactman.FormImageUploader label="图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
+						<span style={{marginLeft:'180px',fontSize:'10px'}}>
+							上传图片建议尺寸60*60
+						</span>
 					</fieldset>
 					<fieldset>
 						<Reactman.FormSubmit onClick={this.onSubmit} />
