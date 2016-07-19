@@ -77,3 +77,13 @@ class ProductSyncWeappAccount(models.Model):
     class Meta(object):
         db_table = 'product_sync_weapp_account'
 
+
+class SelfUsernameWeappAccount(models.Model):
+	"""
+	# 对应云上通的自营平台账户id(user_id)
+	"""
+	self_user_name = models.CharField(max_length=50, null=True)
+	weapp_account_id = models.IntegerField(default=0)
+
+	class Meta(object):
+		db_table = 'self_username_weapp_account'

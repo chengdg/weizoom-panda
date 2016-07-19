@@ -30,15 +30,15 @@ SELF_SHOP2TEXT = {
     'weizoom_club': u'微众俱乐部'
 }
 
-# 对应云上通的自营平台账户id(user_id)
-SELF_SHOP2WEAPP_SHOP = {
-    'weizoom_jia': 3,
-    'weizoom_mama': 5,
-    'weizoom_xuesheng': 2,
-    'weizoom_baifumei': 4,
-    'weizoom_shop': 6,
-    'weizoom_club': 7
-}
+# # 对应云上通的自营平台账户id(user_id)
+# SELF_SHOP2WEAPP_SHOP = {
+#     'weizoom_jia': 3,
+#     'weizoom_mama': 5,
+#     'weizoom_xuesheng': 2,
+#     'weizoom_baifumei': 4,
+#     'weizoom_shop': 6,
+#     'weizoom_club': 7
+# }
 
 class ProductRelation(resource.Resource):
     app = 'product'
@@ -55,7 +55,7 @@ class ProductRelation(resource.Resource):
         data['code'] = 500
         data['errMsg'] = u'关联失败'
         try:
-            print ('+++++++++++++++++product_data', product_data)
+            # print ('+++++++++++++++++product_data', product_data)
 
             if product_data:
                 # 当前平台的的供应商账户（账户id)
@@ -76,9 +76,10 @@ class ProductRelation(resource.Resource):
                     # 获取商品要同步到哪个平台
 
                     weizoom_self = product_data[0].get('weizoom_self').split(',')
-                    print weizoom_self
-                    weapp_user_ids = [SELF_SHOP2WEAPP_SHOP[k] for k in weizoom_self]
 
+                    weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects
+                        .filter(self_user_name__in=weizoom_self)]
+                    print weapp_user_ids
                     params = {
                         'supplier': weapp_supplier_id,
                         'name': product.product_name,
