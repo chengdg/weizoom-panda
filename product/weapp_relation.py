@@ -79,7 +79,7 @@ class ProductRelation(resource.Resource):
 
                     weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects
                         .filter(self_user_name__in=weizoom_self)]
-                    print weapp_user_ids
+                    # print weapp_user_ids
                     params = {
                         'supplier': weapp_supplier_id,
                         'name': product.product_name,
