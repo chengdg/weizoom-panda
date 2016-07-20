@@ -23,7 +23,9 @@ from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
 import requests
-import sys,os
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from eaglet.utils.resource_client import Resource
+
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -99,12 +101,18 @@ class ProductRelation(resource.Resource):
                         params = {
                                 'product_ids': '_'.join(weapp_product_ids)
                         }
-                        r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
-                        res = json.loads(r.text)
-                        if res['code'] == 200:
-                                product_status = res['data']['product_status']
+                        resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+                                {
+                                        'resource': 'mall.product_status',
+                                        'data': params
+                                }
+                        )
+                        # r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
+                        # res = json.loads(r.text)
+                        if resp['code'] == 200:
+                                product_status = resp['data']['product_status']
                         else:
-                                print(res)
+                                print(resp)
                 except Exception,e:
                         print(e)
 

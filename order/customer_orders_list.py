@@ -420,7 +420,7 @@ class CustomerOrdersList(resource.Resource):
 								 'ship_area': order.get('ship_area'),
 								 'delivery_time': order['delivery_time'],
 								 'ship_address': order['ship_address'],
-								 'customer_message': json.loads(order['customer_message']),
+								 'customer_message': json.loads(order['customer_message']) if order['customer_message'] else [],
 								 'customer_name': [user_profile.name if user_profile else '']})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
