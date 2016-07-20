@@ -226,7 +226,7 @@ class NewProduct(resource.Resource):
             relation = models.ProductHasRelationWeapp.objects.filter(product_id=request.POST['id']).first()
             if relation:
                 params = {
-                    "weapp_product_id": request.POST['id']
+                    "weapp_product_id": relation.weapp_product_id
                 }
                 resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
                     'resource': 'mall.product',
