@@ -20,7 +20,11 @@ var AccountCreatePage = React.createClass({
 		Store.addListener(this.onChangeStore);
 		return Store.getData();
 	},
-
+	
+	componentDidMount: function () {
+		Action.selectCatalog();
+	},
+	
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		if(property == 'account_type'){
@@ -42,6 +46,7 @@ var AccountCreatePage = React.createClass({
 		var purchase_method = parseInt(account.purchase_method);
 		var reg = /^(0|[1-9]|[1-9]\d|99)(\.\d{1,2}|\.{0})$/;
 		var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		var reg_username = /^[0-9a-zA-Z]*$/g;
 
 		if(account_type ==1 && purchase_method == 2 &&account.hasOwnProperty('points') && account.points.length>0){
 			if((parseFloat(account.points.trim())==0) || !reg.test(account.points.trim())){
@@ -74,6 +79,10 @@ var AccountCreatePage = React.createClass({
 				return;
 			}
 		}
+		if(!reg_username.test(account.username.trim())){
+			Reactman.PageAction.showHint('error', '请填写英文字母或数字');
+			return;
+		}
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
@@ -96,7 +105,6 @@ var AccountCreatePage = React.createClass({
 			var label_name = '登录密码:';
 			var validate = "require-notempty";
 		}
-		
 		return (
 		<div className="xui-outlineData-page xui-formPage">
 			<form className="form-horizontal mt15">
@@ -115,6 +123,7 @@ var AccountCreatePage = React.createClass({
 							valid_time_from = {this.state.valid_time_from}
 							valid_time_to = {this.state.valid_time_to}
 							Type = {this.state.account_type}
+							options_for_type = {this.state.options_for_type}
 						/>
 					</div>
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
@@ -129,6 +138,7 @@ var AccountCreatePage = React.createClass({
 		)
 	}
 });
+
 var AccountInfo = React.createClass({
 	render: function() {
 		var account_type = this.props.Type;
@@ -143,26 +153,12 @@ var AccountInfo = React.createClass({
 			value: '3'
 		}];
 		
-		var optionsForType = [{
-			text: '厨房电器',
-			value: 'nanjing'
-		}, {
-			text: '日用百货',
-			value: 'beijing'
-		}, {
-			text: '食品粮油',
-			value: 'shanghai'
-		}, {
-			text: '男女服装',
-			value: 'wuxi'
-		}];
-
 		if (account_type == '1'){
 			return(
 				<div>
 					<Reactman.FormInput label="公司名称:" type="text" name="company_name" value={this.props.company_name} onChange={this.props.onChange} />
 					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
-					<Reactman.FormCheckbox label="经营类目:" name="company_type" value={this.props.company_type} options={optionsForType} onChange={this.props.onChange} />
+					<Reactman.FormCheckbox label="经营类目:" name="company_type" value={this.props.company_type} options={this.props.options_for_type} onChange={this.props.onChange} />
 					<Reactman.FormRadio label="采购方式:" name="purchase_method" value={this.props.purchase_method} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
 					<div>
 						<PurchaseMethod onChange = {this.props.onChange}

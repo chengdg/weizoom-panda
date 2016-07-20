@@ -18,7 +18,8 @@ var W = Reactman.W;
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
-		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE
+		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
+		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG
 	},
 
 	init: function() {
@@ -35,10 +36,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'id':-1,
 				'account_type':'1',
 				'purchase_method': '2',
-				'company_type': []
+				'company_type': [],
+				'options_for_type': []
 			};
 		}
-		debug(this.data);
+	},
+
+	handleSelect: function(action) {
+		this.data['options_for_type'] = action.data.rows;
+		this.__emitChange();
 	},
 
 	handleUpdateAccount: function(action) {

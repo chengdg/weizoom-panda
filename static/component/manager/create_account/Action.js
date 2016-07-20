@@ -22,6 +22,16 @@ var Action = {
 			}
 		});
 	},
+	selectCatalog: function(){
+		Resource.get({
+			resource: 'product_catalog.get_all_first_catalog',
+			data: {},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.NEW_ACCOUNT_SELECT_CATALOG
+			}
+		})
+	},
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],

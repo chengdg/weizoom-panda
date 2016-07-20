@@ -85,7 +85,7 @@ var ProductCatalogPage = React.createClass({
 				var catalogs = second_catalogs.map(function(catalog,index){
 				return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
-							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '700px'}}>{catalog.catalog_name} </div>
+							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '40%'}}>{catalog.catalog_name} </div>
 							<div className="xui-expand-row-info" style={{display: 'inline'}}>创建时间：{catalog.created_at}</div>
 							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>商品数：{catalog.products_number} </div>
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
