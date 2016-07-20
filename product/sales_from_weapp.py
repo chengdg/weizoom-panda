@@ -14,8 +14,8 @@ from resource import models as resource_models
 from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
-import models
-import requests
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from eaglet.utils.resource_client import Resource
 
 def sales_from_weapp(product_has_relations):
 	product_ids = []
@@ -37,10 +37,14 @@ def sales_from_weapp(product_has_relations):
 			params = {
 				'product_ids': product_ids
 			}
-			r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				product_sales = res['data']['product_sales']
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get({
+				'resource': 'mall.product_sales',
+				'data': params
+			})
+			# r = requests.get(ZEUS_HOST+'/mall/product_sales/',params=params)
+			# res = json.loads(r.text)
+			if resp and resp['code'] == 200:
+				product_sales = resp['data']['product_sales']
 				if product_sales:
 					for product_sale in product_sales:
 						product_id = str(product_sale['product_id'])
@@ -52,7 +56,7 @@ def sales_from_weapp(product_has_relations):
 							else:
 								id2sales[p_id] += p_sales
 			else:
-				print(res)
+				print(resp)
 		except Exception,e:
 			print(e)
 	return id2sales

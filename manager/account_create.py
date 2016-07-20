@@ -13,12 +13,15 @@ from django.contrib.auth.models import User
 from core.exceptionutil import unicode_full_stack
 from core import resource
 from core.jsonresponse import create_response
+from eaglet.utils.resource_client import Resource
+
 from core import paginator
 from util import db_util
 from panda.settings import ZEUS_HOST
 import nav
 import requests
 from account.models import *
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 
 
 FIRST_NAV = 'manager'
@@ -91,66 +94,40 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
-			account_zypt_infos = []
-			if int(account_type) == 1:
-				try:
-					params = {
-						'mall_type': 1
-					}
-					r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
-					res = json.loads(r.text)
-					if res['code'] == 200:
-						account_zypt_infos = res['data']
-					else:
-						print(res)
-						User.objects.filter(id=user_id).delete()
-						UserProfile.objects.filter(user_id=user_id).delete()
-				except Exception,e:
-					print(e)
+
+			#请求接口获得数据
+			try:
+				params = {
+					'name': user_profile[0].name,
+					'remark': '',
+					'responsible_person': u'8000FT',
+					'supplier_tel': '13112345678',
+					'supplier_address': u'中国 北京'
+				}
+				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+					'resource': 'mall.supplier',
+					"data": params
+				})
+				if resp['code'] == 200:
+					supplier_datas = resp['data']
+					if supplier_datas:
+						AccountHasSupplier.objects.create(
+							user_id = user_id,
+							account_id = user_profile[0].id,
+							# store_name = account_zypt_info['store_name'].encode('utf8'),
+							supplier_id = int(supplier_datas['id'])
+						)
+					pass
+				else:
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
-					response = create_response(500)
-					response.errMsg = u'创建账号失败'
-					response.innerErrMsg = unicode_full_stack()
-					return response.get_response()
-
-			if account_zypt_infos:
-				list_create = []
-				for account_zypt_info in account_zypt_infos:
-					#请求接口获得数据
-					try:
-						user_id = int(account_zypt_info['user_id'])
-						params = {
-							'owner_id': user_id,
-							'name': 'p-' + user_profile[0].name,
-							'remark': '',
-							'responsible_person': u'8000FT',
-							'supplier_tel': '13112345678',
-							'supplier_address': u'中国 北京'
-						}
-						r = requests.post(ZEUS_HOST+'/mall/supplier/?_method=put',params=params)
-						res = json.loads(r.text)
-						if res['code'] == 200:
-							supplier_datas = res['data']
-							if supplier_datas:
-								AccountHasSupplier.objects.create(
-									user_id = user_id,
-									account_id = user_profile[0].id,
-									store_name = account_zypt_info['store_name'].encode('utf8'),
-									supplier_id = int(supplier_datas['id'])
-								)
-						else:
-							print(res)
-							User.objects.filter(id=user_id).delete()
-							UserProfile.objects.filter(user_id=user_id).delete()
-					except Exception,e:
-						print(e)
-						User.objects.filter(id=user_id).delete()
-						UserProfile.objects.filter(user_id=user_id).delete()
-						response = create_response(500)
-						response.errMsg = u'创建账号失败'
-						response.innerErrMsg = unicode_full_stack()
-						return response.get_response()
+			except Exception,e:
+				User.objects.filter(id=user_id).delete()
+				UserProfile.objects.filter(user_id=user_id).delete()
+				response = create_response(500)
+				response.errMsg = u'创建账号失败'
+				response.innerErrMsg = unicode_full_stack()
+				return response.get_response()
 			response = create_response(200)
 		except Exception,e:
 			print(e)

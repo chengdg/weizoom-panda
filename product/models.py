@@ -22,6 +22,7 @@ class Product(models.Model):
 	limit_clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #限时结算价 (元)
 	has_limit_time = models.BooleanField(default=False)  #限时结算价是否需要 有效范期
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
+	is_deleted=models.BooleanField(default=False)
 
 	class Meta(object):
 		db_table = 'product_product'
@@ -63,3 +64,26 @@ class ProductHasRelationWeapp(models.Model):
 
 	class Meta(object):
 		db_table = 'product_has_relation_weapp'
+
+
+class ProductSyncWeappAccount(models.Model):
+    """
+    商品被同步到了哪个平台（适配老逻辑）
+    """
+    product_id = models.IntegerField(default=0)
+    self_user_name = models.CharField(max_length=50, null=True, help_text='对应平台的用户名')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta(object):
+        db_table = 'product_sync_weapp_account'
+
+
+class SelfUsernameWeappAccount(models.Model):
+	"""
+	# 对应云上通的自营平台账户id(user_id)
+	"""
+	self_user_name = models.CharField(max_length=50, null=True)
+	weapp_account_id = models.IntegerField(default=0)
+
+	class Meta(object):
+		db_table = 'self_username_weapp_account'
