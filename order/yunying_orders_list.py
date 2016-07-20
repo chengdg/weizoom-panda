@@ -311,6 +311,10 @@ class YunyingOrdersList(resource.Resource):
 		# product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		if from_mall == '-1':
 			from_mall = ''
+		else:
+			weapp_count = product_models.SelfUsernameWeappAccount.objects.filter(self_user_name=from_mall).first()
+			weapp_count_id = weapp_count.weapp_account_id
+			from_mall = weapp_count_id
 		if order_status == '-1':
 			order_status = ''
 		#

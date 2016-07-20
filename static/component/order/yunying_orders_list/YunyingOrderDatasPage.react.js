@@ -60,22 +60,22 @@ var YunyingOrderDatasPage = React.createClass({
 			value: '-1'
 		}, {
 			text: '微众商城',
-			value: '3394'
+			value: 'weizoom_shop'
 		}, {
 			text: '微众家',
-			value: '3621'
+			value: 'weizoom_jia'
 		}, {
 			text: '微众妈妈',
-			value: '3806'
+			value: 'weizoom_mama'
 		}, {
 			text: '微众学生',
-			value: '3807'
+			value: 'weizoom_xuesheng'
 		}, {
 			text: '微众白富美',
-			value: '3808'
+			value: 'weizoom_baifumei'
 		}, {
 			text: '微众俱乐部',
-			value: '3936'
+			value: 'weizoom_club'
 		}];
 
 		var orderStatusOptions = [{
