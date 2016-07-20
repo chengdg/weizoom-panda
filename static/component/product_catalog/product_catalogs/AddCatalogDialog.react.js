@@ -38,7 +38,14 @@ var AddCatalogDialog = Reactman.createDialog({
 		var property = event.target.getAttribute('name');
 		var newState = {};
 		newState[property] = value;
-		this.setState(newState);
+		if(property == 'father_catalog'){
+			if(!this.props.data.catalog_id){
+				this.setState(newState);
+			}
+		}else{
+			this.setState(newState);
+		}
+		
 	},
 
 	onChangeStore: function(){
@@ -93,7 +100,7 @@ var AddCatalogDialog = Reactman.createDialog({
 		<div className="xui-formPage">
 			<form className="form-horizontal mt15">
 				<fieldset>
-					<Reactman.FormSelect label="上级分类:" name="father_catalog" value={this.state.father_catalog} options={this.state.options} onChange={this.onChange}/>
+					<Reactman.FormSelect disabled='true' label="上级分类:" name="father_catalog" value={this.state.father_catalog} options={this.state.options} onChange={this.onChange}/>
 					<Reactman.FormInput label="分类名称:" name="catalog_name" validate="require-notempty" value={this.state.catalog_name} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" type="text" name="note" value={this.state.note} onChange={this.onChange} inDialog={true} width={300} height={200}/>
 				</fieldset>

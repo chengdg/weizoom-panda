@@ -67,46 +67,55 @@ var ProductCatalogPage = React.createClass({
 		});
 	},
 
+	showSecondCatalogs:function(class_name){
+		var display = document.getElementsByClassName(class_name)[0].style.display;
+		if (display == 'none'){
+			document.getElementsByClassName(class_name)[0].style.display = "block";
+		}else{
+			document.getElementsByClassName(class_name)[0].style.display = "none";
+		}
+	},
+	
 	rowFormatter: function(field, value, data) {
 		if (field === 'expand-row') {
-			var order_infos = data['order_infos'];
-			var class_name = 'data-' +data['user_id'];
-			if(order_infos){
-				var products = JSON.parse(order_infos).map(function(order,index){
-					var order_id = order['order_id'];
-					var src = '/order/customer_order_detail/?id='+order_id;
-					return(
-							<div style={{marginTop:'5px'}} key={index}>
-								<div className="xui-expand-row-info" style={{float: 'left',width:'190px'}}>
-									<a href={src} target="_blank">{order.order_id}</a> 
-								</div>
-								<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>{order.status} </div>
-								<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>{order.total_order_money}(元)</div>
-								<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>{order.purchase_price}(元)/{order.total_count}(件)</div>
-								<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'300px'}}>{order.product_name}</div>
-								<div style={{clear:'both'}}></div>
+			var _this = this;
+			var class_name = 'data-' +data['id'];
+			var second_catalogs = JSON.parse(data['second_catalogs'])
+			if(second_catalogs.length>0){
+				var catalogs = second_catalogs.map(function(catalog,index){
+				return(
+						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
+							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px'}}>{catalog.catalog_name} </div>
+							<div className="xui-expand-row-info" style={{marginLeft:'40%',display: 'inline'}}>创建时间：{catalog.created_at}</div>
+							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>商品数：{catalog.products_number} </div>
+							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
+								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
+								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
 							</div>
-						)
-					});
-				return (
-					<div className={class_name} style={{display:'none !important',margin:'5px 0px 5px 5px'}}>
-						<div>
-							<div className="xui-expand-row-info" style={{float: 'left',width:'190px'}}>订单号<br></br></div>
-							<div className="xui-expand-row-info" style={{float: 'right',width:'100px'}}>状态<br></br></div>
-							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>总金额<br></br></div>
-							<div className="xui-expand-row-info" style={{float: 'right',width:'150px'}}>单价/件数<br></br></div>
-							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'300px'}}>商品名称<br></br></div>
-							<div style={{clear:'both'}}></div>
-							{products}
 						</div>
+					)
+				});
+				return (
+					<div className={class_name} style={{display:'none'}}>{catalogs}</div>
+				)
+			}else{
+				return (
+					<div className={class_name} style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px',display:'none'}}>
+						<div style={{float: 'left',paddingLeft:'15px'}}>暂无二级分类</div>
 					</div>
 				)
 			}
+			
+		}else if(field === 'catalog_name'){
+			var class_name = 'data-' +data['id'];
+			return (
+				<a href="javascript:void(0);" onClick={this.showSecondCatalogs.bind(this,class_name)}>+{value}</a>
+			)
 		}else if(field === 'action'){
 			return (
 				<div className="orders-list-btn-group">
-					<a className="btn btn-link btn-xs" onClick={this.onAddCatalog} data-id={data.id} data-father-catalog={data.father_catalog} data-catalog-name={data.catalog_name} data-note={data.note}>修改</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-id={data.id}>删除</a>
+					<a className="btn btn-primary" onClick={this.onAddCatalog} data-id={data.id} data-father-catalog={data.father_catalog} data-catalog-name={data.catalog_name} data-note={data.note}>修改</a>
+					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-id={data.id}>删除</a>
 				</div>
 			);
 		}else{
@@ -128,7 +137,7 @@ var ProductCatalogPage = React.createClass({
 						<Reactman.TableColumn name="分类名称" field="catalog_name" />
 						<Reactman.TableColumn name="创建时间" field="created_at" width='200px'/>
 						<Reactman.TableColumn name="商品数" field="products_number"/>
-						<Reactman.TableColumn name="操作" field="action" width='100px'/>
+						<Reactman.TableColumn name="操作" field="action" width='150px'/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>

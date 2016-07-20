@@ -43,16 +43,29 @@ class ProductCatalog(resource.Resource):
 		return render_to_response('product_catalog/product_catalogs.html', c)
 
 	def api_get(request):
-		catalogs = product_catalog_models.ProductCatalog.objects.all().order_by('-created_at')
+		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1).order_by('-created_at')
+		all_second_catalogs = product_catalog_models.ProductCatalog.objects.exclude(father_catalog=-1).order_by('-created_at')
 		rows = []
-		for catalog in catalogs:
+		for catalog in all_first_catalogs:
+			second_catalogs = []
+			belong_second_catalogs = all_second_catalogs.filter(father_catalog=catalog.id)
+			for belong_second_catalog in belong_second_catalogs:
+				second_catalogs.append({
+					'id': belong_second_catalog.id,
+					'father_catalog': belong_second_catalog.father_catalog,
+					'catalog_name': belong_second_catalog.catalog_name,
+					'note': belong_second_catalog.note,
+					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+					'products_number': 0
+				})
 			rows.append({
 				'id': catalog.id,
 				'father_catalog': catalog.father_catalog,
 				'catalog_name': catalog.catalog_name,
 				'note': catalog.note,
 				'created_at': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-				'products_number': 0
+				'products_number': 0,
+				'second_catalogs': json.dumps(second_catalogs)
 			})
 		data = {
 			'rows': rows
