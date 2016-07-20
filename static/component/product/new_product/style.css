@@ -271,3 +271,21 @@ fieldset div:nth-child(19){
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
 	z-index: 1000 !important;
 }
+
+td div.form-group{
+    margin: 0;
+    width: 60px;
+    margin-left: 0 !important;
+}
+
+td div.form-group label{
+	display: none;
+}
+
+td div.form-group div input{
+    width: 100px;
+}
+
+td div.form-group div .errorHint{
+	width: 100px;
+}

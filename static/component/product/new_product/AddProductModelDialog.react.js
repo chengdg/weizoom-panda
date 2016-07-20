@@ -18,7 +18,8 @@ var AddProductModelDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return {
-			'value_ids': Store.getData().value_ids
+			'value_ids': Store.getData().value_ids,
+			'model_names': Store.getData().model_names
 		};
 	},
 
@@ -28,7 +29,19 @@ var AddProductModelDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		this.setState(Store.getData().value_ids);
+		// var _this = this;
+		// if(Store.getData().model_names.length>3){
+		// 	Reactman.PageAction.showHint('error', '最多添加三种规格,请重新选择规格');
+		// 	return;
+		// }else{
+		// 	setTimeout(function() {
+		// 	 	_this.closeDialog();
+		// 	}, 500);
+		// }
+		this.setState({
+			value_ids: Store.getData().value_ids,
+			model_names: Store.getData().model_names
+		});
 	},
 
 	chooseProductModelValue: function(value_id){
@@ -37,7 +50,12 @@ var AddProductModelDialog = Reactman.createDialog({
 	},
 
 	saveModelValue: function(){
+		var _this = this;
+		console.log(this,"=======");
 		Action.saveModelValue(this.state.value_ids);
+		// setTimeout(function() {
+		//  	_this.closeDialog();
+		// }, 500);
 	},
 
 	rowFormatter: function(field, value, data) {

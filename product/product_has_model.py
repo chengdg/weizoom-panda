@@ -58,9 +58,10 @@ class ProductHasModel(resource.Resource):
 				})
 
 		rows = []
+		
 		for product_model_property in product_model_properties:
 			product_model_value = ''
-			if product_model_property.id in property_id2model_property_value:
+			if product_model_property.id in property_id2model_property_value:			
 				product_model_value = property_id2model_property_value[product_model_property.id]
 			rows.append({
 				'id': product_model_property.id,
@@ -68,11 +69,49 @@ class ProductHasModel(resource.Resource):
 				'model_type': product_model_property.type,
 				'product_model_value': '' if not product_model_value else json.dumps(product_model_value),
 			})
+
+		row_lens = len(rows)
+		model_values = []
+		if row_lens==1:
+			model_value_one = json.loads(rows[0]['product_model_value'])
+			for value_one in model_value_one:
+				model_values.append({
+						'first' : value_one['name'],
+						'first_id' : value_one['id']
+					})
+		if row_lens==2:
+			model_value_one = json.loads(rows[0]['product_model_value'])
+			model_value_two = json.loads(rows[1]['product_model_value'])
+
+			for value_one in model_value_one:
+				for value_two in model_value_two:
+					model_values.append({
+						'first' : value_one['name'],
+						'second': value_two['name'],
+						'first_id' : value_one['id'],
+						'second_id': value_two['id']
+					})
+		
+		if row_lens==3:
+			model_value_one = json.loads(rows[0]['product_model_value'])
+			model_value_two = json.loads(rows[1]['product_model_value'])
+			model_value_three = json.loads(rows[2]['product_model_value'])
+			for value_one in model_value_one:
+				for value_two in model_value_two:
+					for value_three in model_value_three:
+						model_values.append({
+							'first' : value_one['name'],
+							'second': value_two['name'],
+							'third': value_three['name'],
+							'first_id' : value_one['id'],
+							'second_id': value_two['id'],
+							'third_id': value_two['id']
+						})
+		print model_values,"=========="
 		data = {
 			'rows': rows,
-			# 'pagination_info': pageinfo.to_dict()
+			'model_values': json.dumps(model_values)
 		}
-
 		#构造response
 		response = create_response(200)
 		response.data = data

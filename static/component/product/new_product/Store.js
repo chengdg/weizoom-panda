@@ -13,6 +13,7 @@ var Dispatcher = Reactman.Dispatcher;
 var StoreUtil = Reactman.StoreUtil;
 
 var Constant = require('./Constant');
+var AddProductModelDialog = require('./AddProductModelDialog.react');
 var W = Reactman.W;
 
 var Store = StoreUtil.createStore(Dispatcher, {
@@ -37,7 +38,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'product_store_type':'-1',
 				'has_product_model': '0',
 				'has_limit_time': '0',
-				'value_ids': []
+				'value_ids': [],
+				'model_values': [],
+				'model_names': ''
 			};
 		}
 	},
@@ -63,9 +66,20 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleSaveProductAddModel: function(action){
-		console.log(action.data.rows,"=======");
-		this.model_value= action.data.rows;
-		this.__emitChange();
+		console.log(action.data.model_values,"=======");
+		this.data['model_values']= action.data.model_values;
+		this.data['model_names']= action.data.rows;
+		if(action.data.rows.length>3){
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', '最多添加三种规格,请重新选择规格');
+			}, 10);
+			return;
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('success', '添加成功!');
+			}, 10);
+			this.__emitChange();
+		}
 	},
 
 	handleCreateNewProduct: function(action) {

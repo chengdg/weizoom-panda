@@ -138,10 +138,7 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
-						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>
-
-						
-						
+						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
@@ -194,12 +191,55 @@ var ProductModelInfo = React.createClass({
 	},
 
 	render: function() {
+		var _this = this;
 		var model_type = this.props.Modeltype;
 		var disabled = this.props.Disabled;
+		var model_values = this.state.model_values;
+		var model_names = this.state.model_names;
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
-		console.log(model_type,"======");
+		var model_value_tr;
+		if(model_values.length>0){
+			model_value_tr = JSON.parse(model_values).map(function(model_value,index){
+				var td_1,td_2,td_3;
+				if(model_value.hasOwnProperty('third')){
+					td_1 = <td>{model_value.first}</td>;
+					td_2 = <td>{model_value.second}</td>;
+					td_3 = <td>{model_value.third}</td>;
+				}else if(model_value.hasOwnProperty('second')){
+					td_1 = <td>{model_value.first}</td>;
+					td_2 = <td>{model_value.second}</td>;
+				}else{
+					td_1 = <td>{model_value.first}</td>;
+				}
+				console.log(td_1);
+				return(
+					<tr key={index}>
+						{td_1}
+						{td_2}
+						{td_3}
+						<td>
+							<Reactman.FormInput label="" type="text" name="product_price" value={_this.state.product_price} onChange={_this.props.onChange} />
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name="limit_clear_price" value={_this.state.limit_clear_price} onChange={_this.props.onChange}/>
+						</td>
+						<td>2</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name="product_weight" value={_this.state.product_weight} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name="product_store" value={_this.state.productStore} validate="require-int" onChange={_this.props.onChange} />
+						</td>
+						<td></td>
+						<td className="show-active">
+							<a className="btn cursorPointer">删除</a>
+						</td>
+					</tr>
+				)
+			})
+		}
 		if (model_type == '0'){
 			return(
 				<div className="product_info_fieldset">
@@ -232,9 +272,43 @@ var ProductModelInfo = React.createClass({
 				</div>
 			)
 		}else {
+			var th_1,th_2,th_3;
+			if(model_names.length==3){
+				th_1 = <th>规格1</th>;
+				th_2 = <th>规格2</th>;
+				th_3 = <th>规格3</th>;
+			}else if(model_names.length==2){
+				th_1 = <th>规格1</th>;
+				th_2 = <th>规格2</th>;
+			}else if(model_names.length==1){
+				th_1 = <th>规格1</th>;
+			}
 			return(
-				<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
-					<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>
+				<div>
+					<div>
+						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
+							<thead>
+								<tr>
+									{th_1}
+									{th_2}
+									{th_3}
+									<th>采购价</th>
+									<th>限时结算价</th>
+									<th>售价</th>
+									<th>重量(Kg)</th>
+									<th>库存</th>
+									<th>商品编码</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="">
+							{model_value_tr}
+							</tbody>
+						</table>
+					</div>
+					<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
+						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>
+					</div>
 				</div>
 			)
 		}
