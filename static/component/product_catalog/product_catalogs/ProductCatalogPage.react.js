@@ -85,8 +85,8 @@ var ProductCatalogPage = React.createClass({
 				var catalogs = second_catalogs.map(function(catalog,index){
 				return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
-							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px'}}>{catalog.catalog_name} </div>
-							<div className="xui-expand-row-info" style={{marginLeft:'40%',display: 'inline'}}>创建时间：{catalog.created_at}</div>
+							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '700px'}}>{catalog.catalog_name} </div>
+							<div className="xui-expand-row-info" style={{display: 'inline'}}>创建时间：{catalog.created_at}</div>
 							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>商品数：{catalog.products_number} </div>
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
@@ -109,7 +109,7 @@ var ProductCatalogPage = React.createClass({
 		}else if(field === 'catalog_name'){
 			var class_name = 'data-' +data['id'];
 			return (
-				<a href="javascript:void(0);" onClick={this.showSecondCatalogs.bind(this,class_name)}>+{value}</a>
+				<a href="javascript:void(0);" onClick={this.showSecondCatalogs.bind(this,class_name)}>{value}</a>
 			)
 		}else if(field === 'action'){
 			return (
