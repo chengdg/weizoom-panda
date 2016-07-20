@@ -379,10 +379,10 @@ class YunyingOrdersList(resource.Resource):
 				rows = []
 				for order in orders:
 					weapp_supplier_id = order.get('products')[0].get('supplier')
-					supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).first()
+					supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).last()
 					user_profile = None
 					if supplier:
-						user_profile = UserProfile.objects.filter(id=supplier.account_id).first()
+						user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
 					# print supplier.store_name, '------------------------------------------------'
 					# weapp_owner_id = order.get('owner_id')
 					rows.append({'total_purchase_price': order.get('total_purchase_price'),
