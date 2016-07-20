@@ -57,46 +57,38 @@ class ExportOrders(resource.Resource):
 		table = []
 		table.append(titles)
 		for order in orders:
-			product_names = []
-			product_models = []
-			product_price = []
-			product_count = []
 			product_infos = json.loads(order['product_infos'])
 			for product_info in product_infos:
-				product_names.append(product_info['product_name'])
-				product_price.append(str('%.2f' % product_info['purchase_price']))
-				product_count.append( str(product_info['count'])+u'件')
 				if product_info['model_names']:
-					product_models.append(product_info['model_names'])
-			product_names = ','.join(product_names)
-			product_price = ','.join(product_price)
-			product_count = ','.join(product_count)
-			product_models = ','.join(product_models)
-			if order['leader_name'].find('|') == -1:
-				leader_name = order['leader_name']
-				leader_name_message = ''
-			else:
-				leader_name,leader_name_message = order['leader_name'].split('|')
-			table.append([
-				order['order_id'],
-				order['order_create_at'],
-				product_names,
-				product_models,
-				product_price,
-				product_count,
-				order['total_purchase_price'],
-				order['total_weight'],
-				order['status'],
-				order['ship_name'],
-				order['ship_tel'],
-				order['ship_area']+' '+order['ship_address'],
-				leader_name,
-				leader_name_message,
-				express_company_name2text[order['express_company_name']],
-				order['express_number'],
-				order['delivery_time'],
-				order['customer_message']
-			])
+					product_models = product_info['model_names']
+				else:
+					product_models = ''
+				if order['leader_name'].find('|') == -1:
+					leader_name = order['leader_name']
+					leader_name_message = ''
+				else:
+					leader_name,leader_name_message = order['leader_name'].split('|')
+				sales_price = str('%.2f' % (product_info['purchase_price']*int(product_info['count'])))
+				table.append([
+					order['order_id'],
+					order['order_create_at'],
+					product_info['product_name'],
+					product_models,
+					str('%.2f' % product_info['purchase_price']),
+					str(product_info['count'])+u'件',
+					sales_price,
+					order['total_weight'],
+					order['status'],
+					order['ship_name'],
+					order['ship_tel'],
+					order['ship_area']+' '+order['ship_address'],
+					leader_name,
+					leader_name_message,
+					express_company_name2text[order['express_company_name']],
+					order['express_number'],
+					order['delivery_time'],
+					order['customer_message']
+				])
 		return ExcelResponse(table,output_name=u'订单列表'.encode('utf8'),force_csv=False)
 
 class YunyingExportOrders(resource.Resource):
