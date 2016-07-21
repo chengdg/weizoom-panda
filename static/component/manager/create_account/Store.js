@@ -26,11 +26,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
-			this.data['purchase_method'] = String(this.data['purchase_method']);
-			this.data['company_type'] = JSON.parse(this.data['company_type']);
-			this.data['options_for_type'] = [];
-			if (this.data['purchase_method'] != '2'){
-				this.data['points'] = '';
+			if (this.data['account_type'] == '1'){
+				this.data['purchase_method'] = String(this.data['purchase_method']);
+				this.data['company_type'] = JSON.parse(this.data['company_type']);
+				this.data['options_for_type'] = [];
+				if (this.data['purchase_method'] != '2'){
+					this.data['points'] = '';
+				}
 			}
 		} else {
 			this.data = {

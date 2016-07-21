@@ -59,7 +59,7 @@ class AccountCreate(resource.Resource):
 					'valid_time_to': '' if not user_profile.valid_time_to else user_profile.valid_time_to.strftime("%Y-%m-%d %H:%M"),
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note,
+					'note': user_profile.note
 				}
 			else:
 				user_profile_data = {
@@ -67,7 +67,7 @@ class AccountCreate(resource.Resource):
 					'name': user_profile.name,
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note,
+					'note': user_profile.note
 				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True

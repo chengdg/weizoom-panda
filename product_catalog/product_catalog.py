@@ -127,7 +127,19 @@ class ProductCatalog(resource.Resource):
 					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
 					return response.get_response()
 				else:
-					catalog.delete()
+					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type='')
+					using_catalog_ids = []
+					for customer in customers:
+						for company_type in json.loads(customer.company_type):
+							if company_type not in using_catalog_ids:
+								using_catalog_ids.append(company_type)
+					print using_catalog_ids
+					if int(catalog_id) in using_catalog_ids:
+						response = create_response(500)
+						response.errMsg = u'分类已被使用，删除失败，请先修改客户账户'
+						return response.get_response()
+					else:
+						catalog.delete()
 			response = create_response(200)
 			return response.get_response()
 		except Exception,e:
