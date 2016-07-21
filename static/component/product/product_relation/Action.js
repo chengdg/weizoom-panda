@@ -20,6 +20,19 @@ var Action = {
 		});
 	},
 
+	updateProduct: function(product_id){
+		Resource.post({
+			resource: 'product.update_product',
+			data: {
+				'product_id': product_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.UPDATE_PRODUCT_INFO
+			}
+		});
+	},
+
 	relationFromWeapp: function(product_data){
 		Resource.post({
 			resource: 'product.weapp_relation',

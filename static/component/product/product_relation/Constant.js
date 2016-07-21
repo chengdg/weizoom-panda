@@ -7,5 +7,6 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
 	PRODUCT_RELATION_WEAPP: null,
-	PRODUCT_RELATION_DATAS_FILTER: null
+	PRODUCT_RELATION_DATAS_FILTER: null,
+	UPDATE_PRODUCT_INFO: null
 });

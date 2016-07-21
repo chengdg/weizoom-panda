@@ -26,6 +26,11 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
+	updateProduct: function(product_id){
+		console.log(product_id,"====");
+		Action.updateProduct(product_id);
+	},
+
 	productRelation: function(self_user_name,product_info) {
 		var product_id = product_info['product_id']
 		var obj = document.getElementById(product_id);
@@ -107,6 +112,7 @@ var ProductRelationPage = React.createClass({
 						<span>微众学生</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
+					<a className="btn btn-link btn-xs" style={{color:'#1ab394',marginLeft:'20px'}} onClick={this.updateProduct.bind(this,data['id'])}>更新商品</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
@@ -148,7 +154,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="同步商品" field="weapp_name" width="440px"/>
+						<Reactman.TableColumn name="同步商品" field="weapp_name" width="480px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>

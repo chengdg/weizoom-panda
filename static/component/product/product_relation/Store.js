@@ -17,6 +17,7 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
+		'handleUpdateProductInfo': Constant.UPDATE_PRODUCT_INFO,
 		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER
 	},
 
@@ -32,6 +33,19 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			 	Reactman.PageAction.showHint('success', action.data.errMsg);
 			}, 10);
 			this.__emitChange();
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', action.data.errMsg);
+			}, 10);
+		}
+	},
+
+	handleUpdateProductInfo: function(action){
+		console.log(action,action.data['code'],action.data.errMsg);
+		if(action.data['code']==200){
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('success', action.data.errMsg);
+			}, 10);
 		}else{
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', action.data.errMsg);

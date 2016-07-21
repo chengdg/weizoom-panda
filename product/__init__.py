@@ -8,3 +8,4 @@ import weapp_relation
 import relation_step
 import sales_from_weapp
 import product_exported
+import update_product
