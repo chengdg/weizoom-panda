@@ -79,19 +79,12 @@ class CustomerOrdersList(resource.Resource):
 
 		user_profile_id = account_models.UserProfile.objects.get(user_id=request.user.id).id
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
-		# 为了适配新逻辑
-		old_account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=-user_profile_id)
-		account_has_suppliers = list(account_has_suppliers) + list(old_account_has_suppliers)
 		supplier_ids = []
 		api_pids = []
 		is_search_product_name = False
 		for account_has_supplier in account_has_suppliers:
 			if str(account_has_supplier.supplier_id) not in supplier_ids:
-				if account_has_supplier.supplier_id > 0:
-					supplier_ids.append(str(account_has_supplier.supplier_id))
-				else:
-					supplier_ids.append(str(-account_has_supplier.supplier_id))
-		# print supplier_ids, 'ffffffffffffffffffffffffffff'
+				supplier_ids.append(str(account_has_supplier.supplier_id))
 
 		#构造panda数据库内商品id，与云商通内商品id的关系
 		product_id2product_weapp_id = {}
