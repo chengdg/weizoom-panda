@@ -36,6 +36,6 @@ Scenario:1
 
 	Then jobs登录系统:weapp
 	Then jobs查看供应商列表
-		|supp;ier_name|     add+time    |  principal  |  comments  |
-		|     代理    |2016-06-27 13:32 |             |   123456   |    
+		|supplier_name|     add_time    |  principal  |  comments  |
+		|    p-代理   |2016-06-27 13:32 |             |   123456   |    
   
