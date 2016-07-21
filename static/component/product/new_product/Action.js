@@ -94,6 +94,15 @@ var Action = {
 				actionType: Constant.SAVE_PRODUCT_MODEL_VALUE
 			}
 		});
+	},
+
+	deleteModelValue: function(modelId){
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_PRODUCT_MODEL_VALUE,
+			data: {
+				modelId: modelId
+			}
+		});
 	}
 };
 

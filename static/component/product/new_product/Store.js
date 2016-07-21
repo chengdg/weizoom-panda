@@ -22,6 +22,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleCreateNewProduct': Constant.NEW_PRODUCT_CREATE,
 		'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
 		'handleSaveProductAddModel': Constant.SAVE_PRODUCT_MODEL_VALUE,
+		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
 	},
 
 	init: function() {
@@ -40,7 +41,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'has_limit_time': '0',
 				'value_ids': [],
 				'model_values': [],
-				'model_names': ''
+				'name2model': {},
+				'model_names': []
 			};
 		}
 	},
@@ -67,8 +69,107 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleSaveProductAddModel: function(action){
 		console.log(action.data.model_values,"=======");
-		this.data['model_values']= action.data.model_values;
-		this.data['model_names']= action.data.rows;
+		var rows = action.data.rows;
+		var source = [];
+		var target = [];
+		var headers = [];
+		var name2model = this.data.name2model;
+		var _this = this;
+		/*
+		 * 将数据结构：
+		 * [
+		 *		{id:1, product_model_name:'颜色', product_model_value:[{id:1, name:'黑色'}, {id:2, name:'白色'}]},
+		 *		{id:2, product_model_name:'尺寸', product_model_value:[{id:3, name:'S'}, {id:4, name:'M'}]},
+		 *	]
+		 * 转换为:
+		 * headers: [{id:1, name:'颜色'}, {id:2, name:'尺寸'}]
+		 * values: [
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}],
+		 ]
+		 */
+		_.each(rows, function(property) {
+			headers.push({
+				id: property.id,
+				name: property.product_model_name
+			});
+
+			_.each(JSON.parse(property.product_model_value), function(propertyValue) {
+				var valueName = propertyValue.name;
+				var valueId = propertyValue.id;
+				if (source.length === 0) {
+					target.push([{
+						name:valueName, 
+						id:valueId, 
+						propertyId:property.id
+					}]);
+				} else {
+					_.each(source, function(sourceItem) {
+						sourceItem = _.clone(sourceItem);
+						sourceItem.push({
+							name: valueName,
+							id: valueId,
+							propertyId: property.id
+						})
+						target.push(sourceItem);
+					});
+				}
+			});
+
+			source = target;
+			target = [];
+		});
+
+		console.log(source,"====source=======");
+
+		/*
+		 * 将数据结构：
+		 values: [
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}],
+		 ]
+		 转换为:
+		 models: [{
+		 	modelId: '1:1_2:3',
+		 	propertyValues: [{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}]
+		 }, {
+		 	modelId: '1:1_2:4',
+		 	propertyValues: [{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}]
+		 }, {
+		 	modelId: '1:2_2:3',
+		 	propertyValues: [{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}]
+		 }, {
+		 	modelId: '1:2_2:4',
+		 	propertyValues: [{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}]
+		 }]
+		 */
+		var models = [];
+		_.each(source, function(values) {
+			var ids = [];
+			for (var i = 0; i < values.length; ++i) {
+				var value = values[i];
+				ids.push(value['propertyId']+':'+value['id']);
+			}
+			ids = _.sortBy(ids, function(id) { return id; });
+			var modelId = ids.join('_');
+			if (_this.data.name2model.hasOwnProperty(modelId)) {
+				models.push(_this.data.name2model[modelId]);
+			} else {
+				models.push({
+					modelId: modelId,
+					propertyValues: values
+				})
+			}
+		});
+		console.log(headers,"====headers====");
+		console.log(models,"====models====");
+
+		this.data['model_values']= models;
+		this.data['model_names']= headers;
 		if(action.data.rows.length>3){
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', '最多添加三种规格,请重新选择规格');
@@ -80,6 +181,16 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			}, 10);
 			this.__emitChange();
 		}
+	},
+
+	handleDeleteProductModelValue: function(action){
+		
+		var customModels = this.data['model_values'];
+		var this_customModels = _.filter(customModels, function(customModel) {
+			return customModel.modelId !== action.data.modelId;
+		});
+		this.data['model_values'] = this_customModels;
+		this.__emitChange();
 	},
 
 	handleCreateNewProduct: function(action) {

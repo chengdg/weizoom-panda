@@ -118,6 +118,17 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先上传图片！');
 			return ;
 		}
+
+		var model_values = this.state.model_values;
+		_.each(model_values, function(model) {
+			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
+			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
+			model['clear_price_'+model.modelId] = product['clear_price_'+model.modelId]
+			model['product_weight_'+model.modelId] = product['product_weight_'+model.modelId]
+			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
+			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
+		})
+		console.log(JSON.stringify(model_values),"===");
 		Action.saveNewProduct(product);
 	},
 
@@ -190,6 +201,19 @@ var ProductModelInfo = React.createClass({
 		});
 	},
 
+	deleteModelValue: function(modelId){
+		console.log(modelId,this.state.model_values,"======");
+		// var customModels = this.state.model_values;
+		// var this_customModels = _.filter(customModels, function(customModel) {
+		// 	return customModel.modelId !== modelId;
+		// });
+		// this.setState({
+		// 	model_values: this_customModels
+		// })
+		Action.deleteModelValue(modelId);
+		console.log(this.customModels,"++++++");
+	},
+
 	render: function() {
 		var _this = this;
 		var model_type = this.props.Modeltype;
@@ -199,47 +223,84 @@ var ProductModelInfo = React.createClass({
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
-		var model_value_tr;
-		if(model_values.length>0){
-			model_value_tr = JSON.parse(model_values).map(function(model_value,index){
-				var td_1,td_2,td_3;
-				if(model_value.hasOwnProperty('third')){
-					td_1 = <td>{model_value.first}</td>;
-					td_2 = <td>{model_value.second}</td>;
-					td_3 = <td>{model_value.third}</td>;
-				}else if(model_value.hasOwnProperty('second')){
-					td_1 = <td>{model_value.first}</td>;
-					td_2 = <td>{model_value.second}</td>;
-				}else{
-					td_1 = <td>{model_value.first}</td>;
-				}
-				console.log(td_1);
+
+		var model_value_tr = model_values.map(function(model,index){
+			var td = model.propertyValues.map(function(value,index){
 				return(
-					<tr key={index}>
-						{td_1}
-						{td_2}
-						{td_3}
-						<td>
-							<Reactman.FormInput label="" type="text" name="product_price" value={_this.state.product_price} onChange={_this.props.onChange} />
-						</td>
-						<td>
-							<Reactman.FormInput label="" type="text" name="limit_clear_price" value={_this.state.limit_clear_price} onChange={_this.props.onChange}/>
-						</td>
-						<td>2</td>
-						<td>
-							<Reactman.FormInput label="" type="text" name="product_weight" value={_this.state.product_weight} onChange={_this.props.onChange} validate="require-float"/>
-						</td>
-						<td>
-							<Reactman.FormInput label="" type="text" name="product_store" value={_this.state.productStore} validate="require-int" onChange={_this.props.onChange} />
-						</td>
-						<td></td>
-						<td className="show-active">
-							<a className="btn cursorPointer">删除</a>
-						</td>
-					</tr>
+					<td key={index}>{value.name}</td>
 				)
 			})
-		}
+
+			return(
+				<tr key={index} ref={model.modelId}>
+					{td}
+					<td>
+						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} />
+					</td>
+					<td>
+						<Reactman.FormInput label="" type="text" name={"limit_clear_price_"+model.modelId} value={_this.state["limit_clear_price_"+model.modelId]} onChange={_this.props.onChange}/>
+					</td>
+					<td>
+						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-price"/>
+					</td>
+					<td>
+						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+					</td>
+					<td>
+						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+					</td>
+					<td>
+						<Reactman.FormInput label="" type="text" name={"product_code_"+model.modelId} value={_this.state["product_code_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+					</td>
+					<td className="show-active">
+						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
+					</td>
+				</tr>
+			)
+
+		})
+
+		// var model_value_tr;
+		// if(model_values.length>0){
+		// 	model_value_tr = JSON.parse(model_values).map(function(model_value,index){
+		// 		var td_1,td_2,td_3;
+		// 		if(model_value.hasOwnProperty('third')){
+		// 			td_1 = <td>{model_value.first}</td>;
+		// 			td_2 = <td>{model_value.second}</td>;
+		// 			td_3 = <td>{model_value.third}</td>;
+		// 		}else if(model_value.hasOwnProperty('second')){
+		// 			td_1 = <td>{model_value.first}</td>;
+		// 			td_2 = <td>{model_value.second}</td>;
+		// 		}else{
+		// 			td_1 = <td>{model_value.first}</td>;
+		// 		}
+		// 		console.log(td_1);
+		// 		return(
+		// 			<tr key={index}>
+		// 				{td_1}
+		// 				{td_2}
+		// 				{td_3}
+		// 				<td>
+		// 					<Reactman.FormInput label="" type="text" name="product_price" value={_this.state.product_price} onChange={_this.props.onChange} />
+		// 				</td>
+		// 				<td>
+		// 					<Reactman.FormInput label="" type="text" name="limit_clear_price" value={_this.state.limit_clear_price} onChange={_this.props.onChange}/>
+		// 				</td>
+		// 				<td>2</td>
+		// 				<td>
+		// 					<Reactman.FormInput label="" type="text" name="product_weight" value={_this.state.product_weight} onChange={_this.props.onChange} validate="require-float"/>
+		// 				</td>
+		// 				<td>
+		// 					<Reactman.FormInput label="" type="text" name="product_store" value={_this.state.productStore} validate="require-int" onChange={_this.props.onChange} />
+		// 				</td>
+		// 				<td></td>
+		// 				<td className="show-active">
+		// 					<a className="btn cursorPointer">删除</a>
+		// 				</td>
+		// 			</tr>
+		// 		)
+		// 	})
+		// }
 		if (model_type == '0'){
 			return(
 				<div className="product_info_fieldset">
@@ -272,26 +333,18 @@ var ProductModelInfo = React.createClass({
 				</div>
 			)
 		}else {
-			var th_1,th_2,th_3;
-			if(model_names.length==3){
-				th_1 = <th>规格1</th>;
-				th_2 = <th>规格2</th>;
-				th_3 = <th>规格3</th>;
-			}else if(model_names.length==2){
-				th_1 = <th>规格1</th>;
-				th_2 = <th>规格2</th>;
-			}else if(model_names.length==1){
-				th_1 = <th>规格1</th>;
-			}
+			var th = model_names.map(function(name,index){
+				return(
+					<th key={index}>{name.name}</th>
+				)
+			})
 			return(
 				<div>
 					<div>
 						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
 							<thead>
 								<tr>
-									{th_1}
-									{th_2}
-									{th_3}
+									{th}
 									<th>采购价</th>
 									<th>限时结算价</th>
 									<th>售价</th>
