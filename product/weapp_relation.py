@@ -93,7 +93,8 @@ class ProductRelation(resource.Resource):
                         'model_type': 'single',
                         'stocks': product.product_store if product.product_store > 0 else 0,
                         # 商品需要同步到哪个自营平台
-                        'accounts': json.dumps(weapp_user_ids)
+                        'accounts': json.dumps(weapp_user_ids),
+                        'detail': product.remark
                     }
                     # 判断是更新还是新曾商品同步
                     relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id)
