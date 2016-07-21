@@ -25,7 +25,9 @@ var Action = {
 	selectCatalog: function(){
 		Resource.get({
 			resource: 'product_catalog.get_all_first_catalog',
-			data: {},
+			data: {
+				is_account_page: true
+			},
 			dispatch: {
 				dispatcher: Dispatcher,
 				actionType: Constant.NEW_ACCOUNT_SELECT_CATALOG

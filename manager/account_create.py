@@ -46,11 +46,14 @@ class AccountCreate(resource.Resource):
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
 			if user_profile.role == CUSTOMER:
+				company_types = user_profile.company_type
+				print 'company_types'
+				print company_types
 				user_profile_data = {
 					'id': user_profile.id,
 					'name': user_profile.name,
 					'company_name': user_profile.company_name,
-					'company_type': user_profile.company_type,
+					'company_type': company_types,
 					'purchase_method': user_profile.purchase_method,
 					'points': user_profile.points,
 					'contacter': user_profile.contacter,
@@ -89,7 +92,7 @@ class AccountCreate(resource.Resource):
 		account_type = post.get('account_type','')
 		if account_type == '1':
 			company_name = post.get('company_name','')
-			company_type = post.get('company_type','')
+			company_type = json.loads(post.get('company_type',''))
 			purchase_method = int(post.get('purchase_method',1))
 			points = float(post.get('points',0))
 			contacter = post.get('contacter','')

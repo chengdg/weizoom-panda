@@ -28,6 +28,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['account_type'] = String(this.data['account_type']);
 			this.data['purchase_method'] = String(this.data['purchase_method']);
 			this.data['company_type'] = JSON.parse(this.data['company_type']);
+			this.data['options_for_type'] = [];
 			if (this.data['purchase_method'] != '2'){
 				this.data['points'] = '';
 			}

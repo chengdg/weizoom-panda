@@ -49,7 +49,7 @@ class UserProfile(models.Model):
 	manager_id = models.IntegerField(default=0) #创建该用户的系统用户的id
 	role = models.IntegerField(default=MANAGER,choices=ROLES) #角色
 	company_name = models.CharField(max_length=32, default='') #公司名称
-	company_type = models.CharField(max_length=1024, default='') #经营类目
+	company_type = models.CharField(max_length=1024, default='') #经营类目(catalog表的id构成的list，例如[1,2])
 	purchase_method = models.IntegerField(default=1) #采购方式
 	points = models.FloatField(default=0) #零售价返点
 	contacter = models.CharField(max_length=32, default='') #联系人

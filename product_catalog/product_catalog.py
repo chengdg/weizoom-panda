@@ -132,11 +132,15 @@ class GetAllFirstCatalog(resource.Resource):
 
 	@login_required
 	def api_get(request):
+		is_account_page = request.GET.get('is_account_page','')
 		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1).order_by('-created_at')
-		rows = [{
-			'text': u'无',
-			'value': -1
-		}]
+		if is_account_page:
+			rows = []
+		else:
+			rows = [{
+				'text': u'无',
+				'value': -1
+			}]
 		for catalog in catalogs:
 			rows.append({
 				'text': catalog.catalog_name,

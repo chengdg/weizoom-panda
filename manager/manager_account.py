@@ -18,6 +18,7 @@ from util import db_util
 import nav
 from account.models import *
 from product.models import *
+from product_catalog import models as catalog_models
 from excel_response import ExcelResponse
 
 FIRST_NAV = 'manager'
@@ -52,7 +53,7 @@ class ManagerAccount(resource.Resource):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
-
+		catalogs = catalog_models.ProductCatalog.objects.filters(father_catalog = -1)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
 		username = filters.get('username','')
@@ -64,7 +65,6 @@ class ManagerAccount(resource.Resource):
 			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
-
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
@@ -83,7 +83,6 @@ class ManagerAccount(resource.Resource):
 				elif date_now >= valid_time_to or date_now <= valid_time_from:
 					account.status = 2
 					account.save()
-
 			if is_for_list:
 				rows.append({
 					'id' : account.id,
@@ -112,8 +111,6 @@ class ManagerAccount(resource.Resource):
 			return response.get_response()
 		else:
 			return rows
-		
-
 
 	@login_required
 	def api_post(request):
