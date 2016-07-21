@@ -46,14 +46,11 @@ class AccountCreate(resource.Resource):
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
 			if user_profile.role == CUSTOMER:
-				company_types = user_profile.company_type
-				print 'company_types'
-				print company_types
 				user_profile_data = {
 					'id': user_profile.id,
 					'name': user_profile.name,
 					'company_name': user_profile.company_name,
-					'company_type': company_types,
+					'company_type': user_profile.company_type if user_profile.company_type!='' else '[]',
 					'purchase_method': user_profile.purchase_method,
 					'points': user_profile.points,
 					'contacter': user_profile.contacter,

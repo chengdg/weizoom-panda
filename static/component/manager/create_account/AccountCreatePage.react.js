@@ -83,6 +83,10 @@ var AccountCreatePage = React.createClass({
 			Reactman.PageAction.showHint('error', '请填写英文字母或数字');
 			return;
 		}
+		if(account_type ==1 && account.company_type.length<=0){
+			Reactman.PageAction.showHint('error', '请选择经营类目');
+			return;
+		}
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
