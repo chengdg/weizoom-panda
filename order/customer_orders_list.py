@@ -434,6 +434,8 @@ class CustomerOrdersList(resource.Resource):
 					response = create_response(200)
 					response.data = data
 					return response.get_response()
+				else:
+					return rows
 		if not resp:
 			pageinfo = paginator.paginate_by_count(0,
 												   int(cur_page), 15, '')
