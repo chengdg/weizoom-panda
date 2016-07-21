@@ -80,7 +80,7 @@ var AccountCreatePage = React.createClass({
 			}
 		}
 		if(!reg_username.test(account.username.trim())){
-			Reactman.PageAction.showHint('error', '请填写英文字母或数字');
+			Reactman.PageAction.showHint('error', '登录名请填写英文字母或数字');
 			return;
 		}
 		if(account_type ==1 && account.company_type.length<=0){

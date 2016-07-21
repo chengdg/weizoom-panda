@@ -118,10 +118,20 @@ class ProductCatalog(resource.Resource):
 		catalog_id = request.POST.get('id','')
 		try:
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
-			catalog.delete()
+			if catalog.father_catalog != -1:
+				#二级分类可以直接删除
+				catalog.delete()
+			else:
+				if product_catalog_models.ProductCatalog.objects.filter(father_catalog=catalog.id).count() > 0:
+					response = create_response(500)
+					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
+					return response.get_response()
+				else:
+					catalog.delete()
 			response = create_response(200)
 			return response.get_response()
-		except:
+		except Exception,e:
+			print e
 			response = create_response(500)
 			response.errMsg = u'删除失败'
 			return response.get_response()
