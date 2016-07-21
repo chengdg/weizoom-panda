@@ -13,7 +13,7 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	saveNewProduct: function(data) {
+	saveNewProduct: function(data,model_values) {
 		var limit_clear_price = data.hasOwnProperty('limit_clear_price')?data['limit_clear_price'].trim():'';
 		var product = {
 			product_name: data['product_name'],
@@ -28,7 +28,8 @@ var Action = {
 			valid_time_from: data['valid_time_from'],
 			valid_time_to: data['valid_time_to'],
 			images: JSON.stringify(data['images']),
-			remark: data['remark']
+			remark: data['remark'],
+			model_values: model_values
 		};
 		if (data.id === -1) {
 			Resource.put({

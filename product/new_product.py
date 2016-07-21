@@ -95,6 +95,10 @@ class NewProduct(resource.Resource):
 		valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
 		images = post.get('images','')
+		model_values = post.get('model_values','')
+		print model_values,"=========="
+		if model_values:
+			model_values = json.loads(model_values)
 		if not product_price:
 			product_price = -1
 		if not limit_clear_price:

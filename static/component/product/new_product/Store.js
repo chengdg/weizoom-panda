@@ -31,6 +31,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		if (this.data) {
 			this.data['product_store_type'] = this.data['product_store'] > -1 ? '0' : '-1';
 			this.data['product_store'] = this.data['product_store'] == -1 ? '' : String(this.data['product_store']);
+			this.data['model_values'] = [];
+			this.data['model_names'] = [];
+			this.data['value_ids'] = [];
+			this.data['name2model'] = [];
+			this.data['has_product_model'] = '0';
 		} else {
 			this.data = {
 				'id':-1,
