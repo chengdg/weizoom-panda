@@ -24,5 +24,7 @@ class Command(BaseCommand):
                 if relation:
                     weapp_product_id = relation.weapp_product_id
                     temp_dict.update({weapp_product_id: product.remark})
+                    print 'weapp_product_id:%s is OK' % weapp_product_id
             # temp_string =
             f.write(json.dumps(temp_dict))
+            print 'SUCCESS!'
