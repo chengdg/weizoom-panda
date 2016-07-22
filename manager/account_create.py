@@ -94,40 +94,41 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
+			if account_type == '1':
 
-			#请求接口获得数据
-			try:
-				params = {
-					'name': user_profile[0].name,
-					'remark': '',
-					'responsible_person': u'8000FT',
-					'supplier_tel': '13112345678',
-					'supplier_address': u'中国 北京'
-				}
-				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
-					'resource': 'mall.supplier',
-					"data": params
-				})
-				if resp['code'] == 200:
-					supplier_datas = resp['data']
-					if supplier_datas:
-						AccountHasSupplier.objects.create(
-							user_id = user_id,
-							account_id = user_profile[0].id,
-							# store_name = account_zypt_info['store_name'].encode('utf8'),
-							supplier_id = int(supplier_datas['id'])
-						)
-					pass
-				else:
+				#请求接口获得数据
+				try:
+					params = {
+						'name': user_profile[0].name,
+						'remark': '',
+						'responsible_person': u'8000FT',
+						'supplier_tel': '13112345678',
+						'supplier_address': u'中国 北京'
+					}
+					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+						'resource': 'mall.supplier',
+						"data": params
+					})
+					if resp['code'] == 200:
+						supplier_datas = resp['data']
+						if supplier_datas:
+							AccountHasSupplier.objects.create(
+								user_id = user_id,
+								account_id = user_profile[0].id,
+								# store_name = account_zypt_info['store_name'].encode('utf8'),
+								supplier_id = int(supplier_datas['id'])
+							)
+						pass
+					else:
+						User.objects.filter(id=user_id).delete()
+						UserProfile.objects.filter(user_id=user_id).delete()
+				except Exception,e:
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
-			except Exception,e:
-				User.objects.filter(id=user_id).delete()
-				UserProfile.objects.filter(user_id=user_id).delete()
-				response = create_response(500)
-				response.errMsg = u'创建账号失败'
-				response.innerErrMsg = unicode_full_stack()
-				return response.get_response()
+					response = create_response(500)
+					response.errMsg = u'创建账号失败'
+					response.innerErrMsg = unicode_full_stack()
+					return response.get_response()
 			response = create_response(200)
 		except Exception,e:
 			print(e)
@@ -139,7 +140,6 @@ class AccountCreate(resource.Resource):
 
 	@login_required
 	def api_post(request):
-		print 'caonimacaonimacaonimacaonimacaonimacaonimacaonimacaonima'
 		#更新账号
 		post = request.POST
 		name = post.get('name','')
@@ -152,24 +152,46 @@ class AccountCreate(resource.Resource):
 			user_profile.note = note
 			user_profile.name = name
 			user_profile.save()
-			print 'caonimacaonimacaonimacaonimacaonimacaonimacaonimacaonima', note
+
 			if password!='':
 				user.set_password(password)
 			user.first_name = name
 			user.save()
-			supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
-			if supplier:
-				params = {
-					'name': user_profile.name,
-					'remark': note,
-					'supplier_id': supplier.supplier_id
-				}
-				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-					'resource': 'mall.supplier',
-					"data": params
-				})
-				if resp and resp['code'] == 200:
-					response = create_response(200)
+			if user_profile.role == 1:
+				supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
+				if supplier:
+					params = {
+						'name': user_profile.name,
+						'remark': note,
+						'supplier_id': supplier.supplier_id
+					}
+					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+						'resource': 'mall.supplier',
+						"data": params
+					})
+					# if resp and resp['code'] == 200:
+					# 	response = create_response(200)
+				if not supplier:
+					params = {
+						'name': user_profile.name,
+						'remark': '',
+						'responsible_person': u'8000FT',
+						'supplier_tel': '13112345678',
+						'supplier_address': u'中国 北京'
+					}
+					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+						'resource': 'mall.supplier',
+						"data": params
+					})
+					if resp and resp['code'] == 200:
+						supplier_datas = resp['data']
+						if supplier_datas:
+							AccountHasSupplier.objects.create(
+								user_id=user_id,
+								account_id=user_profile.id,
+								# store_name = account_zypt_info['store_name'].encode('utf8'),
+								supplier_id=int(supplier_datas['id'])
+							)
 
 		except Exception,e:
 			print(e)
