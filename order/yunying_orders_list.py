@@ -323,7 +323,13 @@ class YunyingOrdersList(resource.Resource):
 			all_sellers = UserProfile.objects.filter(role=CUSTOMER,
 													 name__icontains=customer_name)
 			account_ids = [seller.user_id for seller in all_sellers]
+			# 获取该客户下旧的供货商id获取到
+			old_user_ids = [-seller.user_id for seller in all_sellers]
+			old_supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=old_user_ids)]
+
 			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
+			supplier_ids = old_supplier_ids + supplier_ids
+			# print 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW', supplier_ids
 			# 如果根据名字获取不到供应商，就直接返回none
 			if not supplier_ids:
 				pageinfo = paginator.paginate_by_count(0,
@@ -338,7 +344,8 @@ class YunyingOrdersList(resource.Resource):
 				response = create_response(200)
 				response.data = data
 				return response.get_response()
-
+		# if not supplier_ids:
+		# 	account_has_suppliers = AccountHasSupplier.objects.all()
 		weapp_product_ids = []
 		if filter_product_name:
 			product_ids = [p.id for p in product_models.Product.objects.filter(product_name__icontains=filter_product_name)]
