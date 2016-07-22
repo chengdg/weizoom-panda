@@ -81,6 +81,8 @@ var ProductRelationPage = React.createClass({
 			var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
 			var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
 			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
+			var w_l_checked = self_user_name.toString().indexOf('weizoom_life')>-1?'checked':null;
+			var w_y_checked = self_user_name.toString().indexOf('weizoom_yjr')>-1?'checked':null;
 			// var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
 			// var w_c_disabled = self_user_name.toString().indexOf('weizoom_club')>-1?'disabled':'';
 			// var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
@@ -115,6 +117,14 @@ var ProductRelationPage = React.createClass({
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
 						<span>微众学生</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
+						<input type="checkbox" checked={w_l_checked} className="checkbox" name="weizoom_self" value="weizoom_life" onChange={this.cancleChecked.bind(this,id,'weizoom_life')} />
+						<span>微众Life</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
+						<input type="checkbox" checked={w_y_checked} className="checkbox" name="weizoom_self" value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
+						<span>微众一家人</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
 				</div>
@@ -158,7 +168,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="同步商品" field="weapp_name" width="440px"/>
+						<Reactman.TableColumn name="同步商品" field="weapp_name" width="400px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
