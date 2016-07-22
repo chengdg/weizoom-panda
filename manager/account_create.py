@@ -139,6 +139,7 @@ class AccountCreate(resource.Resource):
 
 	@login_required
 	def api_post(request):
+		print 'caonimacaonimacaonimacaonimacaonimacaonimacaonimacaonima'
 		#更新账号
 		post = request.POST
 		name = post.get('name','')
@@ -151,10 +152,25 @@ class AccountCreate(resource.Resource):
 			user_profile.note = note
 			user_profile.name = name
 			user_profile.save()
+			print 'caonimacaonimacaonimacaonimacaonimacaonimacaonimacaonima', note
 			if password!='':
 				user.set_password(password)
 			user.first_name = name
 			user.save()
+			supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
+			if supplier:
+				params = {
+					'name': user_profile.name,
+					'remark': note,
+					'supplier_id': supplier.supplier_id
+				}
+				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+					'resource': 'mall.supplier',
+					"data": params
+				})
+				if resp and resp['code'] == 200:
+					response = create_response(200)
+
 		except Exception,e:
 			print(e)
 			print('===========================')
