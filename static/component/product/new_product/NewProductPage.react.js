@@ -128,7 +128,7 @@ var NewProductPage = React.createClass({
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
 			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
 		})
-		console.log(JSON.stringify(model_values),"===");
+		console.log(model_values,"===");
 		Action.saveNewProduct(product,JSON.stringify(model_values));
 	},
 

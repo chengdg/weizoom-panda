@@ -97,8 +97,6 @@ class NewProduct(resource.Resource):
 		images = post.get('images','')
 		model_values = post.get('model_values','')
 		print model_values,"=========="
-		if model_values:
-			model_values = json.loads(model_values)
 		if not product_price:
 			product_price = -1
 		if not limit_clear_price:
@@ -139,6 +137,37 @@ class NewProduct(resource.Resource):
 				for product_image in product_images:
 					models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 
+			if model_values:
+				model_values = json.loads(model_values)
+				for model_value in model_values:
+					model_Id = model_value.get('modelId',0)
+					propertyValues = model_value.get('propertyValues',[])
+					price = model_value.get('product_price_'+model_Id,0)
+					limit_clear_price = model_value.get('limit_clear_price_'+model_Id,0)
+					market_price = model_value.get('clear_price_'+model_Id,0)
+					weight = model_value.get('product_weight_'+model_Id,0)
+					stocks = model_value.get('product_store_'+model_Id,0)
+					user_code = model_value.get('product_code_'+model_Id,0)
+					product_model = models.ProductModel.objects.create(
+						owner = request.user,
+						product = product,
+						name = model_Id,
+						price = price,
+						market_price = market_price,
+						limit_clear_price = limit_clear_price,
+						weight = weight,
+						stocks = stocks,
+						user_code = user_code
+					)
+					if propertyValues:
+						list_propery_create = []
+						for property_value in propertyValues:
+							list_propery_create.append(models.ProductModelHasPropertyValue(
+								model = product_model,
+								property_id = property_value['propertyId'],
+								property_value_id = property_value['id']
+							))
+						models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
 			response = create_response(200)
 		except:
 			response = create_response(500)
