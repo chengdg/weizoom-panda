@@ -9,7 +9,7 @@ Background:
 	Then manager添加账号
 	"""
 		[{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"土小宝",
 			"login_account":"tuxiaobao",
 			"password":123456,
