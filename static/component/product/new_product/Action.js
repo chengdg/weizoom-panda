@@ -29,6 +29,7 @@ var Action = {
 			valid_time_to: data['valid_time_to'],
 			images: JSON.stringify(data['images']),
 			remark: data['remark'],
+			has_product_model: data['has_product_model'],
 			model_values: model_values
 		};
 		if (data.id === -1) {
@@ -100,6 +101,15 @@ var Action = {
 	deleteModelValue: function(modelId){
 		Dispatcher.dispatch({
 			actionType: Constant.DELETE_PRODUCT_MODEL_VALUE,
+			data: {
+				modelId: modelId
+			}
+		});
+	},
+
+	cancleValidTime: function(modelId){
+		Dispatcher.dispatch({
+			actionType: Constant.CANCLE_VALIDATA_TIME,
 			data: {
 				modelId: modelId
 			}

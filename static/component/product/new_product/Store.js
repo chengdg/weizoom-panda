@@ -23,6 +23,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
 		'handleSaveProductAddModel': Constant.SAVE_PRODUCT_MODEL_VALUE,
 		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
+		'handleCancleValidataTIME': Constant.CANCLE_VALIDATA_TIME
 	},
 
 	init: function() {
@@ -312,6 +313,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		setTimeout(function() {
 		 	W.gotoPage('/product/product_list/');
 		}, 500);
+	},
+
+	handleCancleValidataTIME: function(action){
+		var modelId = action.data.modelId;
+		this.data['valid_time_from_'+modelId] = '';
+		this.data['valid_time_to_'+modelId] = '';
+		this.__emitChange();
 	},
 
 	getData: function() {

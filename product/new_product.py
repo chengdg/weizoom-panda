@@ -53,6 +53,7 @@ class NewProduct(resource.Resource):
 			value_ids = set([property_value.property_value_id for property_value in property_values])
 			product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
 			model_values = get_product_model_property_values(product_model_property_values)
+
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -70,7 +71,18 @@ class NewProduct(resource.Resource):
 				'model_values': json.dumps(model_values),
 				'images': [],
 			}
-	
+
+			for product_model in product_models:
+				model_Id = product_model.name
+				product_data['product_price_'+model_Id] = '%s' %product_model.price
+				product_data['limit_clear_price_'+model_Id] = '%s' %product_model.limit_clear_price
+				product_data['clear_price_'+model_Id] = '%s' %product_model.market_price
+				product_data['product_weight_'+model_Id] = '%s' %product_model.weight
+				product_data['product_store_'+model_Id] = '%s' %product_model.stocks
+				product_data['product_code_'+model_Id] = '%s' %product_model.user_code
+				product_data['valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M")
+				product_data['valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M")
+
 			#获取商品图片
 			product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
 			for image in resource_models.Image.objects.filter(id__in=product_image_ids):
@@ -106,6 +118,7 @@ class NewProduct(resource.Resource):
 		valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
 		images = post.get('images','')
+		has_product_model = int(post.get('has_product_model',0))
 		model_values = post.get('model_values','')
 		print model_values,"=========="
 		if not product_price:
@@ -126,6 +139,7 @@ class NewProduct(resource.Resource):
 					limit_clear_price = limit_clear_price,
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
+					has_product_model = has_product_model,
 					remark = remark
 				)
 			else:
@@ -139,6 +153,7 @@ class NewProduct(resource.Resource):
 					product_store = product_store,
 					has_limit_time = has_limit_time,
 					limit_clear_price = limit_clear_price,
+					has_product_model = has_product_model,
 					remark = remark
 				)
 
@@ -159,6 +174,8 @@ class NewProduct(resource.Resource):
 					weight = model_value.get('product_weight_'+model_Id,0)
 					stocks = model_value.get('product_store_'+model_Id,0)
 					user_code = model_value.get('product_code_'+model_Id,0)
+					valid_from = model_value.get('valid_time_from_'+model_Id,'')
+					valid_to = model_value.get('valid_time_to_'+model_Id,'')
 					product_model = models.ProductModel.objects.create(
 						owner = request.user,
 						product = product,
@@ -168,7 +185,9 @@ class NewProduct(resource.Resource):
 						limit_clear_price = limit_clear_price,
 						weight = weight,
 						stocks = stocks,
-						user_code = user_code
+						user_code = user_code,
+						valid_time_from = valid_from,
+						valid_time_to =valid_to
 					)
 					if propertyValues:
 						list_propery_create = []
@@ -200,6 +219,8 @@ class NewProduct(resource.Resource):
 		valid_time_to = post.get('valid_time_to',None)
 		product_store = post.get('product_store',0)
 		product_store_type = int(post.get('product_store_type',-1))
+		has_product_model = int(post.get('has_product_model',0))
+		model_values = post.get('model_values','')
 		if product_store_type == -1:
 			product_store = -1
 		if not limit_clear_price:
@@ -246,6 +267,46 @@ class NewProduct(resource.Resource):
 			product_images = json.loads(request.POST['images'])
 			for product_image in product_images:
 				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+
+		if model_values:
+			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'])
+			model_ids = [product_model.id for product_model in product_models]
+			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).delete()
+			product_models.delete()
+			model_values = json.loads(model_values)
+			for model_value in model_values:
+				model_Id = model_value.get('modelId',0)
+				propertyValues = model_value.get('propertyValues',[])
+				price = model_value.get('product_price_'+model_Id,0)
+				limit_clear_price = model_value.get('limit_clear_price_'+model_Id,0)
+				market_price = model_value.get('clear_price_'+model_Id,0)
+				weight = model_value.get('product_weight_'+model_Id,0)
+				stocks = model_value.get('product_store_'+model_Id,0)
+				user_code = model_value.get('product_code_'+model_Id,0)
+				valid_from = model_value.get('valid_time_from_'+model_Id,'')
+				valid_to = model_value.get('valid_time_to_'+model_Id,'')
+				product_model = models.ProductModel.objects.create(
+					owner = request.user,
+					product_id = int(request.POST['id']),
+					name = model_Id,
+					price = price,
+					market_price = market_price,
+					limit_clear_price = limit_clear_price,
+					weight = weight,
+					stocks = stocks,
+					user_code = user_code,
+					valid_time_from= valid_from,
+					valid_time_to = valid_to
+				)
+				if propertyValues:
+					list_propery_create = []
+					for property_value in propertyValues:
+						list_propery_create.append(models.ProductModelHasPropertyValue(
+							model = product_model,
+							property_id = property_value['propertyId'],
+							property_value_id = property_value['id']
+						))
+					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
 
 		response = create_response(200)
 		return response.get_response()

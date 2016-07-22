@@ -11,6 +11,7 @@ var _ = require('underscore');
 var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
+var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -120,6 +121,7 @@ var NewProductPage = React.createClass({
 		}
 
 		var model_values = this.state.model_values;
+		console.log(model_values,"----------");
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
@@ -127,6 +129,8 @@ var NewProductPage = React.createClass({
 			model['product_weight_'+model.modelId] = product['product_weight_'+model.modelId]
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
 			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
+			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
+			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 		})
 		console.log(model_values,"===");
 		Action.saveNewProduct(product,JSON.stringify(model_values));
@@ -169,7 +173,7 @@ var StoreInfo = React.createClass({
 		if (store_type == '0'){
 			return(
 				<div>
-					<Reactman.FormInput label="库存数量" type="text" name="product_store" value={this.props.productStore} validate="require-int" onChange={this.props.onChange} />
+					<Reactman.FormInput label="库存数量" type="text" name="product_store" value={this.props.product_store} validate="require-int" onChange={this.props.onChange} />
 				</div>
 			)
 		}else {
@@ -214,6 +218,20 @@ var ProductModelInfo = React.createClass({
 		console.log(this.customModels,"++++++");
 	},
 
+	setValidataTime: function(modelId){
+		console.log(modelId);
+		Reactman.PageAction.showDialog({
+			title: "设置限时结算价有效期",
+			component: SetValidataTimeDialog,
+			data: {
+				'modelId': modelId
+			},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	render: function() {
 		var _this = this;
 		var model_type = this.props.Modeltype;
@@ -227,7 +245,7 @@ var ProductModelInfo = React.createClass({
 		var model_value_tr = model_values.map(function(model,index){
 			var td = model.propertyValues.map(function(value,index){
 				return(
-					<td key={index}>{value.name}</td>
+					<td key={index} style={{paddingTop:'15px'}}>{value.name}</td>
 				)
 			})
 
@@ -237,8 +255,9 @@ var ProductModelInfo = React.createClass({
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} />
 					</td>
-					<td>
+					<td style={{position:'relative'}}>
 						<Reactman.FormInput label="" type="text" name={"limit_clear_price_"+model.modelId} value={_this.state["limit_clear_price_"+model.modelId]} onChange={_this.props.onChange}/>
+						<a onClick={_this.setValidataTime.bind(null,model.modelId)} style={{position:'absolute',top:'14px',right:'6px'}}>有效期</a>
 					</td>
 					<td>
 						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-price"/>
@@ -329,7 +348,7 @@ var ProductModelInfo = React.createClass({
 					<span className="money_note">
 						Kg
 					</span>
-					<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.productStore} validate="require-int" onChange={this.props.onChange} />
+					<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
 				</div>
 			)
 		}else {

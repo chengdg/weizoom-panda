@@ -137,8 +137,8 @@ class ProductModel(models.Model):
 #########################################################################
 class ProductModelHasPropertyValue(models.Model):
 	model = models.ForeignKey(ProductModel)
-	property_id = models.IntegerField(default=0)
-	property_value_id = models.IntegerField(default=0)
+	property_id = models.IntegerField(default=0) #ProductModelProperty id
+	property_value_id = models.IntegerField(default=0) #ProductModelPropertyValue id
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 
 	class Meta(object):
