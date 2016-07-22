@@ -58,6 +58,11 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
+		var catalog_name = this.state.catalog_name;
+		if(catalog_name.length>48){
+			Reactman.PageAction.showHint('error', '分类名称不能超过48个字符');
+			return;
+		}
 		if (this.state.catalog_id){
 			Reactman.Resource.post({
 				resource: 'product_catalog.product_catalogs',
