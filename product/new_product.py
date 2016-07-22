@@ -17,6 +17,7 @@ from util import string_util
 
 from resource import models as resource_models
 from account.models import *
+from product.product_has_model import get_product_model_property_values
 import nav
 import models
 
@@ -45,14 +46,13 @@ class NewProduct(resource.Resource):
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
 
+			product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
+			product_model_ids = [product_model.id for product_model in product_models]
+			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
 
-            product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
-            product_model_ids = [product_model.id for product_model in product_models]
-            ProductModelHasPropertyValue = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
-            
-            # value_ids = []
-            product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
-
+			value_ids = set([property_value.property_value_id for property_value in property_values])
+			product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
+			model_values = get_product_model_property_values(product_model_property_values)
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -66,7 +66,8 @@ class NewProduct(resource.Resource):
 				'valid_time_to': '' if not product.valid_time_to else product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
 				'limit_clear_price': '%s' % limit_clear_price,
 				'remark': string_util.raw_html(product.remark),
-                'has_product_model': '%s' %(1 if product.has_product_model else 0),
+				'has_product_model': '%s' %(1 if product.has_product_model else 0),
+				'model_values': json.dumps(model_values),
 				'images': [],
 			}
 	
