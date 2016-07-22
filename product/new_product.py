@@ -44,6 +44,15 @@ class NewProduct(resource.Resource):
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
+
+
+            product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
+            product_model_ids = [product_model.id for product_model in product_models]
+            ProductModelHasPropertyValue = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
+            
+            # value_ids = []
+            product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
+
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -57,6 +66,7 @@ class NewProduct(resource.Resource):
 				'valid_time_to': '' if not product.valid_time_to else product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
 				'limit_clear_price': '%s' % limit_clear_price,
 				'remark': string_util.raw_html(product.remark),
+                'has_product_model': '%s' %(1 if product.has_product_model else 0),
 				'images': [],
 			}
 	
