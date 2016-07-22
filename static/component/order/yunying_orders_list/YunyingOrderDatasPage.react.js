@@ -76,6 +76,12 @@ var YunyingOrderDatasPage = React.createClass({
 		}, {
 			text: '微众俱乐部',
 			value: 'weizoom_club'
+		}, {
+			text: '微众Life',
+			value: 'weizoom_life'
+		}, {
+			text: '微众一家人',
+			value: 'weizoom_yjr'
 		}];
 
 		var orderStatusOptions = [{

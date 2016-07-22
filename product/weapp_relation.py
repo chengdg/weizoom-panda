@@ -18,7 +18,9 @@ SELF_NAMETEXT2VALUE = {
     u'微众学生': 'weizoom_xuesheng',
     u'微众白富美': 'weizoom_baifumei',
     u'微众商城': 'weizoom_shop',
-    u'微众俱乐部': 'weizoom_club'
+    u'微众俱乐部': 'weizoom_club',
+    u'微众Life': 'weizoom_life',
+    u'微众一家人': 'weizoom_yjr'
 }
 
 SELF_SHOP2TEXT = {
@@ -27,7 +29,9 @@ SELF_SHOP2TEXT = {
     'weizoom_xuesheng': u'微众学生',
     'weizoom_baifumei': u'微众白富美',
     'weizoom_shop': u'微众商城',
-    'weizoom_club': u'微众俱乐部'
+    'weizoom_club': u'微众俱乐部',
+    'weizoom_life': u'微众Life',
+    'weizoom_yjr': u'微众一家人'
 }
 
 # # 对应云上通的自营平台账户id(user_id)
