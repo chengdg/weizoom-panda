@@ -26,6 +26,11 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
+	cancleChecked: function(product_id,self_name){
+		console.log(product_id,self_name,"======");
+		Action.cancleChecked(product_id,self_name);
+	},
+
 	productRelation: function(self_user_name,product_info) {
 		var product_id = product_info['product_id']
 		var obj = document.getElementById(product_id);
@@ -82,10 +87,13 @@ var ProductRelationPage = React.createClass({
 			// var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
 			// var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
 			// var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
+			var cancleChecked = function(){
+
+			}
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
-						<input type="checkbox" checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei"/>
+						<input type="checkbox" checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />
 						<span>微众白富美</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>

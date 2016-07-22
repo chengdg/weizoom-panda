@@ -20,6 +20,20 @@ var Action = {
 		});
 	},
 
+	cancleChecked: function(product_id,self_name){
+		Resource.delete({
+			resource: 'product.weapp_relation',
+			data: {
+				'product_id': product_id,
+				'self_name': self_name
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.DELETE_PRODUCT_RELATION_WEAPP
+			}
+		});
+	},
+
 	relationFromWeapp: function(product_data){
 		Resource.post({
 			resource: 'product.weapp_relation',

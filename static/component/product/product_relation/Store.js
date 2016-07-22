@@ -17,7 +17,8 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
-		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER
+		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
+		'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP
 	},
 
 	init: function() {
@@ -41,6 +42,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleProductRelationDataFilter: function(action){
 		this.filter = action.data;
+		this.__emitChange();
+	},
+
+	handleDeleteProductRelationWeapp: function(action){
 		this.__emitChange();
 	},
 
