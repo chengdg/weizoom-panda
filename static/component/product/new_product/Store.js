@@ -199,7 +199,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleCreateNewProduct: function(action) {
-		W.gotoPage('/product/product_list/');
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '添加成功!');
+		}, 10);
+		setTimeout(function() {
+		 	W.gotoPage('/product/product_list/');
+		}, 500);
 	},
 
 	getData: function() {

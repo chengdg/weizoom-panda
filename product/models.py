@@ -80,7 +80,7 @@ class ProductModelProperty(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 
 	class Meta(object):
-		db_table = 'mall_product_model_property'
+		db_table = 'product_model_property'
 		verbose_name = '商品规格属性'
 		verbose_name_plural = '商品规格属性'
 
@@ -96,6 +96,49 @@ class ProductModelPropertyValue(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 
 	class Meta(object):
-		db_table = 'mall_product_model_property_value'
+		db_table = 'product_model_property_value'
 		verbose_name = '商品规格属性值'
 		verbose_name_plural = '商品规格属性值'
+
+
+#########################################################################
+# ProductModel：商品规格
+#########################################################################
+class ProductModel(models.Model):
+	owner = models.ForeignKey(User)
+	product = models.ForeignKey(Product)
+	name = models.CharField(max_length=255, db_index=True)  # 商品规格名
+	is_standard = models.BooleanField(default=True)  # 是否是标准规格
+	price = models.FloatField(default=0.0)  # 商品价格
+	market_price = models.FloatField(default=0.0)  # 商品市场价格
+	weight = models.FloatField(default=0.0)  # 重量
+	# stock_type = models.IntegerField(
+	# 	default=PRODUCT_STOCK_TYPE_UNLIMIT)  # 0:无限 1:有限
+	stocks = models.IntegerField(default=0)  # 有限：数量
+	user_code = models.CharField(max_length=256, default='')  # 编码
+	valid_time_from = models.DateTimeField(null=True)  #有效范围开始时间
+	valid_time_to = models.DateTimeField(null=True)  #有效范围结束时间
+	limit_clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #限时结算价 (元)
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'product_model'
+		verbose_name = '商品规格属性'
+		verbose_name_plural = '商品规格属性'
+
+	def __getitem__(self, name):
+		return getattr(self, name, None)
+
+
+#########################################################################
+# ProductModelHasProperty: <商品规格，商品规格属性值>关系
+#########################################################################
+class ProductModelHasPropertyValue(models.Model):
+	model = models.ForeignKey(ProductModel)
+	property_id = models.IntegerField(default=0)
+	property_value_id = models.IntegerField(default=0)
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'product_model_has_property'
