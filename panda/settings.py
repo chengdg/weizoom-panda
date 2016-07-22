@@ -161,6 +161,7 @@ INSTALLED_APPS = [
     'reconcile',
     'manager',
     'customer',
+    'product_catalog',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',

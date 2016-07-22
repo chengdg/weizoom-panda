@@ -46,6 +46,11 @@ def top_navs(request):
 			}]
 		elif role == YUN_YING:
 			top_navs = [{
+				'name': 'product_catalog',
+				'displayName': '商品分类',
+				'icon': 'credit-card',
+				'href': '/product_catalog/product_catalogs/'
+			},{
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
@@ -55,7 +60,7 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/yunying_orders_list/'
-			}, {
+			},{
 				'name': 'customer',
 				'displayName': '客户统计',
 				'icon': 'credit-card',

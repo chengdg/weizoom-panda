@@ -65,6 +65,13 @@ var AccountManagePage = React.createClass({
 					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
 				</div>
 				);
+			}else if(data.status == 2){
+				return (
+				<div>
+					<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>开启</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
+				</div>
+				);
 			}else{
 				return (
 				<div>
@@ -114,7 +121,7 @@ var AccountManagePage = React.createClass({
 						<Reactman.FormInput label="账号名称:" name="name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="登录账号:" name="username" match="=" />
+						<Reactman.FormInput label="登录名:" name="username" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="账号类型:" name="account_type" options={typeOptions} match="=" />
@@ -129,7 +136,10 @@ var AccountManagePage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="账号名称" field="name" />
-					<Reactman.TableColumn name="登录账号" field="username" />
+					<Reactman.TableColumn name="登录名" field="username" />
+					<Reactman.TableColumn name="经营类目" field="company_type" />
+					<Reactman.TableColumn name="采购方式" field="purchase_method" />
+					<Reactman.TableColumn name="类型" field="account_type" />
 					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>

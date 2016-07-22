@@ -13,7 +13,7 @@ __author__ = 'kuki'
 
 def __get_type(type):
 	if type:
-		type2type_dic = {u"体验客户":1,u"代理商":2,u"运营":3}
+		type2type_dic = {u"合作客户":1,u"代理商":2,u"运营":3}
 		return type2type_dic[type]
 	else:
 		return 1

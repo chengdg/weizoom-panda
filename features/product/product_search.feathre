@@ -10,7 +10,7 @@ Background:
 	When jobs添加账号
 	"""
 		[{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
 			"password":"123456"
