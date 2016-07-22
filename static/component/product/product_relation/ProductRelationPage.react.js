@@ -97,23 +97,23 @@ var ProductRelationPage = React.createClass({
 						<span>微众白富美</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club"/>
+						<input type="checkbox" checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
 						<span>微众俱乐部</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia"/>
+						<input type="checkbox" checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
 						<span>微众家</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama"/>
+						<input type="checkbox" checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
 						<span>微众妈妈</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop"/>
+						<input type="checkbox" checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
 						<span>微众商城</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
+						<input type="checkbox" checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
 						<span>微众学生</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
