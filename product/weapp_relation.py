@@ -163,3 +163,11 @@ class ProductRelation(resource.Resource):
         response.data = data
         return response.get_response()
 
+    @login_required
+    def api_delete(request):
+        product_id = request.POST.get('product_id','')
+        self_name = request.POST.get('self_name',0)
+        if product_id:
+            models.ProductSyncWeappAccount.objects.filter(product_id=int(product_id),self_user_name=self_name).delete()
+        response = create_response(200)
+        return response.get_response()

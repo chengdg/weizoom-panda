@@ -26,6 +26,11 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
+	cancleChecked: function(product_id,self_name){
+		console.log(product_id,self_name,"======");
+		Action.cancleChecked(product_id,self_name);
+	},
+
 	productRelation: function(self_user_name,product_info) {
 		var product_id = product_info['product_id']
 		var obj = document.getElementById(product_id);
@@ -34,16 +39,18 @@ var ProductRelationPage = React.createClass({
 		for(var k=0;k<=obj.length-1;k++){
 			var has_relation = true;
 			if(obj[k]['checked']){
-				for(var index in self_user_name){
-					if (self_user_name[index] == obj[k].value){
-						has_relation = false;
-					}
-				}
-				if(has_relation){
-					check_val.push(obj[k].value);
-				}
+				// for(var index in self_user_name){
+				// 	if (self_user_name[index] == obj[k].value){
+				// 		has_relation = false;
+				// 	}
+				// }
+				// if(has_relation){
+				// 	check_val.push(obj[k].value);
+				// }
+				check_val.push(obj[k].value);
 			}
 		}
+		console.log(check_val,"=========");
 		if (check_val.length==0){
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 			return;
@@ -74,36 +81,39 @@ var ProductRelationPage = React.createClass({
 			var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
 			var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
 			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
-			var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
-			var w_c_disabled = self_user_name.toString().indexOf('weizoom_club')>-1?'disabled':'';
-			var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
-			var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
-			var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
-			var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
+			// var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
+			// var w_c_disabled = self_user_name.toString().indexOf('weizoom_club')>-1?'disabled':'';
+			// var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
+			// var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
+			// var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
+			// var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
+			var cancleChecked = function(){
+
+			}
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
-						<input type="checkbox" disabled={w_b_disabled} checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei"/>
+						<input type="checkbox" checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />
 						<span>微众白富美</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" disabled={w_c_disabled} checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club"/>
+						<input type="checkbox" checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
 						<span>微众俱乐部</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" disabled={w_j_disabled} checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia"/>
+						<input type="checkbox" checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
 						<span>微众家</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" disabled={w_m_disabled} checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama"/>
+						<input type="checkbox" checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
 						<span>微众妈妈</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" disabled={w_s_disabled} checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop"/>
+						<input type="checkbox" checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
 						<span>微众商城</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" disabled={w_x_disabled} checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng"/>
+						<input type="checkbox" checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
 						<span>微众学生</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
