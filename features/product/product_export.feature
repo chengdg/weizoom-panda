@@ -31,14 +31,32 @@ Background:
 	Given yunying登录管理系统
 	When yunying添加类目
 	"""
+	{
+		head_classify":"无",
+		"classify_name":"生活用品",
+		"comments":"1"
+		},{
+		"head_classify":"生活用品",
+		"classify_name":"零食",
+		"comments":"国产"
+		},{
+		head_classify":"无",
+		"classify_name":"居家",
+		"comments":""
+		},{
+		head_classify":"居家",
+		"classify_name":"鞋子",
+		"comments":""
+		}
+	}
 	"""
 
 	When aini使用密码123456登录系统
 	When aini添加商品
 	"""
 		[{
-			"first_classify":"零食",
-			"second_classify":"小吃",
+			"first_classify":"生活用品",
+			"second_classify":"零食",
 			"name": "武汉鸭脖",
 			"promotion_name":"武汉鸭脖",
 			"price": 10.00,
@@ -61,6 +79,8 @@ Background:
 						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
 						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
 						},{
+			"first_classify":"居家",
+			"second_classify":"鞋子",			
 			"name": "耐克男鞋",
 			"promotion_name":"耐克男鞋",
 			"price": 198.00,
@@ -88,51 +108,13 @@ Background:
 
 
 	Then aini能获得商品列表
-	"""
-		[{
-			"name": "商品3",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
-			"name": "商品2",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
-			"name": "商品1",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","删除"]
-		}]
-	"""
+	|  name   | price | sales |   creat_time   | status |
+	|武汉鸭脖 | 10.00 | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 | 198.00| 0.00  |2016-07-25 16:30| 未上架 |
 @penda @hj
 scenario:1 商品列表导出商品
 	When aini登录系统
 	When aini导出商品列表
-	"""
-		[{
-			"name": "商品3",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
-			"name": "商品2",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		},{
-			"name": "商品1",
-			"price": "12.00",
-			"sales":"0",
-			"status":"未上架",
-			"actions":["编辑","彻底删除"]
-		}]
-	"""
-	| name | price | sales | status | actions |
-	|商品1 |
+	|  name   | price | sales |   creat_time   | status |
+	|武汉鸭脖 | 10.00 | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 | 198.00| 0.00  |2016-07-25 16:30| 未上架 |
