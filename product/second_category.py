@@ -17,25 +17,17 @@ from core import paginator
 from util import db_util
 from product_catalog import models as catalog_models
 from util import string_util
-from panda.settings import ZEUS_HOST
 
-class Category(resource.Resource):
+class SecondCategory(resource.Resource):
 	app = 'product'
-	resource = 'category'
+	resource = 'second_category'
 
 	@login_required
 	def api_get(request):
-		product_catalogs = catalog_models.ProductCatalog.objects.all()
-		father_catalog_id = product_catalogs.exclude(father_catalog=-1)[0].father_catalog
-		first_levels = []
-		for product_catalog in product_catalogs.filter(father_catalog=-1):
-			first_levels.append({
-				'id': product_catalog.id,
-				'name': product_catalog.catalog_name
-				})
-
+		first_id = request.GET.get('first_id',0)
+		product_catalogs = catalog_models.ProductCatalog.objects.filter(father_catalog=first_id)
 		second_levels = []
-		for product_catalog in product_catalogs.filter(father_catalog=father_catalog_id):
+		for product_catalog in product_catalogs:
 			father_catalog = product_catalog.father_catalog
 			second_levels.append({
 				'id': product_catalog.id,
@@ -44,8 +36,8 @@ class Category(resource.Resource):
 				})
 
 		data = {
-			'first_levels': json.dumps(first_levels) if first_levels else [],
-			'second_levels': json.dumps(second_levels) if second_levels else []
+			'second_levels': json.dumps(second_levels) if second_levels else [],
+			'first_id':first_id
 		}
 
 		#构造response

@@ -19,7 +19,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
 		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT,
-		'handleProductCategory': Constant.PRODUCT_LIST_CATEGORY
+		'handleProductCategory': Constant.PRODUCT_LIST_CATEGORY,
+		'handleProductSecondCategory': Constant.PRODUCT_Second_CATEGORY
 	},
 
 	init: function() {
@@ -29,6 +30,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.category = {};
 		this.data.first_levels = '';
 		this.data.second_levels = '';
+		this.data.first_id = 0;
 	},
 
 	handleUpdateProduct: function(action) {
@@ -51,9 +53,29 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleProductCategory: function(action){
-		this.category['first_levels'] = action.data['first_levels'];
-		this.category['second_levels'] = action.data['second_levels'];
+		this.category['first_levels'] = JSON.parse(action.data['first_levels']);
+		this.category['second_levels'] = JSON.parse(action.data['second_levels']);
 		console.log(action.data['first_levels'],"===11====")
+		this.__emitChange();
+	},
+
+	handleProductSecondCategory: function(action){
+		var first_levels = this.category['first_levels'];
+		console.log(first_levels,"===22222====");
+		var first_id = action.data['first_id'];
+		_.each(first_levels, function(first_level) {
+			console.log(first_level,"-----");
+			console.log(first_level['id'],first_id,"-----");
+			if(first_level['id']==first_id){
+				first_level['is_choose'] = 1;
+			}else{
+				first_level['is_choose'] = 0;
+			}
+		});
+		this.category['first_levels'] = first_levels;
+		console.log(first_levels,"===22222====");
+		this.category['second_levels'] = JSON.parse(action.data['second_levels']);
+		
 		this.__emitChange();
 	},
 

@@ -50,6 +50,19 @@ var Action = {
 				actionType: Constant.PRODUCT_LIST_CATEGORY
 			}
 		});
+	},
+
+	chooseSecondLevel: function(first_id){
+		Resource.get({
+			resource: 'product.second_category',
+			data: {
+				'first_id': first_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_Second_CATEGORY
+			}
+		});
 	}
 };
 

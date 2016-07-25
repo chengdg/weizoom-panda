@@ -36,8 +36,9 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		});
 	},
 
-	chooseSecondLevel: function(id){
-		console.log(id)
+	chooseSecondLevel: function(first_id){
+		console.log(first_id)
+		Action.chooseSecondLevel(first_id);
 	},
 
 	render:function(){
@@ -48,19 +49,24 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		var first_levels_list = '';
 		var second_level_list = '';
 		if(first_levels){
-			first_levels_list = JSON.parse(first_levels).map(function(first_level,index){
-			return(
-					<li key={index} style={{color:'#FFF'}}>
-						<a href='javascript:void(0);' onClick={_this.chooseSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
-					</li>
-				)
-			});
+			first_levels_list = first_levels.map(function(first_level,index){
+				var style = {};
+				style['style'] = {}
+				if(first_level.is_choose==1){
+					style['style'] = {background: '#AAD7FD'};
+				}
+				return(
+						<li key={index} style={style['style']}>
+							<a href='javascript:void(0);' style={{color:'#FFF'}} onClick={_this.chooseSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
+						</li>
+					)
+				});
 		}
 		if(second_levels){
-			second_level_list = JSON.parse(second_levels).map(function(second_level,index){
+			second_level_list = second_levels.map(function(second_level,index){
 				return(
 					<li key={index} style={{color:'#FFF'}}>
-						<a href='javascript:void(0);'>{second_level.name}</a>
+						<a href='javascript:void(0);' style={{color:'#FFF'}}>{second_level.name}</a>
 					</li>
 				)
 			});

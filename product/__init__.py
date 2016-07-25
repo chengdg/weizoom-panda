@@ -12,3 +12,4 @@ import product_model
 import product_model_value
 import product_has_model
 import category
+import second_category
