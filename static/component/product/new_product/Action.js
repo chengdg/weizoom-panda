@@ -13,7 +13,7 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	saveNewProduct: function(data) {
+	saveNewProduct: function(data,model_values) {
 		var limit_clear_price = data.hasOwnProperty('limit_clear_price')?data['limit_clear_price'].trim():'';
 		var product = {
 			product_name: data['product_name'],
@@ -28,7 +28,9 @@ var Action = {
 			valid_time_from: data['valid_time_from'],
 			valid_time_to: data['valid_time_to'],
 			images: JSON.stringify(data['images']),
-			remark: data['remark']
+			remark: data['remark'],
+			has_product_model: data['has_product_model'],
+			model_values: model_values
 		};
 		if (data.id === -1) {
 			Resource.put({
@@ -73,6 +75,46 @@ var Action = {
 			}
 		});
 	},
+
+	addProductModelValue: function(value_id){
+		Dispatcher.dispatch({
+			actionType: Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
+			data: {
+				value_id: value_id
+			}
+		});
+	},
+
+	saveModelValue: function(value_ids){
+		Resource.get({
+			resource: 'product.product_has_model',
+			data: {
+				'value_ids':value_ids.join(',')
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.SAVE_PRODUCT_MODEL_VALUE
+			}
+		});
+	},
+
+	deleteModelValue: function(modelId){
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_PRODUCT_MODEL_VALUE,
+			data: {
+				modelId: modelId
+			}
+		});
+	},
+
+	cancleValidTime: function(modelId){
+		Dispatcher.dispatch({
+			actionType: Constant.CANCLE_VALIDATA_TIME,
+			data: {
+				modelId: modelId
+			}
+		});
+	}
 };
 
 module.exports = Action;

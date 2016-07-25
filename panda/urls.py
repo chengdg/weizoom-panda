@@ -27,7 +27,8 @@ urlpatterns = patterns('',
 	url(r'^fans/', restful_url('fans')),
 	url(r'^reconcile/', restful_url('reconcile')),
 	url(r'^manager/', restful_url('manager')),
-	url(r'^customer/', restful_url('customer'))
+	url(r'^customer/', restful_url('customer')),
+	url(r'^product_catalog/', restful_url('product_catalog'))
 )
 
 urlpatterns += staticfiles_urlpatterns()

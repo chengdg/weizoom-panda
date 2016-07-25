@@ -18,20 +18,36 @@ var W = Reactman.W;
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
-		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE
+		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
+		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG
 	},
 
 	init: function() {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
+			if (this.data['account_type'] == '1'){
+				this.data['purchase_method'] = String(this.data['purchase_method']);
+				this.data['company_type'] = JSON.parse(this.data['company_type']);
+				this.data['options_for_type'] = [];
+				if (this.data['purchase_method'] != '2'){
+					this.data['points'] = '';
+				}
+			}
 		} else {
 			this.data = {
 				'id':-1,
-				'account_type':'1'
+				'account_type':'1',
+				'purchase_method': '2',
+				'company_type': [],
+				'options_for_type': []
 			};
 		}
-		debug(this.data);
+	},
+
+	handleSelect: function(action) {
+		this.data['options_for_type'] = action.data.rows;
+		this.__emitChange();
 	},
 
 	handleUpdateAccount: function(action) {

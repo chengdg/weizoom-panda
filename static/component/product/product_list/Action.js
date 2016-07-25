@@ -39,6 +39,17 @@ var Action = {
 			actionType: Constant.PRODUCT_DATAS_EXPORT,
 			data: {}
 		});
+	},
+
+	ProductCategory: function(){
+		Resource.get({
+			resource: 'product.category',
+			data: {},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_LIST_CATEGORY
+			}
+		});
 	}
 };
 

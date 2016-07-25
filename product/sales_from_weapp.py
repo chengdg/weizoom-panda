@@ -19,7 +19,6 @@ from eaglet.utils.resource_client import Resource
 
 def sales_from_weapp(product_has_relations):
 	product_ids = []
-	
 	product_weapp_id2product_id = {}
 	for product_has_relation in product_has_relations:
 		weapp_product_ids = product_has_relation.weapp_product_id.split(';')

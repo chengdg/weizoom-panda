@@ -1,0 +1,25 @@
+.modal-content{
+    width: 700px;
+    min-height: 200px;
+}
+
+.modal-body .valid-time{
+	height: 160px;
+}
+
+.modal-body div.form-group div{
+	width: 150px;
+}
+
+.ui-corner-all{
+	z-index: 2000 !important;
+}
+
+.modal-body div.valid-time a.btn-success{
+    position: absolute;
+    bottom: 45px;
+    width: 100px;
+    letter-spacing: 12px;
+    text-indent: 10px;
+    left: 180px;
+}

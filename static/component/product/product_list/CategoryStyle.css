@@ -1,0 +1,11 @@
+.category-ul{
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	border: 1px solid #D4D3D3;
+    box-shadow: 1px 1px #D4D3D3;
+    margin-left: 50px;
+}
+.category-ul li{
+	margin-top: 5px;
+}

@@ -15,13 +15,13 @@ Background:
 	When jobs添加账号
 	"""
 		[{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"土小宝",
 			"login_account":"tuxiaobao",
 			"password":"123456",
 			"ramarks":"土小宝客户体验账号"
 		},{
-			"account_type":"体验客户",
+			"account_type":"合作客户",
 			"account_name":"爱昵咖啡",
 			"login_account":"aini",
 			"password":"123456",

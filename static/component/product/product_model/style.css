@@ -1,0 +1,49 @@
+.radio_model_type{
+    width: 80px;
+    height: 21px;
+    position: relative;
+    display: block;
+}
+
+.model_type_text, .model_type_img{
+    position: absolute;
+    width: auto;
+}
+
+.model_type_text_value{
+	position: absolute;
+	left: 15px;
+}
+
+.xa-editModelPropertyValue{
+    overflow: hidden;
+    border: solid 1px #BFBFBF;
+    position: relative;
+    width: auto;
+    height: 37px;
+}
+
+li.model_li{
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 8px 10px 5px 0px;
+    min-width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    position: relative;
+    vertical-align: middle;
+    background: #fff;
+}
+
+button.xui-close{
+	line-height: 16px;
+}
+
+.modal-footer{
+	display: none;
+}
+
+.xui-form-imageUploader{
+	width: 260px;
+}
