@@ -16,6 +16,7 @@ from core import paginator
 
 from util import db_util
 from resource import models as resource_models
+from product_catalog import models as catalog_models
 from account.models import *
 from util import string_util
 from panda.settings import ZEUS_HOST
@@ -93,7 +94,6 @@ class ProductList(resource.Resource):
 	def api_get(request):
 		is_export = False
 		rows,pageinfo = getProductData(request,is_export)
-		
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()

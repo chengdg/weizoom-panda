@@ -9,6 +9,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 
 var Reactman = require('reactman');
+var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
 
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -44,6 +45,15 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onValidateAddProduct: function(){
+		// Action.ProductCategory();
+		// Reactman.PageAction.showDialog({
+		// 	title: "请选择商品分类",
+		// 	component: AddProductCategoryDialog,
+		// 	data: {},
+		// 	success: function(inputData, dialogState) {
+		// 		console.log("success");
+		// 	}
+		// });
 		W.gotoPage('/product/new_product/');
 	},
 

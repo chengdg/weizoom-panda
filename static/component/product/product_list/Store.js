@@ -18,13 +18,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
-		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT
+		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT,
+		'handleProductCategory': Constant.PRODUCT_LIST_CATEGORY
 	},
 
 	init: function() {
 		this.data = {};
 		this.data.user_has_products = '';
 		this.filter = {};
+		this.category = {};
+		this.data.first_levels = '';
+		this.data.second_levels = '';
 	},
 
 	handleUpdateProduct: function(action) {
@@ -44,6 +48,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			filter_str = key +'=' + filterOptions[key];
 		}
 		window.location.href = '/product/product_exported/?'+filter_str;
+	},
+
+	handleProductCategory: function(action){
+		this.category['first_levels'] = action.data['first_levels'];
+		this.category['second_levels'] = action.data['second_levels'];
+		console.log(action.data['first_levels'],"===11====")
+		this.__emitChange();
+	},
+
+	getCategory: function() {
+		return this.category;
 	},
 
 	getData: function() {
