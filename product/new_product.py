@@ -40,17 +40,19 @@ class NewProduct(resource.Resource):
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
+				product_models = models.ProductModel.objects.filter(product_id=product_id)
 			else:
 				product = models.Product.objects.get(owner=request.user, id=product_id)
+				product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
 
-			product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
+			# product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			product_model_ids = [product_model.id for product_model in product_models]
 			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
 
-			value_ids = set([property_value.property_value_id for property_value in property_values])
+			value_ids = set([str(property_value.property_value_id) for property_value in property_values])
 			product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
 			model_values = get_product_model_property_values(product_model_property_values)
 
@@ -70,6 +72,7 @@ class NewProduct(resource.Resource):
 				'has_product_model': '%s' %(1 if product.has_product_model else 0),
 				'model_values': json.dumps(model_values),
 				'images': [],
+				'value_ids': ','.join(value_ids)
 			}
 
 			for product_model in product_models:

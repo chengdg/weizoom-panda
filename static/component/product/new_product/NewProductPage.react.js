@@ -207,6 +207,16 @@ var ProductModelInfo = React.createClass({
 
 	deleteModelValue: function(modelId){
 		console.log(modelId,this.state.model_values,"======");
+		// var delete_customModels = _.filter(this.state.model_values, function(customModel) {
+		// 	return customModel.modelId === modelId;
+		// });
+		// for(var i in delete_customModels){
+		// 	var propertyValues = delete_customModels[i].propertyValues;
+		// 	for(var j in propertyValues){
+		// 		console.log(propertyValues[j].id);
+		// 	}
+		// }
+		// console.log(delete_customModels,'#####3');
 		// var customModels = this.state.model_values;
 		// var this_customModels = _.filter(customModels, function(customModel) {
 		// 	return customModel.modelId !== modelId;
@@ -215,7 +225,7 @@ var ProductModelInfo = React.createClass({
 		// 	model_values: this_customModels
 		// })
 		Action.deleteModelValue(modelId);
-		console.log(this.customModels,"++++++");
+		// console.log(this.customModels,"++++++");
 	},
 
 	setValidataTime: function(modelId){
