@@ -38,7 +38,7 @@ Given manager登录管理系统
 	"""
 
 @penda @lhy
-Sceenario:1 运营新增一级类目
+Scenario:1 运营新增一级类目
 	Given yunying登录系统
 	When yunying添加分类
 	"""
@@ -58,7 +58,7 @@ Sceenario:1 运营新增一级类目
 	|   生活用品  |2016-07-21 15:30:25|      0.00       |
 
 @penda @lhy
-Sceenario:2 运营编辑一级类目	
+Scenario:2 运营编辑一级类目	
 	Given yunying登录系统
 	When yunying编辑'电子数码'
 	"""
@@ -73,7 +73,7 @@ Sceenario:2 运营编辑一级类目
 	|  电子数码1  |2016-07-21 15:30:08|      0.00       |
 	|   生活用品  |2016-07-21 15:30:25|      0.00       |
 @penda @lhy
-Sceenario:3 运营新增二级类目
+Scenario:3 运营新增二级类目
 	Given yunying登录系统
 	When yunying添加分类
 	"""
@@ -114,51 +114,86 @@ Sceenario:3 运营新增二级类目
 	|     肥皂    |2016-07-21 15:31:25|      0.00       |
 	|   清洗用品  |2016-07-21 15:31:25|      0.00       |
 @penda @lhy
-Sceenario:4 运营编辑二级类目
+Scenario:4 运营编辑二级类目
 	Given yunying登录系统
-	When yunying编辑'手机'
+	When yunying新建类目
 	"""
 	{
-		"head_classify":"电子数码1",
-		"classify_name":"电脑硬件",
-		"comments":""
+		head_classify":"无",
+		"classify_name":"育婴产品",
+		"comments":"1"
+		},{
+		"head_classify":"育婴产品",
+		"classify_name":"奶粉",
+		"comments":"国产"
 	}
 	"""
-	When yunying编辑"肥皂"
+	When yunying编辑类目'育婴产品'
 	"""
 	{
-		"head_classify":"生活用品",
-		"classify_name":"洗面奶",
+		"head_classify":"无",
+		"classify_name":"育婴产品",
+		"comments":"2"
+	}
+	"""
+	When yunying编辑'奶粉'
+	"""
+	{
+		"head_classify":"育婴产品",
+		"classify_name":"进口奶粉",
 		"comments":""
 	}
 	"""
 	Then yunying获取类目列表
 	|classify_name|     creat_time    | business_number |
-	|  电子数码1  |2016-07-21 15:30:08|      0.00       |
-	|   生活用品  |2016-07-21 15:30:25|      0.00       |
-	|   电脑硬件  |2016-07-21 15:31:25|      0.00       |
-	|   平板电脑  |2016-07-21 15:32:25|      0.00       |
-	|     耳机    |2016-07-21 15:31:27|      0.00       |
-	|     零食    |2016-07-21 15:31:25|      0.00       |
-	|    洗面奶   |2016-07-21 15:31:25|      0.00       |
-	|   清洗用品  |2016-07-21 15:31:25|      0.00       |
+	|   育婴产品  |2016-07-21 15:31:25|      0.00       |
+	|   进口奶粉  |2016-07-21 15:31:25|      0.00       |
 
 @penda @lhy
-Sceenario:5 运营删除二级类目
+Scenario:5 运营删除二级类目
 	Given yunying登录系统
-	When yunying删除'耳机'
+	When yunying新建类目
+	"""
+	{
+		head_classify":"无",
+		"classify_name":"育婴产品",
+		"comments":"1"
+		},{
+		"head_classify":"育婴产品",
+		"classify_name":"奶粉",
+		"comments":"国产"
+	}
+	"""
+	When yunying删除'奶粉'
 	Then yunying获得类目列表
 	|classify_name|     creat_time    | business_number |
-	|  电子数码1  |2016-07-21 15:30:08|      0.00       |
-	|   生活用品  |2016-07-21 15:30:25|      0.00       |
-	|   电脑硬件  |2016-07-21 15:31:25|      0.00       |
-	|   平板电脑  |2016-07-21 15:32:25|      0.00       |
-	|     零食    |2016-07-21 15:31:25|      0.00       |
-	|    洗面奶   |2016-07-21 15:31:25|      0.00       |
-	|   清洗用品  |2016-07-21 15:31:25|      0.00       |
+	|   育婴产品  |2016-07-21 15:30:08|      0.00       |
 
 @penda @hj
-Sceenario:6 新增带有类别的商品后查看列表
+Scenario:6 新增带有类别的商品后查看列表
+	Given yunying登录系统
+	When yunying新建类目
+	"""
+	{
+		head_classify":"无",
+		"classify_name":"生活用品",
+		"comments":"1"
+		},{
+		"head_classify":"生活用品",
+		"classify_name":"零食",
+		"comments":"国产"
+		},{
+		head_classify":"无",
+		"classify_name":"居家",
+		"comments":""
+		},{
+		head_classify":"居家",
+		"classify_name":"鞋子",
+		"comments":""
+		}
+	}
+	"""
+
 	Given aini登录系统
 	When aini新增商品
 	"""
@@ -186,7 +221,9 @@ Sceenario:6 新增带有类别的商品后查看列表
 						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
 						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
 						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
-						},{
+			},{
+			"firest_classify":"居家"
+			"second_classify":"鞋子"
 			"name": "耐克男鞋",
 			"promotion_name":"耐克男鞋",
 			"price": 198.00,
@@ -214,10 +251,8 @@ Sceenario:6 新增带有类别的商品后查看列表
 	When yunying登录系统
 	Then yunying获取类目列表
 	|classify_name|     creat_time    | business_number |
-	|  电子数码1  |2016-07-21 15:30:08|      0.00       |
-	|   电脑硬件  |2016-07-21 15:31:25|      0.00       |
-	|   平板电脑  |2016-07-21 15:32:25|      0.00       |
-	|   生活用品  |2016-07-21 15:30:25|      1.00       |
-	|     零食    |2016-07-21 15:31:25|      1.00       |
-	|    洗面奶   |2016-07-21 15:31:25|      0.00       |
-	|   清洗用品  |2016-07-21 15:31:25|      0.00       |
+	|  生活用品   |2016-07-21 15:30:08|      1.00       |
+	|    零食     |2016-07-21 15:30:08|      1.00       |
+	|    居家     |2016-07-21 15:30:08|      1.00       |
+	|    鞋子     |2016-07-21 15:30:08|      1.00       |
+	
