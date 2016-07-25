@@ -34,9 +34,13 @@ var ProductModelListPage = React.createClass({
 		console.log(model_id,model_type);
 	},
 
-	deleteProductModel: function(model_id,event) {
-		console.log(model_id);
-		var title = '确定删除么?';
+	deleteProductModel: function(model_id,model_ids,event) {
+		if(model_ids.indexOf(model_id)!= -1){
+			var title = '当前规格如果删除，关联的商品将无法正常销售，确认是否删除?'
+		}
+		else{
+			var title = '确定删除么?';
+		}
 		Reactman.PageAction.showConfirm({
 			target: event.target, 
 			title: title,
@@ -92,7 +96,7 @@ var ProductModelListPage = React.createClass({
 		if (field === 'action') {
 			return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.deleteProductModel.bind(this,data['id'])} data-product-id={data.id}>删除</a>
+					<a className="btn btn-link btn-xs" onClick={this.deleteProductModel.bind(this,data['id'],data['model_ids'])} data-product-id={data.id}>删除</a>
 				</div>
 			);
 		}else if(field === 'model_type'){

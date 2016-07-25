@@ -60,7 +60,7 @@ class NewProduct(resource.Resource):
 				'id': product.id,
 				'product_name': product.product_name,
 				'promotion_title': product.promotion_title,
-				'product_price': '%s' % product.product_price if product.product_price>0 else '',
+				'product_price': '%s' % product.product_price if product.product_price>0 else '%s' % product.clear_price,
 				'clear_price': '%s' % product.clear_price,
 				'product_weight': '%s'% product.product_weight,
 				'product_store': product.product_store,
@@ -83,8 +83,8 @@ class NewProduct(resource.Resource):
 				product_data['product_weight_'+model_Id] = '%s' %product_model.weight
 				product_data['product_store_'+model_Id] = '%s' %product_model.stocks
 				product_data['product_code_'+model_Id] = '%s' %product_model.user_code
-				product_data['valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M")
-				product_data['valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M")
+				product_data['valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_from else ''
+				product_data['valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_to else ''
 
 			#获取商品图片
 			product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
@@ -123,7 +123,6 @@ class NewProduct(resource.Resource):
 		images = post.get('images','')
 		has_product_model = int(post.get('has_product_model',0))
 		model_values = post.get('model_values','')
-		print model_values,"=========="
 		if not product_price:
 			product_price = -1
 		if not limit_clear_price:
@@ -177,8 +176,8 @@ class NewProduct(resource.Resource):
 					weight = model_value.get('product_weight_'+model_Id,0)
 					stocks = model_value.get('product_store_'+model_Id,0)
 					user_code = model_value.get('product_code_'+model_Id,0)
-					valid_from = model_value.get('valid_time_from_'+model_Id,'')
-					valid_to = model_value.get('valid_time_to_'+model_Id,'')
+					valid_from = model_value.get('valid_time_from_'+model_Id,None)
+					valid_to = model_value.get('valid_time_to_'+model_Id,None)
 					product_model = models.ProductModel.objects.create(
 						owner = request.user,
 						product = product,
@@ -286,8 +285,8 @@ class NewProduct(resource.Resource):
 				weight = model_value.get('product_weight_'+model_Id,0)
 				stocks = model_value.get('product_store_'+model_Id,0)
 				user_code = model_value.get('product_code_'+model_Id,0)
-				valid_from = model_value.get('valid_time_from_'+model_Id,'')
-				valid_to = model_value.get('valid_time_to_'+model_Id,'')
+				valid_from = model_value.get('valid_time_from_'+model_Id,None)
+				valid_to = model_value.get('valid_time_to_'+model_Id,None)
 				product_model = models.ProductModel.objects.create(
 					owner = request.user,
 					product_id = int(request.POST['id']),

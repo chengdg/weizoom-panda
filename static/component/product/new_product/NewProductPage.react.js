@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
+var ProductModelInfo = require('./ProductModelInfo.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -80,13 +81,13 @@ var NewProductPage = React.createClass({
 		var has_limit_time = parseInt(product.has_limit_time[0]);
 		if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
 			if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
-				Reactman.PageAction.showHint('error', '限时结算价只能保留两位有效数字,请重新输入!');
+				Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
 				return;
 			}
 		}
 		if(product.hasOwnProperty('product_price') && product.product_price.length>0){
 			if(!reg_2.test(product.product_price.trim())){
-				Reactman.PageAction.showHint('error', '商品价格是数字且保留两位有效数字,请重新输入!');
+				Reactman.PageAction.showHint('error', '商品价格是数字且保留两位小数,请重新输入!');
 				return;
 			}
 		}
@@ -121,7 +122,11 @@ var NewProductPage = React.createClass({
 		}
 
 		var model_values = this.state.model_values;
-		console.log(model_values,"----------");
+		var has_product_model = this.state.has_product_model;
+		if(has_product_model==='1' && model_values.length==0){
+			Reactman.PageAction.showHint('error', '请添加商品规格！');
+			return ;
+		}
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
@@ -132,7 +137,6 @@ var NewProductPage = React.createClass({
 			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 		})
-		console.log(model_values,"===");
 		Action.saveNewProduct(product,JSON.stringify(model_values));
 	},
 
@@ -184,216 +188,4 @@ var StoreInfo = React.createClass({
 	}
 });
 
-var ProductModelInfo = React.createClass({
-	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return Store.getData();
-	},
-
-	onChangeStore: function(){
-		this.setState(Store.getData());
-	},
-
-	addProductModel: function(){
-		Reactman.PageAction.showDialog({
-			title: "选择商品规格",
-			component: AddProductModelDialog,
-			data: {},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
-	},
-
-	deleteModelValue: function(modelId){
-		console.log(modelId,this.state.model_values,"======");
-		// var delete_customModels = _.filter(this.state.model_values, function(customModel) {
-		// 	return customModel.modelId === modelId;
-		// });
-		// for(var i in delete_customModels){
-		// 	var propertyValues = delete_customModels[i].propertyValues;
-		// 	for(var j in propertyValues){
-		// 		console.log(propertyValues[j].id);
-		// 	}
-		// }
-		// console.log(delete_customModels,'#####3');
-		// var customModels = this.state.model_values;
-		// var this_customModels = _.filter(customModels, function(customModel) {
-		// 	return customModel.modelId !== modelId;
-		// });
-		// this.setState({
-		// 	model_values: this_customModels
-		// })
-		Action.deleteModelValue(modelId);
-		// console.log(this.customModels,"++++++");
-	},
-
-	setValidataTime: function(modelId){
-		console.log(modelId);
-		Reactman.PageAction.showDialog({
-			title: "设置限时结算价有效期",
-			component: SetValidataTimeDialog,
-			data: {
-				'modelId': modelId
-			},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
-	},
-
-	render: function() {
-		var _this = this;
-		var model_type = this.props.Modeltype;
-		var disabled = this.props.Disabled;
-		var model_values = this.state.model_values;
-		var model_names = this.state.model_names;
-		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
-		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
-		var optionsForCheckbox = [{text: '', value: '1'}]
-
-		var model_value_tr = model_values.map(function(model,index){
-			var td = model.propertyValues.map(function(value,index){
-				return(
-					<td key={index} style={{paddingTop:'15px'}}>{value.name}</td>
-				)
-			})
-
-			return(
-				<tr key={index} ref={model.modelId}>
-					{td}
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} />
-					</td>
-					<td style={{position:'relative'}}>
-						<Reactman.FormInput label="" type="text" name={"limit_clear_price_"+model.modelId} value={_this.state["limit_clear_price_"+model.modelId]} onChange={_this.props.onChange}/>
-						<a onClick={_this.setValidataTime.bind(null,model.modelId)} style={{position:'absolute',top:'14px',right:'6px'}}>有效期</a>
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-price"/>
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_code_"+model.modelId} value={_this.state["product_code_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					</td>
-					<td className="show-active">
-						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
-					</td>
-				</tr>
-			)
-
-		})
-
-		// var model_value_tr;
-		// if(model_values.length>0){
-		// 	model_value_tr = JSON.parse(model_values).map(function(model_value,index){
-		// 		var td_1,td_2,td_3;
-		// 		if(model_value.hasOwnProperty('third')){
-		// 			td_1 = <td>{model_value.first}</td>;
-		// 			td_2 = <td>{model_value.second}</td>;
-		// 			td_3 = <td>{model_value.third}</td>;
-		// 		}else if(model_value.hasOwnProperty('second')){
-		// 			td_1 = <td>{model_value.first}</td>;
-		// 			td_2 = <td>{model_value.second}</td>;
-		// 		}else{
-		// 			td_1 = <td>{model_value.first}</td>;
-		// 		}
-		// 		console.log(td_1);
-		// 		return(
-		// 			<tr key={index}>
-		// 				{td_1}
-		// 				{td_2}
-		// 				{td_3}
-		// 				<td>
-		// 					<Reactman.FormInput label="" type="text" name="product_price" value={_this.state.product_price} onChange={_this.props.onChange} />
-		// 				</td>
-		// 				<td>
-		// 					<Reactman.FormInput label="" type="text" name="limit_clear_price" value={_this.state.limit_clear_price} onChange={_this.props.onChange}/>
-		// 				</td>
-		// 				<td>2</td>
-		// 				<td>
-		// 					<Reactman.FormInput label="" type="text" name="product_weight" value={_this.state.product_weight} onChange={_this.props.onChange} validate="require-float"/>
-		// 				</td>
-		// 				<td>
-		// 					<Reactman.FormInput label="" type="text" name="product_store" value={_this.state.productStore} validate="require-int" onChange={_this.props.onChange} />
-		// 				</td>
-		// 				<td></td>
-		// 				<td className="show-active">
-		// 					<a className="btn cursorPointer">删除</a>
-		// 				</td>
-		// 			</tr>
-		// 		)
-		// 	})
-		// }
-		if (model_type == '0'){
-			return(
-				<div className="product_info_fieldset">
-					<Reactman.FormInput label="商品价格:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} />
-					<span className="money_note">
-						元
-					</span>
-					<div></div>
-					<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.props.onChange} validate="require-price"/>
-					<span className="money_note">
-						元
-					</span>
-					<div></div>
-					<Reactman.FormInput label="限时结算价:" type="text" readonly={disabled} name="limit_clear_price" value={this.state.limit_clear_price} onChange={this.props.onChange}/>
-					<span className="limit_money_note">
-						元
-					</span>
-					<Reactman.FormCheckbox label="" name="has_limit_time" value={this.state.has_limit_time} options={optionsForCheckbox} onChange={this.props.onChange} />
-					<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" value={this.state.valid_time_from} readOnly onChange={this.props.onChange} />
-					<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.state.valid_time_to} readOnly onChange={this.props.onChange} />
-					<span className="limit_money_note_tips">
-						(注:如有让利活动推广时,可设置限时结算价,则优惠期间产生的订单按限时结算价统计账单)
-					</span>
-					<div></div>
-					<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
-					<span className="money_note">
-						Kg
-					</span>
-					<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
-				</div>
-			)
-		}else {
-			var th = model_names.map(function(name,index){
-				return(
-					<th key={index}>{name.name}</th>
-				)
-			})
-			return(
-				<div>
-					<div>
-						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
-							<thead>
-								<tr>
-									{th}
-									<th>采购价</th>
-									<th>限时结算价</th>
-									<th>售价</th>
-									<th>重量(Kg)</th>
-									<th>库存</th>
-									<th>商品编码</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody id="">
-							{model_value_tr}
-							</tbody>
-						</table>
-					</div>
-					<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
-						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>
-					</div>
-				</div>
-			)
-		}
-	}
-});
 module.exports = NewProductPage;

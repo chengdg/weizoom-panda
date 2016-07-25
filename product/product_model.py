@@ -47,10 +47,24 @@ class ProductModel(resource.Resource):
 
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
-		product_model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
+		role = UserProfile.objects.get(user_id=request.user.id).role
+		if role == YUN_YING:
+			product_model_properties = models.ProductModelProperty.objects.all()
+		else:
+			product_model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
 		pageinfo, product_model_properties = paginator.paginate(product_model_properties, cur_page, 20, query_string=request.META['QUERY_STRING'])
 		property_ids = [product_model_property.id for product_model_property in product_model_properties]
 		product_model_property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
+		product_models = models.ProductModel.objects.filter(owner=request.user)
+		#获取用户使用的规格
+		model_ids = []
+		for product_model in product_models:
+			modelIds = product_model.name.split('_');
+			for modelId in modelIds:
+				index = modelId.find(":")
+				model_ids.append(str(modelId[:index]))
+		model_ids = set(model_ids)
+
 		property_id2model_property_value = {}
 		for model_property_value in product_model_property_values:
 			if model_property_value.property_id not in property_id2model_property_value:
@@ -73,6 +87,7 @@ class ProductModel(resource.Resource):
 				model_name = property_id2model_property_value[product_model_property.id]
 			rows.append({
 				'id': product_model_property.id,
+				'model_ids': ','.join(model_ids),
 				'product_model_name': product_model_property.name,
 				'model_type': product_model_property.type,
 				'model_name': '' if not model_name else json.dumps(model_name),
@@ -125,6 +140,16 @@ class ProductModel(resource.Resource):
 		try:
 			if model_id!=0:
 				models.ProductModelProperty.objects.filter(id=model_id).delete()
+				models.ProductModelPropertyValue.objects.filter(property_id=model_id).delete()
+				has_properrty_values = models.ProductModelHasPropertyValue.objects.filter(property_id=model_id)
+				model_ids = [has_properrty_value.model_id for has_properrty_value in has_properrty_values]
+				models.ProductModel.objects.filter(id__in=model_ids).update(
+					stocks = 0,
+					price = 0,
+					market_price = 0,
+					limit_clear_price = 0
+				)
+				has_properrty_values.delete()
 				response = create_response(200)
 		except:
 			response.innerErrMsg = unicode_full_stack()
