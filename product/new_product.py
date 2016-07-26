@@ -41,11 +41,17 @@ class NewProduct(resource.Resource):
 		role = user_profile.role
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
+		product_has_model = 0
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
 				product_models = models.ProductModel.objects.filter(product_id=product_id)
+				product_has_model = 1
 			else:
+				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
+				property_ids = [model_propertie.id for model_propertie in model_properties]
+				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
+				product_has_model = len(property_values)
 				product = models.Product.objects.get(owner=request.user, id=product_id)
 				product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			limit_clear_price = ''
@@ -59,7 +65,7 @@ class NewProduct(resource.Resource):
 			value_ids = set([str(property_value.property_value_id) for property_value in property_values])
 			product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
 			model_values = get_product_model_property_values(product_model_property_values)
-
+			
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -101,7 +107,10 @@ class NewProduct(resource.Resource):
 			jsons['items'].append(('product', json.dumps(product_data)))
 		else:
 			jsons['items'].append(('product', json.dumps(None)))
-
+			model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
+			property_ids = [model_propertie.id for model_propertie in model_properties]
+			property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
+			product_has_model = len(property_values)
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
@@ -110,7 +119,8 @@ class NewProduct(resource.Resource):
 			'second_level_id': second_level_id,
 			'role': role,
 			'points': points,
-			'purchase_method': purchase_method
+			'purchase_method': purchase_method,
+			'product_has_model': product_has_model
 		})
 		return render_to_response('product/new_product.html', c)
 

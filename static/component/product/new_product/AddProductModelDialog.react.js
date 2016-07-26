@@ -54,7 +54,7 @@ var AddProductModelDialog = Reactman.createDialog({
 			var _this = this;
 			var value_ids = this.state.value_ids;
 			var model_name = data['model_name'];
-			var model_name_li ='';
+			var model_name_li ='11111';
 			if(model_name){
 				model_name_li = JSON.parse(model_name).map(function(model,index){
 					var value_id = model['id'];
@@ -69,7 +69,8 @@ var AddProductModelDialog = Reactman.createDialog({
 			return(
 				<div>
 					<ul className="xui-propertyValueList">
-						{model_name_li}
+						<li>
+						{model_name_li}</li>
 					</ul>
 				</div>
 			)
@@ -85,20 +86,25 @@ var AddProductModelDialog = Reactman.createDialog({
 				page: 1
 			}
 		};
-		return (
-			<div className="mt15 xui-product-productListPage">
-				<Reactman.TablePanel>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
-						<Reactman.TableColumn name="规格名" field="product_model_name" width="100px"/>
-						<Reactman.TableColumn name="规格值" field="product_model_value" />
-						<Reactman.TableColumn name="操作" field="action" />
-					</Reactman.Table>
-					<Reactman.TableActionBar>
-						<Reactman.TableActionButton text="确定" onClick={this.saveModelValue}/>
-					</Reactman.TableActionBar>
-				</Reactman.TablePanel>
-			</div>
-		)
+		if(W.product_has_model>0){
+			return (
+				<div className="mt15 xui-product-productListPage">
+					<Reactman.TablePanel>
+						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
+							<Reactman.TableColumn name="规格名" field="product_model_name" width="100px"/>
+							<Reactman.TableColumn name="规格值" field="product_model_value" />
+						</Reactman.Table>
+						<Reactman.TableActionBar>
+							<Reactman.TableActionButton text="确定" onClick={this.saveModelValue}/>
+						</Reactman.TableActionBar>
+					</Reactman.TablePanel>
+				</div>
+			)
+		}else{
+			return(
+				<div style={{paddingLeft:'40px',fontSize:'18px'}}>暂无商品规格,<a href="/product/product_model/">点此</a>添加规格</div>
+			)
+		}
 	}
 })
 module.exports = AddProductModelDialog;

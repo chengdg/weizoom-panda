@@ -76,7 +76,6 @@ var ProductModelInfo = React.createClass({
 			if(valid_time_from!= undefined && valid_time_from.length> 0){
 				src = '/static/img/panda_img/icon1.png';
 			}
-			console.log(W.points,"=========");
 			if(W.purchase_method==2){
 				var product_price = _this.state["product_price_"+model.modelId];
 				_this.state["clear_price_"+model.modelId] = (1-W.points/100)*parseFloat(product_price);
@@ -150,7 +149,7 @@ var ProductModelInfo = React.createClass({
 				)
 			})
 			if(W.purchase_method==2){
-				var title='结算价格=商品售价*(1-返点)'
+				var title='结算价格=商品售价*(1-返点)';
 			}
 			return(
 				<div>
@@ -175,7 +174,7 @@ var ProductModelInfo = React.createClass({
 						</table>
 					</div>
 					<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
-						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>
+						{W.role==1?<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>:''}
 					</div>
 				</div>
 			)
