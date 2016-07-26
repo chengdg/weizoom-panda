@@ -34,12 +34,10 @@ var ProductPreviewDialog = Reactman.createDialog({
 		var remark = this.state.remark;
 		var model_values = this.props.data.model_values;
 		var propertyValues = model_values[0].propertyValues;
-		console.log(model_values[0].propertyValues,"====sss=");
 		var names=[]
 		_.each(propertyValues, function(values) {
 			names.push(values.name);
 		})
-		console.log(names.join('/'),"======");
 		names = names.join(',');
 		return (
 			<div className="xui-formPage xui-product-preview-div">

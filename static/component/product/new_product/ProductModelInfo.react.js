@@ -78,7 +78,9 @@ var ProductModelInfo = React.createClass({
 			}
 			if(W.purchase_method==2){
 				var product_price = _this.state["product_price_"+model.modelId];
-				_this.state["clear_price_"+model.modelId] = (1-W.points/100)*parseFloat(product_price);
+				if(product_price){
+					_this.state["clear_price_"+model.modelId] = ((1-W.points/100)*parseFloat(product_price)).toFixed(2);
+				}
 			}
 			return(
 				<tr key={index} ref={model.modelId}>
