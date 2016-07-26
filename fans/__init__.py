@@ -2,3 +2,4 @@
 __author__ = 'hj'
 
 import fans
+import fans_exported
