@@ -13,12 +13,14 @@ from django.contrib.auth.models import User
 from core.exceptionutil import unicode_full_stack
 from core import resource
 from core.jsonresponse import create_response
+from eaglet.utils.resource_client import Resource
 from core import paginator
 from util import db_util
 from panda.settings import ZEUS_HOST
 import nav
 import requests
 from account.models import *
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 
 
 FIRST_NAV = 'manager'
