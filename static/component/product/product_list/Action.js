@@ -52,7 +52,7 @@ var Action = {
 		});
 	},
 
-	chooseSecondLevel: function(first_id){
+	changeSecondLevel: function(first_id){
 		Resource.get({
 			resource: 'product.second_category',
 			data: {
@@ -60,7 +60,16 @@ var Action = {
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.PRODUCT_Second_CATEGORY
+				actionType: Constant.PRODUCT_SECOND_CATEGORY
+			}
+		});
+	},
+
+	chooseSecondLevel: function(second_id){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_CHOOSE_SECOND_CATEGORY,
+			data: {
+				'second_id': second_id
 			}
 		});
 	}

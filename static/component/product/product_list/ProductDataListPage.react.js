@@ -45,16 +45,15 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onValidateAddProduct: function(){
-		// Action.ProductCategory();
-		// Reactman.PageAction.showDialog({
-		// 	title: "请选择商品分类",
-		// 	component: AddProductCategoryDialog,
-		// 	data: {},
-		// 	success: function(inputData, dialogState) {
-		// 		console.log("success");
-		// 	}
-		// });
-		W.gotoPage('/product/new_product/');
+		Action.ProductCategory();
+		Reactman.PageAction.showDialog({
+			title: "请选择商品分类",
+			component: AddProductCategoryDialog,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
 	},
 
 	rowFormatter: function(field, value, data) {

@@ -76,6 +76,7 @@ var NewProductPage = React.createClass({
 
 	onSubmit: function(){
 		var product = Store.getData();
+		product['second_level_id'] = W.second_level_id;
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_limit_time = parseInt(product.has_limit_time[0]);
@@ -137,7 +138,8 @@ var NewProductPage = React.createClass({
 			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 		})
-		Action.saveNewProduct(product,JSON.stringify(model_values));
+		model_values = model_values.length>0?JSON.stringify(model_values):''
+		Action.saveNewProduct(product,model_values);
 	},
 
 	render:function(){
