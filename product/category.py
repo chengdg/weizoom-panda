@@ -29,9 +29,8 @@ class Category(resource.Resource):
 		company_type = UserProfile.objects.get(user_id=request.user.id).company_type
 		if company_type:
 			company_type = json.loads(company_type)
-		print company_type,"============"
 		product_catalogs = catalog_models.ProductCatalog.objects.filter(id__in=company_type)
-		father_catalog_id = product_catalogs[0].father_catalog
+		father_catalog_id = product_catalogs[0].id
 		first_levels = []
 		for product_catalog in product_catalogs.filter(father_catalog=-1):
 			first_levels.append({

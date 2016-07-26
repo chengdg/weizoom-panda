@@ -72,6 +72,19 @@ var Action = {
 				'second_id': second_id
 			}
 		});
+	},
+
+	lookProductModelDetail: function(product_id){
+		Resource.get({
+			resource: 'product.model_details',
+			data: {
+				'product_id': product_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_MODEL_DETAILS
+			}
+		});
 	}
 };
 

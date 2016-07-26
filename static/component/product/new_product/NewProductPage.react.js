@@ -134,6 +134,22 @@ var NewProductPage = React.createClass({
 			return ;
 		}
 		_.each(model_values, function(model) {
+			var time_from = product['valid_time_from_'+model.modelId]
+			var time_to = product['valid_time_to_'+model.modelId]
+			if(time_from>time_to){
+				Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
+				return;
+			}
+			if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
+				Reactman.PageAction.showHint('error', '有效期不能为空,请重新输入!');
+				return;
+			}
+			if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
+				Reactman.PageAction.showHint('error', '有效期不能为空,请重新输入!');
+				return;
+			}
+		})
+		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
 			model['clear_price_'+model.modelId] = product['clear_price_'+model.modelId]
@@ -142,6 +158,12 @@ var NewProductPage = React.createClass({
 			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
 			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
+			if(W.purchase_method==2){
+				var product_price = product["product_price_"+model.modelId];
+				if(product_price){
+					model["clear_price_"+model.modelId] = ((1-W.points/100)*parseFloat(product_price)).toFixed(2);
+				}
+			}
 		})
 		model_values = model_values.length>0?JSON.stringify(model_values):''
 		Action.saveNewProduct(product,model_values);

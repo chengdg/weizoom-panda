@@ -19,7 +19,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
 		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT,
-		// 'handleProductCategory': Constant.PRODUCT_LIST_CATEGORY,
+		'handleProductModelDetails': Constant.PRODUCT_MODEL_DETAILS,
 		// 'handleProductSecondCategory': Constant.PRODUCT_SECOND_CATEGORY,
 		// 'handleProductChooseSecondCategory': Constant.PRODUCT_CHOOSE_SECOND_CATEGORY
 	},
@@ -29,9 +29,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data.user_has_products = '';
 		this.filter = {};
 		this.category = {};
-		this.data.first_levels = '';
-		this.data.second_levels = '';
-		this.data.first_id = 0;
+		this.data.model_names = [];
+		this.data.model_values = [];
+		this.data.name2model = {};
 	},
 
 	handleUpdateProduct: function(action) {
@@ -53,51 +53,110 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		window.location.href = '/product/product_exported/?'+filter_str;
 	},
 
-	// handleProductCategory: function(action){
-	// 	this.category['first_levels'] = JSON.parse(action.data['first_levels']);
-	// 	this.category['second_levels'] = JSON.parse(action.data['second_levels']);
-	// 	console.log(action.data['first_levels'],"===11====")
-	// 	this.__emitChange();
-	// },
+	handleProductModelDetails: function(action){
+		var rows = action.data.rows
+		this.data['model_values']= [];
+		this.data['model_names']= [];
+		var source = [];
+		var target = [];
+		var headers = [];
+		var name2model = this.data['name2model'];
+		var _this = this;
+		/*
+		 * 将数据结构：
+		 * [
+		 *		{id:1, product_model_name:'颜色', product_model_value:[{id:1, name:'黑色'}, {id:2, name:'白色'}]},
+		 *		{id:2, product_model_name:'尺寸', product_model_value:[{id:3, name:'S'}, {id:4, name:'M'}]},
+		 *	]
+		 * 转换为:
+		 * headers: [{id:1, name:'颜色'}, {id:2, name:'尺寸'}]
+		 * values: [
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}],
+		 ]
+		 */
+		_.each(rows, function(property) {
+			headers.push({
+				id: property.id,
+				name: property.product_model_name
+			});
 
-	// handleProductSecondCategory: function(action){
-	// 	var first_levels = this.category['first_levels'];
-	// 	console.log(first_levels,"===22222====");
-	// 	var first_id = action.data['first_id'];
-	// 	_.each(first_levels, function(first_level) {
-	// 		console.log(first_level,"-----");
-	// 		console.log(first_level['id'],first_id,"-----");
-	// 		if(first_level['id']==first_id){
-	// 			first_level['is_choose'] = 1;
-	// 		}else{
-	// 			first_level['is_choose'] = 0;
-	// 		}
-	// 	});
-	// 	this.category['first_levels'] = first_levels;
-	// 	console.log(first_levels,"===22222====");
-	// 	this.category['second_levels'] = JSON.parse(action.data['second_levels']);
-		
-	// 	this.__emitChange();
-	// },
+			_.each(JSON.parse(property.product_model_value), function(propertyValue) {
+				var valueName = propertyValue.name;
+				var valueId = propertyValue.id;
+				if (source.length === 0) {
+					target.push([{
+						name:valueName, 
+						id:valueId, 
+						propertyId:property.id
+					}]);
+				} else {
+					_.each(source, function(sourceItem) {
+						sourceItem = _.clone(sourceItem);
+						sourceItem.push({
+							name: valueName,
+							id: valueId,
+							propertyId: property.id
+						})
+						target.push(sourceItem);
+					});
+				}
+			});
 
-	// handleProductChooseSecondCategory: function(action){
-	// 	var second_levels = this.category['second_levels'];
-	// 	var second_id = action.data.second_id;
-	// 	_.each(second_levels, function(second_level) {
-	// 		console.log(second_level,"-----");
-	// 		console.log(second_level['id'],second_id,"-----");
-	// 		if(second_level['id']==second_id){
-	// 			second_level['is_choose'] = 1;
-	// 		}else{
-	// 			second_level['is_choose'] = 0;
-	// 		}
-	// 	});
-	// 	this.__emitChange();
-	// },
+			source = target;
+			target = [];
+		});
 
-	// getCategory: function() {
-	// 	return this.category;
-	// },
+		/*
+		 * 将数据结构：
+		 values: [
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}],
+		 	[{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}],
+		 ]
+		 转换为:
+		 models: [{
+		 	modelId: '1:1_2:3',
+		 	propertyValues: [{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:3, name:'S'}]
+		 }, {
+		 	modelId: '1:1_2:4',
+		 	propertyValues: [{propertyId:1, id:1, name:'黑色'}, {propertyId:2, id:4, name:'M'}]
+		 }, {
+		 	modelId: '1:2_2:3',
+		 	propertyValues: [{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:3, name:'S'}]
+		 }, {
+		 	modelId: '1:2_2:4',
+		 	propertyValues: [{propertyId:1, id:2, name:'白色'}, {propertyId:2, id:4, name:'M'}]
+		 }]
+		 */
+		var models = [];
+		_.each(source, function(values) {
+			var ids = [];
+			for (var i = 0; i < values.length; ++i) {
+				var value = values[i];
+				ids.push(value['propertyId']+':'+value['id']);
+			}
+			ids = _.sortBy(ids, function(id) { return id; });
+			var modelId = ids.join('_');
+			if (_this.data.name2model.hasOwnProperty(modelId)) {
+				models.push(_this.data.name2model[modelId]);
+			} else {
+				models.push({
+					modelId: modelId,
+					propertyValues: values
+				})
+			}
+		});
+
+		this.data = action.data.product_data;
+		this.data['model_values']= models;
+		this.data['model_names']= headers;
+		this.data['name2model']= {};
+		this.__emitChange();
+	},
 
 	getData: function() {
 		return this.data;

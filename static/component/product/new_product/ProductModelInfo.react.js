@@ -72,8 +72,9 @@ var ProductModelInfo = React.createClass({
 				)
 			})
 			var valid_time_from = _this.state["valid_time_from_"+model.modelId];
+			var valid_time_to = _this.state["valid_time_to_"+model.modelId];
 			var src = '/static/img/panda_img/icon2.png';
-			if(valid_time_from!= undefined && valid_time_from.length> 0){
+			if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
 				src = '/static/img/panda_img/icon1.png';
 			}
 			if(W.purchase_method==2){
@@ -161,9 +162,9 @@ var ProductModelInfo = React.createClass({
 							<thead>
 								<tr>
 									{th}
-									<th>结算价格</th>
-									<th>限时结算价</th>
-									<th>商品售价</th>
+									<th>结算价格(元)</th>
+									<th>限时结算价(元)</th>
+									<th>商品售价(元)</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
 									<th>商品编码</th>

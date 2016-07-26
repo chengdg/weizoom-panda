@@ -102,11 +102,33 @@ def getProductData(request,is_export):
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 	#组装数据
+	#判断多规格
+	model_properties = models.ProductModel.objects.filter(owner=request.user)
+	product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
+	product_id2market_price = {}
+	for model_property in model_properties:
+		if model_property.product_id not in product_id2market_price:
+			product_id2market_price[model_property.product_id] = [model_property.market_price]
+		else:
+			product_id2market_price[model_property.product_id].append(model_property.market_price)
+
 	rows = []
 	for product in products:
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
 		image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
+		product_has_model = 0
+		if product.id in product_id2name:
+			name = product_id2name[product.id]
+			product_has_model = len(name.split('_'))
+			market_prices = product_id2market_price[product.id]
+			market_prices = sorted(market_prices)
+			if (market_prices[0]!= market_prices[-1]) and len(market_prices)>1:
+				clear_price = ('%s ~ %s')%(market_prices[0],market_prices[-1])
+			else:
+				clear_price = '%s' %market_prices[0]
+		else:
+			clear_price = '%.2f' %product.clear_price,
 		image_paths = []
 		if product.id in product_id2image_id:
 			image_ids = product_id2image_id[product.id]
@@ -120,7 +142,7 @@ def getProductData(request,is_export):
 			'id': product.id,
 			'role': role,
 			'promotion_title': product.promotion_title,
-			'clear_price': '%.2f' %product.clear_price,
+			'clear_price': clear_price,
 			'product_price': '%.2f' % product.product_price if product.product_price>0 else '',
 			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price>0 else '',
 			'product_weight': '%.2f' %product.product_weight,
@@ -131,6 +153,7 @@ def getProductData(request,is_export):
 			'status': product_status2text[product.product_status],
 			'sales': '%s' %sales,
 			'has_limit_time': valid_time,
+			'product_has_model': product_has_model,
 			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 		})
 	if is_export:

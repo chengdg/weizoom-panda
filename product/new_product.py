@@ -87,7 +87,7 @@ class NewProduct(resource.Resource):
 
 			for product_model in product_models:
 				model_Id = product_model.name
-				product_data['product_price_'+model_Id] = '%s' %product_model.price
+				product_data['product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
 				product_data['limit_clear_price_'+model_Id] = '%s' %product_model.limit_clear_price
 				product_data['clear_price_'+model_Id] = '%s' %product_model.market_price
 				product_data['product_weight_'+model_Id] = '%s' %product_model.weight

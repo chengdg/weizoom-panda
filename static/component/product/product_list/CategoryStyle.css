@@ -25,13 +25,13 @@
 }
 #demo {
 	width: 44px;
-	display: inline-block;
-	height: 20px;
-	background-color: #FFF;
-	position: relative;
-	top: 55px;
-	left: 12px;
-	border: 1px solid #CCC;
+    display: inline-block;
+    height: 20px;
+    background-color: #CCC;
+    position: relative;
+    top: 42px;
+    left: 18px;
+    border: 1px solid #ccc;
 }
 
 #demo:after, #demo:before {

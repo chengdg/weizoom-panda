@@ -60,8 +60,8 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		var first_levels = this.state.first_levels;
 		var _this = this;
 		var second_levels = this.state.second_levels;
-		var first_levels_list = '';
-		var second_level_list = '';
+		var first_levels_list = '暂无分类';
+		var second_level_list = '暂无分类';
 		if(first_levels){
 			first_levels_list = first_levels.map(function(first_level,index){
 				var bg_style = {};
