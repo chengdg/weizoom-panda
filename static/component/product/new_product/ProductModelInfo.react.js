@@ -76,11 +76,16 @@ var ProductModelInfo = React.createClass({
 			if(valid_time_from!= undefined && valid_time_from.length> 0){
 				src = '/static/img/panda_img/icon1.png';
 			}
+			console.log(W.points,"=========");
+			if(W.purchase_method==2){
+				var product_price = _this.state["product_price_"+model.modelId];
+				_this.state["clear_price_"+model.modelId] = (1-W.points/100)*parseFloat(product_price);
+			}
 			return(
 				<tr key={index} ref={model.modelId}>
 					{td}
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
 					</td>
 					<td style={{position:'relative'}}>
 						<Reactman.FormInput label="" type="text" name={"limit_clear_price_"+model.modelId} value={_this.state["limit_clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
@@ -89,7 +94,7 @@ var ProductModelInfo = React.createClass({
 						</a>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
 					</td>
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
@@ -144,16 +149,20 @@ var ProductModelInfo = React.createClass({
 					<th key={index}>{name.name}</th>
 				)
 			})
+			if(W.purchase_method==2){
+				var title='结算价格=商品售价*(1-返点)'
+			}
 			return(
 				<div>
 					<div>
+						<span style={{marginLeft:'180px'}}>{title}</span>
 						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
 							<thead>
 								<tr>
 									{th}
-									<th>采购价</th>
+									<th>结算价格</th>
 									<th>限时结算价</th>
-									<th>售价</th>
+									<th>商品售价</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
 									<th>商品编码</th>

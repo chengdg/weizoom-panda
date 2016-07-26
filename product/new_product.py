@@ -37,7 +37,10 @@ class NewProduct(resource.Resource):
 		product_id = request.GET.get('id', None)
 		second_level_id = request.GET.get('second_level_id', 0)
 		jsons = {'items':[]}
-		role = UserProfile.objects.get(user_id=request.user.id).role
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		role = user_profile.role
+		purchase_method = user_profile.purchase_method #采购方式
+		points = user_profile.points #零售价返点
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
@@ -105,7 +108,9 @@ class NewProduct(resource.Resource):
 			'second_nav_name': SECOND_NAV,
 			'jsons': jsons,
 			'second_level_id': second_level_id,
-			'role': role
+			'role': role,
+			'points': points,
+			'purchase_method': purchase_method
 		})
 		return render_to_response('product/new_product.html', c)
 
