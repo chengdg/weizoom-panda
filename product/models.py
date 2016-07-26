@@ -163,3 +163,26 @@ class ProductModelHasPropertyValue(models.Model):
 
 	class Meta(object):
 		db_table = 'product_model_has_property'
+
+
+class ProductModelPropertyRelation(models.Model):
+	"""
+	商品模板和云上通商品模板关系
+	"""
+	model_property_id = models.IntegerField(help_text=u'本平台的模板id')
+	weapp_property_id = models.IntegerField(help_text=u'云商通的模板id')
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_model_property_relation'
+
+
+class ProductModelPropertyValueRelation(models.Model):
+	"""
+	商品模板值和云上通商品模板值的对应关系(这个主要是当删除的时候更好的定位,否则无法定位)
+	"""
+	property_value_id = models.IntegerField()
+	weapp_property_value_id = models.IntegerField()
+
+	class Meta(object):
+		db_table = 'product_model_property_value_relation'

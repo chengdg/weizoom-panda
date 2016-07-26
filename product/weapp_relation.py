@@ -59,8 +59,7 @@ class ProductRelation(resource.Resource):
         data['code'] = 500
         data['errMsg'] = u'关联失败'
         try:
-            # print ('+++++++++++++++++product_data', product_data)
-
+            print ('+++++++++++++++++product_data', product_data)
             if product_data:
                 # 当前平台的的供应商账户（账户id)
                 # 获取当前供货商的对应的weapp供货商的id
@@ -76,14 +75,19 @@ class ProductRelation(resource.Resource):
                     # 获取商品图片
                     image_ids = [image.image_id for image in models.ProductImage.objects.filter(product_id=product_id)]
                     images = [{"order": 1, "url": i.path} for i in Image.objects.filter(id__in=image_ids)]
-
                     # 获取商品要同步到哪个平台
 
                     weizoom_self = product_data[0].get('weizoom_self').split(',')
 
                     weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects
                         .filter(self_user_name__in=weizoom_self)]
-                    # print weapp_user_ids
+                    # 获取是单品还是多规格
+                    model_type = 'single' if not product.has_product_model else 'custom'
+                    weapp_models_info = []
+
+                    if product.has_product_model:
+                        # 多规格,获取规格信息
+                        weapp_models_info = get_weapp_model_properties(product=product)
                     params = {
                         'supplier': weapp_supplier_id,
                         'name': product.product_name,
@@ -94,7 +98,8 @@ class ProductRelation(resource.Resource):
                         'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
                         'images': json.dumps(images),
                         'product_id': product_id,
-                        'model_type': 'single',
+                        'model_type': model_type,
+                        'model_info': json.dumps(weapp_models_info),
                         'stocks': product.product_store if product.product_store > 0 else 0,
                         # 商品需要同步到哪个自营平台
                         'accounts': json.dumps(weapp_user_ids),
@@ -128,6 +133,7 @@ class ProductRelation(resource.Resource):
                     else:
                         relation = relations.first()
                         if relation:
+                            model_type = 'single' if not product.has_product_model else 'custom'
                             params = {
                                 'name': product.product_name,
                                 'promotion_title': product.promotion_title,
@@ -137,11 +143,12 @@ class ProductRelation(resource.Resource):
                                 'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
                                 'swipe_images': json.dumps(images),
                                 'product_id': relation.weapp_product_id,
-                                'model_type': 'single',
+                                'model_type': model_type,
                                 'stocks': product.product_store if product.product_store > 0 else 0,
                                 # 商品需要同步到哪个自营平台
                                 'accounts': json.dumps(weapp_user_ids),
                                 'detail': product.remark,
+                                'model_info': json.dumps(weapp_models_info),
                             }
                             resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
                                 'resource': 'mall.product',
@@ -157,10 +164,12 @@ class ProductRelation(resource.Resource):
 
                 data['code'] = 200
                 data['errMsg'] = u'关联成功'
+
         except:
             msg = unicode_full_stack()
             response.innerErrMsg = msg
-            watchdog.error(msg)
+            # watchdog.error(msg)
+            # print 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', msg
         relations = {}
         data['rows'] = relations
         #构造response
@@ -175,3 +184,38 @@ class ProductRelation(resource.Resource):
             models.ProductSyncWeappAccount.objects.filter(product_id=int(product_id),self_user_name=self_name).delete()
         response = create_response(200)
         return response.get_response()
+
+def get_weapp_model_properties(product=None):
+    """
+    获取多规格的商品,对应的云上通的规格组合信息
+    """
+    weapp_models_info = []
+    models_info = models.ProductModel.objects.filter(product_id=product.id)
+    print '=========================================', product
+    for model_info in models_info:
+        name = model_info.name
+        single_model_properties = name.split('_')
+        weapp_model_properties = []
+        for single_model_property in single_model_properties:
+            temp_list = single_model_property.split(':')
+            model_property_id = temp_list[0]
+            relation = models.ProductModelPropertyRelation. \
+                objects.filter(model_property_id=model_property_id).first()
+            value_relation = models.ProductModelPropertyValueRelation.objects \
+                .filter(property_value_id=temp_list[1]).first()
+            if not relation or not value_relation:
+                continue
+            weapp_property_id = relation.weapp_property_id
+            weapp_property_value_id = value_relation.weapp_property_value_id
+            weapp_model_properties.append(str(weapp_property_id) + ':' + str(weapp_property_value_id))
+        # 组织传递给zeus的数据
+        temp_model_info = {}
+        temp_model_info.update({'name': '_'.join(weapp_model_properties),
+                                'purchase_price': model_info.market_price,
+                                'price': model_info.price,
+                                'stock_type': 'limit',
+                                'stocks': model_info.stocks,
+                                'weight': model_info.weight,
+                                'is_standard': False})
+        weapp_models_info.append(temp_model_info)
+    return weapp_models_info

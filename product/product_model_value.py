@@ -14,6 +14,8 @@ from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
 from core import paginator
+from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
 
 from util import db_util
 from resource import models as resource_models
@@ -24,6 +26,8 @@ from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
 import requests
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+
 
 class ProductModelValue(resource.Resource):
 	app = 'product'
@@ -36,14 +40,37 @@ class ProductModelValue(resource.Resource):
 		response = create_response(500)
 		try:
 			if model_id!=0:
-				models.ProductModelPropertyValue.objects.create(
+				db_model = models.ProductModelPropertyValue.objects.create(
 					property_id = model_id,
 					name = model_value,
 					pic_url = path
 				)
-				response = create_response(200)
+
+				relation = models.ProductModelPropertyRelation.objects.filter(model_property_id=model_id).first()
+				if relation:
+					if not path.startswith('http'):
+						path = 'http://chaozhi.weizoom.com' + path
+					params = {
+						'id': relation.weapp_property_id,
+						'name': model_value,
+						'pic_url': path
+					}
+					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+						'resource': 'mall.model_property_value',
+						'data': params
+					})
+					if not resp or not resp.get('code') == 200:
+						response = create_response(500)
+					else:
+						weapp_data = resp.get('data').get('product_model_value')
+						models.ProductModelPropertyValueRelation.objects.create(property_value_id=db_model.id,
+																				weapp_property_value_id=weapp_data.get('id'))
+						response = create_response(200)
 		except:
-			response.innerErrMsg = unicode_full_stack()
+			msg = unicode_full_stack()
+			response.innerErrMsg = msg
+			watchdog.error(msg)
+
 		return response.get_response()
 
 	def api_delete(request):
@@ -53,6 +80,19 @@ class ProductModelValue(resource.Resource):
 			if value_id!=0:
 				models.ProductModelPropertyValue.objects.filter(id=value_id).delete()
 				response = create_response(200)
+				relation = models.ProductModelPropertyValueRelation.objects.filter(property_value_id=value_id).first()
+				if relation:
+					params = {
+						'id': relation.weapp_property_value_id,
+					}
+					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
+						'resource': 'mall.model_property_value',
+						'data': params
+					})
+					if not resp or not resp.get('code') == 200:
+						response = create_response(500)
 		except:
-			response.innerErrMsg = unicode_full_stack()
+			msg = unicode_full_stack()
+			response.innerErrMsg = msg
+			watchdog.error(msg)
 		return response.get_response()
