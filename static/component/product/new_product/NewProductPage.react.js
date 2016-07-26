@@ -35,6 +35,8 @@ var NewProductPage = React.createClass({
 
 	productPreview: function(){
 		var product = Store.getData();
+		console.log(this.state.model_values,"==========");
+		var model_values = this.state.model_values;
 		var is_true = this.validateProduct();
 		if(product.images.length == 0){
 			Reactman.PageAction.showHint('error', '请先上传图片！');
@@ -48,7 +50,8 @@ var NewProductPage = React.createClass({
 			title: "商品预览",
 			component: ProductPreviewDialog,
 			data: {
-				product: product
+				product: product,
+				model_values: model_values
 			},
 			success: function(inputData, dialogState) {
 				console.log("success");
@@ -124,6 +127,8 @@ var NewProductPage = React.createClass({
 
 		var model_values = this.state.model_values;
 		var has_product_model = this.state.has_product_model;
+		product['has_product_model'] = this.state.has_product_model;
+		console.log(has_product_model,"==========");
 		if(has_product_model==='1' && model_values.length==0){
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;

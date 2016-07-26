@@ -33,6 +33,7 @@
 	margin: 0 auto;
 	margin-top: 10px;
 	padding-top: 8px;
+    border-top: 1px solid #CCC;
 }
 
 .product-choose, .product-name-price, .product-introduce{
@@ -44,6 +45,9 @@
     margin-top: 10px;
 	padding-top: 5px;
     height: 40px;
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    padding-right: 40px;
 }
 
 .product-introduce{
@@ -56,7 +60,7 @@
 .product-introduce .title{
     display: inline-block;
     width: 600px;
-    border-bottom: 1px solid #CCC;
+    /*border-bottom: 1px solid #CCC;*/
 	padding-top: 8px;
 	font-size: 16px;
 }
