@@ -35,6 +35,7 @@ class NewProduct(resource.Resource):
 		"""
 		#获取业务数据
 		product_id = request.GET.get('id', None)
+		second_level_id = request.GET.get('second_level_id', 0)
 		jsons = {'items':[]}
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		if product_id:
@@ -103,6 +104,7 @@ class NewProduct(resource.Resource):
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
 			'jsons': jsons,
+			'second_level_id': second_level_id,
 			'role': role
 		})
 		return render_to_response('product/new_product.html', c)
@@ -122,6 +124,8 @@ class NewProduct(resource.Resource):
 		remark = post.get('remark','')
 		images = post.get('images','')
 		has_product_model = int(post.get('has_product_model',0))
+		second_level_id = int(post.get('second_level_id',0))
+		print second_level_id,"========="
 		model_values = post.get('model_values','')
 		if not product_price:
 			product_price = -1
@@ -142,6 +146,7 @@ class NewProduct(resource.Resource):
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
 					has_product_model = has_product_model,
+					category_id = second_level_id,
 					remark = remark
 				)
 			else:
@@ -156,6 +161,7 @@ class NewProduct(resource.Resource):
 					has_limit_time = has_limit_time,
 					limit_clear_price = limit_clear_price,
 					has_product_model = has_product_model,
+					category_id = second_level_id,
 					remark = remark
 				)
 
@@ -170,9 +176,9 @@ class NewProduct(resource.Resource):
 				for model_value in model_values:
 					model_Id = model_value.get('modelId',0)
 					propertyValues = model_value.get('propertyValues',[])
-					price = model_value.get('product_price_'+model_Id,0)
-					limit_clear_price = model_value.get('limit_clear_price_'+model_Id,0)
-					market_price = model_value.get('clear_price_'+model_Id,0)
+					price = model_value.get('product_price_'+model_Id,0)#售价
+					limit_clear_price = model_value.get('limit_clear_price_'+model_Id,0)#限时结算价
+					market_price = model_value.get('clear_price_'+model_Id,0)#结算价
 					weight = model_value.get('product_weight_'+model_Id,0)
 					stocks = model_value.get('product_store_'+model_Id,0)
 					user_code = model_value.get('product_code_'+model_Id,0)

@@ -9,7 +9,7 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var Store = require('./Store');
+var Store = require('./CategoryStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./CategoryStyle.css');
@@ -19,7 +19,8 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		Store.addListener(this.onChangeStore);
 		return {
 			'first_levels': Store.getCategory().first_levels,
-			'second_levels': Store.getCategory().second_levels
+			'second_levels': Store.getCategory().second_levels,
+			'second_id': Store.getCategory().second_id
 		};
 	},
 
@@ -29,44 +30,70 @@ var AddProductCategoryDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		console.log(Store.getCategory(),"====444==");
 		this.setState({
 			first_levels: Store.getCategory()['first_levels'],
-			second_levels: Store.getCategory()['second_levels']
+			second_levels: Store.getCategory()['second_levels'],
+			second_id: Store.getCategory()['second_id']
 		});
 	},
 
-	chooseSecondLevel: function(first_id){
+	changeSecondLevel: function(first_id){
 		console.log(first_id)
-		Action.chooseSecondLevel(first_id);
+		Action.changeSecondLevel(first_id);
+	},
+
+	chooseSecondLevel: function(second_id){
+		console.log(second_id)
+		Action.chooseSecondLevel(second_id);
+	},
+
+	addProduct: function(){
+		var second_id = this.state.second_id;
+		if(second_id==0){
+			Reactman.PageAction.showHint('error', '请选择商品分类！');
+			return;
+		}
+		W.gotoPage('/product/new_product/?second_level_id='+second_id);
 	},
 
 	render:function(){
 		var first_levels = this.state.first_levels;
 		var _this = this;
-		console.log(first_levels,"====3333===");
 		var second_levels = this.state.second_levels;
 		var first_levels_list = '';
 		var second_level_list = '';
 		if(first_levels){
 			first_levels_list = first_levels.map(function(first_level,index){
-				var style = {};
-				style['style'] = {}
+				var bg_style = {};
+				bg_style['bg_style'] = {}
+				bg_style['c_style'] = {}
 				if(first_level.is_choose==1){
-					style['style'] = {background: '#AAD7FD'};
+					bg_style['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
+					bg_style['c_style'] = {color:'#FFF'};
+				}else{
+					bg_style['c_style'] = {color:'#000'};
 				}
 				return(
-						<li key={index} style={style['style']}>
-							<a href='javascript:void(0);' style={{color:'#FFF'}} onClick={_this.chooseSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
+						<li key={index} style={bg_style['bg_style']}>
+							<a href='javascript:void(0);' style={bg_style['c_style']} onClick={_this.changeSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
 						</li>
 					)
 				});
 		}
 		if(second_levels){
 			second_level_list = second_levels.map(function(second_level,index){
+				var bg_style = {};
+				bg_style['bg_style'] = {}
+				bg_style['c_style'] = {}
+				if(second_level.is_choose==1){
+					bg_style['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
+					bg_style['c_style'] = {color:'#FFF'};
+				}else{
+					bg_style['c_style'] = {color:'#000'};
+				}
 				return(
-					<li key={index} style={{color:'#FFF'}}>
-						<a href='javascript:void(0);' style={{color:'#FFF'}}>{second_level.name}</a>
+					<li key={index} style={bg_style['bg_style']}>
+						<a href='javascript:void(0);' style={bg_style['c_style']} onClick={_this.chooseSecondLevel.bind(null,second_level.id)}>{second_level.name}</a>
 					</li>
 				)
 			});
@@ -78,9 +105,11 @@ var AddProductCategoryDialog = Reactman.createDialog({
 				<ul className='category-ul'>
 					{first_levels_list}
 				</ul>
+				<div id="demo"></div>
 				<ul className='category-ul'>
 					{second_level_list}
 				</ul>
+				<a href="javascript:void(0);" className="btn btn-success edit-product" onClick={this.addProduct}>下一步，编辑商品</a>
 			</div>
 		)
 	}

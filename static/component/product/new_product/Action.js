@@ -30,7 +30,8 @@ var Action = {
 			images: JSON.stringify(data['images']),
 			remark: data['remark'],
 			has_product_model: data['has_product_model'],
-			model_values: model_values
+			model_values: model_values,
+			second_level_id: data['second_level_id']
 		};
 		if (data.id === -1) {
 			Resource.put({
