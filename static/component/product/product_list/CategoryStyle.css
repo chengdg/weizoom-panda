@@ -5,9 +5,11 @@
 	border: 1px solid #D4D3D3;
 	box-shadow: 1px 1px #D4D3D3;
 	margin-left: 40px;
+	overflow-y:auto;
 }
 .category-ul li{
 	margin-top: 5px;
+    padding-left: 5px;
 }
 
 .modal-footer{
@@ -49,4 +51,11 @@
 	border-width: 14px;
 	border-left-color: #CCC;
 	top: -5px
+}
+
+.erow{
+	position: relative;
+	display: inline-block;
+	top: -137px;
+	width: 90px
 }

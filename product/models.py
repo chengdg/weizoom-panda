@@ -23,7 +23,8 @@ class Product(models.Model):
 	has_limit_time = models.BooleanField(default=False)  #限时结算价是否需要 有效范期
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
 	has_product_model = models.BooleanField(default=False) #是否是多规格商品
-	category_id = models.IntegerField(default=0) #所属分类id 
+	catalog_id = models.IntegerField(default=0) #所属分类id
+	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):
 		db_table = 'product_product'

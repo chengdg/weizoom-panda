@@ -105,8 +105,8 @@ var AddProductCategoryDialog = Reactman.createDialog({
 				<ul className='category-ul'>
 					{first_levels_list}
 				</ul>
-				<div id="demo"></div>
-				<ul className='category-ul'>
+				<div className="erow"><div id="demo"></div></div>
+				<ul className='category-ul' style={{marginLeft:'0px'}}>
 					{second_level_list}
 				</ul>
 				<a href="javascript:void(0);" className="btn btn-success edit-product" onClick={this.addProduct}>下一步，编辑商品</a>

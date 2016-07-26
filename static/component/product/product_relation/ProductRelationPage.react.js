@@ -39,18 +39,10 @@ var ProductRelationPage = React.createClass({
 		for(var k=0;k<=obj.length-1;k++){
 			var has_relation = true;
 			if(obj[k]['checked']){
-				// for(var index in self_user_name){
-				// 	if (self_user_name[index] == obj[k].value){
-				// 		has_relation = false;
-				// 	}
-				// }
-				// if(has_relation){
-				// 	check_val.push(obj[k].value);
-				// }
 				check_val.push(obj[k].value);
 			}
 		}
-		console.log(check_val,"=========");
+
 		if (check_val.length==0){
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 			return;
@@ -83,15 +75,7 @@ var ProductRelationPage = React.createClass({
 			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
 			var w_l_checked = self_user_name.toString().indexOf('weizoom_life')>-1?'checked':null;
 			var w_y_checked = self_user_name.toString().indexOf('weizoom_yjr')>-1?'checked':null;
-			// var w_b_disabled = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'disabled':'';
-			// var w_c_disabled = self_user_name.toString().indexOf('weizoom_club')>-1?'disabled':'';
-			// var w_j_disabled = self_user_name.toString().indexOf('weizoom_jia')>-1?'disabled':'';
-			// var w_m_disabled = self_user_name.toString().indexOf('weizoom_mama')>-1?'disabled':'';
-			// var w_s_disabled = self_user_name.toString().indexOf('weizoom_shop')>-1?'disabled':'';
-			// var w_x_disabled = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'disabled':'';
-			var cancleChecked = function(){
 
-			}
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>

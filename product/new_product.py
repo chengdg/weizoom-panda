@@ -146,7 +146,7 @@ class NewProduct(resource.Resource):
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
 					has_product_model = has_product_model,
-					category_id = second_level_id,
+					catalog_id = second_level_id,
 					remark = remark
 				)
 			else:
@@ -161,7 +161,7 @@ class NewProduct(resource.Resource):
 					has_limit_time = has_limit_time,
 					limit_clear_price = limit_clear_price,
 					has_product_model = has_product_model,
-					category_id = second_level_id,
+					catalog_id = second_level_id,
 					remark = remark
 				)
 
