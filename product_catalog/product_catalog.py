@@ -122,8 +122,13 @@ class ProductCatalog(resource.Resource):
 		try:
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
 			if catalog.father_catalog != -1:
-				#二级分类可以直接删除
-				catalog.delete()
+				#二级分类
+				if product_models.Product.objects.filter(catalog_id=catalog_id).count() > 0:
+					response = create_response(500)
+					response.errMsg = u'该分类正在被使用，请先将商品调整分类后再删除分类'
+					return response.get_response()
+				else:
+					catalog.delete()
 			else:
 				if product_catalog_models.ProductCatalog.objects.filter(father_catalog=catalog.id).count() > 0:
 					response = create_response(500)
