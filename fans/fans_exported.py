@@ -26,9 +26,9 @@ class FansExported(resource.Resource):
 		table.append(titles)
 		for fan in fans:
 			table.append([
-				fan['name'],
-				fan['purchasing_index'],
-				fan['spread_index']
+				fan.name,
+				fan.purchasing_index,
+				fan.spread_index
 			])
 
 		return ExcelResponse(table,output_name=u'粉丝投放统计列表'.encode('utf8'),force_csv=False)
