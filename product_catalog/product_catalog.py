@@ -48,15 +48,18 @@ class ProductCatalog(resource.Resource):
 		rows = []
 		for catalog in all_first_catalogs:
 			second_catalogs = []
+			total_products_number = 0
 			belong_second_catalogs = all_second_catalogs.filter(father_catalog=catalog.id)
 			for belong_second_catalog in belong_second_catalogs:
+				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
+				total_products_number += products_number
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
 					'father_catalog': belong_second_catalog.father_catalog,
 					'catalog_name': belong_second_catalog.catalog_name,
 					'note': belong_second_catalog.note,
 					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-					'products_number': 0
+					'products_number': products_number
 				})
 			rows.append({
 				'id': catalog.id,
@@ -64,7 +67,7 @@ class ProductCatalog(resource.Resource):
 				'catalog_name': catalog.catalog_name,
 				'note': catalog.note,
 				'created_at': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-				'products_number': 0,
+				'products_number': total_products_number,
 				'second_catalogs': json.dumps(second_catalogs)
 			})
 		data = {

@@ -83,11 +83,15 @@ var ProductCatalogPage = React.createClass({
 			var second_catalogs = JSON.parse(data['second_catalogs'])
 			if(second_catalogs.length>0){
 				var catalogs = second_catalogs.map(function(catalog,index){
+					var catalog_id = catalog['id'];
+					var src = '/product/product_relation/?second_catalog_id='+catalog_id;
 				return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
 							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '44%',height: '50px'}}>{catalog.catalog_name} </div>
 							<div className="xui-expand-row-info" style={{display: 'inline'}}>创建时间：{catalog.created_at}</div>
-							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>商品数：{catalog.products_number} </div>
+							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>
+								商品数：<a href={src} target="_blank">{catalog.products_number}</a>
+							</div>
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
@@ -106,10 +110,11 @@ var ProductCatalogPage = React.createClass({
 				)
 			}
 			
-		}else if(field === 'catalog_name'){
-			var class_name = 'data-' +data['id'];
+		}else if(field === 'products_number'){
+			var catalog_id = data['id'];
+			var src = '/product/product_relation/?first_catalog_id='+catalog_id;
 			return (
-				<a href="javascript:void(0);" onClick={this.showSecondCatalogs.bind(this,class_name)}>{value}</a>
+				<a href={src} target="_blank">{value}</a>
 			)
 		}else if(field === 'action'){
 			return (
@@ -118,6 +123,11 @@ var ProductCatalogPage = React.createClass({
 					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-id={data.id}>删除</a>
 				</div>
 			);
+		}else if(field === 'catalog_name'){
+			var class_name = 'data-' +data['id'];
+			return (
+				<a href="javascript:void(0);" onClick={this.showSecondCatalogs.bind(this,class_name)}>{value}</a>
+			)
 		}else{
 			return value;
 		}
