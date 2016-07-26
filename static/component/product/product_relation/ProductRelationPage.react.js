@@ -130,7 +130,9 @@ var ProductRelationPage = React.createClass({
 		var productsResource = {
 			resource: 'product.product_relation',
 			data: {
-				page: 1
+				page: 1,
+				first_catalog_id: W.first_catalog_id,
+				second_catalog_id: W.second_catalog_id
 			}
 		};
 
