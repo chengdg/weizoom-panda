@@ -128,7 +128,7 @@ var NewProductPage = React.createClass({
 		var model_values = this.state.model_values;
 		var has_product_model = this.state.has_product_model;
 		product['has_product_model'] = this.state.has_product_model;
-		console.log(has_product_model,"==========");
+		
 		if(has_product_model==='1' && model_values.length==0){
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;

@@ -140,7 +140,6 @@ class NewProduct(resource.Resource):
 		images = post.get('images','')
 		has_product_model = int(post.get('has_product_model',0))
 		second_level_id = int(post.get('second_level_id',0))
-		print has_product_model,"========="
 		model_values = post.get('model_values','')
 		if not product_price:
 			product_price = -1
@@ -243,10 +242,9 @@ class NewProduct(resource.Resource):
 		product_store = post.get('product_store',0)
 		product_store_type = int(post.get('product_store_type',-1))
 		has_product_model = int(post.get('has_product_model',0))
-		print has_product_model,"====="
 		model_values = post.get('model_values','')
-		if product_store_type == -1:
-			product_store = -1
+		# if product_store_type == -1:
+		# 	product_store = -1
 		if not limit_clear_price:
 			limit_clear_price = -1
 		if not product_price:
