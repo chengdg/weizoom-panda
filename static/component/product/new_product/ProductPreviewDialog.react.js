@@ -27,12 +27,17 @@ var ProductPreviewDialog = Reactman.createDialog({
 	onBeforeCloseDialog: function(){
 		this.closeDialog();
 	},
-	
+
 	render:function(){
 		var path = this.state.images[0].path;
 		var img_count = this.state.images.length;
 		var remark = this.state.remark;
 		var model_values = this.props.data.model_values;
+		var product = this.props.data.product;
+		var clear_prices = '';
+		var modelId = model_values[0].modelId;
+		clear_prices = product['clear_price_'+modelId];
+
 		var propertyValues = model_values[0].propertyValues;
 		var names=[]
 		_.each(propertyValues, function(values) {
@@ -50,7 +55,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 						<span className="product-collect-title">收藏</span>
 						<span className="product-name">{this.state.product_name}</span>
 						<span className="product-promotion-title">{this.state.promotion_title}</span>
-						<span className="product-price">￥{this.state.clear_price}</span>
+						<span className="product-price">￥{clear_prices}</span>
 					</div>
 					<div className="product-choose">
 						<span className='choose-count'>选择规格</span>

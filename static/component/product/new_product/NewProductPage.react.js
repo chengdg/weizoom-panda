@@ -155,7 +155,6 @@ var NewProductPage = React.createClass({
 			model['clear_price_'+model.modelId] = product['clear_price_'+model.modelId]
 			model['product_weight_'+model.modelId] = product['product_weight_'+model.modelId]
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
-			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
 			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==2){

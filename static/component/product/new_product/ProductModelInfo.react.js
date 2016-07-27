@@ -104,9 +104,6 @@ var ProductModelInfo = React.createClass({
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
 					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_code_"+model.modelId} value={_this.state["product_code_"+model.modelId]} onChange={_this.props.onChange} />
-					</td>
 					<td className="show-active">
 						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
 					</td>
@@ -167,7 +164,6 @@ var ProductModelInfo = React.createClass({
 									<th>商品售价(元)</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
-									<th>商品编码</th>
 									<th>操作</th>
 								</tr>
 							</thead>
