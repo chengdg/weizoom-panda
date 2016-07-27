@@ -37,7 +37,7 @@ var lookProductModelDetail = React.createClass({
 			})
 
 			return(
-				<tr key={index} ref={model.modelId}>
+				<tr key={index} ref={model.modelId} className="model-detail-tr">
 					{td}
 					<td>
 						{_this.state["clear_price_"+model.modelId]}
@@ -60,7 +60,7 @@ var lookProductModelDetail = React.createClass({
 		return(
 			<div>
 				<div>
-					<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginBottom:'10px'}}>
+					<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginBottom:'20px'}}>
 						<thead>
 							<tr>
 								{th}

@@ -104,7 +104,7 @@ def getProductData(request,is_export):
 	#组装数据
 	#判断多规格
 	model_properties = models.ProductModel.objects.filter(owner=request.user)
-	product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
+	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
 	for model_property in model_properties:
 		if model_property.product_id not in product_id2market_price:
@@ -118,11 +118,10 @@ def getProductData(request,is_export):
 		image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
 		product_has_model = 0
-		if product.id in product_id2name:
-			name = product_id2name[product.id]
-			product_has_model = len(name.split('_'))
+		if product.id in product_id2market_price:
 			market_prices = product_id2market_price[product.id]
 			market_prices = sorted(market_prices)
+			product_has_model = len(market_prices)
 			if (market_prices[0]!= market_prices[-1]) and len(market_prices)>1:
 				clear_price = ('%s ~ %s')%(market_prices[0],market_prices[-1])
 			else:
