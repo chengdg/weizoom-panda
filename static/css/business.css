@@ -1,0 +1,135 @@
+html.login-page {
+	background: url(/static/img/logo/logo.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover; /*for webKit*/
+    -moz-background-size: cover; /*Mozilla*/
+    -o-background-size: cover; /*opera*/
+    background-size: cover; /*generic*/
+}
+
+
+.relative {position: relative;}
+.errorHint {color: #CC0000;}
+
+.blue {color: #0088CC;}
+.red {color: #CC0000;}
+.gray {color: #888888;}
+.green{color:green;}
+.wx-sortableTableHead {
+	cursor: pointer;
+}
+
+#spin {
+	float: left;
+	height: 80px;
+	width: 100px;
+}
+
+
+#spin-wrapper {
+	background-color: #888;
+	opacity: 0.8;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow:    2px 2px 5px rgba(0, 0, 0, 0.75);
+	box-shadow:         2px 2px 5px rgba(0, 0, 0, 0.75);
+	color: #FFF;
+	display: none;
+	font-size: 14px;
+	height: 120px;
+	left: 50%;
+	position: fixed;
+	margin-left: -60px;
+	top: 200px;
+	width: 120px;
+	z-index: 10000;
+	padding: 10px;
+}
+
+/********************************************************************************
+ * 商家入驻页面样式
+ *******************************************************************************/
+#topbar {
+	width: 100%;
+	height: 100px;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	-moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	box-shadow: 0 2px 3px rgba(0,0,0,.25);
+}
+
+#global-nav {
+    height: 100px;
+    width: 100%;
+    position: relative;
+    background-color: #FFFFFF;
+    font-size: 1.8em;
+    background: url("/static/img/business_logo.png");
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    margin-left: 140px;
+}
+
+#weixin-logo {
+	width: 680px;
+	height: 40px;
+	line-height: 40px;
+	position: absolute;
+	left: 150px;
+	top: 15px;
+	font-size: 1.2em;
+	font-family: '微软雅黑';
+}
+
+#top-action-bar {
+	font-size: 14px;
+	text-align: right;
+	margin-right: 1px;
+	padding-top: 20px;
+	color: #EFEFEF;
+}
+
+#top-action-bar a:link, #top-action-bar a:visited {
+	color: white;
+	text-decoration: no-underline;
+	color: #EFEFEF;
+}
+.xa-pageContainer{
+    margin-top: 10px;
+}
+.business_apply_from{
+    margin-top: 40px;
+}
+select {
+    min-width: 85px;
+}
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px!important;
+    direction: ltr;
+    cursor: pointer;
+}
+.fileinput-button {
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+#apply_page_2 .form-group{
+	display: inline-block;
+	margin-left: 16%;
+}
+#apply_page_2{
+	display: inline;
+}
+.page2_help_info{
+    padding-bottom: 250px;
+    padding-top: 30px;
+}

@@ -1,0 +1,159 @@
+{% extends "business_apply_base.html" %}
+
+{% block content %}
+<div class="xa-pageContainer">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" id="page1" class="active"><a href="#">企业基本信息</a></li>
+        <li role="presentation" id="page2" ><a href="#">基本资质文件</a></li>
+        <li role="presentation" id="page3" ><a href="#">入驻类目/特殊资质提交</a></li>
+        <li role="presentation" id="page4" ><a href="#">等待审核</a></li>
+    </ul>
+    <div class="business_apply_from">
+        <form class="form-horizontal" id="apply_page_1">
+          <div class="form-group">
+            <label for="company_type" class="col-sm-4 control-label"><em>*</em>企业类型：</label>
+            <div class="col-sm-4">
+                <label class="radio-inline">
+                  <input type="radio" name="company_type" id="company_type1" value="direct">厂家直销
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="company_type" id="company_type2" value="agency" checked>代理/贸易/分销
+                </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_name" class="col-sm-4 control-label"><em>*</em>公司名称：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="company_name" id="company_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_money" class="col-sm-4 control-label">注册资本：</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" name="company_money" id="company_money">
+            </div><p style="padding-top: 7px;">万元</p>
+          </div>
+          <div class="form-group">
+            <label for="legal_representative" class="col-sm-4 control-label">法人代表：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="legal_representative" id="legal_representative">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contacter" class="col-sm-4 control-label"><em>*</em>联系人：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="contacter" id="contacter">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-sm-4 control-label"><em>*</em>手机号：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="phone" id="phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="e_mail" class="col-sm-4 control-label">E-mail：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="e_mail" id="e_mail">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="we_chat_and_qq" class="col-sm-4 control-label">微信/QQ：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="we_chat_and_qq" id="we_chat_and_qq">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_location" class="col-sm-4 control-label"><em>*</em>公司所在地：</label>
+            <div class="col-sm-4">
+                <div id="company_location" name="company_location">
+                    <select class="prov"></select> 
+                    <select class="city" disabled="disabled"></select>
+                    <select class="dist" disabled="disabled"></select>
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address" class="col-sm-4 control-label"><em>*</em>详细地址：</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="address" id="address">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-6 col-sm-4">
+              <button type="button" class="btn btn-primary" onclick="goToPage2();">下一步</button>
+            </div>
+          </div>
+        </form>
+        <form id="apply_page_2" style="display:none">
+          <div class="form-group">
+            <label for="business_license">营业执照</label>
+            <div class="btn btn-primary fileinput-button"><span>上传</span>
+                <input type="file" id="business_license">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tax_registration_certificate">税务登记证</label>
+            <div class="btn btn-primary fileinput-button"><span>上传</span>
+                <input type="file" id="tax_registration_certificate">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="organization_code_certificate">组织机构代码证</label>
+            <div class="btn btn-primary fileinput-button"><span>上传</span>
+                <input type="file" id="organization_code_certificate">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="account_opening_license">开户许可证</label>
+            <div class="btn btn-primary fileinput-button"><span>上传</span>
+                <input type="file" id="account_opening_license">
+            </div>
+          </div>
+          <div class="col-sm-offset-3 page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="form-group_btn">
+            <div class="col-sm-offset-5 col-sm-4">
+                <button type="button" class="btn btn-primary" onclick="goToPage1();">上一步</button>
+                <button type="button" class="btn btn-primary" onclick="goToPage3();">下一步</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        //三级联动省市区
+        $("#company_location").citySelect();
+
+    });
+    function goToPage1(){
+        $("#page2").removeClass('active');
+        $("#apply_page_2").hide();
+        $("#apply_page_1").show();
+    }
+    function goToPage2(){
+        $("#page2").addClass('active');
+        $("#apply_page_1").hide();
+        $("#apply_page_2").show();
+    }
+    function savePage(){
+        console.log($('#apply_page_1').serialize());
+        // $.ajax({
+        //     url:'/account/api/create_sales/',
+        //     type:'post',
+        //     data:$('#create_form').serialize(),
+        //     success:function(resp){
+        //         $('#cancle_creating').click();
+        //         location.href = '/account/list_sales/';
+        //     },
+        //     error:function(){
+        //         console.log('sales_create_fail');
+        //     }
+        // });
+    }
+</script>
+{% endblock %}
