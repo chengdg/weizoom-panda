@@ -59,7 +59,7 @@ class ProductRelation(resource.Resource):
         data['code'] = 500
         data['errMsg'] = u'关联失败'
         try:
-            print ('+++++++++++++++++product_data', product_data)
+            # print ('+++++++++++++++++product_data', product_data)
             if product_data:
                 # 当前平台的的供应商账户（账户id)
                 # 获取当前供货商的对应的weapp供货商的id
@@ -129,6 +129,8 @@ class ProductRelation(resource.Resource):
                                 if product.has_limit_time:
                                     # TODO 同步限时抢购
                                     pass
+                                data['code'] = 200
+                                data['errMsg'] = u'关联成功'
 
                     else:
                         relation = relations.first()
@@ -161,9 +163,8 @@ class ProductRelation(resource.Resource):
                                                                               self_user_name=username)
                                                for username in weizoom_self]
                                 models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
-
-                data['code'] = 200
-                data['errMsg'] = u'关联成功'
+                                data['code'] = 200
+                                data['errMsg'] = u'关联成功'
 
         except:
             msg = unicode_full_stack()
@@ -191,7 +192,7 @@ def get_weapp_model_properties(product=None):
     """
     weapp_models_info = []
     models_info = models.ProductModel.objects.filter(product_id=product.id)
-    print '=========================================', product
+    # print '=========================================', product
     for model_info in models_info:
         name = model_info.name
         single_model_properties = name.split('_')
