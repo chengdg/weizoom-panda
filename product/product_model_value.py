@@ -48,7 +48,10 @@ class ProductModelValue(resource.Resource):
 
 				relation = models.ProductModelPropertyRelation.objects.filter(model_property_id=model_id).first()
 				if relation:
-					if not path.startswith('http'):
+					# 获取规格是图片还是文字
+					# model_property = models.ProductModelProperty.objects.get(id=model_id)
+
+					if path and not path.startswith('http'):
 						path = 'http://chaozhi.weizoom.com' + path
 					params = {
 						'id': relation.weapp_property_id,

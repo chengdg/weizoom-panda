@@ -396,11 +396,19 @@ class YunyingOrdersList(resource.Resource):
 						user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
 					# print supplier.store_name, '------------------------------------------------'
 					# weapp_owner_id = order.get('owner_id')
+					# 规格信息
+					product_models = order['products'][0].get('custom_model_properties')
+					model_info = ''
+					if product_models:
+						model_info = [p_model.get('property_value') for p_model in product_models]
+						if model_info:
+							model_info = u'('+ '/'.join(model_info) + u')'
+
 					rows.append({'total_purchase_price': order.get('total_purchase_price'),
 								 'order_id': order.get('order_id'),
 								 'from_mall': [order.get('store_name')],
 								 'order_status': order_status2text.get(order.get('status')),
-								 'product_name': order.get('products')[0].get('name', '')
+								 'product_name': order.get('products')[0].get('name', '') + model_info
 												 + u',' + str(order.get('products')[0].get('count', 0)) + u'件' ,
 								 'customer_name': [user_profile.name if user_profile else '']})
 				# print rows, '------------------------------------------------'
