@@ -54,7 +54,7 @@ var AddProductModelDialog = Reactman.createDialog({
 			var _this = this;
 			var value_ids = this.state.value_ids;
 			var model_name = data['model_name'];
-			var model_name_li ='11111';
+			var model_name_li ='暂无规格值';
 			if(model_name){
 				model_name_li = JSON.parse(model_name).map(function(model,index){
 					var value_id = model['id'];
