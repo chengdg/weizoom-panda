@@ -227,7 +227,7 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
-elif 'test' == MODE or 'deploy' == MODE:
+elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
