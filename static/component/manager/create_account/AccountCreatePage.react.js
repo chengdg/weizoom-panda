@@ -44,13 +44,13 @@ var AccountCreatePage = React.createClass({
 		var account = Store.getData();
 		var account_type = parseInt(account.account_type);
 		var purchase_method = parseInt(account.purchase_method);
-		var reg = /^(0|[1-9]|[1-9]\d|99)(\.\d{1,2}|\.{0})$/;
+		var reg = /^(0|[1-9]|[1-9]\d|99)$/;
 		var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 		var reg_username = /^[0-9a-zA-Z]*$/g;
 
 		if(account_type ==1 && purchase_method == 2 &&account.hasOwnProperty('points') && account.points.length>0){
 			if((parseFloat(account.points.trim())==0) || !reg.test(account.points.trim())){
-				Reactman.PageAction.showHint('error', '零售价返点数字需在0.01-99.99之间');
+				Reactman.PageAction.showHint('error', '零售价返点数字需在1-99之间的整数');
 				return;
 			}
 		}
