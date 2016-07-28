@@ -87,10 +87,23 @@
         </form>
         <form id="apply_page_2" style="display:none">
           <div class="form-group">
+            <img class="wui-upload-img wa-upload-img" src="{{cur_player_info.icon}}" style="display:block">
             <label for="business_license">营业执照</label>
-            <div class="btn btn-primary fileinput-button"><span>上传</span>
-                <input type="file" id="business_license">
+
+            <div>
+                <span class="btn btn-primary fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>上传</span>
+                    <input id="business_license" type="file" name="business_license" class="xa-uploader" />
+                </span>
+                <div id="progress" class="progress mt5 xa-progress xui-hide">
+                    <div class="progress-bar progress-bar-success xa-bar"></div>
+                </div>
             </div>
+            <!-- <div class="btn btn-primary fileinput-button"> -->
+            <!-- <span>上传</span>
+                <input type="file" id="business_license" name="business_license" class="xa-uploader">
+            </div> -->
           </div>
           <div class="form-group">
             <label for="tax_registration_certificate">税务登记证</label>
@@ -125,9 +138,108 @@
 {% block js %}
 <script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function() {
         //三级联动省市区
         $("#company_location").citySelect();
+        $('.xa-uploader').click(function(event){
+
+            var $el = $(event.target);
+            var $progress = $el.find('.xa-progress');
+            var _this = this;
+            console.log($el.find('.xa-uploader'));
+            $el.find('.xa-uploader').fileupload({
+                url: '/resource/document/?_method=put',
+                type: 'POST',
+                dataType: 'json',
+                start: function(e, data) {
+                    $progress.show();
+                },
+                done: function (e, data) {
+                    var responseData = data.result.data;
+                    _this.onUploadFileSuccess({
+                        id: responseData.id,
+                        type: responseData.type,
+                        name: responseData.name,
+                        path: responseData.path
+                    });
+                },
+                fail: function (e, data) {
+
+                },
+                complete: function(e, data) {
+                    _.delay(function() {
+                        $progress.hide();
+                    }, 50);
+                },
+                progressall: function(e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $progress.find('.xa-bar').css('width', progress+'%');
+                }
+            });
+        });
+        //初始化上传组件参数
+        // var swf = '/static/uploadify.swf',
+        //     overrideEvents = ['onError', 'onUploadSuccess'],
+        //     multi = false,
+        //     removeCompleted = false,
+        //     uploader = '/business/upload_img/',
+        //     cancelImg = '/static/img/cancel.png',
+        //     buttonText = '上传',
+        //     fileTypeExts = '*.jpg;*.png',
+        //     method = 'post',
+        //     removeTimeout = 0.0,
+        //     width = 100,
+        //     height = 80,
+        //     formData = {},
+        //     onError = function(errorType,file) {
+        //         xlog(errorType);
+        //         xlog(file.name);
+        //     };
+        // 初始化上传组件
+        // $("#business_license").uploadify({
+        //     overrideEvents: overrideEvents,
+        //     swf: swf,
+        //     width: width,
+        //     height: height,
+        //     multi: multi,
+        //     removeCompleted: removeCompleted,
+        //     uploader: uploader,
+        //     cancelImg: cancelImg,
+        //     buttonText: buttonText,
+        //     fileTypeDesc: '上传',
+        //     fileTypeExts: fileTypeExts,
+        //     method: method,
+        //     removeTimeout: removeTimeout,
+        //     formData: $.extend(formData, {
+        //         'cat': 'business_license'
+        //     }),
+        //     onUploadStart: function(file){
+        //         if(file && (file.name.substring(file.name.length - 3,file.name.length) == 'jpg' || file.name.substring(file.name.length - 3,file.name.length) == 'png')){}else{
+        //             W.showHint('error', '请上传jpg和png类型的图片');
+        //             $("#business_license").uploadify('cancel', '*');
+        //             $("#business_license").uploadify('stop');
+        //         }
+        //     },
+        //     onUploadSuccess : function(file, response, status) {
+        //         response = JSON.parse(response);
+        //         if(response.code == 200){
+        //             console.log(response.data);
+        //             $('.wa-upload-img').attr('src',response.data).show().css('display','inline-block');
+        //             $('.wui-upload-info').hide();
+        //             $('#swipe_images-button').css('opacity',0);
+        //         }else{
+        //              W.showHint('error', response.errMsg);
+        //         }
+        //     },
+        //     onSelect: function(file) {
+        //         var $queues = $('#swipe_images-queue').children();
+        //         if($queues.length > 1){
+        //             $queues.eq(0).remove();
+        //         }
+        //     },
+        //     onError: onError
+        // });
 
     });
     function goToPage1(){
@@ -155,5 +267,39 @@
         //     }
         // });
     }
+    // function uploadImg(event){
+    //     var $el = $(event.target);
+    //     var $progress = $el.find('.xa-progress');
+    //     var _this = this;
+    //     $el.find('.xa-uploader').fileupload({
+    //         url: '/resource/document/?_method=put',
+    //         type: 'POST',
+    //         dataType: 'json',
+    //         start: function(e, data) {
+    //             $progress.show();
+    //         },
+    //         done: function (e, data) {
+    //             var responseData = data.result.data;
+    //             _this.onUploadFileSuccess({
+    //                 id: responseData.id,
+    //                 type: responseData.type,
+    //                 name: responseData.name,
+    //                 path: responseData.path
+    //             });
+    //         },
+    //         fail: function (e, data) {
+
+    //         },
+    //         complete: function(e, data) {
+    //             _.delay(function() {
+    //                 $progress.hide();
+    //             }, 50);
+    //         },
+    //         progressall: function(e, data) {
+    //             var progress = parseInt(data.loaded / data.total * 100, 10);
+    //             $progress.find('.xa-bar').css('width', progress+'%');
+    //         }
+    //     });
+    // }
 </script>
 {% endblock %}
