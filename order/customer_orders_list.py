@@ -181,8 +181,16 @@ class CustomerOrdersList(resource.Resource):
 					}
 				params.update(filter_params)
 				# try:
-				r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
-				res = json.loads(r.text)
+				# r = requests.post(ZEUS_HOST+'/panda/order_list_by_supplier/',data=params)
+				# res = json.loads(r.text)
+
+				# params.update(filter_params)
+				res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
+					{
+						'resource': 'panda.order_export_by_supplier',
+						'data': params
+					}
+				)
 				if res['code'] == 200:
 					orders = res['data']['orders']
 				else:
