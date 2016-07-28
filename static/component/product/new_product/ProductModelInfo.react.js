@@ -78,7 +78,9 @@ var ProductModelInfo = React.createClass({
 			if(W.purchase_method==2){
 				var product_price = _this.state["product_price_"+model.modelId];
 				if(product_price){
-					_this.state["clear_price_"+model.modelId] = ((1-W.points/100)*parseFloat(product_price)).toFixed(2);
+					var points = 1-(W.points/100);
+					var product_price = parseFloat(product_price);
+					_this.state["clear_price_"+model.modelId] = (Math.round(points*product_price*100)/100).toFixed(2);
 				}
 			}
 			return(
@@ -104,6 +106,15 @@ var ProductModelInfo = React.createClass({
 
 		})
 		if (model_type == '0'){
+			if(W.purchase_method==2){
+				var product_price = this.state["product_price"];
+				if(product_price){
+					var points = 1-(W.points/100);
+					var product_price = parseFloat(product_price);
+					var clear_price = (Math.round(product_price*points*100)/100).toFixed(2)
+					this.state["clear_price"] = clear_price;
+				}
+			}
 			return(
 				<div className="product_info_fieldset">
 					<Reactman.FormInput label="商品售价:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} validate="require-float"/>
