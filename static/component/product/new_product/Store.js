@@ -20,7 +20,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateProduct': Constant.NEW_PRODUCT_UPDATE_PRODUCT,
 		'handleCreateNewProduct': Constant.NEW_PRODUCT_CREATE,
-		// 'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
+		'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
 		'handleSaveProductAddModel': Constant.SAVE_PRODUCT_MODEL_VALUE,
 		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
 		'handleCancleValidataTIME': Constant.CANCLE_VALIDATA_TIME
@@ -190,14 +190,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var headers = data[0];
 		var models = data[1];
 
-		this.data['model_values']= models;
-		this.data['model_names']= headers;
 		if(action.data.rows.length>3){
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', '最多添加三种规格,请重新选择规格');
 			}, 10);
 			return;
 		}else{
+			this.data['model_values']= models;
+			this.data['model_names']= headers;
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('success', '添加成功!');
 			}, 10);
