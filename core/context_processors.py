@@ -14,12 +14,14 @@ def top_navs(request):
 				'displayName': '商品',
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
-			},{
-				'name': 'fans',
-				'displayName': '粉丝投放',
-				'icon': 'list-alt',
-				'href': '/fans/fans/'
-			},{
+			},
+			# {
+			# 	'name': 'fans',
+			# 	'displayName': '粉丝投放',
+			# 	'icon': 'list-alt',
+			# 	'href': '/fans/fans/'
+			# },
+			{
 				'name': 'order',
 				'displayName': '订单',
 				'icon': 'list-alt',
@@ -88,11 +90,6 @@ def top_navs(request):
 				'href': '/order/yunying_orders_list/'
 			},
 			# {
-			# 	'name': 'fans',
-			# 	'displayName': '粉丝投放',
-			# 	'icon': 'cog',
-			# 	'href': '#'
-			# }, {
 			# 	'name': 'reconcile',
 			# 	'displayName': '对账',
 			# 	'icon': 'cog',
@@ -116,19 +113,7 @@ def top_navs(request):
 			'displayName': '订单',
 			'icon': 'list-alt',
 			'href': '/order/yunying_orders_list/'
-		}
-		# ,  {
-		# 	'name': 'fans',
-		# 	'displayName': '粉丝投放',
-		# 	'icon': 'cog',
-		# 	'href': '#'
-		# }, {
-		# 	'name': 'reconcile',
-		# 	'displayName': '对账',
-		# 	'icon': 'cog',
-		# 	'href': '#'
-		# }
-		, {
+		}, {
 			'name': 'manager',
 			'displayName': '账号管理',
 			'icon': 'cog',
