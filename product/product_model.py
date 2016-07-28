@@ -216,19 +216,28 @@ class ProductModel(resource.Resource):
 		model_id = request.POST.get('model_id', 0)
 		response = create_response(500)
 		try:
-
 			if model_id != 0:
 				models.ProductModelProperty.objects.filter(id=model_id).update(is_deleted=True)
 				models.ProductModelPropertyValue.objects.filter(property_id=model_id).update(is_deleted=True)
 				has_properrty_values = models.ProductModelHasPropertyValue.objects.filter(property_id=model_id)
 				model_ids = [has_properrty_value.model_id for has_properrty_value in has_properrty_values]
-				models.ProductModel.objects.filter(id__in=model_ids).update(
+				product_models = models.ProductModel.objects.filter(id__in=model_ids)
+				product_ids = [product_model.product_id for product_model in product_models]
+				product_models.update(
 					stocks= 0,
 					price= 0,
 					market_price= 0,
 					weight= 0,
-					limit_clear_price= 0
+					limit_clear_price= 0,
+					is_deleted=True
 				)
+				models.Product.objects.filter(id__in=product_ids).update(
+					product_price= 0,
+					clear_price= 0,
+					product_store= 0,
+					product_weight= 0
+				)
+				has_properrty_values.delete()
 				response = create_response(200)
 				# 调用zeus接口
 				db_model = models.ProductModelPropertyRelation.objects.filter(model_property_id=model_id).first()

@@ -20,7 +20,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateProduct': Constant.NEW_PRODUCT_UPDATE_PRODUCT,
 		'handleCreateNewProduct': Constant.NEW_PRODUCT_CREATE,
-		'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
+		// 'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
 		'handleSaveProductAddModel': Constant.SAVE_PRODUCT_MODEL_VALUE,
 		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
 		'handleCancleValidataTIME': Constant.CANCLE_VALIDATA_TIME

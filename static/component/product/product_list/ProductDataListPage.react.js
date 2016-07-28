@@ -84,7 +84,7 @@ var ProductDataListPage = React.createClass({
 			var product_has_model = data['product_has_model'];
 			var img = <img className="product-img" src={data['image_path']} style={{width:'60px',height:'60px',marginRight:'10px'}}></img>
 			var isModel = data['is_model'];
-			console.log(isModel);
+			console.log(isModel,product_has_model);
 			if(role == 3){
 				if(product_has_model>0){
 					return(

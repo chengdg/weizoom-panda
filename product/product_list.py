@@ -104,7 +104,7 @@ def getProductData(request,is_export):
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 	#组装数据
 	#判断多规格
-	model_properties = models.ProductModel.objects.filter(owner=request.user)
+	model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
 	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
 	for model_property in model_properties:

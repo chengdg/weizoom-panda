@@ -10,6 +10,7 @@ var ReactDOM = require('react-dom');
 var Reactman = require('reactman');
 
 var Store = require('./Store');
+var Store = require('./AddProductModelDialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./modelDialogStyle.css');
