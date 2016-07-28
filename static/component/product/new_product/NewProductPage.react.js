@@ -82,39 +82,45 @@ var NewProductPage = React.createClass({
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_limit_time = parseInt(product.has_limit_time[0]);
-		if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
-			if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
-				Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
-				return;
-			}
-		}
+		// if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
+		// 	if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
+		// 		Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
+		// 		return;
+		// 	}
+		// }
 		if(product.hasOwnProperty('product_price') && product.product_price.length>0){
 			if(!reg_2.test(product.product_price.trim())){
 				Reactman.PageAction.showHint('error', '商品价格是数字且保留两位小数,请重新输入!');
 				return;
 			}
 		}
-		if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
-			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
+		console.log(product.clear_price,product.product_price)
+		console.log(product.clear_price>product.product_price)
+		if(parseFloat(product.clear_price) > parseFloat(product.product_price)){
+			Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 			return;
 		}
-		if(has_limit_time ==1 && ((product.hasOwnProperty('valid_time_from') && product.valid_time_from.length<=0) 
-			|| (product.hasOwnProperty('valid_time_to')&& product.valid_time_to.length<=0))){
-			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
-			return;
-		}
-		if(has_limit_time ==1 && product.hasOwnProperty('valid_time_from') && product.hasOwnProperty('valid_time_to') && (product.valid_time_from>product.valid_time_to)){
-			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
-			return;
-		}
-		if(has_limit_time ==1 && (!product.hasOwnProperty('limit_clear_price') || product.limit_clear_price.length<=0) ){
-			Reactman.PageAction.showHint('error', '请填写限时结算价!');
-			return;
-		}
-		if(product.hasOwnProperty('limit_clear_price') && parseFloat(product.limit_clear_price)>parseFloat(product.clear_price)){
-			Reactman.PageAction.showHint('error', '限时结算价不能大于结算价,请重新输入!');
-			return;
-		}
+		// if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
+		// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
+		// 	return;
+		// }
+		// if(has_limit_time ==1 && ((product.hasOwnProperty('valid_time_from') && product.valid_time_from.length<=0) 
+		// 	|| (product.hasOwnProperty('valid_time_to')&& product.valid_time_to.length<=0))){
+		// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
+		// 	return;
+		// }
+		// if(has_limit_time ==1 && product.hasOwnProperty('valid_time_from') && product.hasOwnProperty('valid_time_to') && (product.valid_time_from>product.valid_time_to)){
+		// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
+		// 	return;
+		// }
+		// if(has_limit_time ==1 && (!product.hasOwnProperty('limit_clear_price') || product.limit_clear_price.length<=0) ){
+		// 	Reactman.PageAction.showHint('error', '请填写限时结算价!');
+		// 	return;
+		// }
+		// if(product.hasOwnProperty('limit_clear_price') && parseFloat(product.limit_clear_price)>parseFloat(product.clear_price)){
+		// 	Reactman.PageAction.showHint('error', '限时结算价不能大于结算价,请重新输入!');
+		// 	return;
+		// }
 		if(product.product_name.length > 30 || (product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30)){
 			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 			return;
@@ -132,31 +138,38 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;
 		}
-		// var is_true = false;
-		// if(has_product_model==='1'){
-		// 	_.each(model_values, function(model) {
-		// 		var time_from = product['valid_time_from_'+model.modelId]
-		// 		var time_to = product['valid_time_to_'+model.modelId]
-		// 		if(time_from>time_to){
-		// 			is_true = true;
-		// 			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
-		// 			return;
-		// 		}
-		// 		if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-		// 			is_true = true;
-		// 			Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-		// 			return;
-		// 		}
-		// 		if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-		// 			is_true = true;
-		// 			Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-		// 			return;
-		// 		}
-		// 	})
-		// }
-		// if(is_true){
-		// 	return false;
-		// }
+		var is_true = false;
+		if(has_product_model==='1'){
+			_.each(model_values, function(model) {
+				var clear_price = product['clear_price_'+model.modelId];
+				var product_price = product['product_price_'+model.modelId];
+				// var time_from = product['valid_time_from_'+model.modelId]
+				// var time_to = product['valid_time_to_'+model.modelId]
+				// if(time_from>time_to){
+				// 	is_true = true;
+				// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
+				// 	return;
+				// }
+				// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
+				// 	is_true = true;
+				// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+				// 	return;
+				// }
+				// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
+				// 	is_true = true;
+				// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+				// 	return;
+				// }
+				if(parseFloat(clear_price) > parseFloat(product_price)){
+					is_true = true;
+					Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+					return;
+				}
+			})
+		}
+		if(is_true){
+			return false;
+		}
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
@@ -173,7 +186,7 @@ var NewProductPage = React.createClass({
 			}
 		})
 		model_values = model_values.length>0?JSON.stringify(model_values):''
-		Action.saveNewProduct(product,model_values);
+		// Action.saveNewProduct(product,model_values);
 	},
 
 	render:function(){

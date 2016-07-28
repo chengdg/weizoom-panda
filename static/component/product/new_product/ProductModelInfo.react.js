@@ -127,17 +127,6 @@ var ProductModelInfo = React.createClass({
 						元
 					</span>
 					<div></div>
-					<Reactman.FormInput label="限时结算价:" type="text" readonly={disabled} name="limit_clear_price" value={this.state.limit_clear_price} onChange={this.props.onChange}/>
-					<span className="limit_money_note">
-						元
-					</span>
-					<Reactman.FormCheckbox label="" name="has_limit_time" value={this.state.has_limit_time} options={optionsForCheckbox} onChange={this.props.onChange} />
-					<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" value={this.state.valid_time_from} readOnly onChange={this.props.onChange} />
-					<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.state.valid_time_to} readOnly onChange={this.props.onChange} />
-					<span className="limit_money_note_tips">
-						(注:如有让利活动推广时,可设置限时结算价,则优惠期间产生的订单按限时结算价统计账单)
-					</span>
-					<div></div>
 					<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
 					<span className="money_note">
 						Kg

@@ -177,7 +177,8 @@ def getProductData(request,is_export):
 			'sales': '%s' %sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
-			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+			'is_model': product.has_product_model,
+			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S')
 		})
 	if is_export:
 		return rows

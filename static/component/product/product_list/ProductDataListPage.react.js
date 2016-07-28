@@ -83,13 +83,15 @@ var ProductDataListPage = React.createClass({
 			var role = data['role'];
 			var product_has_model = data['product_has_model'];
 			var img = <img className="product-img" src={data['image_path']} style={{width:'60px',height:'60px',marginRight:'10px'}}></img>
+			var isModel = data['is_model'];
+			console.log(isModel);
 			if(role == 3){
 				if(product_has_model>0){
 					return(
 						<span className="product-name">
 							{img}
 							<a title={value} href={'/product/new_product/?id='+data.id}>{value}</a>
-							<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a> 
+							{isModel==true?<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a>:''} 
 						</span>
 					)
 				}else{
@@ -107,7 +109,7 @@ var ProductDataListPage = React.createClass({
 						<span className="product-name">
 							{img}
 							<a title={value} style={{cursor:'default',textDecoration:'none'}}>{value}</a>
-							<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a> 
+							{isModel==true?<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a>:''} 
 						</span>
 					)
 				}else{
