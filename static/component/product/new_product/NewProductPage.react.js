@@ -149,11 +149,19 @@ var NewProductPage = React.createClass({
 					if(product_price){
 						var points = 1-(W.points/100);
 						var product_price = parseFloat(product_price);
-						var  clear_price= (Math.round(points*product_price*100)/100).toFixed(2);
+						var clear_price= (Math.round(points*product_price*100)/100).toFixed(2);
 					}
 					if(parseFloat(clear_price) > parseFloat(product_price)){
 						is_true = true;
-						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,11请重新输入!');
+						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+						return;
+					}
+				}else{
+					var product_price = product['product_price_'+model.modelId];
+					var clear_price = product['clear_price_'+model.modelId];
+					if(parseFloat(clear_price) > parseFloat(product_price)){
+						is_true = true;
+						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 						return;
 					}
 				}
