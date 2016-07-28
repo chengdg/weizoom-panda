@@ -81,25 +81,28 @@ var NewProductPage = React.createClass({
 		product['second_level_id'] = W.second_level_id;
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
-		var has_limit_time = parseInt(product.has_limit_time[0]);
+		// var has_limit_time = parseInt(product.has_limit_time[0]);
 		// if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
 		// 	if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
 		// 		Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
 		// 		return;
 		// 	}
 		// }
-		if(product.hasOwnProperty('product_price') && product.product_price.length>0){
-			if(!reg_2.test(product.product_price.trim())){
-				Reactman.PageAction.showHint('error', '商品价格是数字且保留两位小数,请重新输入!');
+		if(has_product_model==='0'){
+			if(product.hasOwnProperty('product_price') && product.product_price.length>0){
+				if(!reg_2.test(product.product_price.trim())){
+					Reactman.PageAction.showHint('error', '商品售价是数字且保留两位小数,请重新输入!');
+					return;
+				}
+			}
+			console.log(product.clear_price,product.product_price)
+			console.log(product.clear_price>product.product_price)
+			if(parseFloat(product.clear_price) > parseFloat(product.product_price)){
+				Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 				return;
 			}
 		}
-		console.log(product.clear_price,product.product_price)
-		console.log(product.clear_price>product.product_price)
-		if(parseFloat(product.clear_price) > parseFloat(product.product_price)){
-			Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-			return;
-		}
+		
 		// if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
 		// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
 		// 	return;
@@ -141,8 +144,19 @@ var NewProductPage = React.createClass({
 		var is_true = false;
 		if(has_product_model==='1'){
 			_.each(model_values, function(model) {
-				var clear_price = product['clear_price_'+model.modelId];
-				var product_price = product['product_price_'+model.modelId];
+				if(W.purchase_method==2){
+					var product_price = product['product_price_'+model.modelId];
+					if(product_price){
+						var points = 1-(W.points/100);
+						var product_price = parseFloat(product_price);
+						var  clear_price= (Math.round(points*product_price*100)/100).toFixed(2);
+					}
+					if(parseFloat(clear_price) > parseFloat(product_price)){
+						is_true = true;
+						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,11请重新输入!');
+						return;
+					}
+				}
 				// var time_from = product['valid_time_from_'+model.modelId]
 				// var time_to = product['valid_time_to_'+model.modelId]
 				// if(time_from>time_to){
@@ -160,11 +174,6 @@ var NewProductPage = React.createClass({
 				// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
 				// 	return;
 				// }
-				if(parseFloat(clear_price) > parseFloat(product_price)){
-					is_true = true;
-					Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-					return;
-				}
 			})
 		}
 		if(is_true){

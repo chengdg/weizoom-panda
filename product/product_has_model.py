@@ -34,43 +34,8 @@ class ProductHasModel(resource.Resource):
 		value_ids = request.GET.get('value_ids',[])
 		if value_ids:
 			value_ids = value_ids.split(',')
-		print value_ids,"--------------"
-		product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
+		product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids, is_deleted=False)
 		rows = get_product_model_property_values(product_model_property_values)
-		# property_ids = []
-		# for product_model_property_value in product_model_property_values:
-		# 	if product_model_property_value.property_id not in property_ids:
-		# 		property_ids.append(product_model_property_value.property_id)
-		# product_model_properties = models.ProductModelProperty.objects.filter(id__in=property_ids)
-
-		# property_id2model_property_value = {}
-		# for model_property_value in product_model_property_values:
-		# 	if model_property_value.property_id not in property_id2model_property_value:
-		# 		property_id2model_property_value[model_property_value.property_id] = [{
-		# 			'name': model_property_value.name,
-		# 			'pic_url': model_property_value.pic_url,
-		# 			'id': model_property_value.id
-		# 		}]
-		# 	else:
-		# 		property_id2model_property_value[model_property_value.property_id].append({
-		# 			'name': model_property_value.name,
-		# 			'pic_url': model_property_value.pic_url,
-		# 			'id': model_property_value.id
-		# 		})
-
-		# rows = []
-		
-		# for product_model_property in product_model_properties:
-		# 	product_model_value = ''
-		# 	if product_model_property.id in property_id2model_property_value:			
-		# 		product_model_value = property_id2model_property_value[product_model_property.id]
-		# 	rows.append({
-		# 		'id': product_model_property.id,
-		# 		'product_model_name': product_model_property.name,
-		# 		'model_type': product_model_property.type,
-		# 		'product_model_value': '' if not product_model_value else json.dumps(product_model_value),
-		# 	})
-
 		data = {
 			'rows': rows
 		}
