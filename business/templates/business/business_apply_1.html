@@ -85,9 +85,11 @@
             </div>
           </div>
         </form>
+
+        <!-- 第二页 -->
         <form id="apply_page_2" style="display:none">
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img" src="" style="display:block">
+            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
             <label for="business_license">营业执照</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -98,28 +100,109 @@
             </div>
           </div>
           <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
             <label for="tax_registration_certificate">税务登记证</label>
-            <div class="btn btn-primary fileinput-button"><span>上传</span>
-                <input type="file" id="tax_registration_certificate">
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="tax_registration_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
           </div>
           <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
             <label for="organization_code_certificate">组织机构代码证</label>
-            <div class="btn btn-primary fileinput-button"><span>上传</span>
-                <input type="file" id="organization_code_certificate">
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="organization_code_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
           </div>
           <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
             <label for="account_opening_license">开户许可证</label>
-            <div class="btn btn-primary fileinput-button"><span>上传</span>
-                <input type="file" id="account_opening_license">
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
           </div>
-          <div class="col-sm-offset-3 page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
                 <button type="button" class="btn btn-primary" onclick="goToPage1();">上一步</button>
                 <button type="button" class="btn btn-primary" onclick="goToPage3();">下一步</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第三页 -->
+        <form id="apply_page_3" style="display:none">
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
+            <label for="business_license">品牌授权书</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="business_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
+            <label for="tax_registration_certificate">税务登记证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="tax_registration_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
+            <label for="organization_code_certificate">组织机构代码证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="organization_code_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
+            <label for="account_opening_license">开户许可证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
+            <label for="account_opening_license">开户许可证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div id="progress" class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+          </div>
+          <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="form-group_btn">
+            <div class="col-sm-offset-5 col-sm-4">
+                <button type="button" class="btn btn-primary" onclick="goToPage2();">上一步</button>
+                <button type="button" class="btn btn-primary" onclick="goToPage4();">下一步</button>
             </div>
           </div>
         </form>
@@ -135,43 +218,34 @@
         //三级联动省市区
         $("#company_location").citySelect();
 
+        //上传图片
         $('.xa-uploader').click(function(event){
-            var $el = $(event.target);
-            var $progress = $el.find('.xa-progress');
-            console.log($progress);
-            // var _this = this;
-            console.log($(event.target).parents("div").find(".wa-upload-img"));
-            $("#business_license").fileupload({
+            // $(event.target).parent().parent().find('.wa-upload-img').hide();
+            $(event.target).fileupload({
                 url: '/resource/image/?_method=put',
                 type: 'POST',
                 dataType: 'json',
                 start: function(e, data) {
-                    $progress.show();
+                    $(event.target).parent().parent().find('.xa-progress').show();
                 },
                 done: function (e, data) {
                     var responseData = data.result.data;
-                    // _this.onUploadFileSuccess({
-                    //     id: responseData.id,
-                    //     type: responseData.type,
-                    //     name: responseData.name,
-                    //     path: responseData.path
-                    // });
-                    console.log(responseData);
-                    console.log(responseData.path);
-                    $(".wa-upload-img").attr('src',responseData.path)
+                    var class_name = $(event.target).attr("id");
+                    class_name = '.wa-upload-img-'+class_name
+                    $(class_name).attr('src',responseData.path);
                 },
                 fail: function (e, data) {
 
                 },
                 complete: function(e, data) {
                     console.log("complete");
-                    // _.delay(function() {
-                    //     $progress.hide();
-                    // }, 50);
+                    _.delay(function() {
+                        $(event.target).parent().parent().find('.xa-progress').hide();
+                    }, 50);
                 },
                 progressall: function(e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $progress.find('.xa-bar').css('width', progress+'%');
+                    $(event.target).parent().parent().find('.xa-progress').find('.xa-bar').css('width', progress+'%');
                 }
             });
         });
@@ -182,6 +256,19 @@
         $("#apply_page_1").show();
     }
     function goToPage2(){
+        $("#page2").addClass('active');
+        $("#page3").removeClass('active');
+        $("#apply_page_1").hide();
+        $("#apply_page_2").show();
+        $("#apply_page_3").hide();
+    }
+    function goToPage3(){
+        $("#page3").addClass('active');
+        $("#apply_page_1").hide();
+        $("#apply_page_2").hide();
+        $("#apply_page_3").show();
+    }
+    function goToPage4(){
         $("#page2").addClass('active');
         $("#apply_page_1").hide();
         $("#apply_page_2").show();

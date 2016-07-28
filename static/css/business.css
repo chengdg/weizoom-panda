@@ -63,7 +63,6 @@ html.login-page {
 
 #global-nav {
     height: 100px;
-    width: 100%;
     position: relative;
     background-color: #FFFFFF;
     font-size: 1.8em;
@@ -100,6 +99,10 @@ html.login-page {
 .xa-pageContainer{
     margin-top: 10px;
 }
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: -15px;
+}
 .business_apply_from{
     margin-top: 40px;
 }
@@ -124,7 +127,12 @@ select {
 }
 #apply_page_2 .form-group{
 	display: inline-block;
-	margin-left: 16%;
+	margin-left: 13%;
+	text-align: center;
+}
+#apply_page_3 .form-group{
+	display: inline-block;
+	margin-left: 9%;
 	text-align: center;
 }
 #apply_page_2{
@@ -133,6 +141,7 @@ select {
 .page2_help_info{
     padding-bottom: 250px;
     padding-top: 30px;
+    text-align: center;
 }
 img.wui-upload-img {
     width: 100px;
