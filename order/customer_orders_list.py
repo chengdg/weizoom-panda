@@ -191,7 +191,7 @@ class CustomerOrdersList(resource.Resource):
 						'data': params
 					}
 				)
-				if res['code'] == 200:
+				if res and res['code'] == 200:
 					orders = res['data']['orders']
 				else:
 					print(res)
