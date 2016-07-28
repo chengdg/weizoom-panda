@@ -42,7 +42,6 @@ var ProductModelInfo = React.createClass({
 	},
 
 	setValidataTime: function(modelId){
-		console.log(modelId);
 		Reactman.PageAction.showDialog({
 			title: "设置限时结算价有效期",
 			component: SetValidataTimeDialog,
@@ -64,7 +63,6 @@ var ProductModelInfo = React.createClass({
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
-
 		var model_value_tr = model_values.map(function(model,index){
 			var td = model.propertyValues.map(function(value,index){
 				return(

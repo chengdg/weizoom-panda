@@ -27,6 +27,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	init: function() {
+		var _this = this;
 		this.data = Reactman.loadJSON('product');
 		this.model_value = {}	
 		if (this.data) {
@@ -39,8 +40,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				dataIntArr.push(+data);
 			});
 			this.data['value_ids'] = dataIntArr;
+			//组织数据结构
 			var organize_data = this.organizeData(JSON.parse(this.data['model_values']));
-			this.data['model_values'] = organize_data[1];
+			//判断这个规格存不存在
+			var model_values = _.filter(organize_data[1], function(customModel) {
+				var product_price = 'product_price_'+ customModel.modelId;
+				return _this.data[product_price] !== undefined;
+			});
+
+			this.data['model_values'] = model_values;
 			this.data['model_names'] = organize_data[0];
 		} else {
 			this.data = {
@@ -213,7 +221,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				this_customModels_value_id.push(customModel.id)
 			})
 		})
-
 		for(var i in delete_customModels){
 			var propertyValues = delete_customModels[i].propertyValues;
 			for(var j in propertyValues){
