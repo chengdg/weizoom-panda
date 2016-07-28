@@ -186,7 +186,7 @@ var NewProductPage = React.createClass({
 			}
 		})
 		model_values = model_values.length>0?JSON.stringify(model_values):''
-		// Action.saveNewProduct(product,model_values);
+		Action.saveNewProduct(product,model_values);
 	},
 
 	render:function(){
