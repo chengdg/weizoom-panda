@@ -106,9 +106,6 @@ html.login-page {
 .business_apply_from{
     margin-top: 40px;
 }
-select {
-    min-width: 85px;
-}
 .fileinput-button input {
     position: absolute;
     top: 0;
@@ -127,12 +124,12 @@ select {
 }
 #apply_page_2 .form-group{
 	display: inline-block;
-	margin-left: 13%;
+	margin-left: 9%;
 	text-align: center;
 }
 #apply_page_3 .form-group{
 	display: inline-block;
-	margin-left: 9%;
+	margin-left: 6%;
 	text-align: center;
 }
 #apply_page_2{
@@ -146,4 +143,34 @@ select {
 img.wui-upload-img {
     width: 100px;
     height: 100px;
+    margin-left: 26px;
+}
+.xui-datePicker {
+	line-height: 24px;
+    width: 160px !important;
+    background: url(/static/img/calendar.jpg) no-repeat !important;
+    background-position: right !important;
+    background-color: #f2f2f2 !important;
+    display: block;
+}
+.ui-timepicker-div{
+    width:100%;
+    height:30px;
+}
+.ui-timepicker-div dl dt,
+.ui-timepicker-div dl dd{
+    width:50px;
+    height:15px;
+    float:left;
+    line-height:2;
+    text-align: center;
+}
+.ui_tpicker_time{
+    display:none;
+}
+.ui-timepicker-div dl dt:first-child{
+   display:none;
+}
+.xui-datePicker {
+    margin-top: 25px;
 }

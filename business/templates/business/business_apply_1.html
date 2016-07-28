@@ -98,6 +98,7 @@
             <div id="progress" class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
             <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
@@ -109,6 +110,7 @@
             <div id="progress" class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
             <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
@@ -249,6 +251,65 @@
                 }
             });
         });
+
+        //时间控件
+        $('.xa-datePicker').click(function(event){
+            var currentIdName = $(event.target).attr("id");
+            currentIdName = '#'+currentIdName;
+            console.log(currentIdName);
+            var min = 'now';
+            var max = null;
+            var useMaxTime = false;
+            var date = new Date();
+            var dateStr = date.getFullYear() +'-' + (date.getMonth()+1) + '-' + date.getDate() +' ';
+            var time = "00:00";
+            if (useMaxTime){
+                time = "23:59";
+            }
+            var options = {
+                defaultValue: dateStr + time,
+                buttonText: '选择日期',
+                currentText: '当前时间',
+                hourText: "小时",
+                minuteText: "分钟",
+                numberOfMonths: 1,
+                dateFormat: "yy-mm-dd",
+                timeFormat: 'HH:mm',
+                closeText: '确定',
+                prevText: '&#x3c;上月',
+                nextText: '下月&#x3e;',
+                monthNames: ['一月','二月','三月','四月','五月','六月',
+                    '七月','八月','九月','十月','十一月','十二月'],
+                monthNamesShort: ['一','二','三','四','五','六',
+                    '七','八','九','十','十一','十二'],
+                dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+                dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+                dayNamesMin: ['日','一','二','三','四','五','六'],
+                beforeShow: function(input) {
+                    if(min === 'now') {
+                        $(this).datetimepicker('option', 'minDate', new Date());
+                    }else if (min){
+                        $(this).datetimepicker('option', 'minDate', min);
+                    }
+
+                    if(max === 'now') {
+                        $(this).datetimepicker('option', 'maxDate', new Date());
+                    }else if(max){
+                        $(this).datetimepicker('option', 'maxDate', max);
+                    }
+                },
+                onSelect: function(dateText, inst) {
+                    var event = {target:$(currentIdName).get(0)};
+                    // changeHandler(dateText, event);
+                },
+                onClose: function(dateText, inst) {
+                    var event = {target:$(currentIdName).get(0)};
+                    // changeHandler(dateText, event);
+                }
+            };
+            $(currentIdName).datetimepicker(options);
+        });
+
     });
     function goToPage1(){
         $("#page2").removeClass('active');
