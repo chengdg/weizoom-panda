@@ -148,61 +148,14 @@
         <!-- 第三页 -->
         <form id="apply_page_3" style="display:none">
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
-            <label for="business_license">品牌授权书</label>
-            <span class="btn btn-primary fileinput-button">
-                <span>上传</span>
-                <input id="business_license" type="file" name="image" class="xa-uploader" />
-            </span>
-            <div id="progress" class="progress mt5 xa-progress xui-hide">
-                <div class="progress-bar progress-bar-success xa-bar"></div>
+            <div class="wareSort clearfix">
+                <ul id="sort1"></ul>
+                <ul id="sort2" style="display: none;"></ul>
+                <ul id="sort3" style="display: none;"></ul>
             </div>
+            <div class="selectedSort"><b>您当前选择的商品类别是：</b><i id="selectedSort"></i></div>
           </div>
-          <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
-            <label for="tax_registration_certificate">税务登记证</label>
-            <span class="btn btn-primary fileinput-button">
-                <span>上传</span>
-                <input id="tax_registration_certificate" type="file" name="image" class="xa-uploader" />
-            </span>
-            <div id="progress" class="progress mt5 xa-progress xui-hide">
-                <div class="progress-bar progress-bar-success xa-bar"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
-            <label for="organization_code_certificate">组织机构代码证</label>
-            <span class="btn btn-primary fileinput-button">
-                <span>上传</span>
-                <input id="organization_code_certificate" type="file" name="image" class="xa-uploader" />
-            </span>
-            <div id="progress" class="progress mt5 xa-progress xui-hide">
-                <div class="progress-bar progress-bar-success xa-bar"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
-            <label for="account_opening_license">开户许可证</label>
-            <span class="btn btn-primary fileinput-button">
-                <span>上传</span>
-                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
-            </span>
-            <div id="progress" class="progress mt5 xa-progress xui-hide">
-                <div class="progress-bar progress-bar-success xa-bar"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
-            <label for="account_opening_license">开户许可证</label>
-            <span class="btn btn-primary fileinput-button">
-                <span>上传</span>
-                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
-            </span>
-            <div id="progress" class="progress mt5 xa-progress xui-hide">
-                <div class="progress-bar progress-bar-success xa-bar"></div>
-            </div>
-          </div>
-          <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
                 <button type="button" class="btn btn-primary" onclick="goToPage2();">上一步</button>
@@ -216,6 +169,7 @@
 
 {% block js %}
 <script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
+<script type="text/javascript" src="/static/js/jquery.sort.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function() {
@@ -224,7 +178,6 @@
 
         //上传图片
         $('.xa-uploader').click(function(event){
-            // $(event.target).parent().parent().find('.wa-upload-img').hide();
             $(event.target).fileupload({
                 url: '/resource/image/?_method=put',
                 type: 'POST',
@@ -255,63 +208,64 @@
         });
 
         //时间控件
-        $('.xa-datePicker').click(function(event){
-            var currentIdName = $(event.target).attr("id");
-            currentIdName = '#'+currentIdName;
-            console.log(currentIdName);
-            var min = 'now';
-            var max = null;
-            var useMaxTime = false;
-            var date = new Date();
-            var dateStr = date.getFullYear() +'-' + (date.getMonth()+1) + '-' + date.getDate() +' ';
-            var time = "00:00";
-            if (useMaxTime){
-                time = "23:59";
-            }
-            var options = {
-                defaultValue: dateStr + time,
-                buttonText: '选择日期',
-                currentText: '当前时间',
-                hourText: "小时",
-                minuteText: "分钟",
-                numberOfMonths: 1,
-                dateFormat: "yy-mm-dd",
-                timeFormat: 'HH:mm',
-                closeText: '确定',
-                prevText: '&#x3c;上月',
-                nextText: '下月&#x3e;',
-                monthNames: ['一月','二月','三月','四月','五月','六月',
-                    '七月','八月','九月','十月','十一月','十二月'],
-                monthNamesShort: ['一','二','三','四','五','六',
-                    '七','八','九','十','十一','十二'],
-                dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
-                dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
-                dayNamesMin: ['日','一','二','三','四','五','六'],
-                beforeShow: function(input) {
-                    if(min === 'now') {
-                        $(this).datetimepicker('option', 'minDate', new Date());
-                    }else if (min){
-                        $(this).datetimepicker('option', 'minDate', min);
-                    }
-
-                    if(max === 'now') {
-                        $(this).datetimepicker('option', 'maxDate', new Date());
-                    }else if(max){
-                        $(this).datetimepicker('option', 'maxDate', max);
-                    }
-                },
-                onSelect: function(dateText, inst) {
-                    var event = {target:$(currentIdName).get(0)};
-                    // changeHandler(dateText, event);
-                },
-                onClose: function(dateText, inst) {
-                    var event = {target:$(currentIdName).get(0)};
-                    // changeHandler(dateText, event);
+        var min = 'now';
+        var max = null;
+        var useMaxTime = false;
+        var date = new Date();
+        var dateStr = date.getFullYear() +'-' + (date.getMonth()+1) + '-' + date.getDate() +' ';
+        var time = "00:00";
+        if (useMaxTime){
+            time = "23:59";
+        }
+        var options = {
+            defaultValue: dateStr + time,
+            buttonText: '选择日期',
+            currentText: '当前时间',
+            hourText: "小时",
+            minuteText: "分钟",
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            timeFormat: 'HH:mm',
+            closeText: '确定',
+            prevText: '&#x3c;上月',
+            nextText: '下月&#x3e;',
+            monthNames: ['一月','二月','三月','四月','五月','六月',
+                '七月','八月','九月','十月','十一月','十二月'],
+            monthNamesShort: ['一','二','三','四','五','六',
+                '七','八','九','十','十一','十二'],
+            dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+            dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            beforeShow: function(input) {
+                if(min === 'now') {
+                    $(this).datetimepicker('option', 'minDate', new Date());
+                }else if (min){
+                    $(this).datetimepicker('option', 'minDate', min);
                 }
-            };
-            $(currentIdName).datetimepicker(options);
-        });
 
+                if(max === 'now') {
+                    $(this).datetimepicker('option', 'maxDate', new Date());
+                }else if(max){
+                    $(this).datetimepicker('option', 'maxDate', max);
+                }
+            },
+            onSelect: function(dateText, inst) {
+                var event = {target:$("#datetimepicker-business_license").get(0)};
+                var event = {target:$("#datetimepicker-tax_registration_certificate").get(0)};
+                var event = {target:$("#datetimepicker-organization_code_certificate").get(0)};
+                var event = {target:$("#datetimepicker-account_opening_license").get(0)};
+            },
+            onClose: function(dateText, inst) {
+                var event = {target:$("#datetimepicker-business_license").get(0)};
+                var event = {target:$("#datetimepicker-tax_registration_certificate").get(0)};
+                var event = {target:$("#datetimepicker-organization_code_certificate").get(0)};
+                var event = {target:$("#datetimepicker-account_opening_license").get(0)};
+            }
+        };
+        $("#datetimepicker-business_license").datetimepicker(options);
+        $("#datetimepicker-tax_registration_certificate").datetimepicker(options);
+        $("#datetimepicker-organization_code_certificate").datetimepicker(options);
+        $("#datetimepicker-account_opening_license").datetimepicker(options);
     });
     function goToPage1(){
         $("#page2").removeClass('active');
