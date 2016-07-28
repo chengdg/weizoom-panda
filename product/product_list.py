@@ -13,13 +13,14 @@ from django.contrib import auth
 from core import resource
 from core.jsonresponse import create_response
 from core import paginator
+from eaglet.utils.resource_client import Resource
 
 from util import db_util
 from resource import models as resource_models
 from product_catalog import models as catalog_models
 from account.models import *
 from util import string_util
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_HOST, ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
@@ -104,7 +105,7 @@ def getProductData(request,is_export):
 	#组装数据
 	#判断多规格
 	model_properties = models.ProductModel.objects.filter(owner=request.user)
-	product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
+	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
 	for model_property in model_properties:
 		if model_property.product_id not in product_id2market_price:
@@ -113,16 +114,38 @@ def getProductData(request,is_export):
 			product_id2market_price[model_property.product_id].append(model_property.market_price)
 
 	rows = []
+	# 获取商品是否上线
+	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=[p.id for p in products])
+	product_2_weapp_product = {}
+	for relation in relations:
+		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
+	params = {
+		'product_ids': '_'.join([p.weapp_product_id for p in relations])
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+		{
+			'resource': 'mall.product_status',
+			'data': params
+		}
+	)
+	# 已上架商品列表
+	product_shelve_on = []
+	if resp and resp.get('code') == 200:
+		product_status = resp.get('data').get('product_status')
+		product_shelve_on = [product_2_weapp_product.get(product_statu.get('product_id'))
+							 for product_statu in product_status
+							 if product_statu.get('status') == 'on']
+	# print product_shelve_on, '+++++++++++++++++++++++++++++++++', product_2_weapp_product
+
 	for product in products:
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
 		image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
 		product_has_model = 0
-		if product.id in product_id2name:
-			name = product_id2name[product.id]
-			product_has_model = len(name.split('_'))
+		if product.id in product_id2market_price:
 			market_prices = product_id2market_price[product.id]
 			market_prices = sorted(market_prices)
+			product_has_model = len(market_prices)
 			if (market_prices[0]!= market_prices[-1]) and len(market_prices)>1:
 				clear_price = ('%s ~ %s')%(market_prices[0],market_prices[-1])
 			else:
@@ -150,7 +173,7 @@ def getProductData(request,is_export):
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,
-			'status': product_status2text[product.product_status],
+			'status': product_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
 			'sales': '%s' %sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,

@@ -45,12 +45,14 @@ def top_navs(request):
 				'href': '/customer/statistics/'
 			}]
 		elif role == YUN_YING:
-			top_navs = [{
-				'name': 'product_catalog',
-				'displayName': '商品分类',
-				'icon': 'credit-card',
-				'href': '/product_catalog/product_catalogs/'
-			},{
+			top_navs = [
+			# {
+			# 	'name': 'product_catalog',
+			# 	'displayName': '商品分类',
+			# 	'icon': 'credit-card',
+			# 	'href': '/product_catalog/product_catalogs/'
+			# },
+			{
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',

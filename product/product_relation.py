@@ -27,6 +27,11 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
 
+second_navs = [{
+        'name': 'product-list',
+        'displayName': '商品',
+        'href': '/product/product_relation/'
+}]
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
 
@@ -46,7 +51,7 @@ class ProductRelation(resource.Resource):
                 """
                 c = RequestContext(request, {
                         'first_nav_name': FIRST_NAV,
-                        'second_navs': nav.get_second_navs(),
+                        'second_navs': second_navs,
                         'second_nav_name': SECOND_NAV,
                         'first_catalog_id': request.GET.get('first_catalog_id', ''),
                         'second_catalog_id': request.GET.get('second_catalog_id', '')

@@ -14,7 +14,7 @@ var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-require('./style.css');
+require('./ProductModelInfo.css');
 
 var ProductModelInfo = React.createClass({
 	getInitialState: function() {
@@ -42,7 +42,6 @@ var ProductModelInfo = React.createClass({
 	},
 
 	setValidataTime: function(modelId){
-		console.log(modelId);
 		Reactman.PageAction.showDialog({
 			title: "设置限时结算价有效期",
 			component: SetValidataTimeDialog,
@@ -64,19 +63,18 @@ var ProductModelInfo = React.createClass({
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
-
 		var model_value_tr = model_values.map(function(model,index){
 			var td = model.propertyValues.map(function(value,index){
 				return(
-					<td key={index} style={{paddingTop:'15px'}}>{value.name}</td>
+					<td key={index} style={{verticalAlign:'middle',width:'100px',paddingLeft:'6px !important'}}>{value.name}</td>
 				)
 			})
-			var valid_time_from = _this.state["valid_time_from_"+model.modelId];
-			var valid_time_to = _this.state["valid_time_to_"+model.modelId];
-			var src = '/static/img/panda_img/icon2.png';
-			if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
-				src = '/static/img/panda_img/icon1.png';
-			}
+			// var valid_time_from = _this.state["valid_time_from_"+model.modelId];
+			// var valid_time_to = _this.state["valid_time_to_"+model.modelId];
+			// var src = '/static/img/panda_img/icon2.png';
+			// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
+			// 	src = '/static/img/panda_img/icon1.png';
+			// }
 			if(W.purchase_method==2){
 				var product_price = _this.state["product_price_"+model.modelId];
 				if(product_price){
@@ -84,16 +82,10 @@ var ProductModelInfo = React.createClass({
 				}
 			}
 			return(
-				<tr key={index} ref={model.modelId}>
+				<tr key={index} ref={model.modelId} className="model-table-tr">
 					{td}
 					<td>
 						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					</td>
-					<td style={{position:'relative'}}>
-						<Reactman.FormInput label="" type="text" name={"limit_clear_price_"+model.modelId} value={_this.state["limit_clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-						<a href="javascript:void(0);" onClick={_this.setValidataTime.bind(null,model.modelId)} style={{position:'absolute',top:'14px',right:'6px'}}>
-							<img src={src} style={{width:'22px',height:'22px',marginRight:'10px'}}/>
-						</a>
 					</td>
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
@@ -104,10 +96,7 @@ var ProductModelInfo = React.createClass({
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
 					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_code_"+model.modelId} value={_this.state["product_code_"+model.modelId]} onChange={_this.props.onChange} />
-					</td>
-					<td className="show-active">
+					<td className="show-active" style={{width:'80px'}}>
 						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
 					</td>
 				</tr>
@@ -163,11 +152,9 @@ var ProductModelInfo = React.createClass({
 								<tr>
 									{th}
 									<th>结算价格(元)</th>
-									<th>限时结算价(元)</th>
 									<th>商品售价(元)</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
-									<th>商品编码</th>
 									<th>操作</th>
 								</tr>
 							</thead>

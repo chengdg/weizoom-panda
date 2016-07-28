@@ -135,9 +135,9 @@ class AccountCreate(resource.Resource):
 				try:
 					params = {
 						'name': user_profile[0].name,
-						'remark': '',
+						'remark': note,
 						'responsible_person': u'8000FT',
-						'supplier_tel': '13112345678',
+						'supplier_tel': phone if phone else '13112345678',
 						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
@@ -234,9 +234,9 @@ class AccountCreate(resource.Resource):
 				if not supplier:
 					params = {
 						'name': user_profile.name,
-						'remark': '',
+						'remark': note,
 						'responsible_person': u'8000FT',
-						'supplier_tel': '13112345678',
+						'supplier_tel': phone if phone else '13112345678',
 						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({

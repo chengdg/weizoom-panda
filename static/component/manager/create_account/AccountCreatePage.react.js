@@ -83,10 +83,10 @@ var AccountCreatePage = React.createClass({
 			Reactman.PageAction.showHint('error', '登录名请填写英文字母或数字');
 			return;
 		}
-		if(account_type ==1 && account.company_type.length<=0){
-			Reactman.PageAction.showHint('error', '请选择经营类目');
-			return;
-		}
+		// if(account_type ==1 && account.company_type.length<=0){
+		// 	Reactman.PageAction.showHint('error', '请选择经营类目');
+		// 	return;
+		// }
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
@@ -119,7 +119,7 @@ var AccountCreatePage = React.createClass({
 						<AccountInfo onChange = {this.onChange}
 							company_name = {this.state.company_name}
 							name = {this.state.name}
-							company_type = {this.state.company_type}
+							// company_type = {this.state.company_type}
 							purchase_method = {this.state.purchase_method}
 							points = {this.state.points}
 							contacter = {this.state.contacter}
@@ -162,7 +162,6 @@ var AccountInfo = React.createClass({
 				<div>
 					<Reactman.FormInput label="公司名称:" type="text" name="company_name" value={this.props.company_name} onChange={this.props.onChange} />
 					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
-					<Reactman.FormCheckbox label="经营类目:" name="company_type" value={this.props.company_type} options={this.props.options_for_type} onChange={this.props.onChange} />
 					<Reactman.FormRadio label="采购方式:" name="purchase_method" value={this.props.purchase_method} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
 					<div>
 						<PurchaseMethod onChange = {this.props.onChange}

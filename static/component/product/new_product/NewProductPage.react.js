@@ -35,7 +35,6 @@ var NewProductPage = React.createClass({
 
 	productPreview: function(){
 		var product = Store.getData();
-		console.log(this.state.model_values,"==========");
 		var model_values = this.state.model_values;
 		var is_true = this.validateProduct();
 		if(product.images.length == 0){
@@ -133,31 +132,39 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;
 		}
-		_.each(model_values, function(model) {
-			var time_from = product['valid_time_from_'+model.modelId]
-			var time_to = product['valid_time_to_'+model.modelId]
-			if(time_from>time_to){
-				Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
-				return;
-			}
-			if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-				Reactman.PageAction.showHint('error', '有效期不能为空,请重新输入!');
-				return;
-			}
-			if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-				Reactman.PageAction.showHint('error', '有效期不能为空,请重新输入!');
-				return;
-			}
-		})
+		// var is_true = false;
+		// if(has_product_model==='1'){
+		// 	_.each(model_values, function(model) {
+		// 		var time_from = product['valid_time_from_'+model.modelId]
+		// 		var time_to = product['valid_time_to_'+model.modelId]
+		// 		if(time_from>time_to){
+		// 			is_true = true;
+		// 			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
+		// 			return;
+		// 		}
+		// 		if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
+		// 			is_true = true;
+		// 			Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+		// 			return;
+		// 		}
+		// 		if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
+		// 			is_true = true;
+		// 			Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+		// 			return;
+		// 		}
+		// 	})
+		// }
+		// if(is_true){
+		// 	return false;
+		// }
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
 			model['clear_price_'+model.modelId] = product['clear_price_'+model.modelId]
 			model['product_weight_'+model.modelId] = product['product_weight_'+model.modelId]
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
-			model['product_code_'+model.modelId] = product['product_code_'+model.modelId]
-			model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
-			model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
+			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
+			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==2){
 				var product_price = product["product_price_"+model.modelId];
 				if(product_price){

@@ -16,6 +16,7 @@ from django.conf import settings
 from core import resource
 from core.jsonresponse import create_response, JsonResponse
 from panda.settings import PANDA_HOST
+from resource.image import upload_image_to_upyun
 import models
 
 class RichTextImage(resource.Resource):
@@ -61,7 +62,12 @@ class RichTextImage(resource.Resource):
 		dst_file.close()
 
 		#保存图片信息到mysql中
-		image_path = PANDA_HOST + '/static/upload/%s/%s' % (store_dir, file_name)
+		image_path = '/static/upload/%s/%s' % (store_dir, file_name)
+		try:
+			value = upload_image_to_upyun(file_path,image_path)
+			image_path = value
+		except:
+			image_path = PANDA_HOST + '/static/upload/%s/%s' % (store_dir, file_name)
 		image = models.Image.objects.create(
 			user = request.user,
 			path = image_path
