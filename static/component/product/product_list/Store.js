@@ -152,7 +152,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		});
 
 		this.data = action.data.product_data;
-		this.data['model_values']= models;
+		//判断这个规格存不存在
+		var model_values = _.filter(models, function(customModel) {
+			console.log(customModel.modelId);
+			var clear_price = 'clear_price_'+ customModel.modelId;
+			return action.data.product_data[clear_price] !== undefined;
+		});
+		this.data['model_values']= model_values;
 		this.data['model_names']= headers;
 		this.data['name2model']= {};
 		this.__emitChange();
