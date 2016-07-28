@@ -179,9 +179,10 @@ var NewProductPage = React.createClass({
 			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==2){
-				var product_price = product["product_price_"+model.modelId];
+				var points = 1-(W.points/100);
+				var product_price = parseFloat(product["product_price_"+model.modelId]);
 				if(product_price){
-					model["clear_price_"+model.modelId] = ((1-W.points/100)*parseFloat(product_price)).toFixed(2);
+					model["clear_price_"+model.modelId] = (Math.round(points*product_price*100)/100).toFixed(2);
 				}
 			}
 		})
