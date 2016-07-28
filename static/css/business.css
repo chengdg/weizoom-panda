@@ -125,6 +125,7 @@ select {
 #apply_page_2 .form-group{
 	display: inline-block;
 	margin-left: 16%;
+	text-align: center;
 }
 #apply_page_2{
 	display: inline;
@@ -132,4 +133,8 @@ select {
 .page2_help_info{
     padding-bottom: 250px;
     padding-top: 30px;
+}
+img.wui-upload-img {
+    width: 100px;
+    height: 100px;
 }
