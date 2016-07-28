@@ -128,7 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
-    
+
     'core.context_processors.top_navs',
     'core.context_processors.webpack_bundle_js'
 ]
@@ -227,7 +227,7 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
-elif 'test' == MODE or 'deploy' == MODE:
+elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
