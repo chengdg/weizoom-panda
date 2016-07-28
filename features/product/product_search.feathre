@@ -5,90 +5,95 @@ Feature:用户通过商品名称过滤商品列表
 	1.用户通过商品名称过滤商品列表
 
 """
-	#说明
-		#查询条件:'商品名称'，按钮[查询和[重置]
-		#弹窗列表字段:'商品信息','结算价','销量','创建时间','状态','操作'
 Background:
 	Given jobs登录管理系统
 	When jobs添加账号
 	"""
 		[{
-			"account_type":"体验客户",
-			"company_name":"爱昵咖啡有限责任公司",
-			"shop_name":"爱昵咖啡",
-			"manage_type":"休闲食品",
-			"purchase_type":"固定底价",
-			"connect_man":"aini",
-			"mobile_number":"13813985506",
+			"account_type":"合作客户",
+			"account_name":"爱昵咖啡",
 			"login_account":"aini",
-			"password":"123456",
-			"valid_time":"2016-07-15"至"2017-07-15",
-			"ramarks":"爱昵咖啡客户体验账号"
+			"password":"123456"
 		}]
 
-	When tuxiaobao使用密码123456登录管理系统
-	When tuxiaobao添加商品
+	When aini使用密码123456登录系统
+	When aini添加商品
 	"""
 		[{
-			"name": "武汉鸭脖",
-			"promotion_name":"武汉鸭脖",
-			"price": 10.00,
+			"name": "商品1",
+			"promotion_name":"促销的商品1",
+			"price": 12.00,
 			"weight": 1.00,
-			"stock_number": "5000",
+			"stock_type": "无限",
 			"settlement_price":10.00,
-			"introduction": "这是一种很好吃的鸭脖"
-			"standard_promotion":"是",
-			"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-			"standard_price":{
-						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
-						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
-						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
-						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
-						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
-						},{
-			"name": "耐克男鞋",
-			"promotion_name":"耐克男鞋",
-			"price": 198.00,
+			"introduction": "商品1的简介"
+		},{
+			"name": "商品2",
+			"promotion_name":"促销的商品2",
+			"settlement_price":10.00,
+			"introduction": "商品2的简介",
+			"price": 12.00,
 			"weight": 1.00,
-			"stock_number": "5000",
-			"settlement_price":200.00,
-			"introduction": "耐克男鞋"
-			"standard_promotion":"是",
-			"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-			"standard_price":{
-						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
-						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
-						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
-						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
-						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
-						}
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品2的简介"
+
+		},{
+			"name": "商品3",
+			"promotion_name":"促销的商品3",
+			"price": 12.00,
+			"weight": 1.00,
+			"stock_type": "无限",
+			"settlement_price":10.00,
+			"introduction": "商品3的简介"
 		}]
 	"""
 
 
 	Then aini能获得商品列表
-	|   shop_information  |     price     |    sales    |    creat_time     |   statue   |
-	|        武汉鸭脖     |      10.00    |     0.00    |  2016-07-25 16:06 |   未上架   |
-	|        耐克男鞋     |     200.00    |     0.00    |  2016-07-25 16:06 |   未上架   |
- 	
+	"""
+		[{
+			"name": "商品3",
+			"price": "12.00",
+			"sales":"0",
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		},{
+			"name": "商品2",
+			"price": "12.00",
+			"sales":"0",
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		},{
+			"name": "商品1",
+			"price": "12.00",
+			"sales":"0",
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		}]
+	"""
+
 
 @panda @hj
 Scenario:1
 	When aini登录系统
-	When aini搜索商品名称为'武汉鸭脖'商品
-	Then aini查看商品列表
-	|   shop_information  |     price     |    sales    |    creat_time     |   statue   |
-	|        武汉鸭脖     |      10.00    |     0.00    |  2016-07-25 16:06 |   未上架   |
-	
+	When aini搜索商品名称为'3'商品
+	Then aini查看订单列表
+	"""
+		[{
+			"name": "商品3",
+			"price": "10.00",
+			"sales":"0",
+			"creat_time":"2016-07-14",
+			"status":"未上架",
+			"actions":["编辑","彻底删除"]
+		}]
+	"""
+
+	When aini搜索商品名称为'7'商品
+	Then aini查看订单列表
+	"""
+		[{
+			 
+		}]
+	"""

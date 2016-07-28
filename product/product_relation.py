@@ -25,8 +25,13 @@ import models
 import requests
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
+from product_catalog import models as product_catalog_models
 
-
+second_navs = [{
+        'name': 'product-list',
+        'displayName': '商品',
+        'href': '/product/product_relation/'
+}]
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
 
@@ -46,17 +51,27 @@ class ProductRelation(resource.Resource):
                 """
                 c = RequestContext(request, {
                         'first_nav_name': FIRST_NAV,
-                        'second_navs': nav.get_second_navs(),
-                        'second_nav_name': SECOND_NAV
+                        'second_navs': second_navs,
+                        'second_nav_name': SECOND_NAV,
+                        'first_catalog_id': request.GET.get('first_catalog_id', ''),
+                        'second_catalog_id': request.GET.get('second_catalog_id', '')
                 })
 
                 return render_to_response('product/product_relation.html', c)
 
         def api_get(request):
                 cur_page = request.GET.get('page', 1)
+                first_catalog_id = request.GET.get('first_catalog_id', '')
+                second_catalog_id = request.GET.get('second_catalog_id', '')
                 role = UserProfile.objects.get(user_id=request.user.id).role
                 user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
-                products = models.Product.objects.filter(is_deleted=False).order_by('-id')
+                if first_catalog_id != '':
+                        catalog_ids = [catalog.id for catalog in product_catalog_models.ProductCatalog.objects.filter(father_catalog=int(first_catalog_id))]
+                        products = models.Product.objects.filter(catalog_id__in=catalog_ids,is_deleted=False).order_by('-id')
+                elif second_catalog_id != '':
+                        products = models.Product.objects.filter(catalog_id=int(second_catalog_id),is_deleted=False).order_by('-id')
+                else:
+                        products = models.Product.objects.filter(is_deleted=False).order_by('-id')
                 product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
                 product_images = models.ProductImage.objects.all().order_by('id')
                 product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')

@@ -15,7 +15,15 @@ from django.conf import settings
 
 from core import resource
 from core.jsonresponse import create_response
+from core.exceptionutil import unicode_full_stack
+from panda.settings import PANDA_HOST
 import models
+import base64
+import upyun
+try:
+	from PIL import Image
+except:
+	import Image
 
 class Image(resource.Resource):
 	"""
@@ -60,7 +68,15 @@ class Image(resource.Resource):
 		dst_file.close()
 
 		#保存图片信息到mysql中
+
 		image_path = '/static/upload/%s/%s' % (store_dir, file_name)
+
+		try:
+			value = upload_image_to_upyun(file_path,image_path)
+			image_path = value
+		except:
+			image_path = PANDA_HOST + '/static/upload/%s/%s' % (store_dir, file_name)
+
 		image = models.Image.objects.create(
 			user = request.user,
 			path = image_path
@@ -72,3 +88,31 @@ class Image(resource.Resource):
 			'path': image_path
 		}
 		return response.get_response()
+
+image_path = "http://%s.b0.upaiyun.com%s"
+def upload_image_to_upyun(file_path, upyun_path):
+	if settings.MODE == 'test':
+		BUCKETNAME = 'testweapp'
+	else:
+		BUCKETNAME = 'weappimg'
+	USERNAME = 'weizoom'
+	PASSWORD = 'weizoom_weapp'
+
+	if settings.MODE == 'develop':
+		return upyun_path
+		
+	up = upyun.UpYun(BUCKETNAME, USERNAME, PASSWORD, timeout=300,
+			endpoint=upyun.ED_AUTO)
+	try:
+		with open(file_path, 'rb') as f:
+			try:
+				res = up.put(upyun_path, f)
+			except:
+				res = up.put(upyun_path, f)
+			
+			return image_path % (BUCKETNAME, upyun_path)
+	except:
+		notify_message = u"upload_image_to_upyun error {}".format(unicode_full_stack())
+		print notify_message
+		return upyun_path
+	return None

@@ -3,7 +3,7 @@ __author__ = 'lihanyi'
 
 import json
 import time
-
+import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -18,6 +18,7 @@ from util import db_util
 import nav
 from account.models import *
 from product.models import *
+from product_catalog import models as catalog_models
 from excel_response import ExcelResponse
 
 FIRST_NAV = 'manager'
@@ -52,7 +53,8 @@ class ManagerAccount(resource.Resource):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
-
+		catalogs = catalog_models.ProductCatalog.objects.filter(father_catalog = -1)
+		catalog_id2name = dict((catalog.id,catalog.catalog_name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
 		username = filters.get('username','')
@@ -64,19 +66,42 @@ class ManagerAccount(resource.Resource):
 			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
-
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
 		user_ids = [account.user_id for account in accounts]
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
+		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		for account in accounts:
+			#关闭已过期的账号/开启可以登录的账号
+			if account.valid_time_from and account.valid_time_to:
+				valid_time_from = account.valid_time_from.strftime("%Y-%m-%d %H:%M:%S")
+				valid_time_to = account.valid_time_to.strftime("%Y-%m-%d %H:%M:%S")
+				if valid_time_from <= date_now and date_now < valid_time_to and account.status != 0:
+					account.status = 1
+					account.save()
+				elif date_now >= valid_time_to or date_now <= valid_time_from:
+					account.status = 2
+					account.save()
 			if is_for_list:
+				if account.role == 1 :
+					catalog_names = []
+					if account.company_type != '':
+						#获得经营类目的名称
+						catalog_ids = json.loads(account.company_type)
+						for catalog_id in catalog_ids:
+							catalog_names.append(catalog_id2name[catalog_id])
+					catalog_names = ','.join(catalog_names)
+				else:
+					catalog_names = '--'
 				rows.append({
 					'id' : account.id,
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
+					'company_type' : catalog_names,
+					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'account_type' : ROLE2NAME[account.role],
 					'status' : account.status
 				})
 			else:
@@ -97,8 +122,6 @@ class ManagerAccount(resource.Resource):
 			return response.get_response()
 		else:
 			return rows
-		
-
 
 	@login_required
 	def api_post(request):

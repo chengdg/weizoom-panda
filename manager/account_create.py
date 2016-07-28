@@ -48,13 +48,30 @@ class AccountCreate(resource.Resource):
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
-			user_profile_data = {
-				'id': user_profile.id,
-				'name': user_profile.name,
-				'username': User.objects.get(id=user_profile.user_id).username,
-				'account_type': user_profile.role,
-				'note': user_profile.note,
-			}
+			if user_profile.role == CUSTOMER:
+				user_profile_data = {
+					'id': user_profile.id,
+					'name': user_profile.name,
+					'company_name': user_profile.company_name,
+					'company_type': user_profile.company_type if user_profile.company_type!='' else '[]',
+					'purchase_method': user_profile.purchase_method,
+					'points': user_profile.points,
+					'contacter': user_profile.contacter,
+					'phone': user_profile.phone,
+					'valid_time_from': '' if not user_profile.valid_time_from else user_profile.valid_time_from.strftime("%Y-%m-%d %H:%M"),
+					'valid_time_to': '' if not user_profile.valid_time_to else user_profile.valid_time_to.strftime("%Y-%m-%d %H:%M"),
+					'username': User.objects.get(id=user_profile.user_id).username,
+					'account_type': user_profile.role,
+					'note': user_profile.note
+				}
+			else:
+				user_profile_data = {
+					'id': user_profile.id,
+					'name': user_profile.name,
+					'username': User.objects.get(id=user_profile.user_id).username,
+					'account_type': user_profile.role,
+					'note': user_profile.note
+				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True
 		else:
@@ -73,6 +90,15 @@ class AccountCreate(resource.Resource):
 	def api_put(request):
 		post = request.POST
 		account_type = post.get('account_type','')
+		if account_type == '1':
+			company_name = post.get('company_name','')
+			company_type = json.loads(post.get('company_type',''))
+			purchase_method = int(post.get('purchase_method',1))
+			points = float(post.get('points',0))
+			contacter = post.get('contacter','')
+			phone = post.get('phone','')
+			valid_time_from = post.get('valid_time_from','')
+			valid_time_to = post.get('valid_time_to','')
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -95,14 +121,23 @@ class AccountCreate(resource.Resource):
 				note = note
 			)
 			if account_type == '1':
-
+				user_profile.update(
+					company_name = company_name,
+					company_type = company_type,
+					purchase_method = purchase_method,
+					points = points,
+					contacter = contacter,
+					phone = phone,
+					valid_time_from = valid_time_from,
+					valid_time_to = valid_time_to
+				)
 				#请求接口获得数据
 				try:
 					params = {
 						'name': user_profile[0].name,
-						'remark': '',
+						'remark': note,
 						'responsible_person': u'8000FT',
-						'supplier_tel': '13112345678',
+						'supplier_tel': phone if phone else '13112345678',
 						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
@@ -123,6 +158,7 @@ class AccountCreate(resource.Resource):
 						User.objects.filter(id=user_id).delete()
 						UserProfile.objects.filter(user_id=user_id).delete()
 				except Exception,e:
+					print(e)
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
 					response = create_response(500)
@@ -145,6 +181,19 @@ class AccountCreate(resource.Resource):
 		name = post.get('name','')
 		password = post.get('password','')
 		note = post.get('note','')
+		account_type = post.get('account_type','')
+		if account_type == '1':
+			company_name = post.get('company_name','')
+			company_type = post.get('company_type','')
+			purchase_method = int(post.get('purchase_method',1))
+			if purchase_method == 2:
+				points = float(post.get('points',0))
+			else:
+				points = 0
+			contacter = post.get('contacter','')
+			phone = post.get('phone','')
+			valid_time_from = post.get('valid_time_from','')
+			valid_time_to = post.get('valid_time_to','')
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
 			user_id = user_profile.user_id
@@ -157,7 +206,18 @@ class AccountCreate(resource.Resource):
 				user.set_password(password)
 			user.first_name = name
 			user.save()
-			if user_profile.role == 1:
+			
+			if account_type == '1':
+				UserProfile.objects.filter(id=request.POST['id']).update(
+					company_name = company_name,
+					company_type = company_type,
+					purchase_method = purchase_method,
+					points = points,
+					contacter = contacter,
+					phone = phone,
+					valid_time_from = valid_time_from,
+					valid_time_to = valid_time_to
+				)
 				supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
 				if supplier:
 					params = {
@@ -174,9 +234,9 @@ class AccountCreate(resource.Resource):
 				if not supplier:
 					params = {
 						'name': user_profile.name,
-						'remark': '',
+						'remark': note,
 						'responsible_person': u'8000FT',
-						'supplier_tel': '13112345678',
+						'supplier_tel': phone if phone else '13112345678',
 						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
@@ -192,7 +252,7 @@ class AccountCreate(resource.Resource):
 								# store_name = account_zypt_info['store_name'].encode('utf8'),
 								supplier_id=int(supplier_datas['id'])
 							)
-
+			
 		except Exception,e:
 			print(e)
 			print('===========================')

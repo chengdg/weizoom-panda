@@ -1,0 +1,12 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '商品规格管理',
+		href: '/product/product_model/'
+	}];
+
+	W.pageContentComponent = './product/product_model/ProductModelListPage.react';
+</script>
+{% endblock %}

@@ -22,7 +22,9 @@ class Product(models.Model):
 	limit_clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #限时结算价 (元)
 	has_limit_time = models.BooleanField(default=False)  #限时结算价是否需要 有效范期
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
-	is_deleted=models.BooleanField(default=False)
+	has_product_model = models.BooleanField(default=False) #是否是多规格商品
+	catalog_id = models.IntegerField(default=0) #所属分类id
+	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):
 		db_table = 'product_product'
@@ -65,7 +67,6 @@ class ProductHasRelationWeapp(models.Model):
 	class Meta(object):
 		db_table = 'product_has_relation_weapp'
 
-
 class ProductSyncWeappAccount(models.Model):
     """
     商品被同步到了哪个平台（适配老逻辑）
@@ -78,12 +79,110 @@ class ProductSyncWeappAccount(models.Model):
         db_table = 'product_sync_weapp_account'
 
 
-class SelfUsernameWeappAccount(models.Model):
+PRODUCT_MODEL_PROPERTY_TYPE_TEXT = 0
+PRODUCT_MODEL_PROPERTY_TYPE_IMAGE = 1
+
+class ProductModelProperty(models.Model):
 	"""
-	# 对应云上通的自营平台账户id(user_id)
+	ProductModelProperty：商品规格属性
 	"""
-	self_user_name = models.CharField(max_length=50, null=True)
-	weapp_account_id = models.IntegerField(default=0)
+	owner = models.ForeignKey(User)
+	name = models.CharField(max_length=256,null=True)  # 商品规格属性名
+	type = models.IntegerField(default=PRODUCT_MODEL_PROPERTY_TYPE_TEXT)  # 属性类型
+	is_deleted = models.BooleanField(default=False)  # 是否删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 
 	class Meta(object):
-		db_table = 'self_username_weapp_account'
+		db_table = 'product_model_property'
+		verbose_name = '商品规格属性'
+		verbose_name_plural = '商品规格属性'
+
+class SelfUsernameWeappAccount(models.Model):
+    # 对应云上通的自营平台账户id(user_id)
+    self_user_name = models.CharField(max_length=50, null=True)
+    weapp_account_id = models.IntegerField(default=0)
+    
+    class Meta(object):
+        db_table = 'self_username_weapp_account'
+
+
+class ProductModelPropertyValue(models.Model):
+	"""
+	ProductModelPropertyValue：商品规格属性值
+	"""
+	property_id = models.IntegerField(default=0) #ProductModelProperty id
+	name = models.CharField(max_length=256)  # 规格属性值
+	pic_url = models.CharField(max_length=1024)  # 商品图
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'product_model_property_value'
+		verbose_name = '商品规格属性值'
+		verbose_name_plural = '商品规格属性值'
+
+
+#########################################################################
+# ProductModel：商品规格
+#########################################################################
+class ProductModel(models.Model):
+	owner = models.ForeignKey(User)
+	product = models.ForeignKey(Product)
+	name = models.CharField(max_length=255, db_index=True)  # 商品规格名
+	is_standard = models.BooleanField(default=True)  # 是否是标准规格
+	price = models.FloatField(default=0.0)  # 商品价格
+	market_price = models.FloatField(default=0.0)  # 商品市场价格
+	weight = models.FloatField(default=0.0)  # 重量
+	# stock_type = models.IntegerField(
+	# 	default=PRODUCT_STOCK_TYPE_UNLIMIT)  # 0:无限 1:有限
+	stocks = models.IntegerField(default=0)  # 有限：数量
+	user_code = models.CharField(max_length=256, default='')  # 编码
+	valid_time_from = models.DateTimeField(null=True)  #有效范围开始时间
+	valid_time_to = models.DateTimeField(null=True)  #有效范围结束时间
+	limit_clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #限时结算价 (元)
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'product_model'
+		verbose_name = '商品规格属性'
+		verbose_name_plural = '商品规格属性'
+
+	def __getitem__(self, name):
+		return getattr(self, name, None)
+
+
+#########################################################################
+# ProductModelHasProperty: <商品规格，商品规格属性值>关系
+#########################################################################
+class ProductModelHasPropertyValue(models.Model):
+	model = models.ForeignKey(ProductModel)
+	property_id = models.IntegerField(default=0) #ProductModelProperty id
+	property_value_id = models.IntegerField(default=0) #ProductModelPropertyValue id
+	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+
+	class Meta(object):
+		db_table = 'product_model_has_property'
+
+
+class ProductModelPropertyRelation(models.Model):
+	"""
+	商品模板和云上通商品模板关系
+	"""
+	model_property_id = models.IntegerField(help_text=u'本平台的模板id')
+	weapp_property_id = models.IntegerField(help_text=u'云商通的模板id')
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_model_property_relation'
+
+
+class ProductModelPropertyValueRelation(models.Model):
+	"""
+	商品模板值和云上通商品模板值的对应关系(这个主要是当删除的时候更好的定位,否则无法定位)
+	"""
+	property_value_id = models.IntegerField()
+	weapp_property_value_id = models.IntegerField()
+
+	class Meta(object):
+		db_table = 'product_model_property_value_relation'

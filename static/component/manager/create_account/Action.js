@@ -22,15 +22,34 @@ var Action = {
 			}
 		});
 	},
+	selectCatalog: function(){
+		Resource.get({
+			resource: 'product_catalog.get_all_first_catalog',
+			data: {
+				is_account_page: true
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.NEW_ACCOUNT_SELECT_CATALOG
+			}
+		})
+	},
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],
+			company_name: data['company_name'],
+			company_type: JSON.stringify(data['company_type']),
+			purchase_method: data['purchase_method'],
+			points: data['points'],
+			contacter: data['contacter'],
+			phone: data['phone'],
+			valid_time_from: data['valid_time_from'],
+			valid_time_to: data['valid_time_to'],
 			username: data['username'],
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
 			note: data['note']
 		};
-
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'manager.account_create',

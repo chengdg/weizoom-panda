@@ -33,6 +33,7 @@
 	margin: 0 auto;
 	margin-top: 10px;
 	padding-top: 8px;
+    border-top: 1px solid #CCC;
 }
 
 .product-choose, .product-name-price, .product-introduce{
@@ -44,6 +45,9 @@
     margin-top: 10px;
 	padding-top: 5px;
     height: 40px;
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    padding-right: 40px;
 }
 
 .product-introduce{
@@ -56,7 +60,7 @@
 .product-introduce .title{
     display: inline-block;
     width: 600px;
-    border-bottom: 1px solid #CCC;
+    /*border-bottom: 1px solid #CCC;*/
 	padding-top: 8px;
 	font-size: 16px;
 }
@@ -132,60 +136,54 @@ input[name="limit_clear_price"]{
 	width: 100px;
 }
 
-fieldset div:nth-child(4){
+.product_info_fieldset div:nth-child(1){
 	display: inline-block;
 }
 
-fieldset div:nth-child(7){
+.product_info_fieldset div:nth-child(4){
 	display: inline-block;
 }
 
-fieldset div:nth-child(10){
+.product_info_fieldset div:nth-child(7){
 	display: inline-block;
 }
 
-fieldset div:nth-child(12){
+/*.product_info_fieldset div:nth-child(9){
 	display: inline-block;
 	width: 60px;
 	margin-left: 80px !important;
 	position: relative;
 }
 
-fieldset div:nth-child(12) div{
+.product_info_fieldset div:nth-child(9) div{
 	position: absolute;
     left: 24px;
     top: -19px;
 }
 
-fieldset div:nth-child(12) label{
+.product_info_fieldset div:nth-child(9) label{
 	width: 10px;
 	height: 0px !important;
-}
-
-/*fieldset div:nth-child(12){
-	display: inline-block;
-	width: 340px;
-	margin-left: 200px !important;
 }*/
 
-fieldset div:nth-child(13){
+.product_info_fieldset div:nth-child(10){
 	display: inline-block;
 }
 
-fieldset div:nth-child(13) label{
+.product_info_fieldset div:nth-child(10) label{
 	width: 80px !important;
 }
 
-fieldset div:nth-child(14){
+.product_info_fieldset div:nth-child(11){
 	display: inline-block;
 }
 
-fieldset div:nth-child(14) label{
+.product_info_fieldset div:nth-child(11) label{
 	width: 40px !important;
 	padding-left: 0px;
 }
 
-fieldset div:nth-child(17){
+.product_info_fieldset div:nth-child(14){
 	display: inline-block;
 }
 
@@ -219,4 +217,22 @@ fieldset div:nth-child(17){
 
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
 	z-index: 1000 !important;
+}
+
+td div.form-group{
+    margin: 0;
+    width: 60px;
+    margin-left: 0 !important;
+}
+
+td div.form-group label{
+	display: none;
+}
+
+td div.form-group div input{
+    width: 100px;
+}
+
+td div.form-group div .errorHint{
+	width: 100px;
 }
