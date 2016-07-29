@@ -21,6 +21,8 @@ class Command(BaseCommand):
                                                              is_active=True)
         # print '++++++++++++++++++++++++++++++++++++=', accounts.count()
         content = u'您好，当前您有%s个订单，请及时处理'
+        number_message = 0
+        account_ids = []
         for account in accounts:
             phone = account.phone
 
@@ -33,6 +35,8 @@ class Command(BaseCommand):
                     supplier_ids.append(supplier_relation.supplier_id)
                 for relation in old_supplier_relation:
                     supplier_ids.append(relation.supplier_id)
+                if not supplier_ids:
+                    continue
                 params = {
                     'page': 1,
                     'per_count_page': 15,
@@ -49,11 +53,17 @@ class Command(BaseCommand):
                 if resp and resp.get('code') == 200:
 
                     count = resp.get('data').get('count')
+                    account_ids.append([account.user_id, supplier_ids, count])
                     # print '++++++++++++++++++++++++++++++++++++=', phone, count
                     if count > 0:
                         rs = send_phone_msg.send_phone_captcha(phones=str(phone), content=content % count)
                         print content % count
+                        if rs:
+                            number_message += 1
+                            # account_ids.append(account.user_id)
                         # print rs
                         print '供货商%s发送结果是%s' % (str(account.user_id), 'SUCCESS' if rs else 'FAILED')
                         watchdog.info('供货商%s发送结果是%s' % (str(account.user_id), 'SUCCESS' if rs else 'FAILED'))
                     # watchdog.info('供货商%s发送结果是%s' % (account.user_id, 'SUCCESS' if rs else 'FAILED'))
+        print '本次一共发送了%s条短信' % number_message
+        print '这些帐号ｉｄ是:', account_ids
