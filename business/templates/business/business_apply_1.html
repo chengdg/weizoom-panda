@@ -148,12 +148,11 @@
         <!-- 第三页 -->
         <form id="apply_page_3" style="display:none">
           <div class="form-group">
+            <div class="selectedSort"><b>您已选择：</b><i id="selectedSort"></i></div>
             <div class="wareSort clearfix">
                 <ul id="sort1"></ul>
-                <ul id="sort2" style="display: none;"></ul>
-                <ul id="sort3" style="display: none;"></ul>
+                <ul id="sort2"></ul>
             </div>
-            <div class="selectedSort"><b>您当前选择的商品类别是：</b><i id="selectedSort"></i></div>
           </div>
           <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
@@ -242,7 +241,6 @@
                 }else if (min){
                     $(this).datetimepicker('option', 'minDate', min);
                 }
-
                 if(max === 'now') {
                     $(this).datetimepicker('option', 'maxDate', new Date());
                 }else if(max){
