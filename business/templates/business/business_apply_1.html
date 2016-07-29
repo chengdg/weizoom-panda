@@ -168,7 +168,7 @@
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
                 <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
-                <button type="button" class="btn btn-primary" onclick="goToPage4();">完成提交</button>
+                <button type="button" class="btn btn-primary" onclick="goToPage4();" disabled="disabled">完成提交</button>
             </div>
           </div>
         </form>
@@ -283,6 +283,16 @@
         }
     });
     
+    //第三页校验
+    
+    $("#sort2").click(function(){
+        $selectedSorts = $('.selectedSort').children();
+        console.log($selectedSorts);
+        // $('.selectedSort').children();
+    });
+    
+
+
     $(document).ready(function() {
         //三级联动省市区
         $("#company_location").citySelect();

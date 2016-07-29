@@ -53,7 +53,7 @@ function selectB(p,c) {
 	}else{
 		$('.selectB_' + p + '_' + c + '').addClass("active");
 		$("#sort1 li").eq(p).addClass("active");
-		$('.selectedSort').append('<span class="selectedSortSpan" id='+city[p][c]+'>'+city[p][c]+'</span>')
+		$('.selectedSort').append('<span class="selectedSortSpan" id='+city[p][c]+'>'+city[p][c]+'</span>');
 	}
 }
 
