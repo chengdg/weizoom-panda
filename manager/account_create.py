@@ -144,7 +144,7 @@ class AccountCreate(resource.Resource):
 						'resource': 'mall.supplier',
 						"data": params
 					})
-					if resp['code'] == 200:
+					if resp and resp['code'] == 200:
 						supplier_datas = resp['data']
 						if supplier_datas:
 							AccountHasSupplier.objects.create(
