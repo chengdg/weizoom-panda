@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 params = {
                     'page': 1,
                     'per_count_page': 15,
-                    'status': 3,
+                    'order_status': 3,
                     'supplier_ids': json.dumps(supplier_ids)
                 }
                 resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
