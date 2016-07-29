@@ -1,8 +1,5 @@
 /*
  Ajax 三级省市联动
- http://code.ciaoca.cn/
- 日期：2012-7-18
- 
  settings 参数说明
  -----
  url:省市数据josn文件路径
@@ -22,8 +19,8 @@
         // 默认值
         settings = $.extend({
             url: "/static/js/city.min.js",
-            prov: null,
-            city: null,
+            prov: '北京',
+            city: '东城区',
             dist: null,
             nodata: null,
             required: true

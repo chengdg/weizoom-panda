@@ -13,6 +13,7 @@
       <strong class="strong"></strong><span></span>
     </div>
     <div class="business_apply_from">
+        <!-- 第一页 -->
         <form class="form-horizontal" id="apply_page_1">
           <div class="form-group">
             <label for="company_type" class="col-sm-4 control-label"><em>*</em>企业类型：</label>
@@ -143,8 +144,8 @@
           <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
-                <button type="button" class="btn btn-primary" onclick="goToPage1();">上一步</button>
-                <button type="button" class="btn btn-primary" onclick="goToPage3();">下一步</button>
+                <button type="button" class="btn btn-default" onclick="goToPage1();">上一步</button>
+                <button type="button" class="btn btn-primary" onclick="goToPage3();" disabled="disabled">下一步</button>
             </div>
           </div>
         </form>
@@ -166,7 +167,7 @@
           <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
-                <button type="button" class="btn btn-primary" onclick="goToPage2();">上一步</button>
+                <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
                 <button type="button" class="btn btn-primary" onclick="goToPage4();">完成提交</button>
             </div>
           </div>
@@ -198,21 +199,87 @@
         $("#apply_page_1").validate({
             rules: {
                 company_name:{
-                    required:true
+                    required: true,
+                    maxlength: 30
+                },
+                company_money:{
+                    required: false,
+                    number: true
+                },
+                legal_representative:{
+                    required: false,
+                    maxlength: 20
+                },
+                contacter:{
+                    required: true,
+                    maxlength: 20
+                },
+                phone: {
+                    required: true,
+                    isMobile: true
+                },
+                e_mail: {
+                    required: false,
+                    email: true
+                },
+                company_location: {
+                    required: true
+                },
+                address: {
+                    required: true,
+                    maxlength: 30
                 }
             },
             errorPlacement: function (error, element) {
                 var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
-                toast(errMsg + '' + error.text(), 'warnning');
+                toast(errMsg + '' + error.text(), 'warning');
             }
         });
     });
-    $("input").blur(function(){
+    
+    //第一页校验
+    $("#apply_page_1 input").blur(function(){
         if($("#apply_page_1").valid()){
-            console.log('111');
             $('#apply_page_1 button').attr("disabled",false);
         }else{
-            $('#apply_page_1 button').attr("disabled","disabled");
+            // $('#apply_page_1 button').attr("disabled","disabled");
+            // TODO 方便测试用
+            $('#apply_page_1 button').attr("disabled",false);
+        }
+    });
+
+    //第二页校验
+    var business_license = '';
+    var business_license_time = '';
+    var tax_registration_certificate = '';
+    var tax_registration_certificate_time = '';
+    var organization_code_certificate = '';
+    var organization_code_certificate_time = '';
+    var account_opening_license = '';
+    var account_opening_license_time = '';
+    $("#apply_page_2 input").blur(function(){
+        business_license = $(".wa-upload-img-business_license").attr("src");
+        business_license_time = $('#datetimepicker-business_license').val();
+
+        tax_registration_certificate = $(".wa-upload-img-tax_registration_certificate").attr("src");
+        tax_registration_certificate_time = $('#datetimepicker-tax_registration_certificate').val();
+
+        organization_code_certificate = $(".wa-upload-img-organization_code_certificate").attr("src");
+        organization_code_certificate_time = $('#datetimepicker-organization_code_certificate').val();
+
+        account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
+        account_opening_license_time = $('#datetimepicker-account_opening_license').val();
+
+        if(business_license !='' && business_license_time !='' 
+            && tax_registration_certificate !='' && tax_registration_certificate_time !='' 
+            && organization_code_certificate !='' && organization_code_certificate_time !='' 
+            && account_opening_license!='' && account_opening_license_time!='')
+        {
+            $('#apply_page_2 button').attr("disabled",false);
+        }else{
+            // $('#apply_page_2 button').attr("disabled","disabled");
+            // TODO 方便测试用
+            $('#apply_page_2 button').attr("disabled",false);
         }
     });
     
@@ -222,8 +289,10 @@
 
         //上传图片
         $('.xa-uploader').click(function(event){
+            console.log($(event.target));
+
             $(event.target).fileupload({
-                url: '/resource/image/?_method=put',
+                url: '/business/upload_image/?_method=post',
                 type: 'POST',
                 dataType: 'json',
                 start: function(e, data) {
@@ -232,7 +301,7 @@
                 done: function (e, data) {
                     var responseData = data.result.data;
                     var class_name = $(event.target).attr("id");
-                    class_name = '.wa-upload-img-'+class_name
+                    class_name = '.wa-upload-img-'+class_name;
                     $(class_name).attr('src',responseData.path);
                 },
                 fail: function (e, data) {
@@ -334,7 +403,13 @@
         $("#apply_page_4").show();
     }
     function savePage(){
-        console.log($('#apply_page_1').serialize());
+        data = $('#apply_page_1').serialize();
+        if($('.dist').val()){
+            var company_location = $('.prov').val() +'-'+ $('.city').val() +'-'+ $('.dist').val();
+        }else{
+            var company_location = $('.prov').val() +'-'+ $('.city').val();
+        }
+        data['company_location'] = company_location;
         // $.ajax({
         //     url:'/account/api/create_sales/',
         //     type:'post',
@@ -348,16 +423,17 @@
         //     }
         // });
     }
-    var ori_toast_class = 'alert-danger',
-        title_arr = ['success','info','warning','danger'];
+    
     /**
      * toast，默认2秒后消失
      * @param msg
      * @param title
      */
+    var ori_toast_class = 'alert-danger',
+        title_arr = ['success','info','warning','danger'];
     window.toast = function(msg,title){
         var $this = $('.toast-content');
-        if(title && title_arr.contains(title)){
+        if(title && title in title_arr){
             var new_class = 'alert-'+title;
             $this.removeClass(ori_toast_class).addClass(new_class);
             ori_toast_class = new_class;
@@ -368,7 +444,7 @@
         $this.slideDown();
         window.setTimeout(function(){
             $this.slideUp('slow');
-        },2000);
+        },3000);
     };
 </script>
 {% endblock %}

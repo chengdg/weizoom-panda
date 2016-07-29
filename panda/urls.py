@@ -30,7 +30,7 @@ urlpatterns = patterns('',
 	url(r'^manager/', restful_url('manager')),
 	url(r'^customer/', restful_url('customer')),
 	url(r'^product_catalog/', restful_url('product_catalog')),
-	url(r'^business/',business_view.index),
+	url(r'^business/',restful_url('business')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

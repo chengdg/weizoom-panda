@@ -8,6 +8,20 @@ html.login-page {
 em {
     color: red;
 }
+.toast-content{
+    display: none;
+    font-size: 1.2em;
+    height: 34px;
+    left: 10%;
+    width: 80%;
+    line-height: 20px;
+    padding: 8px 14px;
+    position: fixed;
+    text-align: center;
+    top: -5px;
+    z-index: 1041;
+    overflow: hidden;
+}
 .relative {position: relative;}
 .errorHint {color: #CC0000;}
 
