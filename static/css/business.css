@@ -5,8 +5,9 @@ html.login-page {
     -o-background-size: cover; /*opera*/
     background-size: cover; /*generic*/
 }
-
-
+em {
+    color: red;
+}
 .relative {position: relative;}
 .errorHint {color: #CC0000;}
 
@@ -181,7 +182,6 @@ img.wui-upload-img {
 .wareSort ul li a { display: block; padding-right: 25px; padding-left: 10px; border: 1px solid #fff; line-height: 28px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .wareSort ul li a:hover { color: #52bea6; }
 .wareSort ul li.active a { border-color: #52bea6; background: #cefff4 url(../img/arrow.png) no-repeat right center; color: #52bea6; }
-.selectedSort { padding: 10px 15px; border: 1px solid #ed7f5a; margin-top: 10px; margin-bottom: 10px; background-color: #fff4f0; color: #ed7f5a; }
 .selectedSort b { font-weight: bold; }
 .selectedSort i font { font-family: simsun; }
 .wareSortBtn { padding-bottom: 50px; text-align: center; }
@@ -196,4 +196,17 @@ img.wui-upload-img {
     padding-bottom: 30px;
     padding-top: 30px;
     text-align: center;
+}
+span.selectedSortSpan {
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.selectedSort {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
 }

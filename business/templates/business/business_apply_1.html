@@ -8,6 +8,10 @@
         <li role="presentation" id="page3" ><a href="#">入驻类目/特殊资质提交</a></li>
         <li role="presentation" id="page4" ><a href="#">等待审核</a></li>
     </ul>
+    <!-- 系统消息弹窗 -->
+    <div class="toast-content alert" role="alert">
+      <strong class="strong"></strong><span></span>
+    </div>
     <div class="business_apply_from">
         <form class="form-horizontal" id="apply_page_1">
           <div class="form-group">
@@ -81,7 +85,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-6 col-sm-4">
-              <button type="button" class="btn btn-primary" onclick="goToPage2();">下一步</button>
+              <button type="button" class="btn btn-primary" onclick="goToPage2();" disabled="disabled">下一步</button>
             </div>
           </div>
         </form>
@@ -148,7 +152,12 @@
         <!-- 第三页 -->
         <form id="apply_page_3" style="display:none">
           <div class="form-group">
-            <div class="selectedSort"><b>您已选择：</b><i id="selectedSort"></i></div>
+            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;">
+                <b>您已选择：</b>
+                <div class="selectedSort">
+                    <!-- <span class="selectedSortSpan">1</span> -->
+                </div>
+            </div>
             <div class="wareSort clearfix">
                 <ul id="sort1"></ul>
                 <ul id="sort2"></ul>
@@ -158,7 +167,22 @@
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
                 <button type="button" class="btn btn-primary" onclick="goToPage2();">上一步</button>
-                <button type="button" class="btn btn-primary" onclick="goToPage4();">下一步</button>
+                <button type="button" class="btn btn-primary" onclick="goToPage4();">完成提交</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第四页 -->
+        <form id="apply_page_4" style="display:none">
+            <div class="page4_success_info">
+                您的入驻申请提交成功！我们将在3-5个工作日完成审核并及时和您联系，谢谢！
+            </div>
+            <div class="page4_help_info">
+                温馨提示：如希望与我们保持持续的沟通，可添加我们的在线客服qq：800051878
+            </div>
+            <div class="form-group_btn">
+                <div class="col-sm-offset-5 col-sm-4">
+                    <button type="button" class="btn btn-primary" onclick="">关闭本页</button>
             </div>
           </div>
         </form>
@@ -170,7 +194,28 @@
 <script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
 <script type="text/javascript" src="/static/js/jquery.sort.js"></script>
 <script type="text/javascript">
-
+    $(function(){
+        $("#apply_page_1").validate({
+            rules: {
+                company_name:{
+                    required:true
+                }
+            },
+            errorPlacement: function (error, element) {
+                var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
+                toast(errMsg + '' + error.text(), 'warnning');
+            }
+        });
+    });
+    $("input").blur(function(){
+        if($("#apply_page_1").valid()){
+            console.log('111');
+            $('#apply_page_1 button').attr("disabled",false);
+        }else{
+            $('#apply_page_1 button').attr("disabled","disabled");
+        }
+    });
+    
     $(document).ready(function() {
         //三级联动省市区
         $("#company_location").citySelect();
@@ -284,9 +329,9 @@
         $("#apply_page_3").show();
     }
     function goToPage4(){
-        $("#page2").addClass('active');
-        $("#apply_page_1").hide();
-        $("#apply_page_2").show();
+        $("#page4").addClass('active');
+        $("#apply_page_3").hide();
+        $("#apply_page_4").show();
     }
     function savePage(){
         console.log($('#apply_page_1').serialize());
@@ -303,5 +348,27 @@
         //     }
         // });
     }
+    var ori_toast_class = 'alert-danger',
+        title_arr = ['success','info','warning','danger'];
+    /**
+     * toast，默认2秒后消失
+     * @param msg
+     * @param title
+     */
+    window.toast = function(msg,title){
+        var $this = $('.toast-content');
+        if(title && title_arr.contains(title)){
+            var new_class = 'alert-'+title;
+            $this.removeClass(ori_toast_class).addClass(new_class);
+            ori_toast_class = new_class;
+        }else{
+            $this.removeClass(ori_toast_class).addClass('alert-danger').find('strong').html('');
+        }
+        $this.find('span').html(msg);
+        $this.slideDown();
+        window.setTimeout(function(){
+            $this.slideUp('slow');
+        },2000);
+    };
 </script>
 {% endblock %}
