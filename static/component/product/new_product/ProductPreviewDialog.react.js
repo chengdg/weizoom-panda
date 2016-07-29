@@ -34,41 +34,67 @@ var ProductPreviewDialog = Reactman.createDialog({
 		var remark = this.state.remark;
 		var model_values = this.props.data.model_values;
 		var product = this.props.data.product;
+		var has_product_model = product['has_product_model'];
 		var clear_prices = '';
-		var modelId = model_values[0].modelId;
-		clear_prices = product['clear_price_'+modelId];
-
-		var propertyValues = model_values[0].propertyValues;
 		var names=[]
-		_.each(propertyValues, function(values) {
-			names.push(values.name);
-		})
-		names = names.join(',');
-		return (
-			<div className="xui-formPage xui-product-preview-div">
-				<div className="product-detail">
-					<div style={{position:'relative',background:'#FFF',padding:'10px 0 22px 0'}}>
-						<img className='product-image' src={path}/>
-						<span className='product-image-count'>1/{img_count}</span>
-					</div>
-					<div className="product-name-price">
-						<span className="product-collect-title">收藏</span>
-						<span className="product-name">{this.state.product_name}</span>
-						<span className="product-promotion-title">{this.state.promotion_title}</span>
-						<span className="product-price">￥{clear_prices}</span>
-					</div>
-					<div className="product-choose">
-						<span className='choose-count'>选择规格</span>
-						
-						<span className='fr'>{names}<span style={{marginLeft: '20px'}}>{'>'}</span></span>
-					</div>
-					<div className="product-introduce">
-						<span className="title">商品详情</span>
-						<div className="product-content" dangerouslySetInnerHTML={{__html: this.state.remark}}></div>
+
+		if(has_product_model=='1'){
+			var modelId = model_values[0].modelId;
+			clear_prices = product['clear_price_'+modelId];
+
+			var propertyValues = model_values[0].propertyValues;
+			_.each(propertyValues, function(values) {
+				names.push(values.name);
+			})
+			names = names.join(',');
+			return (
+				<div className="xui-formPage xui-product-preview-div">
+					<div className="product-detail">
+						<div style={{position:'relative',background:'#FFF',padding:'10px 0 22px 0'}}>
+							<img className='product-image' src={path}/>
+							<span className='product-image-count'>1/{img_count}</span>
+						</div>
+						<div className="product-name-price">
+							<span className="product-collect-title">收藏</span>
+							<span className="product-name">{this.state.product_name}</span>
+							<span className="product-promotion-title">{this.state.promotion_title}</span>
+							<span className="product-price">￥{clear_prices}</span>
+						</div>
+						<div className="product-choose">
+							<span className='choose-count'>选择规格</span>
+							
+							<span className='fr'>{names}<span style={{marginLeft: '20px'}}>{'>'}</span></span>
+						</div>
+						<div className="product-introduce">
+							<span className="title">商品详情</span>
+							<div className="product-content" dangerouslySetInnerHTML={{__html: this.state.remark}}></div>
+						</div>
 					</div>
 				</div>
-			</div>
-		)
+			)
+		}else{
+			return (
+				<div className="xui-formPage xui-product-preview-div">
+					<div className="product-detail">
+						<div style={{position:'relative',background:'#FFF',padding:'10px 0 22px 0'}}>
+							<img className='product-image' src={path}/>
+							<span className='product-image-count'>1/{img_count}</span>
+						</div>
+						<div className="product-name-price">
+							<span className="product-collect-title">收藏</span>
+							<span className="product-name">{this.state.product_name}</span>
+							<span className="product-promotion-title">{this.state.promotion_title}</span>
+							<span className="product-price">￥{this.state.clear_price}</span>
+						</div>
+						<div className="product-introduce">
+							<span className="title">商品详情</span>
+							<div className="product-content" dangerouslySetInnerHTML={{__html: this.state.remark}}></div>
+						</div>
+					</div>
+				</div>
+			)
+		}
+		
 	}
 })
 

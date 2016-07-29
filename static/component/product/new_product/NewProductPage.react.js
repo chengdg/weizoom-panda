@@ -37,13 +37,21 @@ var NewProductPage = React.createClass({
 		var product = Store.getData();
 		var model_values = this.state.model_values;
 		var is_true = this.validateProduct();
+		var has_product_model = this.state.has_product_model;
 		if(product.images.length == 0){
 			Reactman.PageAction.showHint('error', '请先上传图片！');
 			return;
 		}
-		if(is_true){
-			Reactman.PageAction.showHint('error', '请先填写带*的内容！');
-			return;
+		if(has_product_model==='0'){
+			if(is_true){
+				Reactman.PageAction.showHint('error', '请先填写带*的内容！');
+				return;
+			}
+		}else{
+			if(has_product_model=='1' && model_values.length==0){
+				Reactman.PageAction.showHint('error', '请先添加规格！');
+				return;
+			}
 		}
 		Reactman.PageAction.showDialog({
 			title: "商品预览",
@@ -81,6 +89,7 @@ var NewProductPage = React.createClass({
 		product['second_level_id'] = W.second_level_id;
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
+		var has_product_model = this.state.has_product_model;
 		// var has_limit_time = parseInt(product.has_limit_time[0]);
 		// if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
 		// 	if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
@@ -95,8 +104,6 @@ var NewProductPage = React.createClass({
 					return;
 				}
 			}
-			console.log(product.clear_price,product.product_price)
-			console.log(product.clear_price>product.product_price)
 			if(parseFloat(product.clear_price) > parseFloat(product.product_price)){
 				Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 				return;
@@ -134,9 +141,7 @@ var NewProductPage = React.createClass({
 		}
 
 		var model_values = this.state.model_values;
-		var has_product_model = this.state.has_product_model;
 		product['has_product_model'] = this.state.has_product_model;
-		
 		if(has_product_model==='1' && model_values.length==0){
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;
