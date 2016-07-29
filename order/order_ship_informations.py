@@ -16,13 +16,13 @@ from core import resource
 from core.jsonresponse import create_response
 from core import paginator
 from core.exceptionutil import unicode_full_stack
-
 from util import db_util
+from eaglet.utils.resource_client import Resource
 from resource import models as resource_models
 from account.models import *
 from util import string_util
-from panda.settings import ZEUS_HOST
 from panda.settings import BASE_DIR
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 
 text2express_company_name = {
 	'':'',
@@ -63,12 +63,21 @@ class OrderShipInformations(resource.Resource):
 		}
 		if __method == 'put':
 			#发货
-			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=put',data=params)
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
+				{
+					'resource': 'mall.delivery',
+					'data': params
+				}
+			)
 		else:
 			#修改物流
-			r = requests.post(ZEUS_HOST+'/mall/delivery/?_method=post',data=params)
-		res = json.loads(r.text)
-		if res['data']['result'] == u'SUCCESS':
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
+				{
+					'resource': 'mall.delivery',
+					'data': params
+				}
+			)
+		if res and res['data']['result'] == u'SUCCESS':
 			response = create_response(200)
 			return response.get_response()
 		else:
@@ -88,9 +97,13 @@ class OrderCompleteShip(resource.Resource):
 			'action' : 'finish',
 			'operator_name' : request.user.username
 		}
-		r = requests.post(ZEUS_HOST+'/mall/order/?_method=post',data=params)
-		res = json.loads(r.text)
-		if res['data']['result'] == u'SUCCESS':
+		res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
+			{
+				'resource': 'mall.order',
+				'data': params
+			}
+		)
+		if res and res['data']['result'] == u'SUCCESS':
 			response = create_response(200)
 			return response.get_response()
 		else:
@@ -118,9 +131,13 @@ class OrderBatchDelivery(resource.Resource):
 			'datas' : datas
 		}
 		#发货
-		r = requests.post(ZEUS_HOST+'/panda/batch_delivery/?_method=put',data=params)
-		res = json.loads(r.text)
-		if res['code'] == 200:
+		res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
+			{
+				'resource': 'panda.batch_delivery',
+				'data': params
+			}
+		)
+		if res and res['code'] == 200:
 			err_msg = ''
 			datas = res['data']
 			for data in datas:
