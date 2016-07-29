@@ -27,10 +27,10 @@ class Command(BaseCommand):
 			item['phone'] = str(int(table.cell(i,1).value))
 			datas.append(item)
 		for data in datas:
-			print data
 			try:
 				user_id = User.objects.get(username=data['username']).id
-				account = account_models.UserProfile.objects.filter(user_id=user_id).update(
+				account_info = account_models.UserProfile.objects.filter(user_id=user_id)
+				account_info.update(
 					phone = data['phone']
 				)
 				new_relation = [re.supplier_id for re in account_models.AccountHasSupplier.objects.filter(user_id=user_id)]
@@ -38,10 +38,10 @@ class Command(BaseCommand):
 				supplier_ids = old_relation + new_relation
 				for supplier_id in supplier_ids:
 					param = {
-						'name': account.name,
+						'name': account_info.first().name,
 						'remark': '',
 						'responsible_person': u'8000FT',
-						'supplier_tel': account.phone,
+						'supplier_tel': data['phone'],
 						'supplier_address': u'中国 北京',
 						'supplier_id': supplier_id
 					}
@@ -54,8 +54,9 @@ class Command(BaseCommand):
 						print '++++++++++++++++++++++++++++++++++++++++++++++='
 
 				print "==="+'changing user:'+data['username']+"==="
-			except:
-				print "==="+'error:user is not exsit'+data['username']+"==="
+			except Exception,e:
+				print e
+				print "==="+'error:user is not exsit:'+data['username']+"==="
 			
 		print "====="+'changing user success'+"====="
 		print "====="+'total changing users amount:'+str(len(datas))+"====="
