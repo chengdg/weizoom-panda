@@ -131,7 +131,7 @@ class CustomerOrderDetail(resource.Resource):
 			'ship_address': '' if not data else data['ship_address'],#收货地址
 			'express_company_name': '' if not data else data['express_company_name'],#物流公司名称
 			'express_number': '' if not data else data['express_number'],#运单号
-			'order_money': '%.2f' %data['total_purchase_price'],#订单金额
+			'order_money': '%.2f' %total_purchase_price,#订单金额
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
 		}]
