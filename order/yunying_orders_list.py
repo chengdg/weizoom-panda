@@ -398,12 +398,10 @@ class YunyingOrdersList(resource.Resource):
 					# weapp_owner_id = order.get('owner_id')
 					# 规格信息
 					temp_product_name = []
-					product_models = order['products']
-					for product_model in product_models:
-						print '++++++++++++++++++++++++++++++++++++++++++++++++++++++='
+					product_model_properties = order['products']
+					for product_model in product_model_properties:
 
 						product_properties = product_model.get('custom_model_properties')
-						print product_properties
 						if product_properties:
 							model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
 
@@ -411,7 +409,7 @@ class YunyingOrdersList(resource.Resource):
 								model_info = u'(' + '/'.join(model_info) + u')'
 						else:
 							model_info = ''
-						print type(model_info), type(product_model.get('count', 0)), type(product_model.get('name', ''))
+						# print type(model_info), type(product_model.get('count', 0)), type(product_model.get('name', ''))
 						temp_product_name.append( product_model.get('name', '') + model_info \
 										 + u',' + str(product_model.get('count', 0)) + u'件' )
 

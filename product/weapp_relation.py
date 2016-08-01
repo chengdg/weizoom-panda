@@ -92,8 +92,8 @@ class ProductRelation(resource.Resource):
                         'supplier': weapp_supplier_id,
                         'name': product.product_name,
                         'promotion_title': product.promotion_title if product.promotion_title else '',
-                        'purchase_price': product.clear_price,
-                        'price': product.product_price,
+                        'purchase_price': float(product.clear_price),
+                        'price': float(product.product_price),
                         'weight': product.product_weight,
                         'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
                         'images': json.dumps(images),
@@ -105,16 +105,19 @@ class ProductRelation(resource.Resource):
                         'accounts': json.dumps(weapp_user_ids),
                         'detail': product.remark
                     }
+
                     # 判断是更新还是新曾商品同步
                     relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id)
                     if relations.count() == 0:
+
+
                         resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
                             'resource': 'mall.product',
                             'data': params
                         })
                         # 同步到商品中间关系表
                         if resp:
-                            if resp.get('code') == 200:
+                            if resp.get('code') == 200 and resp.get('data').get('product'):
                                 weapp_product_id = resp.get('data').get('product').get('id')
                                 models.ProductHasRelationWeapp.objects.create(
                                     product_id=product.id,
@@ -156,7 +159,7 @@ class ProductRelation(resource.Resource):
                                 'resource': 'mall.product',
                                 'data': params
                             })
-                            if resp:
+                            if resp and resp.get('code') == 200 and resp.get('data').get('success'):
                                 # 先删除数据
                                 models.ProductSyncWeappAccount.objects.filter(product_id=product.id,).delete()
                                 sync_models = [models.ProductSyncWeappAccount(product_id=product.id,
@@ -217,6 +220,7 @@ def get_weapp_model_properties(product=None):
                                 'stock_type': 'limit',
                                 'stocks': model_info.stocks,
                                 'weight': model_info.weight,
+                                'is_deleted': model_info.is_deleted,
                                 'is_standard': False})
         weapp_models_info.append(temp_model_info)
     return weapp_models_info
