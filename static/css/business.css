@@ -144,8 +144,6 @@ em {
 }
 #apply_page_3 .form-group{
 	display: inline-block;
-	margin-left: 32%;
-	text-align: center;
 }
 #apply_page_2{
 	display: inline;
@@ -205,6 +203,9 @@ img.wui-upload-img {
 
 #apply_page_3 a {
 	text-decoration: none; color: #333;
+}
+#apply_page_3{
+    text-align: center;
 }
 .page3_help_info {
     padding-bottom: 30px;

@@ -16,8 +16,9 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from core import resource
 from core.jsonresponse import create_response
-from resource import models as models
+from resource import models as resource_models
 import models
+from product_catalog import models as product_catalog_models
 
 class BusinessApply(resource.Resource):
 	app = 'business'
@@ -26,8 +27,26 @@ class BusinessApply(resource.Resource):
 	def get(request):
 		c = RequestContext(request, {
 		})
+		return render_to_response('business/business_apply_page.html', c)
+
+	
+	def api_get(request):
+		first_catalog = []
+		second_catalog = []
+		for catalog in product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1):
+			first_catalog.append(catalog.catalog_name)
+			this_second_catalog = []
+			second_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=catalog.id)
+			this_second_catalog = [catalog.catalog_name for catalog in second_catalogs]
+			second_catalog.append(this_second_catalog)
 		
-		return render_to_response('business/business_apply_1.html', c)
+		data = {
+			'first_catalog': first_catalog,
+			'second_catalog': second_catalog
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
 
 	def api_post(request):
 		post = request.POST
@@ -129,7 +148,7 @@ class BusinessImage(resource.Resource):
 
         #保存图片信息到mysql中
         image_path = '/static/upload/%s/%s' % (store_dir, file_name)
-        image = models.Image.objects.create(
+        image = resource_models.Image.objects.create(
             user = User.objects.filter(is_staff=1).first(),
             path = image_path
         )

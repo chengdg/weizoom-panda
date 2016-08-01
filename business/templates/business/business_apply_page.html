@@ -155,9 +155,7 @@
           <div class="form-group">
             <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;">
                 <b>您已选择：</b>
-                <div class="selectedSort">
-                    <!-- <span class="selectedSortSpan">1</span> -->
-                </div>
+                <div class="selectedSort"></div>
             </div>
             <div class="wareSort clearfix">
                 <ul id="sort1"></ul>
@@ -166,7 +164,7 @@
           </div>
           <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
-            <div class="col-sm-offset-5 col-sm-4">
+            <div>
                 <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
                 <button type="button" class="btn btn-primary" onclick="savePage();" disabled="disabled">完成提交</button>
             </div>
@@ -204,7 +202,8 @@
                 },
                 company_money:{
                     required: false,
-                    number: true
+                    number: true,
+                    min: 1
                 },
                 legal_representative:{
                     required: false,
@@ -303,7 +302,6 @@
     $(document).ready(function() {
         //三级联动省市区
         $("#company_location").citySelect();
-
         //上传图片
         $('.xa-uploader').click(function(event){
             console.log($(event.target));
