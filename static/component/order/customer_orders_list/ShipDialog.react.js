@@ -54,7 +54,7 @@ var ShipDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		if (this.state.ship_company === '-1') {
+		if (this.state.is_need_ship=='1' && this.state.ship_company === '-1') {
 			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
 			//给接口传递发货信息的参数
