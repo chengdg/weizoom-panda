@@ -62,7 +62,7 @@ class ProductModelValue(resource.Resource):
 						'resource': 'mall.model_property_value',
 						'data': params
 					})
-					if not resp or not resp.get('code') == 200:
+					if not resp or not resp.get('code') == 200 and resp.get('data').get('product_model_value'):
 						response = create_response(500)
 					else:
 						weapp_data = resp.get('data').get('product_model_value')

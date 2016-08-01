@@ -127,7 +127,7 @@ class ProductModel(resource.Resource):
 				'data': params
 			})
 			# print resp.get('code'), '+++++++++++++++++++++++++++++++'
-			if resp and resp.get('code') == 200:
+			if resp and resp.get('code') == 200 and resp.get('data').get('product_model'):
 				# 新增中间关系
 				weapp_property_id = resp.get('data').get('product_model').get('id')
 				models.ProductModelPropertyRelation.objects.create(weapp_property_id=weapp_property_id,
@@ -183,7 +183,7 @@ class ProductModel(resource.Resource):
 					'resource': 'mall.product_model_property',
 					'data': params
 				})
-				if not resp or not resp.get('code') == 200:
+				if not resp or not resp.get('code') == 200 and resp.get('data').get('change_rows') >= 0:
 					# 新增中间关系
 
 					db_model.update(is_deleted=False)
