@@ -114,7 +114,7 @@ class ProductRelation(resource.Resource):
                         })
                         # 同步到商品中间关系表
                         if resp:
-                            if resp.get('code') == 200:
+                            if resp.get('code') == 200 and resp.get('product'):
                                 weapp_product_id = resp.get('data').get('product').get('id')
                                 models.ProductHasRelationWeapp.objects.create(
                                     product_id=product.id,
@@ -156,7 +156,7 @@ class ProductRelation(resource.Resource):
                                 'resource': 'mall.product',
                                 'data': params
                             })
-                            if resp:
+                            if resp and resp.get('code') == 200 and resp.get('success'):
                                 # 先删除数据
                                 models.ProductSyncWeappAccount.objects.filter(product_id=product.id,).delete()
                                 sync_models = [models.ProductSyncWeappAccount(product_id=product.id,
