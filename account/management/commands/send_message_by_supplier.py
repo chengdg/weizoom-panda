@@ -20,7 +20,7 @@ class Command(BaseCommand):
         accounts = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER,
                                                              is_active=True)
         # print '++++++++++++++++++++++++++++++++++++=', accounts.count()
-        content = u'您好，当前您有%s个订单，请及时处理'
+        content = u'您好，当前您有%s个订单，请及时处理【微众传媒】'
         number_message = 0
         account_ids = []
         for account in accounts:
@@ -66,4 +66,4 @@ class Command(BaseCommand):
                         watchdog.info('供货商%s发送结果是%s' % (str(account.user_id), 'SUCCESS' if rs else 'FAILED'))
                     # watchdog.info('供货商%s发送结果是%s' % (account.user_id, 'SUCCESS' if rs else 'FAILED'))
         print u'本次一共发送了%s条短信' % number_message
-        print u'这些帐号ｉｄ是:', account_ids
+        # print u'这些帐号ｉｄ是:', account_ids
