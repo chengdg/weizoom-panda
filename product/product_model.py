@@ -109,6 +109,7 @@ class ProductModel(resource.Resource):
 		return response.get_response()
 
 	def api_put(request):
+		db_model = None
 		try:
 			db_model = models.ProductModelProperty.objects.create(
 				owner=request.user
@@ -125,7 +126,7 @@ class ProductModel(resource.Resource):
 				'resource': 'mall.product_model_property',
 				'data': params
 			})
-			print resp.get('code'), '+++++++++++++++++++++++++++++++'
+			# print resp.get('code'), '+++++++++++++++++++++++++++++++'
 			if resp and resp.get('code') == 200:
 				# 新增中间关系
 				weapp_property_id = resp.get('data').get('product_model').get('id')
@@ -136,14 +137,15 @@ class ProductModel(resource.Resource):
 			else:
 				db_model.update(is_deleted=False)
 				response = create_response(500)
-
+			return response.get_response()
 		except:
 			response = create_response(500)
 			msg = unicode_full_stack()
 			watchdog.error(msg)
 			response.innerErrMsg = msg
-
-		return response.get_response()
+			if db_model:
+				db_model.update(is_deleted=False)
+			return response.get_response()
 
 	def api_post(request):
 		model_id = int(request.POST.get('id', 0))
@@ -171,7 +173,7 @@ class ProductModel(resource.Resource):
 			model_type = 'text' if db_model.type == models.PRODUCT_MODEL_PROPERTY_TYPE_TEXT else 'image'
 			if relation:
 				# update
-				print 'update'
+				# print 'update'
 				params = {
 					"id": relation.weapp_property_id,
 					'type': model_type,
@@ -188,7 +190,7 @@ class ProductModel(resource.Resource):
 					response = create_response(500)
 			else:
 				# add
-				print 'add'
+				# print 'add'
 				params = {
 					"owner_id": 'owner_id',
 					'type': model_type,

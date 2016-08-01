@@ -217,6 +217,7 @@ def get_weapp_model_properties(product=None):
                                 'stock_type': 'limit',
                                 'stocks': model_info.stocks,
                                 'weight': model_info.weight,
+                                'is_deleted': model_info.is_deleted,
                                 'is_standard': False})
         weapp_models_info.append(temp_model_info)
     return weapp_models_info

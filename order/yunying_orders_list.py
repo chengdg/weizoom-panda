@@ -398,8 +398,8 @@ class YunyingOrdersList(resource.Resource):
 					# weapp_owner_id = order.get('owner_id')
 					# 规格信息
 					temp_product_name = []
-					product_models = order['products']
-					for product_model in product_models:
+					product_model_properties = order['products']
+					for product_model in product_model_properties:
 						print '++++++++++++++++++++++++++++++++++++++++++++++++++++++='
 
 						product_properties = product_model.get('custom_model_properties')
