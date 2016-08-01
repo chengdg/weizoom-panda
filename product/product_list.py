@@ -75,7 +75,7 @@ def getProductData(request,is_export):
 	product_name = filter_idct.get('product_name','')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
-	products = models.Product.objects.filter(owner=request.user).order_by('-id')
+	products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
 	#查询
 	if product_name:
