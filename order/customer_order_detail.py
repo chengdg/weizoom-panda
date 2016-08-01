@@ -98,7 +98,7 @@ class CustomerOrderDetail(resource.Resource):
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 		product_id2name = {product.id:product.product_name for product in products}
-		order_products = data['product']
+		order_products = data['product'] if data else []
 		total_count = 0
 		for product in order_products:
 			total_count += product['count']
