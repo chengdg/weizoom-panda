@@ -17,6 +17,7 @@ from django.contrib.auth.models import User
 from core import resource
 from core.jsonresponse import create_response
 from resource import models as models
+import models
 
 class BusinessApply(resource.Resource):
 	app = 'business'
@@ -28,16 +29,62 @@ class BusinessApply(resource.Resource):
 		
 		return render_to_response('business/business_apply_1.html', c)
 
-	# def api_get(request):
-	# 	is_export = False
-	# 	rows,pageinfo = getCustomerData(request,is_export)
-	# 	data = {
-	# 		'rows': rows,
-	# 		'pagination_info': pageinfo.to_dict()
-	# 	}
-	# 	response = create_response(200)
-	# 	response.data = data
-	# 	return response.get_response()
+	def api_post(request):
+		post = request.POST
+		print post
+		print 'post================='
+		company_type = models.DIRECT if post.get('company_type')=='direct' else models.AGENCY
+		company_name = post.get('company_name','')
+		company_money = float(post.get('company_money')) if post.get('company_money')!='' else 0
+		legal_representative = post.get('legal_representative','')
+		contacter = post.get('contacter','')
+		phone = post.get('phone','')
+		e_mail = post.get('e_mail','')
+		we_chat_and_qq = post.get('we_chat_and_qq','')
+		company_location = post.get('company_location','')
+		address = post.get('address','')
+
+		data_page_2 = json.loads(post.get('data_page_2'),'')
+		data_page_3 = json.loads(post.get('data_page_3'),'')
+
+		business_license = data_page_2['business_license']
+		business_license_time = data_page_2['business_license_time']
+		tax_registration_certificate = data_page_2['tax_registration_certificate']
+		tax_registration_certificate_time = data_page_2['tax_registration_certificate_time']
+		organization_code_certificate = data_page_2['organization_code_certificate']
+		organization_code_certificate_time = data_page_2['organization_code_certificate_time']
+		account_opening_license = data_page_2['account_opening_license']
+		account_opening_license_time = data_page_2['account_opening_license_time']
+		
+		product_catalog_ids = data_page_3['selectedSortIds']
+
+		# business = models.Business.objects.create(
+		# 	company_type = company_type,
+		# 	company_name = company_name,
+		# 	company_money = company_money,
+		# 	legal_representative = legal_representative,
+		# 	contacter = contacter,
+		# 	phone = phone,
+		# 	e_mail = e_mail,
+		# 	we_chat_and_qq = we_chat_and_qq,
+		# 	company_location = company_location,
+		# 	address = address,
+		# 	business_license = business_license,
+		# 	business_license_time = business_license_time,
+		# 	tax_registration_certificate = tax_registration_certificate,
+		# 	tax_registration_certificate_time = tax_registration_certificate_time,
+		# 	organization_code_certificate = organization_code_certificate,
+		# 	organization_code_certificate_time = organization_code_certificate_time,
+		# 	account_opening_license = account_opening_license,
+		# 	account_opening_license_time = account_opening_license_time,
+		# 	product_catalog_ids = product_catalog_ids
+		# )
+
+		data = {
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
 
 class BusinessImage(resource.Resource):
     """

@@ -224,3 +224,9 @@ span.selectedSortSpan {
     margin-bottom: 10px;
     display: inline-block;
 }
+#apply_page_4 {
+    text-align: center;
+}
+#apply_page_4 .btn-primary{
+    margin-top: 30%;
+}
