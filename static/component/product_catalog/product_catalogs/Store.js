@@ -19,7 +19,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	init: function() {
-		this.data = {};
+		this.data = {
+			'models': [],
+		};
 	},
 
 	handleCatelogDataFilter: function(action){
