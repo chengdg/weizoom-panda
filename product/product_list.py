@@ -107,11 +107,21 @@ def getProductData(request,is_export):
 	model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
 	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
+	# 售价
+	product_id2product_price = {}
 	for model_property in model_properties:
 		if model_property.product_id not in product_id2market_price:
 			product_id2market_price[model_property.product_id] = [model_property.market_price]
+
 		else:
 			product_id2market_price[model_property.product_id].append(model_property.market_price)
+
+	for model_property in model_properties:
+		if model_property.product_id not in product_id2product_price:
+			product_id2product_price[model_property.product_id] = [model_property.price]
+
+		else:
+			product_id2product_price[model_property.product_id].append(model_property.price)
 
 	rows = []
 	# 获取商品是否上线
@@ -152,6 +162,17 @@ def getProductData(request,is_export):
 				clear_price = '%s' %market_prices[0]
 		else:
 			clear_price = '%.2f' %product.clear_price,
+
+		if product.id in product_id2product_price:
+			product_prices = product_id2product_price[product.id]
+			product_prices = sorted(product_prices)
+			product_has_model = len(product_prices)
+			if (product_prices[0]!= product_prices[-1]) and len(product_prices)>1:
+				product_price = ('%s ~ %s')%(product_prices[0],product_prices[-1])
+			else:
+				product_price = '%s' % product_prices[0]
+		else:
+			product_price = '%.2f' % product.product_price,
 		image_paths = []
 		if product.id in product_id2image_id:
 			image_ids = product_id2image_id[product.id]
@@ -166,7 +187,7 @@ def getProductData(request,is_export):
 			'role': role,
 			'promotion_title': product.promotion_title,
 			'clear_price': clear_price,
-			'product_price': '%.2f' % product.product_price if product.product_price>0 else '',
+			'product_price': product_price,
 			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price>0 else '',
 			'product_weight': '%.2f' %product.product_weight,
 			'product_name': product.product_name,
