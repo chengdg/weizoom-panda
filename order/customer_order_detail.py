@@ -18,7 +18,8 @@ from core.exceptionutil import unicode_full_stack
 from resource import models as resource_models
 from product import models as product_models
 from util import string_util
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_HOST, ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from eaglet.utils.resource_client import Resource
 import nav
 import models
 import urllib2
@@ -78,12 +79,17 @@ class CustomerOrderDetail(resource.Resource):
 			params = {
 				'order_id': order_id
 			}
-			r = requests.get(ZEUS_HOST+'/mall/order_detail/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				data = res['data']['order']
+			# r = requests.get(ZEUS_HOST+'/mall/order_detail/',params=params)
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get({
+				'resource': 'mall.order_detail',
+				'data': params
+			})
+			# res = json.loads(r.text)
+			if resp and resp['code'] == 200:
+
+				data = resp['data']['order']
 			else:
-				print(res)
+				# print(res)
 				response = create_response(500)
 				return response.get_response()
 		except Exception,e:
