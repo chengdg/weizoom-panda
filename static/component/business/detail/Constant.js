@@ -6,5 +6,6 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	CUSTOMER_DATAS_FILTER: null
+	NEW_ACCOUNT_UPDATE_ACCOUNT: null,
+	NEW_ACCOUNT_CREATE: null
 });

@@ -47,11 +47,25 @@ class BusinessDetail(resource.Resource):
 		if business_id:
 			business = models.Business.objects.get(id=business_id)
 			business_data = {
-				# 'id': user_profile.id,
-				# 'name': user_profile.name,
-				# 'username': User.objects.get(id=user_profile.user_id).username,
-				# 'account_type': user_profile.role,
-				# 'note': user_profile.note
+				'id': business.id,
+				'company_type': business.company_type,
+				'company_name': business.company_name,
+				'company_money': business.company_money,
+				'legal_representative': business.legal_representative,
+				'contacter': business.contacter,
+				'phone': business.phone,
+				'e_mail': business.e_mail,
+				'we_chat_and_qq': business.we_chat_and_qq,
+				'company_location': business.company_location,
+				'address': business.address,
+				'business_license': [{'id':1,'path':business.business_license}],
+				'business_license_time': business.business_license_time.strftime("%Y-%m-%d %H:%M"),
+				'tax_registration_certificate': [{'id':2,'path':business.tax_registration_certificate}],
+				'tax_registration_certificate_time': business.tax_registration_certificate_time.strftime("%Y-%m-%d %H:%M"),
+				'organization_code_certificate': [{'id':3,'path':business.organization_code_certificate}],
+				'organization_code_certificate_time': business.organization_code_certificate_time.strftime("%Y-%m-%d %H:%M"),
+				'account_opening_license': [{'id':4,'path':business.account_opening_license}],
+				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M")
 			}
 			jsons['items'].append(('business_data', json.dumps(business_data)))
 

@@ -16,28 +16,25 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleCustomerDataFilter': Constant.CUSTOMER_DATAS_FILTER
+		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
+		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE
 	},
 
 	init: function() {
 		this.data = Reactman.loadJSON('business_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
-			if (this.data['account_type'] == '1'){
-				this.data['purchase_method'] = String(this.data['purchase_method']);
-				this.data['company_type'] = JSON.parse(this.data['company_type']);
-				this.data['options_for_type'] = [];
-				if (this.data['purchase_method'] != '2'){
-					this.data['points'] = '';
-				}
-			}
+		}else{
+			this.data = {
+				'business_license': []
+			};
 		}
 	},
 
-	handleSelect: function(action) {
-		this.data['options_for_type'] = action.data.rows;
-		this.__emitChange();
-	},
+	// handleSelect: function(action) {
+	// 	this.data['options_for_type'] = action.data.rows;
+	// 	this.__emitChange();
+	// },
 	
 	handleUpdateAccount: function(action) {
 		this.data[action.data.property] = action.data.value;
@@ -45,7 +42,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleCreateNewAccount: function(action) {
-		W.gotoPage('/manager/account/');
+		W.gotoPage('/business/manager/');
 	},
 
 	getData: function() {

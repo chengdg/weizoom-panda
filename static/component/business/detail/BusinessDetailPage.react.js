@@ -22,18 +22,12 @@ var BusinessDetailPage = React.createClass({
 	},
 	
 	componentDidMount: function () {
-		Action.selectCatalog();
+		debug(ReactDOM.findDOMNode(this.refs.name));
 	},
 	
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		if(property == 'account_type'){
-			if(!W.is_edit){
-				Action.updateAccount(property, value);
-			}
-		}else{
-			Action.updateAccount(property, value);
-		}
+		Action.updateAccount(property, value);
 	},
 
 	onChangeStore: function() {
@@ -46,48 +40,41 @@ var BusinessDetailPage = React.createClass({
 
 	render:function(){
 		var optionsForAccountType = [{
-			text: '合作客户',
-			value: '1'
+			text: '厂家直销',
+			value: 1
 		}, {
-			text: '代理商',
-			value: '2'
-		}, {
-			text: '运营',
-			value: '3'
+			text: '代理/贸易/分销',
+			value: 2
 		}];
-
-		var disabled = W.is_edit ? 'disabled' : '';
-		if(W.is_edit){
-			var label_name = '修改密码:';
-			var validate = "";
-		}else{
-			var label_name = '登录密码:';
-			var validate = "require-notempty";
-		}
 		return (
 		<div className="xui-outlineData-page xui-formPage">
 			<form className="form-horizontal mt15">
 				<fieldset>
-					<legend className="pl10 pt10 pb10">账号信息</legend>
-					<Reactman.FormRadio label="账号类型:" name="account_type" value={this.state.account_type} options={optionsForAccountType} onChange={this.onChange} />
-					<div>
-						<AccountInfo onChange = {this.onChange}
-							company_name = {this.state.company_name}
-							name = {this.state.name}
-							// company_type = {this.state.company_type}
-							purchase_method = {this.state.purchase_method}
-							points = {this.state.points}
-							contacter = {this.state.contacter}
-							phone = {this.state.phone}
-							valid_time_from = {this.state.valid_time_from}
-							valid_time_to = {this.state.valid_time_to}
-							Type = {this.state.account_type}
-							options_for_type = {this.state.options_for_type}
-						/>
-					</div>
-					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
-					<Reactman.FormInput label={label_name} type="password" name="password" validate={validate} placeholder="" value={this.state.password} onChange={this.onChange} />
-					<Reactman.FormText label="备注:" name="note" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
+					<legend className="pl10 pt10 pb10">基本信息</legend>
+					<Reactman.FormRadio label="企业类型:" name="company_type" value={this.state.company_type} options={optionsForAccountType} onChange={this.onChange} />
+					<Reactman.FormInput label="公司名称:" name="company_name" validate="require-notempty" value={this.state.company_name} onChange={this.onChange} />
+					<Reactman.FormInput label="注册资本:" name="company_money" value={this.state.company_money} onChange={this.onChange} />
+					<Reactman.FormInput label="法人代表:" name="legal_representative" value={this.state.legal_representative} onChange={this.onChange} />
+					<Reactman.FormInput label="联系人:" name="contacter" validate="require-notempty" value={this.state.contacter} onChange={this.onChange} />
+					<Reactman.FormInput label="手机号:" name="phone" validate="require-notempty" value={this.state.phone} onChange={this.onChange} />
+					<Reactman.FormInput label="E-mail:" name="e_mail" value={this.state.e_mail} onChange={this.onChange} />
+					<Reactman.FormInput label="微信/QQ:" name="we_chat_and_qq" value={this.state.we_chat_and_qq} onChange={this.onChange} />
+					<Reactman.FormInput label="公司所在地:" name="company_location" value={this.state.company_location} onChange={this.onChange} />
+					<Reactman.FormInput label="详细地址:" name="address" value={this.state.address} onChange={this.onChange} />
+				</fieldset>
+				<fieldset>
+					<legend className="pl10 pt10 pb10">基本资质</legend>
+					<Reactman.FormImageUploader label="营业执照:" name="business_license" value={this.state.business_license} onChange={this.onChange} max={1} />
+					<Reactman.FormDateTimeInput label="营业执照有效期:" name="business_license_time" value={this.state.business_license_time} onChange={this.onChange} />
+					<Reactman.FormImageUploader label="税务登记证:" name="tax_registration_certificate" value={this.state.tax_registration_certificate} onChange={this.onChange} max={1} />
+					<Reactman.FormDateTimeInput label="税务登记证有效期:" name="tax_registration_certificate_time" value={this.state.tax_registration_certificate_time} onChange={this.onChange} />
+					<Reactman.FormImageUploader label="组织机构代码证:" name="organization_code_certificate" value={this.state.organization_code_certificate} onChange={this.onChange} max={1} />
+					<Reactman.FormDateTimeInput label="组织机构代码证有效期:" name="organization_code_certificate_time" value={this.state.organization_code_certificate_time} onChange={this.onChange} />
+					<Reactman.FormImageUploader label="开户许可证:" name="account_opening_license" value={this.state.account_opening_license} onChange={this.onChange} max={1} />
+					<Reactman.FormDateTimeInput label="开户许可证有效期:" name="account_opening_license_time" value={this.state.account_opening_license_time} onChange={this.onChange} />
+				</fieldset>
+				<fieldset>
+					<legend className="pl10 pt10 pb10">入驻类目及特殊资质</legend>
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>
@@ -95,67 +82,6 @@ var BusinessDetailPage = React.createClass({
 			</form>
 		</div>
 		)
-	}
-});
-
-var AccountInfo = React.createClass({
-	render: function() {
-		var account_type = this.props.Type;
-		var optionsForPurchaseMethod = [{
-			text: '固定底价',
-			value: '1'
-		}, {
-			text: '零售价返点',
-			value: '2'
-		}, {
-			text: '以货抵款',
-			value: '3'
-		}];
-		
-		if (account_type == '1'){
-			return(
-				<div>
-					<Reactman.FormInput label="公司名称:" type="text" name="company_name" value={this.props.company_name} onChange={this.props.onChange} />
-					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
-					<Reactman.FormRadio label="采购方式:" name="purchase_method" value={this.props.purchase_method} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
-					<div>
-						<PurchaseMethod onChange = {this.props.onChange}
-							points = {this.props.points}
-							Type = {this.props.purchase_method}
-						/>
-					</div>
-					<Reactman.FormInput label="联系人:" type="text" name="contacter" value={this.props.contacter} onChange={this.props.onChange} />
-					<Reactman.FormInput label="手机号:" type="text" name="phone" value={this.props.phone} onChange={this.props.onChange} />
-					<div className="account-create-valid-time">
-						<Reactman.FormDateTimeInput label="有效期:" name="valid_time_from" validate="require-notempty" value={this.props.valid_time_from} readOnly onChange={this.props.onChange} />
-						<Reactman.FormDateTimeInput label="至:" name="valid_time_to" value={this.props.valid_time_to} readOnly onChange={this.props.onChange} />
-					</div>
-				</div>
-			)
-		}else {
-			return(
-				<div>
-					<Reactman.FormInput label="账号名称:" type="text" name="name" validate="require-string" placeholder="" value={this.props.name} onChange={this.props.onChange} />
-				</div>
-			)
-		}
-	}
-});
-var PurchaseMethod = React.createClass({
-	render: function() {
-		var type = this.props.Type;
-		if (type == '2'){
-			return(
-				<div className="account-create-purchase-method">
-					<Reactman.FormInput label="零售价返点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
-					<span className="money_note">%</span>
-				</div>
-			)
-		}else {
-			return(
-				<div></div>
-			)
-		}
 	}
 });
 module.exports = BusinessDetailPage;
