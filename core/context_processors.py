@@ -55,6 +55,11 @@ def top_navs(request):
 				'displayName': '客户统计',
 				'icon': 'credit-card',
 				'href': '/customer/statistics/'
+			},{
+				'name': 'business',
+				'displayName': '客户管理',
+				'icon': 'credit-card',
+				'href': '/business/manager/'
 			}]
 		elif role == MANAGER:
 			top_navs = [{
