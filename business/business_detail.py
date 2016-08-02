@@ -81,6 +81,16 @@ class BusinessDetail(resource.Resource):
 	def api_post(request):
 		#修改入驻申请
 		post = request.POST
-		
+		company_type = post.get('company_type',2)
+		company_name = post.get('company_name','')
+		company_money = float(post.get('company_money')) if post.get('company_money')!='' else 0
+		legal_representative = post.get('legal_representative','')
+		contacter = post.get('contacter','')
+		phone = post.get('phone','')
+		e_mail = post.get('e_mail','')
+		we_chat_and_qq = post.get('we_chat_and_qq','')
+		company_location = post.get('company_location','')
+		address = post.get('address','')
+
 		response = create_response(200)
 		return response.get_response()

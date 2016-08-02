@@ -23,38 +23,44 @@ var Action = {
 		});
 	},
 	saveAccount: function(data) {
-		var account_info = {
-			name: data['name'],
+		var business_info = {
+			company_type: data['company_type'],
 			company_name: data['company_name'],
-			company_type: JSON.stringify(data['company_type']),
-			purchase_method: data['purchase_method'],
-			points: data['points'],
+			company_money: data['company_money'],
+			legal_representative: data['legal_representative'],
 			contacter: data['contacter'],
 			phone: data['phone'],
-			valid_time_from: data['valid_time_from'],
-			valid_time_to: data['valid_time_to'],
-			username: data['username'],
-			password: data['password'],
-			account_type: parseInt(data['account_type']),
-			note: data['note']
+			e_mail: data['e_mail'],
+			we_chat_and_qq: data['we_chat_and_qq'],
+			company_location: data['company_location'],
+			address: data['address'],
+			business_license: data['business_license'],
+			business_license_time: data['business_license_time'],
+			tax_registration_certificate: data['tax_registration_certificate'],
+			tax_registration_certificate_time: data['tax_registration_certificate_time'],
+			organization_code_certificate: data['organization_code_certificate'],
+			organization_code_certificate_time: data['organization_code_certificate_time'],
+			account_opening_license: data['account_opening_license'],
+			account_opening_license_time: data['account_opening_license_time']
 		};
-		account_info['id'] = data.id;
-		// Resource.post({
-		// 	resource: 'manager.account_create',
-		// 	data: account_info,
-		// 	success: function() {
-		// 		Reactman.PageAction.showHint('success', '编辑客户信息成功');
-		// 		setTimeout(function(){
-		// 			Dispatcher.dispatch({
-		// 				actionType: Constant.NEW_ACCOUNT_CREATE,
-		// 				data: data
-		// 			});
-		// 		},1000);
-		// 	},
-		// 	error: function(data) {
-		// 		Reactman.PageAction.showHint('error', data.errMsg);
-		// 	}
-		// });
+		business_info['id'] = data.id;
+		console.log(business_info);
+		Resource.post({
+			resource: 'manager.business_detail',
+			data: business_info,
+			success: function() {
+				Reactman.PageAction.showHint('success', '编辑客户信息成功');
+				setTimeout(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.NEW_ACCOUNT_CREATE,
+						data: data
+					});
+				},1000);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			}
+		});
 	}
 };
 
