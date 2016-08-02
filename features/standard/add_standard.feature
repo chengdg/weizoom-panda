@@ -41,7 +41,7 @@ Scenario:1 新增显示样式为'文字'的规格样式
 		}]
 	"""
 
-	Then aini查看订单列表
+	Then aini查看规格列表
 	"""
 		[{
 			"standard_name":"尺码",
@@ -57,18 +57,22 @@ Scenrio:2 新增显示样式为'图片'的规格样式
 	Given aini登录系统
 	When aini新增规格样式
 	"""
-		[{
-			"standard_name":"颜色",
-			"show_type":"图片",
-			"standard":{
-						"","","","",""
-					   }
-		}]
+	[{
+		"standard_name":"尺码",
+		"show_type":"文字",
+		"standard":{
+					"X","XL"
+					  },{
+		"standard_name":"颜色",
+		"show_type":"文字",
+		"standard":{
+					"红色","黑色"}
+	}]
 	"""
 	Then yunying查看规格列表
 		|standard_name| show_type |   standard   |
-		|    尺码     |    文字   |M,X,XL,XXL,XXL|
-		|    颜色     |    图像   |              |
+		|    尺码     |    文字   |     X,XL     |
+		|    颜色     |    图像   |  红色,黑色   |
 
 @penda @hj
 Scenario:3 删除规格值的中一个规格

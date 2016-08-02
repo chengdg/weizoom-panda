@@ -5,18 +5,25 @@ Feature:运营商过滤订单信息
 	1.通过客户名称查询
 	2.通过来源商城查询
 	3.通过下单时间查询
+	4.通过订单编号查询
 """
 
 Background
 	Given manager登录管理系统
-	When manager添加账号
+	Then manager添加账号
 	"""
 		[{
-			"account_type":"合作客户",
-			"account_name":"土小宝",
-			"login_account":"tuxiaobao",
-			"password":123456,
-			"ramarks":"土小宝客户体验账号"
+			"account_type":"体验客户",
+			"company_name":"爱昵咖啡有限责任公司",
+			"shop_name":"爱昵咖啡",
+			"manage_type":"休闲食品",
+			"purchase_type":"固定底价",
+			"connect_man":"aini",
+			"mobile_number":"13813985506",
+			"login_account":"aini",
+			"password":"123456",
+			"valid_time":"2016-07-15"至"2017-07-15",
+			"ramarks":"爱昵咖啡客户体验账号"
 		},{
 			"account_type":"运营",
 			"account_name":"运营部门",
@@ -26,37 +33,71 @@ Background
 		}]
 	"""
 
-	"""
-	When tuxiaobao使用密码123456登录管理系统
-	When tuxiaobao添加商品
+	Given aini登录系统
+	When aini新增规格样式
 	"""
 		[{
-			"name":"武汉鸭脖",
-			"title"："周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食",
-			"price":9.9,
-			"setlement_price":9.9,
-			"weight":0.23,
-			"repertory":{
-						"is_limit":"on",
-						"limit_num":500
-			},
-			"picture":"",
-			"description":"周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食"
-			},{
-			"name":"NIKE耐克男鞋便减震舒适休闲跑步鞋",
-			"title"："旗舰店—618粉丝狂欢， 赢200元粉丝券!",
-			"price":322,
-			"setlement_price":298,
-			"weight":0.5,
-			"repertory":{
-						"is_limit":"off"
-			},
-			"description":"旗舰店—618粉丝狂欢，关注微信公众号"jdxyyz" 赢200元粉丝券!"
+			"standard_name":"尺码",
+			"show_type":"文字",
+			"standard":{
+						"X","XL"
+					   },{
+			"standard_name":"颜色",
+			"show_type":"文字",
+			"standard":{
+						"红色","黑色"}
 		}]
 	"""
 
+	When aini添加商品
+	"""
+	[{
+		"first_classify":"生活用品",
+		"second_classify":"零食",
+		"name": "武汉鸭脖",
+		"promotion_name":"武汉鸭脖",
+		"introduction": "这是一种很好吃的鸭脖"
+		"standard_promotion":"是",
+		"standard":{
+						"standard_name":"颜色",
+						"standard":"黑色","红色"
+						},{
+						"standard_name":"尺码",
+						"standard":"X,XL"
+						}
+		"standard_price":{
+						|standard_1|standard_2|purchase_price|sale_price|weight|stock_number|
+						|   黑色   |     X    |     14.90    |   29.00  | 0.50 |   2500.00  |
+						|   黑色   |    XL    |     14.90    |   29.00  | 0.50 |   2000.00  |    
+						|   红色   |     X    |     14.90    |   29.00  | 0.50 |   1000.00  |
+						|   红色   |    XL    |     14.90    |   29.00  | 0.50 |   1300.00  |
+						},{
+		"first_classify":"居家",
+		"second_classify":"鞋子",			
+		"name": "耐克男鞋",
+		"promotion_name":"耐克男鞋",
+		"introduction": "耐克男鞋"
+		"standard_promotion":"是",
+		"standard":{
+					"standard_name":"颜色",
+					"standard":"黑色","红色"
+					},{
+					"standard_name":"尺码",
+					"standard":"X,XL"
+					}
+		"standard_price":{
+					|standard_1|standard_2|purchase_price|sale_price|weight|stock_number|
+					|   黑色   |     X    |     25.90    |  198.00  | 0.50 |   2500.00  |
+					|   黑色   |    XL    |     19.88    |  198.00  | 0.50 |   2000.00  |   
+					|   红色   |     X    |     23.70    |  198.00  | 0.50 |   1000.00  |
+					|   红色   |    XL    |     29.54    |  199.00  | 0.50 |   1300.00  |
+					}
+	}]	
+	"""
+
+
 	When yunying使用密码123456登录管理系统
-	When yunying关联商品'周黑鸭'
+	When yunying关联商品'武汉鸭脖'
 	{
 		"""
 			"shop_name":"微众白富美",
@@ -66,18 +107,22 @@ Background
 
 	Then yunying得到商品列表
 	|   good_name   | client_name | sales |  business_id   |
-	|    武汉鸭脖   |   土小宝    |  0.00 | 微众白富美:2401|    
-	|    耐克男鞋   |   土小宝    |  0.00 |                |
+	|    武汉鸭脖   |   爱伲咖啡  |  0.00 | 微众白富美:2401|    
+	|    耐克男鞋   |   爱伲咖啡  |  0.00 |                |
 
 	When 微信用户批量消费aini在云商通商家'微众家'关联的商品
 		|	order_id	  | date       | consumer |    type   |businessman|   product | payment  | payment_method | freight |   price  | product_integral |  	 coupon  		| paid_amount |	weizoom_card 		| alipay | wechat | cash |      action       |  order_status   |
-		|对应订单编号001  | 2016-06-12 | bill     |    购买   | 微众商城   | 武汉鸭脖  | 支付    | 支付宝         | 10      |   9.99   |      20.00       |                		|   199.80      |           		  | 199.80 | 0      | 0    |    jobs,支付      |  待发货         |
-		|对应订单编号002  | 2016-06-12 | tom      |    购买   | 微众家     | 耐克男鞋  | 支付    | 支付宝         | 15      |  298.00  |       1.00       |        				|         298.00      |       	            | 298.00 | 0      | 0    |    jobs,支付      |  待发货         |	
+		|201608020001  | 2016-06-12 | bill     |    购买   | 微众商城   | 武汉鸭脖  | 支付    | 支付宝         | 10      |   9.99   |      20.00       |                		|   199.80      |           		  | 199.80 | 0      | 0    |    jobs,支付      |  待发货         |
+		|201608020002  | 2016-06-12 | tom      |    购买   | 微众家     | 耐克男鞋  | 支付    | 支付宝         | 15      |  298.00  |       1.00       |        				|         298.00      |       	            | 298.00 | 0      | 0    |    jobs,支付      |  待发货         |	
+		|201608020003  | 2016-07-9 | tom      |    购买   | 微众家     | 耐克男鞋  | 支付    | 支付宝         | 15      |  298.00  |       1.00       |        				|         298.00      |       	            | 298.00 | 0      | 0    |    jobs,支付      |  待发货         |
+
 
 	Then yunying查看订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
-		|对应订单编号002|2016-06-12|    298.00   |   tom    |   微众家    |
+		|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname| 
+		| 201608020001  |武汉鸭脖-多规格(红色/X) |    199.80   |    待发货   |   bill   |  微众商城   |
+		| 201608020002  |耐克男鞋-多规格(黑色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+		| 201608020003  |耐克男鞋-多规格(红色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+
 
 
 @penda @tuxiaobao
@@ -87,45 +132,113 @@ Background
 	Whenn yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"001"
+		"consumer":"bi"
 	}
 	"""
-	Then yunying能获得订单号中包含"001"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
+	Then yunying能获得订单列表
+		|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname| 
+		| 201608020001  |武汉鸭脖-多规格(红色/X) |    199.80   |    待发货   |   bill   |  微众商城   |
 	"""
 	#完全匹配
 	When yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"对应订单编号002"
+		"consumer":"tom"
 	}
 	"""
 
-	Then yunying能获得订单号中是"对应订单编号002"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号002|2016-06-12|    298.00   |   tom    |   微众家    |
-
+	Then yunying能获得订单列表
+		|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname| 
+		| 201608020002  |耐克男鞋-多规格(黑色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+		| 201608020003  |耐克男鞋-多规格(红色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+	#无查询结果
 	When yunying设置订单列表的查询条件
 	"""
 	{
-		"order_id":"对应订单编号001"
+		"consumer":"Archer"
+	}
+	"""
+	Then yunying能获得订单列表
+	|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname| 
+
+@penda @tuxiaobao
+#Scenario2:运营通过'来源商城'过滤订单列表
+	Given yunying使用密码123456登录系统
+	When yunying设置订单列表的查询条件
+	"""
+	{
+		"businessname":"微众商城"
+	}
+	"""
+	Then yunying获得订单列表
+	|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname | 
+	| 201608020001  |武汉鸭脖-多规格(红色/X) |    199.80   |    待发货   |   bill   |  微众商城   |
+
+@penda @tuxiaobao
+#Scenario3:运营通过'下单时间'过滤订单列表
+	Given yunying使用密码123456登录系统
+	#有匹配结果
+	When yunying设置订单列表的查询条件
+	"""
+	{
+		"date":"2016-07-25 00:00"-"2016-09-30 00:00"
+	}
+	"""
+	Then yunying获得订单列表
+	|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname | 
+	#无匹配结果
+	When yunying设置订单列表的查询条件
+	"""
+	{
+		"date":"2016-07-01 00:00"-"2016-09-30 00:00"
+	}
+	"""
+	Then yunying获得订单列表
+	|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname | 
+	| 201608020003  |耐克男鞋-多规格(红色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+
+@penda @tuxiaobao
+#Scenario4:运营通过'订单编号'过滤订单列表
+	When yunying使用密码123456登录系统
+	#模糊匹配
+	Whenn yunying设置订单列表的查询条件
+	"""
+	{
+		"order_id":"001"
+	}
+	"""
+	Then yunying能获得订单号中包含"001"的订单列表
+		|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname| 
+		| 201608020001  |武汉鸭脖-多规格(红色/X) |    199.80   |    待发货   |   bill   |  微众商城   |
+	"""
+	#完全匹配
+	When yunying设置订单列表的查询条件
+	"""
+	{
+		"order_id":"201608020002"
 	}
 	"""
 
 	Then yunying能获得订单号中是"对应订单编号002"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
-		|对应订单编号001|2016-06-12|    199.80   |   bill   |  微众商城   |
+		|    order_id   |     business_name      | order_price |order_atatute| consumer | businessname|
+		| 201608020002  |耐克男鞋-多规格(黑色/XL)|    298.00   |    待发货   |   tom    |   微众家    |
+
+	
 
 	#无查询结果
 	When yunying设置订单的查询条件
 	"""
 	{
-		"order_id":"对应订单编号003"
+		"order_id":"004"
 	}
 	"""
 	Then yunying能获得订单号中是"对应订单编号003"的订单列表
-		|    order_id   |   date   | order_price | consumer | businessman | 
+	|    order_id   |   date   | order_price | consumer | businessname | 
+
+
+
+
 	
+
 
 
