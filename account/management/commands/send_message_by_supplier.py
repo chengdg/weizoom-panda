@@ -9,6 +9,8 @@ import json
 
 from account import models as account_models
 from util import send_phone_msg
+import logging
+logger = logging.Logger('message')
 
 
 class Command(BaseCommand):
@@ -57,13 +59,16 @@ class Command(BaseCommand):
                     # print '++++++++++++++++++++++++++++++++++++=', phone, count
                     if count > 0:
                         rs = send_phone_msg.send_phone_captcha(phones=str(phone), content=content % count)
-                        print content % count
+                        # print content % count
                         if rs:
                             number_message += 1
                             # account_ids.append(account.user_id)
                         # print rs
-                        print u'供货商%s发送结果是%s' % (str(account.user_id), 'SUCCESS' if rs else 'FAILED')
-                        watchdog.info('供货商%s发送结果是%s' % (str(account.user_id), 'SUCCESS' if rs else 'FAILED'))
+                        msg = u'供货商%s 手机号%s发送结果是%s' % (str(account.user_id), phone, 'SUCCESS' if rs else 'FAILED')
+                        print msg.encode('utf-8')
+                        watchdog.info(msg)
+                        logger.info(msg=msg)
                     # watchdog.info('供货商%s发送结果是%s' % (account.user_id, 'SUCCESS' if rs else 'FAILED'))
-        print u'本次一共发送了%s条短信' % number_message
+        print '本次一共发送了%s条短信' % number_message
+        watchdog.info(u'本次一共发送了%s条短信' % number_message)
         # print u'这些帐号ｉｄ是:', account_ids
