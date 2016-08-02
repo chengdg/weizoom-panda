@@ -22,7 +22,7 @@ class Command(BaseCommand):
 		all_users = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
 		user_id2purchase_method = {user.user_id:user.purchase_method for user in all_users}
 		user_id2points = {user.user_id:user.points for user in all_users}
-		products = product_models.Product.objects.filter(id__gte=220,id__lte=234)
+		products = product_models.Product.objects.filter(id__gte=1651,id__lte=1761)
 		i = 0
 		for product in products:
 			product_id = product.id
