@@ -370,7 +370,6 @@ def sync_weapp_product(product_id=None, owner_id=None, source_product=None, old_
 	source_product_store = source_product.product_store
 	now_product_store = new_product.product_store
 
-
 	relation = models.ProductHasRelationWeapp.objects.get(product_id=product_id)
 
 	#  未同步的不处理
@@ -381,7 +380,7 @@ def sync_weapp_product(product_id=None, owner_id=None, source_product=None, old_
 		user_accounts = models.SelfUsernameWeappAccount.objects.filter(self_user_name__in=weapp_user_names)
 		weapp_user_ids = [user_account.weapp_account_id for user_account in user_accounts]
 		weapp_models_info = []
-
+		
 		if new_product.has_product_model:
 			# 多规格,获取规格信息
 			weapp_models_info = get_weapp_model_properties(product=source_product)
@@ -389,7 +388,9 @@ def sync_weapp_product(product_id=None, owner_id=None, source_product=None, old_
 			need_sync = charge_models_product_sync(new_properties=new_properties, old_properties=old_properties)
 			if not need_sync:
 				return False
+			model_type = 'custom'
 		else:
+			model_type = 'single'
 			# 单规格
 			if float(now_clear_price) > source_clear_price:
 				# 结算价变大
@@ -417,7 +418,7 @@ def sync_weapp_product(product_id=None, owner_id=None, source_product=None, old_
 			'stock_type': 'unbound' if new_product.product_store == -1 else new_product.product_store,
 			'swipe_images': json.dumps(images),
 			'product_id': relation.weapp_product_id,
-			'model_type': 'model_type',
+			'model_type': model_type,
 			'stocks': new_product.product_store if new_product.product_store > 0 else 0,
 			# 商品需要同步到哪个自营平台
 			'accounts': json.dumps(weapp_user_ids),
