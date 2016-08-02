@@ -14,15 +14,20 @@ from core.exceptionutil import unicode_full_stack
 from core import paginator
 from util import db_util
 from util import string_util
+from eaglet.utils.resource_client import Resource
 
 from resource import models as resource_models
 from account.models import *
 from product.product_has_model import get_product_model_property_values
 import nav
 import models
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from weapp_relation import get_weapp_model_properties
+
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
+
 
 class NewProduct(resource.Resource):
 	app = 'product'
@@ -251,6 +256,7 @@ class NewProduct(resource.Resource):
 			product_price = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
+		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
 				owner = request.user, 
@@ -283,7 +289,6 @@ class NewProduct(resource.Resource):
 				has_product_model= has_product_model,
 				remark = remark
 			)
-
 		#删除、重建商品图片
 		if images:
 			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
@@ -291,10 +296,13 @@ class NewProduct(resource.Resource):
 			product_images = json.loads(request.POST['images'])
 			for product_image in product_images:
 				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
-
+		old_properties = []
+		new_properties = []
 		if model_values:
 			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'])
-			model_ids = [product_model.id for product_model in product_models]
+			# 故意这么写的
+			old_properties = [product_model for product_model in product_models]
+			model_ids = [product_p.id for product_p in product_models]
 			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).delete()
 			product_models.delete()
 			model_values = json.loads(model_values)
@@ -322,6 +330,7 @@ class NewProduct(resource.Resource):
 					valid_time_from= valid_from,
 					valid_time_to = valid_to
 				)
+				new_properties.append(product_model)
 				if propertyValues:
 					list_propery_create = []
 					for property_value in propertyValues:
@@ -331,7 +340,9 @@ class NewProduct(resource.Resource):
 							property_value_id = property_value['id']
 						))
 					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-
+		# sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
+		# 						 source_product=source_product,
+		# 						 new_properties=new_properties, old_properties=old_properties)
 		response = create_response(200)
 		return response.get_response()
 
@@ -345,3 +356,78 @@ class NewProduct(resource.Resource):
 		response.data.user_has_products = user_has_products
 		return response.get_response()
 
+
+def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None,
+							 new_properties=None, old_properties=None):
+	"""
+	判断商品是否需要同步并同步
+	"""
+	# 如果降价（售价，结算价）库存修改自动更新。
+	new_product = models.Product.objects.filter(owner=owner_id, id=product_id).first()
+
+	relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
+	if new_product.has_product_model != source_product.has_product_model:
+		return False
+	#  未同步的不处理
+	if relation:
+
+		if new_product.has_product_model:
+			# 多规格,获取规格信息
+			model_type = 'custom'
+			if not charge_models_product_sync(old_properties=old_properties, new_properties=new_properties):
+				return False
+		else:
+			model_type = 'single'
+			if new_product.product_store == source_product.product_store:
+				return False
+
+		weapp_models_info = get_weapp_model_properties(product=source_product)
+		params = {
+			'model_type': model_type,
+			'model_info': json.dumps(weapp_models_info),
+			'product_id': relation.weapp_product_id
+
+		}
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+			'resource': 'panda.product_store',
+			'data': params
+		})
+		if resp and resp.get('code') == 200:
+			pass
+			# 先删除数据
+			# models.ProductSyncWeappAccount.objects.filter(product_id=source_product.id, ).delete()
+			# sync_models = [models.ProductSyncWeappAccount(product_id=source_product.id,
+			# 											  self_user_name=username)
+			# 			   for username in weizoom_self]
+			# models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
+			# data['code'] = 200
+			# data['errMsg'] = u'关联成功'
+
+
+def charge_models_product_sync(old_properties=None, new_properties=None):
+	"""
+	判断多规格商品是否要同步
+	"""
+	new_properties_dict = {}
+	new_properties_names = []
+	for new_property in new_properties:
+		new_properties_dict.update({new_property.name: new_property})
+		new_properties_names.append(new_property.name)
+
+	old_properties_dict = {}
+	old_properties_name = []
+	for old_property in old_properties:
+		old_properties_dict.update({old_property.name: old_property})
+		old_properties_name.append(old_property.name)
+
+	# 只要有删除的规格就不同步
+	if len(new_properties_names) != len(old_properties_name):
+		return False
+	if len(list(set(old_properties_name) - set(new_properties_names))) > 0:
+		return False
+
+	# 有新规格不同步
+	if len(list(set(new_properties_names) - set(old_properties_name))) > 0:
+		return False
+
+	return True
