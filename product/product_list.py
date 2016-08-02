@@ -148,8 +148,16 @@ def getProductData(request,is_export):
 		else:
 			clear_price = '%.2f' %product.clear_price,
 
-		if product:
-			pass
+		product_model_properties = models.ProductModel.objects.filter(product_id=product.id)
+		product_prices = [product_model.price for product_model in product_model_properties]
+		if product_prices:
+
+			product_price = '%s ~ %s' % (float(product_prices[0]), float(product_prices[-1]))
+		else:
+			product_price = float(product.product_price)
+		# print '========================================================='
+		# print product_price
+		# print '========================================================='
 
 		image_paths = []
 		if product.id in product_id2image_id:
