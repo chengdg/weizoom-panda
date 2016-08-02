@@ -108,6 +108,15 @@ var NewProductPage = React.createClass({
 				Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 				return;
 			}
+			if(W.purchase_method==2){
+				var product_price = product.product_price;
+				if(product_price){
+					var points = 1-(W.points/100);
+					var product_price = parseFloat(product_price);
+					var clear_price = (Math.round(product_price*points*100)/100).toFixed(2)
+					product["clear_price"] = clear_price;
+				}
+			}
 		}
 		
 		// if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){

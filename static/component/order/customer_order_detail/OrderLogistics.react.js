@@ -46,6 +46,7 @@ var OrderLogistics = React.createClass({
 		var ship_area = orde_datas['ship_area']?orde_datas['ship_area']:'';
 		var express_company_name = orde_datas['express_company_name']?orde_datas['express_company_name']:'';
 		var express_number = orde_datas['express_number']?orde_datas['express_number']:'';
+		var order_status = orde_datas['order_status']?orde_datas['order_status']:'';
 		var order_express_details = orde_datas['order_express_details']?orde_datas['order_express_details']:'';
 		express_company_name = options.hasOwnProperty(express_company_name)?options[express_company_name]:'';
 		var order_express = '';
@@ -57,6 +58,9 @@ var OrderLogistics = React.createClass({
 					</div>
 				)
 			})
+		}
+		if(order_status=='已发货' && express_number.length==0){
+			express_company_name = express_number = '无需物流';
 		}
 		return (
 			<div style={{marginTop:'10px',fontSize:'16px',background:'#FFF',border:'1px solid #CCC'}}>

@@ -42,6 +42,7 @@ var OrderDatasPage = React.createClass({
 		var order_id = event.target.getAttribute('data-order-id');
 		var express_company_name = event.target.getAttribute('data-order-express_company_name');
 		var express_number = event.target.getAttribute('data-order-express_number');
+		var isNeedShip = express_number.length>0? '1': '0';
 		var leader_name = event.target.getAttribute('data-order-leader_name');
 		Reactman.PageAction.showDialog({
 			title: "修改物流信息",
@@ -51,6 +52,7 @@ var OrderDatasPage = React.createClass({
 				express_company_name: express_company_name,
 				express_number: express_number,
 				leader_name: leader_name,
+				is_need_ship: isNeedShip,
 				__method: 'post'
 			},
 			success: function(inputData, dialogState) {

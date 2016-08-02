@@ -18,7 +18,8 @@ from core.exceptionutil import unicode_full_stack
 from resource import models as resource_models
 from product import models as product_models
 from util import string_util
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_HOST, ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from eaglet.utils.resource_client import Resource
 import nav
 import models
 import urllib2
@@ -78,12 +79,17 @@ class CustomerOrderDetail(resource.Resource):
 			params = {
 				'order_id': order_id
 			}
-			r = requests.get(ZEUS_HOST+'/mall/order_detail/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				data = res['data']['order']
+			# r = requests.get(ZEUS_HOST+'/mall/order_detail/',params=params)
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get({
+				'resource': 'mall.order_detail',
+				'data': params
+			})
+			# res = json.loads(r.text)
+			if resp and resp['code'] == 200:
+
+				data = resp['data']['order']
 			else:
-				print(res)
+				# print(res)
 				response = create_response(500)
 				return response.get_response()
 		except Exception,e:
@@ -98,7 +104,7 @@ class CustomerOrderDetail(resource.Resource):
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 		product_id2name = {product.id:product.product_name for product in products}
-		order_products = data['product']
+		order_products = data['product'] if data else []
 		total_count = 0
 		for product in order_products:
 			total_count += product['count']
@@ -116,20 +122,22 @@ class CustomerOrderDetail(resource.Resource):
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
 
 		express_details = ''
-		if data['express_details']:
-			express_details = json.dumps(data['express_details'])
+		if data:
+			express_details = json.dumps(data['express_details']) if data['express_details'] else ''
+		status = '' if not data else data['status']
+		total_purchase_price = 0 if not data else data['total_purchase_price']
 		orders=[{
-			'order_id': data['order_id'],#订单编号
-			'order_status': order_status2text[data['status']],#订单状态
+			'order_id': '' if not data else data['order_id'],#订单编号
+			'order_status': '' if status not in order_status2text else order_status2text[status],#订单状态
 			'order_express_details': express_details,#订单物流
-			'ship_name': data['ship_name'],#收货人
-			'ship_tel': data['ship_tel'],#收货人电话
-			'customer_message': data['customer_message'],#买家留言
-			'ship_area': data['ship_area'],#收货区域
-			'ship_address': data['ship_address'],#收货地址
-			'express_company_name': data['express_company_name'],#物流公司名称
-			'express_number': data['express_number'],#运单号
-			'order_money': '%.2f' %data['total_purchase_price'],#订单金额
+			'ship_name': '' if not data else data['ship_name'],#收货人
+			'ship_tel': '' if not data else data['ship_tel'],#收货人电话
+			'customer_message': '' if not data else data['customer_message'],#买家留言
+			'ship_area': '' if not data else data['ship_area'],#收货区域
+			'ship_address': '' if not data else data['ship_address'],#收货地址
+			'express_company_name': '' if not data else data['express_company_name'],#物流公司名称
+			'express_number': '' if not data else data['express_number'],#运单号
+			'order_money': '%.2f' %total_purchase_price,#订单金额
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
 		}]
