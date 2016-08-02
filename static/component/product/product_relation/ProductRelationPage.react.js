@@ -26,17 +26,17 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	cancleChecked: function(product_id,self_name){
+	cancleChecked: function(product_id, self_name){
 		console.log(product_id,self_name,"======");
 		Action.cancleChecked(product_id,self_name);
 	},
 
-	productRelation: function(self_user_name,product_info) {
+	productRelation: function(self_user_name, product_info) {
 		var product_id = product_info['product_id']
 		var obj = document.getElementById(product_id);
 		obj = obj.getElementsByTagName('input');
 		var check_val = [];
-		for(var k=0;k<=obj.length-1;k++){
+		for(var k=0; k<=obj.length-1; k++){
 			var has_relation = true;
 			if(obj[k]['checked']){
 				check_val.push(obj[k].value);
@@ -66,48 +66,47 @@ var ProductRelationPage = React.createClass({
 	rowFormatter: function(field, value, data) {
 		if (field === 'weapp_name') {
 			var id = data['id'];
-			var self_user_name = data['self_user_name'];
-			var w_b_checked = self_user_name.toString().indexOf('weizoom_baifumei')>-1?'checked':null;
-			var w_c_checked = self_user_name.toString().indexOf('weizoom_club')>-1?'checked':null;
-			var w_j_checked = self_user_name.toString().indexOf('weizoom_jia')>-1?'checked':null;
-			var w_m_checked = self_user_name.toString().indexOf('weizoom_mama')>-1?'checked':null;
-			var w_s_checked = self_user_name.toString().indexOf('weizoom_shop')>-1?'checked':null;
-			var w_x_checked = self_user_name.toString().indexOf('weizoom_xuesheng')>-1?'checked':null;
-			var w_l_checked = self_user_name.toString().indexOf('weizoom_life')>-1?'checked':null;
-			var w_y_checked = self_user_name.toString().indexOf('weizoom_yjr')>-1?'checked':null;
-
+			var selfUserName = data['self_user_name'].toString();
+			var wBChecked = selfUserName.indexOf('weizoom_baifumei')>-1?'checked':null;
+			var wCChecked = selfUserName.indexOf('weizoom_club')>-1?'checked':null;
+			var wJChecked = selfUserName.indexOf('weizoom_jia')>-1?'checked':null;
+			var wMChecked = selfUserName.indexOf('weizoom_mama')>-1?'checked':null;
+			var wSChecked = selfUserName.indexOf('weizoom_shop')>-1?'checked':null;
+			var wXChecked = selfUserName.indexOf('weizoom_xuesheng')>-1?'checked':null;
+			var wLChecked = selfUserName.indexOf('weizoom_life')>-1?'checked':null;
+			var wYChecked = selfUserName.indexOf('weizoom_yjr')>-1?'checked':null;
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
-						<input type="checkbox" checked={w_b_checked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />
+						<input type="checkbox" checked={wBChecked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />
 						<span>微众白富美</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_c_checked} className="checkbox" name="weizoom_self" value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
+						<input type="checkbox" checked={wCChecked} className="checkbox" name="weizoom_self" value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
 						<span>微众俱乐部</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_j_checked} className="checkbox" name="weizoom_self" value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
+						<input type="checkbox" checked={wJChecked} className="checkbox" name="weizoom_self" value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
 						<span>微众家</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_m_checked} className="checkbox" name="weizoom_self" value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
+						<input type="checkbox" checked={wMChecked} className="checkbox" name="weizoom_self" value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
 						<span>微众妈妈</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_s_checked} className="checkbox" name="weizoom_self" value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
+						<input type="checkbox" checked={wSChecked} className="checkbox" name="weizoom_self" value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
 						<span>微众商城</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_x_checked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
+						<input type="checkbox" checked={wXChecked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
 						<span>微众学生</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_l_checked} className="checkbox" name="weizoom_self" value="weizoom_life" onChange={this.cancleChecked.bind(this,id,'weizoom_life')} />
+						<input type="checkbox" checked={wLChecked} className="checkbox" name="weizoom_self" value="weizoom_life" onChange={this.cancleChecked.bind(this,id,'weizoom_life')} />
 						<span>微众Life</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={w_y_checked} className="checkbox" name="weizoom_self" value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
+						<input type="checkbox" checked={wYChecked} className="checkbox" name="weizoom_self" value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
 						<span>微众一家人</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
