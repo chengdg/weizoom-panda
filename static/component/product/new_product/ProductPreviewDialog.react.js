@@ -19,7 +19,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 			product_name: product.product_name,
 			images: product.images,
 			promotion_title: product.promotion_title,
-			clear_price: product.clear_price,
+			product_price: product.product_price,
 			remark: product.remark
 		}
 	},
@@ -35,12 +35,12 @@ var ProductPreviewDialog = Reactman.createDialog({
 		var model_values = this.props.data.model_values;
 		var product = this.props.data.product;
 		var has_product_model = product['has_product_model'];
-		var clear_prices = '';
+		var product_prices = '';
 		var names=[]
 
 		if(has_product_model=='1'){
 			var modelId = model_values[0].modelId;
-			clear_prices = product['clear_price_'+modelId];
+			product_prices = product['product_price_'+modelId];
 
 			var propertyValues = model_values[0].propertyValues;
 			_.each(propertyValues, function(values) {
@@ -58,7 +58,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 							<span className="product-collect-title">收藏</span>
 							<span className="product-name">{this.state.product_name}</span>
 							<span className="product-promotion-title">{this.state.promotion_title}</span>
-							<span className="product-price">￥{clear_prices}</span>
+							<span className="product-price">￥{product_prices}</span>
 						</div>
 						<div className="product-choose">
 							<span className='choose-count'>选择规格</span>
@@ -84,7 +84,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 							<span className="product-collect-title">收藏</span>
 							<span className="product-name">{this.state.product_name}</span>
 							<span className="product-promotion-title">{this.state.promotion_title}</span>
-							<span className="product-price">￥{this.state.clear_price}</span>
+							<span className="product-price">￥{this.state.product_price}</span>
 						</div>
 						<div className="product-introduce">
 							<span className="title">商品详情</span>
