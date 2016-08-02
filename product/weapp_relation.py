@@ -156,7 +156,7 @@ class ProductRelation(resource.Resource):
                                 'resource': 'mall.product',
                                 'data': params
                             })
-                            if resp:
+                            if resp and resp.get('code') == 200:
                                 # 先删除数据
                                 models.ProductSyncWeappAccount.objects.filter(product_id=product.id,).delete()
                                 sync_models = [models.ProductSyncWeappAccount(product_id=product.id,
