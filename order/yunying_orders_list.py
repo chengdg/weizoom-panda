@@ -307,6 +307,8 @@ class YunyingOrdersList(resource.Resource):
 		filter_product_name = filter_idct.get('product_name', '')
 		from_mall = filter_idct.get('from_mall', '-1')
 		order_status = filter_idct.get('order_status', '-1')
+		# 订单号
+		order_id = filter_idct.get('order_id', '')
 		order_create_at_range = filter_idct.get('order_create_at__range', '')
 		# product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		if from_mall == '-1':
@@ -370,7 +372,8 @@ class YunyingOrdersList(resource.Resource):
 			'order_status': order_status,
 			'supplier_ids': json.dumps(supplier_ids),
 			'product_ids': json.dumps(weapp_product_ids),
-			'per_count_page': 15
+			'per_count_page': 15,
+			'order_id': order_id
 
 		}
 		if order_create_at_range:
@@ -398,8 +401,8 @@ class YunyingOrdersList(resource.Resource):
 					# weapp_owner_id = order.get('owner_id')
 					# 规格信息
 					temp_product_name = []
-					product_models = order['products']
-					for product_model in product_models:
+					product_model_propertis = order['products']
+					for product_model in product_model_propertis:
 						print '++++++++++++++++++++++++++++++++++++++++++++++++++++++='
 
 						product_properties = product_model.get('custom_model_properties')

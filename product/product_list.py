@@ -28,7 +28,7 @@ import requests
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
-filter2field ={
+filter2field = {
 	'product_name_query': 'product_name'
 }
 
@@ -36,6 +36,7 @@ product_status2text = {
 	0: u'未上架',
 	1: u'已上架'
 }
+
 
 class ProductList(resource.Resource):
 	app = 'product'
@@ -53,42 +54,46 @@ class ProductList(resource.Resource):
 			'second_nav_name': SECOND_NAV,
 			'user_has_products': user_has_products,
 		})
-		
+
 		return render_to_response('product/product_list.html', c)
 
 	def api_get(request):
 		is_export = False
-		rows,pageinfo = getProductData(request,is_export)
+		rows, pageinfo = getProductData(request, is_export)
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
 		}
 
-		#构造response
+		# 构造response
 		response = create_response(200)
 		response.data = data
 		return response.get_response()
 
-def getProductData(request,is_export):
+
+def getProductData(request, is_export):
 	cur_page = request.GET.get('page', 1)
-	filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
-	product_name = filter_idct.get('product_name','')
+	filter_idct = dict(
+		[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if
+		 key.startswith('__f-')])
+	product_name = filter_idct.get('product_name', '')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
 	products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
-	#查询
+	# 查询
 	if product_name:
 		products = products.filter(product_name__icontains=product_name)
 
-	product_ids = ['%s'%product.id for product in products]
-	product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
+	product_ids = ['%s' % product.id for product in products]
+	product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(
+		weapp_product_id='')
 	product_images = models.ProductImage.objects.filter(product_id__in=product_ids)
 
-	#从weapp获取商品销量
+	# 从weapp获取商品销量
 	id2sales = sales_from_weapp(product_has_relations)
 
-	#获取商品图片
+	# 获取商品图片
 	product_id2image_id = {}
 	image_id2images = {}
 	for product in product_images:
@@ -102,11 +107,16 @@ def getProductData(request,is_export):
 
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
-	#组装数据
-	#判断多规格
+	# 组装数据
+	# 判断多规格
 	model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
 	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
+	for model_property in model_properties:
+		if model_property.product_id not in product_id2market_price:
+			product_id2market_price[model_property.product_id] = [model_property.market_price]
+		else:
+			product_id2market_price[model_property.product_id].append(model_property.market_price)
 
 	rows = []
 	# 获取商品是否上线
@@ -141,23 +151,21 @@ def getProductData(request,is_export):
 			market_prices = product_id2market_price[product.id]
 			market_prices = sorted(market_prices)
 			product_has_model = len(market_prices)
-			if (market_prices[0]!= market_prices[-1]) and len(market_prices)>1:
-				clear_price = ('%s ~ %s')%(market_prices[0],market_prices[-1])
+			if (market_prices[0] != market_prices[-1]) and len(market_prices) > 1:
+				clear_price = ('%s ~ %s') % (market_prices[0], market_prices[-1])
 			else:
-				clear_price = '%s' %market_prices[0]
+				clear_price = '%s' % market_prices[0]
 		else:
-			clear_price = '%.2f' %product.clear_price,
-
-		product_model_properties = models.ProductModel.objects.filter(product_id=product.id)
+			clear_price = '%.2f' % product.clear_price,
+		product_model_properties = models.ProductModel.objects.filter(product_id=product.id,
+																	  is_deleted=False)
 		product_prices = [product_model.price for product_model in product_model_properties]
+		product_prices = sorted(product_prices)
 		if product_prices:
 
 			product_price = '%s ~ %s' % (float(product_prices[0]), float(product_prices[-1]))
 		else:
 			product_price = float(product.product_price)
-		# print '========================================================='
-		# print product_price
-		# print '========================================================='
 
 		image_paths = []
 		if product.id in product_id2image_id:
@@ -167,21 +175,22 @@ def getProductData(request,is_export):
 					image_paths.append(image_id2images[i_id])
 		valid_time_from = product.valid_time_from
 		valid_time_to = product.valid_time_to
-		valid_time = '' if not valid_time_from else ('%s/%s')%(valid_time_from.strftime('%Y-%m-%d %H:%M:%S'),valid_time_to.strftime('%Y-%m-%d %H:%M:%S'))
+		valid_time = '' if not valid_time_from else ('%s/%s') % (
+		valid_time_from.strftime('%Y-%m-%d %H:%M:%S'), valid_time_to.strftime('%Y-%m-%d %H:%M:%S'))
 		rows.append({
 			'id': product.id,
 			'role': role,
 			'promotion_title': product.promotion_title,
 			'clear_price': clear_price,
 			'product_price': product_price,
-			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price>0 else '',
-			'product_weight': '%.2f' %product.product_weight,
+			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price > 0 else '',
+			'product_weight': '%.2f' % product.product_weight,
 			'product_name': product.product_name,
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,
 			'status': product_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
-			'sales': '%s' %sales,
+			'sales': '%s' % sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
 			'is_model': product.has_product_model,
@@ -190,4 +199,4 @@ def getProductData(request,is_export):
 	if is_export:
 		return rows
 	else:
-		return rows,pageinfo
+		return rows, pageinfo
