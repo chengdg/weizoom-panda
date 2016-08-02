@@ -162,8 +162,11 @@ def getProductData(request, is_export):
 		product_prices = [product_model.price for product_model in product_model_properties]
 		product_prices = sorted(product_prices)
 		if product_prices:
+			if float(product_prices[0]) != float(product_prices[-1]):
 
-			product_price = '%s ~ %s' % (float(product_prices[0]), float(product_prices[-1]))
+				product_price = '%s ~ %s' % (float(product_prices[0]), float(product_prices[-1]))
+			else:
+				product_price = float(product_prices[0])
 		else:
 			product_price = float(product.product_price)
 
