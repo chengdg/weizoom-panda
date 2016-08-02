@@ -26,6 +26,8 @@ from product_catalog import models as product_catalog_models
 
 FIRST_NAV = 'business'
 SECOND_NAV = 'business'
+COUNT_PER_PAGE = 10
+
 filter2field ={
 }
 
@@ -41,11 +43,11 @@ class BusinessApply(resource.Resource):
 	def api_get(request):
 		first_catalog = []
 		second_catalog = []
-		for catalog in product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1):
-			first_catalog.append(catalog.catalog_name)
+		for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=-1):
+			first_catalog.append(catalog.name)
 			this_second_catalog = []
-			second_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=catalog.id)
-			this_second_catalog = [catalog.catalog_name for catalog in second_catalogs]
+			second_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id=catalog.id)
+			this_second_catalog = [catalog.name for catalog in second_catalogs]
 			second_catalog.append(this_second_catalog)
 		
 		data = {
@@ -177,9 +179,9 @@ class Business(resource.Resource):
 				'product_catalogs': product_catalogs,
 				'contacter': business.contacter,
 				'phone': business.phone,
-				'status': models.STATUS2NAME[business.status]
+				'status': models.STATUS2NAME[business.status] if business.status!=3 else models.STATUS2NAME[business.status]+'('+business.reason+')'
 			})
-		pageinfo, businesses = paginator.paginate(businesses, cur_page, 10, query_string=request.META['QUERY_STRING'])
+		pageinfo, businesses = paginator.paginate(businesses, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
@@ -195,6 +197,23 @@ class Business(resource.Resource):
 		try:
 			models.Business.objects.filter(id = business_id).update(
 				status = models.PASSED
+			)
+			response = create_response(200)
+			return response.get_response()
+		except:
+			response = create_response(500)
+			response.errMsg = u'该记录不存在，请检查'
+			return response.get_response()
+
+	@login_required
+	def api_put(request):
+		#驳回
+		business_id = request.POST.get('id','')
+		reason = request.POST.get('reason','')
+		try:
+			models.Business.objects.filter(id = business_id).update(
+				status = models.UNPASSED,
+				reason = reason
 			)
 			response = create_response(200)
 			return response.get_response()

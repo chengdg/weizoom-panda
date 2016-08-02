@@ -53,8 +53,8 @@ class ManagerAccount(resource.Resource):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
-		catalogs = catalog_models.ProductCatalog.objects.filter(father_catalog = -1)
-		catalog_id2name = dict((catalog.id,catalog.catalog_name) for catalog in catalogs)
+		catalogs = catalog_models.ProductCatalog.objects.filter(father_id = -1)
+		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
 		username = filters.get('username','')

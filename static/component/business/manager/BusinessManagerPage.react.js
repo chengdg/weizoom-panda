@@ -13,7 +13,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-
+var BusinessDialog = require('./BusinessDialog.react');
 var BusinessManagerPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
@@ -21,7 +21,7 @@ var BusinessManagerPage = React.createClass({
 	},
 
 	onClickPass: function(event) {
-		var businessId = parseInt(event.target.getAttribute('data-account-id'));
+		var businessId = parseInt(event.target.getAttribute('data-id'));
 		var title = '确认通过该申请吗?';
 		Reactman.PageAction.showConfirm({
 			target: event.target,
@@ -33,11 +33,21 @@ var BusinessManagerPage = React.createClass({
 	},
 
 	onClickUnPass: function(event) {
-
+		var businessId = event.target.getAttribute('data-id');
+		Reactman.PageAction.showDialog({
+			title: "商家入驻驳回",
+			component: BusinessDialog,
+			data: {
+				id: businessId
+			},
+			success: function() {
+				Action.updateBusinessStatus();
+			}
+		});
 	},
 
 	onClickDelete: function(event) {
-		var accountId = parseInt(event.target.getAttribute('data-account-id'));
+		var accountId = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
 			target: event.target,
 			title: '确认删除该申请吗?',
@@ -53,26 +63,27 @@ var BusinessManagerPage = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if(field === 'customer_name11'){
-			var class_name = 'data-' +data['user_id'];
+		if(field === 'company_name'){
 			return (
-				<a href="javascript:void(0);">{value}</a>
+				<div style={{textAlign:'left'}}>
+					<a href={'/business/business_detail/?id='+data.id}>{data.company_name}</a>
+				</div>
 			)
 		}else if (field === 'action') {
 			if(data.status == '待审核'){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.onClickPass} data-account-id={data.id}>通过</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickUnPass} data-account-id={data.id}>驳回</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickPass} data-id={data.id}>通过</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickUnPass} data-id={data.id}>驳回</a>
 					<a className="btn btn-link btn-xs" href={'/business/business_detail/?id='+data.id}>修改</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id} data-method='close'>删除</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-id={data.id} data-method='close'>删除</a>
 				</div>
 				);
 			}else{
 				return (
 				<div>
 					<a className="btn btn-link btn-xs" href={'/business/business_detail/?id='+data.id}>修改</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id} data-method='close'>删除</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-id={data.id} data-method='close'>删除</a>
 				</div>
 				);
 			}

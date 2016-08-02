@@ -16,32 +16,39 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleCustomerDataFilter': Constant.CUSTOMER_DATAS_FILTER,
-		'handleCustomerDataExport': Constant.CUSTOMER_DATAS_EXPORT
+		'handleCustomerDataFilter': Constant.CUSTOMER_DATAS_FILTER
 	},
 
 	init: function() {
-		this.data = {};
+		this.data = Reactman.loadJSON('business_data');
+		if (this.data) {
+			this.data['account_type'] = String(this.data['account_type']);
+			if (this.data['account_type'] == '1'){
+				this.data['purchase_method'] = String(this.data['purchase_method']);
+				this.data['company_type'] = JSON.parse(this.data['company_type']);
+				this.data['options_for_type'] = [];
+				if (this.data['purchase_method'] != '2'){
+					this.data['points'] = '';
+				}
+			}
+		}
 	},
 
-	handleCustomerDataFilter: function(action){
-		this.data = action.data;
+	handleSelect: function(action) {
+		this.data['options_for_type'] = action.data.rows;
+		this.__emitChange();
+	},
+	
+	handleUpdateAccount: function(action) {
+		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handleCustomerDataExport: function(action){
-		var filterOptions = this.data;
-		console.log('filterOptions');
-		console.log(filterOptions);
-		var filter_str = '';
-		for (var key in filterOptions){
-			filter_str = key +'=' + filterOptions[key];
-		}
-		console.log('/customer/customer_exported/?'+filter_str)
-		window.location.href = '/customer/customer_exported/?'+filter_str;
+	handleCreateNewAccount: function(action) {
+		W.gotoPage('/manager/account/');
 	},
 
-	getFilter: function() {
+	getData: function() {
 		return this.data;
 	}
 });

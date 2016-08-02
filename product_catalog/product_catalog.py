@@ -43,28 +43,28 @@ class ProductCatalog(resource.Resource):
 		return render_to_response('product_catalog/product_catalogs.html', c)
 
 	def api_get(request):
-		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1).order_by('-created_at')
-		all_second_catalogs = product_catalog_models.ProductCatalog.objects.exclude(father_catalog=-1).order_by('-created_at')
+		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=1).order_by('-created_at')
+		all_second_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2).order_by('-created_at')
 		rows = []
 		for catalog in all_first_catalogs:
 			second_catalogs = []
 			total_products_number = 0
-			belong_second_catalogs = all_second_catalogs.filter(father_catalog=catalog.id)
+			belong_second_catalogs = all_second_catalogs.filter(father_id=catalog.id)
 			for belong_second_catalog in belong_second_catalogs:
 				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
 				total_products_number += products_number
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
-					'father_catalog': belong_second_catalog.father_catalog,
-					'catalog_name': belong_second_catalog.catalog_name,
+					'father_catalog': belong_second_catalog.father_id,
+					'catalog_name': belong_second_catalog.name,
 					'note': belong_second_catalog.note,
 					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 					'products_number': products_number
 				})
 			rows.append({
 				'id': catalog.id,
-				'father_catalog': catalog.father_catalog,
-				'catalog_name': catalog.catalog_name,
+				'father_catalog': catalog.father_id,
+				'catalog_name': catalog.name,
 				'note': catalog.note,
 				'created_at': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 				'products_number': total_products_number,
@@ -81,13 +81,15 @@ class ProductCatalog(resource.Resource):
 	def api_put(request):
 		# 新建商品分类
 		post = request.POST
-		catalog_name = post.get('catalog_name','')
-		father_catalog = int(post.get('father_catalog',-1))
+		name = post.get('catalog_name','')
+		father_id = int(post.get('father_catalog',-1))
+		level = 1 if father_id == -1 else 2
 		note = post.get('note','')
 		try:
 			product_catalog_models.ProductCatalog.objects.create(
-				catalog_name = catalog_name,
-				father_catalog = father_catalog,
+				name = name,
+				level = level,
+				father_id = father_id,
 				note = note
 			)
 			response = create_response(200)
@@ -102,11 +104,11 @@ class ProductCatalog(resource.Resource):
 		# 编辑商品分类
 		post = request.POST
 		catalog_id = post.get('catalog_id','')
-		catalog_name = post.get('catalog_name','')
+		name = post.get('catalog_name','')
 		note = post.get('note','')
 		try:
 			product_catalog_models.ProductCatalog.objects.filter(id=catalog_id).update(
-				catalog_name = catalog_name,
+				name = name,
 				note = note
 			)
 			response = create_response(200)
@@ -121,7 +123,7 @@ class ProductCatalog(resource.Resource):
 		catalog_id = request.POST.get('id','')
 		try:
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
-			if catalog.father_catalog != -1:
+			if catalog.father_id != -1:
 				#二级分类
 				if product_models.Product.objects.filter(catalog_id=catalog_id).count() > 0:
 					response = create_response(500)
@@ -130,7 +132,7 @@ class ProductCatalog(resource.Resource):
 				else:
 					catalog.delete()
 			else:
-				if product_catalog_models.ProductCatalog.objects.filter(father_catalog=catalog.id).count() > 0:
+				if product_catalog_models.ProductCatalog.objects.filter(father_id=catalog.id).count() > 0:
 					response = create_response(500)
 					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
 					return response.get_response()
@@ -163,7 +165,7 @@ class GetAllFirstCatalog(resource.Resource):
 	@login_required
 	def api_get(request):
 		is_account_page = request.GET.get('is_account_page','')
-		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_catalog=-1).order_by('-created_at')
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id=-1).order_by('-created_at')
 		if is_account_page:
 			rows = []
 		else:
@@ -173,7 +175,7 @@ class GetAllFirstCatalog(resource.Resource):
 			}]
 		for catalog in catalogs:
 			rows.append({
-				'text': catalog.catalog_name,
+				'text': catalog.name,
 				'value': catalog.id
 			})
 		data = {

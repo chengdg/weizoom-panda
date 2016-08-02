@@ -40,7 +40,14 @@ var Action = {
 			}
 		});
 	},
-
+	
+	updateBusinessStatus: function() {
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_BUSINESS_APPLY,
+			data: {}
+		});
+	},
+	
 	deleteBusiness: function(id) {
 		Resource.delete({
 			resource: 'business.manager',

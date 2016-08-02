@@ -5,8 +5,9 @@ from django.db import models
 # ProductCatalog ： 商品分类
 #===============================================================================
 class ProductCatalog(models.Model):
-	catalog_name = models.CharField(max_length=48, default='') #分类名称
-	father_catalog = models.IntegerField(default=-1) #父级分类的id，-1为一级分类
+	name = models.CharField(max_length=48, default='') #分类名称
+	level = models.IntegerField(default=1) #默认为一级分类
+	father_id = models.IntegerField(default=-1) #父级分类的id，-1为一级分类
 	note = models.CharField(max_length=1024, default='') #备注
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 

@@ -44,6 +44,7 @@ class Business(models.Model):
 	account_opening_license_time = models.DateTimeField(null=True)  #开户许可证有效期
 	product_catalog_ids = models.CharField(max_length=1024, default='') #入驻类目【以下划线分割】
 	status = models.IntegerField(default=REVIEW,choices=STATUS) #状态
+	reason = models.CharField(max_length=1024, default='') #驳回原因
 	created_at = models.DateTimeField(auto_now_add=True) #创建日期
 
 	class Meta(object):
