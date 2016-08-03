@@ -231,3 +231,58 @@ span.selectedSortSpan {
 #apply_page_4 .btn-primary{
     margin-top: 30%;
 }
+
+
+
+ul.nav {
+    display: table;
+}
+
+ul.nav li{
+    width: 400px;
+    border-bottom:5px solid #d0d0d0;
+}
+
+ul.nav li i{
+    font-size: 26px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    line-height: 30px;
+    font-style: normal;
+}
+
+ul.nav li.active i{
+    background: #4ab3ff;
+    color: white;
+    font-weight: normal;
+}
+
+div.xa-pageContainer ul.nav li.active a{
+    background: none;
+    font-weight: bolder;
+    color: #4ab3ff;
+}
+
+div.xa-pageContainer ul.nav li.active{
+    border-bottom: 5px solid #4ab3ff;
+}
+
+div.xa-pageContainer ul.nav li.active:after{
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #4ab3ff;
+    position: absolute;
+    bottom: 0px;
+    left: 200px;
+}
+
+ul.nav li a{
+    color: #666;
+}
