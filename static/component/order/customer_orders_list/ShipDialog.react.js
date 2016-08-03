@@ -75,9 +75,13 @@ var ShipDialog = Reactman.createDialog({
 				},
 				success: function() {
 					if(this.state.__method == 'post'){
-						Reactman.PageAction.showHint('success', '修改物流信息成功');
+						_.delay(function() {
+							Reactman.PageAction.showHint('success', '修改物流信息成功');
+						}, 500);
 					}else{
-						Reactman.PageAction.showHint('success', '发货成功');
+						_.delay(function() {
+							Reactman.PageAction.showHint('success', '发货成功');
+						}, 500);
 					}
 					this.closeDialog();
 				},
