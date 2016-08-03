@@ -67,7 +67,7 @@ var ProductRelationPage = React.createClass({
 		if (field === 'weapp_name') {
 			var id = data['id'];
 			var selfUserName = data['self_user_name'].toString();
-			var wBChecked = selfUserName.indexOf('weizoom_baifumei')>-1?'checked':null;
+			var wBChecked = selfUserName.indexOf('weizoom_baifumei')>-1?'checked':'';
 			var wCChecked = selfUserName.indexOf('weizoom_club')>-1?'checked':null;
 			var wJChecked = selfUserName.indexOf('weizoom_jia')>-1?'checked':null;
 			var wMChecked = selfUserName.indexOf('weizoom_mama')>-1?'checked':null;
@@ -75,6 +75,8 @@ var ProductRelationPage = React.createClass({
 			var wXChecked = selfUserName.indexOf('weizoom_xuesheng')>-1?'checked':null;
 			var wLChecked = selfUserName.indexOf('weizoom_life')>-1?'checked':null;
 			var wYChecked = selfUserName.indexOf('weizoom_yjr')>-1?'checked':null;
+			var wFChecked = selfUserName.indexOf('weizoom_fulilaile')>-1?'checked':null;
+			console.log(wYChecked,"=======")
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
@@ -108,6 +110,10 @@ var ProductRelationPage = React.createClass({
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
 						<input type="checkbox" checked={wYChecked} className="checkbox" name="weizoom_self" value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
 						<span>微众一家人</span>
+					</label>
+					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
+						<input type="checkbox" checked={wFChecked} className="checkbox" name="weizoom_self" value="weizoom_fulilaile" onChange={this.cancleChecked.bind(this,id,'weizoom_fulilaile')} />
+						<span>惠惠来啦</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
 				</div>
