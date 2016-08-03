@@ -67,7 +67,7 @@ var ProductRelationPage = React.createClass({
 		if (field === 'weapp_name') {
 			var id = data['id'];
 			var selfUserName = data['self_user_name'].toString();
-			var wBChecked = selfUserName.indexOf('weizoom_baifumei')>-1?'checked':'';
+			var wBChecked = selfUserName.indexOf('weizoom_baifumei')>-1?'checked':null;
 			var wCChecked = selfUserName.indexOf('weizoom_club')>-1?'checked':null;
 			var wJChecked = selfUserName.indexOf('weizoom_jia')>-1?'checked':null;
 			var wMChecked = selfUserName.indexOf('weizoom_mama')>-1?'checked':null;
@@ -76,7 +76,6 @@ var ProductRelationPage = React.createClass({
 			var wLChecked = selfUserName.indexOf('weizoom_life')>-1?'checked':null;
 			var wYChecked = selfUserName.indexOf('weizoom_yjr')>-1?'checked':null;
 			var wFChecked = selfUserName.indexOf('weizoom_fulilaile')>-1?'checked':null;
-			console.log(wYChecked,"=======")
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
