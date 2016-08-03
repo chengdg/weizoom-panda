@@ -129,15 +129,19 @@ def getProductData(request, is_export):
 	product_2_weapp_product = {}
 	for relation in relations:
 		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
-	params = {
-		'product_ids': '_'.join([p.weapp_product_id for p in relations])
-	}
-	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-		{
-			'resource': 'mall.product_status',
-			'data': params
+	
+	weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
+	resp = {}
+	if weapp_product_ids:
+		params = {
+			'product_ids': weapp_product_ids
 		}
-	)
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+			{
+				'resource': 'mall.product_status',
+				'data': params
+			}
+		)
 	# 已上架商品列表
 	product_shelve_on = []
 	if resp and resp.get('code') == 200:
