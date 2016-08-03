@@ -1,0 +1,8 @@
+.wui-globalErrorPanel.alert-danger{
+	height: auto !important;
+}
+
+#globalErrorPanel center{
+    word-break: break-all;
+    text-align: left;
+}

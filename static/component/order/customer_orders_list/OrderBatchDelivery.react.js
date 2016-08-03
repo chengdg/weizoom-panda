@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+require('./OrderBatchDelivery.css');
 
 var OrderBatchDelivery = Reactman.createDialog({
 	getInitialState: function() {
