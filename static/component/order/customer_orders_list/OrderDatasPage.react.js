@@ -26,7 +26,7 @@ var OrderDatasPage = React.createClass({
 	onClickShip: function(event) {
 		var orderId = event.target.getAttribute('data-order-id');
 		var express_number = event.target.getAttribute('data-order-express_number');
-		var isNeedShip = express_number.length>0? '1': '0';
+		var isNeedShip = '1';
 		Reactman.PageAction.showDialog({
 			title: "发货信息",
 			component: ShipDialog,
