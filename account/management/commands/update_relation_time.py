@@ -33,13 +33,14 @@ class Command(BaseCommand):
 				weapp_product_ids.append(p)
 		try:
 			weapp_product_ids = '_'.join(weapp_product_ids)
-			params = {
-				'product_ids': weapp_product_ids
-			}
-			r = requests.post(ZEUS_HOST+'/mall/product_status/',data=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
-				weapp_pid2created_at = res['data']
+			if weapp_product_ids:
+				params = {
+					'product_ids': weapp_product_ids
+				}
+				r = requests.post(ZEUS_HOST+'/mall/product_status/',data=params)
+				res = json.loads(r.text)
+				if res['code'] == 200:
+					weapp_pid2created_at = res['data']
 		except Exception,e:
 			print(e)
 			print ("====="+'error in zeus'+"=====")
