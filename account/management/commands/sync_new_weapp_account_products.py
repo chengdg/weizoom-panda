@@ -14,7 +14,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """
-        同步旧的没有同步过得商品
+        同步商品到新的自营平台。
+
         """
         # product_models.A.objects.filter()
 
@@ -27,13 +28,13 @@ class Command(BaseCommand):
         for relation in relations:
             product_id = relation.get('product_id')
             t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                                   self_user_name='weizoom_life')
+                                                   self_user_name='weizoom_fulilaile')
 
-            t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                                   self_user_name='weizoom_yjr')
+            # t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
+            #                                        self_user_name='weizoom_yjr')
 
             bulk_create.append(t_1)
-            bulk_create.append(t2)
+            # bulk_create.append(t2)
             print 'product: %s is ok' % product_id
         product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
         print 'ALL is OK! COUNT is %s' % len(bulk_create)
