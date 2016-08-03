@@ -112,7 +112,7 @@ class ProductRelation(resource.Resource):
 
 
                         resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
-                            'resource': 'mall.product',
+                            'resource': 'mall.sync_product',
                             'data': params
                         })
                         # 同步到商品中间关系表
@@ -156,7 +156,7 @@ class ProductRelation(resource.Resource):
                                 'model_info': json.dumps(weapp_models_info),
                             }
                             resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-                                'resource': 'mall.product',
+                                'resource': 'mall.sync_product',
                                 'data': params
                             })
                             if resp and resp.get('code') == 200 and resp.get('data').get('success'):

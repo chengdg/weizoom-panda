@@ -340,9 +340,9 @@ class NewProduct(resource.Resource):
 							property_value_id = property_value['id']
 						))
 					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-		# sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
-		# 						 source_product=source_product,
-		# 						 new_properties=new_properties, old_properties=old_properties)
+		sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
+								 source_product=source_product,
+								 new_properties=new_properties, old_properties=old_properties)
 		response = create_response(200)
 		return response.get_response()
 
@@ -363,10 +363,12 @@ def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None
 	判断商品是否需要同步并同步
 	"""
 	# 如果降价（售价，结算价）库存修改自动更新。
+	print '++++++++++++++++++++++++++++++++++++++++++++++=2'
 	new_product = models.Product.objects.filter(owner=owner_id, id=product_id).first()
 
 	relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
 	if new_product.has_product_model != source_product.has_product_model:
+		# print '++++++++++++++++++++++++++++++++++++++++++++++=1'
 		return False
 	#  未同步的不处理
 	if relation:
@@ -376,12 +378,14 @@ def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None
 			model_type = 'custom'
 			if not charge_models_product_sync(old_properties=old_properties, new_properties=new_properties):
 				return False
+			weapp_models_info = get_weapp_model_properties(product=source_product)
 		else:
 			model_type = 'single'
 			if new_product.product_store == source_product.product_store:
 				return False
+			weapp_models_info = [{'name': 'standard',
+								  'product_store': new_product.product_store}]
 
-		weapp_models_info = get_weapp_model_properties(product=source_product)
 		params = {
 			'model_type': model_type,
 			'model_info': json.dumps(weapp_models_info),
@@ -422,12 +426,15 @@ def charge_models_product_sync(old_properties=None, new_properties=None):
 
 	# 只要有删除的规格就不同步
 	if len(new_properties_names) != len(old_properties_name):
+		# print '==============================================1'
 		return False
 	if len(list(set(old_properties_name) - set(new_properties_names))) > 0:
+		# print '==============================================2'
 		return False
 
 	# 有新规格不同步
 	if len(list(set(new_properties_names) - set(old_properties_name))) > 0:
+		# print '==============================================3'
 		return False
 
 	return True
