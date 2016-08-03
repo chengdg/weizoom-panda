@@ -113,24 +113,25 @@ class ProductRelation(resource.Resource):
                     product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 
         product_status = []
-        try:
-            params = {
-                'product_ids': '_'.join(weapp_product_ids)
-            }
-            resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-                {
-                    'resource': 'mall.product_status',
-                    'data': params
+        if weapp_product_ids:
+            try:
+                params = {
+                    'product_ids': '_'.join(weapp_product_ids)
                 }
-            )
-            # r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
-            # res = json.loads(r.text)
-            if resp['code'] == 200:
-                product_status = resp['data']['product_status']
-            else:
-                print(resp)
-        except Exception,e:
-            print(e)
+                resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+                    {
+                        'resource': 'mall.product_status',
+                        'data': params
+                    }
+                )
+                # r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
+                # res = json.loads(r.text)
+                if resp['code'] == 200:
+                    product_status = resp['data']['product_status']
+                else:
+                    print(resp)
+            except Exception,e:
+                print(e)
 
         if product_status:
             for product_statu in product_status:
