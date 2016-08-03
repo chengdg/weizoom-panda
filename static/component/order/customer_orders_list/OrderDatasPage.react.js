@@ -25,11 +25,14 @@ var OrderDatasPage = React.createClass({
 
 	onClickShip: function(event) {
 		var orderId = event.target.getAttribute('data-order-id');
+		var express_number = event.target.getAttribute('data-order-express_number');
+		var isNeedShip = express_number.length>0? '1': '0';
 		Reactman.PageAction.showDialog({
 			title: "发货信息",
 			component: ShipDialog,
 			data: {
 				order_id: orderId,
+				is_need_ship: isNeedShip,
 				__method: 'put'
 			},
 			success: function() {
@@ -128,7 +131,7 @@ var OrderDatasPage = React.createClass({
 			if(data.status === '待发货'){
 				return (
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id}>发货</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickShip} data-order-id={data.order_id} data-order-express_number={data.express_number}>发货</a>
 					</div>
 				);
 			}else if(data.status === '已发货'){
