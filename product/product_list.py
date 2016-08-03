@@ -108,15 +108,20 @@ def getProductData(request, is_export):
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 	# 组装数据
-	# 判断多规格
+	# 获取多规格商品id和结算价,售价的对应数据
 	model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
-	# product_id2name = {model_property.product_id:model_property.name for model_property in model_properties}
 	product_id2market_price = {}
+	product_id2product_price = {}
 	for model_property in model_properties:
 		if model_property.product_id not in product_id2market_price:
 			product_id2market_price[model_property.product_id] = [model_property.market_price]
 		else:
 			product_id2market_price[model_property.product_id].append(model_property.market_price)
+
+		if model_property.product_id not in product_id2product_price:
+			product_id2product_price[model_property.product_id] = [model_property.price]
+		else:
+			product_id2product_price[model_property.product_id].append(model_property.price)
 
 	rows = []
 	# 获取商品是否上线
@@ -140,35 +145,33 @@ def getProductData(request, is_export):
 		product_shelve_on = [product_2_weapp_product.get(product_statu.get('product_id'))
 							 for product_statu in product_status
 							 if product_statu.get('status') == 'on']
-	# print product_shelve_on, '+++++++++++++++++++++++++++++++++', product_2_weapp_product
 
 	for product in products:
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
 		image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
 		product_has_model = 0
+		#如果是多规格价格显示区间
 		if product.id in product_id2market_price:
 			market_prices = product_id2market_price[product.id]
 			market_prices = sorted(market_prices)
 			product_has_model = len(market_prices)
 			if (market_prices[0] != market_prices[-1]) and len(market_prices) > 1:
-				clear_price = ('%s ~ %s') % (market_prices[0], market_prices[-1])
+				clear_price = ('%.2f ~ %.2f') % (market_prices[0], market_prices[-1])
 			else:
-				clear_price = '%s' % market_prices[0]
+				clear_price = '%.2f' % market_prices[0]
 		else:
-			clear_price = '%.2f' % product.clear_price,
-		product_model_properties = models.ProductModel.objects.filter(product_id=product.id,
-																	  is_deleted=False)
-		product_prices = [product_model.price for product_model in product_model_properties]
-		product_prices = sorted(product_prices)
-		if product_prices:
-			if float(product_prices[0]) != float(product_prices[-1]):
+			clear_price = '%.2f' % product.clear_price
 
-				product_price = '%s ~ %s' % (float(product_prices[0]), float(product_prices[-1]))
+		if product.id in product_id2market_price:
+			product_prices = product_id2product_price[product.id]
+			product_prices = sorted(product_prices)
+			if (product_prices[0] != product_prices[-1]) and len(product_prices) > 1:
+				product_price = ('%.2f ~ %.2f') % (product_prices[0], product_prices[-1])
 			else:
-				product_price = float(product_prices[0])
+				product_price = '%.2f' % product_prices[0]
 		else:
-			product_price = float(product.product_price)
+			product_price = '%.2f' % product.product_price
 
 		image_paths = []
 		if product.id in product_id2image_id:
@@ -178,8 +181,7 @@ def getProductData(request, is_export):
 					image_paths.append(image_id2images[i_id])
 		valid_time_from = product.valid_time_from
 		valid_time_to = product.valid_time_to
-		valid_time = '' if not valid_time_from else ('%s/%s') % (
-		valid_time_from.strftime('%Y-%m-%d %H:%M:%S'), valid_time_to.strftime('%Y-%m-%d %H:%M:%S'))
+		valid_time = '' if not valid_time_from else ('%s/%s') % (valid_time_from.strftime('%Y-%m-%d %H:%M'), valid_time_to.strftime('%Y-%m-%d %H:%M'))
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -197,7 +199,7 @@ def getProductData(request, is_export):
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
 			'is_model': product.has_product_model,
-			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M')
 		})
 	if is_export:
 		return rows

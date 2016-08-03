@@ -140,9 +140,14 @@ class OrderBatchDelivery(resource.Resource):
 		if res and res['code'] == 200:
 			err_msg = ''
 			datas = res['data']
+			order_ids = []
 			for data in datas:
 				if not data['result']:
-					err_msg = u"订单:"+data['order_id']+','+data['msg']
+					order_ids.append(data['order_id'])
+			for data in datas:
+				if not data['result']:
+					order_id_str = ','.join(order_ids)
+					err_msg = u"订单:"+order_id_str+','+data['msg']
 			if err_msg!='':
 				response = create_response(500)
 				response.errMsg = err_msg
