@@ -112,33 +112,33 @@ class ProductRelation(resource.Resource):
                     weapp_product_ids.append(weapp_product_id)
                     product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 
-        product_status = []
-        if weapp_product_ids:
-            try:
-                params = {
-                    'product_ids': '_'.join(weapp_product_ids)
-                }
-                resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-                    {
-                        'resource': 'mall.product_status',
-                        'data': params
-                    }
-                )
-                # r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
-                # res = json.loads(r.text)
-                if resp['code'] == 200:
-                    product_status = resp['data']['product_status']
-                else:
-                    print(resp)
-            except Exception,e:
-                print(e)
+        # product_status = []
+        # if weapp_product_ids:
+        #     try:
+        #         params = {
+        #             'product_ids': '_'.join(weapp_product_ids)
+        #         }
+        #         resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+        #             {
+        #                 'resource': 'mall.product_status',
+        #                 'data': params
+        #             }
+        #         )
+        #         # r = requests.get(ZEUS_HOST+'/mall/product_status/',params=params)
+        #         # res = json.loads(r.text)
+        #         if resp['code'] == 200:
+        #             product_status = resp['data']['product_status']
+        #         else:
+        #             print(resp)
+        #     except Exception,e:
+        #         print(e)
 
-        if product_status:
-            for product_statu in product_status:
-                if product_statu['is_deleted'] == True:
-                    weapp_id = str(product_statu['product_id'])
-                    product_id = -1 if weapp_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_id]
-                    product_has_relations.filter(product_id=product_id).delete()
+        # if product_status:
+        #     for product_statu in product_status:
+        #         if product_statu['is_deleted'] == True:
+        #             weapp_id = str(product_statu['product_id'])
+        #             product_id = -1 if weapp_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_id]
+        #             product_has_relations.filter(product_id=product_id).delete()
         product_sync_weapp_account = models.ProductSyncWeappAccount.objects.all()
         product_id2self_user_name = {}
         for product_has_relation in product_sync_weapp_account:
