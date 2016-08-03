@@ -41,10 +41,10 @@ var BusinessDetailPage = React.createClass({
 	render:function(){
 		var optionsForAccountType = [{
 			text: '厂家直销',
-			value: 1
+			value: '1'
 		}, {
 			text: '代理/贸易/分销',
-			value: 2
+			value: '2'
 		}];
 		return (
 		<div className="xui-outlineData-page xui-formPage">

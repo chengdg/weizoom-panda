@@ -113,12 +113,8 @@ class BusinessApply(resource.Resource):
 			customer_number = 'DL'+ datetime.now().strftime("%Y") + "%06d" % business.id
 		business.customer_number = customer_number
 		business.save()
-		
-		data = {
-		}
 
 		response = create_response(200)
-		response.data = data
 		return response.get_response()
 
 class Business(resource.Resource):

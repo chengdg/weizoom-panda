@@ -34,19 +34,19 @@ var Action = {
 			we_chat_and_qq: data['we_chat_and_qq'],
 			company_location: data['company_location'],
 			address: data['address'],
-			business_license: data['business_license'],
+			business_license: JSON.stringify(data['business_license']),
 			business_license_time: data['business_license_time'],
-			tax_registration_certificate: data['tax_registration_certificate'],
+			tax_registration_certificate: JSON.stringify(data['tax_registration_certificate']),
 			tax_registration_certificate_time: data['tax_registration_certificate_time'],
-			organization_code_certificate: data['organization_code_certificate'],
+			organization_code_certificate: JSON.stringify(data['organization_code_certificate']),
 			organization_code_certificate_time: data['organization_code_certificate_time'],
-			account_opening_license: data['account_opening_license'],
+			account_opening_license: JSON.stringify(data['account_opening_license']),
 			account_opening_license_time: data['account_opening_license_time']
 		};
 		business_info['id'] = data.id;
 		console.log(business_info);
 		Resource.post({
-			resource: 'manager.business_detail',
+			resource: 'business.business_detail',
 			data: business_info,
 			success: function() {
 				Reactman.PageAction.showHint('success', '编辑客户信息成功');

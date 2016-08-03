@@ -72,8 +72,10 @@ var AddCatalogDialog = Reactman.createDialog({
 					note: this.state.note
 				},
 				success: function() {
-					Reactman.PageAction.showHint('success', '编辑分类成功');
 					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '编辑分类成功');
+					},500);
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMsg);
@@ -89,8 +91,10 @@ var AddCatalogDialog = Reactman.createDialog({
 					note: this.state.note
 				},
 				success: function() {
-					Reactman.PageAction.showHint('success', '新建分类成功');
 					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '新建分类成功');
+					},500);
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMsg);

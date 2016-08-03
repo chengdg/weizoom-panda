@@ -81,7 +81,10 @@ class BusinessDetail(resource.Resource):
 	def api_post(request):
 		#修改入驻申请
 		post = request.POST
-		company_type = post.get('company_type',2)
+		print post
+		print '================='
+		business_id = post.get('id')
+		company_type = int(post.get('company_type',2))
 		company_name = post.get('company_name','')
 		company_money = float(post.get('company_money')) if post.get('company_money')!='' else 0
 		legal_representative = post.get('legal_representative','')
@@ -91,6 +94,51 @@ class BusinessDetail(resource.Resource):
 		we_chat_and_qq = post.get('we_chat_and_qq','')
 		company_location = post.get('company_location','')
 		address = post.get('address','')
+		business_license = json.loads(post.get('business_license',''))[0]['path']
+		business_license_time = post.get('business_license_time','')
+		tax_registration_certificate = json.loads(post.get('tax_registration_certificate',''))[0]['path']
+		tax_registration_certificate_time = post.get('tax_registration_certificate_time','')
+		organization_code_certificate = json.loads(post.get('organization_code_certificate',''))[0]['path']
+		organization_code_certificate_time = post.get('organization_code_certificate_time','')
+		account_opening_license = json.loads(post.get('account_opening_license',''))[0]['path']
+		account_opening_license_time = post.get('account_opening_license_time','')
+		
+		try:
+			business = models.Business.objects.filter(id=business_id).update(
+				company_type = company_type,
+				company_name = company_name,
+				company_money = company_money,
+				legal_representative = legal_representative,
+				contacter = contacter,
+				phone = phone,
+				e_mail = e_mail,
+				we_chat_and_qq = we_chat_and_qq,
+				company_location = company_location,
+				address = address,
+				business_license = business_license,
+				business_license_time = business_license_time,
+				tax_registration_certificate = tax_registration_certificate,
+				tax_registration_certificate_time = tax_registration_certificate_time,
+				organization_code_certificate = organization_code_certificate,
+				organization_code_certificate_time = organization_code_certificate_time,
+				account_opening_license = account_opening_license,
+				account_opening_license_time = account_opening_license_time,
+				# product_catalog_ids = product_catalog_ids
+			)
+			new_business_info = models.Business.objects.get(id=business_id)
+			#如果更换了企业类型，把客户编号也更改过来
+			if (new_business_info.customer_number[:2]=='CJ' and new_business_info.company_type==2 ) or (new_business_info.customer_number[:2]=='DL' and new_business_info.company_type==1 ):
+				old_customer_number = new_business_info.customer_number
+				if new_business_info.company_type == models.DIRECT:
+					new_customer_number = 'CJ'+ old_customer_number[2:]
+				else:
+					new_customer_number = 'DL'+ old_customer_number[2:]
+				new_business_info.customer_number = new_customer_number
+				new_business_info.save()
+			response = create_response(200)
+		except Exception,e:
+			print e
+			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
 
-		response = create_response(200)
 		return response.get_response()

@@ -13,3 +13,14 @@ class ProductCatalog(models.Model):
 
 	class Meta(object):
 		db_table = 'product_catalog'
+
+#===============================================================================
+# ProductCatalogQualification ： 商品分类-特殊资质
+#===============================================================================
+class ProductCatalogQualification(models.Model):
+	catalog_id = models.IntegerField(default=-1) #所属二级分类
+	name = models.CharField(max_length=48, default='') #资质名称
+	created_at = models.DateTimeField(auto_now_add=True) #创建时间
+
+	class Meta(object):
+		db_table = 'product_catalog_qualification'

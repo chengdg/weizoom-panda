@@ -17,40 +17,73 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var catalog_id = this.props.data.catalog_id;
+		var qualification_names = this.props.data.qualification_names;
+		var qualification_name = ''
+		if (qualification_names!=''){
+			if( qualification_names.indexOf(',') != -1){
+				qualification_name = qualification_names
+			}else{
+				qualification_name = qualification_names.split(',')[0]
+			}
+		}
+		console.log(qualification_names.split(',')[0]);
+		console.log(qualification_names);
 		return {
-			catalog_id: catalog_id
+			catalog_id: catalog_id,
+			qualification_name: qualification_name
 		}
 	},
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		var newState = {};
 		newState[property] = value;
-		if(property == 'father_catalog'){
-			if(!this.props.data.catalog_id){
-				this.setState(newState);
-			}
-		}else{
-			this.setState(newState);
-		}
+		this.setState(newState);
 	},
 	onChangeStore: function(){
 		var infomations = Store.getData();
+		console.log(infomations);
 		this.setState({
-			father_catalog: infomations['father_catalog'],
-			catalog_name: infomations['catalog_name'],
-			note: infomations['note']
+			// father_catalog: infomations['father_catalog'],
+			// catalog_name: infomations['catalog_name']
 		})
 	},
 	onClickAddModel: function(event) {
-		var html = '<div class="add_model-btn"><div class="form-group ml15"><label class="col-sm-2 control-label xui-mandatory" for="qualification_name">资质名称:</label><div class="col-sm-5"><input type="text" class="form-control" id="qualification_name" name="qualification_name" data-validate="require-notempty" value=""><div class="errorHint"></div></div></div><a class="btn btn-default ml20" onClick={this.onClickDelete}><span class="glyphicon glyphicon-remove"></span></a></div>';
+		var html = '<fieldset><div class="add_model-btn"><div class="form-group ml15"><label class="col-sm-2 control-label xui-mandatory" for="qualification_name">资质名称:</label><div class="col-sm-5"><input type="text" class="form-control" id="qualification_name" name="qualification_name" data-validate="require-notempty" value=""><div class="errorHint"></div></div></div><a class="btn btn-default ml20"><span class="glyphicon glyphicon-remove"></span></a></div></fieldset>';
 		$('.add_model').append(html);
+		$('.btn-default').click(function(event){
+			console.log($(event.target));
+			console.log($(event.target).parent().parent().find('.add_model-btn'));
+	        $(event.target).parent().parent().parent().find('.add_model-btn').remove();
+	    });
 	},
 	onBeforeCloseDialog: function() {
-		var qualification_name = this.state.qualification_name;
-		if(qualification_name.length>48){
-			Reactman.PageAction.showHint('error', '资质名称不能超过48个字符');
-			return;
+		var qualificationNames = [];
+		var len = $('.form-control').length;
+		for(var i = 0;i< len;i++){
+			var qualification_name = $('.form-control').eq(i).val();
+			if(qualification_name.length>48){
+				Reactman.PageAction.showHint('error', '资质名称不能超过48个字符');
+				return;
+			}
+			qualificationNames.push(qualification_name);
 		}
+		Reactman.Resource.put({
+			resource: 'product_catalog.qualification',
+			data: {
+				catalog_id: this.state.catalog_id,
+				qualification_names: String(qualificationNames)
+			},
+			success: function() {
+				this.closeDialog();
+				_.delay(function(){
+					Reactman.PageAction.showHint('success', '设置资质成功');
+				},500);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			},
+			scope: this
+		})
 	},
 	onClickDelete: function(event) {
 		console.log(event);

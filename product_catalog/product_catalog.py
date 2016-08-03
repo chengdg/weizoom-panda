@@ -53,13 +53,18 @@ class ProductCatalog(resource.Resource):
 			for belong_second_catalog in belong_second_catalogs:
 				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
 				total_products_number += products_number
+				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
+				qualification_names = [qualification.name for qualification in qualifications]
+				print qualification_names
+				print 'qualification_names'
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
 					'father_catalog': belong_second_catalog.father_id,
 					'catalog_name': belong_second_catalog.name,
 					'note': belong_second_catalog.note,
 					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-					'products_number': products_number
+					'products_number': products_number,
+					'qualification_names': qualification_names
 				})
 			rows.append({
 				'id': catalog.id,
@@ -183,4 +188,22 @@ class GetAllFirstCatalog(resource.Resource):
 		}
 		response = create_response(200)
 		response.data = data
+		return response.get_response()
+
+class GetAllFirstCatalog(resource.Resource):
+	app = 'product_catalog'
+	resource = 'qualification'
+
+	@login_required
+	def api_put(request):
+		# 新建特殊资质
+		post = request.POST
+		catalog_id = post.get('catalog_id','')
+		qualification_names = post.get('qualification_names').split(',')
+		for qualification_name in qualification_names:
+			product_catalog_models.ProductCatalogQualification.objects.create(
+				catalog_id = catalog_id,
+				name = qualification_name
+			)
+		response = create_response(200)
 		return response.get_response()

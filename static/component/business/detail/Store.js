@@ -23,7 +23,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.data = Reactman.loadJSON('business_data');
 		if (this.data) {
-			this.data['account_type'] = String(this.data['account_type']);
+			this.data['company_type'] = String(this.data['company_type']);
 		}else{
 			this.data = {
 				'business_license': []
