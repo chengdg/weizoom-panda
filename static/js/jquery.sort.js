@@ -3,17 +3,19 @@
 //一级分类
 var first_catalog = [];
 var second_catalog = [];
-var expressP, expressC, expressArea, areaCont;
+var expressC, areaCont;
+var uploadCont = '';
 var arrow = '_';
 
 $.ajax({
     url:'/business/api/customer_apply/',
     type:'get',
     success:function(resp){
-        console.log(resp);
 		first_catalog = resp['data']['first_catalog'];
-		second_catalog = resp['data']['second_catalog']
-
+		second_catalog = resp['data']['second_catalog'];
+		second_catalog_ids = resp['data']['second_catalog_ids'];
+		catalog_qualifications = resp['data']['catalog_qualifications'];
+		console.log(catalog_qualifications);
 		/*初始化一级目录*/
 		function initFirstCatalog() {
 			areaCont = "";
@@ -30,7 +32,6 @@ $.ajax({
 		initFirstCatalog();
     },
     error:function(){
-        console.log('222222222');
     }
 });
 /*选择一级目录*/
@@ -47,15 +48,93 @@ function selectA(p) {
 
 /*选择二级目录*/
 function selectB(p,c) {
+	uploadCont = '';
 	if($('.selectB_' + p + '_' + c + '').hasClass("active")){
 		$('.selectB_' + p + '_' + c + '').removeClass("active");
-		$('.selectedSort #'+second_catalog[p][c]+'').remove();
+		$('.selectedSort #'+second_catalog_ids[p][c]+'').remove();
+		$('.qualification-for-catalog-'+second_catalog_ids[p][c]+'').remove();
 		if(!$('.selectB_' + p +'').hasClass("active")){
 			$("#sort1 li").eq(p).removeClass("active");//二级类目全部取消了选择，就把一级类目也取消选择
 		}
 	}else{
 		$('.selectB_' + p + '_' + c + '').addClass("active");
 		$("#sort1 li").eq(p).addClass("active");
-		$('.selectedSort').append('<span class="selectedSortSpan" id='+second_catalog[p][c]+'>'+second_catalog[p][c]+'</span>');
+		$('.selectedSort').append('<span class="selectedSortSpan" id='+second_catalog_ids[p][c]+'>'+second_catalog[p][c]+'</span>');
+		console.log(catalog_qualifications[c]);
+		//渲染所需特殊资质
+		if(catalog_qualifications[c]['catalog_qualifications'].length > 0){
+			for(var i=0; i<catalog_qualifications[c]['catalog_qualifications'].length; i++ ){
+				var catalog_qualification = catalog_qualifications[c]['catalog_qualifications'][i];
+				console.log(catalog_qualification);
+				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_qualifications[c]['catalog_id']+'">'+
+		            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="" style="display:block">'+
+		            '<label for="catalog_qualification_'+catalog_qualification['qualification_id']+'">'+catalog_qualification['qualification_name']+'</label>'+
+		            '<span class="btn btn-primary fileinput-button">'+
+		                '<span>上传</span>'+
+		                '<input id="catalog_qualification_'+catalog_qualification['qualification_id']+'" type="file" name="image" class="xa-uploader" />'+
+		            '</span>'+
+		            '<div class="progress mt5 xa-progress xui-hide">'+
+		                '<div class="progress-bar progress-bar-success xa-bar"></div>'+
+		            '</div>'+
+		            '<input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-catalog_qualification_'+catalog_qualification['qualification_id']+'" data-date-format="yyyy-mm-dd hh:ii">'+
+		        '</div>'
+			}
+			$("#apply_page_3_upload_field").append(uploadCont);
+			$('.xa-uploader').on("click",function(event){
+			    console.log($(event.target));
+				uploadImg(event);
+			});
+			$(".xa-datePicker").datetimepicker(options);
+		}
 	}
 }
+
+
+//时间控件
+var min = 'now';
+var max = null;
+var useMaxTime = false;
+var date = new Date();
+var dateStr = date.getFullYear() +'-' + (date.getMonth()+1) + '-' + date.getDate() +' ';
+var time = "00:00";
+if (useMaxTime){
+    time = "23:59";
+}
+var options = {
+	defaultValue: dateStr + time,
+	buttonText: '选择日期',
+	currentText: '当前时间',
+	hourText: "小时",
+	minuteText: "分钟",
+	numberOfMonths: 1,
+	dateFormat: "yy-mm-dd",
+	timeFormat: 'HH:mm',
+	closeText: '确定',
+	prevText: '&#x3c;上月',
+	nextText: '下月&#x3e;',
+	monthNames: ['一月','二月','三月','四月','五月','六月',
+	    '七月','八月','九月','十月','十一月','十二月'],
+	monthNamesShort: ['一','二','三','四','五','六',
+	    '七','八','九','十','十一','十二'],
+	dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+	dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+	dayNamesMin: ['日','一','二','三','四','五','六'],
+	beforeShow: function(input) {
+	    if(min === 'now') {
+	        $(this).datetimepicker('option', 'minDate', new Date());
+	    }else if (min){
+	        $(this).datetimepicker('option', 'minDate', min);
+	    }
+	    if(max === 'now') {
+	        $(this).datetimepicker('option', 'maxDate', new Date());
+	    }else if(max){
+	        $(this).datetimepicker('option', 'maxDate', max);
+	    }
+	},
+	onSelect: function(dateText, inst) {
+	    var event = {target:$(".xa-datePicker").get(0)};
+	},
+	onClose: function(dateText, inst) {
+	    var event = {target:$(".xa-datePicker").get(0)};
+	}
+};

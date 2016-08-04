@@ -21,13 +21,17 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 		var qualification_name = ''
 		if (qualification_names!=''){
 			if( qualification_names.indexOf(',') != -1){
-				qualification_name = qualification_names
+				var all_qualification_names = qualification_names.split(',')
+				qualification_name = all_qualification_names[0]
+				for(var i = 1 ; i<all_qualification_names.length; i++){
+					var html = '<fieldset><div class="add_model-btn"><div class="form-group ml15"><label class="col-sm-2 control-label xui-mandatory" for="qualification_name">资质名称:</label><div class="col-sm-5"><input type="text" class="form-control" id="qualification_name" name="qualification_name" data-validate="require-notempty" value="'+all_qualification_names[i]+'"><div class="errorHint"></div></div></div><a class="btn btn-default ml20"><span class="glyphicon glyphicon-remove"></span></a></div></fieldset>';
+					console.log($('.add_model'));
+					$('.add_model').append(html);
+				}
 			}else{
-				qualification_name = qualification_names.split(',')[0]
+				qualification_name = qualification_names
 			}
 		}
-		console.log(qualification_names.split(',')[0]);
-		console.log(qualification_names);
 		return {
 			catalog_id: catalog_id,
 			qualification_name: qualification_name

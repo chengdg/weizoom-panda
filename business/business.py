@@ -41,18 +41,42 @@ class BusinessApply(resource.Resource):
 		return render_to_response('business/business_apply_page.html', c)
 
 	def api_get(request):
+		#获得入驻类目数据
 		first_catalog = []
 		second_catalog = []
+		second_catalog_ids = []
+		catalog_qualifications = []
 		for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=-1):
 			first_catalog.append(catalog.name)
 			this_second_catalog = []
+			this_second_catalog_id = []
 			second_catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id=catalog.id)
 			this_second_catalog = [catalog.name for catalog in second_catalogs]
+			this_second_catalog_id = [catalog.id for catalog in second_catalogs]
 			second_catalog.append(this_second_catalog)
-		
+			second_catalog_ids.append(this_second_catalog_id)
+			
+			#获得二级类目的所属特殊资质
+			for catalog in second_catalogs:
+				this_catalog_qualifications = []
+				all_catalog_qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=catalog.id)
+				for catalog_qualification in all_catalog_qualifications:
+					this_catalog_qualifications.append({
+						'qualification_id': catalog_qualification.id,
+						'qualification_name': catalog_qualification.name
+					})
+				catalog_qualifications.append({
+					'catalog_id': catalog.id,
+					'catalog_qualifications': this_catalog_qualifications
+				})
+		print '======================'
+		print second_catalog_ids
+		print catalog_qualifications
 		data = {
 			'first_catalog': first_catalog,
-			'second_catalog': second_catalog
+			'second_catalog': second_catalog,
+			'second_catalog_ids': second_catalog_ids,
+			'catalog_qualifications': catalog_qualifications
 		}
 		response = create_response(200)
 		response.data = data

@@ -162,6 +162,7 @@
                 <ul id="sort2"></ul>
             </div>
           </div>
+          <div id="apply_page_3_upload_field"></div>
           <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
             <div>
@@ -302,37 +303,9 @@
     $(document).ready(function() {
         //三级联动省市区
         $("#company_location").citySelect();
-        //上传图片
+
         $('.xa-uploader').click(function(event){
-            console.log($(event.target));
-
-            $(event.target).fileupload({
-                url: '/business/upload_image/?_method=post',
-                type: 'POST',
-                dataType: 'json',
-                start: function(e, data) {
-                    $(event.target).parent().parent().find('.xa-progress').show();
-                },
-                done: function (e, data) {
-                    var responseData = data.result.data;
-                    var class_name = $(event.target).attr("id");
-                    class_name = '.wa-upload-img-'+class_name;
-                    $(class_name).attr('src',responseData.path);
-                },
-                fail: function (e, data) {
-
-                },
-                complete: function(e, data) {
-                    console.log("complete");
-                    _.delay(function() {
-                        $(event.target).parent().parent().find('.xa-progress').hide();
-                    }, 50);
-                },
-                progressall: function(e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $(event.target).parent().parent().find('.xa-progress').find('.xa-bar').css('width', progress+'%');
-                }
-            });
+            uploadImg(event);
         });
 
         //时间控件
@@ -377,22 +350,13 @@
                 }
             },
             onSelect: function(dateText, inst) {
-                var event = {target:$("#datetimepicker-business_license").get(0)};
-                var event = {target:$("#datetimepicker-tax_registration_certificate").get(0)};
-                var event = {target:$("#datetimepicker-organization_code_certificate").get(0)};
-                var event = {target:$("#datetimepicker-account_opening_license").get(0)};
+                var event = {target:$(".xa-datePicker").get(0)};
             },
             onClose: function(dateText, inst) {
-                var event = {target:$("#datetimepicker-business_license").get(0)};
-                var event = {target:$("#datetimepicker-tax_registration_certificate").get(0)};
-                var event = {target:$("#datetimepicker-organization_code_certificate").get(0)};
-                var event = {target:$("#datetimepicker-account_opening_license").get(0)};
+                var event = {target:$(".xa-datePicker").get(0)};
             }
         };
-        $("#datetimepicker-business_license").datetimepicker(options);
-        $("#datetimepicker-tax_registration_certificate").datetimepicker(options);
-        $("#datetimepicker-organization_code_certificate").datetimepicker(options);
-        $("#datetimepicker-account_opening_license").datetimepicker(options);
+        $(".xa-datePicker").datetimepicker(options);
     });
     function goToPage1(){
         $("#page2").removeClass('active');
@@ -487,5 +451,36 @@
            window.close();
         }
     });
+
+    //上传图片
+    function uploadImg(event){
+        $(event.target).fileupload({
+            url: '/business/upload_image/?_method=post',
+            type: 'POST',
+            dataType: 'json',
+            start: function(e, data) {
+                $(event.target).parent().parent().find('.xa-progress').show();
+            },
+            done: function (e, data) {
+                var responseData = data.result.data;
+                var class_name = $(event.target).attr("id");
+                class_name = '.wa-upload-img-'+class_name;
+                $(class_name).attr('src',responseData.path);
+            },
+            fail: function (e, data) {
+
+            },
+            complete: function(e, data) {
+                console.log("complete");
+                _.delay(function() {
+                    $(event.target).parent().parent().find('.xa-progress').hide();
+                }, 50);
+            },
+            progressall: function(e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $(event.target).parent().parent().find('.xa-progress').find('.xa-bar').css('width', progress+'%');
+            }
+        });
+    }
 </script>
 {% endblock %}
