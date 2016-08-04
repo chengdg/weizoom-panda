@@ -1,0 +1,11 @@
+.save-btn div{
+	margin-left: 0px !important;
+}
+
+.save-btn div label{
+	display: none;
+}
+
+.save-btn{
+    padding-left: 76px;
+}

@@ -25,3 +25,145 @@ input[name=points] {
 .account-create-purchase-method div:nth-child(1){
     display: inline-block;
 }
+.add-grounp-points{
+	position: absolute;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 5px;
+}
+
+.rebate-per{
+    position: absolute;
+    top: 8px;
+    right: 35px;
+}
+
+.xui-close{
+    border: 1px solid #ADA2A2;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    padding-left: 5px;
+    font-size: 17px;
+    top: -8px;
+    line-height: 15px;
+    right: 54px;
+}
+
+.xui-close:hover{
+	cursor: pointer;
+}
+
+.self-user-shop-ul{
+    border: 1px solid #C2D1E4;
+    padding-top: 15px;
+    margin-left: 70px;
+    max-width: 70%;
+    margin-bottom: 15px
+}
+
+.profilts-dialog, .rebates-dialog{
+	border: 1px solid #C2D1E4;
+    padding-top: 15px;
+    max-width: 60%;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    margin-left: 86px;
+    padding-bottom: 15px;
+}
+
+.rebate-input{
+	width: 100px !important;
+}
+
+.profilts-dialog div:nth-child(2), 
+.profilts-dialog div:nth-child(4), 
+.profilts-dialog div:nth-child(6){
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	height: 22px;
+	width: 100px;
+}
+
+.profilts-dialog div:nth-child(2) label, 
+.profilts-dialog div:nth-child(4) label, 
+.profilts-dialog div:nth-child(6) label,
+
+.rebates-dialog div:nth-child(2) label,
+.rebates-dialog div:nth-child(4) label,
+.rebates-dialog div:nth-child(6) label,
+.rebates-dialog div:nth-child(8) label,
+.rebates-dialog div:nth-child(10) label{
+	display: none;
+	vertical-align: top;
+}
+
+.profilts-dialog div:nth-child(2) div, 
+.profilts-dialog div:nth-child(4) div, 
+.profilts-dialog div:nth-child(6) div,
+
+.rebates-dialog div:nth-child(2) div,
+.rebates-dialog div:nth-child(4) div,
+.rebates-dialog div:nth-child(6) div,
+.rebates-dialog div:nth-child(8) div,
+.rebates-dialog div:nth-child(10) div{
+	width: 100% !important;
+}
+
+.rebates-dialog{
+    position: relative;
+    padding-top: 0px;
+}
+
+.rebates-dialog div:nth-child(2),
+.rebates-dialog div:nth-child(4),
+.rebates-dialog div:nth-child(6),
+.rebates-dialog div:nth-child(8),
+.rebates-dialog div:nth-child(10){
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	height: 22px;
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 8px;
+}
+
+/*.rebates-dialog div:nth-child(2) label,
+.rebates-dialog div:nth-child(4) label,
+.rebates-dialog div:nth-child(6) label,
+.rebates-dialog div:nth-child(8) label,
+.rebates-dialog div:nth-child(10) label{
+	display: none;
+	vertical-align: top;
+}*/
+
+/*.rebates-dialog div:nth-child(2) div,
+.rebates-dialog div:nth-child(4) div,
+.rebates-dialog div:nth-child(6) div,
+.rebates-dialog div:nth-child(8) div,
+.rebates-dialog div:nth-child(10) div{
+	width: 100% !important;
+}*/
+
+.rebates-dialog div:nth-child(2) div input,
+.rebates-dialog div:nth-child(4) div input,
+.rebates-dialog div:nth-child(6) div input,
+.rebates-dialog div:nth-child(8) div input,
+.rebates-dialog div:nth-child(10) div input{
+	margin-bottom: 8px;
+}
+
+.rebate-close{
+    position: absolute;
+    right: 0;
+    width: 20px;
+    top: 0;
+    font-size: 18px;
+    padding-left: 5px;
+    display: inline-block;
+    border-bottom: 1px solid #C2D1E4;
+    border-left: 1px solid #C2D1E4;
+}

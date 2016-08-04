@@ -1,0 +1,14 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '运费设置',
+		href: '/freight_service/freight/'
+	}];
+
+	W.pageContentComponent = './freight_service/freight/FreightPage.react';
+	W.free_freight_money = {{free_freight_money}};
+	W.need_freight_money = {{need_freight_money}};
+</script>
+{% endblock %}

@@ -19818,35 +19818,35 @@
 	var Resource = __webpack_require__(249);
 	var Validater = __webpack_require__(260);
 	var W = __webpack_require__(265);
-	var User = __webpack_require__(433);
+	var User = __webpack_require__(455);
 
-	var FormInput = __webpack_require__(434);
-	var FormRangeInput = __webpack_require__(435);
-	var FormDateTimeInput = __webpack_require__(436);
-	var FormDateRangeInput = __webpack_require__(439);
-	var FormSelect = __webpack_require__(440);
-	var FormSubmit = __webpack_require__(441);
-	var FormRadio = __webpack_require__(442);
-	var FormCheckbox = __webpack_require__(443);
-	var FormText = __webpack_require__(444);
-	var FormRichTextInput = __webpack_require__(445);
-	var FormImageUploader = __webpack_require__(450);
-	var FormFileUploader = __webpack_require__(453);
-	var Table = __webpack_require__(456);
-	var TablePanel = __webpack_require__(465);
-	var TableActionBar = __webpack_require__(466);
-	var TableActionButton = __webpack_require__(467);
-	var TableColumn = __webpack_require__(468);
-	var TableAction = __webpack_require__(462);
-	var Tabs = __webpack_require__(469);
-	var Tab = __webpack_require__(472);
-	var Pagination = __webpack_require__(457);
-	var FilterPanel = __webpack_require__(473);
-	var FilterRow = __webpack_require__(479);
-	var FilterField = __webpack_require__(480);
+	var FormInput = __webpack_require__(456);
+	var FormRangeInput = __webpack_require__(457);
+	var FormDateTimeInput = __webpack_require__(458);
+	var FormDateRangeInput = __webpack_require__(461);
+	var FormSelect = __webpack_require__(462);
+	var FormSubmit = __webpack_require__(463);
+	var FormRadio = __webpack_require__(464);
+	var FormCheckbox = __webpack_require__(465);
+	var FormText = __webpack_require__(466);
+	var FormRichTextInput = __webpack_require__(467);
+	var FormImageUploader = __webpack_require__(472);
+	var FormFileUploader = __webpack_require__(475);
+	var Table = __webpack_require__(478);
+	var TablePanel = __webpack_require__(487);
+	var TableActionBar = __webpack_require__(488);
+	var TableActionButton = __webpack_require__(489);
+	var TableColumn = __webpack_require__(490);
+	var TableAction = __webpack_require__(484);
+	var Tabs = __webpack_require__(491);
+	var Tab = __webpack_require__(494);
+	var Pagination = __webpack_require__(479);
+	var FilterPanel = __webpack_require__(495);
+	var FilterRow = __webpack_require__(501);
+	var FilterField = __webpack_require__(502);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(481);
-	var Chart = __webpack_require__(484);
+	var Widget = __webpack_require__(503);
+	var Chart = __webpack_require__(506);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -34286,152 +34286,187 @@
 		"./fans/fans/Store": 336,
 		"./fans/fans/Store.js": 336,
 		"./fans/fans/style.css": 337,
-		"./manager/account_list/AccountManagePage.react": 339,
-		"./manager/account_list/AccountManagePage.react.js": 339,
-		"./manager/account_list/Action": 342,
-		"./manager/account_list/Action.js": 342,
-		"./manager/account_list/Constant": 341,
-		"./manager/account_list/Constant.js": 341,
-		"./manager/account_list/Store": 340,
-		"./manager/account_list/Store.js": 340,
-		"./manager/create_account/AccountCreatePage.react": 343,
-		"./manager/create_account/AccountCreatePage.react.js": 343,
-		"./manager/create_account/Action": 346,
-		"./manager/create_account/Action.js": 346,
-		"./manager/create_account/Constant": 345,
-		"./manager/create_account/Constant.js": 345,
-		"./manager/create_account/Store": 344,
-		"./manager/create_account/Store.js": 344,
-		"./manager/create_account/style.css": 347,
-		"./order/customer_order_detail/Action": 349,
-		"./order/customer_order_detail/Action.js": 349,
-		"./order/customer_order_detail/Constant": 350,
-		"./order/customer_order_detail/Constant.js": 350,
-		"./order/customer_order_detail/OrderDataPage.react": 351,
-		"./order/customer_order_detail/OrderDataPage.react.js": 351,
-		"./order/customer_order_detail/OrderLogistics.react": 353,
-		"./order/customer_order_detail/OrderLogistics.react.js": 353,
-		"./order/customer_order_detail/Store": 352,
-		"./order/customer_order_detail/Store.js": 352,
-		"./order/customer_order_detail/style.css": 354,
-		"./order/customer_orders_list/Action": 356,
-		"./order/customer_orders_list/Action.js": 356,
-		"./order/customer_orders_list/Constant": 357,
-		"./order/customer_orders_list/Constant.js": 357,
-		"./order/customer_orders_list/DialogStore": 358,
-		"./order/customer_orders_list/DialogStore.js": 358,
-		"./order/customer_orders_list/OrderBatchDelivery.css": 359,
-		"./order/customer_orders_list/OrderBatchDelivery.react": 361,
-		"./order/customer_orders_list/OrderBatchDelivery.react.js": 361,
-		"./order/customer_orders_list/OrderDatasPage.react": 363,
-		"./order/customer_orders_list/OrderDatasPage.react.js": 363,
-		"./order/customer_orders_list/ShipDialog.react": 364,
-		"./order/customer_orders_list/ShipDialog.react.js": 364,
-		"./order/customer_orders_list/Store": 362,
-		"./order/customer_orders_list/Store.js": 362,
-		"./order/customer_orders_list/style.css": 365,
-		"./order/yunying_orders_list/Action": 367,
-		"./order/yunying_orders_list/Action.js": 367,
-		"./order/yunying_orders_list/Constant": 368,
-		"./order/yunying_orders_list/Constant.js": 368,
-		"./order/yunying_orders_list/Store": 369,
-		"./order/yunying_orders_list/Store.js": 369,
-		"./order/yunying_orders_list/YunyingOrderDatasPage.react": 370,
-		"./order/yunying_orders_list/YunyingOrderDatasPage.react.js": 370,
-		"./outline/data/Action": 371,
-		"./outline/data/Action.js": 371,
-		"./outline/data/Constant": 372,
-		"./outline/data/Constant.js": 372,
-		"./outline/data/DataPage.react": 373,
-		"./outline/data/DataPage.react.js": 373,
-		"./outline/data/ProductModel.react": 375,
-		"./outline/data/ProductModel.react.js": 375,
-		"./outline/data/ProductModelList.react": 374,
-		"./outline/data/ProductModelList.react.js": 374,
-		"./outline/data/Store": 376,
-		"./outline/data/Store.js": 376,
-		"./outline/datas/Action": 377,
-		"./outline/datas/Action.js": 377,
-		"./outline/datas/CommentDialog.react": 379,
-		"./outline/datas/CommentDialog.react.js": 379,
-		"./outline/datas/Constant": 378,
-		"./outline/datas/Constant.js": 378,
-		"./outline/datas/DatasPage.react": 381,
-		"./outline/datas/DatasPage.react.js": 381,
-		"./outline/datas/Store": 380,
-		"./outline/datas/Store.js": 380,
-		"./outline/datas/style.css": 382,
-		"./outline/outline/OutlinePage.react": 384,
-		"./outline/outline/OutlinePage.react.js": 384,
-		"./product/new_product/Action": 385,
-		"./product/new_product/Action.js": 385,
-		"./product/new_product/AddProductModelDialog.react": 387,
-		"./product/new_product/AddProductModelDialog.react.js": 387,
-		"./product/new_product/Constant": 386,
-		"./product/new_product/Constant.js": 386,
-		"./product/new_product/NewProductPage.react": 391,
-		"./product/new_product/NewProductPage.react.js": 391,
-		"./product/new_product/ProductModelInfo.css": 399,
-		"./product/new_product/ProductModelInfo.react": 398,
-		"./product/new_product/ProductModelInfo.react.js": 398,
-		"./product/new_product/ProductPreviewDialog.react": 392,
-		"./product/new_product/ProductPreviewDialog.react.js": 392,
-		"./product/new_product/SetValidataTime.css": 396,
-		"./product/new_product/SetValidataTimeDialog.react": 395,
-		"./product/new_product/SetValidataTimeDialog.react.js": 395,
-		"./product/new_product/Store": 388,
-		"./product/new_product/Store.js": 388,
-		"./product/new_product/modelDialogStyle.css": 389,
-		"./product/new_product/style.css": 393,
-		"./product/product_list/Action": 401,
-		"./product/product_list/Action.js": 401,
-		"./product/product_list/AddProductCategoryDialog.react": 403,
-		"./product/product_list/AddProductCategoryDialog.react.js": 403,
-		"./product/product_list/CategoryStore": 404,
-		"./product/product_list/CategoryStore.js": 404,
-		"./product/product_list/CategoryStyle.css": 405,
-		"./product/product_list/Constant": 402,
-		"./product/product_list/Constant.js": 402,
-		"./product/product_list/LookProductModelDetail.react": 407,
-		"./product/product_list/LookProductModelDetail.react.js": 407,
-		"./product/product_list/ProductDataListPage.react": 411,
-		"./product/product_list/ProductDataListPage.react.js": 411,
-		"./product/product_list/Store": 408,
-		"./product/product_list/Store.js": 408,
-		"./product/product_list/style.css": 409,
-		"./product/product_model/Action": 412,
-		"./product/product_model/Action.js": 412,
-		"./product/product_model/AddProductModelValueDialog.react": 414,
-		"./product/product_model/AddProductModelValueDialog.react.js": 414,
-		"./product/product_model/Constant": 413,
-		"./product/product_model/Constant.js": 413,
-		"./product/product_model/ProductModelListPage.react": 418,
-		"./product/product_model/ProductModelListPage.react.js": 418,
-		"./product/product_model/Store": 415,
-		"./product/product_model/Store.js": 415,
-		"./product/product_model/style.css": 416,
-		"./product/product_relation/Action": 419,
-		"./product/product_relation/Action.js": 419,
-		"./product/product_relation/ChooseSyncSelfShopDialog.react": 421,
-		"./product/product_relation/ChooseSyncSelfShopDialog.react.js": 421,
-		"./product/product_relation/Constant": 420,
-		"./product/product_relation/Constant.js": 420,
-		"./product/product_relation/ProductRelationPage.react": 425,
-		"./product/product_relation/ProductRelationPage.react.js": 425,
-		"./product/product_relation/Store": 422,
-		"./product/product_relation/Store.js": 422,
-		"./product/product_relation/style.css": 423,
-		"./product_catalog/product_catalogs/Action": 426,
-		"./product_catalog/product_catalogs/Action.js": 426,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react": 428,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 428,
-		"./product_catalog/product_catalogs/Constant": 427,
-		"./product_catalog/product_catalogs/Constant.js": 427,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react": 430,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 430,
-		"./product_catalog/product_catalogs/Store": 429,
-		"./product_catalog/product_catalogs/Store.js": 429,
-		"./product_catalog/product_catalogs/style.css": 431
+		"./freight_service/freight/Action": 339,
+		"./freight_service/freight/Action.js": 339,
+		"./freight_service/freight/Constant": 340,
+		"./freight_service/freight/Constant.js": 340,
+		"./freight_service/freight/FreightPage.react": 341,
+		"./freight_service/freight/FreightPage.react.js": 341,
+		"./freight_service/freight/Store": 342,
+		"./freight_service/freight/Store.js": 342,
+		"./freight_service/freight/style.css": 343,
+		"./freight_service/service/Action": 345,
+		"./freight_service/service/Action.js": 345,
+		"./freight_service/service/Constant": 346,
+		"./freight_service/service/Constant.js": 346,
+		"./freight_service/service/ServicePage.react": 347,
+		"./freight_service/service/ServicePage.react.js": 347,
+		"./freight_service/service/Store": 348,
+		"./freight_service/service/Store.js": 348,
+		"./freight_service/service/style.css": 349,
+		"./manager/account_list/AccountManagePage.react": 351,
+		"./manager/account_list/AccountManagePage.react.js": 351,
+		"./manager/account_list/Action": 354,
+		"./manager/account_list/Action.js": 354,
+		"./manager/account_list/Constant": 353,
+		"./manager/account_list/Constant.js": 353,
+		"./manager/account_list/Store": 352,
+		"./manager/account_list/Store.js": 352,
+		"./manager/create_account/AccountCreatePage.react": 355,
+		"./manager/create_account/AccountCreatePage.react.js": 355,
+		"./manager/create_account/Action": 358,
+		"./manager/create_account/Action.js": 358,
+		"./manager/create_account/AddGroupPointDialog.react": 359,
+		"./manager/create_account/AddGroupPointDialog.react.js": 359,
+		"./manager/create_account/Constant": 357,
+		"./manager/create_account/Constant.js": 357,
+		"./manager/create_account/GroupPointsDialog.react": 363,
+		"./manager/create_account/GroupPointsDialog.react.js": 363,
+		"./manager/create_account/PurchaseMethod.react": 362,
+		"./manager/create_account/PurchaseMethod.react.js": 362,
+		"./manager/create_account/Store": 356,
+		"./manager/create_account/Store.js": 356,
+		"./manager/create_account/style.css": 360,
+		"./order/customer_order_detail/Action": 364,
+		"./order/customer_order_detail/Action.js": 364,
+		"./order/customer_order_detail/Constant": 365,
+		"./order/customer_order_detail/Constant.js": 365,
+		"./order/customer_order_detail/OrderDataPage.react": 366,
+		"./order/customer_order_detail/OrderDataPage.react.js": 366,
+		"./order/customer_order_detail/OrderLogistics.react": 368,
+		"./order/customer_order_detail/OrderLogistics.react.js": 368,
+		"./order/customer_order_detail/Store": 367,
+		"./order/customer_order_detail/Store.js": 367,
+		"./order/customer_order_detail/style.css": 369,
+		"./order/customer_orders_list/Action": 371,
+		"./order/customer_orders_list/Action.js": 371,
+		"./order/customer_orders_list/Constant": 372,
+		"./order/customer_orders_list/Constant.js": 372,
+		"./order/customer_orders_list/DialogStore": 373,
+		"./order/customer_orders_list/DialogStore.js": 373,
+		"./order/customer_orders_list/OrderBatchDelivery.css": 374,
+		"./order/customer_orders_list/OrderBatchDelivery.react": 376,
+		"./order/customer_orders_list/OrderBatchDelivery.react.js": 376,
+		"./order/customer_orders_list/OrderDatasPage.react": 378,
+		"./order/customer_orders_list/OrderDatasPage.react.js": 378,
+		"./order/customer_orders_list/ShipDialog.react": 379,
+		"./order/customer_orders_list/ShipDialog.react.js": 379,
+		"./order/customer_orders_list/Store": 377,
+		"./order/customer_orders_list/Store.js": 377,
+		"./order/customer_orders_list/style.css": 380,
+		"./order/yunying_orders_list/Action": 382,
+		"./order/yunying_orders_list/Action.js": 382,
+		"./order/yunying_orders_list/Constant": 383,
+		"./order/yunying_orders_list/Constant.js": 383,
+		"./order/yunying_orders_list/Store": 384,
+		"./order/yunying_orders_list/Store.js": 384,
+		"./order/yunying_orders_list/YunyingOrderDatasPage.react": 385,
+		"./order/yunying_orders_list/YunyingOrderDatasPage.react.js": 385,
+		"./outline/data/Action": 386,
+		"./outline/data/Action.js": 386,
+		"./outline/data/Constant": 387,
+		"./outline/data/Constant.js": 387,
+		"./outline/data/DataPage.react": 388,
+		"./outline/data/DataPage.react.js": 388,
+		"./outline/data/ProductModel.react": 390,
+		"./outline/data/ProductModel.react.js": 390,
+		"./outline/data/ProductModelList.react": 389,
+		"./outline/data/ProductModelList.react.js": 389,
+		"./outline/data/Store": 391,
+		"./outline/data/Store.js": 391,
+		"./outline/datas/Action": 392,
+		"./outline/datas/Action.js": 392,
+		"./outline/datas/CommentDialog.react": 394,
+		"./outline/datas/CommentDialog.react.js": 394,
+		"./outline/datas/Constant": 393,
+		"./outline/datas/Constant.js": 393,
+		"./outline/datas/DatasPage.react": 396,
+		"./outline/datas/DatasPage.react.js": 396,
+		"./outline/datas/Store": 395,
+		"./outline/datas/Store.js": 395,
+		"./outline/datas/style.css": 397,
+		"./outline/outline/OutlinePage.react": 399,
+		"./outline/outline/OutlinePage.react.js": 399,
+		"./product/new_product/Action": 400,
+		"./product/new_product/Action.js": 400,
+		"./product/new_product/AddProductModelDialog.react": 402,
+		"./product/new_product/AddProductModelDialog.react.js": 402,
+		"./product/new_product/Constant": 401,
+		"./product/new_product/Constant.js": 401,
+		"./product/new_product/NewProductPage.react": 406,
+		"./product/new_product/NewProductPage.react.js": 406,
+		"./product/new_product/ProductModelInfo.css": 414,
+		"./product/new_product/ProductModelInfo.react": 413,
+		"./product/new_product/ProductModelInfo.react.js": 413,
+		"./product/new_product/ProductPreviewDialog.react": 407,
+		"./product/new_product/ProductPreviewDialog.react.js": 407,
+		"./product/new_product/SetValidataTime.css": 411,
+		"./product/new_product/SetValidataTimeDialog.react": 410,
+		"./product/new_product/SetValidataTimeDialog.react.js": 410,
+		"./product/new_product/Store": 403,
+		"./product/new_product/Store.js": 403,
+		"./product/new_product/modelDialogStyle.css": 404,
+		"./product/new_product/style.css": 408,
+		"./product/product_list/Action": 416,
+		"./product/product_list/Action.js": 416,
+		"./product/product_list/AddProductCategoryDialog.react": 418,
+		"./product/product_list/AddProductCategoryDialog.react.js": 418,
+		"./product/product_list/CategoryStore": 419,
+		"./product/product_list/CategoryStore.js": 419,
+		"./product/product_list/CategoryStyle.css": 420,
+		"./product/product_list/Constant": 417,
+		"./product/product_list/Constant.js": 417,
+		"./product/product_list/LookProductModelDetail.react": 422,
+		"./product/product_list/LookProductModelDetail.react.js": 422,
+		"./product/product_list/ProductDataListPage.react": 426,
+		"./product/product_list/ProductDataListPage.react.js": 426,
+		"./product/product_list/Store": 423,
+		"./product/product_list/Store.js": 423,
+		"./product/product_list/style.css": 424,
+		"./product/product_model/Action": 427,
+		"./product/product_model/Action.js": 427,
+		"./product/product_model/AddProductModelValueDialog.react": 429,
+		"./product/product_model/AddProductModelValueDialog.react.js": 429,
+		"./product/product_model/Constant": 428,
+		"./product/product_model/Constant.js": 428,
+		"./product/product_model/ProductModelListPage.react": 433,
+		"./product/product_model/ProductModelListPage.react.js": 433,
+		"./product/product_model/Store": 430,
+		"./product/product_model/Store.js": 430,
+		"./product/product_model/style.css": 431,
+		"./product/product_relation/Action": 434,
+		"./product/product_relation/Action.js": 434,
+		"./product/product_relation/ChooseSyncSelfShopDialog.react": 436,
+		"./product/product_relation/ChooseSyncSelfShopDialog.react.js": 436,
+		"./product/product_relation/Constant": 435,
+		"./product/product_relation/Constant.js": 435,
+		"./product/product_relation/ProductRelationPage.react": 440,
+		"./product/product_relation/ProductRelationPage.react.js": 440,
+		"./product/product_relation/Store": 437,
+		"./product/product_relation/Store.js": 437,
+		"./product/product_relation/style.css": 438,
+		"./product_catalog/product_catalogs/Action": 441,
+		"./product_catalog/product_catalogs/Action.js": 441,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react": 443,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 443,
+		"./product_catalog/product_catalogs/Constant": 442,
+		"./product_catalog/product_catalogs/Constant.js": 442,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react": 445,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 445,
+		"./product_catalog/product_catalogs/Store": 444,
+		"./product_catalog/product_catalogs/Store.js": 444,
+		"./product_catalog/product_catalogs/style.css": 446,
+		"./self_shop/manage/Action": 448,
+		"./self_shop/manage/Action.js": 448,
+		"./self_shop/manage/AddSelfShopDialog.react": 450,
+		"./self_shop/manage/AddSelfShopDialog.react.js": 450,
+		"./self_shop/manage/Constant": 449,
+		"./self_shop/manage/Constant.js": 449,
+		"./self_shop/manage/SelfShopManagePage.react": 454,
+		"./self_shop/manage/SelfShopManagePage.react.js": 454,
+		"./self_shop/manage/Store": 451,
+		"./self_shop/manage/Store.js": 451,
+		"./self_shop/manage/style.css": 452
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -35407,6 +35442,503 @@
 	 */
 	"use strict";
 
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(340);
+
+	var Action = {
+		setFreightValue: function (property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.SET_FREIGHT_VALUE,
+				data: {
+					property: property,
+					value: value
+				}
+			});
+		},
+
+		saveSalePhone: function (freeFreightMoney, needFreightMoney) {
+			Resource.put({
+				resource: 'freight_service.freight',
+				data: {
+					'free_freight_money': freeFreightMoney,
+					'need_freight_money': needFreightMoney
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.SAVE_FREIGHT_MONEY
+				}
+			});
+		}
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 340 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  SET_FREIGHT_VALUE: null,
+	  SAVE_FREIGHT_MONEY: null
+	});
+
+/***/ },
+/* 341 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:freight_service.freight:FreightPage');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+
+	var Store = __webpack_require__(342);
+	var Constant = __webpack_require__(340);
+	var Action = __webpack_require__(339);
+	__webpack_require__(343);
+	var W = Reactman.W;
+
+	var FreightPage = React.createClass({
+		displayName: 'FreightPage',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			var freeFreightMoney = W.free_freight_money == '-1' ? '' : W.free_freight_money;
+			var needFreightMoney = W.need_freight_money == '-1' ? '0' : W.need_freight_money;
+			return {
+				'free_freight_money': freeFreightMoney,
+				'need_freight_money': needFreightMoney
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.setFreightValue(property, value);
+		},
+
+		onSubmit: function () {
+			var freeFreightMoney = this.state.free_freight_money;
+			var needFreightMoney = this.state.need_freight_money;
+			var reg = /^\+?[0-9][0-9]*$/;
+			var reg_2 = /^\+?[1-9][0-9]*$/;
+			if (freeFreightMoney.length > 0 && !reg_2.test(freeFreightMoney)) {
+				Reactman.PageAction.showHint('error', '请输入大于或等于0的整数!');
+				return;
+			}
+			if (!reg.test(needFreightMoney)) {
+				Reactman.PageAction.showHint('error', '请输入大于0的整数!');
+				return;
+			}
+			Action.saveSalePhone(freeFreightMoney, needFreightMoney);
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		render: function () {
+			return React.createElement(
+				'div',
+				{ className: 'xui-newProduct-page xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						{ style: { paddingTop: '20px' } },
+						React.createElement(
+							'span',
+							{ style: { display: 'inline-block' } },
+							'全店满'
+						),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'free_freight_money', value: this.state.free_freight_money, onChange: this.onChange }),
+						React.createElement(
+							'span',
+							{ style: { marginLeft: '20px' } },
+							'元包邮，否则收取统一运费'
+						),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'need_freight_money', value: this.state.need_freight_money, onChange: this.onChange, validate: 'require-int' }),
+						React.createElement(
+							'span',
+							{ style: { display: 'inline-block', marginLeft: '22px' } },
+							'元'
+						)
+					),
+					React.createElement(
+						'fieldset',
+						{ style: { position: 'relative' }, className: 'save-btn' },
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit })
+					)
+				)
+			);
+		}
+	});
+	module.exports = FreightPage;
+
+/***/ },
+/* 342 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(340);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleSetFreightValue': Constant.SET_FREIGHT_VALUE,
+			'handleSaveFreightmoney': Constant.SAVE_FREIGHT_MONEY
+		},
+
+		init: function () {
+			this.data = {};
+		},
+
+		handleSetFreightValue: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		handleSaveFreightmoney: function (action) {
+			if (action.data['code'] == 200) {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('success', '保存成功!');
+				}, 10);
+			} else {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('error', '保存失败!');
+				}, 10);
+			}
+			this.__emitChange();
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 343 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(344);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 344 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "fieldset div:nth-child(2), \r\nfieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\nfieldset div:nth-child(2) label,\r\nfieldset div:nth-child(4) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\nfieldset div:nth-child(2) div,\r\nfieldset div:nth-child(4) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\nfieldset{\r\n    margin-left: 90px;\r\n}\r\n\r\n.save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 345 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(346);
+
+	var Action = {
+		addSalePhone: function (property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.ADD_SALE_PHONE,
+				data: {
+					property: property,
+					value: value
+				}
+			});
+		},
+
+		saveSalePhone: function (preSaleTel, afterSaleTel) {
+			Resource.put({
+				resource: 'freight_service.service',
+				data: {
+					'pre_sale_tel': preSaleTel,
+					'after_sale_tel': afterSaleTel
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.SAVE_SALE_PHONE
+				}
+			});
+		}
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 346 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  ADD_SALE_PHONE: null,
+	  SAVE_SALE_PHONE: null
+	});
+
+/***/ },
+/* 347 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:freight_service.service:ServicePage');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+
+	var Store = __webpack_require__(348);
+	var Constant = __webpack_require__(346);
+	var Action = __webpack_require__(345);
+	__webpack_require__(349);
+	var W = Reactman.W;
+
+	var ServicePage = React.createClass({
+		displayName: 'ServicePage',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			var preSaleTel = W.pre_sale_tel == '-1' ? '' : W.pre_sale_tel;
+			var afterSaleTel = W.after_sale_tel == '-1' ? '' : W.after_sale_tel;
+			return {
+				'pre_sale_tel': preSaleTel,
+				'after_sale_tel': afterSaleTel
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.addSalePhone(property, value);
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onSubmit: function () {
+			var preSaleTel = this.state.pre_sale_tel;
+			var afterSaleTel = this.state.after_sale_tel;
+			var regTel = /^0\d{2,3}-?\d{7,8}$/;
+			var regMobile = /^1\d{10}$/;
+			if (!regTel.test(preSaleTel) && !regMobile.test(preSaleTel)) {
+				Reactman.PageAction.showHint('error', '请输入正确的电话号码！');
+				return;
+			}
+			if (!regTel.test(afterSaleTel) && !regMobile.test(afterSaleTel)) {
+				Reactman.PageAction.showHint('error', '请输入正确的电话号码！');
+				return;
+			}
+			Action.saveSalePhone(preSaleTel, afterSaleTel);
+		},
+
+		render: function () {
+			return React.createElement(
+				'div',
+				{ className: 'xui-newProduct-page xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						{ style: { paddingTop: '20px' } },
+						React.createElement(Reactman.FormInput, { label: '售前电话:', type: 'text', name: 'pre_sale_tel', value: this.state.pre_sale_tel, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '售后电话:', type: 'text', name: 'after_sale_tel', value: this.state.after_sale_tel, onChange: this.onChange })
+					),
+					React.createElement(
+						'fieldset',
+						{ style: { position: 'relative' }, className: 'save-btn' },
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit })
+					)
+				)
+			);
+		}
+	});
+	module.exports = ServicePage;
+
+/***/ },
+/* 348 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(346);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleAddSalePhone': Constant.ADD_SALE_PHONE,
+			'handleSaveSalePhone': Constant.SAVE_SALE_PHONE
+		},
+
+		init: function () {
+			this.data = {};
+		},
+
+		handleAddSalePhone: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		handleSaveSalePhone: function (action) {
+			if (action.data['code'] == 200) {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('success', '保存成功!');
+				}, 10);
+			} else {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('error', '保存失败!');
+				}, 10);
+			}
+			this.__emitChange();
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 349 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(350);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}\r\n\r\n.save-btn{\r\n    padding-left: 76px;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
 	var debug = __webpack_require__(235)('m:manager.account_list:AccountManagePage');
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
@@ -35414,9 +35946,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(340);
-	var Constant = __webpack_require__(341);
-	var Action = __webpack_require__(342);
+	var Store = __webpack_require__(352);
+	var Constant = __webpack_require__(353);
+	var Action = __webpack_require__(354);
 
 	var AccountManagePage = React.createClass({
 		displayName: 'AccountManagePage',
@@ -35600,7 +36132,7 @@
 	module.exports = AccountManagePage;
 
 /***/ },
-/* 340 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35617,7 +36149,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(341);
+	var Constant = __webpack_require__(353);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -35654,7 +36186,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 341 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35671,7 +36203,7 @@
 	});
 
 /***/ },
-/* 342 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35686,7 +36218,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(341);
+	var Constant = __webpack_require__(353);
 
 	var Action = {
 		changeAccountStatus: function (id, _method) {
@@ -35751,7 +36283,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 343 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35766,10 +36298,12 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(344);
-	var Constant = __webpack_require__(345);
-	var Action = __webpack_require__(346);
-	__webpack_require__(347);
+	var Store = __webpack_require__(356);
+	var Constant = __webpack_require__(357);
+	var Action = __webpack_require__(358);
+	var AddGroupPointDialog = __webpack_require__(359);
+	var PurchaseMethod = __webpack_require__(362);
+	__webpack_require__(360);
 
 	var AccountCreatePage = React.createClass({
 		displayName: 'AccountCreatePage',
@@ -35896,7 +36430,8 @@
 								valid_time_from: this.state.valid_time_from,
 								valid_time_to: this.state.valid_time_to,
 								Type: this.state.account_type,
-								options_for_type: this.state.options_for_type
+								options_for_type: this.state.options_for_type,
+								selfUserNames: this.state.self_user_names
 							})
 						),
 						React.createElement(Reactman.FormInput, { label: '登录名:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
@@ -35962,31 +36497,175 @@
 			}
 		}
 	});
-	var PurchaseMethod = React.createClass({
-		displayName: 'PurchaseMethod',
+	// var PurchaseMethod = React.createClass({
+	// 	getInitialState: function() {
+	// 		Store.addListener(this.onChangeStore);
+	// 		return Store.getData();
+	// 	},
 
-		render: function () {
-			var type = this.props.Type;
-			if (type == '2') {
-				return React.createElement(
-					'div',
-					{ className: 'account-create-purchase-method' },
-					React.createElement(Reactman.FormInput, { label: '零售价返点:', type: 'text', name: 'points', validate: 'require-notempty', value: this.props.points, onChange: this.props.onChange }),
-					React.createElement(
-						'span',
-						{ className: 'money_note' },
-						'%'
-					)
-				);
-			} else {
-				return React.createElement('div', null);
-			}
-		}
-	});
+	// 	onChangeStore: function() {
+	// 		this.setState(Store.getData());
+	// 	},
+
+	// 	onChangeValue: function(index, value, event){
+	// 		var property = event.target.getAttribute('name');
+	// 		console.log(index,value, property);
+	// 		Action.updateRebates(index, property, value);
+	// 	},
+
+	// 	addGrounpPoints: function(){
+	// 		Reactman.PageAction.showDialog({
+	// 			title: "添加自营平台",
+	// 			component: AddGrounpPointDialog,
+	// 			data: {},
+	// 			success: function(inputData, dialogState) {
+	// 				console.log("success");
+	// 			}
+	// 		});
+	// 	},
+
+	// 	addRebateDialog: function(){
+	// 		var rebates = this.state.rebates;
+	// 		console.log(rebates.length)
+	// 		if(rebates.length>2){
+	// 			Reactman.PageAction.showHint('error', '最多添加三个条件!');
+	// 			return;
+	// 		}
+	// 		Action.addRebateDialog();
+	// 	},
+
+	// 	deleteRebateValue: function(index){
+	// 		Action.deleteRebateValue(index);
+	// 	},
+
+	// 	render: function() {
+	// 		var type = this.props.Type;
+	// 		if (type == '2'){
+	// 			return(
+	// 				<div>
+	// 				<div className="account-create-purchase-method">
+	// 					<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+	// 					<span className="money_note">%</span>
+	// 					<span className="add-grounp-points">
+	// 						<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
+	// 					</span>
+	// 				</div>
+	// 				<div><GrounpPointsDialog /></div>
+	// 				</div>
+	// 			)
+	// 		}if(type == '3'){
+	// 			var rebates = this.state.rebates;
+	// 			var _this = this;
+	// 			console.log(rebates);
+	// 			var rebate_dialog = '';
+	// 			if(rebates.length>0){
+	// 				rebate_dialog = rebates.map(function(rebate, index){
+	// 					return(
+	// 						<div className="rebates-dialog" key={index}>
+	// 							<span>周期</span>
+	// 							<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+	// 							<span style={{marginLeft:'70px'}}>至</span>
+	// 							<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+	// 							<span style={{display:'inline-block',marginLeft:'70px'}}>且金额不大于</span>
+	// 							<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+	// 							<span>元时,返点比例为</span>
+	// 							<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+	// 							<span>否则,将按</span>
+	// 							<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+	// 							<span>%基础扣点结算。</span>
+	// 							<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
+	// 						</div>
+	// 					)
+	// 				})
+	// 			}
+	// 			return(
+	// 				<div>
+	// 					<div className="profilts-dialog" style={{display:'inline-block'}}>
+	// 						<span style={{display:'inline-block'}}>首月(商品上架后30天含内),且金额不大于</span>
+	// 						<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
+	// 						<span>元时,返点比例为</span>
+	// 						<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
+	// 						<span>否则,将按</span>
+	// 						<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
+	// 						<span>%基础扣点结算。</span>
+	// 					</div>
+	// 					<button type="button" className="btn btn-primary" style={{marginLeft:'10px'}} onClick={this.addRebateDialog}>+添加</button>
+	// 					{rebate_dialog}
+	// 				</div>
+	// 			)
+	// 		}else {
+	// 			return(
+	// 				<div></div>
+	// 			)
+	// 		}
+	// 	}
+	// });
+
+	// var GrounpPointsDialog = React.createClass({
+	// 	getInitialState: function() {
+	// 		Store.addListener(this.onChangeStore);
+	// 		return Store.getData();
+	// 	},
+
+	// 	onChangeStore: function() {
+	// 		this.setState(Store.getData());
+	// 	},
+
+	// 	onChange: function(value, event) {
+	// 		var property = event.target.getAttribute('name');
+	// 		console.log(property, value)
+	// 		Action.updateAccount(property, value);
+	// 	},
+
+	// 	deleteSelfShop: function(index){
+	// 		Action.deleteSelfShop(index);
+	// 	},
+
+	// 	render: function() {
+	// 		var SELF_SHOP2TEXT = {
+	// 			'weizoom_jia': '微众家',
+	// 			'weizoom_mama': '微众妈妈',
+	// 			'weizoom_xuesheng': '微众学生',
+	// 			'weizoom_baifumei': '微众白富美',
+	// 			'weizoom_shop': '微众商城',
+	// 			'weizoom_club': '微众俱乐部',
+	// 			'weizoom_life': '微众Life',
+	// 			'weizoom_yjr': '微众一家人',
+	// 			'weizoom_fulilaile': '惠惠来啦'
+	// 		}
+	// 		var selfUserNames = this.state.self_user_names;
+	// 		var _this = this;
+	// 		if (selfUserNames.length>0){
+	// 			var selfShop = selfUserNames.map(function(selfUser,index){
+	// 				var selfUserName = selfUser.self_user_name;
+	// 				var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
+	// 				return(
+	// 						<li key={index} style={{display:'inline-block',position:'relative'}}>
+	// 	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.onChange} value={_this.state[selfUserName+"_value"]}/>
+	// 	                    	<span className="rebate-per">%</span>
+	// 	                    	<span className="xui-close" onClick={_this.deleteSelfShop.bind(_this,index)} title="删除">x</span>
+	// 	                    </li>
+	// 					)
+	// 			})
+	// 			return(
+	// 				<div className="self-user-dialog" style={{position:'relative'}}>
+	// 					<span style={{position:'absolute',left:'75px'}}>团购扣点</span>
+	// 					<ul className="self-user-shop-ul">
+	// 						{selfShop}
+	// 					</ul>
+	// 				</div>
+	// 			)
+	// 		}else {
+	// 			return(
+	// 				<div></div>
+	// 			)
+	// 		}
+	// 	}
+	// });
 	module.exports = AccountCreatePage;
 
 /***/ },
-/* 344 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36003,20 +36682,27 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(345);
+	var Constant = __webpack_require__(357);
 	var W = Reactman.W;
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
 			'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
 			'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
-			'handleSelect': Constant.NEW_ACCOUNT_SELECT_CATALOG
+			'handleSelect': Constant.NEW_ACCOUNT_SELECT_CATALOG,
+			'handleAddSelfShop': Constant.ADD_SELF_SHOP,
+			'handleDeleteSelfShop': Constant.DELETE_SELF_SHOP,
+			'handleAddRebateDialog': Constant.ADD_REBATE_DIALOG,
+			'handleUpdateRebates': Constant.UPDATE_REBATES,
+			'handleDeleteRebateValue': Constant.DELETE_REBATE_VALUE,
+			'handleUpdateGroupPoiints': Constant.UPDATE_GROUP_POINTS
 		},
 
 		init: function () {
 			this.data = Reactman.loadJSON('user_profile_data');
 			if (this.data) {
 				this.data['account_type'] = String(this.data['account_type']);
+				this.data['self_user_names'] = this.data['self_user_names'].length > 0 ? JSON.parse(this.data['self_user_names']) : [];
 				if (this.data['account_type'] == '1') {
 					this.data['purchase_method'] = String(this.data['purchase_method']);
 					this.data['company_type'] = JSON.parse(this.data['company_type']);
@@ -36024,6 +36710,7 @@
 					if (this.data['purchase_method'] != '2') {
 						this.data['points'] = '';
 					}
+					this.data['rebates'] = this.data['rebates'].length > 0 ? JSON.parse(this.data['rebates']) : [];
 				}
 			} else {
 				this.data = {
@@ -36031,7 +36718,13 @@
 					'account_type': '1',
 					'purchase_method': '2',
 					'company_type': [],
-					'options_for_type': []
+					'options_for_type': [],
+					'self_user_names': [],
+					'points': '',
+					'rebates': [],
+					'order_money': 1000,
+					'rebate_proport': 50,
+					'default_rebate_proport': 5
 				};
 			}
 		},
@@ -36050,6 +36743,69 @@
 			W.gotoPage('/manager/account/');
 		},
 
+		handleAddSelfShop: function (action) {
+			var selfUserName = action.data.self_user_name;
+
+			var selfShop = this.data.self_user_names;
+			var self_obj = {
+				'self_user_name': selfUserName
+			};
+			selfShop.push(self_obj);
+			self_obj[selfUserName + '_value'] = this.data.points;
+			// this.data[selfUserName+'_value'] = this.data.points;
+			this.data.self_user_names = selfShop;
+			this.__emitChange();
+		},
+
+		handleDeleteSelfShop: function (action) {
+			var selfShop = this.data.self_user_names;
+			var index = action.data.index;
+			selfShop.splice(index, 1);
+			this.data.self_user_names = selfShop;
+			this.__emitChange();
+		},
+
+		handleAddRebateDialog: function () {
+			var oldRebates = this.data.rebates;
+			oldRebates.push({
+				'validate_from_condition': '',
+				'validate_to_condition': '',
+				'order_money_condition': 1000,
+				'rebate_proport_condition': 50,
+				'default_rebate_proport_condition': 5
+			});
+			this.data.rebates = oldRebates;
+			this.__emitChange();
+		},
+
+		handleUpdateRebates: function (action) {
+			var index = action.data.index;
+			var property = action.data.property;
+			var value = action.data.value;
+			var oldRebates = this.data.rebates;
+			oldRebates[index][property] = value;
+			this.data.rebates = oldRebates;
+			this.__emitChange();
+		},
+
+		handleDeleteRebateValue: function (action) {
+			var index = action.data.index;
+			var oldRebates = this.data.rebates;
+			oldRebates.splice(index, 1);
+			this.data.rebates = oldRebates;
+			this.__emitChange();
+		},
+
+		handleUpdateGroupPoiints: function (action) {
+			var index = action.data.index;
+			var property = action.data.property;
+			var value = action.data.value;
+			var selfUserName = this.data.self_user_names;
+			selfUserName[index][property] = value;
+			this.data.self_user_names = selfUserName;
+			this.__emitChange();
+		},
+
 		getData: function () {
 			return this.data;
 		}
@@ -36058,7 +36814,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 345 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36069,13 +36825,19 @@
 	var keyMirror = __webpack_require__(251);
 
 	module.exports = keyMirror({
-	  NEW_ACCOUNT_UPDATE_ACCOUNT: null,
-	  NEW_ACCOUNT_CREATE: null,
-	  NEW_ACCOUNT_SELECT_CATALOG: null
+		NEW_ACCOUNT_UPDATE_ACCOUNT: null,
+		NEW_ACCOUNT_CREATE: null,
+		NEW_ACCOUNT_SELECT_CATALOG: null,
+		ADD_SELF_SHOP: null,
+		DELETE_SELF_SHOP: null,
+		ADD_REBATE_DIALOG: null,
+		UPDATE_REBATES: null,
+		DELETE_REBATE_VALUE: null,
+		UPDATE_GROUP_POINTS: null
 	});
 
 /***/ },
-/* 346 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36090,7 +36852,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(345);
+	var Constant = __webpack_require__(357);
 
 	var Action = {
 		updateAccount: function (property, value) {
@@ -36102,6 +36864,7 @@
 				}
 			});
 		},
+
 		selectCatalog: function () {
 			Resource.get({
 				resource: 'product_catalog.get_all_first_catalog',
@@ -36114,6 +36877,7 @@
 				}
 			});
 		},
+
 		saveAccount: function (data) {
 			var account_info = {
 				name: data['name'],
@@ -36129,6 +36893,11 @@
 				password: data['password'],
 				account_type: parseInt(data['account_type']),
 				note: data['note']
+				// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
+				// rebates: JSON.stringify(data['rebates']),
+				// order_money: data['order_money'],
+				// rebate_proport: data['rebate_proport'],
+				// default_rebate_proport: data['default_rebate_proport']
 			};
 			if (data.id === -1) {
 				Resource.put({
@@ -36166,19 +36935,186 @@
 					}
 				});
 			}
+		},
+
+		addSelfShop: function (self_user_name) {
+			Dispatcher.dispatch({
+				actionType: Constant.ADD_SELF_SHOP,
+				data: {
+					self_user_name: self_user_name
+				}
+			});
+		},
+
+		deleteSelfShop: function (index) {
+			Dispatcher.dispatch({
+				actionType: Constant.DELETE_SELF_SHOP,
+				data: {
+					index: index
+				}
+			});
+		},
+
+		addRebateDialog: function () {
+			Dispatcher.dispatch({
+				actionType: Constant.ADD_REBATE_DIALOG,
+				data: {}
+			});
+		},
+
+		updateRebates: function (index, property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.UPDATE_REBATES,
+				data: {
+					index: index,
+					property: property,
+					value: value
+				}
+			});
+		},
+
+		deleteRebateValue: function (index) {
+			Dispatcher.dispatch({
+				actionType: Constant.DELETE_REBATE_VALUE,
+				data: {
+					index: index
+				}
+			});
+		},
+
+		updateGroupPoints: function (index, property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.UPDATE_GROUP_POINTS,
+				data: {
+					index: index,
+					property: property,
+					value: value
+				}
+			});
 		}
 	};
 
 	module.exports = Action;
 
 /***/ },
-/* 347 */
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(356);
+	var Constant = __webpack_require__(357);
+	var Action = __webpack_require__(358);
+	__webpack_require__(360);
+
+	var AddGroupPointDialog = Reactman.createDialog({
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return {
+				'self_user_name': ''
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.updateAccount(property, value);
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onBeforeCloseDialog: function () {
+			var _this = this;
+			var selfUserNames = this.state.self_user_names;
+			var is_true = false;
+			_.each(selfUserNames, function (userNames) {
+				if (userNames.self_user_name == _this.state.self_user_name) {
+					is_true = true;
+				}
+			});
+
+			if (is_true) {
+				Reactman.PageAction.showHint('error', '该自营平台已选,请重新选择!');
+				return;
+			}
+
+			if (this.state.self_user_name == '') {
+				Reactman.PageAction.showHint('error', '请选择自营平台');
+			} else {
+				Action.addSelfShop(this.state.self_user_name);
+				_.delay(function () {
+					_this.closeDialog();
+				}, 200);
+			}
+		},
+
+		render: function () {
+			var typeOptions = [{
+				text: '请选择自营平台',
+				value: ''
+			}, {
+				text: '微众商城',
+				value: 'weizoom_shop'
+			}, {
+				text: '微众家',
+				value: 'weizoom_jia'
+			}, {
+				text: '微众妈妈',
+				value: 'weizoom_mama'
+			}, {
+				text: '微众学生',
+				value: 'weizoom_xuesheng'
+			}, {
+				text: '微众白富美',
+				value: 'weizoom_baifumei'
+			}, {
+				text: '微众俱乐部',
+				value: 'weizoom_club'
+			}, {
+				text: '微众Life',
+				value: 'weizoom_life'
+			}, {
+				text: '微众一家人',
+				value: 'weizoom_yjr'
+			}, {
+				text: '惠惠来啦',
+				value: 'weizoom_fulilaile'
+			}];
+			return React.createElement(
+				'div',
+				{ className: 'xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'self_user_name', options: typeOptions, value: this.state.self_user_name, onChange: this.onChange })
+					)
+				)
+			);
+		}
+	});
+	module.exports = AddGroupPointDialog;
+
+/***/ },
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(348);
+	var content = __webpack_require__(361);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -36198,7 +37134,7 @@
 	}
 
 /***/ },
-/* 348 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -36206,13 +37142,258 @@
 
 
 	// module
-	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}", ""]);
+	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 60%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 349 */
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:manager.create_account:AccountCreatePage');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+
+	var Store = __webpack_require__(356);
+	var Constant = __webpack_require__(357);
+	var Action = __webpack_require__(358);
+	var AddGroupPointDialog = __webpack_require__(359);
+	var GroupPointsDialog = __webpack_require__(363);
+	__webpack_require__(360);
+
+	var PurchaseMethod = React.createClass({
+		displayName: 'PurchaseMethod',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return Store.getData();
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onChangeValue: function (index, value, event) {
+			var property = event.target.getAttribute('name');
+			console.log(index, value, property);
+			Action.updateRebates(index, property, value);
+		},
+
+		addGrounpPoints: function () {
+			Reactman.PageAction.showDialog({
+				title: "添加自营平台",
+				component: AddGroupPointDialog,
+				data: {},
+				success: function (inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},
+
+		addRebateDialog: function () {
+			var rebates = this.state.rebates;
+			console.log(rebates.length);
+			if (rebates.length > 2) {
+				Reactman.PageAction.showHint('error', '最多添加三个条件!');
+				return;
+			}
+			Action.addRebateDialog();
+		},
+
+		deleteRebateValue: function (index) {
+			Action.deleteRebateValue(index);
+		},
+
+		render: function () {
+			var type = this.props.Type;
+			if (type == '2') {
+				// 注释代码 请勿删除
+				// return(
+				// 	<div>
+				// 		<div className="account-create-purchase-method">
+				// 			<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+				// 			<span className="money_note">%</span>
+				// 			<span className="add-grounp-points">
+				// 				<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
+				// 			</span>
+				// 		</div>
+				// 		<div><GroupPointsDialog /></div>
+				// 	</div>
+				// )
+				return React.createElement(
+					'div',
+					{ className: 'account-create-purchase-method' },
+					React.createElement(Reactman.FormInput, { label: '零售扣点:', type: 'text', name: 'points', validate: 'require-notempty', value: this.props.points, onChange: this.props.onChange }),
+					React.createElement(
+						'span',
+						{ className: 'money_note' },
+						'%'
+					)
+				);
+			}if (type == '3') {
+				// 注释代码 请勿删除
+				// var rebates = this.state.rebates;
+				// var _this = this;
+				// var rebate_dialog = '';
+				// if(rebates.length>0){
+				// 	rebate_dialog = rebates.map(function(rebate, index){
+				// 		return(
+				// 			<div className="rebates-dialog" key={index}>
+				// 				<span>周期</span>
+				// 				<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+				// 				<span style={{marginLeft:'70px'}}>至</span>
+				// 				<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+				// 				<span style={{display:'inline-block',marginLeft:'70px'}}>且金额不大于</span>
+				// 				<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+				// 				<span>元时,返点比例为</span>
+				// 				<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+				// 				<span>否则,将按</span>
+				// 				<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+				// 				<span>%基础扣点结算。</span>
+				// 				<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
+				// 			</div>
+				// 		)
+				// 	})
+				// }
+				// return(
+				// 	<div>
+				// 		<div className="profilts-dialog" style={{display:'inline-block'}}>
+				// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内),且金额不大于</span>
+				// 			<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
+				// 			<span>元时,返点比例为</span>
+				// 			<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
+				// 			<span>否则,将按</span>
+				// 			<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
+				// 			<span>%基础扣点结算。</span>
+				// 		</div>
+				// 		<button type="button" className="btn btn-primary" style={{marginLeft:'10px'}} onClick={this.addRebateDialog}>+添加</button>
+				// 		{rebate_dialog}
+				// 	</div>
+				// )
+				return React.createElement('div', null);
+			} else {
+				return React.createElement('div', null);
+			}
+		}
+	});
+
+	module.exports = PurchaseMethod;
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:manager.create_account:AccountCreatePage');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+
+	var Store = __webpack_require__(356);
+	var Constant = __webpack_require__(357);
+	var Action = __webpack_require__(358);
+	__webpack_require__(360);
+
+	var GroupPointsDialog = React.createClass({
+		displayName: 'GroupPointsDialog',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return Store.getData();
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			console.log(property, value);
+			Action.updateAccount(property, value);
+		},
+
+		updateGroupPoints: function (index, value, event) {
+			var property = event.target.getAttribute('name');
+			console.log(index, value, property);
+			Action.updateGroupPoints(index, property, value);
+		},
+
+		deleteSelfShop: function (index) {
+			Action.deleteSelfShop(index);
+		},
+
+		render: function () {
+			var SELF_SHOP2TEXT = {
+				'weizoom_jia': '微众家',
+				'weizoom_mama': '微众妈妈',
+				'weizoom_xuesheng': '微众学生',
+				'weizoom_baifumei': '微众白富美',
+				'weizoom_shop': '微众商城',
+				'weizoom_club': '微众俱乐部',
+				'weizoom_life': '微众Life',
+				'weizoom_yjr': '微众一家人',
+				'weizoom_fulilaile': '惠惠来啦'
+			};
+			var selfUserNames = this.state.self_user_names;
+			var _this = this;
+			if (selfUserNames.length > 0) {
+				var selfShop = selfUserNames.map(function (selfUser, index) {
+					var selfUserName = selfUser.self_user_name;
+					var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
+					return React.createElement(
+						'li',
+						{ key: index, style: { display: 'inline-block', position: 'relative' } },
+						React.createElement(Reactman.FormInput, { label: userName, type: 'text', name: selfUserName + "_value", onChange: _this.updateGroupPoints.bind(_this, index), value: selfUser[selfUserName + "_value"] }),
+						React.createElement(
+							'span',
+							{ className: 'rebate-per' },
+							'%'
+						),
+						React.createElement(
+							'span',
+							{ className: 'xui-close', onClick: _this.deleteSelfShop.bind(_this, index), title: '删除' },
+							'x'
+						)
+					);
+				});
+				return React.createElement(
+					'div',
+					{ className: 'self-user-dialog', style: { position: 'relative' } },
+					React.createElement(
+						'span',
+						{ style: { position: 'absolute', left: '75px' } },
+						'团购扣点'
+					),
+					React.createElement(
+						'ul',
+						{ className: 'self-user-shop-ul' },
+						selfShop
+					)
+				);
+			} else {
+				return React.createElement('div', null);
+			}
+		}
+	});
+	module.exports = GroupPointsDialog;
+
+/***/ },
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36227,7 +37408,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(350);
+	var Constant = __webpack_require__(365);
 
 	var Action = {
 		saveProduct: function (orderId) {
@@ -36247,7 +37428,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 350 */
+/* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36262,7 +37443,7 @@
 	});
 
 /***/ },
-/* 351 */
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36278,10 +37459,10 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Store = __webpack_require__(352);
-	var Action = __webpack_require__(349);
-	var OrderLogistics = __webpack_require__(353);
-	__webpack_require__(354);
+	var Store = __webpack_require__(367);
+	var Action = __webpack_require__(364);
+	var OrderLogistics = __webpack_require__(368);
+	__webpack_require__(369);
 
 	var OrderDataPage = React.createClass({
 		displayName: 'OrderDataPage',
@@ -36479,7 +37660,7 @@
 	module.exports = OrderDataPage;
 
 /***/ },
-/* 352 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36496,7 +37677,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(350);
+	var Constant = __webpack_require__(365);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -36520,7 +37701,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 353 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36536,9 +37717,9 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Store = __webpack_require__(352);
-	var Action = __webpack_require__(349);
-	__webpack_require__(354);
+	var Store = __webpack_require__(367);
+	var Action = __webpack_require__(364);
+	__webpack_require__(369);
 
 	var OrderLogistics = React.createClass({
 		displayName: 'OrderLogistics',
@@ -36675,13 +37856,13 @@
 	module.exports = OrderLogistics;
 
 /***/ },
-/* 354 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(355);
+	var content = __webpack_require__(370);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -36701,7 +37882,7 @@
 	}
 
 /***/ },
-/* 355 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -36715,7 +37896,7 @@
 
 
 /***/ },
-/* 356 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36730,7 +37911,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(357);
+	var Constant = __webpack_require__(372);
 
 	var Action = {
 		filterOrders: function (filterOptions) {
@@ -36794,7 +37975,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 357 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36812,7 +37993,7 @@
 	});
 
 /***/ },
-/* 358 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36829,7 +38010,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(357);
+	var Constant = __webpack_require__(372);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -36866,13 +38047,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 359 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(360);
+	var content = __webpack_require__(375);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -36892,7 +38073,7 @@
 	}
 
 /***/ },
-/* 360 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -36906,7 +38087,7 @@
 
 
 /***/ },
-/* 361 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36920,10 +38101,10 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(362);
-	var Constant = __webpack_require__(357);
-	var Action = __webpack_require__(356);
-	__webpack_require__(359);
+	var Store = __webpack_require__(377);
+	var Constant = __webpack_require__(372);
+	var Action = __webpack_require__(371);
+	__webpack_require__(374);
 
 	var OrderBatchDelivery = Reactman.createDialog({
 		getInitialState: function () {
@@ -36996,7 +38177,7 @@
 	module.exports = OrderBatchDelivery;
 
 /***/ },
-/* 362 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37013,7 +38194,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(357);
+	var Constant = __webpack_require__(372);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -37057,7 +38238,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 363 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37072,12 +38253,12 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(362);
-	var Constant = __webpack_require__(357);
-	var Action = __webpack_require__(356);
-	var ShipDialog = __webpack_require__(364);
-	var OrderBatchDelivery = __webpack_require__(361);
-	__webpack_require__(365);
+	var Store = __webpack_require__(377);
+	var Constant = __webpack_require__(372);
+	var Action = __webpack_require__(371);
+	var ShipDialog = __webpack_require__(379);
+	var OrderBatchDelivery = __webpack_require__(376);
+	__webpack_require__(380);
 
 	var OrderDatasPage = React.createClass({
 		displayName: 'OrderDatasPage',
@@ -37368,7 +38549,7 @@
 	module.exports = OrderDatasPage;
 
 /***/ },
-/* 364 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37382,9 +38563,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(358);
-	var Constant = __webpack_require__(357);
-	var Action = __webpack_require__(356);
+	var Store = __webpack_require__(373);
+	var Constant = __webpack_require__(372);
+	var Action = __webpack_require__(371);
 
 	var ShipDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -37575,13 +38756,13 @@
 	module.exports = ShipDialog;
 
 /***/ },
-/* 365 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(366);
+	var content = __webpack_require__(381);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -37601,7 +38782,7 @@
 	}
 
 /***/ },
-/* 366 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -37615,7 +38796,7 @@
 
 
 /***/ },
-/* 367 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37630,7 +38811,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(368);
+	var Constant = __webpack_require__(383);
 
 	var Action = {
 		filterOrders: function (filterOptions) {
@@ -37651,7 +38832,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 368 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37667,7 +38848,7 @@
 	});
 
 /***/ },
-/* 369 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37684,7 +38865,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(368);
+	var Constant = __webpack_require__(383);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -37717,7 +38898,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 370 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37732,9 +38913,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(369);
-	var Constant = __webpack_require__(368);
-	var Action = __webpack_require__(367);
+	var Store = __webpack_require__(384);
+	var Constant = __webpack_require__(383);
+	var Action = __webpack_require__(382);
 
 	var YunyingOrderDatasPage = React.createClass({
 		displayName: 'YunyingOrderDatasPage',
@@ -37913,7 +39094,7 @@
 	module.exports = YunyingOrderDatasPage;
 
 /***/ },
-/* 371 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37928,7 +39109,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(372);
+	var Constant = __webpack_require__(387);
 
 	var Action = {
 		updateProduct: function (property, value) {
@@ -37981,7 +39162,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 372 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -37997,7 +39178,7 @@
 	});
 
 /***/ },
-/* 373 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38013,9 +39194,9 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var ProductModelList = __webpack_require__(374);
-	var Store = __webpack_require__(376);
-	var Action = __webpack_require__(371);
+	var ProductModelList = __webpack_require__(389);
+	var Store = __webpack_require__(391);
+	var Action = __webpack_require__(386);
 
 	var OutlineDataPage = React.createClass({
 		displayName: 'OutlineDataPage',
@@ -38122,7 +39303,7 @@
 	module.exports = OutlineDataPage;
 
 /***/ },
-/* 374 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38135,8 +39316,8 @@
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 
-	var ProductModel = __webpack_require__(375);
-	var Action = __webpack_require__(371);
+	var ProductModel = __webpack_require__(390);
+	var Action = __webpack_require__(386);
 
 	var ProductModelList = React.createClass({
 		displayName: 'ProductModelList',
@@ -38204,7 +39385,7 @@
 	module.exports = ProductModelList;
 
 /***/ },
-/* 375 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38219,8 +39400,8 @@
 	var Reactman = __webpack_require__(161);
 	var FormInput = Reactman.FormInput;
 
-	var Action = __webpack_require__(371);
-	var Constant = __webpack_require__(372);
+	var Action = __webpack_require__(386);
+	var Constant = __webpack_require__(387);
 
 	var ProductModel = React.createClass({
 		displayName: 'ProductModel',
@@ -38268,7 +39449,7 @@
 	module.exports = ProductModel;
 
 /***/ },
-/* 376 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38285,7 +39466,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(372);
+	var Constant = __webpack_require__(387);
 	var window = window;
 
 	var Store = StoreUtil.createStore(Dispatcher, {
@@ -38333,7 +39514,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 377 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38348,7 +39529,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(378);
+	var Constant = __webpack_require__(393);
 
 	var Action = {
 		deleteProduct: function (id) {
@@ -38386,7 +39567,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 378 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38402,7 +39583,7 @@
 	});
 
 /***/ },
-/* 379 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38416,9 +39597,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(380);
-	var Constant = __webpack_require__(378);
-	var Action = __webpack_require__(377);
+	var Store = __webpack_require__(395);
+	var Constant = __webpack_require__(393);
+	var Action = __webpack_require__(392);
 
 	var CommentDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -38476,7 +39657,7 @@
 	module.exports = CommentDialog;
 
 /***/ },
-/* 380 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38493,7 +39674,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(378);
+	var Constant = __webpack_require__(393);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -38522,7 +39703,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 381 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38537,13 +39718,13 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(380);
-	var Constant = __webpack_require__(378);
-	var Action = __webpack_require__(377);
+	var Store = __webpack_require__(395);
+	var Constant = __webpack_require__(393);
+	var Action = __webpack_require__(392);
 
-	var CommentDialog = __webpack_require__(379);
+	var CommentDialog = __webpack_require__(394);
 
-	__webpack_require__(382);
+	__webpack_require__(397);
 
 	var DatasPage = React.createClass({
 		displayName: 'DatasPage',
@@ -38775,13 +39956,13 @@
 	module.exports = DatasPage;
 
 /***/ },
-/* 382 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(383);
+	var content = __webpack_require__(398);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -38801,7 +39982,7 @@
 	}
 
 /***/ },
-/* 383 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -38815,7 +39996,7 @@
 
 
 /***/ },
-/* 384 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38902,7 +40083,7 @@
 	module.exports = OutlinePage;
 
 /***/ },
-/* 385 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -38917,7 +40098,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(386);
+	var Constant = __webpack_require__(401);
 
 	var Action = {
 		saveNewProduct: function (data, model_values) {
@@ -39026,7 +40207,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 386 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39046,7 +40227,7 @@
 	});
 
 /***/ },
-/* 387 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39060,10 +40241,10 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(388);
-	var Constant = __webpack_require__(386);
-	var Action = __webpack_require__(385);
-	__webpack_require__(389);
+	var Store = __webpack_require__(403);
+	var Constant = __webpack_require__(401);
+	var Action = __webpack_require__(400);
+	__webpack_require__(404);
 
 	var AddProductModelDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -39186,7 +40367,7 @@
 	module.exports = AddProductModelDialog;
 
 /***/ },
-/* 388 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39203,8 +40384,8 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(386);
-	var AddProductModelDialog = __webpack_require__(387);
+	var Constant = __webpack_require__(401);
+	var AddProductModelDialog = __webpack_require__(402);
 	var W = Reactman.W;
 
 	var Store = StoreUtil.createStore(Dispatcher, {
@@ -39460,13 +40641,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 389 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(390);
+	var content = __webpack_require__(405);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -39486,7 +40667,7 @@
 	}
 
 /***/ },
-/* 390 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -39500,7 +40681,7 @@
 
 
 /***/ },
-/* 391 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39514,14 +40695,14 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var ProductPreviewDialog = __webpack_require__(392);
-	var AddProductModelDialog = __webpack_require__(387);
-	var SetValidataTimeDialog = __webpack_require__(395);
-	var ProductModelInfo = __webpack_require__(398);
-	var Store = __webpack_require__(388);
-	var Constant = __webpack_require__(386);
-	var Action = __webpack_require__(385);
-	__webpack_require__(393);
+	var ProductPreviewDialog = __webpack_require__(407);
+	var AddProductModelDialog = __webpack_require__(402);
+	var SetValidataTimeDialog = __webpack_require__(410);
+	var ProductModelInfo = __webpack_require__(413);
+	var Store = __webpack_require__(403);
+	var Constant = __webpack_require__(401);
+	var Action = __webpack_require__(400);
+	__webpack_require__(408);
 
 	var NewProductPage = React.createClass({
 		displayName: 'NewProductPage',
@@ -39809,7 +40990,7 @@
 	module.exports = NewProductPage;
 
 /***/ },
-/* 392 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39821,9 +41002,9 @@
 	var React = __webpack_require__(3);
 	var _ = __webpack_require__(243);
 	var ReactDOM = __webpack_require__(160);
-	var Action = __webpack_require__(385);
+	var Action = __webpack_require__(400);
 	var Reactman = __webpack_require__(161);
-	__webpack_require__(393);
+	__webpack_require__(408);
 
 	var ProductPreviewDialog = Reactman.createDialog({
 
@@ -40001,13 +41182,13 @@
 	module.exports = ProductPreviewDialog;
 
 /***/ },
-/* 393 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(394);
+	var content = __webpack_require__(409);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -40027,7 +41208,7 @@
 	}
 
 /***/ },
-/* 394 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -40041,7 +41222,7 @@
 
 
 /***/ },
-/* 395 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40053,10 +41234,10 @@
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
-	var Store = __webpack_require__(388);
-	var Constant = __webpack_require__(386);
-	var Action = __webpack_require__(385);
-	__webpack_require__(396);
+	var Store = __webpack_require__(403);
+	var Constant = __webpack_require__(401);
+	var Action = __webpack_require__(400);
+	__webpack_require__(411);
 
 	var SetValidataTimeDialog = Reactman.createDialog({
 
@@ -40104,13 +41285,13 @@
 	module.exports = SetValidataTimeDialog;
 
 /***/ },
-/* 396 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(397);
+	var content = __webpack_require__(412);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -40130,7 +41311,7 @@
 	}
 
 /***/ },
-/* 397 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -40144,7 +41325,7 @@
 
 
 /***/ },
-/* 398 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40158,12 +41339,12 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var AddProductModelDialog = __webpack_require__(387);
-	var SetValidataTimeDialog = __webpack_require__(395);
-	var Store = __webpack_require__(388);
-	var Constant = __webpack_require__(386);
-	var Action = __webpack_require__(385);
-	__webpack_require__(399);
+	var AddProductModelDialog = __webpack_require__(402);
+	var SetValidataTimeDialog = __webpack_require__(410);
+	var Store = __webpack_require__(403);
+	var Constant = __webpack_require__(401);
+	var Action = __webpack_require__(400);
+	__webpack_require__(414);
 
 	var ProductModelInfo = React.createClass({
 		displayName: 'ProductModelInfo',
@@ -40388,13 +41569,13 @@
 	module.exports = ProductModelInfo;
 
 /***/ },
-/* 399 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(400);
+	var content = __webpack_require__(415);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -40414,7 +41595,7 @@
 	}
 
 /***/ },
-/* 400 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -40428,7 +41609,7 @@
 
 
 /***/ },
-/* 401 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40443,7 +41624,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(402);
+	var Constant = __webpack_require__(417);
 
 	var Action = {
 		deleteProduct: function (id, user_has_products) {
@@ -40524,7 +41705,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 402 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40545,7 +41726,7 @@
 	});
 
 /***/ },
-/* 403 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40559,10 +41740,10 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(404);
-	var Constant = __webpack_require__(402);
-	var Action = __webpack_require__(401);
-	__webpack_require__(405);
+	var Store = __webpack_require__(419);
+	var Constant = __webpack_require__(417);
+	var Action = __webpack_require__(416);
+	__webpack_require__(420);
 
 	var AddProductCategoryDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -40686,7 +41867,7 @@
 	module.exports = AddProductCategoryDialog;
 
 /***/ },
-/* 404 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40702,7 +41883,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(402);
+	var Constant = __webpack_require__(417);
 
 	var CategoryStore = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -40767,13 +41948,13 @@
 	module.exports = CategoryStore;
 
 /***/ },
-/* 405 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(406);
+	var content = __webpack_require__(421);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -40793,7 +41974,7 @@
 	}
 
 /***/ },
-/* 406 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -40807,7 +41988,7 @@
 
 
 /***/ },
-/* 407 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40821,10 +42002,10 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var Store = __webpack_require__(408);
-	var Constant = __webpack_require__(402);
-	var Action = __webpack_require__(401);
-	__webpack_require__(409);
+	var Store = __webpack_require__(423);
+	var Constant = __webpack_require__(417);
+	var Action = __webpack_require__(416);
+	__webpack_require__(424);
 
 	var lookProductModelDetail = React.createClass({
 		displayName: 'lookProductModelDetail',
@@ -40926,7 +42107,7 @@
 	module.exports = lookProductModelDetail;
 
 /***/ },
-/* 408 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40943,7 +42124,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(402);
+	var Constant = __webpack_require__(417);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -41107,13 +42288,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 409 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(410);
+	var content = __webpack_require__(425);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -41133,7 +42314,7 @@
 	}
 
 /***/ },
-/* 410 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -41147,7 +42328,7 @@
 
 
 /***/ },
-/* 411 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41161,13 +42342,13 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var AddProductCategoryDialog = __webpack_require__(403);
-	var LookProductModelDetail = __webpack_require__(407);
+	var AddProductCategoryDialog = __webpack_require__(418);
+	var LookProductModelDetail = __webpack_require__(422);
 
-	var Store = __webpack_require__(408);
-	var Constant = __webpack_require__(402);
-	var Action = __webpack_require__(401);
-	__webpack_require__(409);
+	var Store = __webpack_require__(423);
+	var Constant = __webpack_require__(417);
+	var Action = __webpack_require__(416);
+	__webpack_require__(424);
 	var W = Reactman.W;
 
 	var ProductDataListPage = React.createClass({
@@ -41233,11 +42414,6 @@
 						'a',
 						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
 						'编辑'
-					),
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-product-id': data.id },
-						'彻底删除'
 					)
 				);
 			} else if (field === 'product_name') {
@@ -41246,7 +42422,6 @@
 				var product_has_model = data['product_has_model'];
 				var img = React.createElement('img', { className: 'product-img', src: data['image_path'], style: { width: '60px', height: '60px', marginRight: '10px' } });
 				var isModel = data['is_model'];
-				console.log("===ce4shi=====");
 				if (role == 3) {
 					if (product_has_model > 0) {
 						return React.createElement(
@@ -41374,7 +42549,7 @@
 	module.exports = ProductDataListPage;
 
 /***/ },
-/* 412 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41389,7 +42564,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(413);
+	var Constant = __webpack_require__(428);
 
 	var Action = {
 		addProductModelValue: function (property, value) {
@@ -41493,7 +42668,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 413 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41514,7 +42689,7 @@
 	});
 
 /***/ },
-/* 414 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41528,10 +42703,10 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(415);
-	var Constant = __webpack_require__(413);
-	var Action = __webpack_require__(412);
-	__webpack_require__(416);
+	var Store = __webpack_require__(430);
+	var Constant = __webpack_require__(428);
+	var Action = __webpack_require__(427);
+	__webpack_require__(431);
 
 	var AddProductModelValueDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -41602,7 +42777,7 @@
 	module.exports = AddProductModelValueDialog;
 
 /***/ },
-/* 415 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41619,7 +42794,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(413);
+	var Constant = __webpack_require__(428);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -41693,13 +42868,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 416 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(417);
+	var content = __webpack_require__(432);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -41719,7 +42894,7 @@
 	}
 
 /***/ },
-/* 417 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -41733,7 +42908,7 @@
 
 
 /***/ },
-/* 418 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41748,11 +42923,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(415);
-	var Constant = __webpack_require__(413);
-	var Action = __webpack_require__(412);
-	var AddProductModelValueDialog = __webpack_require__(414);
-	__webpack_require__(416);
+	var Store = __webpack_require__(430);
+	var Constant = __webpack_require__(428);
+	var Action = __webpack_require__(427);
+	var AddProductModelValueDialog = __webpack_require__(429);
+	__webpack_require__(431);
 	var W = Reactman.W;
 
 	var ProductModelListPage = React.createClass({
@@ -41991,7 +43166,7 @@
 	module.exports = ProductModelListPage;
 
 /***/ },
-/* 419 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42006,7 +43181,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(420);
+	var Constant = __webpack_require__(435);
 
 	var Action = {
 		filterDates: function (filterOptions) {
@@ -42076,7 +43251,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 420 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42096,7 +43271,7 @@
 	});
 
 /***/ },
-/* 421 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42109,10 +43284,10 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(422);
-	var Constant = __webpack_require__(420);
-	var Action = __webpack_require__(419);
-	__webpack_require__(423);
+	var Store = __webpack_require__(437);
+	var Constant = __webpack_require__(435);
+	var Action = __webpack_require__(434);
+	__webpack_require__(438);
 
 	var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -42269,7 +43444,7 @@
 	module.exports = ChooseSyncSelfShopDialog;
 
 /***/ },
-/* 422 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42286,7 +43461,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(420);
+	var Constant = __webpack_require__(435);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -42382,13 +43557,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 423 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(424);
+	var content = __webpack_require__(439);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -42408,7 +43583,7 @@
 	}
 
 /***/ },
-/* 424 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -42422,7 +43597,7 @@
 
 
 /***/ },
-/* 425 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42436,11 +43611,11 @@
 	var _ = __webpack_require__(243);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(422);
-	var Constant = __webpack_require__(420);
-	var Action = __webpack_require__(419);
+	var Store = __webpack_require__(437);
+	var Constant = __webpack_require__(435);
+	var Action = __webpack_require__(434);
 
-	var ChooseSyncSelfShopDialog = __webpack_require__(421);
+	var ChooseSyncSelfShopDialog = __webpack_require__(436);
 
 	var ProductRelationPage = React.createClass({
 		displayName: 'ProductRelationPage',
@@ -42562,7 +43737,7 @@
 	module.exports = ProductRelationPage;
 
 /***/ },
-/* 426 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42577,7 +43752,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(427);
+	var Constant = __webpack_require__(442);
 
 	var Action = {
 		updateCatalogs: function (filterOptions) {
@@ -42611,7 +43786,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 427 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42626,7 +43801,7 @@
 	});
 
 /***/ },
-/* 428 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42640,9 +43815,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(429);
-	var Constant = __webpack_require__(427);
-	var Action = __webpack_require__(426);
+	var Store = __webpack_require__(444);
+	var Constant = __webpack_require__(442);
+	var Action = __webpack_require__(441);
 
 	var AddCatalogDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -42751,7 +43926,7 @@
 	module.exports = AddCatalogDialog;
 
 /***/ },
-/* 429 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42767,7 +43942,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(427);
+	var Constant = __webpack_require__(442);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -42791,7 +43966,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 430 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42805,11 +43980,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(429);
-	var Constant = __webpack_require__(427);
-	var Action = __webpack_require__(426);
-	var AddCatalogDialog = __webpack_require__(428);
-	__webpack_require__(431);
+	var Store = __webpack_require__(444);
+	var Constant = __webpack_require__(442);
+	var Action = __webpack_require__(441);
+	var AddCatalogDialog = __webpack_require__(443);
+	__webpack_require__(446);
 
 	var ProductCatalogPage = React.createClass({
 		displayName: 'ProductCatalogPage',
@@ -43005,13 +44180,13 @@
 	module.exports = ProductCatalogPage;
 
 /***/ },
-/* 431 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(432);
+	var content = __webpack_require__(447);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -43031,7 +44206,7 @@
 	}
 
 /***/ },
-/* 432 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -43045,7 +44220,367 @@
 
 
 /***/ },
-/* 433 */
+/* 448 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(449);
+
+	var Action = {
+		addRebateValue: function (property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.ADD_REBATE_VALUE,
+				data: {
+					property: property,
+					value: value
+				}
+			});
+		}
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 449 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  ADD_REBATE_VALUE: null
+	});
+
+/***/ },
+/* 450 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(451);
+	var Constant = __webpack_require__(449);
+	var Action = __webpack_require__(448);
+	__webpack_require__(452);
+
+	var AddSelfShopDialog = Reactman.createDialog({
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return {
+				'self_user_name': '',
+				'rebate_value': '',
+				'remark': ''
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.addRebateValue(property, value);
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onBeforeCloseDialog: function () {
+			if (this.state.self_user_name == '') {
+				Reactman.PageAction.showHint('error', '请选择自营平台');
+			} else {
+				//给接口传递发货信息的参数
+				var selfUserName = this.state.self_user_name;
+				var rebateValue = this.state.rebate_value;
+				var remark = this.state.remark;
+				console.log(selfUserName, rebateValue, remark, '========');
+				Reactman.Resource.put({
+					resource: 'self_shop.manage',
+					data: {
+						self_user_name: selfUserName,
+						rebate_value: rebateValue,
+						remark: remark
+					},
+					success: function (action) {
+						console.log(action, "===========");
+						Reactman.PageAction.showHint('success', '添加自营平台成功');
+						_.delay(function () {
+							W.gotoPage('/self_shop/manage/');
+						}, 500);
+						// this.closeDialog();
+					},
+					error: function (data) {
+						Reactman.PageAction.showHint('error', '添加自营平台失败');
+					},
+					scope: this
+				});
+			}
+		},
+
+		render: function () {
+			var typeOptions = [{
+				text: '',
+				value: ''
+			}, {
+				text: '微众商城',
+				value: 'weizoom_shop'
+			}, {
+				text: '微众家',
+				value: 'weizoom_jia'
+			}, {
+				text: '微众妈妈',
+				value: 'weizoom_mama'
+			}, {
+				text: '微众学生',
+				value: 'weizoom_xuesheng'
+			}, {
+				text: '微众白富美',
+				value: 'weizoom_baifumei'
+			}, {
+				text: '微众俱乐部',
+				value: 'weizoom_club'
+			}, {
+				text: '微众Life',
+				value: 'weizoom_life'
+			}, {
+				text: '微众一家人',
+				value: 'weizoom_yjr'
+			}, {
+				text: '惠惠来啦',
+				value: 'weizoom_fulilaile'
+			}];
+			return React.createElement(
+				'div',
+				{ className: 'xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'self_user_name', options: typeOptions, value: this.state.self_user_name, onChange: this.onChange }),
+						React.createElement(
+							'div',
+							{ className: 'rebate_tips' },
+							'提示：扣点基础表示该平台与商品管理系统约定的额外扣点设置。如某客户标准扣点5%，微众家的扣点基数是2，则该客户商品同步到微众家后按照10%的扣点来计算出商品采购价（即结算价）。'
+						),
+						React.createElement(Reactman.FormInput, { label: '扣点基数:', type: 'text', name: 'rebate_value', value: this.state.rebate_value, onChange: this.onChange, validate: 'require-float' }),
+						React.createElement(Reactman.FormText, { label: '备注:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 })
+					)
+				)
+			);
+		}
+	});
+	module.exports = AddSelfShopDialog;
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(449);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleAddRebateValue': Constant.ADD_REBATE_VALUE
+		},
+
+		init: function () {
+			this.data = {};
+		},
+
+		handleAddRebateValue: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(453);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 453 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 454 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:self_shop.manage:SelfShopManagePage');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+
+	var Store = __webpack_require__(451);
+	var Constant = __webpack_require__(449);
+	var Action = __webpack_require__(448);
+	var AddSelfShopDialog = __webpack_require__(450);
+	__webpack_require__(452);
+	var W = Reactman.W;
+
+	var SelfShopManagePage = React.createClass({
+		displayName: 'SelfShopManagePage',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return {
+				'self_user_name': '',
+				'rebate_value': '',
+				'remark': ''
+			};
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		addSelfShop: function () {
+			Reactman.PageAction.showDialog({
+				title: "添加自营平台",
+				component: AddSelfShopDialog,
+				data: {},
+				success: function (inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},
+
+		rowFormatter: function (field, value, data) {
+			if (field === 'action') {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'a',
+						{ className: 'btn btn-link btn-xs' },
+						'删除'
+					),
+					React.createElement(
+						'a',
+						{ className: 'btn btn-link btn-xs' },
+						'批量同步'
+					)
+				);
+			} else {
+				return value;
+			}
+		},
+
+		render: function () {
+			console.log("======");
+			var productsResource = {
+				resource: 'self_shop.manage',
+				data: {
+					page: 1
+				}
+			};
+
+			return React.createElement(
+				'div',
+				{ className: 'mt15 xui-product-productListPage' },
+				React.createElement(
+					Reactman.TablePanel,
+					null,
+					React.createElement(
+						Reactman.TableActionBar,
+						null,
+						React.createElement(Reactman.TableActionButton, { text: '添加自营平台', icon: 'plus', onClick: this.addSelfShop })
+					),
+					React.createElement(
+						Reactman.Table,
+						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+						React.createElement(Reactman.TableColumn, { name: '平台名称', field: 'self_shop_name', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: 'user_name', field: 'user_name' }),
+						React.createElement(Reactman.TableColumn, { name: '扣点基数', field: 'rebate_value' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
+					)
+				)
+			);
+		}
+	});
+	module.exports = SelfShopManagePage;
+
+/***/ },
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -43074,7 +44609,7 @@
 	module.exports = new User();
 
 /***/ },
-/* 434 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43158,7 +44693,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 435 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43262,7 +44797,7 @@
 	module.exports = FormRangeInput;
 
 /***/ },
-/* 436 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43275,7 +44810,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(437);
+	__webpack_require__(459);
 
 	var FormDateTimeInput = React.createClass({
 		displayName: 'FormDateTimeInput',
@@ -43392,13 +44927,13 @@
 	module.exports = FormDateTimeInput;
 
 /***/ },
-/* 437 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(438);
+	var content = __webpack_require__(460);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -43418,7 +44953,7 @@
 	}
 
 /***/ },
-/* 438 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -43432,7 +44967,7 @@
 
 
 /***/ },
-/* 439 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43592,7 +45127,7 @@
 	module.exports = FormDateRangeInput;
 
 /***/ },
-/* 440 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43687,7 +45222,7 @@
 	module.exports = FormSelect;
 
 /***/ },
-/* 441 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43739,7 +45274,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 442 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43813,7 +45348,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 443 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43924,7 +45459,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 444 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44018,7 +45553,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 445 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44031,7 +45566,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var UEditor = __webpack_require__(446);
+	var UEditor = __webpack_require__(468);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -44133,7 +45668,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 446 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -44141,7 +45676,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(447).inherits;
+	var inherits = __webpack_require__(469).inherits;
 	var EventEmitter = __webpack_require__(301).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -44421,7 +45956,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 447 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -44914,7 +46449,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(448);
+	exports.isBuffer = __webpack_require__(470);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -44951,7 +46486,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(449);
+	exports.inherits = __webpack_require__(471);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -44971,7 +46506,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 448 */
+/* 470 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -44979,7 +46514,7 @@
 	};
 
 /***/ },
-/* 449 */
+/* 471 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -45007,7 +46542,7 @@
 	}
 
 /***/ },
-/* 450 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45021,7 +46556,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(451);
+	__webpack_require__(473);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -45161,13 +46696,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 451 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(452);
+	var content = __webpack_require__(474);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -45187,7 +46722,7 @@
 	}
 
 /***/ },
-/* 452 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -45201,7 +46736,7 @@
 
 
 /***/ },
-/* 453 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45215,7 +46750,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(454);
+	__webpack_require__(476);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -45362,13 +46897,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 454 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(455);
+	var content = __webpack_require__(477);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -45388,7 +46923,7 @@
 	}
 
 /***/ },
-/* 455 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -45402,7 +46937,7 @@
 
 
 /***/ },
-/* 456 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45416,15 +46951,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(457);
+	var Pagination = __webpack_require__(479);
 	var System = __webpack_require__(265);
 
-	var Store = __webpack_require__(460);
-	var Action = __webpack_require__(462);
-	var Constant = __webpack_require__(461);
+	var Store = __webpack_require__(482);
+	var Action = __webpack_require__(484);
+	var Constant = __webpack_require__(483);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(463);
+	__webpack_require__(485);
 
 	var Old = null;
 
@@ -45771,7 +47306,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 457 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -45784,7 +47319,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(458);
+	__webpack_require__(480);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -45929,13 +47464,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 458 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(459);
+	var content = __webpack_require__(481);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -45955,7 +47490,7 @@
 	}
 
 /***/ },
-/* 459 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -45969,7 +47504,7 @@
 
 
 /***/ },
-/* 460 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -45983,7 +47518,7 @@
 
 	var StoreUtil = __webpack_require__(303);
 
-	var Constant = __webpack_require__(461);
+	var Constant = __webpack_require__(483);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -46084,7 +47619,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 461 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46099,7 +47634,7 @@
 	});
 
 /***/ },
-/* 462 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46108,7 +47643,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(461);
+	var Constant = __webpack_require__(483);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -46175,13 +47710,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 463 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(464);
+	var content = __webpack_require__(486);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -46201,7 +47736,7 @@
 	}
 
 /***/ },
-/* 464 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -46215,7 +47750,7 @@
 
 
 /***/ },
-/* 465 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46259,7 +47794,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 466 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46285,7 +47820,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 467 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46324,7 +47859,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 468 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46346,7 +47881,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 469 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46359,7 +47894,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(470);
+	__webpack_require__(492);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -46422,13 +47957,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 470 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(471);
+	var content = __webpack_require__(493);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -46448,7 +47983,7 @@
 	}
 
 /***/ },
-/* 471 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -46462,7 +47997,7 @@
 
 
 /***/ },
-/* 472 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46566,7 +48101,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 473 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46581,12 +48116,12 @@
 
 	var System = __webpack_require__(265);
 
-	var Store = __webpack_require__(474);
-	var Action = __webpack_require__(476);
-	var Constant = __webpack_require__(475);
+	var Store = __webpack_require__(496);
+	var Action = __webpack_require__(498);
+	var Constant = __webpack_require__(497);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(477);
+	__webpack_require__(499);
 
 	var matchMap = {
 		'=': 'equal',
@@ -46780,7 +48315,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 474 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46793,7 +48328,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(303);
-	var Constant = __webpack_require__(475);
+	var Constant = __webpack_require__(497);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -46847,7 +48382,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 475 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46861,14 +48396,14 @@
 	});
 
 /***/ },
-/* 476 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(475);
+	var Constant = __webpack_require__(497);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -46894,13 +48429,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 477 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(478);
+	var content = __webpack_require__(500);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -46920,7 +48455,7 @@
 	}
 
 /***/ },
-/* 478 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -46934,7 +48469,7 @@
 
 
 /***/ },
-/* 479 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46978,7 +48513,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 480 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46990,9 +48525,9 @@
 	var debug = __webpack_require__(235)('reactman:FilterField');
 	var classNames = __webpack_require__(239);
 
-	var FormInput = __webpack_require__(434);
+	var FormInput = __webpack_require__(456);
 
-	__webpack_require__(477);
+	__webpack_require__(499);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -47023,7 +48558,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 481 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47036,7 +48571,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(482);
+	__webpack_require__(504);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -47067,13 +48602,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 482 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(483);
+	var content = __webpack_require__(505);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -47093,7 +48628,7 @@
 	}
 
 /***/ },
-/* 483 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -47107,7 +48642,7 @@
 
 
 /***/ },
-/* 484 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47121,12 +48656,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(485);
-	var Action = __webpack_require__(487);
-	var Constant = __webpack_require__(486);
+	var Store = __webpack_require__(507);
+	var Action = __webpack_require__(509);
+	var Constant = __webpack_require__(508);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(488);
+	__webpack_require__(510);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -47204,7 +48739,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 485 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -47220,7 +48755,7 @@
 
 	var StoreUtil = __webpack_require__(303);
 
-	var Constant = __webpack_require__(486);
+	var Constant = __webpack_require__(508);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -47246,7 +48781,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 486 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -47259,7 +48794,7 @@
 	});
 
 /***/ },
-/* 487 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -47270,7 +48805,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(486);
+	var Constant = __webpack_require__(508);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -47292,13 +48827,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 488 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(489);
+	var content = __webpack_require__(511);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -47318,7 +48853,7 @@
 	}
 
 /***/ },
-/* 489 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();

@@ -60,6 +60,8 @@ class UserProfile(models.Model):
 	status = models.IntegerField(default=1) #账号状态 0停用中，1开启中，2不在有效期内
 	is_active = models.BooleanField(default=True, verbose_name='用户是否有效') #是否删除
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
+	pre_sale_tel = models.CharField(max_length=32, default='') #售前电话
+	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
 
 	class Meta(object):
 		db_table = 'account_user_profile'
@@ -93,3 +95,33 @@ class AccountHasSupplier(models.Model):
 
 	class Meta(object):
 		db_table = 'account_has_supplier'
+
+
+class AccountHasGroupPoint(models.Model):
+	"""
+	采购方式:零售价返点(团购扣点)
+	"""
+	user_id = models.IntegerField(default=0) #user_id
+	self_user_name = models.CharField(max_length=50, null=True) #自营商城名
+	points = models.FloatField(default=0.0) #零售价返点
+	group_points = models.FloatField(default=0.0) #团购扣点
+
+	class Meta(object):
+		db_table = 'account_has_group_point'
+
+class AccountHasRebateProport(models.Model):
+	"""
+	采购方式:首月55分成
+	"""
+	user_id = models.IntegerField(default=0) #user_id
+	valid_time_from = models.DateTimeField(null=True) #有效范围开始时间
+	valid_time_to = models.DateTimeField(null=True) #有效范围结束时间
+	order_money = models.DecimalField(max_digits=65, decimal_places=2, null=True) #销售额
+	rebate_proport = models.FloatField(default=0.0) #返点比例
+	default_rebate_proport = models.FloatField(default=0.0) #基础扣点
+	order_money_condition = models.DecimalField(max_digits=65, decimal_places=2, null=True) #(添加条件)销售额
+	rebate_proport_condition = models.FloatField(default=0.0) #(添加条件)返点比例
+	default_rebate_proport_condition = models.FloatField(default=0.0) #(添加条件)基础扣点
+
+	class Meta(object):
+		db_table = 'account_has_rebate_proport'

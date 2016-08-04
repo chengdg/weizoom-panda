@@ -26,7 +26,13 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/customer_orders_list/'
-			}
+			},
+			{
+				'name': 'freight_service',
+				'displayName': '商家设置',
+				'icon': 'list-alt',
+				'href': '/freight_service/freight/'
+			},
 			# , {
 			# 	'name': 'fans',
 			# 	'displayName': '粉丝投放',
@@ -69,7 +75,14 @@ def top_navs(request):
 				'displayName': '客户统计',
 				'icon': 'credit-card',
 				'href': '/customer/statistics/'
-			}]
+			}
+			# {
+			# 	'name': 'self_shop',
+			# 	'displayName': '自营平台管理',
+			# 	'icon': 'credit-card',
+			# 	'href': '/self_shop/manage/'
+			# }
+			]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',

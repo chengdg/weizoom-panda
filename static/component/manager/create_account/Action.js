@@ -22,6 +22,7 @@ var Action = {
 			}
 		});
 	},
+
 	selectCatalog: function(){
 		Resource.get({
 			resource: 'product_catalog.get_all_first_catalog',
@@ -34,6 +35,7 @@ var Action = {
 			}
 		})
 	},
+
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],
@@ -49,6 +51,11 @@ var Action = {
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
 			note: data['note']
+			// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
+			// rebates: JSON.stringify(data['rebates']),
+			// order_money: data['order_money'],
+			// rebate_proport: data['rebate_proport'],
+			// default_rebate_proport: data['default_rebate_proport']
 		};
 		if (data.id === -1) {
 			Resource.put({
@@ -86,6 +93,62 @@ var Action = {
 				}
 			});
 		}
+	},
+
+	addSelfShop: function(self_user_name){
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_SELF_SHOP,
+			data: {
+				self_user_name: self_user_name
+			}
+		});
+	},
+
+	deleteSelfShop: function(index) {
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_SELF_SHOP,
+			data: {
+				index: index
+			}
+		});
+	},
+
+	addRebateDialog: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_REBATE_DIALOG,
+			data: {}
+		});
+	},
+
+	updateRebates: function(index, property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_REBATES,
+			data: {
+				index: index,
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	deleteRebateValue: function(index){
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_REBATE_VALUE,
+			data: {
+				index: index
+			}
+		});
+	},
+
+	updateGroupPoints: function(index, property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_GROUP_POINTS,
+			data: {
+				index: index,
+				property: property,
+				value: value
+			}
+		});
 	}
 };
 

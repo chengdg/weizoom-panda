@@ -75,7 +75,6 @@ var ProductDataListPage = React.createClass({
 			return (
 				<div>
 					<a className="btn btn-link btn-xs" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-product-id={data.id}>彻底删除</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
@@ -84,7 +83,6 @@ var ProductDataListPage = React.createClass({
 			var product_has_model = data['product_has_model'];
 			var img = <img className="product-img" src={data['image_path']} style={{width:'60px',height:'60px',marginRight:'10px'}}></img>
 			var isModel = data['is_model'];
-			console.log("===ce4shi=====");
 			if(role == 3){
 				if(product_has_model>0){
 					return(

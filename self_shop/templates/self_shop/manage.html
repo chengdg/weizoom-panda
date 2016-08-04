@@ -1,0 +1,12 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '自营平台管理',
+		href: '/self_shop/manage/'
+	}];
+
+	W.pageContentComponent = './self_shop/manage/SelfShopManagePage.react';
+</script>
+{% endblock %}

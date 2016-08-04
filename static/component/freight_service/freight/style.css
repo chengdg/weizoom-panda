@@ -1,0 +1,31 @@
+fieldset div:nth-child(2), 
+fieldset div:nth-child(4){
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	height: 22px;
+	width: 100px;
+}
+
+fieldset div:nth-child(2) label,
+fieldset div:nth-child(4) label{
+	display: none;
+	vertical-align: top;
+}
+
+fieldset div:nth-child(2) div,
+fieldset div:nth-child(4) div{
+	width: 100% !important;
+}
+
+fieldset{
+    margin-left: 90px;
+}
+
+.save-btn div{
+	margin-left: 0px !important;
+}
+
+.save-btn div label{
+	display: none;
+}
