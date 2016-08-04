@@ -139,14 +139,18 @@ em {
 }
 #apply_page_2 .form-group{
 	display: inline-block;
-	margin-left: 9%;
+	margin-left: 100px;
 	text-align: center;
+}
+#apply_page_2 .form-group:first-child{
+    margin-left: 0;
 }
 #apply_page_3 .form-group{
 	display: inline-block;
 }
 #apply_page_2{
-	display: inline;
+	margin: 0 auto;
+    display: table;
 }
 .page2_help_info{
     padding-bottom: 250px;
@@ -298,3 +302,5 @@ ul.nav li a{
     border: 2px solid #4ab3ff;
     background: url('/static/img/checked_right.png') no-repeat right bottom;
 }
+
+/*第二页*/
