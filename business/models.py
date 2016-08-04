@@ -49,3 +49,16 @@ class Business(models.Model):
 
 	class Meta(object):
 		db_table = 'business_business'
+
+#===============================================================================
+# BusinessQualification ： 入驻商家特殊资质
+#===============================================================================
+class BusinessQualification(models.Model):
+	business_id = models.IntegerField(default=0) #商家business_id
+	qualification_id = models.IntegerField(default=0) #特殊资质id
+	path = models.CharField(max_length=1024, default='') #特殊资质url
+	qualification_time = models.DateTimeField(null=True)  #特殊资质有效期
+	created_at = models.DateTimeField(auto_now_add=True) #创建日期
+
+	class Meta(object):
+		db_table = 'business_business_qualification'

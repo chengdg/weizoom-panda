@@ -45,8 +45,8 @@ class BusinessApply(resource.Resource):
 		first_catalog = []
 		second_catalog = []
 		second_catalog_ids = []
-		catalog_qualifications = []
-		for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=-1):
+		catalog_qualifications = {}
+		for catalog in product_catalog_models.ProductCatalog.objects.filter(level=1).order_by('-created_at'):
 			first_catalog.append(catalog.name)
 			this_second_catalog = []
 			this_second_catalog_id = []
@@ -65,13 +65,7 @@ class BusinessApply(resource.Resource):
 						'qualification_id': catalog_qualification.id,
 						'qualification_name': catalog_qualification.name
 					})
-				catalog_qualifications.append({
-					'catalog_id': catalog.id,
-					'catalog_qualifications': this_catalog_qualifications
-				})
-		print '======================'
-		print second_catalog_ids
-		print catalog_qualifications
+				catalog_qualifications[catalog.id] = this_catalog_qualifications
 		data = {
 			'first_catalog': first_catalog,
 			'second_catalog': second_catalog,
@@ -109,7 +103,8 @@ class BusinessApply(resource.Resource):
 		account_opening_license = data_page_2['account_opening_license']
 		account_opening_license_time = data_page_2['account_opening_license_time']
 		product_catalog_ids = data_page_3['selectedSortIds']
-		
+		upload_qualifications = data_page_3['uploadQualifications']
+
 		business = models.Business.objects.create(
 			company_type = company_type,
 			company_name = company_name,
@@ -137,7 +132,13 @@ class BusinessApply(resource.Resource):
 			customer_number = 'DL'+ datetime.now().strftime("%Y") + "%06d" % business.id
 		business.customer_number = customer_number
 		business.save()
-
+		for upload_qualification in upload_qualifications:
+			business_qualification = models.BusinessQualification.objects.create(
+				business_id = business.id,
+				qualification_id = upload_qualification['qualification_id'],
+				path = upload_qualification['path'],
+				qualification_time = upload_qualification['time']
+			)
 		response = create_response(200)
 		return response.get_response()
 

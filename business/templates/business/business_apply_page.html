@@ -94,7 +94,7 @@
         <!-- 第二页 -->
         <form id="apply_page_2" style="display:none">
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-business_license" src="/static/img/no_pic.png" style="display:block">
+            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
             <label for="business_license">营业执照</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -106,7 +106,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="/static/img/no_pic.png" style="display:block">
+            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
             <label for="tax_registration_certificate">税务登记证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -118,7 +118,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="/static/img/no_pic.png" style="display:block">
+            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
             <label for="organization_code_certificate">组织机构代码证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -130,7 +130,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-organization_code_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-account_opening_license" src="/static/img/no_pic.png" style="display:block">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
             <label for="account_opening_license">开户许可证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -156,6 +156,7 @@
             <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;">
                 <b>您已选择：</b>
                 <div class="selectedSort"></div>
+                <div class="selectedSortQualificationIds" style="display:none"></div>
             </div>
             <div class="wareSort clearfix">
                 <ul id="sort1"></ul>
@@ -275,9 +276,9 @@
             && organization_code_certificate !='' && organization_code_certificate_time !='' 
             && account_opening_license!='' && account_opening_license_time!='')
         {
-            $('#apply_page_2 button').attr("disabled",false);
+            $('#apply_page_2 .btn-primary').attr("disabled",false);
         }else{
-            // $('#apply_page_2 button').attr("disabled","disabled");
+            // $('#apply_page_2 .btn-primary').attr("disabled","disabled");
             // TODO 方便测试用
             $('#apply_page_2 button').attr("disabled",false);
         }
@@ -288,17 +289,15 @@
     $("#sort2").click(function(){
         selectedSortIds = [];
         var len = $('.selectedSort > span').length;
-        for(var i = 0;i< len;i++){
+        for(var i = 0; i< len; i++){
             selectedSortIds.push($('.selectedSort > span').eq(i).attr("id"));
         }
         if( selectedSortIds!='' ){
-            $('#apply_page_3 button').attr("disabled",false);
+            $('#apply_page_3 .btn-primary').attr("disabled",false);
         }else{
-            $('#apply_page_3 button').attr("disabled","disabled");
+            $('#apply_page_3 .btn-primary').attr("disabled","disabled");
         }
     });
-    
-
 
     $(document).ready(function() {
         //三级联动省市区
@@ -383,6 +382,31 @@
     }
     //提交数据
     function savePage(){
+        var uploadQualifications = [];
+        var need_upload_len = $('#apply_page_3_upload_field .form-group').length
+        if(need_upload_len == 0){
+            $('#apply_page_3 .btn-primary').attr("disabled",false);//不需要上传特殊资质，可以直接提交
+            }else{
+            $('#apply_page_3 .btn-primary').attr("disabled","disabled");//需要上传特殊资质，需要校验
+            for(i=0;i<need_upload_len;i++){
+                var qualification_id = $('#apply_page_3_upload_field .form-group img').eq(i).attr("class").split('_')[2];
+                if(($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")=='') || ($('#apply_page_3_upload_field .form-group > div input').val()=='')){
+                    toast('请填写完整信息', 'warning');
+                    $('#apply_page_3 .btn-primary').attr("disabled",false);
+                    return
+                }else{
+                    console.log($('#apply_page_3_upload_field .form-group img').eq(i).attr("src"));
+                    var info = {
+                        qualification_id: qualification_id,
+                        path: $('#apply_page_3_upload_field .form-group img').eq(i).attr("src"),
+                        time: $('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val()
+                    }
+                    uploadQualifications.push(info);
+                }
+            }
+        }
+        console.log(uploadQualifications);
+
         if($('.dist').val()){
             var company_location = $('.prov').val() +'-'+ $('.city').val() +'-'+ $('.dist').val();
         }else{
@@ -400,7 +424,8 @@
             account_opening_license_time: account_opening_license_time
         };
         data_page_3 = {
-            selectedSortIds: selectedSortIds
+            selectedSortIds: selectedSortIds,
+            uploadQualifications: uploadQualifications
         }
         data = data_page_1 + '&data_page_2=' + JSON.stringify(data_page_2) + '&data_page_3=' + JSON.stringify(data_page_3);
         console.log(data);
@@ -409,7 +434,7 @@
             type:'post',
             data: data,
             success:function(resp){
-                goToPage4();
+                // goToPage4();
             },
             error:function(){
                 toast('提交失败', 'warning');

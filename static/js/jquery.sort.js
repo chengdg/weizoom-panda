@@ -15,7 +15,6 @@ $.ajax({
 		second_catalog = resp['data']['second_catalog'];
 		second_catalog_ids = resp['data']['second_catalog_ids'];
 		catalog_qualifications = resp['data']['catalog_qualifications'];
-		console.log(catalog_qualifications);
 		/*初始化一级目录*/
 		function initFirstCatalog() {
 			areaCont = "";
@@ -49,24 +48,23 @@ function selectA(p) {
 /*选择二级目录*/
 function selectB(p,c) {
 	uploadCont = '';
+	var catalog_id = second_catalog_ids[p][c];
 	if($('.selectB_' + p + '_' + c + '').hasClass("active")){
 		$('.selectB_' + p + '_' + c + '').removeClass("active");
-		$('.selectedSort #'+second_catalog_ids[p][c]+'').remove();
-		$('.qualification-for-catalog-'+second_catalog_ids[p][c]+'').remove();
+		$('.selectedSort #'+catalog_id+'').remove();
+		$('.qualification-for-catalog-'+ catalog_id +'').remove();
 		if(!$('.selectB_' + p +'').hasClass("active")){
 			$("#sort1 li").eq(p).removeClass("active");//二级类目全部取消了选择，就把一级类目也取消选择
 		}
 	}else{
 		$('.selectB_' + p + '_' + c + '').addClass("active");
 		$("#sort1 li").eq(p).addClass("active");
-		$('.selectedSort').append('<span class="selectedSortSpan" id='+second_catalog_ids[p][c]+'>'+second_catalog[p][c]+'</span>');
-		console.log(catalog_qualifications[c]);
+		$('.selectedSort').append('<span class="selectedSortSpan" id='+catalog_id+'>'+second_catalog[p][c]+'</span>');
 		//渲染所需特殊资质
-		if(catalog_qualifications[c]['catalog_qualifications'].length > 0){
-			for(var i=0; i<catalog_qualifications[c]['catalog_qualifications'].length; i++ ){
-				var catalog_qualification = catalog_qualifications[c]['catalog_qualifications'][i];
-				console.log(catalog_qualification);
-				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_qualifications[c]['catalog_id']+'">'+
+		if(catalog_qualifications[catalog_id].length > 0){
+			for(var i=0; i<catalog_qualifications[catalog_id].length; i++ ){
+				var catalog_qualification = catalog_qualifications[catalog_id][i];
+				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_id+'">'+
 		            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="" style="display:block">'+
 		            '<label for="catalog_qualification_'+catalog_qualification['qualification_id']+'">'+catalog_qualification['qualification_name']+'</label>'+
 		            '<span class="btn btn-primary fileinput-button">'+
@@ -81,7 +79,6 @@ function selectB(p,c) {
 			}
 			$("#apply_page_3_upload_field").append(uploadCont);
 			$('.xa-uploader').on("click",function(event){
-			    console.log($(event.target));
 				uploadImg(event);
 			});
 			$(".xa-datePicker").datetimepicker(options);
