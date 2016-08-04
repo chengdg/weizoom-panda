@@ -1,0 +1,14 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '客服设置',
+		href: '/freight_service/service/'
+	}];
+
+	W.pageContentComponent = './freight_service/service/ServicePage.react';
+	W.pre_sale_tel = '{{pre_sale_tel |safe}}';
+	W.after_sale_tel = '{{after_sale_tel |safe}}';
+</script>
+{% endblock %}

@@ -60,6 +60,10 @@ class UserProfile(models.Model):
 	status = models.IntegerField(default=1) #账号状态 0停用中，1开启中，2不在有效期内
 	is_active = models.BooleanField(default=True, verbose_name='用户是否有效') #是否删除
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
+	pre_sale_tel = models.CharField(max_length=32, default='') #售前电话
+	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
+	free_freight_money = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #满消费金额减运费
+	need_freight_money = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #需要运费金额
 
 	class Meta(object):
 		db_table = 'account_user_profile'
