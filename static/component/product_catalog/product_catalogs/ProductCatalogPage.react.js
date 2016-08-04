@@ -59,13 +59,13 @@ var ProductCatalogPage = React.createClass({
 	},
 	onAddQualification: function(event) {
 		var catalog_id = event.target.getAttribute('data-id');
-		var qualification_names = event.target.getAttribute('data-qualification-names');
+		var qualification_infos = event.target.getAttribute('data-qualification-info');
 		Reactman.PageAction.showDialog({
 			title: "配置特殊资质文件",
 			component: AddCatalogQualificationDialog,
 			data: {
 				catalog_id: catalog_id,
-				qualification_names: qualification_names
+				qualification_infos: qualification_infos
 			},
 			success: function() {
 				Action.updateCatalogs();
@@ -111,7 +111,7 @@ var ProductCatalogPage = React.createClass({
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
-								<a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-names={catalog.qualification_names}>配置特殊资质</a>
+								<a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualification_id2name}>配置特殊资质</a>
 							</div>
 						</div>
 					)

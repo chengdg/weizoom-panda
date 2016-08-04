@@ -102,8 +102,8 @@ class BusinessApply(resource.Resource):
 		organization_code_certificate_time = data_page_2['organization_code_certificate_time']
 		account_opening_license = data_page_2['account_opening_license']
 		account_opening_license_time = data_page_2['account_opening_license_time']
-		product_catalog_ids = data_page_3['selectedSortIds']
-		upload_qualifications = data_page_3['uploadQualifications']
+		product_catalog_ids = '_'.join(data_page_3['selectedSortIds'])
+		upload_qualifications = data_page_3['uploadQualifications'] 
 
 		business = models.Business.objects.create(
 			company_type = company_type,
@@ -132,6 +132,7 @@ class BusinessApply(resource.Resource):
 			customer_number = 'DL'+ datetime.now().strftime("%Y") + "%06d" % business.id
 		business.customer_number = customer_number
 		business.save()
+		#创建特殊资质，把提交的资质信息与商家关联起来
 		for upload_qualification in upload_qualifications:
 			business_qualification = models.BusinessQualification.objects.create(
 				business_id = business.id,
@@ -164,6 +165,7 @@ class Business(resource.Resource):
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
 		businesses = models.Business.objects.all().order_by('-created_at')
+		catalog_id2name = dict((str(catalog.id),catalog.name) for catalog in product_catalog_models.ProductCatalog.objects.filter(level=2))
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_number = filters.get('customer_number','')
 		company_name = filters.get('company_name','')
@@ -178,6 +180,7 @@ class Business(resource.Resource):
 			businesses = businesses.filter(company_name__icontains=company_name)
 		if product_catalog:
 			print product_catalog
+			# product_catalog_ids = [product_catalog.id for product_catalog in product_catalog_models.ProductCatalog.objects.filter(name__icontains=product_catalog)]
 		if company_type:
 			print company_type
 			businesses = businesses.filter(company_type=int(company_type))
@@ -190,14 +193,18 @@ class Business(resource.Resource):
 
 		rows = []
 		for business in businesses:
-			product_catalogs = business.product_catalog_ids
+			catalog_name = []
+			product_catalog_ids = business.product_catalog_ids.split('_')
+			for product_catalog in product_catalog_ids:
+				catalog_name.append(catalog_id2name[product_catalog])
+			catalog_name = ';'.join(catalog_name)
 			rows.append({
 				'id': business.id,
 				'customer_number': business.customer_number,
 				'company_name': business.company_name,
 				'company_location': business.company_location,
 				'company_type': models.TYPE2NAME[business.company_type],
-				'product_catalogs': product_catalogs,
+				'product_catalogs': catalog_name,
 				'contacter': business.contacter,
 				'phone': business.phone,
 				'status': models.STATUS2NAME[business.status] if business.status!=3 else models.STATUS2NAME[business.status]+'('+business.reason+')'

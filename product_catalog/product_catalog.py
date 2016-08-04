@@ -54,9 +54,10 @@ class ProductCatalog(resource.Resource):
 				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
 				total_products_number += products_number
 				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
-				qualification_names = [qualification.name for qualification in qualifications]
-				print qualification_names
-				print 'qualification_names'
+				# qualification_names = [qualification.name for qualification in qualifications]
+				qualification_id2name = dict((qualification.id,qualification.name) for qualification in qualifications)
+				print qualification_id2name
+				print 'qualification_id2name'
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
 					'father_catalog': belong_second_catalog.father_id,
@@ -64,7 +65,7 @@ class ProductCatalog(resource.Resource):
 					'note': belong_second_catalog.note,
 					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 					'products_number': products_number,
-					'qualification_names': qualification_names
+					'qualification_id2name': json.dumps(qualification_id2name)
 				})
 			rows.append({
 				'id': catalog.id,
@@ -190,6 +191,7 @@ class GetAllFirstCatalog(resource.Resource):
 		response.data = data
 		return response.get_response()
 
+#配置特殊资质
 class GetAllFirstCatalog(resource.Resource):
 	app = 'product_catalog'
 	resource = 'qualification'
@@ -205,5 +207,17 @@ class GetAllFirstCatalog(resource.Resource):
 				catalog_id = catalog_id,
 				name = qualification_name
 			)
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		# 编辑特殊资质
+		post = request.POST
+		catalog_id = post.get('catalog_id','')
+		qualification_names = post.get('qualification_names').split(',')
+		catalog_qualifications =  product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=catalog_id)
+		# for qualification_name in qualification_names:
+		# 	if
 		response = create_response(200)
 		return response.get_response()

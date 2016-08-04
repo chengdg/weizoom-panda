@@ -17,19 +17,23 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var catalog_id = this.props.data.catalog_id;
-		var qualification_names = this.props.data.qualification_names;
+		console.log(this.props.data.qualification_infos);
+		var qualification_infos = JSON.parse(this.props.data.qualification_infos);
+		console.log(qualification_infos[5]);
 		var qualification_name = ''
-		if (qualification_names!=''){
-			if( qualification_names.indexOf(',') != -1){
-				var all_qualification_names = qualification_names.split(',')
-				qualification_name = all_qualification_names[0]
-				for(var i = 1 ; i<all_qualification_names.length; i++){
-					var html = '<fieldset><div class="add_model-btn"><div class="form-group ml15"><label class="col-sm-2 control-label xui-mandatory" for="qualification_name">资质名称:</label><div class="col-sm-5"><input type="text" class="form-control" id="qualification_name" name="qualification_name" data-validate="require-notempty" value="'+all_qualification_names[i]+'"><div class="errorHint"></div></div></div><a class="btn btn-default ml20"><span class="glyphicon glyphicon-remove"></span></a></div></fieldset>';
-					console.log($('.add_model'));
-					$('.add_model').append(html);
-				}
+		if (qualification_infos!=''){
+			console.log(qualification_infos[0]);
+			if( qualification_infos.length == 1){
+				qualification_name = qualification_infos.value
+				
 			}else{
-				qualification_name = qualification_names
+				// var all_qualification_names = qualification_names.split(',')
+				// qualification_name = all_qualification_names[0]
+				// for(var i = 1 ; i<all_qualification_names.length; i++){
+				// 	var html = '<fieldset><div class="add_model-btn"><div class="form-group ml15"><label class="col-sm-2 control-label xui-mandatory" for="qualification_name">资质名称:</label><div class="col-sm-5"><input type="text" class="form-control" id="qualification_name" name="qualification_name" data-validate="require-notempty" value="'+all_qualification_names[i]+'"><div class="errorHint"></div></div></div><a class="btn btn-default ml20"><span class="glyphicon glyphicon-remove"></span></a></div></fieldset>';
+				// 	console.log($('.add_model'));
+				// 	$('.add_model').append(html);
+				// }
 			}
 		}
 		return {
@@ -71,23 +75,44 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 			}
 			qualificationNames.push(qualification_name);
 		}
-		Reactman.Resource.put({
-			resource: 'product_catalog.qualification',
-			data: {
-				catalog_id: this.state.catalog_id,
-				qualification_names: String(qualificationNames)
-			},
-			success: function() {
-				this.closeDialog();
-				_.delay(function(){
-					Reactman.PageAction.showHint('success', '设置资质成功');
-				},500);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
-			},
-			scope: this
-		})
+		if (this.state.catalog_id){
+			Reactman.Resource.post({
+				resource: 'product_catalog.qualification',
+				data: {
+					catalog_id: this.state.catalog_id,
+					qualification_names: String(qualificationNames)
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '编辑资质成功');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}else{
+			Reactman.Resource.put({
+				resource: 'product_catalog.qualification',
+				data: {
+					catalog_id: this.state.catalog_id,
+					qualification_names: String(qualificationNames)
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '设置资质成功');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}
+		
 	},
 	onClickDelete: function(event) {
 		console.log(event);
