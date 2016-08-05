@@ -7,3 +7,6 @@ td {
 input#qualification_name {
     width: 180px;
 }
+.form-group label {
+    width: 20%;
+}

@@ -50,11 +50,13 @@ class BusinessDetail(resource.Resource):
 			product_catalog_ids = business.product_catalog_ids.split('_')
 			catalogs = product_catalog_models.ProductCatalog.objects.filter(id__in=product_catalog_ids)
 			for catalog in catalogs:
-				catalog_infos.append({
-					'id': catalog.id,
-					'name': catalog.name
-				})
-
+				# catalog_infos.append({
+				# 	'id': catalog.id,
+				# 	'name': catalog.name
+				# })
+				#TODO 暂时先只展示二级分类名称
+				catalog_infos.append(catalog.name)
+			catalog_infos = ';'.join(catalog_infos)
 			#得到商家上传的特殊资质
 			all_qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id__in=product_catalog_ids)
 			qualification_id2name = dict((qualification.id,qualification.name) for qualification in all_qualifications)
@@ -67,8 +69,6 @@ class BusinessDetail(resource.Resource):
 					'img': [{'id':1,'path':qualification.path}],
 					'qualification_time': qualification.qualification_time.strftime("%Y-%m-%d %H:%M")
 				})
-			
-			print upload_business_qualifications
 			business_data = {
 				'id': business.id,
 				'company_type': business.company_type,
@@ -90,7 +90,7 @@ class BusinessDetail(resource.Resource):
 				'account_opening_license': [{'id':1,'path':business.account_opening_license}],
 				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M"),
 				'catalog_infos': catalog_infos,
-				'upload_catalog_qualifications': upload_business_qualifications
+				'upload_business_qualifications': upload_business_qualifications
 			}
 			jsons['items'].append(('business_data', json.dumps(business_data)))
 
