@@ -102,14 +102,18 @@ class ManagerAccount(resource.Resource):
 					'company_type' : catalog_names,
 					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
 					'account_type' : ROLE2NAME[account.role],
-					'status' : account.status
+					'status' : account.status,
+					'company_name': account.company_name
 				})
 			else:
 				rows.append({
+					'id' : account.id,
+					'user_id' : account.user_id,
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
 					'role' : ROLE2NAME[account.role],
-					'note' : account.note
+					'note' : account.note,
+					'company_name': account.company_name
 				})
 		if is_for_list:
 			data = {
@@ -172,15 +176,18 @@ class ExportAccounts(resource.Resource):
 	def get(request):
 		accounts = ManagerAccount.api_get(request)
 		titles = [
-			u'账号类型', u'账号名称',u'登录账号', u'备注'
+			u'账号id', u'对应user_id', u'账号类型', u'账号名称',u'登录账号', u'公司名称', u'备注'
 		]
 		table = []
 		table.append(titles)
 		for account in accounts:
 			table.append([
+				account['id'],
+				account['user_id'],
 				account['role'],
 				account['name'],
 				account['username'],
-				account['note'],
+				account['company_name'],
+				account['note']
 			])
 		return ExcelResponse(table,output_name=u'账号管理文件'.encode('utf8'),force_csv=False)
