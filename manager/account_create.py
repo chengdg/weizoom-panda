@@ -223,7 +223,10 @@ class AccountCreate(resource.Resource):
 					params = {
 						'name': user_profile.name,
 						'remark': note,
-						'supplier_id': supplier.supplier_id
+						'supplier_id': supplier.supplier_id,
+						'responsible_person': user_profile.contacter,
+						'supplier_tel': phone if phone else '',
+						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
 						'resource': 'mall.supplier',
@@ -235,8 +238,8 @@ class AccountCreate(resource.Resource):
 					params = {
 						'name': user_profile.name,
 						'remark': note,
-						'responsible_person': u'8000FT',
-						'supplier_tel': phone if phone else '13112345678',
+						'responsible_person': user_profile.contacter if user_profile.contacter else '8000FT',
+						'supplier_tel': phone if phone else '',
 						'supplier_address': u'中国 北京'
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
