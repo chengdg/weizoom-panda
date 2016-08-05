@@ -19,14 +19,20 @@ class Command(BaseCommand):
 					   190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202,
 					   204, 205, 208, 209, 210, 211, 212, 213, 214]
 		products = product_models.Product.objects.filter(id__in=product_ids)
+		count = 0
 		for product in products:
 			remark = product.remark
-			if remark.find('http'):
+
+			if remark.find('/static') < 0:
 				continue
-			if remark.find('chaozhi'):
+			if remark.find('http') > 0:
+				continue
+			if remark.find('chaozhi') > 0:
 				continue
 			new_remark = remark.replace('/static', 'http://chaozhi.weizoom.com/static')
 			product_models.Product.objects.filter(id=product.id).update(remark=new_remark)
 			# product.update(remark=new_remark)
+			count += 1
 			print '================================product:%s SUCCESS!' % product.id
 		print '==============================ALL is OK==============================='
+		print '==============================count%s===============================' % count
