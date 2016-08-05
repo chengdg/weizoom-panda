@@ -34,9 +34,9 @@ class freight(resource.Resource):
 		"""
 		显示商品列表
 		"""
-		user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id)
-		free_freight_money = user_profile[0].free_freight_money
-		need_freight_money = user_profile[0].need_freight_money
+		user_has_freight = models.UserHasFreight.objects.filter(user_id=request.user.id)
+		free_freight_money = '' if not user_has_freight else user_has_freight[0].free_freight_money
+		need_freight_money = '' if not user_has_freight else user_has_freight[0].need_freight_money
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
@@ -51,32 +51,25 @@ class freight(resource.Resource):
 		user_id = request.user.id
 		free_freight_money = request.POST.get('free_freight_money',0)
 		need_freight_money = request.POST.get('need_freight_money',0)
-		print type(free_freight_money),need_freight_money,"========"
-		# try:
-		# 	user_profile = account_models.UserProfile.objects.filter(user_id=user_id)
-		# 	if user_profile:
-		# 		user_profile.update(
-		# 			free_freight_money = free_freight_money,
-		# 			need_freight_money = need_freight_money
-		# 		)
-		# 	response = create_response(200)
-		# 	data = {}
-		# 	data['code'] = 200
-		# 	response.data=data
-		# except Exception, e:
-		# 	response = create_response(500)
-		# 	data = {}
-		# 	data['code'] = 500
-		# 	response.data=data
-		# 	response.innerErrMsg = unicode_full_stack()
-		user_profile = account_models.UserProfile.objects.filter(user_id=user_id)
-		if user_profile:
-			user_profile.update(
-				free_freight_money = float(free_freight_money),
-				need_freight_money = float(need_freight_money)
-			)
 		response = create_response(200)
 		data = {}
-		data['code'] = 200
-		response.data=data
+		try:
+			user_has_freight = models.UserHasFreight.objects.filter(user_id=user_id)
+			if user_has_freight:
+				user_has_freight.update(
+					free_freight_money= float(free_freight_money),
+					need_freight_money= float(need_freight_money)
+				)
+			else:
+				models.UserHasFreight.objects.create(
+					user_id= request.user.id,
+					free_freight_money= float(free_freight_money),
+					need_freight_money= float(need_freight_money)
+				)
+			data['code'] = 200
+			response.data=data
+		except Exception, e:
+			data['code'] = 500
+			response.data=data
+			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()

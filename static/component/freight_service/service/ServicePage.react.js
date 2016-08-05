@@ -21,7 +21,6 @@ var ServicePage = React.createClass({
 		Store.addListener(this.onChangeStore);
 		var preSaleTel = W.pre_sale_tel=='-1'?'':W.pre_sale_tel;
 		var afterSaleTel = W.after_sale_tel=='-1'?'':W.after_sale_tel;
-		console.log(W.after_sale_tel,"=======");
 		return {
 			'pre_sale_tel': preSaleTel,
 			'after_sale_tel': afterSaleTel
@@ -51,7 +50,7 @@ var ServicePage = React.createClass({
 			Reactman.PageAction.showHint('error', '请输入正确的电话号码！');
 			return
 		}
-		Action.saveSalePhone(preSaleTel,afterSaleTel);
+		Action.saveSalePhone(preSaleTel, afterSaleTel);
 	},
 
 	render:function(){

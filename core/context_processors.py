@@ -15,12 +15,6 @@ def top_navs(request):
 				'icon': 'credit-card',
 				'href': '/product/product_list/'
 			},
-			{
-				'name': 'freight_service',
-				'displayName': '运费/客服设置',
-				'icon': 'list-alt',
-				'href': '/freight_service/freight/'
-			},
 			# {
 			# 	'name': 'fans',
 			# 	'displayName': '粉丝投放',
@@ -32,7 +26,13 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/customer_orders_list/'
-			}
+			},
+			{
+				'name': 'freight_service',
+				'displayName': '商家设置',
+				'icon': 'list-alt',
+				'href': '/freight_service/freight/'
+			},
 			# , {
 			# 	'name': 'fans',
 			# 	'displayName': '粉丝投放',

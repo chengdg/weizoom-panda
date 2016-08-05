@@ -33,7 +33,6 @@ var FreightPage = React.createClass({
 	},
 
 	onSubmit: function(){
-		console.log("=========");
 		var freeFreightMoney = this.state.free_freight_money;
 		var needFreightMoney = this.state.need_freight_money;
 		Action.saveSalePhone(freeFreightMoney,needFreightMoney);
@@ -47,8 +46,8 @@ var FreightPage = React.createClass({
 		return (
 			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
-					<fieldset>
-						<Reactman.FormInput label="全店满减运费(元)" type="text" name="free_freight_money" value={this.state.free_freight_money} onChange={this.onChange} validate="require-float"/>
+					<fieldset style={{paddingTop:'20px'}}>
+						<Reactman.FormInput label="全店满消费免运费(元)" type="text" name="free_freight_money" value={this.state.free_freight_money} onChange={this.onChange} validate="require-float"/>
 						<Reactman.FormInput label="否则收取统一运费(元)" type="text" name="need_freight_money" value={this.state.need_freight_money} onChange={this.onChange} validate="require-float"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}}>

@@ -48,6 +48,8 @@ class service(resource.Resource):
 		user_id = request.user.id
 		pre_sale_tel = request.POST.get('pre_sale_tel','')
 		after_sale_tel = request.POST.get('after_sale_tel','')
+		response = create_response(200)
+		data = {}
 		try:
 			user_profile = account_models.UserProfile.objects.filter(user_id=user_id)
 			if user_profile:
@@ -55,13 +57,9 @@ class service(resource.Resource):
 					pre_sale_tel= pre_sale_tel,
 					after_sale_tel = after_sale_tel
 				)
-			response = create_response(200)
-			data = {}
 			data['code'] = 200
 			response.data=data
 		except Exception, e:
-			response = create_response(500)
-			data = {}
 			data['code'] = 500
 			response.data=data
 			response.innerErrMsg = unicode_full_stack()
