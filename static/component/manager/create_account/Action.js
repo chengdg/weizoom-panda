@@ -22,6 +22,7 @@ var Action = {
 			}
 		});
 	},
+
 	selectCatalog: function(){
 		Resource.get({
 			resource: 'product_catalog.get_all_first_catalog',
@@ -34,6 +35,7 @@ var Action = {
 			}
 		})
 	},
+
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],
@@ -86,7 +88,25 @@ var Action = {
 				}
 			});
 		}
-	}
+	},
+
+	addSelfShop: function(self_user_name){
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_SELF_SHOP,
+			data: {
+				self_user_name: self_user_name
+			}
+		});
+	},
+
+	deleteSelfShop: function(index) {
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_SELF_SHOP,
+			data: {
+				index: index
+			}
+		});
+	},
 };
 
 module.exports = Action;

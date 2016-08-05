@@ -13,6 +13,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+var AddGrounpPointDialog = require('./AddGrounpPointDialog.react');
 require('./style.css');
 
 var AccountCreatePage = React.createClass({
@@ -128,6 +129,7 @@ var AccountCreatePage = React.createClass({
 							valid_time_to = {this.state.valid_time_to}
 							Type = {this.state.account_type}
 							options_for_type = {this.state.options_for_type}
+							selfUserNames={this.state.self_user_names}
 						/>
 					</div>
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
@@ -187,13 +189,104 @@ var AccountInfo = React.createClass({
 	}
 });
 var PurchaseMethod = React.createClass({
+	addGrounpPoints: function(){
+		Reactman.PageAction.showDialog({
+			title: "添加自营平台",
+			component: AddGrounpPointDialog,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	render: function() {
 		var type = this.props.Type;
 		if (type == '2'){
 			return(
+				<div>
 				<div className="account-create-purchase-method">
-					<Reactman.FormInput label="零售价返点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+					<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
 					<span className="money_note">%</span>
+					<span className="add-grounp-points">
+						<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
+					</span>
+				</div>
+				<div><GrounpPointsDialog /></div>
+				</div>
+			)
+		}if(type == '3'){
+			return(
+				<div className="profilts-dialog">
+					<span>首月(商品上架后30天含内),且金额不大于</span>
+					<input type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+					<span>元时,返点比例为</span>
+					<input type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+					<span className="add-grounp-points">
+						<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
+					</span>
+				</div>
+			)
+		}else {
+			return(
+				<div></div>
+			)
+		}
+	}
+});
+
+var GrounpPointsDialog = React.createClass({
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return Store.getData();
+	},
+	
+	onChangeStore: function() {
+		this.setState(Store.getData());
+	},
+
+	onChange: function(value, event) {
+		var property = event.target.getAttribute('name');
+		console.log(property, value)
+		Action.updateAccount(property, value);
+	},
+
+	deleteSelfShop: function(index){
+		Action.deleteSelfShop(index);
+	},
+
+	render: function() {
+		var SELF_SHOP2TEXT = {
+			'weizoom_jia': '微众家',
+			'weizoom_mama': '微众妈妈',
+			'weizoom_xuesheng': '微众学生',
+			'weizoom_baifumei': '微众白富美',
+			'weizoom_shop': '微众商城',
+			'weizoom_club': '微众俱乐部',
+			'weizoom_life': '微众Life',
+			'weizoom_yjr': '微众一家人',
+			'weizoom_fulilaile': '惠惠来啦'
+		}
+		var selfUserNames = this.state.self_user_names;
+		var _this = this;
+		if (selfUserNames.length>0){
+			var selfShop = selfUserNames.map(function(selfUser,index){
+				var selfUserName = selfUser.self_user_name;
+				var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
+				return(
+						<li key={index} style={{display:'inline-block',position:'relative'}}>
+	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.onChange} value={_this.state[selfUserName+"_value"]}/>
+	                    	<span className="rebate-per">%</span>
+	                    	<span className="xui-close" onClick={_this.deleteSelfShop.bind(_this,index)}>x</span>
+	                    </li>
+					)
+			})
+			return(
+				<div className="self-user-dialog" style={{position:'relative'}}>
+					<span style={{position:'absolute',left:'75px'}}>团购扣点</span>
+					<ul className="self-user-shop-ul">
+						{selfShop}
+					</ul>
 				</div>
 			)
 		}else {

@@ -19,7 +19,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
 		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
-		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG
+		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG,
+		'handleAddSelfShop':Constant.ADD_SELF_SHOP,
+		'handleDeleteSelfShop':Constant.DELETE_SELF_SHOP
 	},
 
 	init: function() {
@@ -40,7 +42,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'account_type':'1',
 				'purchase_method': '2',
 				'company_type': [],
-				'options_for_type': []
+				'options_for_type': [],
+				'self_user_names': [],
+				'points': ''
 			};
 		}
 	},
@@ -57,6 +61,27 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleCreateNewAccount: function(action) {
 		W.gotoPage('/manager/account/');
+	},
+
+	handleAddSelfShop: function(action){
+		var selfUserName = action.data.self_user_name;
+
+		var selfShop = this.data.self_user_names;
+		var self_obj = {
+			'self_user_name': selfUserName
+		}
+		selfShop.push(self_obj)
+		this.data[selfUserName+'_value'] = this.data.points;
+		this.data.self_user_names = selfShop;
+		this.__emitChange();
+	},
+
+	handleDeleteSelfShop: function(action) {
+		var selfShop = this.data.self_user_names;
+		var index = action.data.index;
+		selfShop.splice(index,1)
+		this.data.self_user_names = selfShop;
+		this.__emitChange();
 	},
 
 	getData: function() {
