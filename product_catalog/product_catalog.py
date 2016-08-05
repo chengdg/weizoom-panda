@@ -51,13 +51,15 @@ class ProductCatalog(resource.Resource):
 			total_products_number = 0
 			belong_second_catalogs = all_second_catalogs.filter(father_id=catalog.id)
 			for belong_second_catalog in belong_second_catalogs:
+				qualification_id2name = []
 				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
 				total_products_number += products_number
 				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
-				# qualification_names = [qualification.name for qualification in qualifications]
-				qualification_id2name = dict((qualification.id,qualification.name) for qualification in qualifications)
-				print qualification_id2name
-				print 'qualification_id2name'
+				for qualification in qualifications:
+					qualification_id2name.append({
+						'id': qualification.id,
+						'name': qualification.name
+						})
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
 					'father_catalog': belong_second_catalog.father_id,

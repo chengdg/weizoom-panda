@@ -39,6 +39,26 @@ var Action = {
 			}
 		});
 	},
+	updateCatalog: function(property, value, models, id) {
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_CATALOG,
+			data: {
+				property: property,
+				value: value,
+				models: models,
+				id: id
+			}
+		});
+	},
+	deleteCatalogQualification: function(index, models) {
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_CATALOG,
+			data: {
+				index: index,
+				models: models
+			}
+		});
+	},
 };
 
 module.exports = Action;
