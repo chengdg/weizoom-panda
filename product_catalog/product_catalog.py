@@ -217,7 +217,7 @@ class GetAllFirstCatalog(resource.Resource):
 				need_del_ids.append(old_id)
 		product_catalog_models.ProductCatalogQualification.objects.filter(id__in=need_del_ids).delete()
 		
-		# 循环第二次，更新特殊资质信息
+		# 循环第二次，更新需要修改的特殊资质信息
 		for qualification_info in qualification_infos:
 			if qualification_info.has_key('id'):
 				#编辑分类

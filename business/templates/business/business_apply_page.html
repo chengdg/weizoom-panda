@@ -86,7 +86,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-6 col-sm-4">
-              <button type="button" class="btn btn-primary" onclick="goToPage2();" disabled="disabled">下一步</button>
+              <button type="button" class="btn btn-primary xa-next-page" onclick="goToPage2();" disabled="disabled">下一步</button>
             </div>
           </div>
         </form>
@@ -145,7 +145,7 @@
           <div class="form-group_btn">
             <div class="col-sm-offset-5 col-sm-4">
                 <button type="button" class="btn btn-default" onclick="goToPage1();">上一步</button>
-                <button type="button" class="btn btn-primary" onclick="goToPage3();" disabled="disabled">下一步</button>
+                <button type="button" class="btn btn-primary xa-next-page" onclick="goToPage3();" disabled="disabled">下一步</button>
             </div>
           </div>
         </form>
@@ -168,7 +168,7 @@
           <div class="form-group_btn">
             <div>
                 <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
-                <button type="button" class="btn btn-primary" onclick="savePage();" disabled="disabled">完成提交</button>
+                <button type="button" class="btn btn-primary xa-next-page" onclick="savePage();" disabled="disabled">完成提交</button>
             </div>
           </div>
         </form>
@@ -241,11 +241,11 @@
     //第一页校验
     $("#apply_page_1 input").blur(function(){
         if($("#apply_page_1").valid()){
-            $('#apply_page_1 button').attr("disabled",false);
+            $('#apply_page_1 .xa-next-page').attr("disabled",false);
         }else{
-            // $('#apply_page_1 button').attr("disabled","disabled");
-            // TODO 方便测试用
-            $('#apply_page_1 button').attr("disabled",false);
+            $('#apply_page_1 .xa-next-page').attr("disabled","disabled");
+            // 方便测试用
+            // $('#apply_page_1 button').attr("disabled",false);
         }
     });
 
@@ -276,11 +276,11 @@
             && organization_code_certificate !='' && organization_code_certificate_time !='' 
             && account_opening_license!='' && account_opening_license_time!='')
         {
-            $('#apply_page_2 .btn-primary').attr("disabled",false);
+            $('#apply_page_2 .xa-next-page').attr("disabled",false);
         }else{
-            // $('#apply_page_2 .btn-primary').attr("disabled","disabled");
-            // TODO 方便测试用
-            $('#apply_page_2 button').attr("disabled",false);
+            $('#apply_page_2 .xa-next-page').attr("disabled","disabled");
+            // 方便测试用
+            // $('#apply_page_2 .btn-primary').attr("disabled",false);
         }
     });
     
@@ -293,9 +293,9 @@
             selectedSortIds.push($('.selectedSort > span').eq(i).attr("id"));
         }
         if( selectedSortIds!='' ){
-            $('#apply_page_3 .btn-primary').attr("disabled",false);
+            $('#apply_page_3 .xa-next-page').attr("disabled",false);
         }else{
-            $('#apply_page_3 .btn-primary').attr("disabled","disabled");
+            $('#apply_page_3 .xa-next-page').attr("disabled","disabled");
         }
     });
 
@@ -395,7 +395,6 @@
                     $('#apply_page_3 .btn-primary').attr("disabled",false);
                     return
                 }else{
-                    console.log($('#apply_page_3_upload_field .form-group img').eq(i).attr("src"));
                     var info = {
                         qualification_id: qualification_id,
                         path: $('#apply_page_3_upload_field .form-group img').eq(i).attr("src"),
@@ -405,7 +404,6 @@
                 }
             }
         }
-        console.log(uploadQualifications);
 
         if($('.dist').val()){
             var company_location = $('.prov').val() +'-'+ $('.city').val() +'-'+ $('.dist').val();
@@ -428,13 +426,12 @@
             uploadQualifications: uploadQualifications
         }
         data = data_page_1 + '&data_page_2=' + JSON.stringify(data_page_2) + '&data_page_3=' + JSON.stringify(data_page_3);
-        console.log(data);
         $.ajax({
             url:'/business/api/customer_apply/',
             type:'post',
             data: data,
             success:function(resp){
-                // goToPage4();
+                goToPage4();
             },
             error:function(){
                 toast('提交失败', 'warning');

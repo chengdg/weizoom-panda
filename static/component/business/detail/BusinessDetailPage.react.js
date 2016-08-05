@@ -75,6 +75,7 @@ var BusinessDetailPage = React.createClass({
 				</fieldset>
 				<fieldset>
 					<legend className="pl10 pt10 pb10">入驻类目及特殊资质</legend>
+					<Reactman.FormInput label="申请类目:" name="catalog_infos" validate="require-notempty" value={this.state.catalog_infos} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>

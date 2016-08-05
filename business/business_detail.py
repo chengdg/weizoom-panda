@@ -27,12 +27,9 @@ from product_catalog import models as product_catalog_models
 FIRST_NAV = 'business'
 SECOND_NAV = 'business'
 
-COUNT_PER_PAGE = 10
-
 filter2field = {
 }
 
-#创建账号
 class BusinessDetail(resource.Resource):
 	app = 'business'
 	resource = 'business_detail'
@@ -44,8 +41,34 @@ class BusinessDetail(resource.Resource):
 		"""
 		business_id = request.GET.get('id', None)
 		jsons = {'items':[]}
+		catalog_infos = []
+		upload_business_qualifications = []
 		if business_id:
 			business = models.Business.objects.get(id=business_id)
+
+			#得到所属的二级分类数据
+			product_catalog_ids = business.product_catalog_ids.split('_')
+			catalogs = product_catalog_models.ProductCatalog.objects.filter(id__in=product_catalog_ids)
+			for catalog in catalogs:
+				catalog_infos.append({
+					'id': catalog.id,
+					'name': catalog.name
+				})
+
+			#得到商家上传的特殊资质
+			all_qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id__in=product_catalog_ids)
+			qualification_id2name = dict((qualification.id,qualification.name) for qualification in all_qualifications)
+
+			qualifications = models.BusinessQualification.objects.filter(business_id=business_id)
+			for qualification in qualifications:
+				upload_business_qualifications.append({
+					'qualification_id': qualification.qualification_id,
+					'qualification_name': qualification_id2name[qualification.qualification_id],
+					'img': [{'id':1,'path':qualification.path}],
+					'qualification_time': qualification.qualification_time.strftime("%Y-%m-%d %H:%M")
+				})
+			
+			print upload_business_qualifications
 			business_data = {
 				'id': business.id,
 				'company_type': business.company_type,
@@ -60,12 +83,14 @@ class BusinessDetail(resource.Resource):
 				'address': business.address,
 				'business_license': [{'id':1,'path':business.business_license}],
 				'business_license_time': business.business_license_time.strftime("%Y-%m-%d %H:%M"),
-				'tax_registration_certificate': [{'id':2,'path':business.tax_registration_certificate}],
+				'tax_registration_certificate': [{'id':1,'path':business.tax_registration_certificate}],
 				'tax_registration_certificate_time': business.tax_registration_certificate_time.strftime("%Y-%m-%d %H:%M"),
-				'organization_code_certificate': [{'id':3,'path':business.organization_code_certificate}],
+				'organization_code_certificate': [{'id':1,'path':business.organization_code_certificate}],
 				'organization_code_certificate_time': business.organization_code_certificate_time.strftime("%Y-%m-%d %H:%M"),
-				'account_opening_license': [{'id':4,'path':business.account_opening_license}],
-				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M")
+				'account_opening_license': [{'id':1,'path':business.account_opening_license}],
+				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M"),
+				'catalog_infos': catalog_infos,
+				'upload_catalog_qualifications': upload_business_qualifications
 			}
 			jsons['items'].append(('business_data', json.dumps(business_data)))
 

@@ -3,7 +3,6 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');
@@ -16,8 +15,7 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleBusinessDataFilter': Constant.BUSINESS_DATAS_FILTER,
-		'handleUpdateBusinessApply': Constant.UPDATE_BUSINESS_APPLY
+		'handleBusinessDataFilter': Constant.BUSINESS_DATAS_FILTER
 	},
 
 	init: function() {
@@ -28,12 +26,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = action.data;
 		this.__emitChange();
 	},
-
-	handleUpdateBusinessApply: function(action) {
-		this.__emitChange();
-	},
 	
-	getFilter: function() {
+	getData: function() {
 		return this.data;
 	}
 });

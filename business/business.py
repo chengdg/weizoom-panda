@@ -78,8 +78,6 @@ class BusinessApply(resource.Resource):
 
 	def api_post(request):
 		post = request.POST
-		print post
-		print 'post================='
 		company_type = models.DIRECT if post.get('company_type')=='direct' else models.AGENCY
 		company_name = post.get('company_name','')
 		company_money = float(post.get('company_money')) if post.get('company_money')!='' else 0
@@ -169,7 +167,7 @@ class Business(resource.Resource):
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_number = filters.get('customer_number','')
 		company_name = filters.get('company_name','')
-		product_catalog = filters.get('product_catalog','')
+		# product_catalog = filters.get('product_catalog','')
 		company_type = filters.get('company_type','')
 		phone = filters.get('phone','')
 		status = filters.get('status','')
@@ -178,11 +176,9 @@ class Business(resource.Resource):
 			businesses = businesses.filter(customer_number__icontains=customer_number)
 		if company_name:
 			businesses = businesses.filter(company_name__icontains=company_name)
-		if product_catalog:
-			print product_catalog
-			# product_catalog_ids = [product_catalog.id for product_catalog in product_catalog_models.ProductCatalog.objects.filter(name__icontains=product_catalog)]
+		# if product_catalog:
+		# 	print product_catalog
 		if company_type:
-			print company_type
 			businesses = businesses.filter(company_type=int(company_type))
 		if phone:
 			businesses = businesses.filter(phone__icontains=phone)

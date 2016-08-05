@@ -3,7 +3,6 @@
  */
 "use strict";
 
-var debug = require('debug')('m:business.manager:BusinessManagerPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
@@ -14,6 +13,7 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 var BusinessDialog = require('./BusinessDialog.react');
+
 var BusinessManagerPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
@@ -58,7 +58,7 @@ var BusinessManagerPage = React.createClass({
 	},
 	
 	onChangeStore: function(event) {
-		var filterOptions = Store.getFilter();
+		var filterOptions = Store.getData();
 		this.refs.table.refresh(filterOptions);
 	},
 
@@ -137,7 +137,7 @@ var BusinessManagerPage = React.createClass({
 							<Reactman.FormInput label="公司名称:" name="company_name" match='=' />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="经营类目:" name="product_catalog" match='=' />
+							<Reactman.FormInput label="所在地:" name="company_location" match='=' />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 					<Reactman.FilterRow>
@@ -149,11 +149,6 @@ var BusinessManagerPage = React.createClass({
 						</Reactman.FilterField>
 						<Reactman.FilterField>
 							<Reactman.FormSelect label="客户状态:" name="status" options={statusOptions} match='=' />
-						</Reactman.FilterField>
-					</Reactman.FilterRow>
-					<Reactman.FilterRow>
-						<Reactman.FilterField>
-							<Reactman.FormInput label="所在地:" name="company_location" match='=' />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>

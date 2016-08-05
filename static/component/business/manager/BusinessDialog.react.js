@@ -37,7 +37,6 @@ var BusinessDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		//给接口传递发货信息的参数
 		Reactman.Resource.put({
 			resource: 'business.manager',
 			data: {
@@ -45,8 +44,10 @@ var BusinessDialog = Reactman.createDialog({
 				reason: this.state.reason
 			},
 			success: function() {
-				Reactman.PageAction.showHint('success', '驳回成功');
 				this.closeDialog();
+				_.delay(function(){
+					Reactman.PageAction.showHint('success', '驳回成功');
+				},500);
 			},
 			error: function(data) {
 				Reactman.PageAction.showHint('error', data.errMsg);
