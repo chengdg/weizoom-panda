@@ -17,7 +17,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleCatelogDataFilter': Constant.CATALOG_DATAS_FILTER,
 		'handleUpdateCatalog': Constant.UPDATE_CATALOG,
-		'handleDeleteCatalog': Constant.DELETE_CATALOG
+		'handleDeleteCatalog': Constant.DELETE_CATALOG,
+		'handleAddCatalog': Constant.ADD_CATALOG_QUALIFICATION
 	},
 
 	init: function() {
@@ -38,7 +39,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var old_models = action.data.models;
 		var target_id = action.data.id;
 		_.each(old_models, function(old_model) {
-			console.log(old_model.id,old_model.name);
 			if(old_model.id==target_id){
 				old_model['name'] = action.data.value;
 			}
@@ -49,11 +49,16 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 	handleDeleteCatalog: function(action) {
 		var index = action.data.index;
-		console.log(index);
 		var old_models = action.data.models;
-		console.log(old_models);
 		old_models.splice(index, 1);
-		console.log(old_models);
+		this.data['models'] = old_models;
+		this.__emitChange();
+	},
+	handleAddCatalog: function(action) {
+		var old_models = action.data.models;
+		old_models.push({
+				name: ''
+			});
 		this.data['models'] = old_models;
 		this.__emitChange();
 	},

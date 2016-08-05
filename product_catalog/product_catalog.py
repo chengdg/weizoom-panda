@@ -200,26 +200,35 @@ class GetAllFirstCatalog(resource.Resource):
 
 	@login_required
 	def api_put(request):
-		# 新建特殊资质
+		# 新建/编辑特殊资质
 		post = request.POST
-		catalog_id = post.get('catalog_id','')
-		qualification_names = post.get('qualification_names').split(',')
-		for qualification_name in qualification_names:
-			product_catalog_models.ProductCatalogQualification.objects.create(
-				catalog_id = catalog_id,
-				name = qualification_name
-			)
-		response = create_response(200)
-		return response.get_response()
+		qualification_infos = json.loads(post.get('qualification_infos',''))
+		catalog_id = int(post.get('catalog_id'))
+		old_ids = [int(catalog.id) for catalog in product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=catalog_id)]
+		new_ids = []
+		need_del_ids = []
 
-	@login_required
-	def api_post(request):
-		# 编辑特殊资质
-		post = request.POST
-		catalog_id = post.get('catalog_id','')
-		qualification_names = post.get('qualification_names').split(',')
-		catalog_qualifications =  product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=catalog_id)
-		# for qualification_name in qualification_names:
-		# 	if
+		#循环第一次，得到编辑后被删除的特殊资质id
+		for qualification_info in qualification_infos:
+			if qualification_info.has_key('id'):
+				new_ids.append(qualification_info['id'])
+		for old_id in old_ids:
+			if old_id not in new_ids:
+				need_del_ids.append(old_id)
+		product_catalog_models.ProductCatalogQualification.objects.filter(id__in=need_del_ids).delete()
+		
+		# 循环第二次，更新特殊资质信息
+		for qualification_info in qualification_infos:
+			if qualification_info.has_key('id'):
+				#编辑分类
+				product_catalog_models.ProductCatalogQualification.objects.filter(id=qualification_info['id']).update(
+					name = qualification_info['name']
+					)
+			else:
+				#新增分类
+				product_catalog_models.ProductCatalogQualification.objects.create(
+					catalog_id = catalog_id,
+					name = qualification_info['name']
+				)
 		response = create_response(200)
 		return response.get_response()
