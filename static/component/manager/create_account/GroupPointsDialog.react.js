@@ -15,7 +15,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
 
-var GrounpPointsDialog = React.createClass({
+var GroupPointsDialog = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return Store.getData();
@@ -31,10 +31,10 @@ var GrounpPointsDialog = React.createClass({
 		Action.updateAccount(property, value);
 	},
 
-	updateValue: function(index, value, event){
+	updateGroupPoints: function(index, value, event){
 		var property = event.target.getAttribute('name');
 		console.log(index,value, property);
-		Action.updateRebates(index, property, value);
+		Action.updateGroupPoints(index, property, value);
 	},
 
 	deleteSelfShop: function(index){
@@ -61,7 +61,7 @@ var GrounpPointsDialog = React.createClass({
 				var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
 				return(
 						<li key={index} style={{display:'inline-block',position:'relative'}}>
-	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.updateValue.bind(_this,index)} value={selfUser[selfUserName+"_value"]}/>
+	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.updateGroupPoints.bind(_this,index)} value={selfUser[selfUserName+"_value"]}/>
 	                    	<span className="rebate-per">%</span>
 	                    	<span className="xui-close" onClick={_this.deleteSelfShop.bind(_this,index)} title="删除">x</span>
 	                    </li>
@@ -82,4 +82,4 @@ var GrounpPointsDialog = React.createClass({
 		}
 	}
 });
-module.exports = GrounpPointsDialog;
+module.exports = GroupPointsDialog;

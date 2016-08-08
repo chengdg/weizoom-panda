@@ -13,8 +13,8 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-var AddGrounpPointDialog = require('./AddGrounpPointDialog.react');
-var GrounpPointsDialog = require('./GrounpPointsDialog.react');
+var AddGroupPointDialog = require('./AddGroupPointDialog.react');
+var GroupPointsDialog = require('./GroupPointsDialog.react');
 require('./style.css');
 
 var PurchaseMethod = React.createClass({
@@ -36,7 +36,7 @@ var PurchaseMethod = React.createClass({
 	addGrounpPoints: function(){
 		Reactman.PageAction.showDialog({
 			title: "添加自营平台",
-			component: AddGrounpPointDialog,
+			component: AddGroupPointDialog,
 			data: {},
 			success: function(inputData, dialogState) {
 				console.log("success");
@@ -70,7 +70,7 @@ var PurchaseMethod = React.createClass({
 						<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
 					</span>
 				</div>
-				<div><GrounpPointsDialog /></div>
+				<div><GroupPointsDialog /></div>
 				</div>
 			)
 		}if(type == '3'){

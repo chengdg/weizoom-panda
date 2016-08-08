@@ -95,3 +95,13 @@ class AccountHasSupplier(models.Model):
 
 	class Meta(object):
 		db_table = 'account_has_supplier'
+
+
+class AccountHasGroupPoint(models.Model):
+	user_id = models.IntegerField(default=0) #user_id
+	self_user_name = models.CharField(max_length=50, null=True) #自营商城名
+	points = models.FloatField(default=0.0) #零售价返点
+	group_points = models.FloatField(default=0.0) #团购扣点
+
+	class Meta(object):
+		db_table = 'account_has_group_point'

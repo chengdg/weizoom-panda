@@ -13,7 +13,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
 
-var AddGrounpPointDialog = Reactman.createDialog({
+var AddGroupPointDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return {
@@ -98,4 +98,4 @@ var AddGrounpPointDialog = Reactman.createDialog({
 		)
 	}
 })
-module.exports = AddGrounpPointDialog;
+module.exports = AddGroupPointDialog;

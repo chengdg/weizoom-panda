@@ -13,5 +13,6 @@ module.exports = keyMirror({
 	DELETE_SELF_SHOP: null,
 	ADD_REBATE_DIALOG: null,
 	UPDATE_REBATES: null,
-	DELETE_REBATE_VALUE: null
+	DELETE_REBATE_VALUE: null,
+	UPDATE_GROUP_POINTS: null
 });

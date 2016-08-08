@@ -48,6 +48,17 @@ class AccountCreate(resource.Resource):
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
+			group_points = AccountHasGroupPoint.objects.filter(user_id=user_profile.user_id)
+			self_user_names = []
+			if group_points and user_profile.purchase_method == 2:#采购方式:零售价返点
+				for group_point in group_points:
+					self_user_name = group_point.self_user_name
+					self_user_names.append({
+						'self_user_name': self_user_name,
+						self_user_name+'_value': group_point.group_points
+						})
+					# self_user_names.append(user_names)
+			print self_user_names
 			if user_profile.role == CUSTOMER:
 				user_profile_data = {
 					'id': user_profile.id,
@@ -62,7 +73,8 @@ class AccountCreate(resource.Resource):
 					'valid_time_to': '' if not user_profile.valid_time_to else user_profile.valid_time_to.strftime("%Y-%m-%d %H:%M"),
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note
+					'note': user_profile.note,
+					'self_user_names': [] if not self_user_names else json.dumps(self_user_names)
 				}
 			else:
 				user_profile_data = {
@@ -99,6 +111,7 @@ class AccountCreate(resource.Resource):
 			phone = post.get('phone','')
 			valid_time_from = post.get('valid_time_from','')
 			valid_time_to = post.get('valid_time_to','')
+			self_user_names = post.get('self_user_names','')
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -121,6 +134,18 @@ class AccountCreate(resource.Resource):
 				note = note
 			)
 			if account_type == '1':
+				if self_user_names and purchase_method== 2: #采购方式:零售价返点
+					self_user_names = json.loads(self_user_names)
+					list_create = []
+					for self_user in self_user_names:
+						self_user_name = str(self_user['self_user_name'])
+						list_create.append(AccountHasGroupPoint(
+							user_id = user_id,
+							self_user_name = self_user_name,
+							points = points,
+							group_points = float(self_user[self_user_name+'_value'])
+						))
+					AccountHasGroupPoint.objects.bulk_create(list_create)
 				user_profile.update(
 					company_name = company_name,
 					company_type = company_type,
@@ -155,8 +180,9 @@ class AccountCreate(resource.Resource):
 							)
 						pass
 					else:
-						User.objects.filter(id=user_id).delete()
-						UserProfile.objects.filter(user_id=user_id).delete()
+						print "-----error----"
+						# User.objects.filter(id=user_id).delete()
+						# UserProfile.objects.filter(user_id=user_id).delete()
 				except Exception,e:
 					print(e)
 					User.objects.filter(id=user_id).delete()
@@ -194,6 +220,7 @@ class AccountCreate(resource.Resource):
 			phone = post.get('phone','')
 			valid_time_from = post.get('valid_time_from','')
 			valid_time_to = post.get('valid_time_to','')
+			self_user_names = post.get('self_user_names','')
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
 			user_id = user_profile.user_id
@@ -218,6 +245,21 @@ class AccountCreate(resource.Resource):
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to
 				)
+
+				if self_user_names and purchase_method== 2: #采购方式:零售价返点
+					self_user_names = json.loads(self_user_names)
+					AccountHasGroupPoint.objects.filter(user_id=user_id).delete()
+					list_create = []
+					for self_user in self_user_names:
+						self_user_name = str(self_user['self_user_name'])
+						list_create.append(AccountHasGroupPoint(
+							user_id = user_id,
+							self_user_name = self_user_name,
+							points = points,
+							group_points = float(self_user[self_user_name+'_value'])
+						))
+					AccountHasGroupPoint.objects.bulk_create(list_create)
+
 				supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
 				if supplier:
 					params = {

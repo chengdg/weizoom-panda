@@ -50,7 +50,8 @@ var Action = {
 			username: data['username'],
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
-			note: data['note']
+			note: data['note'],
+			self_user_names: JSON.stringify(data['self_user_names'])
 		};
 		if (data.id === -1) {
 			Resource.put({
@@ -131,6 +132,17 @@ var Action = {
 			actionType: Constant.DELETE_REBATE_VALUE,
 			data: {
 				index: index
+			}
+		});
+	},
+
+	updateGroupPoints: function(index, property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_GROUP_POINTS,
+			data: {
+				index: index,
+				property: property,
+				value: value
 			}
 		});
 	}

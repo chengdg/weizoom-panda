@@ -13,7 +13,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-var AddGrounpPointDialog = require('./AddGrounpPointDialog.react');
+var AddGroupPointDialog = require('./AddGroupPointDialog.react');
 var PurchaseMethod = require('./PurchaseMethod.react');
 require('./style.css');
 
@@ -89,8 +89,8 @@ var AccountCreatePage = React.createClass({
 		// 	Reactman.PageAction.showHint('error', '请选择经营类目');
 		// 	return;
 		// }
-		console.log(Store.getData().self_user_names,"========")
-		// Action.saveAccount(Store.getData());
+		console.log(Store.getData().rebates,"========")
+		Action.saveAccount(Store.getData());
 	},
 	render:function(){
 		var optionsForAccountType = [{
