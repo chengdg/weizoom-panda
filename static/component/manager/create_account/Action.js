@@ -107,6 +107,33 @@ var Action = {
 			}
 		});
 	},
+
+	addRebateDialog: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_REBATE_DIALOG,
+			data: {}
+		});
+	},
+
+	updateRebates: function(index, property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_REBATES,
+			data: {
+				index: index,
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	deleteRebateValue: function(index){
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_REBATE_VALUE,
+			data: {
+				index: index
+			}
+		});
+	}
 };
 
 module.exports = Action;

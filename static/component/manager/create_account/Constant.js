@@ -10,5 +10,8 @@ module.exports = keyMirror({
 	NEW_ACCOUNT_CREATE: null,
 	NEW_ACCOUNT_SELECT_CATALOG: null,
 	ADD_SELF_SHOP: null,
-	DELETE_SELF_SHOP: null
+	DELETE_SELF_SHOP: null,
+	ADD_REBATE_DIALOG: null,
+	UPDATE_REBATES: null,
+	DELETE_REBATE_VALUE: null
 });

@@ -21,7 +21,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
 		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG,
 		'handleAddSelfShop':Constant.ADD_SELF_SHOP,
-		'handleDeleteSelfShop':Constant.DELETE_SELF_SHOP
+		'handleDeleteSelfShop':Constant.DELETE_SELF_SHOP,
+		'handleAddRebateDialog':Constant.ADD_REBATE_DIALOG,
+		'handleUpdateRebates':Constant.UPDATE_REBATES,
+		'handleDeleteRebateValue':Constant.DELETE_REBATE_VALUE
 	},
 
 	init: function() {
@@ -44,7 +47,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'company_type': [],
 				'options_for_type': [],
 				'self_user_names': [],
-				'points': ''
+				'points': '',
+				'rebates': []
 			};
 		}
 	},
@@ -81,6 +85,37 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var index = action.data.index;
 		selfShop.splice(index,1)
 		this.data.self_user_names = selfShop;
+		this.__emitChange();
+	},
+
+	handleAddRebateDialog: function(){
+		var oldRebates = this.data.rebates;
+		oldRebates.push({
+			'validate_from_condition':'',
+			'validate_to_condition':'',
+			'order_money_condition': 1000,
+			'rebate_proport_condition': 50,
+			'default_rebate_proport_condition': 5
+		})
+		this.data.rebates = oldRebates;
+		this.__emitChange();
+	},
+
+	handleUpdateRebates: function(action){
+		var index = action.data.index;
+		var property = action.data.property;
+		var value = action.data.value;
+		var oldRebates = this.data.rebates;
+		oldRebates[index][property] = value;
+		this.data.rebates = oldRebates;
+		this.__emitChange();
+	},
+
+	handleDeleteRebateValue: function(action){
+		var index = action.data.index;
+		var oldRebates = this.data.rebates;
+		oldRebates.splice(index,1)
+		this.data.rebates = oldRebates;
 		this.__emitChange();
 	},
 
