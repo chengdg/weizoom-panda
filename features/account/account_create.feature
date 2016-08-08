@@ -7,6 +7,7 @@ Feature:精简版云商通-创建合作客户、代理商、运营账号
 	2.管理员创建代理商账号
 	3.管理员创建运营账号
 	4.新增团购返点账号
+	5.新增首月55分成账号
 
 """
 #account_type   账号类型
@@ -116,25 +117,97 @@ Scenario:4  新增团购返点账号
 	Given manager登录管理系统
 	When manager添加账号
 	"account_type":"体验客户",
-		"company_name":"爱昵咖啡有限责任公司",
-		"shop_name":"爱昵咖啡",
-		"manage_type":"休闲食品",
-		"purchase_type":"零售价返点",
-		"purchase_promotin":"5.00",
-		"group_purchase":{
-						"weizoom_home":"4.00",
-						"weizoom_mum":"3.00",
-						"weizoom_baifumei":"1.00",
-						"weizoom_club":"2.00",
-						"weizoom_shop":"1.42",
-						"weizoom_xuesheng":"1.64",
-						"weizoom_life":"2.38",
-						"weizoom_yijiaren":"4.56",
-						"huihuilaila":"3.81"
-		}
-		"connect_man":"aini",
-		"mobile_number":"13813985506",
-		"login_account":"aini",
-		"password":"123456",
-		"valid_time":"2016-07-15"至"2017-07-15",
-		"ramarks":"爱昵咖啡客户体验账号"
+	"company_name":"爱昵咖啡有限责任公司",
+	"shop_name":"爱昵咖啡",
+	"manage_type":"休闲食品",
+	"purchase_type":"零售价返点",
+	"purchase_promotin":"5.00",
+	"group_purchase":{
+					"weizoom_home":"4.00",
+					"weizoom_mum":"3.00",
+					"weizoom_baifumei":"1.00",
+					"weizoom_club":"2.00",
+					"weizoom_shop":"1.42",
+					"weizoom_xuesheng":"1.64",
+					"weizoom_life":"2.38",
+					"weizoom_yijiaren":"4.56",
+					"huihuilaila":"3.81"
+	}
+	"connect_man":"aini",
+	"mobile_number":"13813985506",
+	"login_account":"aini",
+	"password":"123456",
+	"valid_time":"2016-07-15"至"2017-07-15",
+	"ramarks":"爱昵咖啡客户体验账号"
+
+@panda @account_create
+Scenario:5  新增首月55分成账号
+	Given manager登录管理系统
+	When manager添加账号
+	"""
+	[{
+	"account_type":"体验客户",
+	"company_name":"爱昵咖啡有限责任公司",
+	"shop_name":"爱昵咖啡",
+	"manage_type":"休闲食品",
+	"purchase_type":{
+				"首月55分成",
+				"首月(商品上架30天含内)或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算"
+				},
+	"connect_man":"aini",
+	"mobile_number":"13813985506",
+	"login_account":"aini",
+	"password":"123456",
+	"valid_time":"2016-07-15"至"2017-07-15",
+	"ramarks":"爱昵咖啡客户体验账号"
+	}]
+	"""
+
+	When manager编辑'爱伲咖啡'使之含有多个条件的首月55分成账号
+	"""
+	[{
+	"account_type":"体验客户",
+	"company_name":"爱昵咖啡有限责任公司",
+	"shop_name":"爱昵咖啡",
+	"manage_type":"休闲食品",
+	"purchase_type":{
+				"首月55分成",
+				"首月(商品上架30天含内)或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算",
+				"周期'2016-07-03 00:00'-'2017-07-03 00:00'或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算",
+				"周期'2017-07-03 00:00'-'2019-07-03 00:00'或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算"
+				},
+	"connect_man":"aini",
+	"mobile_number":"13813985506",
+	"login_account":"aini",
+	"password":"123456",
+	"valid_time":"2016-07-15"至"2017-07-15",
+	"ramarks":"爱昵咖啡客户体验账号"
+	}]
+	"""
+
+	Then manager删除'爱伲咖啡'中'首月55分成'的一个人条件
+	"""
+	[
+	"purchase_type":"周期'2016-07-03 00:00'-'2017-07-03 00:00'或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算"
+	]
+	"""
+	Then manager查看'爱伲咖啡'的账号详情
+	"""
+	[{
+	"account_type":"体验客户",
+	"company_name":"爱昵咖啡有限责任公司",
+	"shop_name":"爱昵咖啡",
+	"manage_type":"休闲食品",
+	"purchase_type":{
+				"首月55分成",
+				"首月(商品上架30天含内)或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算",
+				"周期'2016-07-03 00:00'-'2017-07-03 00:00'或金额不大于"3000"时,返点比例为50%,否则按5%基础扣点结算"
+				},
+	"connect_man":"aini",
+	"mobile_number":"13813985506",
+	"login_account":"aini",
+	"password":"123456",
+	"valid_time":"2016-07-15"至"2017-07-15",
+	"ramarks":"爱昵咖啡客户体验账号"
+	}]
+
