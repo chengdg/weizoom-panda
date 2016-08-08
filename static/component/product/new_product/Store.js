@@ -28,7 +28,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		var _this = this;
-		this.data = Reactman.loadJSON('product');
+		try{
+			this.data = Reactman.loadJSON('product');
+		}catch(e){
+			console.log("json.parse error");
+		}
 		this.model_value = {}	
 		if (this.data) {
 			this.data['product_store_type'] = this.data['product_store'] > -1 ? '0' : '-1';

@@ -31,12 +31,17 @@ var ProductPreviewDialog = Reactman.createDialog({
 	render:function(){
 		var path = this.state.images[0].path;
 		var img_count = this.state.images.length;
-		var remark = this.state.remark;
 		var model_values = this.props.data.model_values;
 		var product = this.props.data.product;
 		var has_product_model = product['has_product_model'];
 		var product_prices = '';
-		var names=[]
+		var names=[];
+		
+		//字符串的HTMLDecode解码
+		var remark = this.state.remark;
+		var converter = document.createElement("DIV"); 
+		converter.innerHTML = remark; 
+		var output = converter.innerText; 
 
 		if(has_product_model=='1'){
 			var modelId = model_values[0].modelId;
@@ -67,7 +72,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 						</div>
 						<div className="product-introduce">
 							<span className="title">商品详情</span>
-							<div className="product-content" dangerouslySetInnerHTML={{__html: this.state.remark}}></div>
+							<div className="product-content" dangerouslySetInnerHTML={{__html: output}}></div>
 						</div>
 					</div>
 				</div>
@@ -88,7 +93,7 @@ var ProductPreviewDialog = Reactman.createDialog({
 						</div>
 						<div className="product-introduce">
 							<span className="title">商品详情</span>
-							<div className="product-content" dangerouslySetInnerHTML={{__html: this.state.remark}}></div>
+							<div className="product-content" dangerouslySetInnerHTML={{__html: output}}></div>
 						</div>
 					</div>
 				</div>
