@@ -75,6 +75,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			'self_user_name': selfUserName
 		}
 		selfShop.push(self_obj)
+		self_obj[selfUserName+'_value'] = this.data.points;
 		this.data[selfUserName+'_value'] = this.data.points;
 		this.data.self_user_names = selfShop;
 		this.__emitChange();

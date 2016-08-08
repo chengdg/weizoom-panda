@@ -1,6 +1,11 @@
-.rebate_tips{
-    width: 78%;
-    margin: 0 auto;
-    margin-left: 90px;
-    margin-bottom: 15px;
+.save-btn div{
+	margin-left: 0px !important;
+}
+
+.save-btn div label{
+	display: none;
+}
+
+.save-btn{
+    padding-left: 76px;
 }
