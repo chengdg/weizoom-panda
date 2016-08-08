@@ -4,4 +4,4 @@ import sys
 import json
 
 def raw_html(str):
-	return str.replace('<', '&lt;').replace('>', '&gt;')
+	return str.replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace('&', '&amp;')
