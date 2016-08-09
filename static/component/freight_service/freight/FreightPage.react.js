@@ -36,7 +36,7 @@ var FreightPage = React.createClass({
 		var freeFreightMoney = this.state.free_freight_money;
 		var needFreightMoney = this.state.need_freight_money;
 		var reg = /^[0-9]+(.[0-9]{1,2})?$/;
-		if(freeFreightMoney.trim().length>0 && !reg.test(freeFreightMoney.trim())){
+		if(freeFreightMoney.length>0 && !reg.test(freeFreightMoney)){
 			Reactman.PageAction.showHint('error', '请输入数字且最多保留两位小数!');
 			return;
 		}
