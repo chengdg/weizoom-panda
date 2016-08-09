@@ -36,10 +36,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			}, 10);
 		}else{
 			setTimeout(function() {
-			 	Reactman.PageAction.showHint('success', '保存失败!');
+			 	Reactman.PageAction.showHint('error', '保存失败!');
 			}, 10);
 		}
-		console.log(action,"========");
 		this.__emitChange();
 	},
 

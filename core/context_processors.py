@@ -75,12 +75,14 @@ def top_navs(request):
 				'displayName': '客户统计',
 				'icon': 'credit-card',
 				'href': '/customer/statistics/'
-			},{
-				'name': 'self_shop',
-				'displayName': '自营平台管理',
-				'icon': 'credit-card',
-				'href': '/self_shop/manage/'
-			}]
+			}
+			# {
+			# 	'name': 'self_shop',
+			# 	'displayName': '自营平台管理',
+			# 	'icon': 'credit-card',
+			# 	'href': '/self_shop/manage/'
+			# }
+			]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',

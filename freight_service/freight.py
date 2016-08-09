@@ -60,6 +60,7 @@ class freight(resource.Resource):
 
 			relation = account_models.AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
 			user_has_freight = models.UserHasFreight.objects.filter(user_id=user_id)
+			free_freight_money = free_freight_money if free_freight_money.strip() else 0
 			if user_has_freight:
 				user_has_freight.update(
 					free_freight_money= float(free_freight_money),

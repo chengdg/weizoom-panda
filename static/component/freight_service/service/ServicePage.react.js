@@ -32,7 +32,6 @@ var ServicePage = React.createClass({
 		Action.addSalePhone(property, value);
 	},
 
-
 	onChangeStore: function() {
 		this.setState(Store.getData());
 	},
@@ -61,7 +60,7 @@ var ServicePage = React.createClass({
 						<Reactman.FormInput label="售前电话:" type="text" name="pre_sale_tel" value={this.state.pre_sale_tel} onChange={this.onChange} />
 						<Reactman.FormInput label="售后电话:" type="text" name="after_sale_tel" value={this.state.after_sale_tel} onChange={this.onChange} />
 					</fieldset>
-					<fieldset style={{position:'relative'}}>
+					<fieldset style={{position:'relative'}} className="save-btn">
 						<Reactman.FormSubmit onClick={this.onSubmit} />
 					</fieldset>
 				</form>

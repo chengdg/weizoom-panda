@@ -35,6 +35,11 @@ var FreightPage = React.createClass({
 	onSubmit: function(){
 		var freeFreightMoney = this.state.free_freight_money;
 		var needFreightMoney = this.state.need_freight_money;
+		var reg = /^[0-9]+(.[0-9]{1,2})?$/;
+		if(freeFreightMoney.length>0 && !reg.test(freeFreightMoney)){
+			Reactman.PageAction.showHint('error', '请输入数字且最多保留两位小数!');
+			return;
+		}
 		Action.saveSalePhone(freeFreightMoney,needFreightMoney);
 	},
 
@@ -47,10 +52,12 @@ var FreightPage = React.createClass({
 			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset style={{paddingTop:'20px'}}>
-						<Reactman.FormInput label="全店满消费免运费(元)" type="text" name="free_freight_money" value={this.state.free_freight_money} onChange={this.onChange} validate="require-float"/>
-						<Reactman.FormInput label="否则收取统一运费(元)" type="text" name="need_freight_money" value={this.state.need_freight_money} onChange={this.onChange} validate="require-float"/>
+						<span style={{display:'inline-block'}}>全店满</span>
+						<Reactman.FormInput label="" type="text" name="free_freight_money" value={this.state.free_freight_money} onChange={this.onChange} />
+						<span style={{marginLeft:'20px'}}>元包邮，否则收取统一运费(元)</span>
+						<Reactman.FormInput label="" type="text" name="need_freight_money" value={this.state.need_freight_money} onChange={this.onChange} validate="require-int"/>
 					</fieldset>
-					<fieldset style={{position:'relative'}}>
+					<fieldset style={{position:'relative'}} className="save-btn">
 						<Reactman.FormSubmit onClick={this.onSubmit} />
 					</fieldset>
 				</form>
