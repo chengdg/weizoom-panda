@@ -89,7 +89,6 @@ var AccountCreatePage = React.createClass({
 		// 	Reactman.PageAction.showHint('error', '请选择经营类目');
 		// 	return;
 		// }
-		console.log(Store.getData(),"========")
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
@@ -157,7 +156,7 @@ var AccountInfo = React.createClass({
 			text: '零售价返点',
 			value: '2'
 		}, {
-			text: '首月55分成',
+			text: '以货抵款',
 			value: '3'
 		}];
 		
