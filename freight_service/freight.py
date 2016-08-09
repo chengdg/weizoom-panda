@@ -99,13 +99,12 @@ class freight(resource.Resource):
 				if relation:
 
 					params = {
-						'id': freight_relation.weapp_freight_id,
 						"supplier_id": relation.supplier_id,
 						"condition_type": 'money',
 						"postage": float(need_freight_money),
 						"condition_money": float(free_freight_money),
 					}
-					result = sync_update(params, db_model)
+					result = sync_add(params, db_model)
 					if not result:
 						data['code'] = 500
 						return response.get_response()
