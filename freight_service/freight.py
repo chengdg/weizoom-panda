@@ -99,6 +99,7 @@ class freight(resource.Resource):
 				if relation:
 
 					params = {
+						'id': freight_relation.weapp_freight_id,
 						"supplier_id": relation.supplier_id,
 						"condition_type": 'money',
 						"postage": float(need_freight_money),
