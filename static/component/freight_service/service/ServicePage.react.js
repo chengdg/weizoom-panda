@@ -32,7 +32,6 @@ var ServicePage = React.createClass({
 		Action.addSalePhone(property, value);
 	},
 
-
 	onChangeStore: function() {
 		this.setState(Store.getData());
 	},

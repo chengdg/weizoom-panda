@@ -54,7 +54,7 @@ var FreightPage = React.createClass({
 					<fieldset style={{paddingTop:'20px'}}>
 						<span style={{display:'inline-block'}}>全店满</span>
 						<Reactman.FormInput label="" type="text" name="free_freight_money" value={this.state.free_freight_money} onChange={this.onChange} />
-						<span style={{marginLeft:'20px'}}>元包邮,否则收取统一运费(元)</span>
+						<span style={{marginLeft:'20px'}}>元包邮，否则收取统一运费(元)</span>
 						<Reactman.FormInput label="" type="text" name="need_freight_money" value={this.state.need_freight_money} onChange={this.onChange} validate="require-int"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}} className="save-btn">
