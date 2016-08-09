@@ -35,7 +35,7 @@ var FreightPage = React.createClass({
 	onSubmit: function(){
 		var freeFreightMoney = this.state.free_freight_money;
 		var needFreightMoney = this.state.need_freight_money;
-		var reg = /^[1-9]*$/;
+		var reg = /^\+?[1-9][0-9]*$/;
 		if(freeFreightMoney.length>0 && !reg.test(freeFreightMoney)){
 			Reactman.PageAction.showHint('error', '请输入大于0的整数!');
 			return;
