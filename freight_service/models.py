@@ -14,3 +14,15 @@ class UserHasFreight(models.Model):
 
 	class Meta(object):
 		db_table = 'user_has_freight'
+
+
+class UserHasFreightRelation(models.Model):
+	"""
+	用户是否有运费 和云上通的中间关系
+	"""
+	freight_id = models.IntegerField(default=0) #panda的id
+	weapp_freight_id = models.IntegerField(default=0) #云上通的id
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'user_has_freight_relation'
