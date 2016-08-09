@@ -422,7 +422,7 @@ class YunyingOrdersList(resource.Resource):
 					# 	if model_info:
 					# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'total_purchase_price': order.get('total_purchase_price'),
+					rows.append({'total_purchase_price': '%.2f' %order.get('total_purchase_price'),
 								 'order_id': order.get('order_id'),
 								 'from_mall': [order.get('store_name')],
 								 'order_status': order_status2text.get(order.get('status')),
