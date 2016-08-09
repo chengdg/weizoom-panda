@@ -103,7 +103,7 @@ class freight(resource.Resource):
 						"postage": float(need_freight_money),
 						"condition_money": float(free_freight_money),
 					}
-					result = sync_add(params, db_model)
+					result = sync_update(params, db_model)
 					if not result:
 						data['code'] = 500
 						return response.get_response()
