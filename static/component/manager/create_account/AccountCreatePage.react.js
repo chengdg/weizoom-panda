@@ -89,7 +89,7 @@ var AccountCreatePage = React.createClass({
 		// 	Reactman.PageAction.showHint('error', '请选择经营类目');
 		// 	return;
 		// }
-		console.log(Store.getData().rebates,"========")
+		console.log(Store.getData(),"========")
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){

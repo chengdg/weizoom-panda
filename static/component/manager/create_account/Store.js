@@ -40,7 +40,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				if (this.data['purchase_method'] != '2'){
 					this.data['points'] = '';
 				}
-				this.data['rebates'] = []
+				this.data['rebates'] = this.data['rebates'].length>0?JSON.parse(this.data['rebates']): [];
 			}
 		} else {
 			this.data = {
@@ -51,7 +51,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'options_for_type': [],
 				'self_user_names': [],
 				'points': '',
-				'rebates': []
+				'rebates': [],
+				'order_money': 1000,
+				'rebate_proport': 50,
+				'default_rebate_proport': 5
 			};
 		}
 	},
