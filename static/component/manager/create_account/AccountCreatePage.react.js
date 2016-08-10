@@ -45,7 +45,8 @@ var AccountCreatePage = React.createClass({
 		var account_type = parseInt(account.account_type);
 		var purchase_method = parseInt(account.purchase_method);
 		var reg = /^(0|[1-9]|[1-9]\d|99)$/;
-		var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		// var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		var reg_phone = /^1\d{10}$/;
 		var reg_username = /^[0-9a-zA-Z]*$/g;
 
 		if(account_type ==1 && purchase_method == 2 &&account.hasOwnProperty('points') && account.points.length>0){
