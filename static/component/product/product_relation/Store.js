@@ -52,11 +52,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		},{
 			'name': '惠惠来啦',
 			'value': 'weizoom_fulilaile'
-		}]
+		}];
 		this.filter = {};
 		this.data = {};
 		this.data.selfShop = selfShop;
-		this.data.selectSelfShop = []
+		this.data.selectSelfShop = [];
 	},
 
 	handleProductRelationWeapp: function(action) {
@@ -103,7 +103,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetHasSyncShop: function(action){
-		console.log(action.data,'+=========')
 		this.data.selectSelfShop = action.data.self_user_name;
 		this.data['product_info'] = action.data.product_info;
 		this.__emitChange();
@@ -111,9 +110,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleChooseAllSelfShop: function(){
 		var selectSelfShop = this.data.selectSelfShop;
-		console.log(selectSelfShop.length,'++++==')
 		if(selectSelfShop.length==9){
-			selectSelfShop = []
+			selectSelfShop = [];
 		}else{
 			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng','weizoom_life','weizoom_yjr','weizoom_fulilaile'];
 		}	

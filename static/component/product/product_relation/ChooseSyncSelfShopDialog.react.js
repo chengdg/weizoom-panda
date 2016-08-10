@@ -71,6 +71,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			'detail': product_info['remark']//商品详情
 		}]
 		Action.relationFromWeapp(JSON.stringify(product_data));
+		_.delay(function(){
+			_this.closeDialog();
+		},500)
 	},
 
 	render:function(){
@@ -96,7 +99,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 				</ul>
 				<span style={{display:'block',paddingLeft:'50px'}}>
 					<input type="checkbox" className="checkbox" name="select" value="0" style={{display:'inline-block'}} onClick={this.chooseAllSelfShop}/>全选
-				</span>	
+				</span>
+				<span className='cancle-relation-tips'>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	
 				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,product_id)}><span>确定同步</span></a>
 				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px'}} onClick={this.cancleChecked.bind(this,product_id)}><span>取消同步</span></a>
 			</div>

@@ -57,6 +57,12 @@
 }
 .self-shop-li:hover{
 	cursor: pointer;
-   /* background: #009DD9;
-    col*/or: #FFF;
+}
+
+.cancle-relation-tips{
+    display: block;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
