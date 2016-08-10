@@ -16,9 +16,37 @@ require('./style.css');
 var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
+		var selfShop = [{
+			'name': '微众白富美',
+			'value': 'weizoom_baifumei'
+		},{
+			'name': '微众俱乐部',
+			'value': 'weizoom_club'
+		},{
+			'name': '微众家',
+			'value': 'weizoom_jia'
+		},{
+			'name': '微众妈妈',
+			'value': 'weizoom_mama'
+		},{
+			'name': '微众商城',
+			'value': 'weizoom_shop'
+		},{
+			'name': '微众学生',
+			'value': 'weizoom_xuesheng'
+		},{
+			'name': '微众Life',
+			'value': 'weizoom_life'
+		},{
+			'name': '微众一家人',
+			'value': 'weizoom_yjr'
+		},{
+			'name': '惠惠来啦',
+			'value': 'weizoom_fulilaile'
+		}];
 		return {
-			'selectSelfShop': Store.getData()['selectSelfShop'],
-			'selfShop': Store.getData()['selfShop']
+			select_self_shop: Store.getData()['selectSelfShop'],
+			self_shop: selfShop
 		}
 	},
 
@@ -28,11 +56,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		console.log(Store.getData());
 		this.setState({
-			'selectSelfShop': Store.getData()['selectSelfShop'],
-			'selfShop': Store.getData()['selfShop'],
-			'product_info': Store.getData()['product_info']
+			select_self_shop: Store.getData()['selectSelfShop'],
+			product_info: Store.getData()['product_info']
 		});
 	},
 
@@ -41,7 +67,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	},
 
 	cancleChecked: function(product_id){
-		var selectSelfShop = this.state.selectSelfShop;
+		var selectSelfShop = this.state.select_self_shop;
 		var _this = this;
 		if (selectSelfShop.length==0){
 			Reactman.PageAction.showHint('error', '请选择要取消同步的商城！');
@@ -59,7 +85,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 
 	productRelation: function(product_id) {
 		var _this = this;
-		var selectSelfShop = this.state.selectSelfShop;
+		var selectSelfShop = this.state.select_self_shop;
 		var product_info = this.state.product_info;
 		if (selectSelfShop.length==0){
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
@@ -88,9 +114,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	render: function(){
 		var _this = this;
 		var product_id = this.props.data.product_id;
-		var selfShop = this.state.selfShop;
-		console.log(this.state['selfShop'],"======")
-		var selectSelfShop = this.state.selectSelfShop.toString();
+		var selfShop = this.state.self_shop;
+		var selectSelfShop = this.state.select_self_shop.toString();
+		var checked = this.state.select_self_shop.length==9?'checked':null;
 
 		var selfs = selfShop.map(function(self_shop,index){
 			var value = self_shop.value;
@@ -103,7 +129,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 				<li key={index} style={bg_style['style']} className="self-shop-li" onClick={_this.ChooseSelfShop.bind(_this,value)}>{self_shop.name}</li>
 			)
 		})
-		var checked = this.state.selectSelfShop.length==9?'checked':null;
+
 		return (
 			<div className="xui-formPage">
 				<ul>
