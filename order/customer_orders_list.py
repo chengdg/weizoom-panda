@@ -64,6 +64,10 @@ class CustomerOrdersList(resource.Resource):
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
+		try:
+			cur_page = int(cur_page)
+		except:
+			cur_page = 1
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
 		filter_product_name = filter_idct.get('product_name','')
