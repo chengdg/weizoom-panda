@@ -20,12 +20,12 @@ var Action = {
 		});
 	},
 
-	cancleChecked: function(product_id,self_name){
+	cancleChecked: function(product_id,self_names){
 		Resource.delete({
 			resource: 'product.weapp_relation',
 			data: {
 				'product_id': product_id,
-				'self_name': self_name
+				'self_names': self_names
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
@@ -44,6 +44,35 @@ var Action = {
 				dispatcher: Dispatcher,
 				actionType: Constant.PRODUCT_RELATION_WEAPP
 			}
+		});
+	},
+
+	getHasSyncShop: function(product_id){
+		Resource.get({
+			resource: 'product.weapp_relation',
+			data: {
+				'product_id': product_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.GET_HAS_SYNC_SHOP
+			}
+		});
+	},
+
+	chooseSelfShop: function(value){
+		Dispatcher.dispatch({
+			actionType: Constant.CHOOSE_SELF_SHOP,
+			data: {
+				value: value
+			}
+		});
+	},
+
+	chooseAllSelfShop: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CHOOSE_ALL_SELF_SHOP,
+			data: {}
 		});
 	}
 };

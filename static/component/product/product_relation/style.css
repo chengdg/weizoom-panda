@@ -43,3 +43,26 @@
 .modal-footer .btn-primary{
 	display: none;
 }
+
+.self-shop-li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 48px;
+    border: 1px solid #CCC;
+    width: 80px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    height: 28px;
+    text-align: center;
+}
+.self-shop-li:hover{
+	cursor: pointer;
+}
+
+.cancle-relation-tips{
+    display: block;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
