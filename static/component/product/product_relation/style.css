@@ -43,3 +43,20 @@
 .modal-footer .btn-primary{
 	display: none;
 }
+
+.self-shop-li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 48px;
+    border: 1px solid #CCC;
+    width: 80px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    height: 28px;
+    text-align: center;
+}
+.self-shop-li:hover{
+	cursor: pointer;
+   /* background: #009DD9;
+    col*/or: #FFF;
+}

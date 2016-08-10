@@ -13,8 +13,9 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
-var ProductRelationPage = React.createClass({
+var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 
+var ProductRelationPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return ({});
@@ -23,7 +24,16 @@ var ProductRelationPage = React.createClass({
 	onChangeStore: function(event) {
 		var _this = this;
 		var filterOptions = Store.getFilter();
-		this.refs.table.refresh(filterOptions);
+		var hasProp = false;  
+		for (var prop in filterOptions){  
+			hasProp = true;  
+			break;  
+		}
+		if (hasProp){  
+			this.refs.table.refresh(filterOptions);  
+		}else{
+			this.setState(Store.getData());
+		}	
 	},
 
 	cancleChecked: function(product_id, self_name){
@@ -63,6 +73,20 @@ var ProductRelationPage = React.createClass({
 		Action.relationFromWeapp(JSON.stringify(product_data));
 	},
 
+	ChooseSyncSelfShop: function(product_id){
+		Action.getHasSyncShop(product_id);
+		Reactman.PageAction.showDialog({
+			title: "选择平台进行同步商品",
+			component: ChooseSyncSelfShopDialog,
+			data: {
+				product_id:product_id
+			},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'weapp_name') {
 			var id = data['id'];
@@ -76,42 +100,58 @@ var ProductRelationPage = React.createClass({
 			var wLChecked = selfUserName.indexOf('weizoom_life')>-1?'checked':null;
 			var wYChecked = selfUserName.indexOf('weizoom_yjr')>-1?'checked':null;
 			var wFChecked = selfUserName.indexOf('weizoom_fulilaile')>-1?'checked':null;
+
+			// var wBInput = if wBChecked==null?<input type="checkbox" className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />:<input type="checkbox" checked={wBChecked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />;
+			// console.log(wBChecked,'----');
+			var wBInput,s;
+			if(wBChecked==null){
+				console.log(wJChecked,"------");
+				wBInput = <input type="checkbox" className="checkbox" name={"weizoom_self_"+id} value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />;
+				s = '';
+			}else{
+				wBInput=''
+				console.log(wJChecked,"======");
+				s = <input type="checkbox" checked={wBChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />;
+			}
+			
 			return (
 				<div id={id}>
 					<label className="checkbox-inline" style={{marginRight:'15px',marginLeft:'10px',width:'90px'}}>
-						<input type="checkbox" checked={wBChecked} className="checkbox" name="weizoom_self" value="weizoom_baifumei" onChange={this.cancleChecked.bind(this,id,'weizoom_baifumei')} />
+						
+						{wBInput}
+						{s}
 						<span>微众白富美</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wCChecked} className="checkbox" name="weizoom_self" value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
+						<input type="checkbox" checked={wCChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_club" onChange={this.cancleChecked.bind(this,id,'weizoom_club')} />
 						<span>微众俱乐部</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wJChecked} className="checkbox" name="weizoom_self" value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
+						<input type="checkbox" checked={wJChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_jia" onChange={this.cancleChecked.bind(this,id,'weizoom_jia')} />
 						<span>微众家</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wMChecked} className="checkbox" name="weizoom_self" value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
+						<input type="checkbox" checked={wMChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_mama" onChange={this.cancleChecked.bind(this,id,'weizoom_mama')} />
 						<span>微众妈妈</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wSChecked} className="checkbox" name="weizoom_self" value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
+						<input type="checkbox" checked={wSChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_shop" onChange={this.cancleChecked.bind(this,id,'weizoom_shop')} />
 						<span>微众商城</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wXChecked} className="checkbox" name="weizoom_self" value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
+						<input type="checkbox" checked={wXChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_xuesheng" onChange={this.cancleChecked.bind(this,id,'weizoom_xuesheng')} />
 						<span>微众学生</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wLChecked} className="checkbox" name="weizoom_self" value="weizoom_life" onChange={this.cancleChecked.bind(this,id,'weizoom_life')} />
+						<input type="checkbox" checked={wLChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_life" onChange={this.cancleChecked.bind(this,id,'weizoom_life')} />
 						<span>微众Life</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wYChecked} className="checkbox" name="weizoom_self" value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
+						<input type="checkbox" checked={wYChecked} className="checkbox" name={"weizoom_self_"+id} value="weizoom_yjr" onChange={this.cancleChecked.bind(this,id,'weizoom_yjr')} />
 						<span>微众一家人</span>
 					</label>
 					<label className="checkbox-inline" style={{marginRight:'15px',width:'90px'}}>
-						<input type="checkbox" checked={wFChecked} className="checkbox" name="weizoom_self" value="weizoom_fulilaile" onChange={this.cancleChecked.bind(this,id,'weizoom_fulilaile')} />
+						<input type="checkbox" checked={wFChecked} className="checkbox" name={"weizoom_self_"+id}	 value="weizoom_fulilaile" onChange={this.cancleChecked.bind(this,id,'weizoom_fulilaile')} />
 						<span>惠惠来啦</span>
 					</label>
 					<a className="btn btn-link btn-xs" style={{color:'#1ab394'}} onClick={this.productRelation.bind(this,data['self_user_name'],data['product_info'])}>同步</a>
@@ -121,7 +161,11 @@ var ProductRelationPage = React.createClass({
 			return(
 				<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}>{value}</a>
 			)
-		} else {
+		} else if(field === 'action'){
+			return(
+				<a className="btn btn-link btn-xs" onClick={this.ChooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+			)
+		}else {
 			return value;
 		}
 	},
@@ -158,7 +202,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="同步商品" field="weapp_name" width="400px"/>
+						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
