@@ -28,16 +28,16 @@ module.exports = {
 			test: /\.css$/, // Only .css files
 			loader: 'style!css' // Run both loaders
 		}]
-	},
-	plugins: [
-        //使用丑化js插件
-        new UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            mangle: {
-                except: ['window', '$']
-            }
-        })
-    ]
+	}
+	// plugins: [
+	// 	//使用丑化js插件
+	// 	new UglifyJsPlugin({
+	// 		compress: {
+	// 			warnings: false
+	// 		},
+	// 		mangle: {
+	// 			except: ['window', '$']
+	// 		}
+	// 	})
+	// ]
 };
