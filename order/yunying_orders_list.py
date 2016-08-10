@@ -365,7 +365,10 @@ class YunyingOrdersList(resource.Resource):
 				response = create_response(200)
 				response.data = data
 				return response.get_response()
-
+		try:
+			cur_page = int(cur_page)
+		except:
+			cur_page = 1
 		params = {
 			'page': cur_page,
 			'from_mall': from_mall,
