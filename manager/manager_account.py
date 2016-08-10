@@ -91,7 +91,7 @@ class ManagerAccount(resource.Resource):
 						#获得经营类目的名称
 						catalog_ids = json.loads(account.company_type)
 						for catalog_id in catalog_ids:
-							catalog_names.append(catalog_id2name[catalog_id])
+							catalog_names.append(catalog_id2name.get(catalog_id, ''))
 					catalog_names = ','.join(catalog_names)
 				else:
 					catalog_names = '--'
