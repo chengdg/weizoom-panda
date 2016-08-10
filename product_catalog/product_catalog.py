@@ -121,7 +121,7 @@ class ProductCatalog(resource.Resource):
 									weapp_catalog_id=resp.get('data').get('classification').get('id'))
 				response = create_response(200)
 			else:
-				product_catalog_models.ProductCatalog.objects.objects.delete(id=product_catalog.id)
+				product_catalog_models.ProductCatalog.objects.filter(id=product_catalog.id).delete()
 				response = create_response(500)
 		except:
 			response = create_response(500)
