@@ -1,30 +1,27 @@
 # -*- coding: utf-8 -*-
 import json
-import time
 
-from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.db.models import F
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
+from eaglet.core.exceptionutil import unicode_full_stack
+from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
 
 from core import resource
 from core.jsonresponse import create_response
-from core import paginator
 
-from util import string_util
 from account import models as account_models
 from product import models as product_models
-from panda.settings import ZEUS_HOST
-from util import db_util
+from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
+
 import models as product_catalog_models
 import nav
-import requests
 
 FIRST_NAV = 'product_catalog'
 SECOND_NAV = 'product_catalog'
 # COUNT_PER_PAGE = 10
+
 
 class ProductCatalog(resource.Resource):
 	app = 'product_catalog'
@@ -94,17 +91,43 @@ class ProductCatalog(resource.Resource):
 		level = 1 if father_id == -1 else 2
 		note = post.get('note','')
 		try:
-			product_catalog_models.ProductCatalog.objects.create(
+			product_catalog = product_catalog_models.ProductCatalog.objects.create(
 				name = name,
 				level = level,
 				father_id = father_id,
 				note = note
 			)
-			response = create_response(200)
+			#
+			weapp_father_id = father_id
+			if father_id > 0:
+				relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=father_id).first()
+				if relation:
+					weapp_father_id = relation.weapp_catalog_id
+
+			params = {
+				'name': name,
+				'level': level,
+				'father_id': weapp_father_id
+			}
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
+				{
+					'resource': 'mall.classification',
+					'data': params
+				}
+			)
+			if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
+				product_catalog_models.ProductCatalogRelation\
+					.objects.create(catalog_id=product_catalog.id,
+									weapp_catalog_id=resp.get('data').get('classification').get('id'))
+				response = create_response(200)
+			else:
+				product_catalog_models.ProductCatalog.objects.objects.delete(id=product_catalog.id)
+				response = create_response(500)
 		except:
 			response = create_response(500)
 			response.errMsg = u'新建失败'
 			response.innerErrMsg = unicode_full_stack()
+			watchdog.error(unicode_full_stack())
 		return response.get_response()
 
 	@login_required
@@ -119,17 +142,42 @@ class ProductCatalog(resource.Resource):
 				name = name,
 				note = note
 			)
-			response = create_response(200)
+			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id).first()
+			if relation:
+				weapp_catalog_id = relation.weapp_catalog_id
+				params = {
+					'id': weapp_catalog_id,
+					'name': name,
+					# 'level': level,
+					# 'father_id': father_id
+				}
+				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
+					{
+						'resource': 'mall.classification',
+						'data': params
+					}
+				)
+
+				if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
+
+					response = create_response(200)
+				else:
+					response = create_response(500)
+				return response.get_response()
 		except:
 			response = create_response(500)
 			response.errMsg = u'编辑失败'
 			response.innerErrMsg = unicode_full_stack()
-		return response.get_response()
+			watchdog.error(unicode_full_stack())
+			return response.get_response()
 
 	@login_required
 	def api_delete(request):
 		catalog_id = request.POST.get('id','')
 		try:
+
+			relation = product_catalog_models.ProductCatalogRelation.objects.filter(
+				catalog_id=catalog_id).first()
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
 			if catalog.father_id != -1:
 				#二级分类
@@ -138,7 +186,20 @@ class ProductCatalog(resource.Resource):
 					response.errMsg = u'该分类正在被使用，请先将商品调整分类后再删除分类'
 					return response.get_response()
 				else:
-					catalog.delete()
+					if relation:
+						params = {
+							'id': relation.weapp_catalog_id
+						}
+						resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete(
+							{
+								'resource': 'mall.classification',
+								'data': params
+							}
+						)
+						if resp and resp.get('code') == 200 and resp.get('data').get('change_rows') > -1:
+							catalog.delete()
+					else:
+						catalog.delete()
 			else:
 				if product_catalog_models.ProductCatalog.objects.filter(father_id=catalog.id).count() > 0:
 					response = create_response(500)
@@ -157,14 +218,30 @@ class ProductCatalog(resource.Resource):
 						response.errMsg = u'分类已被使用，删除失败，请先修改客户账户'
 						return response.get_response()
 					else:
-						catalog.delete()
+						if relation:
+
+							params = {
+								'id': relation.weapp_catalog_id
+							}
+							resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete(
+								{
+									'resource': 'mall.classification',
+									'data': params
+								}
+							)
+							if resp and resp.get('code') == 200 and resp.get('data').get('change_rows') > -1:
+								catalog.delete()
+						else:
+							catalog.delete()
 			response = create_response(200)
 			return response.get_response()
-		except Exception,e:
-			print e
+		except:
+			msg = unicode_full_stack()
+			watchdog.error(msg)
 			response = create_response(500)
 			response.errMsg = u'删除失败'
 			return response.get_response()
+
 
 class GetAllFirstCatalog(resource.Resource):
 	app = 'product_catalog'
