@@ -70,6 +70,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', action.data.errMsg);
 			}, 10);
+			this.__emitChange();
 		}
 	},
 
@@ -103,8 +104,37 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetHasSyncShop: function(action){
-		this.data.selectSelfShop = action.data.self_user_name;
+		var selfShop = [{
+			'name': '微众白富美',
+			'value': 'weizoom_baifumei'
+		},{
+			'name': '微众俱乐部',
+			'value': 'weizoom_club'
+		},{
+			'name': '微众家',
+			'value': 'weizoom_jia'
+		},{
+			'name': '微众妈妈',
+			'value': 'weizoom_mama'
+		},{
+			'name': '微众商城',
+			'value': 'weizoom_shop'
+		},{
+			'name': '微众学生',
+			'value': 'weizoom_xuesheng'
+		},{
+			'name': '微众Life',
+			'value': 'weizoom_life'
+		},{
+			'name': '微众一家人',
+			'value': 'weizoom_yjr'
+		},{
+			'name': '惠惠来啦',
+			'value': 'weizoom_fulilaile'
+		}];
 		this.data['product_info'] = action.data.product_info;
+		this.data.selectSelfShop = action.data.self_user_name;
+		this.data['selfShop'] = selfShop;
 		this.__emitChange();
 	},
 

@@ -16,7 +16,10 @@ require('./style.css');
 var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return Store.getData();
+		return {
+			'selectSelfShop': Store.getData()['selectSelfShop'],
+			'selfShop': Store.getData()['selfShop']
+		}
 	},
 
 	onChange: function(value, event) {
@@ -25,7 +28,12 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		this.setState(Store.getData());
+		console.log(Store.getData());
+		this.setState({
+			'selectSelfShop': Store.getData()['selectSelfShop'],
+			'selfShop': Store.getData()['selfShop'],
+			'product_info': Store.getData()['product_info']
+		});
 	},
 
 	ChooseSelfShop: function(value){
@@ -81,7 +89,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		var _this = this;
 		var product_id = this.props.data.product_id;
 		var selfShop = this.state.selfShop;
+		console.log(this.state['selfShop'],"======")
 		var selectSelfShop = this.state.selectSelfShop.toString();
+
 		var selfs = selfShop.map(function(self_shop,index){
 			var value = self_shop.value;
 			var bg_style = {};

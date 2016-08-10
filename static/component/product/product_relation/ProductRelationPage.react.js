@@ -75,16 +75,18 @@ var ProductRelationPage = React.createClass({
 
 	ChooseSyncSelfShop: function(product_id){
 		Action.getHasSyncShop(product_id);
-		Reactman.PageAction.showDialog({
-			title: "选择平台进行同步商品",
-			component: ChooseSyncSelfShopDialog,
-			data: {
-				product_id:product_id
-			},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "选择平台进行同步商品",
+				component: ChooseSyncSelfShopDialog,
+				data: {
+					product_id:product_id
+				},
+				success: function(inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},100)
 	},
 
 	rowFormatter: function(field, value, data) {
