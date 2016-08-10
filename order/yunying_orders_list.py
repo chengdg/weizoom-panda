@@ -15,6 +15,8 @@ from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
 from eaglet.utils.resource_client import Resource
+from eaglet.core.exceptionutil import unicode_full_stack
+from eaglet.core import watchdog
 
 import nav
 import models
@@ -368,6 +370,8 @@ class YunyingOrdersList(resource.Resource):
 		try:
 			cur_page = int(cur_page)
 		except:
+			msg = unicode_full_stack()
+			watchdog.error(msg)
 			cur_page = 1
 		params = {
 			'page': cur_page,

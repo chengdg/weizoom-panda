@@ -16,6 +16,8 @@ from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
 from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
+from eaglet.core.exceptionutil import unicode_full_stack
 
 import nav
 import models
@@ -68,6 +70,8 @@ class CustomerOrdersList(resource.Resource):
 			cur_page = int(cur_page)
 		except:
 			cur_page = 1
+			msg = unicode_full_stack()
+			watchdog.error(msg)
 		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		order_id = filter_idct.get('order_id','')
 		filter_product_name = filter_idct.get('product_name','')
