@@ -23,7 +23,16 @@ var ProductRelationPage = React.createClass({
 	onChangeStore: function(event) {
 		var _this = this;
 		var filterOptions = Store.getFilter();
-		this.refs.table.refresh(filterOptions);
+		var hasProp = false;  
+		for (var prop in filterOptions){  
+			hasProp = true;  
+			break;  
+		}
+		if (hasProp){  
+			this.refs.table.refresh(filterOptions);  
+		}else{
+			this.setState(Store.getData());
+		}	
 	},
 
 	cancleChecked: function(product_id, self_name){
