@@ -42672,7 +42672,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '卡状态:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '状态:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
 						)
 					)
 				),

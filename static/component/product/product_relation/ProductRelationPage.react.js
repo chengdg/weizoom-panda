@@ -182,7 +182,7 @@ var ProductRelationPage = React.createClass({
 							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormSelect label="卡状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
+							<Reactman.FormSelect label="状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
