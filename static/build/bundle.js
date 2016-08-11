@@ -42178,7 +42178,6 @@
 				Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 				return;
 			}
-			console.log(selectSelfShop.join(','), "========");
 			var product_data = [{
 				'weizoom_self': selectSelfShop.join(','), //选择的商城
 				'product_id': product_id, //商品id
@@ -42302,12 +42301,12 @@
 			if (action.data['code'] == 200) {
 				setTimeout(function () {
 					Reactman.PageAction.showHint('success', action.data.errMsg);
-				}, 10);
+				}, 100);
 				this.__emitChange();
 			} else {
 				setTimeout(function () {
 					Reactman.PageAction.showHint('error', action.data.errMsg);
-				}, 10);
+				}, 100);
 				this.__emitChange();
 			}
 		},
