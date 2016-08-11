@@ -110,7 +110,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		var product_id = this.props.data.product_id;
 		var selfShop = this.state.self_shop;
 		var selectSelfShop = this.state.select_self_shop.toString();
-		var checked = this.state.select_self_shop.length==9?'checked':null;
+		var checked = this.state.select_self_shop.length==11?'checked':null;
 
 		var selfs = selfShop.map(function(self_shop,index){
 			var value = self_shop.value;

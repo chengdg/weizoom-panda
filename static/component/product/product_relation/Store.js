@@ -81,7 +81,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleChooseAllSelfShop: function(){
 		var selectSelfShop = this.data.selectSelfShop;
-		if(selectSelfShop.length==9){
+		if(selectSelfShop.length==11){
 			selectSelfShop = [];
 		}else{
 			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng','weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai'];
