@@ -24,20 +24,23 @@ var ProductRelationPage = React.createClass({
 	onChangeStore: function(event) {
 		var _this = this;
 		var filterOptions = Store.getFilter();
-		var hasProp = false;  
+		var hasProp = false;
+
 		for (var prop in filterOptions){  
 			hasProp = true;  
 			break;  
 		}
+
 		if (hasProp){  
 			this.refs.table.refresh(filterOptions);  
 		}else{
 			this.setState(Store.getData());
-		}	
+		}
 	},
 
 	ChooseSyncSelfShop: function(product_id){
 		Action.getHasSyncShop(product_id);
+
 		_.delay(function(){
 			Reactman.PageAction.showDialog({
 				title: "选择平台进行同步商品",

@@ -42176,14 +42176,13 @@
 		cancleChecked: function (product_id) {
 			var selectSelfShop = this.state.select_self_shop;
 			var _this = this;
+
 			if (selectSelfShop.length == 0) {
 				Reactman.PageAction.showHint('error', '请选择要取消同步的商城！');
 				return;
 			}
+
 			Action.cancleChecked(product_id, selectSelfShop.join(','));
-			_.delay(function () {
-				_this.closeDialog();
-			}, 500);
 		},
 
 		chooseAllSelfShop: function () {
@@ -42193,7 +42192,7 @@
 		productRelation: function (product_id) {
 			var _this = this;
 			var selectSelfShop = this.state.select_self_shop;
-			var product_info = this.state.product_info;
+			var productInfo = this.state.product_info;
 			if (selectSelfShop.length == 0) {
 				Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 				return;
@@ -42201,28 +42200,28 @@
 			var product_data = [{
 				'weizoom_self': selectSelfShop.join(','), //选择的商城
 				'product_id': product_id, //商品id
-				'account_id': product_info['account_id'] //所属账号 id
+				'account_id': productInfo['account_id'] //所属账号 id
 			}];
 			Action.relationFromWeapp(JSON.stringify(product_data));
 		},
 
 		render: function () {
 			var _this = this;
-			var product_id = this.props.data.product_id;
+			var productId = this.props.data.product_id;
 			var selfShop = this.state.self_shop;
 			var selectSelfShop = this.state.select_self_shop.toString();
 			var checked = this.state.select_self_shop.length == 11 ? 'checked' : null;
 
 			var selfs = selfShop.map(function (self_shop, index) {
 				var value = self_shop.value;
-				var bg_style = {};
-				bg_style['style'] = {};
+				var bgStyle = {};
+				bgStyle['style'] = {};
 				if (selectSelfShop.indexOf(value) > -1) {
-					bg_style['style'] = { background: '#009DD9', color: '#FFF' };
+					bgStyle['style'] = { background: '#009DD9', color: '#FFF' };
 				}
 				return React.createElement(
 					'li',
-					{ key: index, style: bg_style['style'], className: 'self-shop-li', onClick: _this.ChooseSelfShop.bind(_this, value) },
+					{ key: index, style: bgStyle['style'], className: 'self-shop-li', onClick: _this.ChooseSelfShop.bind(_this, value) },
 					self_shop.name
 				);
 			});
@@ -42248,7 +42247,7 @@
 				),
 				React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, product_id) },
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, productId) },
 					React.createElement(
 						'span',
 						null,
@@ -42257,7 +42256,7 @@
 				),
 				React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', display: 'none' }, onClick: this.cancleChecked.bind(this, product_id) },
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', display: 'none' }, onClick: this.cancleChecked.bind(this, productId) },
 					React.createElement(
 						'span',
 						null,
@@ -42316,6 +42315,7 @@
 					Reactman.PageAction.showHint('error', action.data.errMsg);
 				}, 10);
 			}
+
 			this.__emitChange();
 		},
 
@@ -42335,15 +42335,18 @@
 			var selectSelfShop = this.data.selectSelfShop;
 			var value = action.data.value;
 			var isChoosed = true;
+
 			for (var index in selectSelfShop) {
 				if (selectSelfShop[index] == value) {
 					isChoosed = false;
 					selectSelfShop.splice(index, 1);
 				}
 			}
+
 			if (isChoosed) {
 				selectSelfShop.push(value);
 			}
+
 			this.data.selectSelfShop = selectSelfShop;
 			this.__emitChange();
 		},
@@ -42356,11 +42359,13 @@
 
 		handleChooseAllSelfShop: function () {
 			var selectSelfShop = this.data.selectSelfShop;
+
 			if (selectSelfShop.length == 11) {
 				selectSelfShop = [];
 			} else {
 				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai'];
 			}
+
 			this.data.selectSelfShop = selectSelfShop;
 			this.__emitChange();
 		},
@@ -42449,10 +42454,12 @@
 			var _this = this;
 			var filterOptions = Store.getFilter();
 			var hasProp = false;
+
 			for (var prop in filterOptions) {
 				hasProp = true;
 				break;
 			}
+
 			if (hasProp) {
 				this.refs.table.refresh(filterOptions);
 			} else {
@@ -42462,6 +42469,7 @@
 
 		ChooseSyncSelfShop: function (product_id) {
 			Action.getHasSyncShop(product_id);
+
 			_.delay(function () {
 				Reactman.PageAction.showDialog({
 					title: "选择平台进行同步商品",
