@@ -10,6 +10,8 @@ from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from eaglet.utils.resource_client import Resource
+
 
 from core import resource
 from core.jsonresponse import create_response
@@ -20,7 +22,7 @@ from product import models as product_models
 from account.models import *
 from util import string_util
 from util import db_util
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_HOST, EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import requests
@@ -84,9 +86,14 @@ class StatisticsReport(resource.Resource):
 			params = {
 				'mall_type': 1
 			}
-			r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
+			# r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+				{'resource': 'account.zypt_info',
+				 'data': params
+				 }
+			)
+			# res = json.loads(r.text)
+			if res and res['code'] == 200:
 				account_zypt_infos = res['data']
 				for account_zypt_info in account_zypt_infos:
 					if account_zypt_info['store_name'] == u'微众白富美':
