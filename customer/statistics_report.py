@@ -105,6 +105,10 @@ class StatisticsReport(resource.Resource):
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_life'
 					elif account_zypt_info['store_name'] == u'微众一家人':
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_yjr'
+					elif account_zypt_info['store_name'] == u'居委汇':
+						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_juweihui'
+					elif account_zypt_info['store_name'] == u'微众中海':
+						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_zhonghai'
 					else:
 						webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
 						#TODO 为方便测试，先将不算自营平台的算为微众白富美的订单
@@ -125,6 +129,8 @@ class StatisticsReport(resource.Resource):
 		pid2weizoom_xuesheng_sales = {}
 		pid2weizoom_life_sales = {}
 		pid2weizoom_yjr_sales = {}
+		pid2weizoom_juweihui_sales = {}
+		pid2weizoom_zhonghai_sales = {}
 
 		if api_pids != '':
 			params = {'product_ids': api_pids}
@@ -187,6 +193,16 @@ class StatisticsReport(resource.Resource):
 							pid2weizoom_yjr_sales[product_id] = count
 						else:
 							pid2weizoom_yjr_sales[product_id] += count
+					elif store_username == 'weizoom_juweihui':
+						if not pid2weizoom_juweihui_sales.has_key(product_id):
+							pid2weizoom_juweihui_sales[product_id] = count
+						else:
+							pid2weizoom_juweihui_sales[product_id] += count
+					elif store_username == 'weizoom_zhonghai':
+						if not pid2weizoom_zhonghai_sales.has_key(product_id):
+							pid2weizoom_zhonghai_sales[product_id] = count
+						else:
+							pid2weizoom_zhonghai_sales[product_id] += count
 
 			for product in products:
 				weizoom_baifumei = pid2weizoom_baifumei_sales[product.id] if pid2weizoom_baifumei_sales.has_key(product.id) else 0
@@ -197,7 +213,9 @@ class StatisticsReport(resource.Resource):
 				weizoom_xuesheng = pid2weizoom_xuesheng_sales[product.id] if pid2weizoom_xuesheng_sales.has_key(product.id) else 0
 				weizoom_life = pid2weizoom_life_sales[product.id] if pid2weizoom_life_sales.has_key(product.id) else 0
 				weizoom_yjr = pid2weizoom_yjr_sales[product.id] if pid2weizoom_yjr_sales.has_key(product.id) else 0
-				product_sales = weizoom_baifumei+weizoom_club+weizoom_jia+weizoom_mama+weizoom_shop+weizoom_xuesheng+weizoom_life+weizoom_yjr
+				weizoom_juweihui = pid2weizoom_juweihui_sales[product.id] if pid2weizoom_juweihui_sales.has_key(product.id) else 0
+				weizoom_zhonghai = pid2weizoom_zhonghai_sales[product.id] if pid2weizoom_zhonghai_sales.has_key(product.id) else 0
+				product_sales = weizoom_baifumei+weizoom_club+weizoom_jia+weizoom_mama+weizoom_shop+weizoom_xuesheng+weizoom_life+weizoom_yjr+weizoom_juweihui+weizoom_zhonghai
 				rows.append({
 					'product_name': product.product_name,
 					'weizoom_baifumei' : weizoom_baifumei,
@@ -208,6 +226,8 @@ class StatisticsReport(resource.Resource):
 					'weizoom_xuesheng': weizoom_xuesheng,
 					'weizoom_life': weizoom_life,
 					'weizoom_yjr': weizoom_yjr,
+					'weizoom_juweihui': weizoom_juweihui,
+					'weizoom_zhonghai': weizoom_zhonghai,
 					'product_sales': product_sales
 				})
 		data = {
@@ -279,6 +299,10 @@ class StatisticsReportData(resource.Resource):
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_life'
 					elif account_zypt_info['store_name'] == u'微众一家人':
 						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_yjr'
+					elif account_zypt_info['store_name'] == u'居委汇':
+						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_juweihui'
+					elif account_zypt_info['store_name'] == u'微众中海':
+						webapp_id2store_username[account_zypt_info['webapp_id']] = 'weizoom_zhonghai'
 					else:
 						webapp_id2store_username[account_zypt_info['webapp_id']] = [account_zypt_info['store_name']]
 			else:
@@ -297,6 +321,8 @@ class StatisticsReportData(resource.Resource):
 		pid2weizoom_xuesheng_sales = {}
 		pid2weizoom_life_sales = {}
 		pid2weizoom_yjr_sales = {}
+		pid2weizoom_juweihui_sales = {}
+		pid2weizoom_zhonghai_sales = {}
 		first_week = 0
 		second_week = 0
 		third_week = 0
@@ -368,6 +394,16 @@ class StatisticsReportData(resource.Resource):
 							pid2weizoom_yjr_sales[product_id] = [order['id']]
 						else:
 							pid2weizoom_yjr_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_juweihui':
+						if not pid2weizoom_juweihui_sales.has_key(product_id):
+							pid2weizoom_juweihui_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_juweihui_sales[product_id].append(order['id'])
+					elif store_username == 'weizoom_zhonghai':
+						if not pid2weizoom_zhonghai_sales.has_key(product_id):
+							pid2weizoom_zhonghai_sales[product_id] = [order['id']]
+						else:
+							pid2weizoom_zhonghai_sales[product_id].append(order['id'])
 
 					#计算订单周销售趋势
 					order_time = datetime.datetime.strptime(order['created_at'],"%Y-%m-%d %H:%M:%S")
@@ -388,6 +424,8 @@ class StatisticsReportData(resource.Resource):
 			weizoom_xuesheng_orders_number = 0
 			weizoom_life_orders_number = 0
 			weizoom_yjr_orders_number = 0
+			weizoom_juweihui_orders_number = 0
+			weizoom_zhonghai_orders_number = 0
 			for product in products:
 				weizoom_baifumei_orders_number += len(pid2weizoom_baifumei_sales[product.id]) if pid2weizoom_baifumei_sales.has_key(product.id) else 0
 				weizoom_club_orders_number += len(pid2weizoom_club_sales[product.id]) if pid2weizoom_club_sales.has_key(product.id) else 0
@@ -397,6 +435,8 @@ class StatisticsReportData(resource.Resource):
 				weizoom_xuesheng_orders_number += len(pid2weizoom_xuesheng_sales[product.id]) if pid2weizoom_xuesheng_sales.has_key(product.id) else 0
 				weizoom_life_orders_number += len(pid2weizoom_life_sales[product.id]) if pid2weizoom_life_sales.has_key(product.id) else 0
 				weizoom_yjr_orders_number += len(pid2weizoom_yjr_sales[product.id]) if pid2weizoom_yjr_sales.has_key(product.id) else 0
+				weizoom_juweihui_orders_number += len(pid2weizoom_juweihui_sales[product.id]) if pid2weizoom_juweihui_sales.has_key(product.id) else 0
+				weizoom_zhonghai_orders_number += len(pid2weizoom_zhonghai_sales[product.id]) if pid2weizoom_zhonghai_sales.has_key(product.id) else 0
 
 			one_time_purchase_list = [x for x in webapp_user_ids if webapp_user_ids.count(x) == 1]
 			all_purchase_number = len(list(set(webapp_user_ids)))
@@ -417,7 +457,9 @@ class StatisticsReportData(resource.Resource):
 				'weizoom_shop_orders_number': weizoom_shop_orders_number,
 				'weizoom_xuesheng_orders_number': weizoom_xuesheng_orders_number,
 				'weizoom_life_orders_number': weizoom_life_orders_number,
-				'weizoom_yjr_orders_number': weizoom_yjr_orders_number
+				'weizoom_yjr_orders_number': weizoom_yjr_orders_number,
+				'weizoom_juweihui_orders_number': weizoom_yjr_orders_number,
+				'weizoom_zhonghai_orders_number': weizoom_yjr_orders_number
 			})
 		data = {
 			'rows': rows

@@ -81,6 +81,8 @@ var OpenStatisticReport = React.createClass({
 					<Reactman.TableColumn name="微众学生" field="weizoom_xuesheng" />
 					<Reactman.TableColumn name="微众Life" field="weizoom_life" />
 					<Reactman.TableColumn name="微众一家人" field="weizoom_yjr" />
+					<Reactman.TableColumn name="居委汇" field="weizoom_juweihui" />
+					<Reactman.TableColumn name="微众中海" field="weizoom_zhonghai" />
 					<Reactman.TableColumn name="小计" field="product_sales" />
 				</Reactman.Table>
 				<div>二、订单销售趋势</div>
@@ -111,6 +113,8 @@ var OpenStatisticReport = React.createClass({
 					<Reactman.TableColumn name="微众学生" field="weizoom_xuesheng_orders_number" />
 					<Reactman.TableColumn name="微众Life" field="weizoom_life_orders_number" />
 					<Reactman.TableColumn name="微众一家人" field="weizoom_yjr_orders_number" />
+					<Reactman.TableColumn name="居委汇" field="weizoom_juweihui_orders_number" />
+					<Reactman.TableColumn name="微众中海" field="weizoom_zhonghai_orders_number" />
 				</Reactman.Table>
 			</div>
 		)
