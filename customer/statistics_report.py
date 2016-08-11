@@ -141,9 +141,14 @@ class StatisticsReport(resource.Resource):
 
 		if api_pids != '':
 			params = {'product_ids': api_pids}
-			r = requests.get(ZEUS_HOST+'/panda/order_export/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
+			# r = requests.get(ZEUS_HOST+'/panda/order_export/',params=params)
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+				{'resource': 'panda.order_export',
+				 'data': params
+				 }
+			)
+			# res = json.loads(r.text)
+			if res and res['code'] == 200:
 				orders = res['data']['orders']
 			else:
 				print(res)
@@ -285,9 +290,14 @@ class StatisticsReportData(resource.Resource):
 			params = {
 				'mall_type': 1
 			}
-			r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
+			# r = requests.get(ZEUS_HOST+'/account/zypt_info/',params=params)
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+				{'resource': 'account.zypt_info',
+				 'data': params
+				 }
+			)
+			# res = json.loads(r.text)
+			if res and res['code'] == 200:
 				account_zypt_infos = res['data']
 				for account_zypt_info in account_zypt_infos:
 					if account_zypt_info['store_name'] == u'微众白富美':
@@ -339,9 +349,14 @@ class StatisticsReportData(resource.Resource):
 		if api_pids != '':
 			first_bind_relation_time = product_has_relations.first().created_at
 			params = {'product_ids': api_pids}
-			r = requests.get(ZEUS_HOST+'/panda/order_export',params=params)
-			res = json.loads(r.text)
-			if res['code'] == 200:
+			# r = requests.get(ZEUS_HOST+'/panda/order_export',params=params)
+			# res = json.loads(r.text)
+			res = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+				{'resource': 'panda.order_export',
+				 'data': params
+				 }
+			)
+			if res and res['code'] == 200:
 				orders = res['data']['orders']
 			else:
 				print(res)
