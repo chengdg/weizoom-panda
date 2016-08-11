@@ -25,14 +25,13 @@ class SecondCategory(resource.Resource):
 	@login_required
 	def api_get(request):
 		first_id = request.GET.get('first_id',0)
-		product_catalogs = catalog_models.ProductCatalog.objects.filter(father_catalog=first_id)
+		product_catalogs = catalog_models.ProductCatalog.objects.filter(father_id=first_id)
 		second_levels = []
 		for product_catalog in product_catalogs:
-			father_catalog = product_catalog.father_catalog
 			second_levels.append({
 				'id': product_catalog.id,
-				'name': product_catalog.catalog_name,
-				'father_catalog': product_catalog.father_catalog
+				'name': product_catalog.name,
+				'father_catalog': product_catalog.father_id
 				})
 
 		data = {
