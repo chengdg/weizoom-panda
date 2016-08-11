@@ -72,14 +72,14 @@ var AccountManagePage = React.createClass({
 			}else if(data.status == 2){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>开启2</a>
+					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>开启</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);
 			}else{
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启0</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);

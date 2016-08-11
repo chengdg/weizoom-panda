@@ -35492,7 +35492,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.updateAccount.bind(this, data.id) },
-							'开启2'
+							'开启'
 						),
 						React.createElement(
 							'a',
@@ -35507,7 +35507,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'open' },
-							'开启0'
+							'开启'
 						),
 						React.createElement(
 							'a',
