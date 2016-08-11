@@ -88,7 +88,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		Action.chooseAllSelfShop();
 	},
 
-	productRelation: function(product_id) {
+	productRelation: function(product_ids,sync_type) {
 		var _this = this;
 		var selectSelfShop = this.state.select_self_shop;
 		var productInfo = this.state.product_info;
@@ -96,17 +96,20 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 			return;
 		}
+		console.log(sync_type,selectSelfShop,"------");
 		var product_data = [{
 			'weizoom_self': selectSelfShop.join(','),//选择的商城
-			'product_id': product_id,//商品id
-			'account_id': productInfo['account_id'] //所属账号 id
+			'product_ids': product_ids,//商品id
+			'sync_type': sync_type
+			// 'account_id': productInfo['account_id'] //所属账号 id
 		}]
-		Action.relationFromWeapp(JSON.stringify(product_data));
+		// Action.relationFromWeapp(JSON.stringify(product_data));
 	},
 
 	render: function(){
 		var _this = this;
 		var productId = this.props.data.product_id;
+		var syncType = this.props.data.sync_type;
 		var selfShop = this.state.self_shop;
 		var selectSelfShop = this.state.select_self_shop.toString();
 		var checked = this.state.select_self_shop.length==11?'checked':null;
@@ -132,8 +135,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 					<input type="checkbox" checked={checked} className="checkbox" name="select" value="0" style={{display:'inline-block'}} onChange={this.chooseAllSelfShop}/>全选
 				</span>
 				<span className='cancle-relation-tips' style={{display:'none'}}>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	
-				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,productId)}><span>确定同步</span></a>
-				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px',display:'none'}} onClick={this.cancleChecked.bind(this,productId)}><span>取消同步</span></a>
+				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,productId,syncType)}><span>确定同步</span></a>
+				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px',display:'none'}} onClick={this.cancleChecked.bind(this,productId,syncType)}><span>取消同步</span></a>
 			</div>
 		)
 	}

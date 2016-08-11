@@ -74,6 +74,20 @@ var Action = {
 			actionType: Constant.CHOOSE_ALL_SELF_SHOP,
 			data: {}
 		});
+	},
+
+	batchSyncProduct: function(productIds){
+		console.log(productIds,'++++++==');
+		Resource.post({
+			resource: 'product.batch_sync',
+			data: {
+				'product_ids': productIds.join(',')
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.BATCH_SYNC_PRODUCT
+			}
+		});
 	}
 };
 

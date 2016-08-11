@@ -21,7 +21,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
-		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP
+		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
+		'handleBatchSyncProduct': Constant.BATCH_SYNC_PRODUCT
 	},
 
 	init: function() {
@@ -85,7 +86,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleChooseAllSelfShop: function(){
 		var selectSelfShop = this.data.selectSelfShop;
-		
+
 		if(selectSelfShop.length==11){
 			selectSelfShop = [];
 		}else{
@@ -93,6 +94,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
+		this.__emitChange();
+	},
+
+	handleBatchSyncProduct: function(){
 		this.__emitChange();
 	},
 

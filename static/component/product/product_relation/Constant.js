@@ -11,5 +11,6 @@ module.exports = keyMirror({
 	DELETE_PRODUCT_RELATION_WEAPP: null,
 	CHOOSE_SELF_SHOP: null,
 	GET_HAS_SYNC_SHOP: null,
-	CHOOSE_ALL_SELF_SHOP: null
+	CHOOSE_ALL_SELF_SHOP: null,
+	BATCH_SYNC_PRODUCT: null
 });
