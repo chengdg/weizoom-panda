@@ -105,9 +105,10 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			'detail': product_info['remark']//商品详情
 		}]
 		Action.relationFromWeapp(JSON.stringify(product_data));
-		_.delay(function(){
-			_this.closeDialog();
-		},500)
+		_this.closeDialog();
+		// _.delay(function(){
+		// 	_this.closeDialog();
+		// },500)
 	},
 
 	render: function(){

@@ -42192,9 +42192,10 @@
 				'detail': product_info['remark'] //商品详情
 			}];
 			Action.relationFromWeapp(JSON.stringify(product_data));
-			_.delay(function () {
-				_this.closeDialog();
-			}, 500);
+			_this.closeDialog();
+			// _.delay(function(){
+			// 	_this.closeDialog();
+			// },500)
 		},
 
 		render: function () {
@@ -42301,14 +42302,13 @@
 			if (action.data['code'] == 200) {
 				setTimeout(function () {
 					Reactman.PageAction.showHint('success', action.data.errMsg);
-				}, 100);
-				this.__emitChange();
+				}, 10);
 			} else {
 				setTimeout(function () {
 					Reactman.PageAction.showHint('error', action.data.errMsg);
-				}, 100);
-				this.__emitChange();
+				}, 10);
 			}
+			this.__emitChange();
 		},
 
 		handleProductRelationDataFilter: function (action) {
