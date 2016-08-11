@@ -42649,7 +42649,7 @@
 					second_catalog_id: W.second_catalog_id
 				}
 			};
-
+			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '已同步', value: '1' }, { text: '未同步', value: '2' }];
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-product-productListPage' },
@@ -42668,6 +42668,11 @@
 							Reactman.FilterField,
 							null,
 							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
+						),
+						React.createElement(
+							Reactman.FilterField,
+							null,
+							React.createElement(Reactman.FormSelect, { label: '卡状态:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
 						)
 					)
 				),
@@ -42681,6 +42686,7 @@
 						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
 						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
 						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
+						React.createElement(Reactman.TableColumn, { name: '状态', field: 'product_status' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 					)
 				)

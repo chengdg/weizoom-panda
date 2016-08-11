@@ -170,7 +170,7 @@ var ProductRelationPage = React.createClass({
 				second_catalog_id: W.second_catalog_id
 			}
 		};
-
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已同步', value: '1'},{text: '未同步', value: '2'}];
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
@@ -181,6 +181,9 @@ var ProductRelationPage = React.createClass({
 						<Reactman.FilterField>
 							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
 						</Reactman.FilterField>
+						<Reactman.FilterField>
+							<Reactman.FormSelect label="卡状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
+						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
@@ -189,6 +192,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
+						<Reactman.TableColumn name="状态" field="product_status" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
 				</Reactman.TablePanel>
