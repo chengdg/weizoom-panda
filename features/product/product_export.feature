@@ -108,9 +108,9 @@ Background:
 
 
 	Then aini能获得商品列表
-	|  name   | price | sales |   creat_time   | status |
-	|武汉鸭脖 | 10.00 | 0.00  |2016-07-25 16:30| 未上架 |
-	|耐克男鞋 | 198.00| 0.00  |2016-07-25 16:30| 未上架 |
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
 @penda @hj
 scenario:1 商品列表导出商品
 	When aini登录系统

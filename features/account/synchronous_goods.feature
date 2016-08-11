@@ -5,6 +5,7 @@ Feature:运营人员同步商品到云商通平台
 2.修改商品后,再选择一个自营平台同步
 3.删除商品，重新新增商品后再同步
 4.在weapp中删除商品后,运营查看商品
+5.批量同步商品
 """
 
 Background:
@@ -266,5 +267,40 @@ Scenario:4 在云商通中删除商品后，运营查看商品列表时，商品
 		|goods_name|   price   |  sales  |     creat_time    |  statu  |
 		|  周黑鸭  |    10.00  |   0.00  |2016-06-28 12:01:04| 未同步  | 
 		|  耐克男鞋|   298.00  |   0.00  |2016-06-28 12:02:05| 未同步  |
+
+@penda @hj
+Scenario:5 批量同步商品
+	Given yunying登录系统
+	When yunying对商品'周黑鸭','耐克男鞋'批量同步
+	"""
+	[{
+		"synchronous_goods":{
+						"weizoom_shop",
+						"weizoom_home",
+						"weizoom_yijiaren",
+						"weizoom_shop"
+	}]
+	"""
+	Given tuxiaobao登录系统
+	When tuxiaobao查看商品列表
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   10.90  | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 |   198.00  |  322.00  | 0.00  |2016-07-25 16:30| 未上架 |
+
+	Given jobs登录 系统:weapp
+	When jobs查看商品池
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   10.90  | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 |   198.00  |  322.00  | 0.00  |2016-07-25 16:30| 未上架 |
+	When jobs上架商品'武汉鸭脖'
+	Then jobs查看在售商品列表
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   10.90  | 0.00  |2016-07-25 16:30| 已上架 |
+	Given tuxiaobao登录系统:panda
+	When tuxiaobao查看商品列表
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   10.90  | 0.00  |2016-07-25 16:30| 已上架 |
+	|耐克男鞋 |   198.00  |  322.00  | 0.00  |2016-07-25 16:30| 未上架 |
+
 	
 		
