@@ -107,7 +107,7 @@ class ProductCatalog(resource.Resource):
 			params = {
 				'name': name,
 				'level': level,
-				'father_id': weapp_father_id
+				'father_id': 0 if father_id == -1 else weapp_father_id
 			}
 			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
 				{
@@ -121,7 +121,7 @@ class ProductCatalog(resource.Resource):
 									weapp_catalog_id=resp.get('data').get('classification').get('id'))
 				response = create_response(200)
 			else:
-				product_catalog_models.ProductCatalog.objects.objects.delete(id=product_catalog.id)
+				product_catalog_models.ProductCatalog.objects.filter(id=product_catalog.id).delete()
 				response = create_response(500)
 		except:
 			response = create_response(500)
@@ -293,7 +293,7 @@ class GetAllFirstCatalog(resource.Resource):
 			if old_id not in new_ids:
 				need_del_ids.append(old_id)
 		product_catalog_models.ProductCatalogQualification.objects.filter(id__in=need_del_ids).delete()
-		
+
 		# 循环第二次，更新需要修改的特殊资质信息
 		for qualification_info in qualification_infos:
 			if qualification_info.has_key('id'):
