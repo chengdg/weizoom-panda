@@ -124,8 +124,8 @@ class WeappRelation(resource.Resource):
 				# 获取当前供货商的对应的weapp供货商的id
 				sync_type = product_data[0].get('sync_type')
 				product_ids = product_data[0].get('product_ids')
-				if sync_type == 'batch':#批量同步
-					for product_id in product_ids:
+				# if sync_type == 'batch':#批量同步
+				# 	for product_id in product_ids:
 
 				account_id = product_data[0].get('account_id')
 				account_has_supplier = AccountHasSupplier.objects.filter(account_id=account_id).first()
