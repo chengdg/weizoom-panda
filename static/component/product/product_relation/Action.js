@@ -20,7 +20,7 @@ var Action = {
 		});
 	},
 
-	cancleChecked: function(product_id,self_names){
+	cancleChecked: function(product_id, self_names){
 		Resource.delete({
 			resource: 'product.weapp_relation',
 			data: {

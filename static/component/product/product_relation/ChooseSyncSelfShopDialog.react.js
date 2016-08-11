@@ -101,20 +101,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			'weizoom_self': selectSelfShop.join(','),//选择的商城
 			'product_id': product_id,//商品id
 			'account_id': product_info['account_id'] //所属账号 id
-			// 'product_price': product_info['product_price'],
-			// 'product_name': product_info['product_name'],//商品名称
-			// 'clear_price': product_info['clear_price'],//商品结算价
-			// 'product_weight': product_info['product_weight'],//商品重量
-			// 'product_store': product_info['product_store'],//商品库存(-1:无限)
-			// 'image_path': product_info['image_path'],//轮播图路径
-			// 'promotion_title': product_info['promotion_title'],
-			// 'detail': product_info['remark']//商品详情
 		}]
 		Action.relationFromWeapp(JSON.stringify(product_data));
-		// _this.closeDialog();
-		// _.delay(function(){
-		// 	_this.closeDialog();
-		// },500)
 	},
 
 	render: function(){

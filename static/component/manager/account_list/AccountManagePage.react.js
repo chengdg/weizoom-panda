@@ -47,6 +47,10 @@ var AccountManagePage = React.createClass({
 		});
 	},
 
+	updateAccount: function(id){
+		W.gotoPage('/manager/account_create/?id='+id);
+	},
+
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);
@@ -61,21 +65,21 @@ var AccountManagePage = React.createClass({
 			if(data.status == 1){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>编辑</a>
+					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>编辑</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
 				</div>
 				);
 			}else if(data.status == 2){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" href={'/manager/account_create/?id='+data.id}>开启</a>
+					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>开启2</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);
 			}else{
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启0</a>
 					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);

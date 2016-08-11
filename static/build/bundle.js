@@ -35453,6 +35453,10 @@
 			});
 		},
 
+		updateAccount: function (id) {
+			W.gotoPage('/manager/account_create/?id=' + id);
+		},
+
 		onChangeStore: function (event) {
 			var filterOptions = Store.getData().filterOptions;
 			this.refs.table.refresh(filterOptions);
@@ -35472,7 +35476,7 @@
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', href: '/manager/account_create/?id=' + data.id },
+							{ className: 'btn btn-link btn-xs', onClick: this.updateAccount.bind(this, data.id) },
 							'编辑'
 						),
 						React.createElement(
@@ -35487,8 +35491,8 @@
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', href: '/manager/account_create/?id=' + data.id },
-							'开启'
+							{ className: 'btn btn-link btn-xs', onClick: this.updateAccount.bind(this, data.id) },
+							'开启2'
 						),
 						React.createElement(
 							'a',
@@ -35503,7 +35507,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'open' },
-							'开启'
+							'开启0'
 						),
 						React.createElement(
 							'a',
@@ -42198,20 +42202,8 @@
 				'weizoom_self': selectSelfShop.join(','), //选择的商城
 				'product_id': product_id, //商品id
 				'account_id': product_info['account_id'] //所属账号 id
-				// 'product_price': product_info['product_price'],
-				// 'product_name': product_info['product_name'],//商品名称
-				// 'clear_price': product_info['clear_price'],//商品结算价
-				// 'product_weight': product_info['product_weight'],//商品重量
-				// 'product_store': product_info['product_store'],//商品库存(-1:无限)
-				// 'image_path': product_info['image_path'],//轮播图路径
-				// 'promotion_title': product_info['promotion_title'],
-				// 'detail': product_info['remark']//商品详情
 			}];
 			Action.relationFromWeapp(JSON.stringify(product_data));
-			// _this.closeDialog();
-			// _.delay(function(){
-			// 	_this.closeDialog();
-			// },500)
 		},
 
 		render: function () {
@@ -42342,14 +42334,14 @@
 		handleChooseSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 			var value = action.data.value;
-			var is_choosed = true;
+			var isChoosed = true;
 			for (var index in selectSelfShop) {
 				if (selectSelfShop[index] == value) {
-					is_choosed = false;
+					isChoosed = false;
 					selectSelfShop.splice(index, 1);
 				}
 			}
-			if (is_choosed) {
+			if (isChoosed) {
 				selectSelfShop.push(value);
 			}
 			this.data.selectSelfShop = selectSelfShop;
@@ -42367,7 +42359,7 @@
 			if (selectSelfShop.length == 9) {
 				selectSelfShop = [];
 			} else {
-				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile'];
+				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai'];
 			}
 			this.data.selectSelfShop = selectSelfShop;
 			this.__emitChange();
@@ -42468,43 +42460,6 @@
 			}
 		},
 
-		cancleChecked: function (product_id, self_name) {
-			console.log(product_id, self_name, "======");
-			Action.cancleChecked(product_id, self_name);
-		},
-
-		productRelation: function (self_user_name, product_info) {
-			var product_id = product_info['product_id'];
-			var obj = document.getElementById(product_id);
-			obj = obj.getElementsByTagName('input');
-			var check_val = [];
-			for (var k = 0; k <= obj.length - 1; k++) {
-				var has_relation = true;
-				if (obj[k]['checked']) {
-					check_val.push(obj[k].value);
-				}
-			}
-
-			if (check_val.length == 0) {
-				Reactman.PageAction.showHint('error', '请选择要同步的商城！');
-				return;
-			}
-			var product_data = [{
-				'weizoom_self': check_val.join(','), //选择的商城
-				'product_id': product_id, //商品id
-				'account_id': product_info['account_id'], //所属账号 id
-				'product_price': product_info['product_price'],
-				'product_name': product_info['product_name'], //商品名称
-				'clear_price': product_info['clear_price'], //商品结算价
-				'product_weight': product_info['product_weight'], //商品重量
-				'product_store': product_info['product_store'], //商品库存(-1:无限)
-				'image_path': product_info['image_path'], //轮播图路径
-				'promotion_title': product_info['promotion_title'],
-				'detail': product_info['remark'] //商品详情
-			}];
-			Action.relationFromWeapp(JSON.stringify(product_data));
-		},
-
 		ChooseSyncSelfShop: function (product_id) {
 			Action.getHasSyncShop(product_id);
 			_.delay(function () {
@@ -42522,120 +42477,7 @@
 		},
 
 		rowFormatter: function (field, value, data) {
-			if (field === 'weapp_name') {
-				var id = data['id'];
-				var selfUserName = data['self_user_name'].toString();
-				var wBChecked = selfUserName.indexOf('weizoom_baifumei') > -1 ? 'checked' : null;
-				var wCChecked = selfUserName.indexOf('weizoom_club') > -1 ? 'checked' : null;
-				var wJChecked = selfUserName.indexOf('weizoom_jia') > -1 ? 'checked' : null;
-				var wMChecked = selfUserName.indexOf('weizoom_mama') > -1 ? 'checked' : null;
-				var wSChecked = selfUserName.indexOf('weizoom_shop') > -1 ? 'checked' : null;
-				var wXChecked = selfUserName.indexOf('weizoom_xuesheng') > -1 ? 'checked' : null;
-				var wLChecked = selfUserName.indexOf('weizoom_life') > -1 ? 'checked' : null;
-				var wYChecked = selfUserName.indexOf('weizoom_yjr') > -1 ? 'checked' : null;
-				var wFChecked = selfUserName.indexOf('weizoom_fulilaile') > -1 ? 'checked' : null;
-
-				return React.createElement(
-					'div',
-					{ id: id },
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', marginLeft: '10px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wBChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_baifumei', onChange: this.cancleChecked.bind(this, id, 'weizoom_baifumei') }),
-						';',
-						React.createElement(
-							'span',
-							null,
-							'微众白富美'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wCChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_club', onChange: this.cancleChecked.bind(this, id, 'weizoom_club') }),
-						React.createElement(
-							'span',
-							null,
-							'微众俱乐部'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wJChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_jia', onChange: this.cancleChecked.bind(this, id, 'weizoom_jia') }),
-						React.createElement(
-							'span',
-							null,
-							'微众家'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wMChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_mama', onChange: this.cancleChecked.bind(this, id, 'weizoom_mama') }),
-						React.createElement(
-							'span',
-							null,
-							'微众妈妈'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wSChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_shop', onChange: this.cancleChecked.bind(this, id, 'weizoom_shop') }),
-						React.createElement(
-							'span',
-							null,
-							'微众商城'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wXChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_xuesheng', onChange: this.cancleChecked.bind(this, id, 'weizoom_xuesheng') }),
-						React.createElement(
-							'span',
-							null,
-							'微众学生'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wLChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_life', onChange: this.cancleChecked.bind(this, id, 'weizoom_life') }),
-						React.createElement(
-							'span',
-							null,
-							'微众Life'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wYChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_yjr', onChange: this.cancleChecked.bind(this, id, 'weizoom_yjr') }),
-						React.createElement(
-							'span',
-							null,
-							'微众一家人'
-						)
-					),
-					React.createElement(
-						'label',
-						{ className: 'checkbox-inline', style: { marginRight: '15px', width: '90px' } },
-						React.createElement('input', { type: 'checkbox', checked: wFChecked, className: 'checkbox', name: "weizoom_self_" + id, value: 'weizoom_fulilaile', onChange: this.cancleChecked.bind(this, id, 'weizoom_fulilaile') }),
-						React.createElement(
-							'span',
-							null,
-							'惠惠来啦'
-						)
-					),
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs', style: { color: '#1ab394' }, onClick: this.productRelation.bind(this, data['self_user_name'], data['product_info']) },
-						'同步'
-					)
-				);
-			} else if (field === 'product_name') {
+			if (field === 'product_name') {
 				return React.createElement(
 					'a',
 					{ className: 'btn btn-link btn-xs', href: '/product/new_product/?id=' + data.id },

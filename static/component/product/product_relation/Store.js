@@ -59,14 +59,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleChooseSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
 		var value = action.data.value;
-		var is_choosed = true;
+		var isChoosed = true;
 		for(var index in selectSelfShop){
 			if(selectSelfShop[index]==value){
-				is_choosed = false;
+				isChoosed = false;
 				selectSelfShop.splice(index,1);
 			}
 		}
-		if(is_choosed){
+		if(isChoosed){
 			selectSelfShop.push(value);
 		}
 		this.data.selectSelfShop = selectSelfShop;
@@ -84,7 +84,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		if(selectSelfShop.length==9){
 			selectSelfShop = [];
 		}else{
-			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng','weizoom_life','weizoom_yjr','weizoom_fulilaile'];
+			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng','weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai'];
 		}	
 		this.data.selectSelfShop = selectSelfShop;
 		this.__emitChange();
