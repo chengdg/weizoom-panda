@@ -119,17 +119,21 @@ class WeappRelation(resource.Resource):
 		data['code'] = 500
 		data['errMsg'] = u'同步失败'
 		try:
-			# print ('+++++++++++++++++product_data', product_data)
 			if product_data:
 				# 当前平台的的供应商账户（账户id)
 				# 获取当前供货商的对应的weapp供货商的id
+				sync_type = product_data[0].get('sync_type')
+				product_ids = product_data[0].get('product_ids')
+				if sync_type == 'batch':#批量同步
+					for product_id in product_ids:
+
 				account_id = product_data[0].get('account_id')
 				account_has_supplier = AccountHasSupplier.objects.filter(account_id=account_id).first()
 				if account_has_supplier:
 					weapp_supplier_id = account_has_supplier.supplier_id
 
 					# 获取商品（从数据库查询）
-					product_id = product_data[0].get('product_id')
+					# product_id = product_data[0].get('product_id')
 					product = models.Product.objects.get(id=product_id)
 					# 发送请求
 					# 获取商品图片
@@ -169,8 +173,6 @@ class WeappRelation(resource.Resource):
 					# 判断是更新还是新曾商品同步
 					relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id)
 					if relations.count() == 0:
-
-
 						resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 							'resource': 'mall.sync_product',
 							'data': params
@@ -285,3 +287,115 @@ def get_weapp_model_properties(product=None):
 								'is_standard': False})
 		weapp_models_info.append(temp_model_info)
 	return weapp_models_info
+
+def sync_products(request,product_id,product_data):
+	response = create_response(200)
+	data = {}
+	data['code'] = 500
+	data['errMsg'] = u'同步失败'
+	product = models.Product.objects.get(id=product_id)
+	user_profile = UserProfile.objects.get(user_id=product.owner_id)
+	account_id = user_profile.id
+	account_has_supplier = AccountHasSupplier.objects.filter(account_id=account_id).first()
+	if account_has_supplier:
+		weapp_supplier_id = account_has_supplier.supplier_id
+
+		# 获取商品（从数据库查询）
+		# product_id = product_data[0].get('product_id')
+		# product = models.Product.objects.get(id=product_id)
+		# 发送请求
+		# 获取商品图片
+		image_ids = [image.image_id for image in models.ProductImage.objects.filter(product_id=product_id)]
+		images = [{"order": 1, "url": i.path} for i in Image.objects.filter(id__in=image_ids)]
+		# 获取商品要同步到哪个平台
+
+		weizoom_self = product_data[0].get('weizoom_self').split(',')
+
+		weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects
+			.filter(self_user_name__in=weizoom_self)]
+		# 获取是单品还是多规格
+		model_type = 'single' if not product.has_product_model else 'custom'
+		weapp_models_info = []
+
+		if product.has_product_model:
+			# 多规格,获取规格信息
+			weapp_models_info = get_weapp_model_properties(product=product)
+		params = {
+			'supplier': weapp_supplier_id,
+			'name': product.product_name,
+			'promotion_title': product.promotion_title if product.promotion_title else '',
+			'purchase_price': float(product.clear_price),
+			'price': float(product.product_price),
+			'weight': product.product_weight,
+			'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
+			'images': json.dumps(images),
+			'product_id': product_id,
+			'model_type': model_type,
+			'model_info': json.dumps(weapp_models_info),
+			'stocks': product.product_store if product.product_store > 0 else 0,
+			# 商品需要同步到哪个自营平台
+			'accounts': json.dumps(weapp_user_ids),
+			'detail': product.remark
+		}
+
+		# 判断是更新还是新曾商品同步
+		relations = models.ProductHasRelationWeapp.objects.filter(product_id=product_id)
+		if relations.count() == 0:
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+				'resource': 'mall.sync_product',
+				'data': params
+			})
+			# 同步到商品中间关系表
+			if resp:
+				if resp.get('code') == 200 and resp.get('data').get('product'):
+					weapp_product_id = resp.get('data').get('product').get('id')
+					models.ProductHasRelationWeapp.objects.create(
+						product_id=product.id,
+						weapp_product_id=weapp_product_id,
+						self_user_name=request.user.username
+					)
+					# 更新同步到哪个平台了映射关系
+					sync_models = [models.ProductSyncWeappAccount(product_id=product.id,
+																  self_user_name=username)
+								   for username in weizoom_self]
+					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
+					if product.has_limit_time:
+						# TODO 同步限时抢购
+						pass
+					data['code'] = 200
+					data['errMsg'] = u'同步成功'
+
+		else:
+			relation = relations.first()
+			if relation:
+				model_type = 'single' if not product.has_product_model else 'custom'
+				params = {
+					'name': product.product_name,
+					'promotion_title': product.promotion_title,
+					'purchase_price': product.clear_price,
+					'price': product.product_price,
+					'weight': product.product_weight,
+					'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
+					'swipe_images': json.dumps(images),
+					'product_id': relation.weapp_product_id,
+					'model_type': model_type,
+					'stocks': product.product_store if product.product_store > 0 else 0,
+					# 商品需要同步到哪个自营平台
+					'accounts': json.dumps(weapp_user_ids),
+					'detail': product.remark,
+					'model_info': json.dumps(weapp_models_info),
+				}
+				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+					'resource': 'mall.sync_product',
+					'data': params
+				})
+				if resp and resp.get('code') == 200 and resp.get('data').get('success'):
+					# 先删除数据
+					models.ProductSyncWeappAccount.objects.filter(product_id=product.id,).delete()
+					sync_models = [models.ProductSyncWeappAccount(product_id=product.id,
+																  self_user_name=username)
+								   for username in weizoom_self]
+					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
+					data['code'] = 200
+					data['errMsg'] = u'同步成功'
+	return data
