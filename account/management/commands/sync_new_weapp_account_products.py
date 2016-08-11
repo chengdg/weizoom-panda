@@ -34,7 +34,7 @@ class Command(BaseCommand):
                                                    self_user_name='weizoom_juweihui')
 
             bulk_create.append(t_1)
-            # bulk_create.append(t2)
+            bulk_create.append(t2)
             print 'product: %s is ok' % product_id
         product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
         print 'ALL is OK! COUNT is %s' % len(bulk_create)
