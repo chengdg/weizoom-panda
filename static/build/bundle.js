@@ -34867,6 +34867,8 @@
 					React.createElement(Reactman.TableColumn, { name: '微众学生', field: 'weizoom_xuesheng' }),
 					React.createElement(Reactman.TableColumn, { name: '微众Life', field: 'weizoom_life' }),
 					React.createElement(Reactman.TableColumn, { name: '微众一家人', field: 'weizoom_yjr' }),
+					React.createElement(Reactman.TableColumn, { name: '居委汇', field: 'weizoom_juweihui' }),
+					React.createElement(Reactman.TableColumn, { name: '微众中海', field: 'weizoom_zhonghai' }),
 					React.createElement(Reactman.TableColumn, { name: '小计', field: 'product_sales' })
 				),
 				React.createElement(
@@ -34920,7 +34922,9 @@
 					React.createElement(Reactman.TableColumn, { name: '微众商城', field: 'weizoom_shop_orders_number' }),
 					React.createElement(Reactman.TableColumn, { name: '微众学生', field: 'weizoom_xuesheng_orders_number' }),
 					React.createElement(Reactman.TableColumn, { name: '微众Life', field: 'weizoom_life_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '微众一家人', field: 'weizoom_yjr_orders_number' })
+					React.createElement(Reactman.TableColumn, { name: '微众一家人', field: 'weizoom_yjr_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '居委汇', field: 'weizoom_juweihui_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众中海', field: 'weizoom_zhonghai_orders_number' })
 				)
 			);
 		}
@@ -37805,6 +37809,12 @@
 			}, {
 				text: '惠惠来啦',
 				value: 'weizoom_fulilaile'
+			}, {
+				text: '居委汇',
+				value: 'weizoom_juweihui'
+			}, {
+				text: '微众中海',
+				value: 'weizoom_zhonghai'
 			}];
 
 			var orderStatusOptions = [{
@@ -42130,6 +42140,12 @@
 			}, {
 				'name': '惠惠来啦',
 				'value': 'weizoom_fulilaile'
+			}, {
+				'name': '居委汇',
+				'value': 'weizoom_juweihui'
+			}, {
+				'name': '微众中海',
+				'value': 'weizoom_zhonghai'
 			}];
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],

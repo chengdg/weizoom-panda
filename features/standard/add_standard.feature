@@ -41,7 +41,7 @@ Scenario:1 新增显示样式为'文字'的规格样式
 		}]
 	"""
 
-	Then aini查看订单列表
+	Then aini查看规格列表
 	"""
 		[{
 			"standard_name":"尺码",
