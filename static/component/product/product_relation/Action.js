@@ -74,6 +74,13 @@ var Action = {
 			actionType: Constant.CHOOSE_ALL_SELF_SHOP,
 			data: {}
 		});
+	},
+
+	cancleSelectSyncProduct: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
+			data: {}
+		});
 	}
 };
 

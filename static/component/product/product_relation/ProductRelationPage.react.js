@@ -35,7 +35,7 @@ var ProductRelationPage = React.createClass({
 		Store.addListener(this.onChangeStore);
 	},
 
-	ChooseSyncSelfShop: function(product_id){
+	chooseSyncSelfShop: function(product_id){
 		Action.getHasSyncShop(product_id);
 
 		_.delay(function(){
@@ -43,13 +43,35 @@ var ProductRelationPage = React.createClass({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
 				data: {
-					product_id:product_id
+					product_id: String(product_id),
+					sync_type: 'single'
 				},
 				success: function(inputData, dialogState) {
 					console.log("success");
 				}
 			});
 		},100)
+	},
+
+	batchSyncProduct: function(){
+		//取消选中的平台
+		Action.cancleSelectSyncProduct();
+		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		if (productIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
+			return false;
+		}
+		Reactman.PageAction.showDialog({
+			title: "选择平台进行同步商品",
+			component: ChooseSyncSelfShopDialog,
+			data: {
+				product_id: productIds.join(","),
+				sync_type: 'batch'
+			},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -59,7 +81,7 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			return(
-				<a className="btn btn-link btn-xs" onClick={this.ChooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
 			)
 		}else {
 			return value;
@@ -96,8 +118,10 @@ var ProductRelationPage = React.createClass({
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
-					<Reactman.TableActionBar></Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+					<Reactman.TableActionBar>
+						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
+					</Reactman.TableActionBar>
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />

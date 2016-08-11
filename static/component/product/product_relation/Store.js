@@ -21,7 +21,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
-		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP
+		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
+		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT
 	},
 
 	init: function() {
@@ -79,14 +80,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetHasSyncShop: function(action){
-		this.data['product_info'] = action.data.product_info;
+		// this.data['product_info'] = action.data.product_info;
 		this.data['selectSelfShop'] = action.data.self_user_name;
 		this.__emitChange();
 	},
 
 	handleChooseAllSelfShop: function(){
 		var selectSelfShop = this.data.selectSelfShop;
-		
+
 		if(selectSelfShop.length==11){
 			selectSelfShop = [];
 		}else{
@@ -94,6 +95,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
+		this.__emitChange();
+	},
+
+	handleCancleSelectSyncProduct: function(){
+		this.data.selectSelfShop = [];
 		this.__emitChange();
 	},
 
