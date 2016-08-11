@@ -28,10 +28,10 @@ class Command(BaseCommand):
         for relation in relations:
             product_id = relation.get('product_id')
             t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                                   self_user_name='weizoom_fulilaile')
+                                                   self_user_name='weizoom_zhonghai')
 
-            # t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
-            #                                        self_user_name='weizoom_yjr')
+            t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                   self_user_name='weizoom_juweihui')
 
             bulk_create.append(t_1)
             # bulk_create.append(t2)
