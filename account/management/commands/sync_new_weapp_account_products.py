@@ -28,7 +28,8 @@ class Command(BaseCommand):
         for relation in relations:
             product_id = relation.get('product_id')
             count = product_models.ProductSyncWeappAccount.objects.filter(self_user_name__in=['weizoom_zhonghai',
-                                                                     'weizoom_juweihui']).count()
+                                                                     'weizoom_juweihui'],
+                                                                          product_id=product_id).count()
             print 'product_id:%s count :%s' % (product_id, count)
             if count == 0:
                 t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
