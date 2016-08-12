@@ -96,7 +96,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 			return;
 		}
-		console.log(sync_type,selectSelfShop,"------");
+		console.log(product_ids,"------");
 		var product_data = [{
 			'weizoom_self': selectSelfShop.join(','),//选择的商城
 			'product_ids': product_ids,//商品id

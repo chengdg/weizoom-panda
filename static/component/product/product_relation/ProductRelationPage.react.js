@@ -46,7 +46,7 @@ var ProductRelationPage = React.createClass({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
 				data: {
-					product_id: product_id.join(","),
+					product_id: String(product_id),
 					sync_type: 'single'
 				},
 				success: function(inputData, dialogState) {
@@ -64,19 +64,17 @@ var ProductRelationPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
 			return false;
 		}
-		console.log(productIds,"=========");
 		Reactman.PageAction.showDialog({
 			title: "选择平台进行同步商品",
 			component: ChooseSyncSelfShopDialog,
 			data: {
-				productIds: productIds,
+				product_id: productIds.join(","),
 				sync_type: 'batch'
 			},
 			success: function(inputData, dialogState) {
 				console.log("success");
 			}
 		});
-		// Action.batchSyncProduct(productIds);
 	},
 
 	rowFormatter: function(field, value, data) {

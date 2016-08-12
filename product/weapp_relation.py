@@ -93,7 +93,9 @@ class WeappRelation(resource.Resource):
 				sync_type = product_data[0].get('sync_type')
 				product_ids = product_data[0].get('product_ids')
 				product_ids = product_ids.split(',')
+				print product_ids,"========"
 				for product_id in product_ids:
+					print product_id,"-----"
 					return_data = sync_products(request,int(product_id),product_data)
 					if return_data['is_error'] == True:
 						data['is_error'] = True
