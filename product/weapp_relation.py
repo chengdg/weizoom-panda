@@ -100,19 +100,19 @@ class WeappRelation(resource.Resource):
 				user_ids= [product.owner_id for product in products]
 
 				user_profiles = UserProfile.objects.filter(user_id__in=user_ids)
-				account_ids= [user_profile.id for user_profile in user_profiles]
-				account_id2user_id={user_profile.id:user_profile.user_id for user_profile in user_profiles}
+				account_ids = [user_profile.id for user_profile in user_profiles]
+				user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
 				
 				account_has_suppliers = AccountHasSupplier.objects.filter(account_id__in=account_ids)
 				user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 				account_id2account_has_supplier = {account_has_supplier.account_id:account_has_supplier for account_has_supplier in account_has_suppliers}
 				for product_id in product_ids:
-					print product_id,"-----"
+					product_id = int(product_id)
 					product = product_id2product[product_id]
 					owner_id = product_id2owner_id[product_id]
-					account_id = account_id2user_id[owner_id]
-					account_has_supplier = account_id2account_has_supplier[account_id]
-					return_data = sync_products(request,int(product_id),product,product_data,account_has_supplier)
+					account_id = user_id2account_id[int(owner_id)]
+					account_has_supplier = account_id2account_has_supplier[int(account_id)]
+					return_data = sync_products(request,product_id,product,product_data,account_has_supplier)
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 		except:
