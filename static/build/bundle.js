@@ -43329,7 +43329,7 @@
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
 				self_shop: selfShop,
-				product_info: ''
+				product_info: Store.getData()['product_info']
 			};
 		},
 
@@ -43411,7 +43411,7 @@
 				),
 				React.createElement(
 					'span',
-					{ className: 'cancle-relation-tips', style: { display: 'none' } },
+					{ className: 'cancle-relation-tips' },
 					'( 提示：取消平台勾选，商品将从该平台禁售不可见 )'
 				),
 				React.createElement(
@@ -43470,7 +43470,8 @@
 		init: function () {
 			this.filter = {};
 			this.data = {
-				'selectSelfShop': []
+				'selectSelfShop': [],
+				'product_info': {}
 			};
 		},
 

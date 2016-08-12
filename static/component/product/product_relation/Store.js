@@ -27,7 +27,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.filter = {};
 		this.data = {
-			'selectSelfShop': []
+			'selectSelfShop': [],
+			'product_info': {}
 		};
 	},
 

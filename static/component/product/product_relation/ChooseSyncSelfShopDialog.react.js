@@ -53,7 +53,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		return {
 			select_self_shop: Store.getData()['selectSelfShop'],
 			self_shop: selfShop,
-			product_info: ''
+			product_info: Store.getData()['product_info']
 		}
 	},
 
@@ -125,7 +125,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 				<span style={{display:'block',paddingLeft:'50px'}}>
 					<input type="checkbox" checked={checked} className="checkbox" name="select" value="0" style={{display:'inline-block'}} onChange={this.chooseAllSelfShop}/>全选
 				</span>
-				<span className='cancle-relation-tips' style={{display:'none'}}>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	
+				<span className='cancle-relation-tips'>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	
 				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,productId)}><span>确定</span></a>
 				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px'}} onClick={this.cancleChecked}><span>取消</span></a>
 			</div>
