@@ -54,8 +54,7 @@ class WeappRelation(resource.Resource):
 		product_id = request.GET.get('product_id',0)
 		print product_id,"==========="
 		product = models.Product.objects.get(id=product_id)
-		user_profile = UserProfile.objects.get(user_id=product.owner_id)#role{1:客户}
-		# product_images = models.ProductImage.objects.filter(product_id=product_id).order_by('id')
+		# user_profile = UserProfile.objects.get(user_id=product.owner_id)#role{1:客户}
 		product_sync_weapp_account = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
 		product_id2self_user_name = {}
 		for product_has_relation in product_sync_weapp_account:
@@ -67,40 +66,12 @@ class WeappRelation(resource.Resource):
 				product_id2self_user_name[product_id].append(self_user_name)
 
 		self_user_name = [] if product_id not in product_id2self_user_name else product_id2self_user_name[product_id]
-		
-		# #获取商品图片
-		# product_id2image_id = {}
-		# image_id2images = {}
-		# for product_image in product_images:
-		# 	if product_image.product_id not in product_id2image_id:
-		# 		product_id2image_id[product_image.product_id] = [product_image.image_id]
-		# 	else:
-		# 		product_id2image_id[product_image.product_id].append(product_image.image_id)
-		# for image in Image.objects.all().order_by('id'):
-		# 	image_id2images[image.id] = image.path
-		# image_path = []
-		# image_ids = [] if product_id not in product_id2image_id else product_id2image_id[product_id]
-		# for image_id in image_ids:
-		# 	if image_id in image_id2images:
-		# 		img_path = image_id2images[image_id]
-		# 		if 'http' not in image_id2images[image_id]:
-		# 			img_path = PANDA_HOST + image_id2images[image_id]
-		# 		image_path.append(img_path)
 
-		product_info = {
-			'account_id': user_profile.id,
-			# 'product_id': product_id,
-			# 'product_name': product.product_name,
-			# 'promotion_title': product.promotion_title if product.promotion_title else '',
-			# 'clear_price': '%s' %product.clear_price,
-			# 'product_price': '%s' %product.product_price,
-			# 'product_weight': '%s' %product.product_weight,
-			# 'product_store': '%s' %product.product_store,
-			# 'remark': '%s' %product.remark,
-			# 'image_path': ','.join(image_path)
-		}
+		# product_info = {
+		# 	'account_id': user_profile.id
+		# }
 		data = {
-			'product_info': product_info,
+			# 'product_info': product_info,
 			'self_user_name': self_user_name
 		}
 

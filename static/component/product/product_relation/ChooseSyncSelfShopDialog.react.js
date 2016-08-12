@@ -63,8 +63,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 
 	onChangeStore: function(){
 		this.setState({
-			select_self_shop: Store.getData()['selectSelfShop'],
-			product_info: Store.getData()['product_info']
+			select_self_shop: Store.getData()['selectSelfShop']
+			// product_info: Store.getData()['product_info']
 		});
 	},
 
@@ -91,7 +91,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	productRelation: function(product_ids,sync_type) {
 		var _this = this;
 		var selectSelfShop = this.state.select_self_shop;
-		var productInfo = this.state.product_info;
+		// var productInfo = this.state.product_info;
 		if (selectSelfShop.length==0){
 			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 			return;

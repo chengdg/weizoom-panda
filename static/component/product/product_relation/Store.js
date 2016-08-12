@@ -79,7 +79,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetHasSyncShop: function(action){
-		this.data['product_info'] = action.data.product_info;
+		// this.data['product_info'] = action.data.product_info;
 		this.data['selectSelfShop'] = action.data.self_user_name;
 		this.__emitChange();
 	},
