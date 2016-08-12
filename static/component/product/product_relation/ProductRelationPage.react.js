@@ -57,6 +57,8 @@ var ProductRelationPage = React.createClass({
 	},
 
 	batchSyncProduct: function(){
+		//取消选中的平台
+		Action.cancleSelectSyncProduct();
 		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
 		if (productIds.length == 0){
 			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');

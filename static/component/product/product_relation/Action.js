@@ -76,17 +76,10 @@ var Action = {
 		});
 	},
 
-	batchSyncProduct: function(productIds){
-		console.log(productIds,'++++++==');
-		Resource.post({
-			resource: 'product.batch_sync',
-			data: {
-				'product_ids': productIds.join(',')
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.BATCH_SYNC_PRODUCT
-			}
+	cancleSelectSyncProduct: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
+			data: {}
 		});
 	}
 };

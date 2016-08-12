@@ -22,7 +22,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
 		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
-		'handleBatchSyncProduct': Constant.BATCH_SYNC_PRODUCT
+		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT
 	},
 
 	init: function() {
@@ -97,7 +97,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleBatchSyncProduct: function(){
+	handleCancleSelectSyncProduct: function(){
+		this.data.selectSelfShop = [];
 		this.__emitChange();
 	},
 

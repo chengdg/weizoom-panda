@@ -103,7 +103,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			'sync_type': sync_type
 			// 'account_id': productInfo['account_id'] //所属账号 id
 		}]
-		// Action.relationFromWeapp(JSON.stringify(product_data));
+		Action.relationFromWeapp(JSON.stringify(product_data));
 	},
 
 	render: function(){

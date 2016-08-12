@@ -12,5 +12,5 @@ module.exports = keyMirror({
 	CHOOSE_SELF_SHOP: null,
 	GET_HAS_SYNC_SHOP: null,
 	CHOOSE_ALL_SELF_SHOP: null,
-	BATCH_SYNC_PRODUCT: null
+	CANCLE_SELECT_SYNC_PRODUCT: null
 });
