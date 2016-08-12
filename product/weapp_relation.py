@@ -82,8 +82,8 @@ class WeappRelation(resource.Resource):
 	@login_required
 	def api_post(request):
 		product_data = request.POST.get('product_data',0)
-		account_has_suppliers = AccountHasSupplier.objects.all()
-		user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
+		# account_has_suppliers = AccountHasSupplier.objects.all()
+		# user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 		product_data = '' if not product_data else json.loads(product_data)
 		response = create_response(200)
 		data = {}
@@ -94,9 +94,25 @@ class WeappRelation(resource.Resource):
 				product_ids = product_data[0].get('product_ids')
 				product_ids = product_ids.split(',')
 				print product_ids,"========"
+				products = models.Product.objects.filter(id__in=product_ids)
+				product_id2product={product.id:product for product in products}
+				product_id2owner_id={product.id:product.owner_id for product in products}
+				user_ids= [product.owner_id for product in products]
+
+				user_profiles = UserProfile.objects.filter(user_id__in=user_ids)
+				account_ids= [user_profile.id for user_profile in user_profiles]
+				account_id2user_id={user_profile.id:user_profile.user_id for user_profile in user_profiles}
+				
+				account_has_suppliers = AccountHasSupplier.objects.filter(account_id__in=account_ids)
+				user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
+				account_id2account_has_supplier = {account_has_supplier.account_id:account_has_supplier for account_has_supplier in account_has_suppliers}
 				for product_id in product_ids:
 					print product_id,"-----"
-					return_data = sync_products(request,int(product_id),product_data)
+					product = product_id2product[product_id]
+					owner_id = product_id2owner_id[product_id]
+					account_id = account_id2user_id[owner_id]
+					account_has_supplier = account_id2account_has_supplier[account_id]
+					return_data = sync_products(request,int(product_id),product,product_data,account_has_supplier)
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 		except:
@@ -161,13 +177,13 @@ def get_weapp_model_properties(product=None):
 		weapp_models_info.append(temp_model_info)
 	return weapp_models_info
 
-def sync_products(request,product_id,product_data):
+def sync_products(request,product_id,product,product_data,account_has_supplier):
 	data = {}
 	data['is_error'] = False
-	product = models.Product.objects.get(id=product_id)
-	user_profile = UserProfile.objects.get(user_id=product.owner_id)
-	account_id = user_profile.id
-	account_has_supplier = AccountHasSupplier.objects.filter(account_id=account_id).first()
+	# product = models.Product.objects.get(id=product_id)
+	# user_profile = UserProfile.objects.get(user_id=product.owner_id)
+	# account_id = user_profile.id
+	# account_has_supplier = AccountHasSupplier.objects.filter(account_id=account_id).first()
 	try:
 		if account_has_supplier:
 			weapp_supplier_id = account_has_supplier.supplier_id
