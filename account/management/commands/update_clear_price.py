@@ -25,10 +25,12 @@ class Command(BaseCommand):
 		user_id2points = {user.user_id:user.points for user in all_users}
 		products = product_models.Product.objects.all()
 		i = 0
+		temp_dict = []
 		for product in products:
 			product_id = product.id
 			owner_id = product.owner_id
 			clear_price = product.clear_price
+			old_clear_price = clear_price
 			product_price = float(product.product_price)
 			if owner_id in user_id2purchase_method:
 				purchase_method = user_id2purchase_method[owner_id]
@@ -41,4 +43,11 @@ class Command(BaseCommand):
 					clear_price = round(clear_price/100,2)
 					product_models.Product.objects.filter(id=product_id).update(clear_price=clear_price)
 					print "======successs======",product_id
+					temp_dict.append({
+						'product_id': product_id,
+						'new_clear_price': float(clear_price),
+						'old_clear_price': float(old_clear_price),
+					})
+		with open('update_clear_price.txt', 'w') as f:
+			f.write(json.dumps(temp_dict))
 		print "=====count=====",i
