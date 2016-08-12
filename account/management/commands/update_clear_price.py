@@ -32,6 +32,7 @@ class Command(BaseCommand):
 			clear_price = product.clear_price
 			old_clear_price = clear_price
 			product_price = float(product.product_price)
+			product_price = 0 if product_price < 0 else product_price
 			if owner_id in user_id2purchase_method:
 				purchase_method = user_id2purchase_method[owner_id]
 				if purchase_method ==2:
