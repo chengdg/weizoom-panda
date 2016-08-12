@@ -46,7 +46,7 @@ var ProductRelationPage = React.createClass({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
 				data: {
-					product_id:product_id,
+					product_id: product_id.join(","),
 					sync_type: 'single'
 				},
 				success: function(inputData, dialogState) {
