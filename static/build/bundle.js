@@ -42070,6 +42070,13 @@
 				actionType: Constant.CHOOSE_ALL_SELF_SHOP,
 				data: {}
 			});
+		},
+
+		cancleSelectSyncProduct: function () {
+			Dispatcher.dispatch({
+				actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
+				data: {}
+			});
 		}
 	};
 
@@ -42092,7 +42099,8 @@
 		DELETE_PRODUCT_RELATION_WEAPP: null,
 		CHOOSE_SELF_SHOP: null,
 		GET_HAS_SYNC_SHOP: null,
-		CHOOSE_ALL_SELF_SHOP: null
+		CHOOSE_ALL_SELF_SHOP: null,
+		CANCLE_SELECT_SYNC_PRODUCT: null
 	});
 
 /***/ },
@@ -42164,8 +42172,8 @@
 
 		onChangeStore: function () {
 			this.setState({
-				select_self_shop: Store.getData()['selectSelfShop'],
-				product_info: Store.getData()['product_info']
+				select_self_shop: Store.getData()['selectSelfShop']
+				// product_info: Store.getData()['product_info']
 			});
 		},
 
@@ -42189,18 +42197,20 @@
 			Action.chooseAllSelfShop();
 		},
 
-		productRelation: function (product_id) {
+		productRelation: function (product_ids, sync_type) {
 			var _this = this;
 			var selectSelfShop = this.state.select_self_shop;
-			var productInfo = this.state.product_info;
+			// var productInfo = this.state.product_info;
 			if (selectSelfShop.length == 0) {
 				Reactman.PageAction.showHint('error', '请选择要同步的商城！');
 				return;
 			}
+			console.log(product_ids, "------");
 			var product_data = [{
 				'weizoom_self': selectSelfShop.join(','), //选择的商城
-				'product_id': product_id, //商品id
-				'account_id': productInfo['account_id'] //所属账号 id
+				'product_ids': product_ids, //商品id
+				'sync_type': sync_type
+				// 'account_id': productInfo['account_id'] //所属账号 id
 			}];
 			Action.relationFromWeapp(JSON.stringify(product_data));
 		},
@@ -42208,6 +42218,7 @@
 		render: function () {
 			var _this = this;
 			var productId = this.props.data.product_id;
+			var syncType = this.props.data.sync_type;
 			var selfShop = this.state.self_shop;
 			var selectSelfShop = this.state.select_self_shop.toString();
 			var checked = this.state.select_self_shop.length == 11 ? 'checked' : null;
@@ -42247,7 +42258,7 @@
 				),
 				React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, productId) },
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, productId, syncType) },
 					React.createElement(
 						'span',
 						null,
@@ -42256,7 +42267,7 @@
 				),
 				React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', display: 'none' }, onClick: this.cancleChecked.bind(this, productId) },
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', display: 'none' }, onClick: this.cancleChecked.bind(this, productId, syncType) },
 					React.createElement(
 						'span',
 						null,
@@ -42295,7 +42306,8 @@
 			'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 			'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 			'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
-			'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP
+			'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
+			'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT
 		},
 
 		init: function () {
@@ -42352,7 +42364,7 @@
 		},
 
 		handleGetHasSyncShop: function (action) {
-			this.data['product_info'] = action.data.product_info;
+			// this.data['product_info'] = action.data.product_info;
 			this.data['selectSelfShop'] = action.data.self_user_name;
 			this.__emitChange();
 		},
@@ -42367,6 +42379,11 @@
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
+			this.__emitChange();
+		},
+
+		handleCancleSelectSyncProduct: function () {
+			this.data.selectSelfShop = [];
 			this.__emitChange();
 		},
 
@@ -42467,7 +42484,7 @@
 			}
 		},
 
-		ChooseSyncSelfShop: function (product_id) {
+		chooseSyncSelfShop: function (product_id) {
 			Action.getHasSyncShop(product_id);
 
 			_.delay(function () {
@@ -42475,13 +42492,35 @@
 					title: "选择平台进行同步商品",
 					component: ChooseSyncSelfShopDialog,
 					data: {
-						product_id: product_id
+						product_id: String(product_id),
+						sync_type: 'single'
 					},
 					success: function (inputData, dialogState) {
 						console.log("success");
 					}
 				});
 			}, 100);
+		},
+
+		batchSyncProduct: function () {
+			//取消选中的平台
+			Action.cancleSelectSyncProduct();
+			var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+			if (productIds.length == 0) {
+				Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
+				return false;
+			}
+			Reactman.PageAction.showDialog({
+				title: "选择平台进行同步商品",
+				component: ChooseSyncSelfShopDialog,
+				data: {
+					product_id: productIds.join(","),
+					sync_type: 'batch'
+				},
+				success: function (inputData, dialogState) {
+					console.log("success");
+				}
+			});
 		},
 
 		rowFormatter: function (field, value, data) {
@@ -42494,7 +42533,7 @@
 			} else if (field === 'action') {
 				return React.createElement(
 					'a',
-					{ className: 'btn btn-link btn-xs', onClick: this.ChooseSyncSelfShop.bind(this, data['id']) },
+					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
 					'同步商品'
 				);
 			} else {
@@ -42545,10 +42584,14 @@
 				React.createElement(
 					Reactman.TablePanel,
 					null,
-					React.createElement(Reactman.TableActionBar, null),
+					React.createElement(
+						Reactman.TableActionBar,
+						null,
+						React.createElement(Reactman.TableActionButton, { text: '批量同步', onClick: this.batchSyncProduct })
+					),
 					React.createElement(
 						Reactman.Table,
-						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
+						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, enableSelector: true, ref: 'table' },
 						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
 						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
 						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
