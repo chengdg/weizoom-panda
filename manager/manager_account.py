@@ -109,7 +109,10 @@ class ManagerAccount(resource.Resource):
 				rows.append({
 					'id' : account.id,
 					'user_id' : account.user_id,
+					'phone' : account.phone,
 					'name' : account.name,
+					'contacter' : account.contacter,
+					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
 					'username' : user_id2username[account.user_id],
 					'role' : ROLE2NAME[account.role],
 					'note' : account.note,
@@ -176,7 +179,8 @@ class ExportAccounts(resource.Resource):
 	def get(request):
 		accounts = ManagerAccount.api_get(request)
 		titles = [
-			u'账号id', u'对应user_id', u'账号类型', u'账号名称',u'登录账号', u'公司名称', u'备注'
+			u'账号id', u'对应user_id', u'账号类型', u'账号名称',u'登录账号', u'公司名称',
+			u'联系人', u'手机号', u'采购方式', u'备注'
 		]
 		table = []
 		table.append(titles)
@@ -188,6 +192,9 @@ class ExportAccounts(resource.Resource):
 				account['name'],
 				account['username'],
 				account['company_name'],
+				account['contacter'],
+				account['phone'],
+				account['purchase_method'],
 				account['note']
 			])
 		return ExcelResponse(table,output_name=u'账号管理文件'.encode('utf8'),force_csv=False)
