@@ -43,8 +43,11 @@ class Command(BaseCommand):
 					clear_price = round(clear_price/100,2)
 					product_models.Product.objects.filter(id=product_id).update(clear_price=clear_price)
 					print "======successs======",product_id
+					relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
+
 					temp_dict.append({
 						'product_id': product_id,
+						'weapp_product_id': relation.weapp_product_id if relation else '',
 						'new_clear_price': float(clear_price),
 						'old_clear_price': float(old_clear_price),
 						'product_price': float(product_price),
