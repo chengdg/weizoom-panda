@@ -74,7 +74,7 @@
 		var pageNode = $page.get(0);
 
 		ReactDOM.render(React.createElement(Reactman.Page, {
-			sitename: '微众体验系统后台',
+			sitename: '微众商品管理系统',
 			userName: W.userName,
 			topNavs: W.topNavs,
 			activeTopNav: W.activeTopNav,
