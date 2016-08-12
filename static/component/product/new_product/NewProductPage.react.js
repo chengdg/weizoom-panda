@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
+var AddProductCategory = require('./AddProductCategory.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -32,7 +33,18 @@ var NewProductPage = React.createClass({
 	onChangeStore: function(){
 		this.setState(Store.getData());
 	},
+    addProductCatelog: function(){
+        Reactman.PageAction.showDialog({
+            title: "选择分类",
+            component: AddProductCategory,
+            data: {
 
+            },
+            success: function(inputData, dialogState) {
+                console.log('++++++++++++++++++++++++++++++++++++++++')
+            }
+        })
+    },
 	productPreview: function(){
 		var product = Store.getData();
 		var model_values = this.state.model_values;
@@ -193,7 +205,8 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
-						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
+						<div style={{paddingLeft:'180px',marginBottom:'10px'}}> <a className="btn btn-success mr40 xa-submit xui-fontBold" onClick={this.addProductCatelog}>添加类目</a></div>
+						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
