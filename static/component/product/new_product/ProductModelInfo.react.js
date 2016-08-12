@@ -80,7 +80,7 @@ var ProductModelInfo = React.createClass({
 				if(product_price){
 					var points = 1-(W.points/100);
 					var product_price = parseFloat(product_price);
-					_this.state["clear_price_"+model.modelId] = (Math.round(points*product_price*100)/100).toFixed(2);
+					_this.state["clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 				}
 			}
 			return(
@@ -111,7 +111,7 @@ var ProductModelInfo = React.createClass({
 				if(product_price){
 					var points = 1-(W.points/100);
 					var product_price = parseFloat(product_price);
-					var clear_price = (Math.round(product_price*points*100)/100).toFixed(2)
+					var clear_price = (Math.round((product_price*points*100).toFixed(2))/100).toFixed(2)
 					this.state["clear_price"] = clear_price;
 				}
 			}

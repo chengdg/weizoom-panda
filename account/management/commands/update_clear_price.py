@@ -2,6 +2,7 @@
 __author__ = 'huangjian'
 
 import json
+import math
 import os
 import random
 import time
@@ -22,7 +23,7 @@ class Command(BaseCommand):
 		all_users = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
 		user_id2purchase_method = {user.user_id:user.purchase_method for user in all_users}
 		user_id2points = {user.user_id:user.points for user in all_users}
-		products = product_models.Product.objects.filter(id__gte=1651,id__lte=1761)
+		products = product_models.Product.objects.all()
 		i = 0
 		for product in products:
 			product_id = product.id
@@ -31,12 +32,13 @@ class Command(BaseCommand):
 			product_price = float(product.product_price)
 			if owner_id in user_id2purchase_method:
 				purchase_method = user_id2purchase_method[owner_id]
-				if purchase_method ==2 and clear_price==0:
+				if purchase_method ==2:
 					i += 1
 					points = 0 if owner_id not in user_id2points else user_id2points[owner_id]
 					per_points = points/100
-					clear_price = product_price*(1-per_points)
-					clear_price = round(clear_price,2)
+					clear_price = product_price*(1-per_points)*100
+					clear_price = math.ceil(clear_price)
+					clear_price = round(clear_price/100,2)
 					product_models.Product.objects.filter(id=product_id).update(clear_price=clear_price)
 					print "======successs======",product_id
 		print "=====count=====",i
