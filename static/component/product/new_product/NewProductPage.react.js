@@ -13,7 +13,6 @@ var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
-var ProductCategory = require('./ProductCategory.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -176,9 +175,7 @@ var NewProductPage = React.createClass({
 		model_values = model_values.length>0?JSON.stringify(model_values):''
 		Action.saveNewProduct(product,model_values);
 	},
-    choose_product_catalog: function(){
-        alert('fucnking')
-    },
+
 	render:function(){
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
@@ -195,9 +192,8 @@ var NewProductPage = React.createClass({
 						<legend className="pl10 pt10 pb10">基本信息</legend>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
-						<div><ProductCategory /></div>
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
-						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>
+						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
