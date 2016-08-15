@@ -74,7 +74,7 @@ function selectB(p,c) {
 		            '<div class="progress mt5 xa-progress xui-hide">'+
 		                '<div class="progress-bar progress-bar-success xa-bar"></div>'+
 		            '</div>'+
-		            '<input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-catalog_qualification_'+catalog_qualification['qualification_id']+'" data-date-format="yyyy-mm-dd hh:ii">'+
+		            '<input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-catalog_qualification_'+catalog_qualification['qualification_id']+'" data-date-format="yyyy-mm-dd hh:ii">'+
 		        '</div>'
 			}
 			$("#apply_page_3_upload_field").append(uploadCont);

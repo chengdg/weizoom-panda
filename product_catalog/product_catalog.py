@@ -97,32 +97,32 @@ class ProductCatalog(resource.Resource):
 				father_id = father_id,
 				note = note
 			)
-			#
-			weapp_father_id = father_id
-			if father_id > 0:
-				relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=father_id).first()
-				if relation:
-					weapp_father_id = relation.weapp_catalog_id
+			response = create_response(200)
+			# weapp_father_id = father_id
+			# if father_id > 0:
+			# 	relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=father_id).first()
+			# 	if relation:
+			# 		weapp_father_id = relation.weapp_catalog_id
 
-			params = {
-				'name': name,
-				'level': level,
-				'father_id': 0 if father_id == -1 else weapp_father_id
-			}
-			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
-				{
-					'resource': 'mall.classification',
-					'data': params
-				}
-			)
-			if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
-				product_catalog_models.ProductCatalogRelation\
-					.objects.create(catalog_id=product_catalog.id,
-									weapp_catalog_id=resp.get('data').get('classification').get('id'))
-				response = create_response(200)
-			else:
-				product_catalog_models.ProductCatalog.objects.filter(id=product_catalog.id).delete()
-				response = create_response(500)
+			# params = {
+			# 	'name': name,
+			# 	'level': level,
+			# 	'father_id': 0 if father_id == -1 else weapp_father_id
+			# }
+			# resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
+			# 	{
+			# 		'resource': 'mall.classification',
+			# 		'data': params
+			# 	}
+			# )
+			# if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
+			# 	product_catalog_models.ProductCatalogRelation\
+			# 		.objects.create(catalog_id=product_catalog.id,
+			# 						weapp_catalog_id=resp.get('data').get('classification').get('id'))
+			# 	response = create_response(200)
+			# else:
+			# 	product_catalog_models.ProductCatalog.objects.filter(id=product_catalog.id).delete()
+			# 	response = create_response(500)
 		except:
 			response = create_response(500)
 			response.errMsg = u'新建失败'

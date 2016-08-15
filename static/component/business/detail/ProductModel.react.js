@@ -15,7 +15,6 @@ var Constant = require('./Constant')
 var ProductModel = React.createClass({
 	getInitialState: function() {
 		var model = this.props.model;
-		console.log(this.props.model);
 		return {
 			index: this.props.index,
 			qualification_name: model.qualification_name,
@@ -42,7 +41,7 @@ var ProductModel = React.createClass({
 		return (
 			<div>
 				<Reactman.FormImageUploader label={model.qualification_name} name="img" value={model.img} onChange={this.onChange.bind(this,model.qualification_id)} max={1} />
-				<Reactman.FormDateTimeInput label='有效期:' name="qualification_time" value={model.qualification_time} onChange={this.onChange} />
+				<Reactman.FormDateTimeInput label='有效期:' name="qualification_time" value={model.qualification_time} onChange={this.onChange.bind(this,model.qualification_id)} />
 			</div>
 		)
 	}

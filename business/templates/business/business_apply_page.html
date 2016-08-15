@@ -103,7 +103,7 @@
             <div class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
-            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
             <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
@@ -115,7 +115,7 @@
             <div class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
-            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
             <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
@@ -127,7 +127,7 @@
             <div class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
-            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-organization_code_certificate" data-date-format="yyyy-mm-dd hh:ii">
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-organization_code_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
             <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
@@ -139,7 +139,7 @@
             <div class="progress mt5 xa-progress xui-hide">
                 <div class="progress-bar progress-bar-success xa-bar"></div>
             </div>
-            <input class="form-control xui-datePicker xa-datePicker" type="text" value="请选择日期" id="datetimepicker-account_opening_license" data-date-format="yyyy-mm-dd hh:ii">
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-account_opening_license" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
           <div class="form-group_btn">
@@ -159,8 +159,9 @@
                 <div class="selectedSortQualificationIds" style="display:none"></div>
             </div>
             <div class="wareSort clearfix">
-                <ul id="sort1"></ul>
-                <ul id="sort2"></ul>
+                <ul class="pre-scrollable" id="sort1"></ul>
+                <div class="arrow"><img src="/static/img/arrow_2.png"></div>
+                <ul class="pre-scrollable" id="sort2"></ul>
             </div>
           </div>
           <div id="apply_page_3_upload_field"></div>
@@ -175,12 +176,16 @@
 
         <!-- 第四页 -->
         <form id="apply_page_4" style="display:none">
-            <div class="page4_success_info">
-                您的入驻申请提交成功！我们将在3-5个工作日完成审核并及时和您联系，谢谢！
+            <img style="display:inline-block" src="/static/img/arrow_3.png">
+            <div style="display:inline-block; width: 30%;vertical-align: middle;">
+                <div class="page4_success_info">
+                    您的入驻申请提交成功！我们将在3-5个工作日完成审核并及时和您联系，谢谢！
+                </div>
+                <div class="page4_help_info">
+                    温馨提示：如希望与我们保持持续的沟通，可添加我们的在线客服qq：800051878
+                </div>
             </div>
-            <div class="page4_help_info">
-                温馨提示：如希望与我们保持持续的沟通，可添加我们的在线客服qq：800051878
-            </div>
+            
             <div class="form-group_btn">
                 <div>
                     <button type="button" class="btn btn-primary" id="closeBtn">关闭本页</button>
