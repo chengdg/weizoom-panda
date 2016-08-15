@@ -29,8 +29,8 @@ var ProductRelationPage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
-		this.refs.table.refresh(); 
-		// this.setState(Store.getData());
+		// this.refs.table.refresh(); 
+		this.setState(Store.getData());
 	},
 
 	componentDidMount: function() {
