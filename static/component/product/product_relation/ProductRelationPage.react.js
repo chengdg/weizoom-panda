@@ -15,10 +15,12 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
+require('./ProductRelation.css');
 
 var ProductRelationPage = React.createClass({
 	getInitialState: function() {
-		return ({});
+		Store.addListener(this.onChangeStore);
+		return Store.getData();
 	},
 
 	onChangeFilterStore: function(event) {
@@ -32,7 +34,6 @@ var ProductRelationPage = React.createClass({
 
 	componentDidMount: function() {
 		FilterStore.addListener(this.onChangeFilterStore);
-		Store.addListener(this.onChangeStore);
 	},
 
 	chooseSyncSelfShop: function(product_id){
@@ -61,7 +62,7 @@ var ProductRelationPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
 			return false;
 		}
-		
+
 		Reactman.PageAction.showDialog({
 			title: "选择平台进行同步商品",
 			component: ChooseSyncSelfShopDialog,
@@ -104,7 +105,7 @@ var ProductRelationPage = React.createClass({
 		};
 		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已同步', value: '1'},{text: '未同步', value: '2'}];
 		return (
-			<div className="mt15 xui-product-productListPage">
+			<div className="mt15 xui-product-productRelationPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>
