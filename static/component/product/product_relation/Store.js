@@ -17,7 +17,7 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
-		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
+		// 'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
 		'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
@@ -46,10 +46,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleProductRelationDataFilter: function(action){
-		this.filter = action.data;
-		this.__emitChange();
-	},
+	// handleProductRelationDataFilter: function(action){
+	// 	this.filter = action.data;
+	// 	this.__emitChange();
+	// },
 
 	handleDeleteProductRelationWeapp: function(action){
 		setTimeout(function() {

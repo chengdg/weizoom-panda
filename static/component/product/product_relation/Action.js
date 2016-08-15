@@ -13,7 +13,7 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	filterDates: function(filterOptions){
+	filterDatas: function(filterOptions){
 		Dispatcher.dispatch({
 			actionType: Constant.PRODUCT_RELATION_DATAS_FILTER,
 			data: filterOptions

@@ -10,6 +10,7 @@ var _ = require('underscore');
 var Reactman = require('reactman');
 
 var Store = require('./Store');
+var FilterStore = require('./FilterStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
@@ -17,25 +18,14 @@ var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 
 var ProductRelationPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
+		FilterStore.addListener(this.onChangeStore);
 		return ({});
 	},
 
 	onChangeStore: function(event) {
 		var _this = this;
-		var filterOptions = Store.getFilter();
-		var hasProp = false;
-
-		for (var prop in filterOptions){  
-			hasProp = true;  
-			break;  
-		}
-
-		if (hasProp){  
-			this.refs.table.refresh(filterOptions);  
-		}else{
-			this.setState(Store.getData());
-		}
+		var filterOptions = FilterStore.getFilter();
+		this.refs.table.refresh(filterOptions); 
 	},
 
 	ChooseSyncSelfShop: function(product_id){
@@ -70,7 +60,7 @@ var ProductRelationPage = React.createClass({
 	},
 
 	onConfirmFilter: function(data){
-		Action.filterDates(data);
+		Action.filterDatas(data);
 	},
 
 	render:function(){
