@@ -68,7 +68,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	},
 
 	ChooseSelfShop: function(value){
-		Action.chooseSelfShop(value, this.props.data.cur_page);
+		Action.chooseSelfShop(value);
 	},
 
 	cancleChecked: function(){
@@ -76,7 +76,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	},
 
 	chooseAllSelfShop: function(){
-		Action.chooseAllSelfShop(this.props.data.cur_page);
+		Action.chooseAllSelfShop();
 	},
 
 	productRelation: function(product_ids) {

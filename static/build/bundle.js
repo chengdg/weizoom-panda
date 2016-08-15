@@ -43257,22 +43257,19 @@
 			});
 		},
 
-		chooseSelfShop: function (value, cur_page) {
+		chooseSelfShop: function (value) {
 			Dispatcher.dispatch({
 				actionType: Constant.CHOOSE_SELF_SHOP,
 				data: {
-					value: value,
-					cur_page: cur_page
+					value: value
 				}
 			});
 		},
 
-		chooseAllSelfShop: function (cur_page) {
+		chooseAllSelfShop: function () {
 			Dispatcher.dispatch({
 				actionType: Constant.CHOOSE_ALL_SELF_SHOP,
-				data: {
-					cur_page: cur_page
-				}
+				data: {}
 			});
 		},
 
@@ -43381,7 +43378,7 @@
 		},
 
 		ChooseSelfShop: function (value) {
-			Action.chooseSelfShop(value, this.props.data.cur_page);
+			Action.chooseSelfShop(value);
 		},
 
 		cancleChecked: function () {
@@ -43389,7 +43386,7 @@
 		},
 
 		chooseAllSelfShop: function () {
-			Action.chooseAllSelfShop(this.props.data.cur_page);
+			Action.chooseAllSelfShop();
 		},
 
 		productRelation: function (product_ids) {
@@ -43547,7 +43544,6 @@
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
-			this.data['cur_page'] = action.data.cur_page;
 			this.__emitChange();
 		},
 
@@ -43567,7 +43563,6 @@
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
-			this.data['cur_page'] = action.data.cur_page;
 			this.__emitChange();
 		},
 
@@ -43807,7 +43802,7 @@
 			} else if (field === 'action') {
 				return React.createElement(
 					'a',
-					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['cur_page']) },
+					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
 					'同步商品'
 				);
 			} else {

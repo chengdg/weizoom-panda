@@ -60,22 +60,19 @@ var Action = {
 		});
 	},
 
-	chooseSelfShop: function(value, cur_page){
+	chooseSelfShop: function(value){
 		Dispatcher.dispatch({
 			actionType: Constant.CHOOSE_SELF_SHOP,
 			data: {
-				value: value,
-				cur_page: cur_page
+				value: value
 			}
 		});
 	},
 
-	chooseAllSelfShop: function(cur_page){
+	chooseAllSelfShop: function(){
 		Dispatcher.dispatch({
 			actionType: Constant.CHOOSE_ALL_SELF_SHOP,
-			data: {
-				cur_page: cur_page
-			}
+			data: {}
 		});
 	},
 

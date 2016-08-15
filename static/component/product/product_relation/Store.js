@@ -76,7 +76,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
-		this.data['cur_page'] = action.data.cur_page;
 		this.__emitChange();
 	},
 
@@ -96,7 +95,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
-		this.data['cur_page'] = action.data.cur_page;
 		this.__emitChange();
 	},
 

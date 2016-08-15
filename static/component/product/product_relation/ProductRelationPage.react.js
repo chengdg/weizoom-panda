@@ -86,7 +86,7 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			return(
-				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'],data['cur_page'])}>同步商品</a>
+				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
 			)
 		}else {
 			return value;
