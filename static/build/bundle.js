@@ -43488,7 +43488,7 @@
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
 			'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
-			// 'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
+			'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
 			'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 			'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 			'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
@@ -43518,10 +43518,10 @@
 			this.__emitChange();
 		},
 
-		// handleProductRelationDataFilter: function(action){
-		// 	this.filter = action.data;
-		// 	this.__emitChange();
-		// },
+		handleProductRelationDataFilter: function (action) {
+			this.filter = action.data;
+			this.__emitChange();
+		},
 
 		handleDeleteProductRelationWeapp: function (action) {
 			setTimeout(function () {
@@ -43726,7 +43726,6 @@
 	var Reactman = __webpack_require__(161);
 
 	var Store = __webpack_require__(437);
-	var FilterStore = __webpack_require__(440);
 	var Constant = __webpack_require__(435);
 	var Action = __webpack_require__(434);
 
@@ -43741,18 +43740,21 @@
 			return Store.getData();
 		},
 
-		onChangeFilterStore: function (event) {
-			var filterOptions = FilterStore.getFilter();
-			this.refs.table.refresh(filterOptions);
-		},
-
 		onChangeStore: function (event) {
-			// this.refs.table.refresh(); 
-			this.setState(Store.getData());
-		},
+			var _this = this;
+			var filterOptions = Store.getFilter();
+			var hasProp = false;
 
-		componentDidMount: function () {
-			FilterStore.addListener(this.onChangeFilterStore);
+			for (var prop in filterOptions) {
+				hasProp = true;
+				break;
+			}
+
+			if (hasProp) {
+				this.refs.table.refresh(filterOptions);
+			} else {
+				this.setState(Store.getData());
+			}
 		},
 
 		chooseSyncSelfShop: function (product_id) {
