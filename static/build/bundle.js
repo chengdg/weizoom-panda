@@ -43871,11 +43871,6 @@
 						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
 						React.createElement(Reactman.TableColumn, { name: '状态', field: 'product_status' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
-					),
-					React.createElement(
-						Reactman.TableActionBar,
-						null,
-						React.createElement(Reactman.TableActionButton, { text: '批量同步', onClick: this.batchSyncProduct })
 					)
 				)
 			);
