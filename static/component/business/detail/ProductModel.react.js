@@ -15,6 +15,7 @@ var Constant = require('./Constant')
 var ProductModel = React.createClass({
 	getInitialState: function() {
 		var model = this.props.model;
+		console.log(this.props.model);
 		return {
 			index: this.props.index,
 			qualification_name: model.qualification_name,
@@ -24,13 +25,10 @@ var ProductModel = React.createClass({
 		};
 	},
 
-	onChange: function(value, event) {
+	onChange: function(id, value, event) {
 		var property = event.target.getAttribute('name');
-		this.state[property] = value;
-
-		if (this.props.onChange) {
-			this.props.onChange(this.state, event);
-		}
+		var model = this.props.model;
+		Action.updateCatalog(property, value,  model, id);
 	},
 
 	onClickDelete: function(event) {
@@ -43,8 +41,8 @@ var ProductModel = React.createClass({
 		var model = this.props.model;
 		return (
 			<div>
-				<Reactman.FormImageUploader label={model.qualification_name} name="name" value={model.img} onChange={this.onChange} max={1} />
-				<Reactman.FormDateTimeInput label='有效期:' name="business_license_time" value={model.qualification_time} onChange={this.onChange} />
+				<Reactman.FormImageUploader label={model.qualification_name} name="img" value={model.img} onChange={this.onChange.bind(this,model.qualification_id)} max={1} />
+				<Reactman.FormDateTimeInput label='有效期:' name="qualification_time" value={model.qualification_time} onChange={this.onChange} />
 			</div>
 		)
 	}

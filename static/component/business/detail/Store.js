@@ -17,7 +17,8 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
-		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE
+		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
+		'handleUpdateCatalog': Constant.UPDATE_CATALOG
 	},
 
 	init: function() {
@@ -37,6 +38,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleCreateNewAccount: function(action) {
 		W.gotoPage('/business/manager/');
+	},
+
+	handleUpdateCatalog: function(action) {
+		var old_model = action.data.model;
+		old_model[action.data.property] = action.data.value;
+		this.__emitChange();
 	},
 
 	getData: function() {

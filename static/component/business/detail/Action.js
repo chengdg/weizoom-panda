@@ -61,6 +61,17 @@ var Action = {
 				Reactman.PageAction.showHint('error', data.errMsg);
 			}
 		});
+	},
+	updateCatalog: function(property, value, model, id) {
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_CATALOG,
+			data: {
+				property: property,
+				value: value,
+				model: model,
+				id: id
+			}
+		});
 	}
 };
 
