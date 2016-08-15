@@ -47110,6 +47110,10 @@
 			this.Action = Action(this.Dispatcher);
 			this.Store.addListener(this.onReloadData);
 
+			this.innerState = {
+				page: this.props.resource.data['page'] || 1
+			};
+
 			//加载数据
 			var autoLoad = true;
 			if (this.props.hasOwnProperty('autoLoad')) {
@@ -47156,7 +47160,7 @@
 		onReloadData: function (event) {
 			var storeData = this.Store.getData();
 			var data = {};
-			data['pagination_info'] = storeData['pagination_info'];
+			data['paginationInfo'] = storeData.paginationInfo;
 			data['isAllRowSelected'] = storeData.isAllRowSelected;
 
 			var rows = storeData['rows'];
@@ -47182,7 +47186,7 @@
 		},
 
 		onChangePage: function (page) {
-			this.props.resource.data['page'] = page;
+			this.innerState.page = page;
 			this.__refresh(this.filterOptions);
 		},
 
@@ -47217,7 +47221,7 @@
 				var originalFilterStr = JSON.stringify(this.filterOptions);
 				var newFilterStr = JSON.stringify(filterOptions);
 				if (newFilterStr !== originalFilterStr) {
-					this.props.resource.data['page'] = 1;
+					this.innerState.page = 1;
 				}
 			}
 			this.__refresh(filterOptions);
@@ -47233,7 +47237,7 @@
 				this.rollbackInfo = System.getRollbackInfo();
 				System.clearRollbackInfo();
 
-				resource.data['page'] = this.rollbackInfo.page;
+				this.innerState.page = this.rollbackInfo.page;
 				if (this.rollbackInfo.filters) {
 					filterOptions = this.rollbackInfo.filters;
 				}
@@ -47243,6 +47247,7 @@
 			}
 
 			resource.data = _.clone(this.props.resource.data);
+			resource.data.page = this.innerState.page;
 			if (filterOptions) {
 				this.filterOptions = filterOptions;
 				_.extend(resource.data, filterOptions);
@@ -47389,7 +47394,7 @@
 			} else {
 				var tableInfo = this.createHeadAndRow();
 
-				var mPagination = this.createPagination(this.state['pagination_info']);
+				var mPagination = this.createPagination(this.state.paginationInfo);
 
 				var enableBorder = this.props.enableBorder === false ? false : true;
 				var enableHeader = this.props.enableHeader === false ? false : true;
@@ -47671,7 +47676,9 @@
 			},
 
 			handleReload: function (action) {
-				this.data = action.data;
+				this.data.rows = action.data['rows'];
+				this.data.paginationInfo = action.data['pagination_info'];
+				//this.data = action.data;
 				this.isAllRowSelected = false;
 				this.selectedRowIds = [];
 				this.__emitChange();
