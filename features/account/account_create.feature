@@ -132,7 +132,7 @@ Scenario:4  新增团购返点账号
 					"weizoom_life":"2.38",
 					"weizoom_yijiaren":"4.56",
 					"huihuilaila":"3.81"
-	}
+	},
 	"connect_man":"aini",
 	"mobile_number":"13813985506",
 	"login_account":"aini",

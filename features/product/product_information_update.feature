@@ -10,23 +10,23 @@ Background:
 	When manager添加账号
 	"""
 	[{
-		"account_type":"体验客户",
-		"company_name":"爱昵咖啡有限责任公司",
-		"shop_name":"爱昵咖啡",
-		"manage_type":"休闲食品",
-		"purchase_type":"固定底价",
-		"connect_man":"aini",
-		"mobile_number":"13813985506",
-		"login_account":"aini",
-		"password":"123456",
-		"valid_time":"2016-07-15"至"2017-07-15",
-		"ramarks":"爱昵咖啡客户体验账号"
-		},{
-		"account_type":"运营",
-		"account_name":"运营部门",
-		"login_account":"yunying",
-		"password":123456,
-		"ramarks":"运营部门"
+	"account_type":"体验客户",
+	"company_name":"爱昵咖啡有限责任公司",
+	"shop_name":"爱昵咖啡",
+	"manage_type":"休闲食品",
+	"purchase_type":"固定底价",
+	"connect_man":"aini",
+	"mobile_number":"13813985506",
+	"login_account":"aini",
+	"password":"123456",
+	"valid_time":"2016-07-15"至"2017-07-15",
+	"ramarks":"爱昵咖啡客户体验账号"
+	},{
+	"account_type":"运营",
+	"account_name":"运营部门",
+	"login_account":"yunying",
+	"password":123456,
+	"ramarks":"运营部门"
 	}]
 	"""
 	Given tuxiaobao使用密码123456登录管理系统
