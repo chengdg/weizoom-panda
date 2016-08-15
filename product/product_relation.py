@@ -127,7 +127,8 @@ class ProductRelation(resource.Resource):
 					'product_name': product.product_name,
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
-					'product_status': product_status_text
+					'product_status': product_status_text,
+					'cur_page': pageinfo.cur_page
 				})
 		data = {
 			'rows': rows,

@@ -29,7 +29,8 @@ var ProductRelationPage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
-		this.setState(Store.getData());
+		this.refs.table.refresh(); 
+		// this.setState(Store.getData());
 	},
 
 	componentDidMount: function() {
@@ -83,7 +84,7 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			return(
-				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'],data['cur_page'])}>同步商品</a>
 			)
 		}else {
 			return value;

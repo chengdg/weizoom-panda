@@ -76,6 +76,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
+		this.data['cur_page'] = action.data.cur_page;
 		this.__emitChange();
 	},
 
@@ -85,7 +86,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleChooseAllSelfShop: function(){
+	handleChooseAllSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
 
 		if(selectSelfShop.length==11){
@@ -95,6 +96,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data.selectSelfShop = selectSelfShop;
+		this.data['cur_page'] = action.data.cur_page;
 		this.__emitChange();
 	},
 

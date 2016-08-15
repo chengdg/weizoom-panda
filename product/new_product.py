@@ -27,7 +27,11 @@ from weapp_relation import get_weapp_model_properties
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
-
+PRODUCT_RELATION_SECOND_NAV = [{
+	'name': 'product-list',
+	'displayName': '商品',
+	'href': '/product/product_relation/'
+}]
 
 class NewProduct(resource.Resource):
 	app = 'product'
@@ -116,9 +120,15 @@ class NewProduct(resource.Resource):
 			property_ids = [model_propertie.id for model_propertie in model_properties]
 			property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 			product_has_model = len(property_values)
+		
+		if role == YUN_YING:
+			second_navs = PRODUCT_RELATION_SECOND_NAV
+		else:
+			second_navs = nav.get_second_navs()
+
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
+			'second_navs': second_navs,
 			'second_nav_name': SECOND_NAV,
 			'jsons': jsons,
 			'second_level_id': second_level_id,

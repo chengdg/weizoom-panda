@@ -14,4 +14,3 @@ import product_has_model
 import category
 import second_category
 import model_details
-import batch_sync

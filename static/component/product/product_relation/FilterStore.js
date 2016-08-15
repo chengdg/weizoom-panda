@@ -24,7 +24,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleProductRelationDataFilter: function(action){
+		console.log("===========");
 		this.filter = action.data;
+		console.log(action.data,"=======");
 		this.__emitChange();
 	},
 
