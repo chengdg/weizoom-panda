@@ -131,6 +131,9 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="状态" field="product_status" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
+					<Reactman.TableActionBar>
+						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
+					</Reactman.TableActionBar>
 				</Reactman.TablePanel>
 			</div>
 		)

@@ -269,16 +269,39 @@
 	})();
 	function runTimeout(fun) {
 	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
 	        return setTimeout(fun, 0);
-	    } else {
-	        return cachedSetTimeout.call(null, fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
 	    }
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
-	        clearTimeout(marker);
-	    } else {
-	        cachedClearTimeout.call(null, marker);
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
 	    }
 	}
 	var queue = [];
@@ -43234,19 +43257,22 @@
 			});
 		},
 
-		chooseSelfShop: function (value) {
+		chooseSelfShop: function (value, cur_page) {
 			Dispatcher.dispatch({
 				actionType: Constant.CHOOSE_SELF_SHOP,
 				data: {
-					value: value
+					value: value,
+					cur_page: cur_page
 				}
 			});
 		},
 
-		chooseAllSelfShop: function () {
+		chooseAllSelfShop: function (cur_page) {
 			Dispatcher.dispatch({
 				actionType: Constant.CHOOSE_ALL_SELF_SHOP,
-				data: {}
+				data: {
+					cur_page: cur_page
+				}
 			});
 		},
 
@@ -43355,7 +43381,7 @@
 		},
 
 		ChooseSelfShop: function (value) {
-			Action.chooseSelfShop(value);
+			Action.chooseSelfShop(value, this.props.data.cur_page);
 		},
 
 		cancleChecked: function () {
@@ -43363,7 +43389,7 @@
 		},
 
 		chooseAllSelfShop: function () {
-			Action.chooseAllSelfShop();
+			Action.chooseAllSelfShop(this.props.data.cur_page);
 		},
 
 		productRelation: function (product_ids) {
@@ -43521,6 +43547,7 @@
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
+			this.data['cur_page'] = action.data.cur_page;
 			this.__emitChange();
 		},
 
@@ -43530,7 +43557,7 @@
 			this.__emitChange();
 		},
 
-		handleChooseAllSelfShop: function () {
+		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 
 			if (selectSelfShop.length == 11) {
@@ -43540,6 +43567,7 @@
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
+			this.data['cur_page'] = action.data.cur_page;
 			this.__emitChange();
 		},
 
@@ -43629,7 +43657,9 @@
 		},
 
 		handleProductRelationDataFilter: function (action) {
+			console.log("===========");
 			this.filter = action.data;
+			console.log(action.data, "=======");
 			this.__emitChange();
 		},
 
@@ -43717,7 +43747,8 @@
 		},
 
 		onChangeStore: function (event) {
-			this.setState(Store.getData());
+			this.refs.table.refresh();
+			// this.setState(Store.getData());
 		},
 
 		componentDidMount: function () {
@@ -43774,7 +43805,7 @@
 			} else if (field === 'action') {
 				return React.createElement(
 					'a',
-					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
+					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['cur_page']) },
 					'同步商品'
 				);
 			} else {
@@ -43838,6 +43869,11 @@
 						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
 						React.createElement(Reactman.TableColumn, { name: '状态', field: 'product_status' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
+					),
+					React.createElement(
+						Reactman.TableActionBar,
+						null,
+						React.createElement(Reactman.TableActionButton, { text: '批量同步', onClick: this.batchSyncProduct })
 					)
 				)
 			);
@@ -47101,7 +47137,7 @@
 			$table.delegate('a', 'click', function (event) {
 				var $link = $(event.target);
 				var href = $link.attr('href');
-				if (href.contains('__memorize')) {
+				if (href && href.contains('__memorize')) {
 					var top = $(window).scrollTop();
 					var url = _this.fullUrl + '&__r_top=' + top;
 					href += '&__r_rollback=' + encodeURIComponent(url);
