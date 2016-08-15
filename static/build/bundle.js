@@ -43660,14 +43660,21 @@
 		displayName: 'ProductRelationPage',
 
 		getInitialState: function () {
-			FilterStore.addListener(this.onChangeStore);
 			return {};
 		},
 
-		onChangeStore: function (event) {
-			var _this = this;
+		onChangeFilterStore: function (event) {
 			var filterOptions = FilterStore.getFilter();
 			this.refs.table.refresh(filterOptions);
+		},
+
+		onChangeStore: function (event) {
+			this.setState(Store.getData());
+		},
+
+		componentDidMount: function () {
+			FilterStore.addListener(this.onChangeFilterStore);
+			Store.addListener(this.onChangeStore);
 		},
 
 		ChooseSyncSelfShop: function (product_id) {
