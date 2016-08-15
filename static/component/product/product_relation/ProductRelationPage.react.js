@@ -61,6 +61,7 @@ var ProductRelationPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
 			return false;
 		}
+		
 		Reactman.PageAction.showDialog({
 			title: "选择平台进行同步商品",
 			component: ChooseSyncSelfShopDialog,

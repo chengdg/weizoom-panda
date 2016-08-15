@@ -52,9 +52,7 @@ class WeappRelation(resource.Resource):
 	@login_required
 	def api_get(request):
 		product_id = request.GET.get('product_id',0)
-		print product_id,"==========="
 		product = models.Product.objects.get(id=product_id)
-		# user_profile = UserProfile.objects.get(user_id=product.owner_id)#role{1:客户}
 		product_sync_weapp_account = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
 		product_id2self_user_name = {}
 		for product_has_relation in product_sync_weapp_account:
@@ -66,12 +64,7 @@ class WeappRelation(resource.Resource):
 				product_id2self_user_name[product_id].append(self_user_name)
 
 		self_user_name = [] if product_id not in product_id2self_user_name else product_id2self_user_name[product_id]
-
-		# product_info = {
-		# 	'account_id': user_profile.id
-		# }
 		data = {
-			# 'product_info': product_info,
 			'self_user_name': self_user_name
 		}
 
@@ -134,6 +127,9 @@ class WeappRelation(resource.Resource):
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 						data['error_product_id'].append(str(return_data['error_product_id']))
+				#如果没有选择自营平台,删除表中相关数据
+				if not product_data[0].get('weizoom_self'):
+					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
 		except:
 			data['is_error'] = True
 			msg = unicode_full_stack()
@@ -145,7 +141,6 @@ class WeappRelation(resource.Resource):
 		else:
 			data['code'] = 500
 			data['errMsg'] = ','.join(data['error_product_id'])+'同步失败'
-		print data['is_error'],"======="
 		#构造response
 		response.data = data
 		return response.get_response()

@@ -43338,8 +43338,7 @@
 			}];
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
-				self_shop: selfShop,
-				product_info: Store.getData()['product_info']
+				self_shop: selfShop
 			};
 		},
 
@@ -43351,7 +43350,6 @@
 		onChangeStore: function () {
 			this.setState({
 				select_self_shop: Store.getData()['selectSelfShop']
-				// product_info: Store.getData()['product_info']
 			});
 		},
 
@@ -43359,7 +43357,7 @@
 			Action.chooseSelfShop(value);
 		},
 
-		cancleChecked: function (product_id) {
+		cancleChecked: function () {
 			this.closeDialog();
 		},
 
@@ -43367,22 +43365,13 @@
 			Action.chooseAllSelfShop();
 		},
 
-		productRelation: function (product_ids, sync_type) {
-			var _this = this;
+		productRelation: function (product_ids) {
 			var selectSelfShop = this.state.select_self_shop;
-			// var productInfo = this.state.product_info;
-			if (selectSelfShop.length == 0) {
-				Reactman.PageAction.showHint('error', '请选择要同步的商城！');
-				return;
-			}
-			console.log(product_ids, "------");
-			var product_data = [{
+			var productData = [{
 				'weizoom_self': selectSelfShop.join(','), //选择的商城
-				'product_ids': product_ids, //商品id
-				'sync_type': sync_type
-				// 'account_id': productInfo['account_id'] //所属账号 id
+				'product_ids': product_ids //商品id
 			}];
-			Action.relationFromWeapp(JSON.stringify(product_data));
+			Action.relationFromWeapp(JSON.stringify(productData));
 		},
 
 		render: function () {
@@ -43423,12 +43412,12 @@
 				),
 				React.createElement(
 					'span',
-					{ className: 'cancle-relation-tips' },
+					{ className: 'cancle-relation-tips', style: { display: 'none' } },
 					'( 提示：取消平台勾选，商品将从该平台禁售不可见 )'
 				),
 				React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, productId, syncType) },
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px' }, onClick: this.productRelation.bind(this, productId) },
 					React.createElement(
 						'span',
 						null,
@@ -43437,9 +43426,7 @@
 				),
 				React.createElement(
 					'a',
-
-					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', display: 'none' }, onClick: this.cancleChecked.bind(this, productId, syncType) },
-
+					{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px' }, onClick: this.cancleChecked },
 					React.createElement(
 						'span',
 						null,
@@ -43721,6 +43708,7 @@
 				Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
 				return false;
 			}
+
 			Reactman.PageAction.showDialog({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,

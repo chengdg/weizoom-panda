@@ -52,8 +52,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		}];
 		return {
 			select_self_shop: Store.getData()['selectSelfShop'],
-			self_shop: selfShop,
-			product_info: Store.getData()['product_info']
+			self_shop: selfShop
 		}
 	},
 
@@ -65,7 +64,6 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 	onChangeStore: function(){
 		this.setState({
 			select_self_shop: Store.getData()['selectSelfShop']
-			// product_info: Store.getData()['product_info']
 		});
 	},
 
@@ -73,7 +71,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		Action.chooseSelfShop(value);
 	},
 
-	cancleChecked: function(product_id){
+	cancleChecked: function(){
 		this.closeDialog();
 	},
 
@@ -81,22 +79,13 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		Action.chooseAllSelfShop();
 	},
 
-	productRelation: function(product_ids,sync_type) {
-		var _this = this;
+	productRelation: function(product_ids) {
 		var selectSelfShop = this.state.select_self_shop;
-		// var productInfo = this.state.product_info;
-		if (selectSelfShop.length==0){
-			Reactman.PageAction.showHint('error', '请选择要同步的商城！');
-			return;
-		}
-		console.log(product_ids,"------");
-		var product_data = [{
+		var productData = [{
 			'weizoom_self': selectSelfShop.join(','),//选择的商城
-			'product_ids': product_ids,//商品id
-			'sync_type': sync_type
-			// 'account_id': productInfo['account_id'] //所属账号 id
+			'product_ids': product_ids//商品id
 		}]
-		Action.relationFromWeapp(JSON.stringify(product_data));
+		Action.relationFromWeapp(JSON.stringify(productData));
 	},
 
 	render: function(){
@@ -128,8 +117,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 					<input type="checkbox" checked={checked} className="checkbox" name="select" value="0" style={{display:'inline-block'}} onChange={this.chooseAllSelfShop}/>全选
 				</span>
 				<span className='cancle-relation-tips' style={{display:'none'}}>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	
-				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,productId,syncType)}><span>确定</span></a>
-				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px'}} onClick={this.cancleChecked.bind(this,productId,syncType)}><span>取消</span></a>
+				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px'}} onClick={this.productRelation.bind(this,productId)}><span>确定</span></a>
+				<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px'}} onClick={this.cancleChecked}><span>取消</span></a>
 			</div>
 		)
 	}
