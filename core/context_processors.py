@@ -26,25 +26,12 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/customer_orders_list/'
-			},
-			{
+			},{
 				'name': 'freight_service',
 				'displayName': '商家设置',
 				'icon': 'list-alt',
 				'href': '/freight_service/freight/'
-			},
-			# , {
-			# 	'name': 'fans',
-			# 	'displayName': '粉丝投放',
-			# 	'icon': 'cog',
-			# 	'href': '#'
-			# }, {
-			# 	'name': 'reconcile',
-			# 	'displayName': '对账',
-			# 	'icon': 'cog',
-			# 	'href': '#'
-			# }
-			]
+			}]
 		elif role == AGENCY:
 			top_navs = [{
 				'name': 'customer',
@@ -54,12 +41,12 @@ def top_navs(request):
 			}]
 		elif role == YUN_YING:
 			top_navs = [
-			# {
-			# 	'name': 'product_catalog',
-			# 	'displayName': '商品分类',
-			# 	'icon': 'credit-card',
-			# 	'href': '/product_catalog/product_catalogs/'
-			# },
+			{
+				'name': 'product_catalog',
+				'displayName': '商品分类',
+				'icon': 'credit-card',
+				'href': '/product_catalog/product_catalogs/'
+			},
 			{
 				'name': 'product',
 				'displayName': '商品',
@@ -82,7 +69,12 @@ def top_navs(request):
 			# 	'icon': 'credit-card',
 			# 	'href': '/self_shop/manage/'
 			# }
-			]
+			,{
+				'name': 'business',
+				'displayName': '客户管理',
+				'icon': 'credit-card',
+				'href': '/business/manager/'
+			}]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',
@@ -101,14 +93,7 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/yunying_orders_list/'
-			},
-			# {
-			# 	'name': 'reconcile',
-			# 	'displayName': '对账',
-			# 	'icon': 'cog',
-			# 	'href': '#'
-			# },
-			{
+			}, {
 				'name': 'manager',
 				'displayName': '账号管理',
 				'icon': 'cog',
@@ -121,11 +106,12 @@ def top_navs(request):
 			'displayName': '商品',
 			'icon': 'credit-card',
 			'href': '/product/product_list/'
-		},{
+		}, {
 			'name': 'order',
 			'displayName': '订单',
 			'icon': 'list-alt',
 			'href': '/order/yunying_orders_list/'
+
 		}, {
 			'name': 'manager',
 			'displayName': '账号管理',
@@ -133,7 +119,6 @@ def top_navs(request):
 			'href': '/manager/account/'
 		}]
 	return {'top_navs': top_navs}
-
 
 def webpack_bundle_js(request):
 	return {

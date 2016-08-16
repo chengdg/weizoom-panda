@@ -6,8 +6,6 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	CATALOG_DATAS_FILTER: null,
-	UPDATE_CATALOG: null,
-	DELETE_CATALOG: null,
-	ADD_CATALOG_QUALIFICATION: null
+	BUSINESS_DATAS_FILTER: null,
+	UPDATE_BUSINESS_APPLY: null
 });

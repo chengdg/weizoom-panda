@@ -15,11 +15,16 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleCatelogDataFilter': Constant.CATALOG_DATAS_FILTER
+		'handleCatelogDataFilter': Constant.CATALOG_DATAS_FILTER,
+		'handleUpdateCatalog': Constant.UPDATE_CATALOG,
+		'handleDeleteCatalog': Constant.DELETE_CATALOG,
+		'handleAddCatalog': Constant.ADD_CATALOG_QUALIFICATION
 	},
 
 	init: function() {
-		this.data = {};
+		this.data = {
+			'models': [],
+		};
 	},
 
 	handleCatelogDataFilter: function(action){
@@ -29,7 +34,34 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	getData: function() {
 		return this.data;
-	}
+	},
+	handleUpdateCatalog: function(action) {
+		var old_models = action.data.models;
+		var target_id = action.data.id;
+		_.each(old_models, function(old_model) {
+			if(old_model.id==target_id){
+				old_model['name'] = action.data.value;
+			}
+		});
+		console.log(old_models);
+		this.data['models'] = old_models;
+		this.__emitChange();
+	},
+	handleDeleteCatalog: function(action) {
+		var index = action.data.index;
+		var old_models = action.data.models;
+		old_models.splice(index, 1);
+		this.data['models'] = old_models;
+		this.__emitChange();
+	},
+	handleAddCatalog: function(action) {
+		var old_models = action.data.models;
+		old_models.push({
+				name: ''
+			});
+		this.data['models'] = old_models;
+		this.__emitChange();
+	},
 });
 
 module.exports = Store;

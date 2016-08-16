@@ -164,7 +164,7 @@ INSTALLED_APPS = [
     'product_catalog',
     'self_shop',
     'freight_service',
-
+    'business',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

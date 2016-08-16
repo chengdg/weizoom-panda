@@ -8,6 +8,7 @@ admin.autodiscover()
 
 from core.restful_url import restful_url
 from account import views as account_view
+from business import views as business_view
 
 
 # from admin.sites import site
@@ -30,7 +31,8 @@ urlpatterns = patterns('',
 	url(r'^customer/', restful_url('customer')),
 	url(r'^product_catalog/', restful_url('product_catalog')),
 	url(r'^self_shop/', restful_url('self_shop')),
-	url(r'^freight_service/', restful_url('freight_service'))
+	url(r'^freight_service/', restful_url('freight_service')),
+	url(r'^business/',restful_url('business'))
 )
 
 urlpatterns += staticfiles_urlpatterns()

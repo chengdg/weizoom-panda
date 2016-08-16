@@ -19,9 +19,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
 		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT,
-		'handleProductModelDetails': Constant.PRODUCT_MODEL_DETAILS,
-		// 'handleProductSecondCategory': Constant.PRODUCT_SECOND_CATEGORY,
-		// 'handleProductChooseSecondCategory': Constant.PRODUCT_CHOOSE_SECOND_CATEGORY
+		'handleProductModelDetails': Constant.PRODUCT_MODEL_DETAILS
 	},
 
 	init: function() {

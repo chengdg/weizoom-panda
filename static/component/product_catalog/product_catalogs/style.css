@@ -1,3 +1,12 @@
 td {
     line-height: 30px !important;
 }
+.add_model .add_model-btn{
+    display: -webkit-box;
+}
+input#qualification_name {
+    width: 180px;
+}
+.form-group label {
+    width: 20%;
+}

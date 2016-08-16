@@ -13,6 +13,7 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 var AddCatalogDialog = require('./AddCatalogDialog.react');
+var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
 require('./style.css')
 
 var ProductCatalogPage = React.createClass({
@@ -56,6 +57,21 @@ var ProductCatalogPage = React.createClass({
 			scope: this
 		})
 	},
+	onAddQualification: function(event) {
+		var catalog_id = event.target.getAttribute('data-id');
+		var qualification_infos = event.target.getAttribute('data-qualification-info');
+		Reactman.PageAction.showDialog({
+			title: "配置特殊资质文件",
+			component: AddCatalogQualificationDialog,
+			data: {
+				catalog_id: catalog_id,
+				qualification_infos: qualification_infos
+			},
+			success: function() {
+				Action.updateCatalogs();
+			}
+		});
+	},
 	onClickDelete: function(event) {
 		var catalog_id = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
@@ -88,13 +104,14 @@ var ProductCatalogPage = React.createClass({
 				return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
 							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '44%',height: '50px'}}>{catalog.catalog_name} </div>
-							<div className="xui-expand-row-info" style={{display: 'inline'}}>创建时间：{catalog.created_at}</div>
+							<div className="xui-expand-row-info" style={{display: 'inline'}}>{catalog.created_at}</div>
 							<div className="xui-expand-row-info" style={{marginLeft:'5%',display: 'inline'}}>
 								商品数：<a href={src} target="_blank">{catalog.products_number}</a>
 							</div>
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
+								<a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualification_id2name}>配置特殊资质</a>
 							</div>
 						</div>
 					)
