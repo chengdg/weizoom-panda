@@ -12,6 +12,8 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from resource.models import Image
 from panda.settings import PANDA_HOST
 import models
+from product_catalog.models import ProductCatalogRelation
+
 
 SELF_NAMETEXT2VALUE = {
 	u'微众家': 'weizoom_jia',
@@ -117,13 +119,20 @@ class WeappRelation(resource.Resource):
 				account_has_suppliers = AccountHasSupplier.objects.filter(account_id__in=account_ids)
 				user_id2store_name = {account_has_supplier.user_id:account_has_supplier.store_name for account_has_supplier in account_has_suppliers}
 				account_id2account_has_supplier = {account_has_supplier.account_id:account_has_supplier for account_has_supplier in account_has_suppliers}
+				# 获取商品所属的类目集合
+				product_catalog_relations = ProductCatalogRelation.objects.all()
+				catalog_id_relations = [{relation.catalog_id: relation.weapp_catalog_id}
+										for relation in product_catalog_relations]
 				for product_id in product_ids:
 					product_id = int(product_id)
 					product = product_id2product[product_id]
 					owner_id = product_id2owner_id[product_id]
 					account_id = user_id2account_id[int(owner_id)]
 					account_has_supplier = account_id2account_has_supplier[int(account_id)]
-					return_data = sync_products(request,product_id,product,weizoom_self,weapp_user_ids,account_has_supplier,product_id2image_id,image_id2paths,product_id2relation)
+					weapp_catalog_id = catalog_id_relations.get(product.catalog_id, None)
+					return_data = sync_products(request,product_id,product,weizoom_self,
+												weapp_user_ids,account_has_supplier,product_id2image_id,
+												image_id2paths,product_id2relation, weapp_catalog_id)
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 						data['error_product_id'].append(str(return_data['error_product_id']))
@@ -191,7 +200,9 @@ def get_weapp_model_properties(product=None):
 		weapp_models_info.append(temp_model_info)
 	return weapp_models_info
 
-def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,account_has_supplier,product_id2image_id,image_id2paths,product_id2relation):
+def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
+				  account_has_supplier,product_id2image_id,image_id2paths,
+				  product_id2relation, weapp_catalog_id):
 	data = {}
 	data['is_error'] = False
 	try:
@@ -255,9 +266,21 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,account
 						)for username in weizoom_self]
 						models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
 
-						if product.has_limit_time:
-							# TODO 同步限时抢购
-							pass
+						# if product.has_limit_time:
+						# 	# TODO 同步限时抢购
+						# 	pass
+
+						# 同步类目
+						if weapp_catalog_id:
+							catalog_params = {'classification_id': weapp_catalog_id,
+											  'product_id': weapp_product_id}
+							resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+								'resource': 'mall.classification_product',
+								'data': catalog_params
+							})
+							if not resp or resp.get('code') != 200:
+								watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
+
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
@@ -293,6 +316,16 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,account
 						self_user_name=username
 					)for username in weizoom_self]
 					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
+					if weapp_catalog_id:
+						catalog_params = {'classification_id': weapp_catalog_id,
+										  'product_id': relation.weapp_product_id}
+						resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+							'resource': 'mall.classification_product',
+							'data': catalog_params
+						})
+						if not resp or resp.get('code') != 200:
+							watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
+
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
