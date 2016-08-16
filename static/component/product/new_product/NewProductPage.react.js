@@ -68,7 +68,16 @@ var NewProductPage = React.createClass({
 	},
 
 	updateProductCatalog: function(){
-		Action.ProductCategory();
+		var secondLevelId = 0;
+		if(W.second_level_id!=undefined && W.second_level_id!=0){
+			//新建商品显示分类
+			secondLevelId = this.state.second_id!=0? this.state.second_id: W.second_level_id;
+		}else{
+			//编辑商品显示分类
+			secondLevelId = this.state.second_id!=undefined? this.state.second_id: this.state.old_second_catalog_id;
+		}
+
+		Action.ProductCategory(secondLevelId);
 		Reactman.PageAction.showDialog({
 			title: "请选择商品分类",
 			component: AddProductCategoryDialog,
@@ -103,6 +112,11 @@ var NewProductPage = React.createClass({
 			product['second_level_id'] = W.second_level_id;
 		}else{
 			product['second_level_id'] = product.second_id;
+		}
+
+		if(product.second_id==0 || product.second_id==undefined){
+			Reactman.PageAction.showHint('error', '请选择商品分类！');
+			return;
 		}
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;

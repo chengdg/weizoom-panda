@@ -33,12 +33,10 @@ var AddProductCategoryDialog = Reactman.createDialog({
 	},
 
 	changeSecondLevel: function(first_id){
-		console.log(first_id)
 		Action.changeSecondLevel(first_id);
 	},
 
 	chooseSecondLevel: function(second_id){
-		console.log(second_id)
 		Action.chooseSecondLevel(second_id);
 	},
 

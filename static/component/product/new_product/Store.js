@@ -269,8 +269,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleProductCategory: function(action){
 		var first_levels = JSON.parse(action.data['first_levels']);
 		var second_levels = JSON.parse(action.data['second_levels']);
-		first_levels[0]['is_choose'] = 1;
-		second_levels[0]['is_choose'] = 1;
+		// first_levels[0]['is_choose'] = 1;
+		// second_levels[0]['is_choose'] = 1;
 		this.data['first_levels'] = first_levels;
 		this.data['second_levels'] = second_levels;
 		this.data['second_id'] = second_levels[0].id;
