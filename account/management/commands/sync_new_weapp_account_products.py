@@ -27,20 +27,33 @@ class Command(BaseCommand):
         bulk_create = []
         for relation in relations:
             product_id = relation.get('product_id')
-            count = product_models.ProductSyncWeappAccount.objects.filter(self_user_name__in=['weizoom_zhonghai',
-                                                                     'weizoom_juweihui'],
-                                                                          product_id=product_id).count()
-            print 'product_id:%s count :%s' % (product_id, count)
-            if count == 0:
-                t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                                       self_user_name='weizoom_zhonghai')
+            # count = product_models.ProductSyncWeappAccount.objects.filter(self_user_name__in=['weizoom_zhonghai',
+            #                                                          'weizoom_juweihui'],
+            #                                                               product_id=product_id).count()
+            # print 'product_id:%s count :%s' % (product_id, count)
+            # if count == 0:
+            t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                   self_user_name='weizoom_jinmeihui')
 
-                t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                                       self_user_name='weizoom_juweihui')
+            t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                   self_user_name='weizoom_pengyouquan')
+            t3 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                         self_user_name='weizoom_chh')
 
-                bulk_create.append(t_1)
-                bulk_create.append(t2)
-                print 'product: %s is ok' % product_id
+            t4 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                        self_user_name='weizoom_shxd')
+            t5 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                         self_user_name='weizoom_wzbld')
+
+            t6 = product_models.ProductSyncWeappAccount(product_id=product_id,
+                                                        self_user_name='weizoom_zoomjulebu')
+            bulk_create.append(t_1)
+            bulk_create.append(t2)
+            bulk_create.append(t3)
+            bulk_create.append(t4)
+            bulk_create.append(t5)
+            bulk_create.append(t6)
+            print 'product: %s is ok' % product_id
         product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
         print 'ALL is OK! COUNT is %s' % len(bulk_create)
 
