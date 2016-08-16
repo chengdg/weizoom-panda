@@ -30,7 +30,7 @@ var Action = {
 				Reactman.PageAction.showHint('success', '通过审核成功');
 				setTimeout(function(){
 					Dispatcher.dispatch({
-						actionType: Constant.BUSINESS_DATAS_FILTER,
+						actionType: Constant.UPDATE_BUSINESS_APPLY,
 						data: {}
 					});
 				},1000);
@@ -43,7 +43,7 @@ var Action = {
 	
 	updateBusinessStatus: function(filterOptions) {
 		Dispatcher.dispatch({
-			actionType: Constant.BUSINESS_DATAS_FILTER,
+			actionType: Constant.UPDATE_BUSINESS_APPLY,
 			data: {}
 		});
 	},

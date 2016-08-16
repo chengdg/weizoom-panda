@@ -42,7 +42,28 @@ var BusinessDetailPage = React.createClass({
 		var data = Store.getData();
 		var upload_business_qualifications = data.upload_business_qualifications;
 		var is_upload = true;
+		var reg_phone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
+		var reg_number = /^[1-9]\d*(\.\d+)?$/;
+		var reg_email = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
 		//校验
+		if(data.hasOwnProperty('company_money') && data.company_money.length>0){
+			if(!reg_number.test(data.company_money.trim())){
+				Reactman.PageAction.showHint('error', '请填写正确的注册资本');
+				return;
+			}
+		}
+		if(data.hasOwnProperty('phone') && data.phone.length>0){
+			if(!reg_phone.test(data.phone.trim())){
+				Reactman.PageAction.showHint('error', '请填写正确的手机号');
+				return;
+			}
+		}
+		if(data.hasOwnProperty('e_mail') && data.e_mail.length>0){
+			if(!reg_email.test(data.e_mail.trim())){
+				Reactman.PageAction.showHint('error', '请填写正确的E-mail');
+				return;
+			}
+		}
 		if(data.business_license == ''){
 			Reactman.PageAction.showHint('error', '请上传营业执照!');
 			return;
@@ -87,7 +108,10 @@ var BusinessDetailPage = React.createClass({
 					<legend className="pl10 pt10 pb10">基本信息</legend>
 					<Reactman.FormRadio label="企业类型:" name="company_type" value={this.state.company_type} options={optionsForAccountType} onChange={this.onChange} />
 					<Reactman.FormInput label="公司名称:" name="company_name" validate="require-notempty" value={this.state.company_name} onChange={this.onChange} />
-					<Reactman.FormInput label="注册资本:" name="company_money" value={this.state.company_money} onChange={this.onChange} />
+					<div className="account-create-purchase-method">
+						<Reactman.FormInput label="注册资本:" name="company_money" value={this.state.company_money} onChange={this.onChange} />
+						<span className="money_note">万元</span>
+					</div>
 					<Reactman.FormInput label="法人代表:" name="legal_representative" value={this.state.legal_representative} onChange={this.onChange} />
 					<Reactman.FormInput label="联系人:" name="contacter" validate="require-notempty" value={this.state.contacter} onChange={this.onChange} />
 					<Reactman.FormInput label="手机号:" name="phone" validate="require-notempty" value={this.state.phone} onChange={this.onChange} />

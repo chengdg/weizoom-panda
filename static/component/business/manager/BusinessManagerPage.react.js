@@ -47,12 +47,12 @@ var BusinessManagerPage = React.createClass({
 	},
 
 	onClickDelete: function(event) {
-		var accountId = parseInt(event.target.getAttribute('data-id'));
+		var businessId = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
 			target: event.target,
 			title: '确认删除该申请吗?',
 			confirm: _.bind(function() {
-				Action.deleteBusiness(accountId);
+				Action.deleteBusiness(businessId);
 			}, this)
 		});
 	},

@@ -1,3 +1,17 @@
 .xui-product-productListPage {
     background: #fff;
 }
+.money_note {
+    position: absolute;
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+.account-create-purchase-method div:nth-child(1) {
+    display: inline-block;
+}
+input[name=company_money] {
+    width: 200px;
+}

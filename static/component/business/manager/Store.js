@@ -15,7 +15,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleBusinessDataFilter': Constant.BUSINESS_DATAS_FILTER
+		'handleBusinessDataFilter': Constant.BUSINESS_DATAS_FILTER,
+		'handleUpdateBusinessApply': Constant.UPDATE_BUSINESS_APPLY
 	},
 
 	init: function() {
@@ -23,6 +24,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleBusinessDataFilter: function(action){
+		this.data = action.data;
+		this.__emitChange();
+	},
+
+	handleUpdateBusinessApply: function(action){
 		this.data = action.data;
 		this.__emitChange();
 	},
