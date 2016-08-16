@@ -6,10 +6,10 @@
 var debug = require('debug')('m:product.new_product:AddProductCategoryDialog');
 var React = require('react');
 var ReactDOM = require('react-dom');
-
 var Reactman = require('reactman');
+var _ = require('underscore');
 
-var Store = require('./CategoryStore');
+var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./CategoryStyle.css');
@@ -18,51 +18,65 @@ var AddProductCategoryDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return {
-			'first_levels': Store.getCategory().first_levels,
-			'second_levels': Store.getCategory().second_levels,
-			'second_id': Store.getCategory().second_id
+			'first_levels': Store.getData().first_levels,
+			'second_levels': Store.getData().second_levels,
+			'second_id': Store.getData().second_id
 		};
 	},
 
 	onChangeStore: function(){
 		this.setState({
-			first_levels: Store.getCategory()['first_levels'],
-			second_levels: Store.getCategory()['second_levels'],
-			second_id: Store.getCategory()['second_id']
+			first_levels: Store.getData()['first_levels'],
+			second_levels: Store.getData()['second_levels'],
+			second_id: Store.getData()['second_id']
 		});
 	},
 
 	changeSecondLevel: function(first_id){
-		console.log(first_id)
 		Action.changeSecondLevel(first_id);
 	},
 
 	chooseSecondLevel: function(second_id){
-		console.log(second_id)
 		Action.chooseSecondLevel(second_id);
 	},
 
-	addProduct: function(){
-		var second_id = this.state.second_id;
-		if(second_id==0){
+	saveCatalog: function(firstLevelName, secondLevelName){
+		var _this = this;
+		var catalogName = firstLevelName + '--' + secondLevelName;
+		var secondId = this.state.second_id;
+		if(secondId==0){
 			Reactman.PageAction.showHint('error', '请选择商品分类！');
 			return;
 		}
-		W.gotoPage('/product/new_product/?second_level_id='+second_id);
+		Action.saveChooseCatalog(catalogName);
+		_.delay(function(){
+			_this.closeDialog();
+		},200)
+	},
+
+	cancleCatalog: function(){
+		var _this = this;
+		Action.cancleChooseCatalog();
+		_.delay(function(){
+			_this.closeDialog();
+		},200)
 	},
 
 	render:function(){
-		var first_levels = this.state.first_levels;
+		var firstLevels = this.state.first_levels;
 		var _this = this;
 		var second_levels = this.state.second_levels;
-		var first_levels_list = '暂无分类';
-		var second_level_list = '暂无分类';
-		if(first_levels){
-			first_levels_list = first_levels.map(function(first_level,index){
+		var firstLevelsList = '暂无分类';
+		var secondLevelList = '暂无分类';
+		var firstLevelName = '';
+		var secondLevelName = '';
+		if(firstLevels){
+			firstLevelsList = firstLevels.map(function(first_level,index){
 				var bgStyle = {};
 				bgStyle['bg_style'] = {}
 				bgStyle['c_style'] = {}
 				if(first_level.is_choose==1){
+					firstLevelName = first_level.name;
 					bgStyle['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
 					bgStyle['c_style'] = {color:'#FFF'};
 				}else{
@@ -76,11 +90,12 @@ var AddProductCategoryDialog = Reactman.createDialog({
 				});
 		}
 		if(second_levels){
-			second_level_list = second_levels.map(function(second_level,index){
+			secondLevelList = second_levels.map(function(second_level,index){
 				var bgStyle = {};
 				bgStyle['bg_style'] = {}
 				bgStyle['c_style'] = {}
 				if(second_level.is_choose==1){
+					secondLevelName = second_level.name;
 					bgStyle['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
 					bgStyle['c_style'] = {color:'#FFF'};
 				}else{
@@ -96,15 +111,16 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		
 		
 		return (
-			<div className="mt15 xui-product-productListPage">
+			<div className="mt15" style={{paddingLeft: '35px'}}>
 				<ul className='category-ul'>
-					{first_levels_list}
+					{firstLevelsList}
 				</ul>
 				<div className="erow"><div id="demo"></div></div>
 				<ul className='category-ul' style={{marginLeft:'0px'}}>
-					{second_level_list}
+					{secondLevelList}
 				</ul>
-				<a href="javascript:void(0);" className="btn btn-success edit-product" onClick={this.addProduct}>下一步，编辑商品</a>
+				<a href="javascript:void(0);" className="btn btn-success mt20 mb20" style={{marginLeft:'190px'}} onClick={this.saveCatalog.bind(this,firstLevelName,secondLevelName)}><span>确定</span></a>
+				<a href="javascript:void(0);" className="btn btn-success mt20 mb20" style={{marginLeft:'50px'}} onClick={this.cancleCatalog}><span>取消</span></a>
 			</div>
 		)
 	}

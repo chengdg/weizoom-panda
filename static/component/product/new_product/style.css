@@ -236,3 +236,9 @@ td div.form-group div input{
 td div.form-group div .errorHint{
 	width: 100px;
 }
+
+.xui-catalog-name{
+    padding-left: 34px;
+    padding-top: 6px;
+    display: inline-block;
+}
