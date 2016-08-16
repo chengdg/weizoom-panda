@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
+var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -66,6 +67,18 @@ var NewProductPage = React.createClass({
 		});
 	},
 
+	updateProductCatalog: function(){
+		Action.ProductCategory();
+		Reactman.PageAction.showDialog({
+			title: "请选择商品分类",
+			component: AddProductCategoryDialog,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	validateProduct: function(){
 		var is_true = false;
 		var product = Store.getData();
@@ -86,7 +99,11 @@ var NewProductPage = React.createClass({
 
 	onSubmit: function(){
 		var product = Store.getData();
-		product['second_level_id'] = W.second_level_id;
+		if(W.second_level_id!=0){
+			product['second_level_id'] = W.second_level_id;
+		}else{
+			product['second_level_id'] = product.second_id;
+		}
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
@@ -222,6 +239,8 @@ var NewProductPage = React.createClass({
 	},
 
 	render:function(){
+		console.log(this.state.old_second_catalog_id);
+		console.log(this.state.second_id,"======");
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
@@ -235,6 +254,11 @@ var NewProductPage = React.createClass({
 					</fieldset>
 					<fieldset>
 						<legend className="pl10 pt10 pb10">基本信息</legend>
+						<span className="form-group ml15">
+							<label className="col-sm-2 control-label pr0">商品类目:</label>
+							<span className="xui-catalog-name">{this.state.catalog_name}</span>
+							<a className="ml10" href="javascript:void(0);" onClick={this.updateProductCatalog}>修改</a>
+						</span>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />

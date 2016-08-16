@@ -55,6 +55,7 @@ var ProductModelInfo = React.createClass({
 	},
 
 	render: function() {
+		console.log(this.state.catalog_name,"=======");
 		var _this = this;
 		var model_type = this.props.Modeltype;
 		var disabled = this.props.Disabled;

@@ -23,7 +23,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleNewProductAddModel': Constant.NEW_PRODUCT_ADD_PRODUCT_MODEL,
 		'handleSaveProductAddModel': Constant.SAVE_PRODUCT_MODEL_VALUE,
 		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
-		'handleCancleValidataTIME': Constant.CANCLE_VALIDATA_TIME
+		'handleCancleValidataTIME': Constant.CANCLE_VALIDATA_TIME,
+		'handleProductCategory': Constant.PRODUCT_LIST_CATEGORY,
+		'handleProductSecondCategory': Constant.PRODUCT_SECOND_CATEGORY,
+		'handleProductChooseSecondCategory': Constant.PRODUCT_CHOOSE_SECOND_CATEGORY,
+		'handleProductCancleChooseCatalog': Constant.PRODUCT_CANCLE_CHOOSE_CATALOG,
+		'handleProductSaveChooseCatalog': Constant.PRODUCT_SAVE_CHOOSE_CATALOG
 	},
 
 	init: function() {
@@ -65,7 +70,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'value_ids': [],
 				'model_values': [],
 				'name2model': {},
-				'model_names': []
+				'model_names': [],
+				'second_id': 0
 			};
 		}
 	},
@@ -245,7 +251,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleCreateNewProduct: function(action) {
 		setTimeout(function() {
-		 	Reactman.PageAction.showHint('success', '添加成功!');
+		 	Reactman.PageAction.showHint('success', '保存成功!');
 		}, 10);
 		setTimeout(function() {
 		 	W.gotoPage('/product/product_list/');
@@ -256,6 +262,59 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var modelId = action.data.modelId;
 		this.data['valid_time_from_'+modelId] = '';
 		this.data['valid_time_to_'+modelId] = '';
+		this.__emitChange();
+	},
+
+	handleProductCategory: function(action){
+		var first_levels = JSON.parse(action.data['first_levels']);
+		var second_levels = JSON.parse(action.data['second_levels']);
+		first_levels[0]['is_choose'] = 1;
+		second_levels[0]['is_choose'] = 1;
+		this.data['first_levels'] = first_levels;
+		this.data['second_levels'] = second_levels;
+		this.data['second_id'] = second_levels[0].id;
+		this.__emitChange();
+	},
+
+	handleProductSecondCategory: function(action){
+		var first_levels = this.data['first_levels'];
+		var first_id = action.data['first_id'];
+		_.each(first_levels, function(first_level) {
+			if(first_level['id']==first_id){
+				first_level['is_choose'] = 1;
+			}else{
+				first_level['is_choose'] = 0;
+			}
+		});
+		this.data['first_levels'] = first_levels;
+		this.data['second_id'] = 0;
+		var second_levels = action.data['second_levels'].length>0?JSON.parse(action.data['second_levels']):''
+		this.data['second_levels'] = second_levels;
+		
+		this.__emitChange();
+	},
+
+	handleProductChooseSecondCategory: function(action){
+		var second_levels = this.data['second_levels'];
+		var second_id = action.data.second_id;
+		_.each(second_levels, function(second_level) {
+			if(second_level['id']==second_id){
+				second_level['is_choose'] = 1;
+			}else{
+				second_level['is_choose'] = 0;
+			}
+		});
+		this.data['second_id'] = second_id;
+		this.__emitChange();
+	},
+
+	handleProductCancleChooseCatalog: function(){
+		this.data['second_id'] = this.data['old_second_catalog_id'];
+		this.__emitChange();
+	},
+
+	handleProductSaveChooseCatalog: function(action){
+		this.data['catalog_name'] = action.data.catalogName;
 		this.__emitChange();
 	},
 

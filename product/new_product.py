@@ -16,14 +16,14 @@ from util import db_util
 from util import string_util
 from eaglet.utils.resource_client import Resource
 
-from resource import models as resource_models
 from account.models import *
+from resource import models as resource_models
+from product_catalog import models as catalog_models
 from product.product_has_model import get_product_model_property_values
-import nav
-import models
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
-
+import nav
+import models
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -70,11 +70,20 @@ class NewProduct(resource.Resource):
 			# product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			product_model_ids = [product_model.id for product_model in product_models]
 			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
-
+			
+			#获取规格值
 			value_ids = set([str(property_value.property_value_id) for property_value in property_values])
 			product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
 			model_values = get_product_model_property_values(product_model_property_values)
 			
+			#获取商品分类
+			print product.catalog_id,"======"
+			product_catalog = catalog_models.ProductCatalog.objects.get(id=product.catalog_id)
+			if product_catalog:
+				second_level_name = product_catalog.name
+				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog.father_id).name
+				print '%s'%first_level_name,second_level_name
+
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -91,9 +100,11 @@ class NewProduct(resource.Resource):
 				'has_product_model': '%s' %(1 if product.has_product_model else 0),
 				'model_values': json.dumps(model_values),
 				'images': [],
+				'catalog_name': ('%s--%s') %(first_level_name,second_level_name),
+				'old_second_catalog_id': product.catalog_id,
 				'value_ids': ','.join(value_ids)
 			}
-
+			#组织多规格数据
 			for product_model in product_models:
 				model_Id = product_model.name
 				product_data['product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
@@ -258,6 +269,7 @@ class NewProduct(resource.Resource):
 		product_store_type = int(post.get('product_store_type',-1))
 		has_product_model = int(post.get('has_product_model',0))
 		model_values = post.get('model_values','')
+		second_level_id = int(post.get('second_level_id',0))
 		# if product_store_type == -1:
 		# 	product_store = -1
 		if not limit_clear_price:
@@ -281,6 +293,7 @@ class NewProduct(resource.Resource):
 				valid_time_from = valid_time_from,
 				valid_time_to = valid_time_to,
 				has_product_model= has_product_model,
+				catalog_id = second_level_id,
 				remark = remark
 			)
 		else:
@@ -297,6 +310,7 @@ class NewProduct(resource.Resource):
 				valid_time_from = None,
 				valid_time_to = None,
 				has_product_model= has_product_model,
+				catalog_id = second_level_id,
 				remark = remark
 			)
 		#删除、重建商品图片
