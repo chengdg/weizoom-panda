@@ -9,5 +9,6 @@ module.exports = keyMirror({
 	NEW_ACCOUNT_UPDATE_ACCOUNT: null,
 	NEW_ACCOUNT_CREATE: null,
 	UPDATE_CATALOG: null,
-	SELECT_CATALOG: null
+	SELECT_CATALOG: null,
+	GET_QUALIFICATIONS: null
 });

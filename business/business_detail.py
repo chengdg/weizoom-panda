@@ -162,3 +162,54 @@ class BusinessDetail(resource.Resource):
 			response.innerErrMsg = unicode_full_stack()
 
 		return response.get_response()
+
+class GetQualifications(resource.Resource):
+	app = 'business'
+	resource = 'get_qualifications'
+
+	@login_required
+	def api_get(request):
+		business_id =  request.GET.get('business_id')
+		catalog_ids = request.GET.get('catalog_ids').split(',')
+		business_qualifications = []
+		business = models.Business.objects.get(id=business_id)
+		already_upload_catalog_ids = business.product_catalog_ids.split('_')
+		already_upload_qualifications = models.BusinessQualification.objects.filter(business_id=business_id)
+		all_qualifications = product_catalog_models.ProductCatalogQualification.objects.all()
+		all_need_qualifications_catalog_ids = [str(all_qualification.catalog_id) for all_qualification in all_qualifications]
+		qualification_id2name = dict((qualification.id,qualification.name) for qualification in all_qualifications)
+		qualification_id2catalog_id = dict((qualification.id,qualification.catalog_id) for qualification in all_qualifications)
+		
+		for catalog_id in catalog_ids:
+			#判断是否需要特殊资质
+			if catalog_id in all_need_qualifications_catalog_ids:
+				#根据现在所选择的商品类目，判断是否已经上传过特殊资质
+				if catalog_id in already_upload_catalog_ids:
+					#得到商家已经上传过特殊资质
+					qualifications = all_qualifications.filter(catalog_id=catalog_id)
+					qualifications_ids = [qualification.id for qualification in qualifications]
+					already_upload_qualifications.filter(qualification_id__in=qualifications_ids)
+					for already_upload_qualification in already_upload_qualifications:
+						business_qualifications.append({
+							'belong_catalog_id': qualification_id2catalog_id[already_upload_qualification.qualification_id],
+							'qualification_id': already_upload_qualification.qualification_id,
+							'qualification_name': qualification_id2name[already_upload_qualification.qualification_id],
+							'img': [{'id':1,'path':already_upload_qualification.path}],
+							'qualification_time': already_upload_qualification.qualification_time.strftime("%Y-%m-%d %H:%M")
+						})
+				else:
+					qualifications = all_qualifications.filter(catalog_id=catalog_id)
+					for qualification in qualifications:
+						business_qualifications.append({
+							'belong_catalog_id': qualification.catalog_id,
+							'qualification_id': '-1',
+							'qualification_name': qualification.name,
+							'img': [],
+							'qualification_time': '到期时间'
+						})
+		data = {
+			'rows': business_qualifications
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()

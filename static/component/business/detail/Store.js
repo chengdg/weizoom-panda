@@ -19,7 +19,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
 		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
 		'handleUpdateCatalog': Constant.UPDATE_CATALOG,
-		'handleSelect': Constant.SELECT_CATALOG
+		'handleSelect': Constant.SELECT_CATALOG,
+		'handleGetQualifications': Constant.GET_QUALIFICATIONS
 	},
 
 	init: function() {
@@ -30,6 +31,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleSelect: function(action) {
 		this.data['options_for_type'] = action.data.rows;
+		this.__emitChange();
+	},
+
+	handleGetQualifications: function(action) {
+		this.data['upload_business_qualifications'] = action.data.rows;
 		this.__emitChange();
 	},
 	
