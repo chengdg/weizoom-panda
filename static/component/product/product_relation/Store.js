@@ -88,10 +88,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleChooseAllSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
 
-		if(selectSelfShop.length==11){
+		if(selectSelfShop.length==17){
 			selectSelfShop = [];
 		}else{
-			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng','weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai'];
+			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
+			'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
+			'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld'];
 		}
 
 		this.data.selectSelfShop = selectSelfShop;

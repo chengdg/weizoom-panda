@@ -39026,6 +39026,24 @@
 			}, {
 				text: '微众中海',
 				value: 'weizoom_zhonghai'
+			}, {
+				text: '微众club',
+				value: 'weizoom_zoomjulebu'
+			}, {
+				text: '微众吃货',
+				value: 'weizoom_chh'
+			}, {
+				text: '微众圈',
+				value: 'weizoom_pengyouquan'
+			}, {
+				text: '少先队',
+				value: 'weizoom_shxd'
+			}, {
+				text: '津美汇',
+				value: 'weizoom_jinmeihui'
+			}, {
+				text: '微众便利店',
+				value: 'weizoom_wzbld'
 			}];
 
 			var orderStatusOptions = [{
@@ -43359,6 +43377,24 @@
 			}, {
 				'name': '微众中海',
 				'value': 'weizoom_zhonghai'
+			}, {
+				'name': '微众club',
+				'value': 'weizoom_zoomjulebu'
+			}, {
+				'name': '微众吃货',
+				'value': 'weizoom_chh'
+			}, {
+				'name': '微众圈',
+				'value': 'weizoom_pengyouquan'
+			}, {
+				'name': '少先队',
+				'value': 'weizoom_shxd'
+			}, {
+				'name': '津美汇',
+				'value': 'weizoom_jinmeihui'
+			}, {
+				'name': '微众便利店',
+				'value': 'weizoom_wzbld'
 			}];
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
@@ -43404,7 +43440,7 @@
 			var syncType = this.props.data.sync_type;
 			var selfShop = this.state.self_shop;
 			var selectSelfShop = this.state.select_self_shop.toString();
-			var checked = this.state.select_self_shop.length == 11 ? 'checked' : null;
+			var checked = this.state.select_self_shop.length == 17 ? 'checked' : null;
 
 			var selfs = selfShop.map(function (self_shop, index) {
 				var value = self_shop.value;
@@ -43556,10 +43592,10 @@
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 
-			if (selectSelfShop.length == 11) {
+			if (selectSelfShop.length == 17) {
 				selectSelfShop = [];
 			} else {
-				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai'];
+				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld'];
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
