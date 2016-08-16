@@ -6,8 +6,8 @@
 var debug = require('debug')('m:product.new_product:AddProductCategoryDialog');
 var React = require('react');
 var ReactDOM = require('react-dom');
-
 var Reactman = require('reactman');
+var _ = require('underscore');
 
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -55,7 +55,11 @@ var AddProductCategoryDialog = Reactman.createDialog({
 	},
 
 	cancleCatalog: function(){
+		var _this = this;
 		Action.cancleChooseCatalog();
+		_.delay(function(){
+			_this.closeDialog();
+		},200)
 	},
 
 	render:function(){

@@ -239,8 +239,6 @@ var NewProductPage = React.createClass({
 	},
 
 	render:function(){
-		console.log(this.state.old_second_catalog_id);
-		console.log(this.state.second_id,"======");
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
