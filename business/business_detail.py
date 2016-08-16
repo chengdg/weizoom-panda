@@ -101,8 +101,6 @@ class BusinessDetail(resource.Resource):
 	def api_post(request):
 		#修改入驻申请
 		post = request.POST
-		print post
-		print '================='
 		business_id = post.get('id')
 		company_type = int(post.get('company_type',2))
 		company_name = post.get('company_name','')
@@ -122,7 +120,16 @@ class BusinessDetail(resource.Resource):
 		organization_code_certificate_time = post.get('organization_code_certificate_time','')
 		account_opening_license = json.loads(post.get('account_opening_license',''))[0]['path']
 		account_opening_license_time = post.get('account_opening_license_time','')
+		apply_catalogs = json.loads(post.get('apply_catalogs',''))
+		upload_business_qualifications = json.loads(post.get('upload_business_qualifications',''))
 		
+
+		#保存类目
+		product_catalog_ids = []
+		for apply_catalog in apply_catalogs:
+			product_catalog_ids.append(str(apply_catalog))
+		product_catalog_ids = '_'.join(product_catalog_ids)
+
 		try:
 			business = models.Business.objects.filter(id=business_id).update(
 				company_type = company_type,
@@ -143,7 +150,7 @@ class BusinessDetail(resource.Resource):
 				organization_code_certificate_time = organization_code_certificate_time,
 				account_opening_license = account_opening_license,
 				account_opening_license_time = account_opening_license_time,
-				# product_catalog_ids = product_catalog_ids
+				product_catalog_ids = product_catalog_ids
 			)
 			new_business_info = models.Business.objects.get(id=business_id)
 			#如果更换了企业类型，把客户编号也更改过来
@@ -155,6 +162,17 @@ class BusinessDetail(resource.Resource):
 					new_customer_number = 'DL'+ old_customer_number[2:]
 				new_business_info.customer_number = new_customer_number
 				new_business_info.save()
+
+			#将之前上传的资质删除
+			already_upload_qualifications = models.BusinessQualification.objects.filter(business_id=business_id).delete()
+			#把提交的资质信息与商家关联起来
+			for upload_qualification in upload_business_qualifications:
+				models.BusinessQualification.objects.create(
+					business_id = business_id,
+					qualification_id = upload_qualification['qualification_id'],
+					path = upload_qualification['img'][0]['path'],
+					qualification_time = upload_qualification['qualification_time']
+				)
 			response = create_response(200)
 		except Exception,e:
 			print e
@@ -163,6 +181,7 @@ class BusinessDetail(resource.Resource):
 
 		return response.get_response()
 
+#动态加载得到所需特殊资质
 class GetQualifications(resource.Resource):
 	app = 'business'
 	resource = 'get_qualifications'
@@ -202,10 +221,10 @@ class GetQualifications(resource.Resource):
 					for qualification in qualifications:
 						business_qualifications.append({
 							'belong_catalog_id': qualification.catalog_id,
-							'qualification_id': '-1',
+							'qualification_id': qualification.id,
 							'qualification_name': qualification.name,
 							'img': [],
-							'qualification_time': '到期时间'
+							'qualification_time': ''
 						})
 		data = {
 			'rows': business_qualifications

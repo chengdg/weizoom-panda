@@ -64,10 +64,11 @@ var Action = {
 			organization_code_certificate: JSON.stringify(data['organization_code_certificate']),
 			organization_code_certificate_time: data['organization_code_certificate_time'],
 			account_opening_license: JSON.stringify(data['account_opening_license']),
-			account_opening_license_time: data['account_opening_license_time']
+			account_opening_license_time: data['account_opening_license_time'],
+			apply_catalogs: JSON.stringify(data['apply_catalogs'])
 		};
+		business_info['upload_business_qualifications'] = JSON.stringify(data['upload_business_qualifications']);
 		business_info['id'] = data.id;
-		console.log(business_info);
 		Resource.post({
 			resource: 'business.business_detail',
 			data: business_info,

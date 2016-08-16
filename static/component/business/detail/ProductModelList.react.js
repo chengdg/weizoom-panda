@@ -34,7 +34,6 @@ var ProductModelList = React.createClass({
 	render:function(){
 		var models = this.props.value;
 		var cModels = '';
-		console.log(models);
 		if (models) {
 			var _this = this;
 			cModels = models.map(function(model, index) {

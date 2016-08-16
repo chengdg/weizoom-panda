@@ -39,6 +39,36 @@ var BusinessDetailPage = React.createClass({
 	},
 
 	onSubmit: function() {
+		var data = Store.getData();
+		var upload_business_qualifications = data.upload_business_qualifications;
+		var is_upload = true;
+		//校验
+		if(data.business_license == ''){
+			Reactman.PageAction.showHint('error', '请上传营业执照!');
+			return;
+		}
+		if(data.tax_registration_certificate == ''){
+			Reactman.PageAction.showHint('error', '请上传税务登记证!');
+			return;
+		}
+		if(data.organization_code_certificate == ''){
+			Reactman.PageAction.showHint('error', '请上传组织机构代码证!');
+			return;
+		}
+		if(data.account_opening_license == ''){
+			Reactman.PageAction.showHint('error', '请上传开户许可证!');
+			return;
+		}
+		upload_business_qualifications.map(function(upload_business_qualification,index){
+			if(upload_business_qualification.img == ''){
+				is_upload = false;
+				Reactman.PageAction.showHint('error', '请上传' + upload_business_qualification.qualification_name);
+				return;
+			}
+		});
+		if(!is_upload){
+			return;
+		}
 		Action.saveAccount(Store.getData());
 	},
 

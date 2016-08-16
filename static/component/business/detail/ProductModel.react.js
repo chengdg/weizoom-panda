@@ -41,7 +41,7 @@ var ProductModel = React.createClass({
 		return (
 			<div>
 				<Reactman.FormImageUploader label={model.qualification_name} name="img" value={model.img} onChange={this.onChange.bind(this,model.qualification_id)} max={1} />
-				<Reactman.FormDateTimeInput label='有效期:' name="qualification_time" value={model.qualification_time} onChange={this.onChange.bind(this,model.qualification_id)} />
+				<Reactman.FormDateTimeInput label='有效期:' name="qualification_time" validate="require-notempty" value={model.qualification_time} onChange={this.onChange.bind(this,model.qualification_id)} />
 			</div>
 		)
 	}
