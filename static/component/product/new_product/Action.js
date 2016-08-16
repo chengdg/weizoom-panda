@@ -117,10 +117,12 @@ var Action = {
 		});
 	},
 
-	ProductCategory: function(){
+	ProductCategory: function(second_level_id){
 		Resource.get({
 			resource: 'product.category',
-			data: {},
+			data: {
+				second_level_id: second_level_id
+			},
 			dispatch: {
 				dispatcher: Dispatcher,
 				actionType: Constant.PRODUCT_LIST_CATEGORY
