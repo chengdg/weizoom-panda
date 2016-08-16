@@ -32,6 +32,19 @@ var Action = {
 			}
 		})
 	},
+	getQualifications: function(id,catalog_ids){
+		Resource.get({
+			resource: 'business.get_qualifications',
+			data: {
+				business_id: id,
+				catalog_ids: catalog_ids
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.GET_QUALIFICATIONS
+			}
+		})
+	},
 	saveAccount: function(data) {
 		var business_info = {
 			company_type: data['company_type'],

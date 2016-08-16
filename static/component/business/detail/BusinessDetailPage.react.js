@@ -29,14 +29,7 @@ var BusinessDetailPage = React.createClass({
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		if(property == 'apply_catalogs'){
-			console.log(value);
-			console.log(this.state.apply_catalogs);
-			this.state.upload_business_qualifications.push({
-				'qualification_id': -1,
-				'qualification_name': '证书',
-				'qualification_time': '到期时间',
-				'img': [{'id':1,'path':''}]
-			})
+			Action.getQualifications(this.state.id,value);
 		}
 		Action.updateAccount(property, value);
 	},
