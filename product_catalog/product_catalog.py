@@ -142,8 +142,9 @@ class ProductCatalog(resource.Resource):
 				name = name,
 				note = note
 			)
-			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id).first()
+			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id)
 			if relation:
+				relation = relation.first()
 				weapp_catalog_id = relation.weapp_catalog_id
 				params = {
 					'id': weapp_catalog_id,
@@ -163,7 +164,9 @@ class ProductCatalog(resource.Resource):
 					response = create_response(200)
 				else:
 					response = create_response(500)
-				return response.get_response()
+			else:
+				response = create_response(200)
+			return response.get_response()
 		except:
 			response = create_response(500)
 			response.errMsg = u'编辑失败'

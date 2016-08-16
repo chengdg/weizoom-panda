@@ -53,10 +53,12 @@ class BusinessDetail(resource.Resource):
 			#得到商家上传的特殊资质
 			all_qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id__in=product_catalog_ids)
 			qualification_id2name = dict((qualification.id,qualification.name) for qualification in all_qualifications)
+			qualification_id2catalog_id = dict((qualification.id,qualification.catalog_id) for qualification in all_qualifications)
 
 			qualifications = models.BusinessQualification.objects.filter(business_id=business_id)
 			for qualification in qualifications:
 				upload_business_qualifications.append({
+					'belong_catalog_id': qualification_id2catalog_id[qualification.qualification_id],
 					'qualification_id': qualification.qualification_id,
 					'qualification_name': qualification_id2name[qualification.qualification_id],
 					'img': [{'id':1,'path':qualification.path}],

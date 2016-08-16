@@ -28,7 +28,7 @@ var Action = {
 			data: {},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.NEW_ACCOUNT_SELECT_CATALOG
+				actionType: Constant.SELECT_CATALOG
 			}
 		})
 	},

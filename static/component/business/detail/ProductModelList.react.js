@@ -16,29 +16,10 @@ var ProductModelList = React.createClass({
 		return {
 			'models': this.props.value
 		}
-		console.log(this.props.value);
-	},
-
-	onClickAddModel: function(event) {
-		this.state.models.push({
-			name: '',
-			stocks: ''
-		});
-
-		this.callChangeHandler();
 	},
 
 	onChangeModel: function(value, event) {
 		var model = this.state.models[value.index];
-		model.name = value.name;
-		model.stocks = value.stocks;
-
-		this.callChangeHandler();
-	},
-
-	onDeleteModel: function(index) {
-		this.state.models.splice(index, 1);
-
 		this.callChangeHandler();
 	},
 
@@ -53,11 +34,12 @@ var ProductModelList = React.createClass({
 	render:function(){
 		var models = this.props.value;
 		var cModels = '';
+		console.log(models);
 		if (models) {
 			var _this = this;
 			cModels = models.map(function(model, index) {
 				return (
-					<ProductModel model={model} index={index} key={index} onChange={_this.onChangeModel} onDelete={_this.onDeleteModel} />
+					<ProductModel model={model} index={index} key={index} onChange={_this.onChangeModel} />
 				)
 			});
 		}
