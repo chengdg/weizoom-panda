@@ -159,11 +159,11 @@ class ProductCatalog(resource.Resource):
 					}
 				)
 
-				if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
-
+				if resp and resp.get('code') == 200:
 					response = create_response(200)
 				else:
 					response = create_response(500)
+					response.errMsg = u'编辑失败'
 			else:
 				response = create_response(200)
 			return response.get_response()
