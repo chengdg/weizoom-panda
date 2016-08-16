@@ -71,7 +71,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'model_values': [],
 				'name2model': {},
 				'model_names': [],
-				'second_id': 0
+				'second_id': 0,
+				'catalog_name': ''
 			};
 		}
 	},

@@ -77,11 +77,12 @@ class NewProduct(resource.Resource):
 			model_values = get_product_model_property_values(product_model_property_values)
 			
 			#获取商品分类
-			print product.catalog_id,"======"
-			product_catalog = catalog_models.ProductCatalog.objects.get(id=product.catalog_id)
+			product_catalog = catalog_models.ProductCatalog.objects.filter(id=product.catalog_id)
+			first_level_name = ''
+			second_level_name = ''
 			if product_catalog:
-				second_level_name = product_catalog.name
-				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog.father_id).name
+				second_level_name = product_catalog[0].name
+				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
 				print '%s'%first_level_name,second_level_name
 
 			product_data = {
@@ -100,7 +101,7 @@ class NewProduct(resource.Resource):
 				'has_product_model': '%s' %(1 if product.has_product_model else 0),
 				'model_values': json.dumps(model_values),
 				'images': [],
-				'catalog_name': ('%s--%s') %(first_level_name,second_level_name),
+				'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
 				'old_second_catalog_id': product.catalog_id,
 				'value_ids': ','.join(value_ids)
 			}
@@ -131,6 +132,14 @@ class NewProduct(resource.Resource):
 			property_ids = [model_propertie.id for model_propertie in model_properties]
 			property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 			product_has_model = len(property_values)
+
+			product_catalog = catalog_models.ProductCatalog.objects.filter(id=second_level_id)
+			first_level_name = ''
+			second_level_name = ''
+			if product_catalog:
+				second_level_name = product_catalog[0].name
+				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
+				print '%s'%first_level_name,second_level_name
 		
 		if role == YUN_YING:
 			second_navs = PRODUCT_RELATION_SECOND_NAV
@@ -146,7 +155,8 @@ class NewProduct(resource.Resource):
 			'role': role,
 			'points': points,
 			'purchase_method': purchase_method,
-			'product_has_model': product_has_model
+			'product_has_model': product_has_model,
+			'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name)
 		})
 		return render_to_response('product/new_product.html', c)
 

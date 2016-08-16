@@ -239,6 +239,10 @@ var NewProductPage = React.createClass({
 	},
 
 	render:function(){
+		var catalogName = W.catalogName;
+		if(this.state.catalog_name.length>0){
+			catalogName = this.state.catalog_name;
+		}
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
@@ -254,7 +258,7 @@ var NewProductPage = React.createClass({
 						<legend className="pl10 pt10 pb10">基本信息</legend>
 						<span className="form-group ml15">
 							<label className="col-sm-2 control-label pr0">商品类目:</label>
-							<span className="xui-catalog-name">{this.state.catalog_name}</span>
+							<span className="xui-catalog-name">{catalogName}</span>
 							<a className="ml10" href="javascript:void(0);" onClick={this.updateProductCatalog}>修改</a>
 						</span>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />

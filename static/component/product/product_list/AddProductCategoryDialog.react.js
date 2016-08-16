@@ -24,11 +24,6 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		};
 	},
 
-	onChange: function(value, event) {
-		var property = event.target.getAttribute('name');
-		Action.addProductModelValue(property, value);
-	},
-
 	onChangeStore: function(){
 		this.setState({
 			first_levels: Store.getCategory()['first_levels'],
