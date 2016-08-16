@@ -23,7 +23,7 @@ var BusinessDetailPage = React.createClass({
 	},
 	
 	componentDidMount: function () {
-		debug(ReactDOM.findDOMNode(this.refs.name));
+		Action.selectCatalog();
 	},
 	
 	onChange: function(value, event) {
@@ -76,7 +76,7 @@ var BusinessDetailPage = React.createClass({
 				</fieldset>
 				<fieldset>
 					<legend className="pl10 pt10 pb10">入驻类目及特殊资质</legend>
-					<Reactman.FormInput label="申请类目:" name="catalog_infos" validate="require-notempty" value={this.state.catalog_infos} onChange={this.onChange} />
+					<Reactman.FormCheckbox label="申请类目:" name="apply_catalogs" value={this.state.apply_catalogs} options={this.state.options_for_type} onChange={this.onChange} />
 					<ProductModelList name='models' value={this.state.upload_business_qualifications} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>

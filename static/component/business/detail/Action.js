@@ -22,6 +22,16 @@ var Action = {
 			}
 		});
 	},
+	selectCatalog: function(){
+		Resource.get({
+			resource: 'product_catalog.get_all_second_catalog',
+			data: {},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.SELECT_CATALOG
+			}
+		})
+	},
 	saveAccount: function(data) {
 		var business_info = {
 			company_type: data['company_type'],

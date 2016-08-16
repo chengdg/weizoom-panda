@@ -270,6 +270,26 @@ class GetAllFirstCatalog(resource.Resource):
 		response.data = data
 		return response.get_response()
 
+class GetAllSecondCatalog(resource.Resource):
+	app = 'product_catalog'
+	resource = 'get_all_second_catalog'
+
+	@login_required
+	def api_get(request):
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2).order_by('-created_at')
+		rows = []
+		for catalog in catalogs:
+			rows.append({
+				'text': catalog.name,
+				'value': catalog.id
+			})
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
 #配置特殊资质
 class GetAllFirstCatalog(resource.Resource):
 	app = 'product_catalog'

@@ -18,18 +18,20 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
 		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
-		'handleUpdateCatalog': Constant.UPDATE_CATALOG
+		'handleUpdateCatalog': Constant.UPDATE_CATALOG,
+		'handleSelect': Constant.SELECT_CATALOG
 	},
 
 	init: function() {
 		this.data = Reactman.loadJSON('business_data');
 		this.data['company_type'] = String(this.data['company_type']);
+		this.data['options_for_type'] = [];
 	},
 
-	// handleSelect: function(action) {
-	// 	this.data['options_for_type'] = action.data.rows;
-	// 	this.__emitChange();
-	// },
+	handleSelect: function(action) {
+		this.data['options_for_type'] = action.data.rows;
+		this.__emitChange();
+	},
 	
 	handleUpdateAccount: function(action) {
 		this.data[action.data.property] = action.data.value;

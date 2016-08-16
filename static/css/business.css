@@ -11,6 +11,10 @@ em {
 li {
     margin-bottom: 1px;
 }
+.nav > li > a:hover,
+.nav > li > a:focus {
+     background: none; 
+}
 .pre-scrollable{
     height: 200px;
 }
