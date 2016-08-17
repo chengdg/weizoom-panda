@@ -32,7 +32,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
 			this.data['account_type'] = String(this.data['account_type']);
-			this.data['self_user_names'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
+			// this.data['self_user_names'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 			if (this.data['account_type'] == '1'){
 				this.data['purchase_method'] = String(this.data['purchase_method']);
 				this.data['company_type'] = JSON.parse(this.data['company_type']);
