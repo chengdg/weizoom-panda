@@ -39,11 +39,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var old_models = action.data.models;
 		var target_index = action.data.index;
 		_.each(old_models, function(old_model) {
-			if(old_model.index==target_index){
+			if(old_model.index == target_index){
 				old_model['name'] = action.data.value;
 			}
 		});
-		console.log(old_models);
 		this.data['models'] = old_models;
 		this.__emitChange();
 	},

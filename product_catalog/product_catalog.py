@@ -49,14 +49,17 @@ class ProductCatalog(resource.Resource):
 			belong_second_catalogs = all_second_catalogs.filter(father_id=catalog.id)
 			for belong_second_catalog in belong_second_catalogs:
 				qualification_id2name = []
+				index = 0
 				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
 				total_products_number += products_number
 				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
 				for qualification in qualifications:
 					qualification_id2name.append({
+						'index': index,
 						'id': qualification.id,
 						'name': qualification.name
 						})
+					index += 1 
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
 					'father_catalog': belong_second_catalog.father_id,
