@@ -207,7 +207,7 @@ class GetQualifications(resource.Resource):
 					#得到商家已经上传过特殊资质
 					qualifications = all_qualifications.filter(catalog_id=catalog_id)
 					qualifications_ids = [qualification.id for qualification in qualifications]
-					already_upload_qualifications.filter(qualification_id__in=qualifications_ids)
+					already_upload_qualifications = already_upload_qualifications.filter(qualification_id__in=qualifications_ids)
 					for already_upload_qualification in already_upload_qualifications:
 						business_qualifications.append({
 							'belong_catalog_id': qualification_id2catalog_id[already_upload_qualification.qualification_id],

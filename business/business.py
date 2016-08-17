@@ -167,7 +167,7 @@ class Business(resource.Resource):
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_number = filters.get('customer_number','')
 		company_name = filters.get('company_name','')
-		# product_catalog = filters.get('product_catalog','')
+		product_catalog = filters.get('product_catalog','')
 		company_type = filters.get('company_type','')
 		phone = filters.get('phone','')
 		status = filters.get('status','')
@@ -176,8 +176,18 @@ class Business(resource.Resource):
 			businesses = businesses.filter(customer_number__icontains=customer_number)
 		if company_name:
 			businesses = businesses.filter(company_name__icontains=company_name)
-		# if product_catalog:
-		# 	print product_catalog
+		if product_catalog:
+			filter_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2,name__icontains=product_catalog)
+			filter_catalogs_ids = [str(filter_catalog.id) for filter_catalog in filter_catalogs]
+			filter_business_ids = []
+			for business in businesses:
+				#得到商家的经营类目
+				catalog_ids = business.product_catalog_ids.split('_')
+				for filter_catalogs_id in filter_catalogs_ids:
+					#判断是否类目是在筛选条件之内
+					if filter_catalogs_id in catalog_ids:
+						filter_business_ids.append(business.id)
+			businesses = businesses.filter(id__in=filter_business_ids)
 		if company_type:
 			businesses = businesses.filter(company_type=int(company_type))
 		if phone:

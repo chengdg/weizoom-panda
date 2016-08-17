@@ -137,7 +137,7 @@ var BusinessManagerPage = React.createClass({
 							<Reactman.FormInput label="公司名称:" name="company_name" match='=' />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="所在地:" name="company_location" match='=' />
+							<Reactman.FormInput label="经营类目:" name="product_catalog" match='=' />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 					<Reactman.FilterRow>
@@ -149,6 +149,11 @@ var BusinessManagerPage = React.createClass({
 						</Reactman.FilterField>
 						<Reactman.FilterField>
 							<Reactman.FormSelect label="客户状态:" name="status" options={statusOptions} match='=' />
+						</Reactman.FilterField>
+					</Reactman.FilterRow>
+					<Reactman.FilterRow>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="所在地:" name="company_location" match='=' />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>

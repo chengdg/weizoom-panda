@@ -117,19 +117,19 @@ var BusinessDetailPage = React.createClass({
 					<Reactman.FormInput label="手机号:" name="phone" validate="require-notempty" value={this.state.phone} onChange={this.onChange} />
 					<Reactman.FormInput label="E-mail:" name="e_mail" value={this.state.e_mail} onChange={this.onChange} />
 					<Reactman.FormInput label="微信/QQ:" name="we_chat_and_qq" value={this.state.we_chat_and_qq} onChange={this.onChange} />
-					<Reactman.FormInput label="公司所在地:" name="company_location" value={this.state.company_location} onChange={this.onChange} />
-					<Reactman.FormInput label="详细地址:" name="address" value={this.state.address} onChange={this.onChange} />
+					<Reactman.FormInput label="公司所在地:" name="company_location" validate="require-notempty" value={this.state.company_location} onChange={this.onChange} />
+					<Reactman.FormInput label="详细地址:" name="address" validate="require-notempty" value={this.state.address} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<legend className="pl10 pt10 pb10">基本资质</legend>
 					<Reactman.FormImageUploader label="营业执照:" name="business_license" value={this.state.business_license} onChange={this.onChange} max={1} />
-					<Reactman.FormDateTimeInput label="营业执照有效期:" name="business_license_time" value={this.state.business_license_time} onChange={this.onChange} />
+					<Reactman.FormDateTimeInput label="营业执照有效期:" validate="require-notempty" name="business_license_time" value={this.state.business_license_time} onChange={this.onChange} />
 					<Reactman.FormImageUploader label="税务登记证:" name="tax_registration_certificate" value={this.state.tax_registration_certificate} onChange={this.onChange} max={1} />
-					<Reactman.FormDateTimeInput label="税务登记证有效期:" name="tax_registration_certificate_time" value={this.state.tax_registration_certificate_time} onChange={this.onChange} />
+					<Reactman.FormDateTimeInput label="税务登记证有效期:" validate="require-notempty" name="tax_registration_certificate_time" value={this.state.tax_registration_certificate_time} onChange={this.onChange} />
 					<Reactman.FormImageUploader label="组织机构代码证:" name="organization_code_certificate" value={this.state.organization_code_certificate} onChange={this.onChange} max={1} />
-					<Reactman.FormDateTimeInput label="组织机构代码证有效期:" name="organization_code_certificate_time" value={this.state.organization_code_certificate_time} onChange={this.onChange} />
+					<Reactman.FormDateTimeInput label="组织机构代码证有效期:" validate="require-notempty" name="organization_code_certificate_time" value={this.state.organization_code_certificate_time} onChange={this.onChange} />
 					<Reactman.FormImageUploader label="开户许可证:" name="account_opening_license" value={this.state.account_opening_license} onChange={this.onChange} max={1} />
-					<Reactman.FormDateTimeInput label="开户许可证有效期:" name="account_opening_license_time" value={this.state.account_opening_license_time} onChange={this.onChange} />
+					<Reactman.FormDateTimeInput label="开户许可证有效期:" validate="require-notempty" name="account_opening_license_time" value={this.state.account_opening_license_time} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<legend className="pl10 pt10 pb10">入驻类目及特殊资质</legend>
