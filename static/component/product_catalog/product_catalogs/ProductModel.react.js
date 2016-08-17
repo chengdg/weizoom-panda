@@ -25,7 +25,7 @@ var ProductModel = React.createClass({
 	onChange: function(id, value,event) {
 		var property = event.target.getAttribute('name');
 		var models = this.props.models;
-		Action.updateCatalog(property, value,  models, id);
+		Action.updateCatalog(property, value,  models, this.props.index);
 	},
 
 	onClickDelete: function(event) {

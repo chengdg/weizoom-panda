@@ -37,9 +37,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 	handleUpdateCatalog: function(action) {
 		var old_models = action.data.models;
-		var target_id = action.data.id;
+		var target_index = action.data.index;
 		_.each(old_models, function(old_model) {
-			if(old_model.id==target_id){
+			if(old_model.index==target_index){
 				old_model['name'] = action.data.value;
 			}
 		});
@@ -57,7 +57,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleAddCatalog: function(action) {
 		var old_models = action.data.models;
 		old_models.push({
-				name: ''
+				name: '',
+				index: action.data.index
 			});
 		this.data['models'] = old_models;
 		this.__emitChange();
