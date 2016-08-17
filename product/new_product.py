@@ -83,7 +83,6 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-				print '%s'%first_level_name,second_level_name
 
 			product_data = {
 				'id': product.id,
