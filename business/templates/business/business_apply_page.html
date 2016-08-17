@@ -276,10 +276,10 @@
         account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
         account_opening_license_time = $('#datetimepicker-account_opening_license').val();
 
-        if(business_license !='' && business_license_time !='' 
-            && tax_registration_certificate !='' && tax_registration_certificate_time !='' 
-            && organization_code_certificate !='' && organization_code_certificate_time !='' 
-            && account_opening_license!='' && account_opening_license_time!='')
+        if(business_license !='' && business_license_time !='到期时间' 
+            && tax_registration_certificate !='' && tax_registration_certificate_time !='到期时间' 
+            && organization_code_certificate !='' && organization_code_certificate_time !='到期时间'  
+            && account_opening_license!='' && account_opening_license_time !='到期时间' )
         {
             $('#apply_page_2 .xa-next-page').attr("disabled",false);
         }else{
@@ -394,9 +394,10 @@
             }else{
             $('#apply_page_3 .btn-primary').attr("disabled","disabled");//需要上传特殊资质，需要校验
             for(i=0;i<need_upload_len;i++){
+                var title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
                 var qualification_id = $('#apply_page_3_upload_field .form-group img').eq(i).attr("class").split('_')[2];
-                if(($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")=='') || ($('#apply_page_3_upload_field .form-group > div input').val()=='')){
-                    toast('请填写完整信息', 'warning');
+                if(($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")=='') || ($('#apply_page_3_upload_field .form-group .xa-datePicker').eq(i).val()=='到期时间')){
+                    toast('请提交完整'+title+'内容', 'warning');
                     $('#apply_page_3 .btn-primary').attr("disabled",false);
                     return
                 }else{
