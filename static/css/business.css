@@ -16,7 +16,11 @@ li {
      background: none; 
 }
 .pre-scrollable{
-    height: 200px;
+    max-height: 245px;
+}
+div#apply_page_3_upload_field {
+    width: 890px;
+    margin: 0 auto;
 }
 .arrow {
     float: left;

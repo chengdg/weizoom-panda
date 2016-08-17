@@ -202,7 +202,8 @@ class Business(resource.Resource):
 			catalog_name = []
 			product_catalog_ids = business.product_catalog_ids.split('_')
 			for product_catalog in product_catalog_ids:
-				catalog_name.append(catalog_id2name[product_catalog])
+				if catalog_id2name.has_key(product_catalog):#二级分类如果没有被删除
+					catalog_name.append(catalog_id2name[product_catalog])
 			catalog_name = ';'.join(catalog_name)
 			rows.append({
 				'id': business.id,
