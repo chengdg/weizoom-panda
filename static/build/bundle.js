@@ -42143,16 +42143,17 @@
 
 		onSubmit: function () {
 			var product = Store.getData();
-			if (W.second_level_id != 0) {
-				product['second_level_id'] = W.second_level_id;
+			if (W.second_level_id != undefined && W.second_level_id != 0) {
+				product['second_level_id'] = this.state.second_id != 0 ? this.state.second_id : W.second_level_id;
 			} else {
-				product['second_level_id'] = product.second_id;
+				product['second_level_id'] = this.state.second_id != undefined ? this.state.second_id : this.state.old_second_catalog_id;
 			}
 
-			if (product.second_id == 0 || product.second_id == undefined) {
+			if (product['second_level_id'] == 0 || product['second_level_id'] == undefined) {
 				Reactman.PageAction.showHint('error', '请选择商品分类！');
 				return;
 			}
+
 			var reg = /^\d{0,9}\.{0,1}(\d{1,2})?$/;
 			var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 			var has_product_model = this.state.has_product_model;
@@ -42221,6 +42222,7 @@
 				Reactman.PageAction.showHint('error', '请添加商品规格！');
 				return;
 			}
+
 			var is_true = false;
 			if (has_product_model === '1') {
 				_.each(model_values, function (model) {
@@ -42267,6 +42269,7 @@
 			if (is_true) {
 				return false;
 			}
+
 			_.each(model_values, function (model) {
 				model['product_price_' + model.modelId] = product['product_price_' + model.modelId];
 				model['limit_clear_price_' + model.modelId] = product['limit_clear_price_' + model.modelId];
@@ -42283,6 +42286,7 @@
 					}
 				}
 			});
+
 			model_values = model_values.length > 0 ? JSON.stringify(model_values) : '';
 			Action.saveNewProduct(product, model_values);
 		},
@@ -42292,11 +42296,13 @@
 			if (this.state.catalog_name.length > 0) {
 				catalogName = this.state.catalog_name;
 			}
+
 			var optionsForStore = [{ text: '无限', value: '-1' }, { text: '有限', value: '0' }];
 			var optionsForModel = [{ text: '是', value: '1' }, { text: '否', value: '0' }];
 			var optionsForCheckbox = [{ text: '', value: '1' }];
 			var role = W.role;
 			var disabled = role == 3 ? 'disabled' : '';
+
 			return React.createElement(
 				'div',
 				{ className: 'xui-newProduct-page xui-formPage' },
@@ -42788,7 +42794,6 @@
 		},
 
 		render: function () {
-			console.log(this.state.catalog_name, "=======");
 			var _this = this;
 			var model_type = this.props.Modeltype;
 			var disabled = this.props.Disabled;
