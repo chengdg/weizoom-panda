@@ -156,7 +156,7 @@ def getProductData(request, is_export):
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
 		product_has_model = 0
 		#如果是多规格价格显示区间
-		if product.id in product_id2market_price:
+		if product.id in product_id2market_price and product.has_product_model:
 			market_prices = product_id2market_price[product.id]
 			market_prices = sorted(market_prices)
 			product_has_model = len(market_prices)
@@ -167,7 +167,7 @@ def getProductData(request, is_export):
 		else:
 			clear_price = '%.2f' % product.clear_price
 
-		if product.id in product_id2market_price:
+		if product.id in product_id2market_price and product.has_product_model:
 			product_prices = product_id2product_price[product.id]
 			product_prices = sorted(product_prices)
 			if (product_prices[0] != product_prices[-1]) and len(product_prices) > 1:
