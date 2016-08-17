@@ -62,7 +62,7 @@ class BusinessDetail(resource.Resource):
 					'qualification_id': qualification.qualification_id,
 					'qualification_name': qualification_id2name[qualification.qualification_id],
 					'img': [{'id':1,'path':qualification.path}],
-					'qualification_time': qualification.qualification_time.strftime("%Y-%m-%d %H:%M")
+					'qualification_time': qualification.qualification_time.strftime("%Y-%m-%d %H:%M") if qualification.qualification_time else ''
 				})
 			business_data = {
 				'id': business.id,
@@ -77,13 +77,13 @@ class BusinessDetail(resource.Resource):
 				'company_location': business.company_location,
 				'address': business.address,
 				'business_license': [{'id':1,'path':business.business_license}],
-				'business_license_time': business.business_license_time.strftime("%Y-%m-%d %H:%M"),
+				'business_license_time': business.business_license_time.strftime("%Y-%m-%d %H:%M") if business.business_license_time else '',
 				'tax_registration_certificate': [{'id':1,'path':business.tax_registration_certificate}],
-				'tax_registration_certificate_time': business.tax_registration_certificate_time.strftime("%Y-%m-%d %H:%M"),
+				'tax_registration_certificate_time': business.tax_registration_certificate_time.strftime("%Y-%m-%d %H:%M") if business.tax_registration_certificate_time else '',
 				'organization_code_certificate': [{'id':1,'path':business.organization_code_certificate}],
-				'organization_code_certificate_time': business.organization_code_certificate_time.strftime("%Y-%m-%d %H:%M"),
+				'organization_code_certificate_time': business.organization_code_certificate_time.strftime("%Y-%m-%d %H:%M") if business.organization_code_certificate_time else '',
 				'account_opening_license': [{'id':1,'path':business.account_opening_license}],
-				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M"),
+				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M") if business.account_opening_license_time else '',
 				'apply_catalogs': apply_catalogs,
 				'upload_business_qualifications': upload_business_qualifications
 			}
@@ -113,13 +113,13 @@ class BusinessDetail(resource.Resource):
 		company_location = post.get('company_location','')
 		address = post.get('address','')
 		business_license = json.loads(post.get('business_license',''))[0]['path']
-		business_license_time = post.get('business_license_time','')
+		business_license_time = post.get('business_license_time') if post.get('business_license_time') !='' else None
 		tax_registration_certificate = json.loads(post.get('tax_registration_certificate',''))[0]['path']
-		tax_registration_certificate_time = post.get('tax_registration_certificate_time','')
+		tax_registration_certificate_time = post.get('tax_registration_certificate_time') if post.get('tax_registration_certificate_time') !='' else None
 		organization_code_certificate = json.loads(post.get('organization_code_certificate',''))[0]['path']
-		organization_code_certificate_time = post.get('organization_code_certificate_time','')
+		organization_code_certificate_time = post.get('organization_code_certificate_time') if post.get('organization_code_certificate_time') !='' else None
 		account_opening_license = json.loads(post.get('account_opening_license',''))[0]['path']
-		account_opening_license_time = post.get('account_opening_license_time','')
+		account_opening_license_time = post.get('account_opening_license_time') if post.get('account_opening_license_time') !='' else None
 		apply_catalogs = json.loads(post.get('apply_catalogs',''))
 		upload_business_qualifications = json.loads(post.get('upload_business_qualifications',''))
 		
@@ -171,7 +171,7 @@ class BusinessDetail(resource.Resource):
 					business_id = business_id,
 					qualification_id = upload_qualification['qualification_id'],
 					path = upload_qualification['img'][0]['path'],
-					qualification_time = upload_qualification['qualification_time']
+					qualification_time = upload_qualification['qualification_time'] if upload_qualification['qualification_time']!='' else None
 				)
 			response = create_response(200)
 		except Exception,e:
@@ -214,7 +214,7 @@ class GetQualifications(resource.Resource):
 							'qualification_id': already_upload_qualification.qualification_id,
 							'qualification_name': qualification_id2name[already_upload_qualification.qualification_id],
 							'img': [{'id':1,'path':already_upload_qualification.path}],
-							'qualification_time': already_upload_qualification.qualification_time.strftime("%Y-%m-%d %H:%M")
+							'qualification_time': already_upload_qualification.qualification_time.strftime("%Y-%m-%d %H:%M") if already_upload_qualification.qualification_time else ''
 						})
 				else:
 					qualifications = all_qualifications.filter(catalog_id=catalog_id)

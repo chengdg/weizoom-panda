@@ -265,21 +265,26 @@
     var account_opening_license_time = '';
     $("#apply_page_2 input").blur(function(){
         business_license = $(".wa-upload-img-business_license").attr("src");
-        business_license_time = $('#datetimepicker-business_license').val();
+        if($('#datetimepicker-business_license').val() != '到期时间'){
+            business_license_time = $('#datetimepicker-business_license').val();
+        }
 
         tax_registration_certificate = $(".wa-upload-img-tax_registration_certificate").attr("src");
-        tax_registration_certificate_time = $('#datetimepicker-tax_registration_certificate').val();
+        if($('#datetimepicker-tax_registration_certificate').val() != '到期时间'){
+            tax_registration_certificate_time = $('#datetimepicker-tax_registration_certificate').val();
+        }
 
         organization_code_certificate = $(".wa-upload-img-organization_code_certificate").attr("src");
-        organization_code_certificate_time = $('#datetimepicker-organization_code_certificate').val();
+        if($('#datetimepicker-organization_code_certificate').val() != '到期时间'){
+            organization_code_certificate_time = $('#datetimepicker-organization_code_certificate').val();
+        }
 
         account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
-        account_opening_license_time = $('#datetimepicker-account_opening_license').val();
+        if($('#datetimepicker-account_opening_license').val() != '到期时间'){
+            account_opening_license_time = $('#datetimepicker-account_opening_license').val();
+        }
 
-        if(business_license !='' && business_license_time !='到期时间' 
-            && tax_registration_certificate !='' && tax_registration_certificate_time !='到期时间' 
-            && organization_code_certificate !='' && organization_code_certificate_time !='到期时间'  
-            && account_opening_license!='' && account_opening_license_time !='到期时间' )
+        if(business_license !='' && tax_registration_certificate !='' && organization_code_certificate !=''  && account_opening_license!='')
         {
             $('#apply_page_2 .xa-next-page').attr("disabled",false);
         }else{
@@ -396,15 +401,19 @@
             for(i=0;i<need_upload_len;i++){
                 var title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
                 var qualification_id = $('#apply_page_3_upload_field .form-group img').eq(i).attr("class").split('_')[2];
-                if(($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")=='') || ($('#apply_page_3_upload_field .form-group .xa-datePicker').eq(i).val()=='到期时间')){
-                    toast('请提交完整'+title+'内容', 'warning');
+                if($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")==''){
+                    toast('请上传'+title, 'warning');
                     $('#apply_page_3 .btn-primary').attr("disabled",false);
                     return
                 }else{
+                    var time = ''
+                    if($('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val()!='到期时间'){
+                        time = $('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val();
+                    }
                     var info = {
                         qualification_id: qualification_id,
                         path: $('#apply_page_3_upload_field .form-group img').eq(i).attr("src"),
-                        time: $('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val()
+                        time: time
                     }
                     uploadQualifications.push(info);
                 }
@@ -432,6 +441,7 @@
             uploadQualifications: uploadQualifications
         }
         data = data_page_1 + '&data_page_2=' + JSON.stringify(data_page_2) + '&data_page_3=' + JSON.stringify(data_page_3);
+        console.log(data);
         $.ajax({
             url:'/business/api/customer_apply/',
             type:'post',
