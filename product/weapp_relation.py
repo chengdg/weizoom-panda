@@ -121,7 +121,8 @@ class WeappRelation(resource.Resource):
 				account_id2account_has_supplier = {account_has_supplier.account_id:account_has_supplier for account_has_supplier in account_has_suppliers}
 				# 获取商品所属的类目集合
 				product_catalog_relations = ProductCatalogRelation.objects.all()
-				catalog_id_relations = [{relation.catalog_id: relation.weapp_catalog_id}
+				catalog_id_relations = {}
+				[catalog_id_relations.update({relation.catalog_id: relation.weapp_catalog_id})
 										for relation in product_catalog_relations]
 				for product_id in product_ids:
 					product_id = int(product_id)
@@ -142,6 +143,9 @@ class WeappRelation(resource.Resource):
 		except:
 			data['is_error'] = True
 			msg = unicode_full_stack()
+			print '+++++++++++++++++++++++++++++++++++++'
+			print msg
+			print '+++++++++++++++++++++++++++++++++++++'
 			response.innerErrMsg = msg
 
 		if data['is_error'] == False:
@@ -323,9 +327,18 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 							'resource': 'mall.classification_product',
 							'data': catalog_params
 						})
-						if not resp or resp.get('code') != 200:
-							watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
-
+						if not resp or resp.get('code') == 200:
+							watchdog.error({'errorMsg': 'Panda product: %s sync catalog Success!' % product_id})
+							print '====================================================================='
+						else:
+							# catalog_params = {'classification_id': weapp_catalog_id,
+							# 				  'product_id': relation.weapp_product_id}
+							resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+								'resource': 'mall.classification_product',
+								'data': catalog_params
+							})
+							if not resp or resp.get('code') != 200:
+								watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
