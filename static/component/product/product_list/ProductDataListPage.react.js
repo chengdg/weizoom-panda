@@ -120,6 +120,15 @@ var ProductDataListPage = React.createClass({
 				}
 				
 			}
+		} else if (field === 'catalog_name') {
+			var name = data['second_level_name'];
+			var line =name.length>0?'-':''
+			return (
+				<div>
+					<span>{data['first_level_name']}</span><br></br>
+					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
+				</div>
+			);
 		} else {
 			return value;
 		}
@@ -157,6 +166,7 @@ var ProductDataListPage = React.createClass({
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
+						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 						<Reactman.TableColumn name="售价(元)" field="product_price" />
 						<Reactman.TableColumn name="销量" field="sales" />

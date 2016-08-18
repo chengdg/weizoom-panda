@@ -93,6 +93,10 @@ def getProductData(request, is_export):
 	# 从weapp获取商品销量
 	id2sales = sales_from_weapp(product_has_relations)
 
+	#获取分类
+	product_catalogs = catalog_models.ProductCatalog.objects.all()
+	id2product_catalog = {product_catalog.id:product_catalog for product_catalog in product_catalogs}
+
 	# 获取商品图片
 	product_id2image_id = {}
 	image_id2images = {}
@@ -186,6 +190,16 @@ def getProductData(request, is_export):
 		valid_time_from = product.valid_time_from
 		valid_time_to = product.valid_time_to
 		valid_time = '' if not valid_time_from else ('%s/%s') % (valid_time_from.strftime('%Y-%m-%d %H:%M'), valid_time_to.strftime('%Y-%m-%d %H:%M'))
+		
+		#商品分类
+		first_level_name = ''
+		second_level_name = ''
+		if product.catalog_id in id2product_catalog:
+			product_catalog = id2product_catalog[product.catalog_id]
+			father_id = product_catalog.father_id
+			second_level_name = product_catalog.name
+			first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
+
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -202,6 +216,8 @@ def getProductData(request, is_export):
 			'sales': '%s' % sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
+			'first_level_name': first_level_name,
+			'second_level_name': second_level_name,
 			'is_model': product.has_product_model,
 			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M')
 		})
