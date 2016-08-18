@@ -269,39 +269,16 @@
 	})();
 	function runTimeout(fun) {
 	    if (cachedSetTimeout === setTimeout) {
-	        //normal enviroments in sane situations
 	        return setTimeout(fun, 0);
-	    }
-	    try {
-	        // when when somebody has screwed with setTimeout but no I.E. maddness
-	        return cachedSetTimeout(fun, 0);
-	    } catch (e) {
-	        try {
-	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-	            return cachedSetTimeout.call(null, fun, 0);
-	        } catch (e) {
-	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-	            return cachedSetTimeout.call(this, fun, 0);
-	        }
+	    } else {
+	        return cachedSetTimeout.call(null, fun, 0);
 	    }
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
-	        //normal enviroments in sane situations
-	        return clearTimeout(marker);
-	    }
-	    try {
-	        // when when somebody has screwed with setTimeout but no I.E. maddness
-	        return cachedClearTimeout(marker);
-	    } catch (e) {
-	        try {
-	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-	            return cachedClearTimeout.call(null, marker);
-	        } catch (e) {
-	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-	            return cachedClearTimeout.call(this, marker);
-	        }
+	        clearTimeout(marker);
+	    } else {
+	        cachedClearTimeout.call(null, marker);
 	    }
 	}
 	var queue = [];
@@ -22446,14 +22423,9 @@
 				this.$el = $node;
 			}
 			this.$el.animate({ top: '50px', opacity: 1 }, 300);
-
-			var delayTime = 3000; //ms
-			if (this.props.type === 'error') {
-				delayTime = 5000;
-			}
 			_.delay(_.bind(function () {
 				this.$el.animate({ opacity: 0 }, 1000).animate({ top: -50 });
-			}, this), delayTime);
+			}, this), 3000);
 
 			_.delay(_.bind(function () {
 				if (this.props.hint.length > 0) {
@@ -43255,7 +43227,7 @@
 					);
 				});
 			}
-			console.log(first_levels, "---------");
+
 			if (second_levels) {
 				second_level_list = second_levels.map(function (second_level, index) {
 					var bgStyle = {};
@@ -45870,6 +45842,7 @@
 					var catalogs = second_catalogs.map(function (catalog, index) {
 						var catalog_id = catalog['id'];
 						var src = '/product/product_relation/?second_catalog_id=' + catalog_id;
+						var has_info = catalog['qualification_id2name'];
 						return React.createElement(
 							'div',
 							{ style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px' }, key: index },
@@ -45907,10 +45880,14 @@
 									{ className: 'btn btn-danger ml10', onClick: _this.onClickDelete, 'data-id': catalog.id },
 									'删除'
 								),
-								React.createElement(
+								has_info == '[]' ? React.createElement(
 									'a',
 									{ className: 'btn btn-primary ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualification_id2name },
 									'配置特殊资质'
+								) : React.createElement(
+									'a',
+									{ className: 'btn btn-info ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualification_id2name },
+									'已配置'
 								)
 							)
 						);
@@ -48789,10 +48766,6 @@
 			this.Action = Action(this.Dispatcher);
 			this.Store.addListener(this.onReloadData);
 
-			this.innerState = {
-				page: this.props.resource.data['page'] || 1
-			};
-
 			//加载数据
 			var autoLoad = true;
 			if (this.props.hasOwnProperty('autoLoad')) {
@@ -48812,7 +48785,7 @@
 			$table.delegate('a', 'click', function (event) {
 				var $link = $(event.target);
 				var href = $link.attr('href');
-				if (href && href.contains('__memorize')) {
+				if (href.contains('__memorize')) {
 					var top = $(window).scrollTop();
 					var url = _this.fullUrl + '&__r_top=' + top;
 					href += '&__r_rollback=' + encodeURIComponent(url);
@@ -48839,7 +48812,7 @@
 		onReloadData: function (event) {
 			var storeData = this.Store.getData();
 			var data = {};
-			data['paginationInfo'] = storeData.paginationInfo;
+			data['pagination_info'] = storeData['pagination_info'];
 			data['isAllRowSelected'] = storeData.isAllRowSelected;
 
 			var rows = storeData['rows'];
@@ -48865,7 +48838,7 @@
 		},
 
 		onChangePage: function (page) {
-			this.innerState.page = page;
+			this.props.resource.data['page'] = page;
 			this.__refresh(this.filterOptions);
 		},
 
@@ -48900,7 +48873,7 @@
 				var originalFilterStr = JSON.stringify(this.filterOptions);
 				var newFilterStr = JSON.stringify(filterOptions);
 				if (newFilterStr !== originalFilterStr) {
-					this.innerState.page = 1;
+					this.props.resource.data['page'] = 1;
 				}
 			}
 			this.__refresh(filterOptions);
@@ -48916,7 +48889,7 @@
 				this.rollbackInfo = System.getRollbackInfo();
 				System.clearRollbackInfo();
 
-				this.innerState.page = this.rollbackInfo.page;
+				resource.data['page'] = this.rollbackInfo.page;
 				if (this.rollbackInfo.filters) {
 					filterOptions = this.rollbackInfo.filters;
 				}
@@ -48926,7 +48899,6 @@
 			}
 
 			resource.data = _.clone(this.props.resource.data);
-			resource.data.page = this.innerState.page;
 			if (filterOptions) {
 				this.filterOptions = filterOptions;
 				_.extend(resource.data, filterOptions);
@@ -49073,7 +49045,7 @@
 			} else {
 				var tableInfo = this.createHeadAndRow();
 
-				var mPagination = this.createPagination(this.state.paginationInfo);
+				var mPagination = this.createPagination(this.state['pagination_info']);
 
 				var enableBorder = this.props.enableBorder === false ? false : true;
 				var enableHeader = this.props.enableHeader === false ? false : true;
@@ -49355,9 +49327,7 @@
 			},
 
 			handleReload: function (action) {
-				this.data.rows = action.data['rows'];
-				this.data.paginationInfo = action.data['pagination_info'];
-				//this.data = action.data;
+				this.data = action.data;
 				this.isAllRowSelected = false;
 				this.selectedRowIds = [];
 				this.__emitChange();

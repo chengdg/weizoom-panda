@@ -11,7 +11,7 @@
         <link type="text/css" rel="stylesheet" media="all" href="/static/lib/jquery/jquery-ui-1.10.3/css/redmond/jquery-ui-1.10.3.custom.css">
         {% block css %}{% endblock %}
     </head>
-    <body class="loginBg">
+    <body class="loginBg" onbeforeunload="return closeWindowFunction()">
         <div id="topbar">
 	        <div id="global-nav">
 		        <div id="weixin-logo">商家入驻</div>

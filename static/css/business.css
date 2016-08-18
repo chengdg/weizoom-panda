@@ -45,10 +45,9 @@ div#apply_page_3_upload_field {
     display: none;
     font-size: 1.2em;
     height: 45px;
-    left: 20%;
-    width: 60%;
+    left: 38%;
     line-height: 30px;
-    padding: 8px 14px;
+    padding: 8px 80px 14px 80px;
     position: fixed;
     text-align: center;
     z-index: 1041;
@@ -230,7 +229,7 @@ img.wui-upload-img {
 }
 
 /**选择商品分类**/
-.wareSort { padding: 15px 8px 15px 7px}
+.wareSort { padding: 15px 8px 15px 7px;margin: 0 auto;width: 700px;}
 .wareSort ul { float: left; width: 290px; padding: 10px; border: 1px solid #ddd; margin-right: 7px; margin-left: 8px; background-color: #fff; }
 .wareSort ul li a { display: block; padding-right: 25px; padding-left: 10px; border: 1px solid #fff; line-height: 28px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .wareSort ul li a:hover { color: #3399ff; }
@@ -266,6 +265,7 @@ span.selectedSortSpan {
     margin-top: 10px;
     margin-bottom: 10px;
     display: inline-block;
+    padding: 0 10px 0 10px;
 }
 
 ul.nav {

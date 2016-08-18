@@ -153,7 +153,7 @@
         <!-- 第三页 -->
         <form id="apply_page_3" style="display:none">
           <div class="form-group">
-            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;">
+            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;line-height: 35px;">
                 <b>您已选择：</b>
                 <div class="selectedSort"></div>
                 <div class="selectedSortQualificationIds" style="display:none"></div>
@@ -200,48 +200,9 @@
 <script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
 <script type="text/javascript" src="/static/js/jquery.sort.js"></script>
 <script type="text/javascript">
-    // $(function(){
-    //     $("#apply_page_1").validate({
-    //         rules: {
-    //             company_name:{
-    //                 required: true,
-    //                 maxlength: 30
-    //             },
-    //             company_money:{
-    //                 required: false,
-    //                 number: true,
-    //                 min: 1
-    //             },
-    //             legal_representative:{
-    //                 required: false,
-    //                 maxlength: 20
-    //             },
-    //             contacter:{
-    //                 required: true,
-    //                 maxlength: 20
-    //             },
-    //             phone: {
-    //                 required: true,
-    //                 isMobile: true
-    //             },
-    //             e_mail: {
-    //                 required: false,
-    //                 email: true
-    //             },
-    //             company_location: {
-    //                 required: true
-    //             },
-    //             address: {
-    //                 required: true,
-    //                 maxlength: 30
-    //             }
-    //         },
-    //         errorPlacement: function (error, element) {
-    //             var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
-    //             toast(errMsg + '' + error.text(), 'warning');
-    //         }
-    //     });
-    // });
+    function closeWindowFunction() {
+        return "确认离开当前页面吗？未保存的数据将会丢失";
+    }
     
     //第一页校验
     var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -253,13 +214,15 @@
             if($(event.target).val()==''){
                 is_valid = false;
                 var title = $(event.target).parent().parent().find('label').text().replace("*","").replace("：","");
-                var errMsg = title + '不能为空';
+                var errMsg = '请填写正确的' + title;
                 toast(errMsg, 'warning');
                  return;
             }
         }
         if($("#company_name").val()!='' && $("#contacter").val()!='' && $("#phone").val()!='' && $("#address").val()!=''){
             is_valid = true;
+        }else{
+            is_valid = false;
         }
         if($('#company_name').val().length > 30){
             toast('公司名称不能超过30个字', 'warning');
@@ -302,6 +265,7 @@
                 return;
             }
         }
+        console.log(is_valid);
         if(is_valid){
             $('#apply_page_1 .xa-next-page').attr("disabled",false);
         }else{
@@ -311,7 +275,7 @@
             // $('#apply_page_1 button').attr("disabled",false);
         }
     }
-    $("#apply_page_1 input").blur(function(event){
+    $("#apply_page_1 input").keyup(function(event){
         checkValidate();
     });
 
@@ -434,7 +398,6 @@
         $("#apply_page_1").show();
     }
     function goToPage2(){
-        checkValidate();
         $("#page2").addClass('active');
         $("#page3").removeClass('active');
         $("#apply_page_1").hide();
