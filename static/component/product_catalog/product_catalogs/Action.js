@@ -39,6 +39,37 @@ var Action = {
 			}
 		});
 	},
+	//更新类目所需特殊资质
+	updateCatalog: function(property, value, models, index) {
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_CATALOG,
+			data: {
+				property: property,
+				value: value,
+				models: models,
+				index: index
+			}
+		});
+	},
+	deleteCatalogQualification: function(index, models) {
+		Dispatcher.dispatch({
+			actionType: Constant.DELETE_CATALOG,
+			data: {
+				index: index,
+				models: models
+			}
+		});
+	},
+	addCatalogQualification: function(models) {
+		var index = models.length;
+		Dispatcher.dispatch({
+			actionType: Constant.ADD_CATALOG_QUALIFICATION,
+			data: {
+				models: models,
+				index: index
+			}
+		});
+	},
 };
 
 module.exports = Action;

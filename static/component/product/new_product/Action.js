@@ -115,6 +115,57 @@ var Action = {
 				modelId: modelId
 			}
 		});
+	},
+
+	ProductCategory: function(second_level_id){
+		Resource.get({
+			resource: 'product.category',
+			data: {
+				second_level_id: second_level_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_LIST_CATEGORY
+			}
+		});
+	},
+
+	changeSecondLevel: function(first_id){
+		Resource.get({
+			resource: 'product.second_category',
+			data: {
+				'first_id': first_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_SECOND_CATEGORY
+			}
+		});
+	},
+
+	chooseSecondLevel: function(second_id){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_CHOOSE_SECOND_CATEGORY,
+			data: {
+				'second_id': second_id
+			}
+		});
+	},
+
+	cancleChooseCatalog: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_CANCLE_CHOOSE_CATALOG,
+			data: {}
+		});
+	},
+
+	saveChooseCatalog: function(catalogName){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_SAVE_CHOOSE_CATALOG,
+			data: {
+				'catalogName': catalogName
+			}
+		});
 	}
 };
 

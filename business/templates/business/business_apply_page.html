@@ -1,0 +1,524 @@
+{% extends "business_apply_base.html" %}
+
+{% block content %}
+<div class="xa-pageContainer">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" id="page1" class="active"><a href="#"><i>1</i>企业基本信息</a></li>
+        <li role="presentation" id="page2" ><a href="#"><i>2</i>基本资质文件</a></li>
+        <li role="presentation" id="page3" ><a href="#"><i>3</i>入驻类目/特殊资质提交</a></li>
+        <li role="presentation" id="page4" ><a href="#"><i>4</i>等待审核</a></li>
+    </ul>
+    <!-- 系统消息弹窗 -->
+    <div class="toast-content alert" role="alert">
+      <strong class="strong"></strong><span></span>
+    </div>
+    <div class="business_apply_from">
+        <!-- 第一页 -->
+        <form class="form-horizontal" id="apply_page_1">
+          <div class="form-group">
+            <label for="company_type" class="col-sm-4 control-label"><em>*</em>企业类型：</label>
+            <div class="col-sm-4">
+                  <input type="radio" name="company_type" id="company_type1" value="direct" style="display: none">
+                <label class="radio-inline" for="company_type1">厂家直销
+                </label>
+                  <input type="radio" name="company_type" id="company_type2" value="agency" checked style="display: none">
+                <label class="radio-inline" for="company_type2">代理/贸易/分销
+                </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_name" class="col-sm-4 control-label"><em>*</em>公司名称：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="company_name" id="company_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_money" class="col-sm-4 control-label">注册资本：</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" name="company_money" id="company_money">
+            </div><p style="padding-top: 7px;">万元</p>
+          </div>
+          <div class="form-group">
+            <label for="legal_representative" class="col-sm-4 control-label">法人代表：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="legal_representative" id="legal_representative">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contacter" class="col-sm-4 control-label"><em>*</em>联系人：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="contacter" id="contacter">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-sm-4 control-label"><em>*</em>手机号：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="phone" id="phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="e_mail" class="col-sm-4 control-label">E-mail：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="e_mail" id="e_mail">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="we_chat_and_qq" class="col-sm-4 control-label">微信/QQ：</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="we_chat_and_qq" id="we_chat_and_qq">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company_location" class="col-sm-4 control-label"><em>*</em>公司所在地：</label>
+            <div class="col-sm-4">
+                <div id="company_location" name="company_location">
+                    <select class="prov"></select> 
+                    <select class="city" disabled="disabled"></select>
+                    <select class="dist" disabled="disabled"></select>
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address" class="col-sm-4 control-label"><em>*</em>详细地址：</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="address" id="address">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-6 col-sm-4">
+              <button type="button" class="btn btn-primary xa-next-page" onclick="goToPage2();" disabled="disabled">下一步</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第二页 -->
+        <form id="apply_page_2" style="display:none">
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
+            <label for="business_license">营业执照</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="business_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
+            <label for="tax_registration_certificate">税务登记证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="tax_registration_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
+            <label for="organization_code_certificate">组织机构代码证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="organization_code_certificate" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-organization_code_certificate" data-date-format="yyyy-mm-dd hh:ii">
+          </div>
+          <div class="form-group">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
+            <label for="account_opening_license">开户许可证</label>
+            <span class="btn btn-primary fileinput-button">
+                <span>上传</span>
+                <input id="account_opening_license" type="file" name="image" class="xa-uploader" />
+            </span>
+            <div class="progress mt5 xa-progress xui-hide">
+                <div class="progress-bar progress-bar-success xa-bar"></div>
+            </div>
+            <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-account_opening_license" data-date-format="yyyy-mm-dd hh:ii">
+          </div>
+          <div class="page2_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="form-group_btn">
+            <div class="col-sm-offset-5 col-sm-4">
+                <button type="button" class="btn btn-default" onclick="goToPage1();">上一步</button>
+                <button type="button" class="btn btn-primary xa-next-page" onclick="goToPage3();" disabled="disabled">下一步</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第三页 -->
+        <form id="apply_page_3" style="display:none">
+          <div class="form-group">
+            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;">
+                <b>您已选择：</b>
+                <div class="selectedSort"></div>
+                <div class="selectedSortQualificationIds" style="display:none"></div>
+            </div>
+            <div class="wareSort clearfix">
+                <ul class="pre-scrollable" id="sort1"></ul>
+                <div class="arrow"><img src="/static/img/arrow_2.png"></div>
+                <ul class="pre-scrollable" id="sort2"></ul>
+            </div>
+          </div>
+          <div id="apply_page_3_upload_field" class="pre-scrollable"></div>
+          <div class="page3_help_info">温馨提示：请确保各资质文件电子图片清晰可见，避免因内容不清晰影响入驻审核结果！</div>
+          <div class="form-group_btn">
+            <div>
+                <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
+                <button type="button" class="btn btn-primary xa-next-page" onclick="savePage();" disabled="disabled">完成提交</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第四页 -->
+        <form id="apply_page_4" style="display:none">
+            <img style="display:inline-block" src="/static/img/arrow_3.png">
+            <div style="display:inline-block; width: 30%;vertical-align: middle;">
+                <div class="page4_success_info">
+                    您的入驻申请提交成功！我们将在3-5个工作日完成审核并及时和您联系，谢谢！
+                </div>
+                <div class="page4_help_info">
+                    温馨提示：如希望与我们保持持续的沟通，可添加我们的在线客服qq：800051878
+                </div>
+            </div>
+            
+            <div class="form-group_btn">
+                <div>
+                    <button type="button" class="btn btn-primary" id="closeBtn">关闭本页</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
+<script type="text/javascript" src="/static/js/jquery.sort.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#apply_page_1").validate({
+            rules: {
+                company_name:{
+                    required: true,
+                    maxlength: 30
+                },
+                company_money:{
+                    required: false,
+                    number: true,
+                    min: 1
+                },
+                legal_representative:{
+                    required: false,
+                    maxlength: 20
+                },
+                contacter:{
+                    required: true,
+                    maxlength: 20
+                },
+                phone: {
+                    required: true,
+                    isMobile: true
+                },
+                e_mail: {
+                    required: false,
+                    email: true
+                },
+                company_location: {
+                    required: true
+                },
+                address: {
+                    required: true,
+                    maxlength: 30
+                }
+            },
+            errorPlacement: function (error, element) {
+                var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
+                toast(errMsg + '' + error.text(), 'warning');
+            }
+        });
+    });
+    
+    //第一页校验
+    $("#apply_page_1 input").blur(function(){
+        if($("#apply_page_1").valid()){
+            $('#apply_page_1 .xa-next-page').attr("disabled",false);
+        }else{
+            $('#apply_page_1 .xa-next-page').attr("disabled","disabled");
+            // 方便测试用
+            // $('#apply_page_1 button').attr("disabled",false);
+        }
+    });
+
+    //第二页校验
+    var business_license = '';
+    var business_license_time = '';
+    var tax_registration_certificate = '';
+    var tax_registration_certificate_time = '';
+    var organization_code_certificate = '';
+    var organization_code_certificate_time = '';
+    var account_opening_license = '';
+    var account_opening_license_time = '';
+    $("#apply_page_2 input").blur(function(){
+        business_license = $(".wa-upload-img-business_license").attr("src");
+        if($('#datetimepicker-business_license').val() != '到期时间'){
+            business_license_time = $('#datetimepicker-business_license').val();
+        }
+
+        tax_registration_certificate = $(".wa-upload-img-tax_registration_certificate").attr("src");
+        if($('#datetimepicker-tax_registration_certificate').val() != '到期时间'){
+            tax_registration_certificate_time = $('#datetimepicker-tax_registration_certificate').val();
+        }
+
+        organization_code_certificate = $(".wa-upload-img-organization_code_certificate").attr("src");
+        if($('#datetimepicker-organization_code_certificate').val() != '到期时间'){
+            organization_code_certificate_time = $('#datetimepicker-organization_code_certificate').val();
+        }
+
+        account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
+        if($('#datetimepicker-account_opening_license').val() != '到期时间'){
+            account_opening_license_time = $('#datetimepicker-account_opening_license').val();
+        }
+
+        if(business_license !='' && tax_registration_certificate !='' && organization_code_certificate !=''  && account_opening_license!='')
+        {
+            $('#apply_page_2 .xa-next-page').attr("disabled",false);
+        }else{
+            $('#apply_page_2 .xa-next-page').attr("disabled","disabled");
+            // 方便测试用
+            // $('#apply_page_2 .btn-primary').attr("disabled",false);
+        }
+    });
+    
+    //第三页校验
+    var selectedSortIds = [];
+    $("#sort2").click(function(){
+        selectedSortIds = [];
+        var len = $('.selectedSort > span').length;
+        for(var i = 0; i< len; i++){
+            selectedSortIds.push($('.selectedSort > span').eq(i).attr("id"));
+        }
+        if( selectedSortIds!='' ){
+            $('#apply_page_3 .xa-next-page').attr("disabled",false);
+        }else{
+            $('#apply_page_3 .xa-next-page').attr("disabled","disabled");
+        }
+    });
+
+    $(document).ready(function() {
+        //三级联动省市区
+        $("#company_location").citySelect();
+
+        $('.xa-uploader').click(function(event){
+            uploadImg(event);
+        });
+
+        //时间控件
+        var min = 'now';
+        var max = null;
+        var useMaxTime = false;
+        var date = new Date();
+        var dateStr = date.getFullYear() +'-' + (date.getMonth()+1) + '-' + date.getDate() +' ';
+        var time = "00:00";
+        if (useMaxTime){
+            time = "23:59";
+        }
+        var options = {
+            defaultValue: dateStr + time,
+            buttonText: '选择日期',
+            currentText: '当前时间',
+            hourText: "小时",
+            minuteText: "分钟",
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            timeFormat: 'HH:mm',
+            closeText: '确定',
+            prevText: '&#x3c;上月',
+            nextText: '下月&#x3e;',
+            monthNames: ['一月','二月','三月','四月','五月','六月',
+                '七月','八月','九月','十月','十一月','十二月'],
+            monthNamesShort: ['一','二','三','四','五','六',
+                '七','八','九','十','十一','十二'],
+            dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+            dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            beforeShow: function(input) {
+                if(min === 'now') {
+                    $(this).datetimepicker('option', 'minDate', new Date());
+                }else if (min){
+                    $(this).datetimepicker('option', 'minDate', min);
+                }
+                if(max === 'now') {
+                    $(this).datetimepicker('option', 'maxDate', new Date());
+                }else if(max){
+                    $(this).datetimepicker('option', 'maxDate', max);
+                }
+            },
+            onSelect: function(dateText, inst) {
+                var event = {target:$(".xa-datePicker").get(0)};
+            },
+            onClose: function(dateText, inst) {
+                var event = {target:$(".xa-datePicker").get(0)};
+            }
+        };
+        $(".xa-datePicker").datetimepicker(options);
+    });
+    function goToPage1(){
+        $("#page2").removeClass('active');
+        $("#apply_page_2").hide();
+        $("#apply_page_1").show();
+    }
+    function goToPage2(){
+        $("#page2").addClass('active');
+        $("#page3").removeClass('active');
+        $("#apply_page_1").hide();
+        $("#apply_page_2").show();
+        $("#apply_page_3").hide();
+    }
+    function goToPage3(){
+        $("#page3").addClass('active');
+        $("#apply_page_1").hide();
+        $("#apply_page_2").hide();
+        $("#apply_page_3").show();
+    }
+    function goToPage4(){
+        $("#page4").addClass('active');
+        $("#apply_page_3").hide();
+        $("#apply_page_4").show();
+    }
+    //提交数据
+    function savePage(){
+        var uploadQualifications = [];
+        var need_upload_len = $('#apply_page_3_upload_field .form-group').length
+        if(need_upload_len == 0){
+            $('#apply_page_3 .btn-primary').attr("disabled",false);//不需要上传特殊资质，可以直接提交
+            }else{
+            $('#apply_page_3 .btn-primary').attr("disabled","disabled");//需要上传特殊资质，需要校验
+            for(i=0;i<need_upload_len;i++){
+                var title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
+                var qualification_id = $('#apply_page_3_upload_field .form-group img').eq(i).attr("class").split('_')[2];
+                if($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")==''){
+                    toast('请上传'+title, 'warning');
+                    $('#apply_page_3 .btn-primary').attr("disabled",false);
+                    return
+                }else{
+                    var time = ''
+                    if($('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val()!='到期时间'){
+                        time = $('#apply_page_3_upload_field .form-group').eq(i).find('.xui-datePicker').val();
+                    }
+                    var info = {
+                        qualification_id: qualification_id,
+                        path: $('#apply_page_3_upload_field .form-group img').eq(i).attr("src"),
+                        time: time
+                    }
+                    uploadQualifications.push(info);
+                }
+            }
+        }
+
+        if($('.dist').val()){
+            var company_location = $('.prov').val() +'-'+ $('.city').val() +'-'+ $('.dist').val();
+        }else{
+            var company_location = $('.prov').val() +'-'+ $('.city').val();
+        }
+        data_page_1 = $('#apply_page_1').serialize() + '&company_location=' + company_location;
+        data_page_2 = {
+            business_license: business_license,
+            business_license_time: business_license_time,
+            tax_registration_certificate: tax_registration_certificate,
+            tax_registration_certificate_time: tax_registration_certificate_time,
+            organization_code_certificate: organization_code_certificate,
+            organization_code_certificate_time: organization_code_certificate_time,
+            account_opening_license: account_opening_license,
+            account_opening_license_time: account_opening_license_time
+        };
+        data_page_3 = {
+            selectedSortIds: selectedSortIds,
+            uploadQualifications: uploadQualifications
+        }
+        data = data_page_1 + '&data_page_2=' + JSON.stringify(data_page_2) + '&data_page_3=' + JSON.stringify(data_page_3);
+        console.log(data);
+        $.ajax({
+            url:'/business/api/customer_apply/',
+            type:'post',
+            data: data,
+            success:function(resp){
+                goToPage4();
+            },
+            error:function(){
+                toast('提交失败', 'warning');
+            }
+        });
+    }
+    
+    /**
+     * toast，默认2秒后消失
+     * @param msg
+     * @param title
+     */
+    var ori_toast_class = 'alert-danger',
+        title_arr = ['success','info','warning','danger'];
+    window.toast = function(msg,title){
+        var $this = $('.toast-content');
+        if(title && title in title_arr){
+            var new_class = 'alert-'+title;
+            $this.removeClass(ori_toast_class).addClass(new_class);
+            ori_toast_class = new_class;
+        }else{
+            $this.removeClass(ori_toast_class).addClass('alert-danger').find('strong').html('');
+        }
+        $this.find('span').html(msg);
+        $this.slideDown();
+        window.setTimeout(function(){
+            $this.slideUp('slow');
+        },3000);
+    };
+
+    //关闭窗口
+    $("#closeBtn").click(function(){
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") !=-1) {
+           window.location.href="about:blank";
+        } else {
+           window.opener = null;
+           window.open("", "_self");
+           window.close();
+        }
+    });
+
+    //上传图片
+    function uploadImg(event){
+        $(event.target).fileupload({
+            url: '/business/upload_image/?_method=post',
+            type: 'POST',
+            dataType: 'json',
+            start: function(e, data) {
+                $(event.target).parent().parent().find('.xa-progress').show();
+            },
+            done: function (e, data) {
+                var responseData = data.result.data;
+                var class_name = $(event.target).attr("id");
+                class_name = '.wa-upload-img-'+class_name;
+                $(class_name).attr('src',responseData.path);
+            },
+            fail: function (e, data) {
+
+            },
+            complete: function(e, data) {
+                console.log("complete");
+                _.delay(function() {
+                    $(event.target).parent().parent().find('.xa-progress').hide();
+                }, 50);
+            },
+            progressall: function(e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $(event.target).parent().parent().find('.xa-progress').find('.xa-bar').css('width', progress+'%');
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -164,7 +164,7 @@ INSTALLED_APPS = [
     'product_catalog',
     'self_shop',
     'freight_service',
-
+    'business',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -229,6 +229,7 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
+    PRODUCT_POOL_OWNER_ID = 7
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
@@ -236,6 +237,7 @@ elif 'test' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://panda.weapp.weizzz.com'
     DEBUG = True
+    PRODUCT_POOL_OWNER_ID = 7
 else:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
@@ -243,6 +245,7 @@ else:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://chaozhi.weizoom.com'
     DEBUG = False
+    PRODUCT_POOL_OWNER_ID = 1127
 
 UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路径
 

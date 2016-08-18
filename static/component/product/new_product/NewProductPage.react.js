@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
+var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -66,6 +67,27 @@ var NewProductPage = React.createClass({
 		});
 	},
 
+	updateProductCatalog: function(){
+		var secondLevelId = 0;
+		if(W.second_level_id!=undefined && W.second_level_id!=0){
+			//新建商品显示分类
+			secondLevelId = this.state.second_id!=0? this.state.second_id: W.second_level_id;
+		}else{
+			//编辑商品显示分类
+			secondLevelId = this.state.second_id!=undefined? this.state.second_id: this.state.old_second_catalog_id;
+		}
+
+		Action.ProductCategory(secondLevelId);
+		Reactman.PageAction.showDialog({
+			title: "请选择商品分类",
+			component: AddProductCategoryDialog,
+			data: {},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	validateProduct: function(){
 		var is_true = false;
 		var product = Store.getData();
@@ -86,7 +108,17 @@ var NewProductPage = React.createClass({
 
 	onSubmit: function(){
 		var product = Store.getData();
-		product['second_level_id'] = W.second_level_id;
+		if(W.second_level_id!=undefined && W.second_level_id!=0){
+			product['second_level_id'] = this.state.second_id!=0? this.state.second_id: W.second_level_id;
+		}else{
+			product['second_level_id'] = this.state.second_id!=undefined? this.state.second_id: this.state.old_second_catalog_id;
+		}
+
+		if(product['second_level_id']==0 || product['second_level_id']==undefined){
+			Reactman.PageAction.showHint('error', '请选择商品分类！');
+			return;
+		}
+
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
@@ -155,6 +187,7 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请添加商品规格！');
 			return ;
 		}
+
 		var is_true = false;
 		if(has_product_model==='1'){
 			_.each(model_values, function(model) {
@@ -201,6 +234,7 @@ var NewProductPage = React.createClass({
 		if(is_true){
 			return false;
 		}
+
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
@@ -217,16 +251,23 @@ var NewProductPage = React.createClass({
 				}
 			}
 		})
+
 		model_values = model_values.length>0?JSON.stringify(model_values):''
 		Action.saveNewProduct(product,model_values);
 	},
 
 	render:function(){
+		var catalogName = W.catalogName;
+		if(this.state.catalog_name.length>0){
+			catalogName = this.state.catalog_name;
+		}
+
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
+		
 		return (
 			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
@@ -235,6 +276,11 @@ var NewProductPage = React.createClass({
 					</fieldset>
 					<fieldset>
 						<legend className="pl10 pt10 pb10">基本信息</legend>
+						<span className="form-group ml15">
+							<label className="col-sm-2 control-label pr0">商品类目:</label>
+							<span className="xui-catalog-name">{catalogName}</span>
+							<a className="ml10" href="javascript:void(0);" onClick={this.updateProductCatalog}>修改</a>
+						</span>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />

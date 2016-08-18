@@ -24,11 +24,6 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		};
 	},
 
-	onChange: function(value, event) {
-		var property = event.target.getAttribute('name');
-		Action.addProductModelValue(property, value);
-	},
-
 	onChangeStore: function(){
 		this.setState({
 			first_levels: Store.getCategory()['first_levels'],
@@ -38,12 +33,10 @@ var AddProductCategoryDialog = Reactman.createDialog({
 	},
 
 	changeSecondLevel: function(first_id){
-		console.log(first_id)
 		Action.changeSecondLevel(first_id);
 	},
 
 	chooseSecondLevel: function(second_id){
-		console.log(second_id)
 		Action.chooseSecondLevel(second_id);
 	},
 
@@ -64,36 +57,36 @@ var AddProductCategoryDialog = Reactman.createDialog({
 		var second_level_list = '暂无分类';
 		if(first_levels){
 			first_levels_list = first_levels.map(function(first_level,index){
-				var bg_style = {};
-				bg_style['bg_style'] = {}
-				bg_style['c_style'] = {}
+				var bgStyle = {};
+				bgStyle['bg_style'] = {}
+				bgStyle['c_style'] = {}
 				if(first_level.is_choose==1){
-					bg_style['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
-					bg_style['c_style'] = {color:'#FFF'};
+					bgStyle['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
+					bgStyle['c_style'] = {color:'#FFF'};
 				}else{
-					bg_style['c_style'] = {color:'#000'};
+					bgStyle['c_style'] = {color:'#000'};
 				}
 				return(
-						<li key={index} style={bg_style['bg_style']}>
-							<a href='javascript:void(0);' style={bg_style['c_style']} onClick={_this.changeSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
+						<li key={index} style={bgStyle['bg_style']}>
+							<a href='javascript:void(0);' style={bgStyle['c_style']} onClick={_this.changeSecondLevel.bind(null,first_level.id)}>{first_level.name}</a>
 						</li>
 					)
 				});
 		}
 		if(second_levels){
 			second_level_list = second_levels.map(function(second_level,index){
-				var bg_style = {};
-				bg_style['bg_style'] = {}
-				bg_style['c_style'] = {}
+				var bgStyle = {};
+				bgStyle['bg_style'] = {}
+				bgStyle['c_style'] = {}
 				if(second_level.is_choose==1){
-					bg_style['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
-					bg_style['c_style'] = {color:'#FFF'};
+					bgStyle['bg_style'] = {background: 'rgba(40, 147, 224, 0.77)'};
+					bgStyle['c_style'] = {color:'#FFF'};
 				}else{
-					bg_style['c_style'] = {color:'#000'};
+					bgStyle['c_style'] = {color:'#000'};
 				}
 				return(
-					<li key={index} style={bg_style['bg_style']}>
-						<a href='javascript:void(0);' style={bg_style['c_style']} onClick={_this.chooseSecondLevel.bind(null,second_level.id)}>{second_level.name}</a>
+					<li key={index} style={bgStyle['bg_style']}>
+						<a href='javascript:void(0);' style={bgStyle['c_style']} onClick={_this.chooseSecondLevel.bind(null,second_level.id)}>{second_level.name}</a>
 					</li>
 				)
 			});
