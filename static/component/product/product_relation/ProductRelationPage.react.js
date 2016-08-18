@@ -88,6 +88,15 @@ var ProductRelationPage = React.createClass({
 			return(
 				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
 			)
+		}else if (field === 'catalog_name') {
+			var name = data['second_level_name'];
+			var line =name.length>0?'-':''
+			return (
+				<div>
+					<span>{data['first_level_name']}</span><br></br>
+					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
+				</div>
+			);
 		}else {
 			return value;
 		}
@@ -129,6 +138,7 @@ var ProductRelationPage = React.createClass({
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
+						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
 						<Reactman.TableColumn name="状态" field="product_status" />
 						<Reactman.TableColumn name="操作" field="action" />
