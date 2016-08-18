@@ -27,7 +27,6 @@ class Category(resource.Resource):
 	@login_required
 	def api_get(request):
 		second_level_id = int(request.GET.get('second_level_id',0))
-		print second_level_id,"==========ss======="
 		company_type = UserProfile.objects.get(user_id=request.user.id).company_type
 		if company_type:
 			company_type = json.loads(company_type)
@@ -39,6 +38,7 @@ class Category(resource.Resource):
 				father_catalog_id = catalog_models.ProductCatalog.objects.filter(id=second_level_id)[0].father_id
 			else:
 				father_catalog_id = product_catalogs[0].id
+
 			#一级分类
 			for product_catalog in product_catalogs.filter(father_id=-1):
 				if product_catalog.id == father_catalog_id:
@@ -68,7 +68,6 @@ class Category(resource.Resource):
 						'name': product_catalog.name,
 						'father_catalog': product_catalog.father_id
 						})
-
 		data = {
 			'first_levels': json.dumps(first_levels) if first_levels else [],
 			'second_levels': json.dumps(second_levels) if second_levels else []

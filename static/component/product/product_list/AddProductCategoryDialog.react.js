@@ -73,6 +73,7 @@ var AddProductCategoryDialog = Reactman.createDialog({
 					)
 				});
 		}
+		
 		if(second_levels){
 			second_level_list = second_levels.map(function(second_level,index){
 				var bgStyle = {};
