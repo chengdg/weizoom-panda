@@ -27,12 +27,15 @@ var CategoryStore = StoreUtil.createStore(Dispatcher, {
 
 	handleProductCategory: function(action){
 		var first_levels = JSON.parse(action.data['first_levels']);
-		var second_levels = JSON.parse(action.data['second_levels']);
+		var second_levels = action.data['second_levels'];
+		if(second_levels.length>0){
+			second_levels = JSON.parse(action.data['second_levels']);
+			second_levels[0]['is_choose'] = 1;
+			this.category['second_levels'] = second_levels;
+			this.category['second_id'] = second_levels[0].id;
+		}
 		first_levels[0]['is_choose'] = 1;
-		second_levels[0]['is_choose'] = 1;
 		this.category['first_levels'] = first_levels;
-		this.category['second_levels'] = second_levels;
-		this.category['second_id'] = second_levels[0].id;
 		this.__emitChange();
 	},
 
