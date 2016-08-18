@@ -15,8 +15,8 @@ li {
 .nav > li > a:focus {
      background: none; 
 }
-.pre-scrollable{
-    max-height: 245px;
+.wareSort .pre-scrollable{
+    height: 245px;
 }
 div#apply_page_3_upload_field {
     width: 890px;
@@ -196,7 +196,7 @@ div#apply_page_3_upload_field {
 img.wui-upload-img {
     width: 100px;
     height: 100px;
-    margin-left: 26px;
+    margin-left: 30px;
 }
 .xui-datePicker {
 	line-height: 24px;
@@ -338,8 +338,7 @@ ul.nav li a{
     text-align: center;
 }
 #apply_page_4 .btn-primary{
-    margin-top: 80px;
-    margin-top: 18%;
+    margin-top: 6%;
 }
 .page4_success_info {
     font-size: 25px;
@@ -347,4 +346,9 @@ ul.nav li a{
     font-family: '微软雅黑';
     text-align: left;
     margin-left: 14px;
+}
+.page4_help_info {
+    text-align: left;
+    margin-left: 14px;
+    margin-top: 5px;
 }

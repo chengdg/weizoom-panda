@@ -94,7 +94,7 @@
         <!-- 第二页 -->
         <form id="apply_page_2" style="display:none">
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-business_license" src="" style="display:block">
+            <img class="wui-upload-img wa-upload-img-business_license" src="/static/img/no_pic.png" style="display:block">
             <label for="business_license">营业执照</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -106,7 +106,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-business_license" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="" style="display:block">
+            <img class="wui-upload-img wa-upload-img-tax_registration_certificate" src="/static/img/no_pic.png" style="display:block">
             <label for="tax_registration_certificate">税务登记证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -118,7 +118,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-tax_registration_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="" style="display:block">
+            <img class="wui-upload-img wa-upload-img-organization_code_certificate" src="/static/img/no_pic.png" style="display:block">
             <label for="organization_code_certificate">组织机构代码证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -130,7 +130,7 @@
             <input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-organization_code_certificate" data-date-format="yyyy-mm-dd hh:ii">
           </div>
           <div class="form-group">
-            <img class="wui-upload-img wa-upload-img-account_opening_license" src="" style="display:block">
+            <img class="wui-upload-img wa-upload-img-account_opening_license" src="/static/img/no_pic.png" style="display:block">
             <label for="account_opening_license">开户许可证</label>
             <span class="btn btn-primary fileinput-button">
                 <span>上传</span>
@@ -257,7 +257,6 @@
                 is_valid = false;
             }
         }
-        console.log(is_valid);
         if(is_valid){
             $('#apply_page_1 .xa-next-page').attr("disabled",false);
         }else{
@@ -283,22 +282,30 @@
     var account_opening_license = '';
     var account_opening_license_time = '';
     $("#apply_page_2 input").blur(function(){
-        business_license = $(".wa-upload-img-business_license").attr("src");
+        if($(".wa-upload-img-business_license").attr("src") != '/static/img/no_pic.png'){
+            business_license = $(".wa-upload-img-business_license").attr("src");
+        }
         if($('#datetimepicker-business_license').val() != '到期时间'){
             business_license_time = $('#datetimepicker-business_license').val();
         }
 
-        tax_registration_certificate = $(".wa-upload-img-tax_registration_certificate").attr("src");
+        if($(".wa-upload-img-tax_registration_certificate").attr("src") != '/static/img/no_pic.png'){
+            tax_registration_certificate = $(".wa-upload-img-tax_registration_certificate").attr("src");
+        }
         if($('#datetimepicker-tax_registration_certificate').val() != '到期时间'){
             tax_registration_certificate_time = $('#datetimepicker-tax_registration_certificate').val();
         }
 
-        organization_code_certificate = $(".wa-upload-img-organization_code_certificate").attr("src");
+        if($(".wa-upload-img-organization_code_certificate").attr("src") != '/static/img/no_pic.png'){
+            organization_code_certificate = $(".wa-upload-img-organization_code_certificate").attr("src");
+        }
         if($('#datetimepicker-organization_code_certificate').val() != '到期时间'){
             organization_code_certificate_time = $('#datetimepicker-organization_code_certificate').val();
         }
 
-        account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
+        if($(".wa-upload-img-account_opening_license").attr("src") != '/static/img/no_pic.png'){
+            account_opening_license = $(".wa-upload-img-account_opening_license").attr("src");
+        }
         if($('#datetimepicker-account_opening_license').val() != '到期时间'){
             account_opening_license_time = $('#datetimepicker-account_opening_license').val();
         }
