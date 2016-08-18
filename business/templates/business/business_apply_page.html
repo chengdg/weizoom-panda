@@ -29,7 +29,7 @@
           <div class="form-group">
             <label for="company_name" class="col-sm-4 control-label"><em>*</em>公司名称：</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="company_name" id="company_name">
+              <input type="text" class="form-control required" name="company_name" id="company_name">
             </div>
           </div>
           <div class="form-group">
@@ -47,13 +47,13 @@
           <div class="form-group">
             <label for="contacter" class="col-sm-4 control-label"><em>*</em>联系人：</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="contacter" id="contacter">
+              <input type="text" class="form-control required" name="contacter" id="contacter">
             </div>
           </div>
           <div class="form-group">
             <label for="phone" class="col-sm-4 control-label"><em>*</em>手机号：</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="phone" id="phone">
+              <input type="text" class="form-control required" name="phone" id="phone">
             </div>
           </div>
           <div class="form-group">
@@ -81,7 +81,7 @@
           <div class="form-group">
             <label for="address" class="col-sm-4 control-label"><em>*</em>详细地址：</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" name="address" id="address">
+              <input type="text" class="form-control required" name="address" id="address">
             </div>
           </div>
           <div class="form-group">
@@ -200,58 +200,119 @@
 <script type="text/javascript" src="/static/js/jquery.cityselect.js"></script>
 <script type="text/javascript" src="/static/js/jquery.sort.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $("#apply_page_1").validate({
-            rules: {
-                company_name:{
-                    required: true,
-                    maxlength: 30
-                },
-                company_money:{
-                    required: false,
-                    number: true,
-                    min: 1
-                },
-                legal_representative:{
-                    required: false,
-                    maxlength: 20
-                },
-                contacter:{
-                    required: true,
-                    maxlength: 20
-                },
-                phone: {
-                    required: true,
-                    isMobile: true
-                },
-                e_mail: {
-                    required: false,
-                    email: true
-                },
-                company_location: {
-                    required: true
-                },
-                address: {
-                    required: true,
-                    maxlength: 30
-                }
-            },
-            errorPlacement: function (error, element) {
-                var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
-                toast(errMsg + '' + error.text(), 'warning');
-            }
-        });
-    });
+    // $(function(){
+    //     $("#apply_page_1").validate({
+    //         rules: {
+    //             company_name:{
+    //                 required: true,
+    //                 maxlength: 30
+    //             },
+    //             company_money:{
+    //                 required: false,
+    //                 number: true,
+    //                 min: 1
+    //             },
+    //             legal_representative:{
+    //                 required: false,
+    //                 maxlength: 20
+    //             },
+    //             contacter:{
+    //                 required: true,
+    //                 maxlength: 20
+    //             },
+    //             phone: {
+    //                 required: true,
+    //                 isMobile: true
+    //             },
+    //             e_mail: {
+    //                 required: false,
+    //                 email: true
+    //             },
+    //             company_location: {
+    //                 required: true
+    //             },
+    //             address: {
+    //                 required: true,
+    //                 maxlength: 30
+    //             }
+    //         },
+    //         errorPlacement: function (error, element) {
+    //             var errMsg = $('label[for="' + element.attr('name') + '"]').text().replace('*','');
+    //             toast(errMsg + '' + error.text(), 'warning');
+    //         }
+    //     });
+    // });
     
     //第一页校验
-    $("#apply_page_1 input").blur(function(){
-        if($("#apply_page_1").valid()){
+    var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    var reg_number = /^[1-9]\d*(\.\d+)?$/;
+    var reg_email = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+    var is_valid = false;
+    function checkValidate(){
+        if($(event.target).hasClass('required')){
+            if($(event.target).val()==''){
+                is_valid = false;
+                var title = $(event.target).parent().parent().find('label').text().replace("*","").replace("：","");
+                var errMsg = title + '不能为空';
+                toast(errMsg, 'warning');
+                 return;
+            }
+        }
+        if($("#company_name").val()!='' && $("#contacter").val()!='' && $("#phone").val()!='' && $("#address").val()!=''){
+            is_valid = true;
+        }
+        if($('#company_name').val().length > 30){
+            toast('公司名称不能超过30个字', 'warning');
+            is_valid = false;
+            return;
+        }
+        if($('#legal_representative').val().length > 20){
+            toast('法人代表不能超过20个字', 'warning');
+            is_valid = false;
+            return;
+        }
+        if($('#contacter').val().length > 20){
+            toast('联系人不能超过20个字', 'warning');
+            is_valid = false;
+            return;
+        }
+        if($('#address').val().length > 30){
+            toast('详细地址不能超过30个字', 'warning');
+            is_valid = false;
+            return;
+        }
+        if($('#company_money').val()!=''){
+            if(!reg_number.test($('#company_money').val())){
+                toast('请填写正确的注册资本', 'warning');
+                is_valid = false;
+                return;
+            }
+        }
+        if($('#phone').val()!=''){
+            if(!reg_phone.test($('#phone').val().trim())){
+                toast('请填写正确的手机号', 'warning');
+                is_valid = false;
+                return;
+            }
+        }
+        if($('#e_mail').val()!=''){
+            if(!reg_email.test($('#e_mail').val())){
+                toast('请填写正确的E-mail', 'warning');
+                is_valid = false;
+                return;
+            }
+        }
+        if(is_valid){
             $('#apply_page_1 .xa-next-page').attr("disabled",false);
         }else{
             $('#apply_page_1 .xa-next-page').attr("disabled","disabled");
+            return;
             // 方便测试用
             // $('#apply_page_1 button').attr("disabled",false);
         }
+    }
+    $("#apply_page_1 input").blur(function(event){
+        checkValidate();
     });
 
     //第二页校验
@@ -373,6 +434,7 @@
         $("#apply_page_1").show();
     }
     function goToPage2(){
+        checkValidate();
         $("#page2").addClass('active');
         $("#page3").removeClass('active');
         $("#apply_page_1").hide();
