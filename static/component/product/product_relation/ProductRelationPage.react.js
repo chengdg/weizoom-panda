@@ -79,6 +79,34 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
+	updateSyncProduct: function(product_id, event) {
+		var title = '确定更新么?';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				Action.updateSyncProduct(String(product_id));
+			}, this)
+		});
+	},
+
+	batchUpdateSyncProduct: function(event) {
+		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		if (productIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要更新的商品!');
+			return false;
+		}
+
+		var title = '确定更新么?';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				Action.updateSyncProduct(productIds.join(","));
+			}, this)
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if(field === 'product_name'){
 			return(
@@ -86,7 +114,10 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			return(
-				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+				<span>
+					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+					<a className="btn btn-link btn-xs" onClick={this.updateSyncProduct.bind(this,data['id'])}>更新商品</a>
+				</span>
 			)
 		}else {
 			return value;
@@ -125,6 +156,7 @@ var ProductRelationPage = React.createClass({
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
+						<Reactman.TableActionButton text="批量更新" onClick={this.batchUpdateSyncProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />

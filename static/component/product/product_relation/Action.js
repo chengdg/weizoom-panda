@@ -81,6 +81,19 @@ var Action = {
 			actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
 			data: {}
 		});
+	},
+
+	updateSyncProduct: function(product_id){
+		Resource.post({
+			resource: 'product.sync_product',
+			data: {
+				'product_id': product_id
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.UPDATE_SYNC_PRODUCT
+			}
+		});
 	}
 };
 
