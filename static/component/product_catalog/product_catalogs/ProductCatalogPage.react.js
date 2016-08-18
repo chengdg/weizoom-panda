@@ -96,11 +96,12 @@ var ProductCatalogPage = React.createClass({
 		if (field === 'expand-row') {
 			var _this = this;
 			var class_name = 'data-' +data['id'];
-			var second_catalogs = JSON.parse(data['second_catalogs'])
-			if(second_catalogs.length>0){
+			var second_catalogs = JSON.parse(data['second_catalogs']);
+			if(second_catalogs.length > 0){
 				var catalogs = second_catalogs.map(function(catalog,index){
 					var catalog_id = catalog['id'];
 					var src = '/product/product_relation/?second_catalog_id='+catalog_id;
+					var has_info = catalog['qualification_id2name'];
 				return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
 							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '44%',height: '50px'}}>{catalog.catalog_name} </div>
@@ -111,7 +112,8 @@ var ProductCatalogPage = React.createClass({
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.father_catalog} data-catalog-name={catalog.catalog_name} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
-								<a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualification_id2name}>配置特殊资质</a>
+								{has_info == '[]'? <a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualification_id2name}>配置特殊资质</a>: <a className="btn btn-info ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualification_id2name}>已配置</a>}
+								
 							</div>
 						</div>
 					)

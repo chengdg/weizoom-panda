@@ -44,10 +44,10 @@ div#apply_page_3_upload_field {
 .toast-content{
     display: none;
     font-size: 1.2em;
-    height: 34px;
-    left: 10%;
-    width: 80%;
-    line-height: 20px;
+    height: 45px;
+    left: 20%;
+    width: 60%;
+    line-height: 30px;
     padding: 8px 14px;
     position: fixed;
     text-align: center;
