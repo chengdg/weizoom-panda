@@ -106,6 +106,10 @@ class ProductRelation(resource.Resource):
 		#从weapp获取销量sales_from_weapp
 		id2sales = sales_from_weapp(p_has_relations)
 
+		#获取分类
+		product_catalogs = product_catalog_models.ProductCatalog.objects.all()
+		id2product_catalog = {product_catalog.id:product_catalog for product_catalog in product_catalogs}
+
 		p_owner_ids = [product.owner_id for product in products]
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
@@ -120,6 +124,16 @@ class ProductRelation(resource.Resource):
 				product_status_text = u'未同步'
 				if product.id in has_relation_p_ids:
 					product_status_text = u'已同步'
+
+				#商品分类
+				first_level_name = ''
+				second_level_name = ''
+				if product.catalog_id in id2product_catalog:
+					product_catalog = id2product_catalog[product.catalog_id]
+					father_id = product_catalog.father_id
+					second_level_name = product_catalog.name
+					first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
+
 				rows.append({
 					'id': product.id,
 					'role': role,
@@ -128,6 +142,8 @@ class ProductRelation(resource.Resource):
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
 					'product_status': product_status_text,
+					'first_level_name': first_level_name,
+					'second_level_name': second_level_name,
 					'cur_page': pageinfo.cur_page
 				})
 		data = {

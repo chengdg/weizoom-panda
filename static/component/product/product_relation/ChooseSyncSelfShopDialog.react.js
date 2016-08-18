@@ -67,6 +67,12 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		},{
 			'name': '微众便利店',
 			'value': 'weizoom_wzbld'
+		},{
+			'name': '微众佳人',
+			'value': 'weizoom_jiaren'
+		},{
+			'name': '微众良乡商城',
+			'value': 'weizoom_xiaoyuan'
 		}];
 		return {
 			select_self_shop: Store.getData()['selectSelfShop'],
@@ -111,14 +117,22 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		var productId = this.props.data.product_id;
 		var syncType = this.props.data.sync_type;
 		var selfShop = this.state.self_shop;
-		var selectSelfShop = this.state.select_self_shop.toString();
-		var checked = this.state.select_self_shop.length==17?'checked':null;
+		var selectSelfShop = this.state.select_self_shop;
+		var checked = this.state.select_self_shop.length==19?'checked':null;
 
 		var selfs = selfShop.map(function(self_shop,index){
 			var value = self_shop.value;
 			var bgStyle = {};
 			bgStyle['style'] = {};
-			if(selectSelfShop.indexOf(value) >-1){
+
+			var isTrue = false;
+			for (var i = 0; i < selectSelfShop.length; i++) {
+				if (selectSelfShop[i] === value) {
+					isTrue = true;
+				}
+			}
+			
+			if(isTrue){
 				bgStyle['style'] = {background: '#009DD9', color:'#FFF'};
 			}
 			return(
@@ -131,7 +145,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 				<ul>
 					{selfs}
 				</ul>
-				<span style={{display:'block',paddingLeft:'50px'}}>
+				<span style={{display:'block',paddingLeft:'40px'}}>
 					<input type="checkbox" checked={checked} className="checkbox" name="select" value="0" style={{display:'inline-block'}} onChange={this.chooseAllSelfShop}/>全选
 				</span>
 				<span className='cancle-relation-tips' style={{display:'none'}}>( 提示：取消平台勾选，商品将从该平台禁售不可见 )</span>	

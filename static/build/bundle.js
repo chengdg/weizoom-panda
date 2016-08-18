@@ -40064,6 +40064,12 @@
 			}, {
 				text: '微众便利店',
 				value: 'weizoom_wzbld'
+			}, {
+				text: '微众佳人',
+				value: 'weizoom_jiaren'
+			}, {
+				text: '微众良乡商城',
+				value: 'weizoom_xiaoyuan'
 			}];
 
 			var orderStatusOptions = [{
@@ -44815,6 +44821,12 @@
 			}, {
 				'name': '微众便利店',
 				'value': 'weizoom_wzbld'
+			}, {
+				'name': '微众佳人',
+				'value': 'weizoom_jiaren'
+			}, {
+				'name': '微众良乡商城',
+				'value': 'weizoom_xiaoyuan'
 			}];
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
@@ -44859,14 +44871,22 @@
 			var productId = this.props.data.product_id;
 			var syncType = this.props.data.sync_type;
 			var selfShop = this.state.self_shop;
-			var selectSelfShop = this.state.select_self_shop.toString();
-			var checked = this.state.select_self_shop.length == 17 ? 'checked' : null;
+			var selectSelfShop = this.state.select_self_shop;
+			var checked = this.state.select_self_shop.length == 19 ? 'checked' : null;
 
 			var selfs = selfShop.map(function (self_shop, index) {
 				var value = self_shop.value;
 				var bgStyle = {};
 				bgStyle['style'] = {};
-				if (selectSelfShop.indexOf(value) > -1) {
+
+				var isTrue = false;
+				for (var i = 0; i < selectSelfShop.length; i++) {
+					if (selectSelfShop[i] === value) {
+						isTrue = true;
+					}
+				}
+
+				if (isTrue) {
 					bgStyle['style'] = { background: '#009DD9', color: '#FFF' };
 				}
 				return React.createElement(
@@ -44886,7 +44906,7 @@
 				),
 				React.createElement(
 					'span',
-					{ style: { display: 'block', paddingLeft: '50px' } },
+					{ style: { display: 'block', paddingLeft: '40px' } },
 					React.createElement('input', { type: 'checkbox', checked: checked, className: 'checkbox', name: 'select', value: '0', style: { display: 'inline-block' }, onChange: this.chooseAllSelfShop }),
 					'全选'
 				),
@@ -45012,10 +45032,10 @@
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 
-			if (selectSelfShop.length == 17) {
+			if (selectSelfShop.length == 19) {
 				selectSelfShop = [];
 			} else {
-				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld'];
+				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan'];
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
@@ -45073,7 +45093,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 48px;\r\n    border: 1px solid #CCC;\r\n    width: 80px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 40px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -45261,6 +45281,25 @@
 					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
 					'同步商品'
 				);
+			} else if (field === 'catalog_name') {
+				var name = data['second_level_name'];
+				var line = name.length > 0 ? '-' : '';
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'span',
+						null,
+						data['first_level_name']
+					),
+					React.createElement('br', null),
+					React.createElement(
+						'span',
+						{ style: { paddingLeft: '10px' } },
+						line,
+						data['second_level_name']
+					)
+				);
 			} else {
 				return value;
 			}
@@ -45319,6 +45358,7 @@
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, enableSelector: true, ref: 'table' },
 						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
 						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
+						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
 						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
 						React.createElement(Reactman.TableColumn, { name: '状态', field: 'product_status' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
