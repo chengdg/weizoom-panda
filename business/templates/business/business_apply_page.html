@@ -208,15 +208,14 @@
     var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
     var reg_number = /^[1-9]\d*(\.\d+)?$/;
     var reg_email = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
-    var is_valid = false;
     function checkValidate(){
+        var is_valid = false;
         if($(event.target).hasClass('required')){
             if($(event.target).val()==''){
                 is_valid = false;
                 var title = $(event.target).parent().parent().find('label').text().replace("*","").replace("：","");
                 var errMsg = '请填写正确的' + title;
                 toast(errMsg, 'warning');
-                 return;
             }
         }
         if($("#company_name").val()!='' && $("#contacter").val()!='' && $("#phone").val()!='' && $("#address").val()!=''){
@@ -227,42 +226,35 @@
         if($('#company_name').val().length > 30){
             toast('公司名称不能超过30个字', 'warning');
             is_valid = false;
-            return;
         }
         if($('#legal_representative').val().length > 20){
             toast('法人代表不能超过20个字', 'warning');
             is_valid = false;
-            return;
         }
         if($('#contacter').val().length > 20){
             toast('联系人不能超过20个字', 'warning');
             is_valid = false;
-            return;
         }
         if($('#address').val().length > 30){
             toast('详细地址不能超过30个字', 'warning');
             is_valid = false;
-            return;
         }
         if($('#company_money').val()!=''){
-            if(!reg_number.test($('#company_money').val())){
+            if(!reg_number.test($('#company_money').val().trim())){
                 toast('请填写正确的注册资本', 'warning');
                 is_valid = false;
-                return;
             }
         }
         if($('#phone').val()!=''){
             if(!reg_phone.test($('#phone').val().trim())){
                 toast('请填写正确的手机号', 'warning');
                 is_valid = false;
-                return;
             }
         }
         if($('#e_mail').val()!=''){
-            if(!reg_email.test($('#e_mail').val())){
+            if(!reg_email.test($('#e_mail').val().trim())){
                 toast('请填写正确的E-mail', 'warning');
                 is_valid = false;
-                return;
             }
         }
         console.log(is_valid);
@@ -270,12 +262,14 @@
             $('#apply_page_1 .xa-next-page').attr("disabled",false);
         }else{
             $('#apply_page_1 .xa-next-page').attr("disabled","disabled");
-            return;
             // 方便测试用
             // $('#apply_page_1 button').attr("disabled",false);
         }
     }
     $("#apply_page_1 input").keyup(function(event){
+        checkValidate();
+    });
+    $("#apply_page_1 input").blur(function(event){
         checkValidate();
     });
 
