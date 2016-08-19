@@ -1,3 +1,6 @@
+/********************************************************************************
+ * 商家入驻页面样式
+ *******************************************************************************/
 html.login-page {
 	background: url(/static/img/logo/logo.jpg) no-repeat center center fixed;
     -webkit-background-size: cover; /*for webKit*/
@@ -69,14 +72,11 @@ div#apply_page_3_upload_field {
 .wx-sortableTableHead {
 	cursor: pointer;
 }
-
 #spin {
 	float: left;
 	height: 80px;
 	width: 100px;
 }
-
-
 #spin-wrapper {
 	background-color: #888;
 	opacity: 0.8;
@@ -98,10 +98,6 @@ div#apply_page_3_upload_field {
 	z-index: 10000;
 	padding: 10px;
 }
-
-/********************************************************************************
- * 商家入驻页面样式
- *******************************************************************************/
 #topbar {
 	width: 100%;
 	height: 100px;
@@ -121,7 +117,6 @@ div#apply_page_3_upload_field {
     margin-top: 10px;
     margin-left: 140px;
 }
-
 #weixin-logo {
 	width: 680px;
 	height: 40px;
@@ -132,7 +127,6 @@ div#apply_page_3_upload_field {
 	font-size: 1.2em;
 	font-family: '微软雅黑';
 }
-
 #top-action-bar {
 	font-size: 14px;
 	text-align: right;
@@ -140,7 +134,6 @@ div#apply_page_3_upload_field {
 	padding-top: 20px;
 	color: #EFEFEF;
 }
-
 #top-action-bar a:link, #top-action-bar a:visited {
 	color: white;
 	text-decoration: no-underline;
@@ -156,6 +149,8 @@ div#apply_page_3_upload_field {
 .business_apply_from{
     margin-top: 40px;
 }
+
+/*第二页*/
 .fileinput-button input {
     position: absolute;
     top: 0;
@@ -228,6 +223,7 @@ img.wui-upload-img {
     margin-top: 25px;
 }
 
+/*第三页*/
 /**选择商品分类**/
 .wareSort { padding: 15px 8px 15px 7px;margin: 0 auto;width: 700px;}
 .wareSort ul { float: left; width: 290px; padding: 10px; border: 1px solid #ddd; margin-right: 7px; margin-left: 8px; background-color: #fff; }
@@ -241,7 +237,6 @@ img.wui-upload-img {
 .wareSortBtn input { width: 200px; height: 36px; border: 1px solid #ed7f5a; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; background-color: #ed7f5a; color: #fff; }
 .wareSortBtn input:hover { border-color: #d95459; background-color: #d95459; }
 .wareSortBtn input:disabled { border-color: #ddd; background-color: #f6f6f6; color: #9a9a9a; cursor: default; }
-
 #apply_page_3 a {
 	text-decoration: none; color: #333;
 }
@@ -262,21 +257,17 @@ span.selectedSortSpan {
     padding-bottom: 5px;
 }
 .selectedSort {
-    margin-top: 10px;
     margin-bottom: 10px;
     display: inline-block;
     padding: 0 10px 0 10px;
 }
-
 ul.nav {
     display: table;
 }
-
 ul.nav li{
     width: 400px;
     border-bottom:5px solid #d0d0d0;
 }
-
 ul.nav li i{
     font-size: 26px;
     margin-right: 10px;
@@ -288,23 +279,19 @@ ul.nav li i{
     line-height: 30px;
     font-style: normal;
 }
-
 ul.nav li.active i{
     background: #4ab3ff;
     color: white;
     font-weight: normal;
 }
-
 div.xa-pageContainer ul.nav li.active a{
     background: none;
     font-weight: bolder;
     color: #4ab3ff;
 }
-
 div.xa-pageContainer ul.nav li.active{
     border-bottom: 5px solid #4ab3ff;
 }
-
 div.xa-pageContainer ul.nav li.active:after{
     content: '';
     width: 0;
@@ -316,18 +303,15 @@ div.xa-pageContainer ul.nav li.active:after{
     bottom: 0px;
     left: 200px;
 }
-
 ul.nav li a{
     color: #666;
 }
-
 #company_type1+label,#company_type2+label{
     display: inline-block;
     padding: 10px;
     border: 1px solid #e4e4e4;
     margin-right: 10px;
 }
-
 #company_type1:checked+label,#company_type2:checked+label{
     border: 2px solid #4ab3ff;
     background: url('/static/img/checked_right.png') no-repeat right bottom;
