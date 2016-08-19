@@ -20,7 +20,7 @@
         settings = $.extend({
             url: "/static/js/city.min.js",
             prov: '北京',
-            city: '东城区',
+            city: '北京市',
             dist: null,
             nodata: null,
             required: true
