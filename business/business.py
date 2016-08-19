@@ -17,6 +17,8 @@ from django.contrib.auth.models import User
 from core import resource
 from core import paginator
 from util import db_util
+from util import send_phone_msg
+from eaglet.core import watchdog
 
 from core.jsonresponse import create_response
 from resource import models as resource_models
@@ -250,6 +252,14 @@ class Business(resource.Resource):
 				status = models.UNPASSED,
 				reason = reason
 			)
+			try:
+				business = models.Business.objects.get(id = business_id)
+				if business.phone:
+					content = u'%s【微众传媒】' %  reason
+					rs = send_phone_msg.send_phone_captcha(phones=str(business.phone), content=content)
+			except:
+				watchdog.info(u"发送驳回信息异常 id：%s" % business_id)
+				
 			response = create_response(200)
 			return response.get_response()
 		except:

@@ -30,7 +30,6 @@ def send_phone_captcha(phones, content, send_time='', sent_type=1, post_fix_numb
 		'SendType': sent_type, 
 		'PostFixNumber': post_fix_number
 		})
-	# print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 	try:
 		response = urllib.urlopen(URL % params)
 		# print URL % params, '------------------------------------------------------'
