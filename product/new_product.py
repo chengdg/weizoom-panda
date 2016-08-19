@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import time
+import HTMLParser
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
@@ -175,6 +176,9 @@ class NewProduct(resource.Resource):
 		has_product_model = int(post.get('has_product_model',0))
 		second_level_id = int(post.get('second_level_id',0))
 		model_values = post.get('model_values','')
+		parser = HTMLParser.HTMLParser()
+		if remark:
+			remark = parser.unescape(remark)
 		if not product_price:
 			product_price = -1
 		if not limit_clear_price:
@@ -286,6 +290,9 @@ class NewProduct(resource.Resource):
 			product_price = -1
 		remark = post.get('remark','')
 		images = post.get('images','')
+		parser = HTMLParser.HTMLParser()
+		if remark:
+			remark = parser.unescape(remark)
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
