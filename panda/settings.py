@@ -165,6 +165,7 @@ INSTALLED_APPS = [
     'self_shop',
     'freight_service',
     'business',
+    'station_message',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

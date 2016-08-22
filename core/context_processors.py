@@ -74,7 +74,13 @@ def top_navs(request):
 				'displayName': '客户管理',
 				'icon': 'credit-card',
 				'href': '/business/manager/'
-			}]
+			},{
+				'name': 'message',
+				'displayName': '站内消息',
+				'icon': 'glyphicon glyphicon-comment',
+				'href': '/message/message_list'
+			}
+			]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',
