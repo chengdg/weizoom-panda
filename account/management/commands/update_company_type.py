@@ -32,7 +32,7 @@ class Command(BaseCommand):
 		for data in datas:
 			try:
 				account_info = account_models.UserProfile.objects.filter(name=data['name'])
-				catalog_names = data['catalog_name'].split('_')
+				catalog_names = data['catalog_name'].split(';')
 				company_type = []
 				for catalog_name in catalog_names:
 					if catalog_name in catalog_name2id:

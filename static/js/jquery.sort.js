@@ -51,7 +51,9 @@ function selectB(p,c) {
 	var catalog_id = second_catalog_ids[p][c];
 	if($('.selectB_' + p + '_' + c + '').hasClass("active")){
 		$('.selectB_' + p + '_' + c + '').removeClass("active");
+
 		$('.selectedSort #'+catalog_id+'').remove();
+
 		$('.qualification-for-catalog-'+ catalog_id +'').remove();
 		if(!$('.selectB_' + p +'').hasClass("active")){
 			$("#sort1 li").eq(p).removeClass("active");//二级类目全部取消了选择，就把一级类目也取消选择
@@ -64,8 +66,21 @@ function selectB(p,c) {
 		if(catalog_qualifications[catalog_id].length > 0){
 			for(var i=0; i<catalog_qualifications[catalog_id].length; i++ ){
 				var catalog_qualification = catalog_qualifications[catalog_id][i];
-				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_id+'">'+
-		            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="" style="display:block">'+
+				var need_upload_len = $('#apply_page_3_upload_field .form-group').length;
+				var is_hide = '';
+
+				// var is_hide_1 = false;
+				// for( i = 0 ; i < need_upload_len ; i++){
+				// 	//如果目前已经存在这个特殊资质了，就只渲染到页面上，但是不再次显示了(hide)
+				// 	var already_has_title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
+				// 	if(catalog_qualification['qualification_name'] == already_has_title){
+				// 		$('#apply_page_3_upload_field .form-group').eq(i).addClass('qualification-for-catalog-'+catalog_id+'');
+				// 		is_hide_1 = true;
+				// 	}
+				// }
+				// console.log(is_hide_1);
+				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_id+''+is_hide+'">'+
+		            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="/static/img/no_pic.png" style="display:block">'+
 		            '<label for="catalog_qualification_'+catalog_qualification['qualification_id']+'">'+catalog_qualification['qualification_name']+'</label>'+
 		            '<span class="btn btn-primary fileinput-button">'+
 		                '<span>上传</span>'+
@@ -78,6 +93,7 @@ function selectB(p,c) {
 		        '</div>'
 			}
 			$("#apply_page_3_upload_field").append(uploadCont);
+
 			$('.xa-uploader').on("click",function(event){
 				uploadImg(event);
 			});

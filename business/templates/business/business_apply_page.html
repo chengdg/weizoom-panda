@@ -428,7 +428,7 @@
             for(i=0;i<need_upload_len;i++){
                 var title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
                 var qualification_id = $('#apply_page_3_upload_field .form-group img').eq(i).attr("class").split('_')[2];
-                if($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")==''){
+                if($('#apply_page_3_upload_field .form-group img').eq(i).attr("src")=='/static/img/no_pic.png'){
                     toast('请上传'+title, 'warning');
                     $('#apply_page_3 .btn-primary').attr("disabled",false);
                     return
@@ -486,7 +486,7 @@
     }
     
     /**
-     * toast，默认2秒后消失
+     * toast，默认3秒后消失
      * @param msg
      * @param title
      */
@@ -539,7 +539,6 @@
 
             },
             complete: function(e, data) {
-                console.log("complete");
                 _.delay(function() {
                     $(event.target).parent().parent().find('.xa-progress').hide();
                 }, 50);
