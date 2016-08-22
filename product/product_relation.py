@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
@@ -38,7 +39,8 @@ SECOND_NAV = 'product-list'
 filter2field ={
 	'product_name_query': 'product_name',
 	'customer_name_query': 'customer_name',
-	'product_status_query': 'product_status'
+	'product_status_query': 'product_status',
+	'catalog_query': 'catalog_name'
 }
 
 
@@ -81,6 +83,7 @@ class ProductRelation(resource.Resource):
 		product_name = filter_idct.get('product_name','')
 		customer_name = filter_idct.get('customer_name','')
 		product_status_value = filter_idct.get('product_status','0')
+		catalog_name = filter_idct.get('catalog_name','')
 		#查询
 		if product_name:
 			products = products.filter(product_name__icontains=product_name)
@@ -88,6 +91,24 @@ class ProductRelation(resource.Resource):
 			user_profiles = user_profiles.filter(name__icontains=customer_name)
 			user_ids = [user_profile.user_id for user_profile in user_profiles]
 			products = products.filter(owner_id__in=user_ids)
+		if catalog_name:
+			product_catalogs = product_catalog_models.ProductCatalog.objects.filter(name__icontains=catalog_name)
+			father_id2ids = {}
+			for product_catalog in product_catalog_models.ProductCatalog.objects.all():
+				if product_catalog.father_id not in father_id2ids:
+					father_id2ids[product_catalog.father_id] = [product_catalog.id]
+				else:
+					father_id2ids[product_catalog.father_id].append(product_catalog.id)
+			catalog_ids = []
+			for product_catalog in product_catalogs:
+				catalog_id = product_catalog.id
+				# 查询的是二级分类
+				catalog_ids.append(catalog_id)
+				catalog_ids.append(product_catalog.father_id)
+				# 查询的是一级分类
+				if catalog_id in father_id2ids:
+					catalog_ids.extend(father_id2ids[catalog_id])
+			products = products.filter(catalog_id__in=catalog_ids)
 		if int(product_status_value)!=0:
 			sync_weapp_accounts = models.ProductSyncWeappAccount.objects.all()
 			has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])

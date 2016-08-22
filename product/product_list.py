@@ -29,7 +29,8 @@ import requests
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
 filter2field = {
-	'product_name_query': 'product_name'
+	'product_name_query': 'product_name',
+	'catalog_query': 'catalog_name'
 }
 
 product_status2text = {
@@ -77,6 +78,7 @@ def getProductData(request, is_export):
 		[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if
 		 key.startswith('__f-')])
 	product_name = filter_idct.get('product_name', '')
+	catalog_name = filter_idct.get('catalog_name','')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
 	products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
@@ -84,6 +86,24 @@ def getProductData(request, is_export):
 	# 查询
 	if product_name:
 		products = products.filter(product_name__icontains=product_name)
+	if catalog_name:
+		product_catalogs = catalog_models.ProductCatalog.objects.filter(name__icontains=catalog_name)
+		father_id2ids = {}
+		for product_catalog in catalog_models.ProductCatalog.objects.all():
+			if product_catalog.father_id not in father_id2ids:
+				father_id2ids[product_catalog.father_id] = [product_catalog.id]
+			else:
+				father_id2ids[product_catalog.father_id].append(product_catalog.id)
+		catalog_ids = []
+		for product_catalog in product_catalogs:
+			catalog_id = product_catalog.id
+			# 查询的是二级分类
+			catalog_ids.append(catalog_id)
+			catalog_ids.append(product_catalog.father_id)
+			# 查询的是一级分类
+			if catalog_id in father_id2ids:
+				catalog_ids.extend(father_id2ids[catalog_id])
+		products = products.filter(catalog_id__in=catalog_ids)
 
 	product_ids = ['%s' % product.id for product in products]
 	product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(

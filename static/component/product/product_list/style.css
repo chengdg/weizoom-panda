@@ -29,3 +29,7 @@ tr.model-detail-tr > td{
 	height: 40px;
 	line-height: 30px!important;
 }
+
+.xui-filterPanel .control-label{
+	width: 90px;
+}

@@ -2,3 +2,7 @@
 	float: left !important;
 	margin-left: 0px !important; 
 }
+
+.xui-filterPanel .control-label{
+	width: 90px;
+}

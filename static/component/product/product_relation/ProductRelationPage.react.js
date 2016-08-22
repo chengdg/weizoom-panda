@@ -26,13 +26,12 @@ var ProductRelationPage = React.createClass({
 		var _this = this;
 		var filterOptions = Store.getFilter();
 		var hasProp = false;
-
 		for (var prop in filterOptions){  
 			hasProp = true;  
 			break;  
 		}
 
-		if (hasProp){  
+		if (hasProp){
 			this.refs.table.refresh(filterOptions);  
 		}else{
 			this.setState(Store.getData());
@@ -128,6 +127,11 @@ var ProductRelationPage = React.createClass({
 						</Reactman.FilterField>
 						<Reactman.FilterField>
 							<Reactman.FormSelect label="状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
+						</Reactman.FilterField>
+					</Reactman.FilterRow>
+					<Reactman.FilterRow>
+						<Reactman.FilterField>
+							<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>
