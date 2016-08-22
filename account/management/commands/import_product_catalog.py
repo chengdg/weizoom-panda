@@ -43,7 +43,7 @@ class Command(BaseCommand):
 						product_models.Product.objects.filter(product_name=product_name).update(
 							catalog_id = catalog_id
 						)
-					successs_index += 1
+						successs_index += 1
 			except Exception, e:
 				print index,"====error===="
 
