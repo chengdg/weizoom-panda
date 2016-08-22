@@ -21,21 +21,18 @@ class Command(BaseCommand):
 		table = data.sheet_by_index(0)
 		nrows = table.nrows              #行数
 		ncols = table.ncols                 #列数
-		for i in range(0,ncols):
-			table_content=table.cell(0,i).value
-			table_title_list.append(table_content)
-		print "-----start-----"
+		print "-----start-s----"
 		index = 0
 		successs_index = 0
 		for cur_col in range(1,nrows):
 			for i in range(0,ncols):
 				data = table.cell(0, i).value
-				if data == u'二级分类':
-					catalog_name = table.cell(cur_col,i).value.encode('utf8')
-					
 				if data == u'商品名称':
 					index += 1
 					product_name = table.cell(cur_col,i).value.encode('utf8')
+
+				if data == u'二级分类':
+					catalog_name = table.cell(cur_col,i).value.encode('utf8')
 
 			try:
 				product_catalog = catalog_models.ProductCatalog.objects.filter(name=catalog_name)
