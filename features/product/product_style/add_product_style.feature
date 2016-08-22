@@ -13,7 +13,7 @@ feature:运营新增产品类目
 
 
 Background:
-	Given manager登录管理系统
+Given manager登录管理系统
 	Then manager添加账号
 	"""
 		[{

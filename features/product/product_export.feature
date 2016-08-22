@@ -51,59 +51,83 @@ Background:
 	}
 	"""
 
-	When aini使用密码123456登录系统
-	When aini添加商品
+	Given aini使用密码123456登录系统
+	When aini添加规格
 	"""
-		[{
-			"first_classify":"生活用品",
-			"second_classify":"零食",
-			"name": "武汉鸭脖",
-			"promotion_name":"武汉鸭脖",
-			"price": 10.00,
-			"weight": 1.00,
-			"stock_number": "5000",
-			"settlement_price":10.00,
-			"introduction": "这是一种很好吃的鸭脖"
-			"standard_promotion":"是",
-			"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-			"standard_price":{
-						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
-						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
-						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
-						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
-						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
-						},{
-			"first_classify":"居家",
-			"second_classify":"鞋子",			
-			"name": "耐克男鞋",
-			"promotion_name":"耐克男鞋",
-			"price": 198.00,
-			"weight": 1.00,
-			"stock_number": "5000",
-			"settlement_price":200.00,
-			"introduction": "耐克男鞋"
-			"standard_promotion":"是",
-			"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-			"standard_price":{
-						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
-						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
-						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
-						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
-						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
-						
-		}]
+	[{
+	"standard_name":"尺码",
+	"show_type":"文字",
+	"standard":{
+				"M","X","XL","XXL","XXXL"
+			   }
+	},{
+	"standard_name":"颜色",
+	"show_type":"文字",
+	"standard":{
+				"红","黄","蓝","黑",
+			   }
+	}]
+	"""
+	Then aini添加商品
+	"""
+	[{
+	"first_classify":"生活用品",
+	"second_classify":"零食",
+	"name": "武汉鸭脖",
+	"promotion_name":"武汉鸭脖",
+	"standard_promotion":"是",
+	"standard":{
+				"standard_name":"颜色",
+				"standard":"黑色","红色"
+				},{
+				"standard_name":"尺码",
+				"standard":"X,XL"
+				}
+	"standard_price":{
+				|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
+				|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
+				|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
+				|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
+				|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
+				},{
+	"first_classify":"居家",
+	"second_classify":"鞋子",			
+	"name": "耐克男鞋",
+	"promotion_name":"耐克男鞋",
+	"introduction": "耐克男鞋",
+	"standard_promotion":"是",
+	"standard":{
+				"standard_name":"颜色",
+				"standard":"黑色","红色"
+				},{
+				"standard_name":"尺码",
+				"standard":"X,XL"
+				}
+	"standard_price":{
+				|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
+				|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
+				|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
+				|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
+				|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
+				
+	},{
+	"first_classify":"生活用品",
+	"second_classify":"零食",
+	"name": "武汉鸭脖",
+	"promotion_name":"武汉鸭脖",
+	"price": 10.00,
+	"weight": 1.00,
+	"stock_number": "5000",
+	"settlement_price":10.00,
+	"introduction": "这是一种很好吃的鸭脖"
+	"standard_promotion":"否",
+	"price":9.9,
+	"setlement_price":9.9,
+	"weight":0.23,
+	"repertory":"500.00",
+	"picture":"",
+	"description":"周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食"
+	}]
 	"""
 
 
@@ -115,6 +139,6 @@ Background:
 scenario:1 商品列表导出商品
 	When aini登录系统
 	When aini导出商品列表
-	|  name   | price | sales |   creat_time   | status |
-	|武汉鸭脖 | 10.00 | 0.00  |2016-07-25 16:30| 未上架 |
-	|耐克男鞋 | 198.00| 0.00  |2016-07-25 16:30| 未上架 |
+	|  name   | set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
+	|耐克男鞋 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |

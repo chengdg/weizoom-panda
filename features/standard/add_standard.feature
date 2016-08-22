@@ -32,13 +32,13 @@ Scenario:1 新增显示样式为'文字'的规格样式
 	Given aini登录系统
 	When aini新增规格样式
 	"""
-		[{
-			"standard_name":"尺码",
-			"show_type":"文字",
-			"standard":{
-						"M","X","XL","XXL","XXXL"
-					   }
-		}]
+	[{
+	"standard_name":"尺码",
+	"show_type":"文字",
+	"standard":{
+				"M","X","XL","XXL","XXXL"
+			   }
+	}]
 	"""
 
 	Then aini查看规格列表
@@ -57,13 +57,13 @@ Scenrio:2 新增显示样式为'图片'的规格样式
 	Given aini登录系统
 	When aini新增规格样式
 	"""
-		[{
-			"standard_name":"颜色",
-			"show_type":"图片",
-			"standard":{
-						"","","","",""
-					   }
-		}]
+	[{
+	"standard_name":"颜色",
+	"show_type":"图片",
+	"standard":{
+				"","","","",""
+			   }
+	}]
 	"""
 	Then yunying查看规格列表
 		|standard_name| show_type |   standard   |
