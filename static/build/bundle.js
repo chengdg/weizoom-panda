@@ -37032,6 +37032,7 @@
 		},
 
 		onChangeStore: function (event) {
+			console.log(Store.getData().filterOptions, "--------");
 			var filterOptions = Store.getData().filterOptions;
 			this.refs.table.refresh(filterOptions);
 		},
@@ -43598,12 +43599,12 @@
 		},
 
 		handleProductDataFilter: function (action) {
-			this.filter = action.data;
+			this.data.filterOptions = action.data;
 			this.__emitChange();
 		},
 
 		handleProductDataExport: function (action) {
-			var filterOptions = this.filter;
+			var filterOptions = this.data.filterOptions;
 			var filter_str = '';
 			for (var key in filterOptions) {
 				filter_str = key + '=' + filterOptions[key];
@@ -43729,7 +43730,7 @@
 		},
 
 		getFilter: function () {
-			return this.filter;
+			return this.data.filterOptions;
 		}
 	});
 
@@ -44995,7 +44996,7 @@
 		},
 
 		handleProductRelationDataFilter: function (action) {
-			this.filter = action.data;
+			this.data.filterOptions = action.data;
 			this.__emitChange();
 		},
 
@@ -45055,7 +45056,7 @@
 		},
 
 		getFilter: function () {
-			return this.filter;
+			return this.data.filterOptions;
 		}
 	});
 
@@ -45172,19 +45173,8 @@
 		},
 
 		onChangeStore: function (event) {
-			var _this = this;
 			var filterOptions = Store.getFilter();
-			var hasProp = false;
-			for (var prop in filterOptions) {
-				hasProp = true;
-				break;
-			}
-
-			if (hasProp) {
-				this.refs.table.refresh(filterOptions);
-			} else {
-				this.setState(Store.getData());
-			}
+			this.refs.table.refresh(filterOptions);
 		},
 
 		chooseSyncSelfShop: function (product_id) {

@@ -21,7 +21,6 @@ class Command(BaseCommand):
 		table = data.sheet_by_index(0)
 		nrows = table.nrows              #行数
 		ncols = table.ncols                 #列数
-		data = table.cell(0, 1).value
 		for i in range(0,ncols):
 			table_content=table.cell(0,i).value
 			table_title_list.append(table_content)

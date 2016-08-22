@@ -48,7 +48,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleProductRelationDataFilter: function(action){
-		this.filter = action.data;
+		this.data.filterOptions = action.data;
 		this.__emitChange();
 	},
 
@@ -110,7 +110,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	getFilter: function() {
-		return this.filter;
+		return this.data.filterOptions;
 	}
 });
 

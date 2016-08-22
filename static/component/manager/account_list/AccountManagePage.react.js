@@ -52,6 +52,7 @@ var AccountManagePage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
+		console.log(Store.getData().filterOptions,"--------");
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);
 	},
