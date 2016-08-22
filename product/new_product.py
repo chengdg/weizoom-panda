@@ -32,6 +32,10 @@ PRODUCT_RELATION_SECOND_NAV = [{
 	'name': 'product-list',
 	'displayName': '商品',
 	'href': '/product/product_relation/'
+},{
+	'name': 'product-update-list',
+	'displayName': '商品更新',
+	'href': '/product/product_updated/'
 }]
 
 class NewProduct(resource.Resource):

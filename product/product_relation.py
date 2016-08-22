@@ -170,6 +170,7 @@ class ProductRelation(resource.Resource):
 					'product_status': product_status_text,
 					'first_level_name': first_level_name,
 					'second_level_name': second_level_name,
+					'is_update': product.is_update,
 					'cur_page': pageinfo.cur_page
 				})
 		data = {

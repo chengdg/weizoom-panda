@@ -256,6 +256,7 @@ def getProductData(request, is_export):
 			'first_level_name': first_level_name,
 			'second_level_name': second_level_name,
 			'is_model': product.has_product_model,
+			'is_update': product.is_update,
 			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M')
 		})
 	if is_export:

@@ -12,7 +12,6 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 require('./style.css');
 var W = Reactman.W;
 
@@ -27,43 +26,35 @@ var ProductUpdatedPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	chooseSyncSelfShop: function(product_id){
-		Action.getHasSyncShop(product_id);
-
-		_.delay(function(){
-			Reactman.PageAction.showDialog({
-				title: "选择平台进行同步商品",
-				component: ChooseSyncSelfShopDialog,
-				data: {
-					product_id: String(product_id),
-					sync_type: 'single'
-				},
-				success: function(inputData, dialogState) {
-					console.log("success");
-				}
-			});
-		},100)
+	onConfirmFilter: function(data){
+		Action.filterDatas(data);
 	},
 
-	batchSyncProduct: function(){
-		//取消选中的平台
-		Action.cancleSelectSyncProduct();
+	updateSyncProduct: function(product_id, event) {
+		var title = '确定更新么?';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				Action.updateSyncProduct(String(product_id));
+			}, this)
+		});
+	},
+
+	batchUpdateSyncProduct: function(event) {
 		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
 		if (productIds.length == 0){
-			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
+			Reactman.PageAction.showHint('error', '请先选择要更新的商品!');
 			return false;
 		}
 
-		Reactman.PageAction.showDialog({
-			title: "选择平台进行同步商品",
-			component: ChooseSyncSelfShopDialog,
-			data: {
-				product_id: productIds.join(","),
-				sync_type: 'batch'
-			},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
+		var title = '确定更新么?';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				Action.updateSyncProduct(productIds.join(","));
+			}, this)
 		});
 	},
 
@@ -71,53 +62,20 @@ var ProductUpdatedPage = React.createClass({
 		if (field === 'action') {
 			return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>商品更新</a><br></br>
+					<a className="btn btn-link btn-xs" onClick={this.updateSyncProduct.bind(this,data['id'])}>商品更新</a><br></br>
 					<a className="btn btn-link btn-xs" >驳回修改</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
 			var _this = this;
-			var role = data['role'];
-			var product_has_model = data['product_has_model'];
+			var colorStyle = data['is_update']? {color: 'red'}: {};
 			var img = <img className="product-img" src={data['image_path']} style={{width:'60px',height:'60px',marginRight:'10px'}}></img>
-			var isModel = data['is_model'];
-			if(role == 3){
-				if(product_has_model>0){
-					return(
-						<span className="product-name">
-							{img}
-							<a title={value} href={'/product/new_product/?id='+data.id}>{value}</a>
-							{isModel==true?<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a>:''} 
-						</span>
-					)
-				}else{
-					return(
-						<span className="product-name">
-							{img}
-							<a title={value} href={'/product/new_product/?id='+data.id}>{value}</a>
-						</span>
-					)
-				}
-				
-			}else{
-				if(product_has_model>0){
-					return(
-						<span className="product-name">
-							{img}
-							<a title={value} style={{cursor:'default',textDecoration:'none'}}>{value}</a>
-							{isModel==true?<a href='javascript:void(0);' className='product-model-detail' onClick={_this.lookProductModelDetail.bind(_this,data.id,value)}>查看{product_has_model}个规格详情</a>:''} 
-						</span>
-					)
-				}else{
-					return(
-						<span className="product-name">
-							{img}
-							<a title={value} style={{cursor:'default',textDecoration:'none'}}>{value}</a>
-						</span>
-					)
-				}
-				
-			}
+			return(
+				<span className="product-name">
+					{img}
+					<a title={value} style={colorStyle} href={'/product/new_product/?id='+data.id}>{value}</a>
+				</span>
+			)
 		} else if (field === 'catalog_name') {
 			var name = data['second_level_name'];
 			var line =name.length>0?'-':''
@@ -130,10 +88,6 @@ var ProductUpdatedPage = React.createClass({
 		} else {
 			return value;
 		}
-	},
-
-	onConfirmFilter: function(data){
-		Action.filterDates(data);
 	},
 
 	render:function(){
@@ -159,7 +113,7 @@ var ProductUpdatedPage = React.createClass({
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
-						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
+						<Reactman.TableActionButton text="批量更新" onClick={this.batchUpdateSyncProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>

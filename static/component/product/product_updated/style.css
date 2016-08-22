@@ -1,0 +1,35 @@
+.product-img{
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.product-name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 400px;
+    position: relative;
+}
+
+.product-model-detail{
+    position: absolute;
+    height: 30px;
+    top: 35px;
+    left: 70px;
+    line-height: 30px;
+}
+
+tr > td{
+    vertical-align: middle !important;
+}
+
+tr.model-detail-tr > td{
+    height: 40px;
+    line-height: 30px!important;
+}
+
+.xui-filterPanel .control-label{
+    width: 90px;
+}
