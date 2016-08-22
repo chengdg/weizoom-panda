@@ -4,6 +4,8 @@
 import os
 import logging
 
+SERVICE_NAME = "panda"
+
 DEBUG = True
 
 IS_UNDER_CODE_GENERATION = False
