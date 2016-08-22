@@ -309,6 +309,7 @@ class NewProduct(resource.Resource):
 				valid_time_to = valid_time_to,
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
+				is_update = True,
 				remark = remark
 			)
 		else:
@@ -326,6 +327,7 @@ class NewProduct(resource.Resource):
 				valid_time_to = None,
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
+				is_update = True,
 				remark = remark
 			)
 		#删除、重建商品图片

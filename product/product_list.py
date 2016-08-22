@@ -71,9 +71,21 @@ class ProductList(resource.Resource):
 		response.data = data
 		return response.get_response()
 
+	# def api_post(request):
+	# 	product_id = request.POST.get('product_id','')
+	# 	if product_id:
+	# 		models.Product.objects.filter(id=product_id, is_deleted=False).update(
+	# 			''
+	# 		)
+	# 	response = create_response(200)
+	# 	response.data = data
+	# 	return response.get_response()
+
 
 def getProductData(request, is_export):
 	cur_page = request.GET.get('page', 1)
+	is_update = request.GET.get('is_update', False)
+
 	filter_idct = dict(
 		[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if
 		 key.startswith('__f-')])
@@ -81,11 +93,16 @@ def getProductData(request, is_export):
 	catalog_name = filter_idct.get('catalog_name','')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
-	products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
+	if role == YUN_YING:
+		products = models.Product.objects.filter(is_deleted=False).order_by('-id')
+	else:
+		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
 	# 查询
 	if product_name:
 		products = products.filter(product_name__icontains=product_name)
+	if is_update:
+		products = products.filter(is_update=is_update)
 	if catalog_name:
 		product_catalogs = catalog_models.ProductCatalog.objects.filter(name__icontains=catalog_name)
 		father_id2ids = {}

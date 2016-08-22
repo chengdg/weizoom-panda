@@ -24,6 +24,7 @@ class Product(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
 	has_product_model = models.BooleanField(default=False) #是否是多规格商品
 	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
+	is_update = models.BooleanField(default=False) 
 	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):

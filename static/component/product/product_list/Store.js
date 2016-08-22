@@ -19,7 +19,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleUpdateProduct': Constant.PRODUCT_LIST_UPDATE_PRODUCT,
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
 		'handleProductDataExport': Constant.PRODUCT_DATAS_EXPORT,
-		'handleProductModelDetails': Constant.PRODUCT_MODEL_DETAILS
+		'handleProductModelDetails': Constant.PRODUCT_MODEL_DETAILS,
+		'handlePlusProductStore': Constant.PLUS_PRODUCT_STORE
 	},
 
 	init: function() {
@@ -159,6 +160,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['model_values']= model_values;
 		this.data['model_names']= headers;
 		this.data['name2model']= {};
+		this.__emitChange();
+	},
+
+	handlePlusProductStore: function(){
 		this.__emitChange();
 	},
 

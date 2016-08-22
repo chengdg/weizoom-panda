@@ -29,12 +29,17 @@ from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
 
 second_navs = [{
-	'name': 'product-list',
+	'name': 'product-relation-list',
 	'displayName': '商品',
 	'href': '/product/product_relation/'
+},
+{
+	'name': 'product-update-list',
+	'displayName': '商品更新',
+	'href': '/product/product_updated/'
 }]
 FIRST_NAV = 'product'
-SECOND_NAV = 'product-list'
+SECOND_NAV = 'product-relation-list'
 
 filter2field ={
 	'product_name_query': 'product_name',

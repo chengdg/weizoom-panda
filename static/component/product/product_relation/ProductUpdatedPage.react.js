@@ -3,22 +3,20 @@
  */
 "use strict";
 
-var debug = require('debug')('m:product.product_list:ProductDataListPage');
+var debug = require('debug')('m:product.product_list:ProductUpdatedPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
 
 var Reactman = require('reactman');
-var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
-var LookProductModelDetail = require('./LookProductModelDetail.react');
-
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 require('./style.css');
 var W = Reactman.W;
 
-var ProductDataListPage = React.createClass({
+var ProductUpdatedPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return Store.getData();
@@ -29,54 +27,43 @@ var ProductDataListPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
-	onClickDelete: function(event) {
-		var user_has_products = W.user_has_products;
-		if(Store.getData().user_has_products){
-			user_has_products = Store.getData().user_has_products;
+	chooseSyncSelfShop: function(product_id){
+		Action.getHasSyncShop(product_id);
+
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "选择平台进行同步商品",
+				component: ChooseSyncSelfShopDialog,
+				data: {
+					product_id: String(product_id),
+					sync_type: 'single'
+				},
+				success: function(inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},100)
+	},
+
+	batchSyncProduct: function(){
+		//取消选中的平台
+		Action.cancleSelectSyncProduct();
+		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		if (productIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要同步的商品!');
+			return false;
 		}
-		var productId = parseInt(event.target.getAttribute('data-product-id'));
-		var title = '彻底删除商品会导致该商品的订单无法同步到当前账号中';
-		Reactman.PageAction.showConfirm({
-			target: event.target, 
-			title: title,
-			confirm: _.bind(function() {
-				Action.deleteProduct(productId,user_has_products);
-			}, this)
-		});
-	},
 
-	lookProductModelDetail: function(product_id,value){
-		Action.lookProductModelDetail(product_id);
 		Reactman.PageAction.showDialog({
-			title: value,
-			component: LookProductModelDetail,
-			data: {},
+			title: "选择平台进行同步商品",
+			component: ChooseSyncSelfShopDialog,
+			data: {
+				product_id: productIds.join(","),
+				sync_type: 'batch'
+			},
 			success: function(inputData, dialogState) {
 				console.log("success");
 			}
-		});
-	},
-
-	onValidateAddProduct: function(){
-		Action.ProductCategory();
-		Reactman.PageAction.showDialog({
-			title: "请选择商品分类",
-			component: AddProductCategoryDialog,
-			data: {},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
-		// W.gotoPage('/product/new_product/?second_level_id='+0);
-	},
-
-	plusProductStore: function(product_id, event){
-		Reactman.PageAction.showConfirm({
-			target: event.target, 
-			title: '确定提交?',
-			confirm: _.bind(function() {
-				Action.plusProductStore(product_id);
-			}, this)
 		});
 	},
 
@@ -84,8 +71,8 @@ var ProductDataListPage = React.createClass({
 		if (field === 'action') {
 			return (
 				<div>
-					<a className="btn btn-link btn-xs" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
-					<a className="btn btn-link btn-xs" target="_blank" onClick={this.plusProductStore.bind(this, data.id)}>提交</a>
+					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>商品更新</a><br></br>
+					<a className="btn btn-link btn-xs" >驳回修改</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
@@ -149,15 +136,12 @@ var ProductDataListPage = React.createClass({
 		Action.filterDates(data);
 	},
 
-	onExport: function(){
-		Action.exportProducts();
-	},
-
 	render:function(){
 		var productsResource = {
 			resource: 'product.product_list',
 			data: {
-				page: 1
+				page: 1,
+				is_update: true
 			}
 		};
 
@@ -175,16 +159,14 @@ var ProductDataListPage = React.createClass({
 				</Reactman.FilterPanel>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
-						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
-						<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
+						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
 					</Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
 						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 						<Reactman.TableColumn name="售价(元)" field="product_price" />
 						<Reactman.TableColumn name="销量" field="sales" />
-						<Reactman.TableColumn name="创建时间" field="created_at" />
 						<Reactman.TableColumn name="状态" field="status" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
@@ -193,4 +175,4 @@ var ProductDataListPage = React.createClass({
 		)
 	}
 })
-module.exports = ProductDataListPage;
+module.exports = ProductUpdatedPage;
