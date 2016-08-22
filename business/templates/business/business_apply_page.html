@@ -153,7 +153,7 @@
         <!-- 第三页 -->
         <form id="apply_page_3" style="display:none">
           <div class="form-group">
-            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;line-height: 35px;">
+            <div style="display: inline-block;margin-bottom: 15px;min-height: 40px;line-height: 35px;max-width: 800px;">
                 <b>您已选择：</b>
                 <div class="selectedSort"></div>
                 <div class="selectedSortQualificationIds" style="display:none"></div>
@@ -169,7 +169,7 @@
           <div class="form-group_btn">
             <div>
                 <button type="button" class="btn btn-default" onclick="goToPage2();">上一步</button>
-                <button type="button" class="btn btn-primary xa-next-page" onclick="savePage();" disabled="disabled">完成提交</button>
+                <button type="button" class="btn btn-primary xa-next-page" onclick="savePage();" disabled="disabled" data-loading-text="提交中..." autocomplete="off">完成提交</button>
             </div>
           </div>
         </form>
@@ -416,6 +416,7 @@
         $("#apply_page_3").hide();
         $("#apply_page_4").show();
     }
+
     //提交数据
     function savePage(){
         var uploadQualifications = [];
@@ -467,12 +468,15 @@
             uploadQualifications: uploadQualifications
         }
         data = data_page_1 + '&data_page_2=' + JSON.stringify(data_page_2) + '&data_page_3=' + JSON.stringify(data_page_3);
-        console.log(data);
+        
+        //提交数据中
+        var $btn = $('#apply_page_3 .xa-next-page').button('loading');
         $.ajax({
             url:'/business/api/customer_apply/',
             type:'post',
             data: data,
             success:function(resp){
+                $btn.button('reset');
                 goToPage4();
             },
             error:function(){
