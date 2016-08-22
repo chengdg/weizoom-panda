@@ -48,29 +48,29 @@ class AccountCreate(resource.Resource):
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
-			#注释代码 请勿删除！！！
-			# group_points = AccountHasGroupPoint.objects.filter(user_id=user_profile.user_id)
-			# rebate_proports = AccountHasRebateProport.objects.filter(user_id=user_profile.user_id)
+			# 注释代码 请勿删除！！！
+			group_points = AccountHasGroupPoint.objects.filter(user_id=user_profile.user_id)
+			rebate_proports = AccountHasRebateProport.objects.filter(user_id=user_profile.user_id)
 			self_user_names = []
-			# if group_points and user_profile.purchase_method == 2:#采购方式:零售价返点
-			# 	for group_point in group_points:
-			# 		self_user_name = group_point.self_user_name
-			# 		self_user_names.append({
-			# 			'self_user_name': self_user_name,
-			# 			self_user_name+'_value': group_point.group_points
-			# 			})
+			if group_points and user_profile.purchase_method == 2:#采购方式:零售价返点
+				for group_point in group_points:
+					self_user_name = group_point.self_user_name
+					self_user_names.append({
+						'self_user_name': self_user_name,
+						self_user_name+'_value': group_point.group_points
+						})
 
 			rebates = []
-			# if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
-			# 	for rebate_proport in rebate_proports:
-			# 		if rebate_proport.order_money_condition:
-			# 			rebates.append({
-			# 				'order_money_condition': '%.f' %rebate_proport.order_money_condition,
-			# 				'rebate_proport_condition': rebate_proport.rebate_proport_condition,
-			# 				'default_rebate_proport_condition': rebate_proport.default_rebate_proport_condition,
-			# 				'validate_from_condition': rebate_proport.valid_time_from.strftime("%Y-%m-%d %H:%M"),
-			# 				'validate_to_condition': rebate_proport.valid_time_to.strftime("%Y-%m-%d %H:%M")
-			# 				})
+			if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
+				for rebate_proport in rebate_proports:
+					if rebate_proport.order_money_condition:
+						rebates.append({
+							'order_money_condition': '%.f' %rebate_proport.order_money_condition,
+							'rebate_proport_condition': rebate_proport.rebate_proport_condition,
+							'default_rebate_proport_condition': rebate_proport.default_rebate_proport_condition,
+							'validate_from_condition': rebate_proport.valid_time_from.strftime("%Y-%m-%d %H:%M"),
+							'validate_to_condition': rebate_proport.valid_time_to.strftime("%Y-%m-%d %H:%M")
+							})
 			if user_profile.role == CUSTOMER:
 				user_profile_data = {
 					'id': user_profile.id,
@@ -90,12 +90,12 @@ class AccountCreate(resource.Resource):
 					'rebates': [] if not rebates else json.dumps(rebates)
 				}
 				#注释代码 请勿删除！！！
-				# if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
-				# 	for rebate_proport in rebate_proports:
-				# 		if rebate_proport.order_money:
-				# 			user_profile_data['order_money'] = '%.2f' %rebate_proport.order_money
-				# 			user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
-				# 			user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
+				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
+					for rebate_proport in rebate_proports:
+						if rebate_proport.order_money:
+							user_profile_data['order_money'] = '%.2f' %rebate_proport.order_money
+							user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
+							user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
 			else:
 				user_profile_data = {
 					'id': user_profile.id,
@@ -161,38 +161,38 @@ class AccountCreate(resource.Resource):
 			if account_type == '1':
 				points = 0 if not points else float(points)
 				#注释代码 请勿删除！！！
-				# if self_user_names and purchase_method== 2: #采购方式:零售价返点
-				# 	self_user_names = json.loads(self_user_names)
-				# 	list_create = []
-				# 	for self_user in self_user_names:
-				# 		self_user_name = str(self_user['self_user_name'])
-				# 		list_create.append(AccountHasGroupPoint(
-				# 			user_id = user_id,
-				# 			self_user_name = self_user_name,
-				# 			points = points,
-				# 			group_points = float(self_user[self_user_name+'_value'])
-				# 		))
-				# 	AccountHasGroupPoint.objects.bulk_create(list_create)
-				# if purchase_method== 3: #采购方式:首月55分成
-				# 	AccountHasRebateProport.objects.create(
-				# 		user_id = user_id,
-				# 		order_money = order_money,
-				# 		rebate_proport = rebate_proport,
-				# 		default_rebate_proport = default_rebate_proport
-				# 	)
-				# 	if rebates:
-				# 		rebates = json.loads(rebates)
-				# 		list_create = []
-				# 		for rebate in rebates:
-				# 			list_create.append(AccountHasRebateProport(
-				# 				user_id = user_id,
-				# 				valid_time_from = rebate['validate_from_condition'],
-				# 				valid_time_to = rebate['validate_to_condition'],
-				# 				order_money_condition = rebate['order_money_condition'],
-				# 				rebate_proport_condition = rebate['rebate_proport_condition'],
-				# 				default_rebate_proport_condition = rebate['default_rebate_proport_condition']
-				# 			))
-				# 		AccountHasRebateProport.objects.bulk_create(list_create)
+				if self_user_names and purchase_method== 2: #采购方式:零售价返点
+					self_user_names = json.loads(self_user_names)
+					list_create = []
+					for self_user in self_user_names:
+						self_user_name = str(self_user['self_user_name'])
+						list_create.append(AccountHasGroupPoint(
+							user_id = user_id,
+							self_user_name = self_user_name,
+							points = points,
+							group_points = float(self_user[self_user_name+'_value'])
+						))
+					AccountHasGroupPoint.objects.bulk_create(list_create)
+				if purchase_method== 3: #采购方式:首月55分成
+					AccountHasRebateProport.objects.create(
+						user_id = user_id,
+						order_money = order_money,
+						rebate_proport = rebate_proport,
+						default_rebate_proport = default_rebate_proport
+					)
+					if rebates:
+						rebates = json.loads(rebates)
+						list_create = []
+						for rebate in rebates:
+							list_create.append(AccountHasRebateProport(
+								user_id = user_id,
+								valid_time_from = rebate['validate_from_condition'],
+								valid_time_to = rebate['validate_to_condition'],
+								order_money_condition = rebate['order_money_condition'],
+								rebate_proport_condition = rebate['rebate_proport_condition'],
+								default_rebate_proport_condition = rebate['default_rebate_proport_condition']
+							))
+						AccountHasRebateProport.objects.bulk_create(list_create)
 
 				user_profile.update(
 					company_name = company_name,
@@ -299,41 +299,41 @@ class AccountCreate(resource.Resource):
 				)
 
 				#注释代码 请勿删除！！！
-				# if self_user_names and purchase_method== 2: #采购方式:零售价返点
-				# 	self_user_names = json.loads(self_user_names)
-				# 	AccountHasGroupPoint.objects.filter(user_id=user_id).delete()
-				# 	list_create = []
-				# 	for self_user in self_user_names:
-				# 		self_user_name = str(self_user['self_user_name'])
-				# 		list_create.append(AccountHasGroupPoint(
-				# 			user_id = user_id,
-				# 			self_user_name = self_user_name,
-				# 			points = points,
-				# 			group_points = float(self_user[self_user_name+'_value'])
-				# 		))
-				# 	AccountHasGroupPoint.objects.bulk_create(list_create)
+				if self_user_names and purchase_method== 2: #采购方式:零售价返点
+					self_user_names = json.loads(self_user_names)
+					AccountHasGroupPoint.objects.filter(user_id=user_id).delete()
+					list_create = []
+					for self_user in self_user_names:
+						self_user_name = str(self_user['self_user_name'])
+						list_create.append(AccountHasGroupPoint(
+							user_id = user_id,
+							self_user_name = self_user_name,
+							points = points,
+							group_points = float(self_user[self_user_name+'_value'])
+						))
+					AccountHasGroupPoint.objects.bulk_create(list_create)
 
-				# if purchase_method== 3: #采购方式:首月55分成
-				# 	AccountHasRebateProport.objects.filter(user_id=user_id).delete()
-				# 	AccountHasRebateProport.objects.create(
-				# 		user_id = user_id,
-				# 		order_money = order_money,
-				# 		rebate_proport = rebate_proport,
-				# 		default_rebate_proport = default_rebate_proport
-				# 	)
-				# 	if rebates:
-				# 		rebates = json.loads(rebates)
-				# 		list_create = []
-				# 		for rebate in rebates:
-				# 			list_create.append(AccountHasRebateProport(
-				# 				user_id = user_id,
-				# 				valid_time_from = rebate['validate_from_condition'],
-				# 				valid_time_to = rebate['validate_to_condition'],
-				# 				order_money_condition = rebate['order_money_condition'],
-				# 				rebate_proport_condition = rebate['rebate_proport_condition'],
-				# 				default_rebate_proport_condition = rebate['default_rebate_proport_condition']
-				# 			))
-				# 		AccountHasRebateProport.objects.bulk_create(list_create)
+				if purchase_method== 3: #采购方式:首月55分成
+					AccountHasRebateProport.objects.filter(user_id=user_id).delete()
+					AccountHasRebateProport.objects.create(
+						user_id = user_id,
+						order_money = order_money,
+						rebate_proport = rebate_proport,
+						default_rebate_proport = default_rebate_proport
+					)
+					if rebates:
+						rebates = json.loads(rebates)
+						list_create = []
+						for rebate in rebates:
+							list_create.append(AccountHasRebateProport(
+								user_id = user_id,
+								valid_time_from = rebate['validate_from_condition'],
+								valid_time_to = rebate['validate_to_condition'],
+								order_money_condition = rebate['order_money_condition'],
+								rebate_proport_condition = rebate['rebate_proport_condition'],
+								default_rebate_proport_condition = rebate['default_rebate_proport_condition']
+							))
+						AccountHasRebateProport.objects.bulk_create(list_create)
 
 				supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
 				if supplier:

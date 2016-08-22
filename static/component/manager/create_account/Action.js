@@ -50,12 +50,12 @@ var Action = {
 			username: data['username'],
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
-			note: data['note']
-			// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
-			// rebates: JSON.stringify(data['rebates']),
-			// order_money: data['order_money'],
-			// rebate_proport: data['rebate_proport'],
-			// default_rebate_proport: data['default_rebate_proport']
+			note: data['note'],
+			self_user_names: JSON.stringify(data['self_user_names']),
+			rebates: JSON.stringify(data['rebates']),
+			order_money: data['order_money'],
+			rebate_proport: data['rebate_proport'],
+			default_rebate_proport: data['default_rebate_proport']
 		};
 		if (data.id === -1) {
 			Resource.put({
