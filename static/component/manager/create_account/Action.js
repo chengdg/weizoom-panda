@@ -39,23 +39,24 @@ var Action = {
 	saveAccount: function(data) {
 		var account_info = {
 			name: data['name'],
-			company_name: data['company_name'],
-			company_type: JSON.stringify(data['company_type']),
-			purchase_method: data['purchase_method'],
+			company_name: data['companyName'],
+			company_type: JSON.stringify(data['companyType']),
+			purchase_method: data['purchaseMethod'],
 			points: data['points'],
 			contacter: data['contacter'],
 			phone: data['phone'],
-			valid_time_from: data['valid_time_from'],
-			valid_time_to: data['valid_time_to'],
+			valid_time_from: data['validTimeFrom'],
+			valid_time_to: data['validTimeTo'],
 			username: data['username'],
 			password: data['password'],
-			account_type: parseInt(data['account_type']),
-			note: data['note']
-			// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
-			// rebates: JSON.stringify(data['rebates']),
-			// order_money: data['order_money'],
-			// rebate_proport: data['rebate_proport'],
-			// default_rebate_proport: data['default_rebate_proport']
+			account_type: parseInt(data['accountType']),
+			note: data['note'],
+			self_user_names: JSON.stringify(data['selfUserNames']),
+			rebates: JSON.stringify(data['rebates']),
+			order_money: data['orderMoney'],
+			rebate_proport: data['rebateProport'],
+			default_rebate_proport: data['defaultRebateProport'],
+            max_product: data['maxProduct']
 		};
 		if (data.id === -1) {
 			Resource.put({
@@ -95,11 +96,11 @@ var Action = {
 		}
 	},
 
-	addSelfShop: function(self_user_name){
+	addSelfShop: function(selfUserName){
 		Dispatcher.dispatch({
 			actionType: Constant.ADD_SELF_SHOP,
 			data: {
-				self_user_name: self_user_name
+				selfUserName: selfUserName
 			}
 		});
 	},

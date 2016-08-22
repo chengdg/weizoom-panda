@@ -52,7 +52,6 @@ var AccountManagePage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
-		console.log(Store.getData().filterOptions,"--------");
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);
 	},
@@ -129,7 +128,7 @@ var AccountManagePage = React.createClass({
 						<Reactman.FormInput label="登录名:" name="username" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="账号类型:" name="account_type" options={typeOptions} match="=" />
+						<Reactman.FormSelect label="账号类型:" name="accountType" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -141,10 +140,12 @@ var AccountManagePage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="账号名称" field="name" />
+					<Reactman.TableColumn name="客户来源" field="customerFrom" />
 					<Reactman.TableColumn name="登录名" field="username" />
-					<Reactman.TableColumn name="经营类目" field="company_type" />
-					<Reactman.TableColumn name="采购方式" field="purchase_method" />
-					<Reactman.TableColumn name="类型" field="account_type" />
+					<Reactman.TableColumn name="经营类目" field="companyType" />
+					<Reactman.TableColumn name="采购方式" field="purchaseMethod" />
+					<Reactman.TableColumn name="最多上传商品数" field="maxProduct" />
+					<Reactman.TableColumn name="类型" field="accountType" />
 					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>

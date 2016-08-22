@@ -17,7 +17,7 @@ var AddGroupPointDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return {
-			'self_user_name': ''
+			'selfUserName': ''
 		};
 	},
 
@@ -32,23 +32,23 @@ var AddGroupPointDialog = Reactman.createDialog({
 
 	onBeforeCloseDialog: function(){
 		var _this = this;
-		var selfUserNames = this.state.self_user_names;
-		var is_true = false;
+		var selfUserNames = this.state.selfUserNames;
+		var isChecked = false;
 		_.each(selfUserNames, function(userNames){
-			if(userNames.self_user_name == _this.state.self_user_name){
-				is_true = true;
+			if(userNames.selfUserName == _this.state.selfUserName){
+				isChecked = true;
 			}
 		})
 
-		if(is_true){
+		if(isChecked){
 			Reactman.PageAction.showHint('error', '该自营平台已选,请重新选择!');
 			return;
 		}
 		
-		if (this.state.self_user_name == '') {
+		if (this.state.selfUserName == '') {
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
-			Action.addSelfShop(this.state.self_user_name);
+			Action.addSelfShop(this.state.selfUserName);
 			_.delay(function(){
 				_this.closeDialog();
 			},200)
@@ -91,7 +91,7 @@ var AddGroupPointDialog = Reactman.createDialog({
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<Reactman.FormSelect label="选择平台:" name="self_user_name" options={typeOptions} value={this.state.self_user_name} onChange={this.onChange}/>				
+						<Reactman.FormSelect label="选择平台:" name="selfUserName" options={typeOptions} value={this.state.selfUserName} onChange={this.onChange}/>				
 					</fieldset>
 				</form>
 			</div>

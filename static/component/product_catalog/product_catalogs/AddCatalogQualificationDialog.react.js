@@ -16,13 +16,13 @@ var Action = require('./Action');
 var AddCatalogQualificationDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		var qualification_infos = JSON.parse(this.props.data.qualification_infos);
-		var catalog_id = this.props.data.catalog_id;
+		var qualificationInfos = JSON.parse(this.props.data.qualificationInfos);
+		var catalogId = this.props.data.catalogId;
 		return {
-			'models': qualification_infos,
-			qualification_infos: qualification_infos,
-			name: qualification_infos,
-			catalog_id: catalog_id
+			'models': qualificationInfos,
+			qualificationInfos: qualificationInfos,
+			name: qualificationInfos,
+			catalogId: catalogId
 		}
 	},
 	onChange: function(value, event) {
@@ -42,16 +42,16 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 		})
 	},
 	onClickAddModel: function(event) {
-		Action.addCatalogQualification(this.state.qualification_infos);
+		Action.addCatalogQualification(this.state.qualificationInfos);
 	},
 	onDeleteModel: function(index) {
-		Action.deleteCatalogQualification(index,this.state.qualification_infos);
+		Action.deleteCatalogQualification(index,this.state.qualificationInfos);
 	},
 	onBeforeCloseDialog: function() {
 		Reactman.Resource.put({
 			resource: 'product_catalog.qualification',
 			data: {
-                catalog_id: this.state.catalog_id,
+                catalog_id: this.state.catalogId,
 				qualification_infos: JSON.stringify(this.state.models)
 			},
 			success: function() {
@@ -67,7 +67,7 @@ var AddCatalogQualificationDialog = Reactman.createDialog({
 		})
 	},
 	render:function(){
-		var models = this.state.qualification_infos;
+		var models = this.state.qualificationInfos;
 		var cModels = '';
 		if (models) {
 			var _this = this;

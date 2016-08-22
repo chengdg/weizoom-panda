@@ -35,7 +35,7 @@ STATUS_NOT_IN_VALID_TIME = 2
 METHOD = (
 	(1, u'固定底价'),
 	(2, u'零售价返点'),
-	(3, u'以货抵款')
+	(3, u'首月55分成')
 )
 METHOD2NAME = dict(METHOD)
 
@@ -62,6 +62,8 @@ class UserProfile(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 	pre_sale_tel = models.CharField(max_length=32, default='') #售前电话
 	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
+	max_product = models.IntegerField(default=3) #最多可创建商品
+	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
 
 	class Meta(object):
 		db_table = 'account_user_profile'
@@ -125,3 +127,15 @@ class AccountHasRebateProport(models.Model):
 
 	class Meta(object):
 		db_table = 'account_has_rebate_proport'
+
+
+class AccountRebateProportRelation(models.Model):
+	"""
+	采购方式:首月55分成(中间关系)
+	"""
+	panda_proport_id = models.IntegerField()
+	weapp_divide_id = models.IntegerField()
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'account_rebate_relation'

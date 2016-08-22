@@ -172,7 +172,7 @@ html, body {
 	font-weight: bold;
 }
 .form-inline .col-sm-2 {
-	width: auto;
+	width: auto !important;
 }
 .form-inline .col-sm-5 {
 	width: auto;

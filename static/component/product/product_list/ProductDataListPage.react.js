@@ -58,15 +58,23 @@ var ProductDataListPage = React.createClass({
 	},
 
 	onValidateAddProduct: function(){
-		Action.ProductCategory();
-		Reactman.PageAction.showDialog({
-			title: "请选择商品分类",
-			component: AddProductCategoryDialog,
-			data: {},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
+		var can_created = W.can_created;
+
+		if (can_created == 'False') {
+			Reactman.PageAction.showHint('error', '商品数量已经到达上限!');
+		} else {
+			Action.ProductCategory();
+			Reactman.PageAction.showDialog({
+				title: "请选择商品分类",
+				component: AddProductCategoryDialog,
+				data: {},
+				success: function(inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		}
+
+		
 		// W.gotoPage('/product/new_product/?second_level_id='+0);
 	},
 
@@ -160,7 +168,7 @@ var ProductDataListPage = React.createClass({
 				page: 1
 			}
 		};
-
+		
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>

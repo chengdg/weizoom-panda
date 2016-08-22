@@ -132,14 +132,17 @@ class BusinessApply(resource.Resource):
 			customer_number = 'DL'+ datetime.now().strftime("%Y") + "%06d" % business.id
 		business.customer_number = customer_number
 		business.save()
+		
 		#创建特殊资质，把提交的资质信息与商家关联起来
+		need_upload_qualification_ids = [str(qualification.id) for qualification in product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id__in=data_page_3['selectedSortIds'])]
 		for upload_qualification in upload_qualifications:
-			business_qualification = models.BusinessQualification.objects.create(
-				business_id = business.id,
-				qualification_id = upload_qualification['qualification_id'],
-				path = upload_qualification['path'],
-				qualification_time = upload_qualification['time'] if upload_qualification['time'] !='' else None
-			)
+			if upload_qualification['qualification_id'] in need_upload_qualification_ids:
+				business_qualification = models.BusinessQualification.objects.create(
+					business_id = business.id,
+					qualification_id = upload_qualification['qualification_id'],
+					path = upload_qualification['path'],
+					qualification_time = upload_qualification['time'] if upload_qualification['time'] !='' else None
+				)
 		response = create_response(200)
 		return response.get_response()
 

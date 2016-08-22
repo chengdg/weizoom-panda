@@ -20,8 +20,8 @@ import nav
 import models
 from account.models import *
 from product import models as product_models
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST, ZEUS_HOST
+from panda.settings import CESHI_USERNAMES
 
 
 FIRST_NAV = 'order'
@@ -51,10 +51,15 @@ class YunyingOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		username = User.objects.get(id=request.user.id).username
+		is_ceshi = False
+		if username in CESHI_USERNAMES:
+			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'is_ceshi': is_ceshi
 		})
 
 		return render_to_response('order/yunying_orders_list.html', c)
@@ -324,13 +329,13 @@ class YunyingOrdersList(resource.Resource):
 		if customer_name:
 			all_sellers = UserProfile.objects.filter(role=CUSTOMER,
 													 name__icontains=customer_name)
-			account_ids = [seller.user_id for seller in all_sellers]
+			account_ids = [seller.id for seller in all_sellers]
 			# 获取该客户下旧的供货商id获取到
-			old_user_ids = [-seller.user_id for seller in all_sellers]
-			old_supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=old_user_ids)]
+			account_ids += [-seller.id for seller in all_sellers]
+			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(account_id__in=account_ids)]
 
-			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
-			supplier_ids = old_supplier_ids + supplier_ids
+			# supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
+			# supplier_ids = old_supplier_ids + supplier_ids
 			# print 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW', supplier_ids
 			# 如果根据名字获取不到供应商，就直接返回none
 			if not supplier_ids:
@@ -430,7 +435,8 @@ class YunyingOrdersList(resource.Resource):
 								 'from_mall': [order.get('store_name')],
 								 'order_status': order_status2text.get(order.get('status')),
 								 'product_name': '\n'.join(temp_product_name),
-								 'customer_name': [user_profile.name if user_profile else '']})
+								 'customer_name': [user_profile.name if user_profile else ''],
+								 'postage': '%.2f' %order.get('postage')})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
 					pageinfo = paginator.paginate_by_count(resp.get('data').get('count'),

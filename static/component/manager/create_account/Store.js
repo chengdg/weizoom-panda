@@ -31,36 +31,46 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.data = Reactman.loadJSON('user_profile_data');
 		if (this.data) {
-			this.data['account_type'] = String(this.data['account_type']);
-			// this.data['self_user_names'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
-			if (this.data['account_type'] == '1'){
-				this.data['purchase_method'] = String(this.data['purchase_method']);
-				this.data['company_type'] = JSON.parse(this.data['company_type']);
-				this.data['options_for_type'] = [];
-				if (this.data['purchase_method'] != '2'){
+			this.data['accountType'] = String(this.data['account_type']);
+			if (this.data['accountType'] == '1'){
+				this.data['companyName'] = this.data['company_name'];
+				this.data['purchaseMethod'] = String(this.data['purchase_method']);
+				this.data['companyType'] = JSON.parse(this.data['company_type']);
+				this.data['optionsForType'] = [];
+				this.data['validTimeFrom'] = this.data['valid_time_from'];
+				this.data['validTimeTo'] = this.data['valid_time_to'];
+				if (this.data['purchaseMethod'] != '2'){
 					this.data['points'] = '';
 				}
+				if (this.data['purchaseMethod'] == '3'){
+					this.data['orderMoney'] = this.data['order_money'];
+					this.data['rebateProport'] = this.data['rebate_proport'];
+					this.data['defaultRebateProport'] = this.data['default_rebate_proport'];
+				}
 				this.data['rebates'] = this.data['rebates'].length>0?JSON.parse(this.data['rebates']): [];
+				this.data['selfUserNames'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
+				this.data['maxProduct'] = this.data['max_product'];
 			}
 		} else {
 			this.data = {
 				'id':-1,
-				'account_type':'1',
-				'purchase_method': '2',
-				'company_type': [],
-				'options_for_type': [],
-				'self_user_names': [],
+				'accountType':'1',
+				'purchaseMethod': '2',
+				'companyType': [],
+				'optionsForType': [],
+				'selfUserNames': [],
 				'points': '',
 				'rebates': [],
-				'order_money': 1000,
-				'rebate_proport': 50,
-				'default_rebate_proport': 5
+				'orderMoney': '',
+				'rebateProport': '',
+				'defaultRebateProport': '',
+				'maxProduct': 3
 			};
 		}
 	},
 
 	handleSelect: function(action) {
-		this.data['options_for_type'] = action.data.rows;
+		this.data['optionsForType'] = action.data.rows;
 		this.__emitChange();
 	},
 
@@ -75,7 +85,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleAddSelfShop: function(action){
 		var selfUserName = action.data.self_user_name;
-
 		var selfShop = this.data.self_user_names;
 		var self_obj = {
 			'self_user_name': selfUserName
@@ -100,9 +109,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		oldRebates.push({
 			'validate_from_condition':'',
 			'validate_to_condition':'',
-			'order_money_condition': 1000,
-			'rebate_proport_condition': 50,
-			'default_rebate_proport_condition': 5
+			'order_money_condition': '',
+			'rebate_proport_condition': '',
+			'default_rebate_proport_condition': ''
 		})
 		this.data.rebates = oldRebates;
 		this.__emitChange();

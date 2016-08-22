@@ -22,7 +22,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
 		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
-		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT
+		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
+		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT
 	},
 
 	init: function() {
@@ -87,14 +88,24 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleChooseAllSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
-
-		if(selectSelfShop.length==19){
-			selectSelfShop = [];
+		if(W.is_ceshi){
+			if(selectSelfShop.length==22){
+				selectSelfShop = [];
+			}else{
+				selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
+					'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
+					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy','devceshi','caiwuceshi'];
+			}
 		}else{
-			selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
-			'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
-			'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan'];
+			if(selectSelfShop.length==20){
+				selectSelfShop = [];
+			}else{
+				selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
+					'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
+					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy'];
+			}
 		}
+		
 
 		this.data.selectSelfShop = selectSelfShop;
 		this.__emitChange();
@@ -102,6 +113,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleCancleSelectSyncProduct: function(){
 		this.data.selectSelfShop = [];
+		this.__emitChange();
+	},
+
+	handleDeleteProduct: function(){
+		console.log("----------");
 		this.__emitChange();
 	},
 

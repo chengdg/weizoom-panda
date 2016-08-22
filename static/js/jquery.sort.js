@@ -51,10 +51,18 @@ function selectB(p,c) {
 	var catalog_id = second_catalog_ids[p][c];
 	if($('.selectB_' + p + '_' + c + '').hasClass("active")){
 		$('.selectB_' + p + '_' + c + '').removeClass("active");
-
 		$('.selectedSort #'+catalog_id+'').remove();
 
-		$('.qualification-for-catalog-'+ catalog_id +'').remove();
+		//如果有特殊资质
+		if($('.qualification-for-catalog-'+ catalog_id +'').attr("class")){
+			var class_names  = $('.qualification-for-catalog-'+ catalog_id +'').attr("class").split(' ');
+			if(class_names.length >2){ //有重叠的特殊资质,只移除classname
+				$('.qualification-for-catalog-'+ catalog_id +'').removeClass('qualification-for-catalog-'+catalog_id+'');
+			}else{
+				$('.qualification-for-catalog-'+ catalog_id +'').remove();
+			}
+		}
+
 		if(!$('.selectB_' + p +'').hasClass("active")){
 			$("#sort1 li").eq(p).removeClass("active");//二级类目全部取消了选择，就把一级类目也取消选择
 		}
@@ -64,33 +72,37 @@ function selectB(p,c) {
 		$('.selectedSort').append('<span class="selectedSortSpan" id='+catalog_id+'>'+second_catalog[p][c]+'</span>');
 		//渲染所需特殊资质
 		if(catalog_qualifications[catalog_id].length > 0){
+			var need_upload_len = $('#apply_page_3_upload_field .form-group').length;
+			var already_has_title = [];
+			for( i = 0 ; i < need_upload_len ; i++){
+				already_has_title.push($('#apply_page_3_upload_field .form-group label').eq(i).text());
+			}
 			for(var i=0; i<catalog_qualifications[catalog_id].length; i++ ){
 				var catalog_qualification = catalog_qualifications[catalog_id][i];
-				var need_upload_len = $('#apply_page_3_upload_field .form-group').length;
-				var is_hide = '';
-
-				// var is_hide_1 = false;
-				// for( i = 0 ; i < need_upload_len ; i++){
-				// 	//如果目前已经存在这个特殊资质了，就只渲染到页面上，但是不再次显示了(hide)
-				// 	var already_has_title = $('#apply_page_3_upload_field .form-group label').eq(i).text();
-				// 	if(catalog_qualification['qualification_name'] == already_has_title){
-				// 		$('#apply_page_3_upload_field .form-group').eq(i).addClass('qualification-for-catalog-'+catalog_id+'');
-				// 		is_hide_1 = true;
-				// 	}
-				// }
-				// console.log(is_hide_1);
-				uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_id+''+is_hide+'">'+
-		            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="/static/img/no_pic.png" style="display:block">'+
-		            '<label for="catalog_qualification_'+catalog_qualification['qualification_id']+'">'+catalog_qualification['qualification_name']+'</label>'+
-		            '<span class="btn btn-primary fileinput-button">'+
-		                '<span>上传</span>'+
-		                '<input id="catalog_qualification_'+catalog_qualification['qualification_id']+'" type="file" name="image" class="xa-uploader" />'+
-		            '</span>'+
-		            '<div class="progress mt5 xa-progress xui-hide">'+
-		                '<div class="progress-bar progress-bar-success xa-bar"></div>'+
-		            '</div>'+
-		            '<input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-catalog_qualification_'+catalog_qualification['qualification_id']+'" data-date-format="yyyy-mm-dd hh:ii">'+
-		        '</div>'
+				var is_repeat = false;
+				for(var i in already_has_title){
+					if(catalog_qualification['qualification_name'] == already_has_title[i]){   //资质是否重复了
+						is_repeat = true;
+					}
+				}
+				if(!is_repeat){
+					uploadCont +='<div class="form-group qualification-for-catalog-'+catalog_id+'">'+
+			            '<img class="wui-upload-img wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'" src="/static/img/no_pic.png" style="display:block">'+
+			            '<label for="catalog_qualification_'+catalog_qualification['qualification_id']+'">'+catalog_qualification['qualification_name']+'</label>'+
+			            '<span class="btn btn-primary fileinput-button">'+
+			                '<span>上传</span>'+
+			                '<input id="catalog_qualification_'+catalog_qualification['qualification_id']+'" type="file" name="image" class="xa-uploader" />'+
+			            '</span>'+
+			            '<div class="progress mt5 xa-progress xui-hide">'+
+			                '<div class="progress-bar progress-bar-success xa-bar"></div>'+
+			            '</div>'+
+			            '<input class="form-control xui-datePicker xa-datePicker" type="text" value="到期时间" id="datetimepicker-catalog_qualification_'+catalog_qualification['qualification_id']+'" data-date-format="yyyy-mm-dd hh:ii">'+
+			        '</div>'
+				}else{
+					$('#apply_page_3_upload_field .form-group label').parent().addClass('qualification-for-catalog-'+catalog_id+'');
+					$('#apply_page_3_upload_field .form-group label').parent().find('img').addClass('wa-upload-img-catalog_qualification_'+catalog_qualification['qualification_id']+'');
+				}
+				
 			}
 			$("#apply_page_3_upload_field").append(uploadCont);
 

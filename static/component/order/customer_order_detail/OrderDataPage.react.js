@@ -82,7 +82,11 @@ var OrderDataPage = React.createClass({
 			return (
 				<div style={{margin:'20px 0 0 10px'}}>{value}(元)</div>
 			);
-		}else {
+		}else if(field === 'postage'){
+			return (
+				<div style={{margin:'20px 0 0 10px'}}>{value}(元)</div>
+			);
+		}else{
 			return value;
 		}
 	},
@@ -111,6 +115,7 @@ var OrderDataPage = React.createClass({
 								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
 								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
 								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+								<Reactman.TableColumn name="运费" field="postage" width='200px'/>
 							</Reactman.Table>
 						</Reactman.TablePanel>
 					</div>
@@ -128,6 +133,7 @@ var OrderDataPage = React.createClass({
 								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
 								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
 								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+								<Reactman.TableColumn name="运费" field="postage" width='200px'/>
 							</Reactman.Table>
 						</Reactman.TablePanel>
 					</div>
