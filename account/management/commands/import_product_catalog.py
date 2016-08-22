@@ -18,7 +18,7 @@ class Command(BaseCommand):
 		file_name_dir = '%s' %'./account/management/upload_file/import_product_catalog.xlsx'
 		table_title_list = []
 		data = xlrd.open_workbook(file_name_dir)
-		table = data.sheet_by_index(0)
+		table = data.sheet_by_index(1)
 		nrows = table.nrows              #行数
 		ncols = table.ncols                 #列数
 		print "-----start-s----"
@@ -28,19 +28,21 @@ class Command(BaseCommand):
 			for i in range(0,ncols):
 				data = table.cell(0, i).value
 				if data == u'商品名称':
-					index += 1
 					product_name = table.cell(cur_col,i).value.encode('utf8')
 
 				if data == u'二级分类':
-					catalog_name = table.cell(cur_col,i).value.encode('utf8')
+					index += 1
+					catalog_name = table.cell(cur_col,i).value
 
 			try:
-				product_catalog = catalog_models.ProductCatalog.objects.filter(name=catalog_name)
-				if product_catalog:
-					catalog_id = product_catalog[0].id
-					product_models.Product.objects.filter(product_name=product_name).update(
-						catalog_id = catalog_id
-					)
+				if catalog_name != 42:
+					catalog_name = catalog_name.encode('utf8')
+					product_catalog = catalog_models.ProductCatalog.objects.filter(name=catalog_name)
+					if product_catalog:
+						catalog_id = product_catalog[0].id
+						product_models.Product.objects.filter(product_name=product_name).update(
+							catalog_id = catalog_id
+						)
 					successs_index += 1
 			except Exception, e:
 				print index,"====error===="
