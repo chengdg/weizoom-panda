@@ -52,9 +52,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'self_user_names': [],
 				'points': '',
 				'rebates': [],
-				'order_money': 1000,
-				'rebate_proport': 50,
-				'default_rebate_proport': 5
+				'order_money': '',
+				'rebate_proport': '',
+				'default_rebate_proport': ''
 			};
 		}
 	},
@@ -100,9 +100,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		oldRebates.push({
 			'validate_from_condition':'',
 			'validate_to_condition':'',
-			'order_money_condition': 1000,
-			'rebate_proport_condition': 50,
-			'default_rebate_proport_condition': 5
+			'order_money_condition': '',
+			'rebate_proport_condition': '',
+			'default_rebate_proport_condition': ''
 		})
 		this.data.rebates = oldRebates;
 		this.__emitChange();

@@ -35,7 +35,7 @@ STATUS_NOT_IN_VALID_TIME = 2
 METHOD = (
 	(1, u'固定底价'),
 	(2, u'零售价返点'),
-	(3, u'以货抵款')
+	(3, u'首月55分成')
 )
 METHOD2NAME = dict(METHOD)
 

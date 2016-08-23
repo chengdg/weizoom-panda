@@ -157,7 +157,7 @@ var AccountInfo = React.createClass({
 			text: '零售价返点',
 			value: '2'
 		}, {
-			text: '以货抵款',
+			text: '首月55分成',
 			value: '3'
 		}];
 		
