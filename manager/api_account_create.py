@@ -121,14 +121,14 @@ class AccountCreateApi(resource.Resource):
 			response.errMsg = u'PANDA创建账号失败:'
 			return response.get_response()
 
-	@param_required(['account_id', 'new_password'])
+	@param_required(['account_id', 'password'])
 	def api_post(request):
 		"""
 		修改密码
 		"""
 		args = request.POST
 		account_id = args['account_id']
-		password = args['new_password']
+		password = args['password']
 		try:
 			user_profile = UserProfile.objects.get(id=account_id)
 			user_id = user_profile.user_id
