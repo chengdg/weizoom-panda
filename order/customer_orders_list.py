@@ -81,10 +81,17 @@ class CustomerOrdersList(resource.Resource):
 		image_ids = [product_image.image_id for product_image in product_images]
 		images = resource_models.Image.objects.filter(id__in=image_ids)
 
-		user_profile_id = account_models.UserProfile.objects.get(user_id=request.user.id).id
-		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
-		# 为了适配新逻辑
-		old_account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=-user_profile_id)
+		user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id).first()
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>', request.user.id
+		if user_profile:
+			user_profile_id = user_profile.id
+			account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
+			# 为了适配新逻辑
+			old_account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=-user_profile_id)
+		else:
+			account_has_suppliers = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id)
+			# 为了适配新逻辑
+			old_account_has_suppliers = account_models.AccountHasSupplier.objects.filter(user_id=-request.user.id)
 		account_has_suppliers = list(account_has_suppliers) + list(old_account_has_suppliers)
 		supplier_ids = []
 		api_pids = []
@@ -149,8 +156,8 @@ class CustomerOrdersList(resource.Resource):
 			filter_params['end_time'] = end_time
 
 		supplier_ids = '_'.join(supplier_ids)
-		print('supplier_ids:')
-		print(supplier_ids)
+		# print('supplier_ids:')
+		# print(supplier_ids)
 		rows = []
 		if supplier_ids != '':
 			#请求接口获得数据
