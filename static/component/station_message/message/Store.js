@@ -21,11 +21,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	init: function() {
-		this.data = {
-			'title': '',
-			'text': '',
-			'attachment': '',
-		};
+	    this.data = Reactman.loadJSON('message');
+	    console.log('=================================12')
+	    console.log(this.data)
+	    if(!this.data){
+	        this.data = {
+	            'id': -1,
+                'title': '',
+                'text': '',
+                'attachment': '',
+            };
+	    }
 	},
 
 	handleAddMessage: function(message) {

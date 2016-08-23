@@ -13,12 +13,10 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
 
-var StationMessageList = Reactman.createDialog({
+var StationMessageList = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return {
-
-		};
+		return Store.getData()
 	},
 
 	onChange: function(value, event) {
@@ -31,12 +29,29 @@ var StationMessageList = Reactman.createDialog({
 	onAddMessage: function(){
 	    W.gotoPage('/message/message');
 	},
+	onClickDelete: function(event){
+        var message_id = parseInt(event.target.getAttribute('data-id'));
+
+        Reactman.PageAction.showConfirm({
+			target: event.target,
+			title: '确认删除该消息吗?',
+			confirm: _.bind(function() {
+				Action.deleteMessage(message_id);
+			}, this)
+		});
+	},
+    onConfirmFilter:function(data){
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..3')
+        console.log(data)
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..4')
+    },
+
     rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			return (
 				<div>
 					<a className="btn btn-link btn-xs" target="_blank" href={'/message/message/?id='+data.id}>修改</a>
-					<a className="btn btn-link btn-xs">删除</a>
+					<a className="btn btn-link btn-xs" data-id={data.id} onClick={this.onClickDelete}>删除</a>
 				</div>
 			);
 		}else {
@@ -55,7 +70,7 @@ var StationMessageList = Reactman.createDialog({
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>
-							<Reactman.FormInput label="标题:" name="title" match="=" />
+							<Reactman.FormInput label="标题:" name="title_query" match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 				</Reactman.FilterPanel>

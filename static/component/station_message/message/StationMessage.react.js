@@ -13,7 +13,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
 
-var AddSelfShopDialog = Reactman.createDialog({
+var AddSelfShopDialog = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return Store.getData();

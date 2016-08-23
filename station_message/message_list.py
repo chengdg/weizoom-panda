@@ -49,8 +49,32 @@ class ProductCatalog(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		messages = message_models.Message.objects.filter(is_deleted=False).order_by('-created_at')
 
-		page_messages = paginator.paginate(messages, cur_page, 20)
+		page_infos, page_messages = paginator.paginate(messages, cur_page, 2)
+		# page_messages = page_infos[1]
 		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
-		print page_messages
+		print page_messages[0]
 		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
-		return None
+		message_to_text = dict([(message.id, message.text_id) for message in page_messages])
+		texts = message_models.MessageText.objects.filter(id__in=message_to_text.values())
+		text_id_to_info = dict([(text.id, {'title': text.title, 'text': text.text}) for text in texts])
+		results = []
+		for temp_msg in page_messages:
+			text_info = text_id_to_info.get(message_to_text.get(temp_msg.id))
+			temp_dict = {
+				'title': text_info.get('title'),
+				'text': text_info.get('text'),
+				'created_at': temp_msg.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+				'id': temp_msg.id
+			}
+			results.append(temp_dict)
+		# return results, page_infos
+
+		data = {
+			'rows': results,
+			'pagination_info': page_infos.to_dict()
+		}
+
+		# 构造response
+		response = create_response(200)
+		response.data = data
+		return response.get_response()

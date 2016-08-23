@@ -31,6 +31,11 @@ def top_navs(request):
 				'displayName': '商家设置',
 				'icon': 'list-alt',
 				'href': '/freight_service/freight/'
+			},{
+				'name': 'message',
+				'displayName': '站内消息',
+				'icon': 'glyphicon glyphicon-comment',
+				'href': '/message/customer_messages'
 			}]
 		elif role == AGENCY:
 			top_navs = [{
