@@ -6,8 +6,6 @@ Feature:用户通过商品名称过滤商品列表
 	2.运营账号通过条件过滤商品列表
 """
 Background:
-	Given jobs登录管理系统
-	When jobs添加账号
 	Given manager登录管理系统
 	When manager添加账号
 	"""
