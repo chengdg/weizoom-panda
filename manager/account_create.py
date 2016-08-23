@@ -297,7 +297,7 @@ class AccountCreate(resource.Resource):
 					valid_time_to = valid_time_to
 				)
 
-				if self_user_names and purchase_method== 2: #采购方式:零售价返点
+				if self_user_names and purchase_method == 2: #采购方式:零售价返点
 					self_user_names = json.loads(self_user_names)
 					AccountHasGroupPoint.objects.filter(user_id=user_id).delete()
 					list_create = []
@@ -311,7 +311,7 @@ class AccountCreate(resource.Resource):
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
 
-				if purchase_method== 3: #采购方式:首月55分成
+				if purchase_method == 3: #采购方式:首月55分成
 					AccountHasRebateProport.objects.filter(user_id=user_id).delete()
 					AccountHasRebateProport.objects.create(
 						user_id = user_id,

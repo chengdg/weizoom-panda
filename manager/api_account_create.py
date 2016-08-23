@@ -25,13 +25,16 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from product_catalog import models as product_catalog_models
 from manager.account_create import check_username_valid
 
-#创建账号
+
 class AccountCreateApi(resource.Resource):
 	app = 'panda'
 	resource = 'account_create'
-
+	
 	@param_required(['name', 'username', 'password', 'company_name', 'company_type', 'purchase_method', 'contacter', 'phone', 'valid_time_from', 'valid_time_to'])
     def put(args):
+		"""
+		新建账号
+		"""
         name = args['name']
         username = args['username']
         password = args['password']
@@ -128,6 +131,32 @@ class AccountCreateApi(resource.Resource):
                 'result': 'FAILED',
                 'msg': u"PANDA创建账号失败"
             }
+
+    @param_required(['account_id', 'new_password'])
+    def post(args):
+    	"""
+		修改密码
+		"""
+		account_id = args['account_id']
+		password = args['new_password']
+		try:
+			user_profile = UserProfile.objects.get(id=account_id)
+			user_id = user_profile.user_id
+			user = User.objects.get(id=user_id)
+			user.set_password(password)
+			user.save()
+			return {
+                'result': 'SUCCESS',
+                'msg': u"修改密码成功"
+            }
+		except Exception,e:
+			print(e)
+			print('===========================')
+			return {
+                'result': 'FAILED',
+                'msg': u"该账号不存在"
+            }
+
 
 
 class GetAllFirstCatalog(resource.Resource):
