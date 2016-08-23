@@ -48,8 +48,9 @@ class AccountCreate(resource.Resource):
 		jsons = {'items':[]}
 		if user_profile_id:
 			user_profile = UserProfile.objects.get(id=user_profile_id)
-			# 注释代码 请勿删除！！！
+			# 采购方式:零售价返点(团购扣点)
 			group_points = AccountHasGroupPoint.objects.filter(user_id=user_profile.user_id)
+			# 采购方式:首月55分成
 			rebate_proports = AccountHasRebateProport.objects.filter(user_id=user_profile.user_id)
 			self_user_names = []
 			if group_points and user_profile.purchase_method == 2:#采购方式:零售价返点
@@ -65,7 +66,7 @@ class AccountCreate(resource.Resource):
 				for rebate_proport in rebate_proports:
 					if rebate_proport.order_money_condition:
 						rebates.append({
-							'order_money_condition': '%.f' %rebate_proport.order_money_condition,
+							'order_money_condition': '%.0f' %rebate_proport.order_money_condition,
 							'rebate_proport_condition': rebate_proport.rebate_proport_condition,
 							'default_rebate_proport_condition': rebate_proport.default_rebate_proport_condition,
 							'validate_from_condition': rebate_proport.valid_time_from.strftime("%Y-%m-%d %H:%M"),
@@ -89,11 +90,10 @@ class AccountCreate(resource.Resource):
 					'self_user_names': [] if not self_user_names else json.dumps(self_user_names),
 					'rebates': [] if not rebates else json.dumps(rebates)
 				}
-				#注释代码 请勿删除！！！
 				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
 					for rebate_proport in rebate_proports:
 						if rebate_proport.order_money:
-							user_profile_data['order_money'] = '%.2f' %rebate_proport.order_money
+							user_profile_data['order_money'] = '%.0f' %rebate_proport.order_money
 							user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
 							user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
 			else:
@@ -160,7 +160,6 @@ class AccountCreate(resource.Resource):
 			)
 			if account_type == '1':
 				points = 0 if not points else float(points)
-				#注释代码 请勿删除！！！
 				if self_user_names and purchase_method== 2: #采购方式:零售价返点
 					self_user_names = json.loads(self_user_names)
 					list_create = []
@@ -298,7 +297,6 @@ class AccountCreate(resource.Resource):
 					valid_time_to = valid_time_to
 				)
 
-				#注释代码 请勿删除！！！
 				if self_user_names and purchase_method== 2: #采购方式:零售价返点
 					self_user_names = json.loads(self_user_names)
 					AccountHasGroupPoint.objects.filter(user_id=user_id).delete()

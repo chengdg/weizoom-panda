@@ -109,7 +109,7 @@ var PurchaseMethod = React.createClass({
 				<div>
 					<div className="profilts-dialog" style={{display:'inline-block'}}>
 						<span style={{display:'inline-block'}}>首月(商品上架后30天含内)或金额不大于</span>
-						<Reactman.FormInput label="" type="text" name="order_money" validate="require-price" value={this.state.order_money} onChange={this.props.onChange} />
+						<Reactman.FormInput label="" type="text" name="order_money" validate="require-positive-int" value={this.state.order_money} onChange={this.props.onChange} />
 						<span>元前提下，返点比例为</span>
 						<Reactman.FormInput label="" type="text" name="rebate_proport" validate="require-percent" value={this.state.rebate_proport} onChange={this.props.onChange} />
 						<span>%，否则，将按</span>
