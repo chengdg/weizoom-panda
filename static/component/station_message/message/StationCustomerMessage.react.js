@@ -40,7 +40,8 @@ var AddSelfShopDialog = React.createClass({
             );
         });
 		return (
-		    <div className="xui-formPage ">
+		<div>
+		    <div className="xui-message ">
                 <div className="title">
                     <span >{this.state.title}</span>
                 </div>
@@ -54,7 +55,7 @@ var AddSelfShopDialog = React.createClass({
                     附件:{at_url}
                 </div>
             </div>
-
+        </div>
 		)
 	}
 })
