@@ -52,7 +52,7 @@ var AddSelfShopDialog = React.createClass({
                     <div className="" dangerouslySetInnerHTML={{__html: output}}></div>
                 </div>
                 <div className='attachment' >
-                    附件:{at_url}
+                    附件：{at_url}
                 </div>
             </div>
         </div>
