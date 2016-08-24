@@ -19818,35 +19818,35 @@
 	var Resource = __webpack_require__(249);
 	var Validater = __webpack_require__(260);
 	var W = __webpack_require__(265);
-	var User = __webpack_require__(475);
+	var User = __webpack_require__(495);
 
-	var FormInput = __webpack_require__(476);
-	var FormRangeInput = __webpack_require__(477);
-	var FormDateTimeInput = __webpack_require__(478);
-	var FormDateRangeInput = __webpack_require__(481);
-	var FormSelect = __webpack_require__(482);
-	var FormSubmit = __webpack_require__(483);
-	var FormRadio = __webpack_require__(484);
-	var FormCheckbox = __webpack_require__(485);
-	var FormText = __webpack_require__(486);
-	var FormRichTextInput = __webpack_require__(487);
-	var FormImageUploader = __webpack_require__(492);
-	var FormFileUploader = __webpack_require__(495);
-	var Table = __webpack_require__(498);
-	var TablePanel = __webpack_require__(507);
-	var TableActionBar = __webpack_require__(508);
-	var TableActionButton = __webpack_require__(509);
-	var TableColumn = __webpack_require__(510);
-	var TableAction = __webpack_require__(504);
-	var Tabs = __webpack_require__(511);
-	var Tab = __webpack_require__(514);
-	var Pagination = __webpack_require__(499);
-	var FilterPanel = __webpack_require__(515);
-	var FilterRow = __webpack_require__(521);
-	var FilterField = __webpack_require__(522);
+	var FormInput = __webpack_require__(496);
+	var FormRangeInput = __webpack_require__(497);
+	var FormDateTimeInput = __webpack_require__(498);
+	var FormDateRangeInput = __webpack_require__(501);
+	var FormSelect = __webpack_require__(502);
+	var FormSubmit = __webpack_require__(503);
+	var FormRadio = __webpack_require__(504);
+	var FormCheckbox = __webpack_require__(505);
+	var FormText = __webpack_require__(506);
+	var FormRichTextInput = __webpack_require__(507);
+	var FormImageUploader = __webpack_require__(512);
+	var FormFileUploader = __webpack_require__(515);
+	var Table = __webpack_require__(518);
+	var TablePanel = __webpack_require__(527);
+	var TableActionBar = __webpack_require__(528);
+	var TableActionButton = __webpack_require__(529);
+	var TableColumn = __webpack_require__(530);
+	var TableAction = __webpack_require__(524);
+	var Tabs = __webpack_require__(531);
+	var Tab = __webpack_require__(534);
+	var Pagination = __webpack_require__(519);
+	var FilterPanel = __webpack_require__(535);
+	var FilterRow = __webpack_require__(541);
+	var FilterField = __webpack_require__(542);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(523);
-	var Chart = __webpack_require__(526);
+	var Widget = __webpack_require__(543);
+	var Chart = __webpack_require__(546);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -34492,7 +34492,38 @@
 		"./self_shop/manage/SelfShopManagePage.react.js": 474,
 		"./self_shop/manage/Store": 471,
 		"./self_shop/manage/Store.js": 471,
-		"./self_shop/manage/style.css": 472
+		"./self_shop/manage/style.css": 472,
+		"./station_message/customer_messages/Action": 475,
+		"./station_message/customer_messages/Action.js": 475,
+		"./station_message/customer_messages/Attachments.react": 477,
+		"./station_message/customer_messages/Attachments.react.js": 477,
+		"./station_message/customer_messages/Constant": 476,
+		"./station_message/customer_messages/Constant.js": 476,
+		"./station_message/customer_messages/StationMessages.react": 481,
+		"./station_message/customer_messages/StationMessages.react.js": 481,
+		"./station_message/customer_messages/Store": 478,
+		"./station_message/customer_messages/Store.js": 478,
+		"./station_message/customer_messages/style.css": 479,
+		"./station_message/message/Action": 482,
+		"./station_message/message/Action.js": 482,
+		"./station_message/message/Constant": 483,
+		"./station_message/message/Constant.js": 483,
+		"./station_message/message/StationCustomerMessage.react": 484,
+		"./station_message/message/StationCustomerMessage.react.js": 484,
+		"./station_message/message/StationMessage.react": 488,
+		"./station_message/message/StationMessage.react.js": 488,
+		"./station_message/message/Store": 485,
+		"./station_message/message/Store.js": 485,
+		"./station_message/message/style.css": 486,
+		"./station_message/message_list/Action": 489,
+		"./station_message/message_list/Action.js": 489,
+		"./station_message/message_list/Constant": 490,
+		"./station_message/message_list/Constant.js": 490,
+		"./station_message/message_list/StationMessageList.react": 491,
+		"./station_message/message_list/StationMessageList.react.js": 491,
+		"./station_message/message_list/Store": 492,
+		"./station_message/message_list/Store.js": 492,
+		"./station_message/message_list/style.css": 493
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -46424,6 +46455,907 @@
 /* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(476);
+
+	var Action = {
+
+	    deleteMessage: function (message_id) {
+
+	        Reactman.Resource.delete({
+	            resource: 'message.message',
+	            data: {
+	                message_id: message_id
+	            },
+	            success: function () {
+	                Reactman.PageAction.showHint('success', 'SUCCESS!');
+	                Dispatcher.dispatch({
+	                    actionType: Constant.MESSAGE_FILTER,
+	                    data: {}
+	                });
+	            },
+	            error: function () {
+	                Reactman.PageAction.showHint('error', 'FAILED!');
+	            }
+	        });
+	    }
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  ADD_REBATE_VALUE: null,
+	  MESSAGE_FILTER: null
+	});
+
+/***/ },
+/* 477 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(478);
+	var Constant = __webpack_require__(476);
+	var Action = __webpack_require__(475);
+	__webpack_require__(479);
+
+	var Attachments = React.createClass({
+		displayName: 'Attachments',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return Store.getData().attachments;
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		render: function () {
+
+			return React.createElement(
+				'div',
+				{ className: 'mt15 xui-product-productListPage' },
+				React.createElement(
+					Reactman.TablePanel,
+					null,
+					React.createElement(Reactman.TableActionBar, null),
+					React.createElement(
+						Reactman.Table,
+						{ resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+						React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' })
+					)
+				)
+			);
+		}
+	});
+	module.exports = Attachments;
+
+/***/ },
+/* 478 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(476);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			//		'handleAddRebateValue': Constant.ADD_REBATE_VALUE,
+		},
+
+		init: function () {
+			this.data = {};
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 479 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(480);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.bold_text{\r\n    font-weight:bold;\r\n    text-decoration: none;\r\n}\r\n.red_color{\r\n    color:red;\r\n}\r\n.grey_text {\r\n    color:#747474;\r\n}\r\n.href_color {\r\n    color:#404040;\r\n}\r\n\r\n.href_color_gray {\r\n    color:#747474;\r\n}\r\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 481 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(478);
+	var Constant = __webpack_require__(476);
+	var Action = __webpack_require__(475);
+	__webpack_require__(479);
+
+	var StationMessageList = React.createClass({
+	  displayName: 'StationMessageList',
+
+	  getInitialState: function () {
+	    Store.addListener(this.onChangeStore);
+	    return Store.getData();
+	  },
+
+	  onChange: function (value, event) {
+	    var property = event.target.getAttribute('name');
+	  },
+
+	  onChangeStore: function () {
+	    this.setState(Store.getData());
+	  },
+
+	  rowFormatter: function (field, value, data) {
+	    if (data.status == 0) {
+	      var status = '(未读)';
+	    } else {
+	      var status = '';
+	    }
+	    if (data.status == 0) {
+	      if (field === 'title') {
+	        var href = '/message/read_message?message_id=' + data.id;
+	        return React.createElement(
+	          'div',
+	          { className: 'bold_text' },
+	          React.createElement(
+	            'a',
+	            { href: href, className: 'href_color' },
+	            React.createElement(
+	              'span',
+	              { className: 'red_color' },
+	              status
+	            ),
+	            value
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'bold_text' },
+	          value
+	        );
+	      }
+	    } else {
+	      if (field === 'title') {
+	        var href = '/message/read_message?message_id=' + data.id;
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          React.createElement(
+	            'a',
+	            { href: href, className: 'href_color_gray' },
+	            value
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          value
+	        );
+	      }
+	    }
+	  },
+	  render: function () {
+	    var messagesResource = {
+	      resource: 'message.customer_messages',
+	      data: {
+	        page: 1
+	      }
+	    };
+	    return React.createElement(
+	      'div',
+	      { className: 'mt15 xui-product-productListPage' },
+	      React.createElement(
+	        Reactman.TablePanel,
+	        null,
+	        React.createElement(Reactman.TableActionBar, null),
+	        React.createElement(
+	          Reactman.Table,
+	          { resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+	          React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+	          React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = StationMessageList;
+
+/***/ },
+/* 482 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(483);
+
+	var Action = {
+
+	    addMessage: function (message) {
+	        if (message.id <= 0) {
+	            Reactman.Resource.put({
+	                resource: 'message.message',
+	                data: {
+	                    title: message.title,
+	                    text: message.text,
+	                    attachment: JSON.stringify(message.attachment)
+	                },
+	                success: function () {
+	                    Reactman.PageAction.showHint('success', '创建消息成功!');
+	                    W.gotoPage('/message/message_list');
+	                },
+	                error: function () {
+	                    Reactman.PageAction.showHint('error', '创建消息失败!');
+	                },
+	                dispatch: {
+	                    dispatcher: Dispatcher,
+	                    actionType: Constant.ADD_MESSAGE
+	                }
+	            });
+	        } else {
+	            Reactman.Resource.post({
+	                resource: 'message.message',
+	                data: {
+	                    title: message.title,
+	                    text: message.text,
+	                    attachment: JSON.stringify(message.attachment),
+	                    message_id: message.id
+	                },
+	                success: function () {
+	                    Reactman.PageAction.showHint('success', 'SUCCESS!');
+	                    W.gotoPage('/message/message_list');
+	                },
+	                error: function () {
+	                    Reactman.PageAction.showHint('error', 'FAILED!');
+	                },
+	                dispatch: {
+	                    dispatcher: Dispatcher,
+	                    actionType: Constant.ADD_MESSAGE
+	                }
+	            });
+	        }
+	    },
+	    updateMessage: function (property, value) {
+	        Dispatcher.dispatch({
+	            actionType: Constant.UPDATE_MESSAGE,
+	            data: {
+	                property: property,
+	                value: value
+	            }
+	        });
+	    }
+
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 483 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  ADD_MESSAGE: null
+	});
+
+/***/ },
+/* 484 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(485);
+	var Constant = __webpack_require__(483);
+	var Action = __webpack_require__(482);
+	__webpack_require__(486);
+
+	var AddSelfShopDialog = React.createClass({
+	  displayName: 'AddSelfShopDialog',
+
+	  getInitialState: function () {
+	    Store.addListener(this.onChangeStore);
+	    return Store.getData();
+	  },
+
+	  onChange: function (value, event) {
+	    var property = event.target.getAttribute('name');
+	    Action.updateMessage(property, value);
+	  },
+
+	  onChangeStore: function () {
+	    this.setState(Store.getData());
+	  },
+
+	  render: function () {
+	    var remark = this.state.text;
+	    var converter = document.createElement("DIV");
+	    converter.innerHTML = remark;
+	    var output = converter.innerText;
+	    var attachments = this.state.attachments;
+	    var at_url = attachments.map(function (attachment, index) {
+	      return React.createElement(
+	        'a',
+	        { href: attachment.path, download: true },
+	        attachment.filename
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'xui-message ' },
+	        React.createElement(
+	          'div',
+	          { className: 'title' },
+	          React.createElement(
+	            'span',
+	            null,
+	            this.state.title
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'time' },
+	          React.createElement(
+	            'span',
+	            null,
+	            this.state.created_at
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'text' },
+	          React.createElement('div', { className: '', dangerouslySetInnerHTML: { __html: output } })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'attachment' },
+	          '附件：',
+	          at_url
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = AddSelfShopDialog;
+
+/***/ },
+/* 485 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(483);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleAddMessage': Constant.ADD_MESSAGE,
+			'handleUpdateMessage': Constant.UPDATE_MESSAGE
+		},
+
+		init: function () {
+			this.data = Reactman.loadJSON('message');
+			console.log('=================================12');
+			console.log(this.data);
+			if (!this.data) {
+				this.data = {
+					'title': '',
+					'text': '',
+					'create_at': '',
+					'attachments': ''
+				};
+			}
+		},
+
+		handleAddMessage: function (message) {
+
+			//        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>message');
+			console.log(message);
+			W.gotoPage('/message/message_list');
+		},
+		handleUpdateMessage: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(487);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.product-detail{\r\n    width: 640px;\r\n\r\n    margin: auto auto;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    height: 730px;\r\n}\r\n\r\n.title{\r\n    font-weight:bold;\r\n    display: block;\r\n    margin: auto auto;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tfont-size: 16px;\r\n\twidth: 1200px;\r\n    margin-top:15px;\r\n}\r\n\r\n.time{\r\n    display: block;\r\n    width: 1200px;\r\n    margin: auto;\r\n    margin-top: 10px;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tfont-size: 12px;\r\n\tcolor:#747474;\r\n\tborder-bottom: 1px solid rgba(204, 204, 204, 0.25);\r\n\tpadding-bottom: 5px;\r\n}\r\n.text{\r\n    display: block;\r\n    width: 1200px;\r\n    margin: auto auto;\r\n    margin-top:20px;\r\n}\r\n.script{\r\n    display: block;\r\n    width: 1200px;\r\n    margin-left:150px;\r\n    margin-top:30px;\r\n}\r\n.attachment{\r\n    display: block;\r\n    width: 1200px;\r\n\r\n    margin: auto ;\r\n    margin-top:20px;\r\n    margin-bottom:20px;\r\n}\r\n.xui-message{\r\n\r\n    margin: auto auto;\r\n    margin-top:50px;\r\n    width: 1300px;\r\n    border: 1px solid rgba(204, 204, 204, 0.25);\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(485);
+	var Constant = __webpack_require__(483);
+	var Action = __webpack_require__(482);
+	__webpack_require__(486);
+
+	var AddSelfShopDialog = React.createClass({
+		displayName: 'AddSelfShopDialog',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return Store.getData();
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.updateMessage(property, value);
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+		},
+
+		onSubmit: function () {
+
+			Action.addMessage(this.state);
+		},
+		render: function () {
+
+			return React.createElement(
+				'div',
+				{ className: 'xui-outlineData-page xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(
+							'legend',
+							{ className: 'pl10 pt10 pb10' },
+							'站内信'
+						),
+						React.createElement(Reactman.FormInput, { label: '标题:', name: 'title', validate: 'require-string', placeholder: '', value: this.state.title, onChange: this.onChange }),
+						React.createElement(Reactman.FormRichTextInput, { label: '商品详情', name: 'text', width: 800, validate: 'require-notempty', value: this.state.text, onChange: this.onChange }),
+						React.createElement(Reactman.FormFileUploader, { label: '附件:', name: 'attachment', value: this.state.attachment, onChange: this.onChange, max: 3 }),
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '保 存' })
+					)
+				)
+			);
+		}
+	});
+	module.exports = AddSelfShopDialog;
+
+/***/ },
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var Resource = Reactman.Resource;
+
+	var Constant = __webpack_require__(490);
+
+	var Action = {
+	    deleteMessage: function (message_id) {
+	        Reactman.Resource.delete({
+	            resource: 'message.message',
+	            data: {
+	                message_id: message_id
+	            },
+	            success: function () {
+	                Reactman.PageAction.showHint('success', '操作成功!');
+	                Dispatcher.dispatch({
+	                    actionType: Constant.MESSAGE_FILTER,
+	                    data: {
+	                        'models': [message_id]
+	                    }
+	                });
+	            },
+	            error: function () {
+	                Reactman.PageAction.showHint('error', '操作失败!');
+	            }
+	        });
+	    }
+	};
+
+	module.exports = Action;
+
+/***/ },
+/* 490 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var keyMirror = __webpack_require__(251);
+
+	module.exports = keyMirror({
+	  ADD_REBATE_VALUE: null,
+	  MESSAGE_FILTER: null
+	});
+
+/***/ },
+/* 491 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var W = Reactman.W;
+
+	var Store = __webpack_require__(492);
+	var Constant = __webpack_require__(490);
+	var Action = __webpack_require__(489);
+	__webpack_require__(493);
+
+	var StationMessageList = React.createClass({
+		displayName: 'StationMessageList',
+
+		getInitialState: function () {
+			Store.addListener(this.onChangeStore);
+			return Store.getData();
+		},
+
+		onChangeStore: function () {
+			this.setState(Store.getData());
+			this.refs.table.refresh();
+		},
+
+		onAddMessage: function () {
+			W.gotoPage('/message/message');
+		},
+
+		onClickDelete: function (event) {
+			var message_id = parseInt(event.target.getAttribute('data-id'));
+
+			Reactman.PageAction.showConfirm({
+				target: event.target,
+				title: '确认删除该消息吗?',
+				confirm: _.bind(function () {
+					Action.deleteMessage(message_id);
+				}, this)
+			});
+		},
+
+		rowFormatter: function (field, value, data) {
+			if (field === 'action') {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'a',
+						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/message/message/?id=' + data.id },
+						'修改'
+					),
+					React.createElement(
+						'a',
+						{ className: 'btn btn-link btn-xs', 'data-id': data.id, onClick: this.onClickDelete },
+						'删除'
+					)
+				);
+			} else {
+				return value;
+			}
+		},
+
+		render: function () {
+			//		console.log("=====");
+			var messagesResource = {
+				resource: 'message.message_list',
+				data: {
+					page: 1
+				}
+			};
+
+			return React.createElement(
+				'div',
+				{ className: 'mt15 xui-stationMessage-StationMessageList' },
+				React.createElement(
+					Reactman.TablePanel,
+					null,
+					React.createElement(
+						Reactman.TableActionBar,
+						null,
+						React.createElement(Reactman.TableActionButton, { text: '添加站内信', icon: 'plus', onClick: this.onAddMessage })
+					),
+					React.createElement(
+						Reactman.Table,
+						{ resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+						React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
+					)
+				)
+			);
+		}
+	});
+	module.exports = StationMessageList;
+
+/***/ },
+/* 492 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var EventEmitter = __webpack_require__(301).EventEmitter;
+	var assign = __webpack_require__(302);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(490);
+
+	var Store = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			//		'handleAddRebateValue': Constant.ADD_REBATE_VALUE,
+			'handleMessageFilter': Constant.MESSAGE_FILTER
+		},
+
+		init: function () {
+			this.data = {
+				'models': []
+			};
+		},
+
+		handleMessageFilter: function (action) {
+			this.data.models = action.data.models;
+			this.__emitChange();
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = Store;
+
+/***/ },
+/* 493 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(494);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
@@ -46450,7 +47382,7 @@
 	module.exports = new User();
 
 /***/ },
-/* 476 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46534,7 +47466,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 477 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46638,7 +47570,7 @@
 	module.exports = FormRangeInput;
 
 /***/ },
-/* 478 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46651,7 +47583,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(479);
+	__webpack_require__(499);
 
 	var FormDateTimeInput = React.createClass({
 		displayName: 'FormDateTimeInput',
@@ -46768,13 +47700,13 @@
 	module.exports = FormDateTimeInput;
 
 /***/ },
-/* 479 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(480);
+	var content = __webpack_require__(500);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -46794,7 +47726,7 @@
 	}
 
 /***/ },
-/* 480 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -46808,7 +47740,7 @@
 
 
 /***/ },
-/* 481 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46968,7 +47900,7 @@
 	module.exports = FormDateRangeInput;
 
 /***/ },
-/* 482 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47063,7 +47995,7 @@
 	module.exports = FormSelect;
 
 /***/ },
-/* 483 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47115,7 +48047,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 484 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47189,7 +48121,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 485 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47300,7 +48232,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 486 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47394,7 +48326,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 487 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47407,7 +48339,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var UEditor = __webpack_require__(488);
+	var UEditor = __webpack_require__(508);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -47509,7 +48441,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 488 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47517,7 +48449,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(489).inherits;
+	var inherits = __webpack_require__(509).inherits;
 	var EventEmitter = __webpack_require__(301).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -47797,7 +48729,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 489 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -48290,7 +49222,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(490);
+	exports.isBuffer = __webpack_require__(510);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -48327,7 +49259,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(491);
+	exports.inherits = __webpack_require__(511);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -48347,7 +49279,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 490 */
+/* 510 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -48355,7 +49287,7 @@
 	};
 
 /***/ },
-/* 491 */
+/* 511 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -48383,7 +49315,7 @@
 	}
 
 /***/ },
-/* 492 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48397,7 +49329,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(493);
+	__webpack_require__(513);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -48537,13 +49469,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 493 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(494);
+	var content = __webpack_require__(514);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -48563,7 +49495,7 @@
 	}
 
 /***/ },
-/* 494 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -48577,7 +49509,7 @@
 
 
 /***/ },
-/* 495 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48591,7 +49523,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(496);
+	__webpack_require__(516);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -48738,13 +49670,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 496 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(497);
+	var content = __webpack_require__(517);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -48764,7 +49696,7 @@
 	}
 
 /***/ },
-/* 497 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -48778,7 +49710,7 @@
 
 
 /***/ },
-/* 498 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -48792,15 +49724,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(499);
+	var Pagination = __webpack_require__(519);
 	var System = __webpack_require__(265);
 
-	var Store = __webpack_require__(502);
-	var Action = __webpack_require__(504);
-	var Constant = __webpack_require__(503);
+	var Store = __webpack_require__(522);
+	var Action = __webpack_require__(524);
+	var Constant = __webpack_require__(523);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(505);
+	__webpack_require__(525);
 
 	var Old = null;
 
@@ -49147,7 +50079,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 499 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49160,7 +50092,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(500);
+	__webpack_require__(520);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -49305,13 +50237,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 500 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(501);
+	var content = __webpack_require__(521);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -49331,7 +50263,7 @@
 	}
 
 /***/ },
-/* 501 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -49345,7 +50277,7 @@
 
 
 /***/ },
-/* 502 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -49359,7 +50291,7 @@
 
 	var StoreUtil = __webpack_require__(303);
 
-	var Constant = __webpack_require__(503);
+	var Constant = __webpack_require__(523);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -49460,7 +50392,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 503 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -49475,7 +50407,7 @@
 	});
 
 /***/ },
-/* 504 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -49484,7 +50416,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(503);
+	var Constant = __webpack_require__(523);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -49551,13 +50483,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 505 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(506);
+	var content = __webpack_require__(526);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -49577,7 +50509,7 @@
 	}
 
 /***/ },
-/* 506 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -49591,7 +50523,7 @@
 
 
 /***/ },
-/* 507 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49635,7 +50567,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 508 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49661,7 +50593,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 509 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49700,7 +50632,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 510 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49722,7 +50654,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 511 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49735,7 +50667,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(512);
+	__webpack_require__(532);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -49798,13 +50730,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 512 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(513);
+	var content = __webpack_require__(533);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -49824,7 +50756,7 @@
 	}
 
 /***/ },
-/* 513 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -49838,7 +50770,7 @@
 
 
 /***/ },
-/* 514 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49942,7 +50874,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 515 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49957,12 +50889,12 @@
 
 	var System = __webpack_require__(265);
 
-	var Store = __webpack_require__(516);
-	var Action = __webpack_require__(518);
-	var Constant = __webpack_require__(517);
+	var Store = __webpack_require__(536);
+	var Action = __webpack_require__(538);
+	var Constant = __webpack_require__(537);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(519);
+	__webpack_require__(539);
 
 	var matchMap = {
 		'=': 'equal',
@@ -50156,7 +51088,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 516 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -50169,7 +51101,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(303);
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(537);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -50223,7 +51155,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 517 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -50237,14 +51169,14 @@
 	});
 
 /***/ },
-/* 518 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(537);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -50270,13 +51202,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 519 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(520);
+	var content = __webpack_require__(540);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -50296,7 +51228,7 @@
 	}
 
 /***/ },
-/* 520 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -50310,7 +51242,7 @@
 
 
 /***/ },
-/* 521 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50354,7 +51286,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 522 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50366,9 +51298,9 @@
 	var debug = __webpack_require__(235)('reactman:FilterField');
 	var classNames = __webpack_require__(239);
 
-	var FormInput = __webpack_require__(476);
+	var FormInput = __webpack_require__(496);
 
-	__webpack_require__(519);
+	__webpack_require__(539);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -50399,7 +51331,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 523 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50412,7 +51344,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(524);
+	__webpack_require__(544);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -50443,13 +51375,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 524 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(525);
+	var content = __webpack_require__(545);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -50469,7 +51401,7 @@
 	}
 
 /***/ },
-/* 525 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -50483,7 +51415,7 @@
 
 
 /***/ },
-/* 526 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -50497,12 +51429,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(527);
-	var Action = __webpack_require__(529);
-	var Constant = __webpack_require__(528);
+	var Store = __webpack_require__(547);
+	var Action = __webpack_require__(549);
+	var Constant = __webpack_require__(548);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(530);
+	__webpack_require__(550);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -50580,7 +51512,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 527 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -50596,7 +51528,7 @@
 
 	var StoreUtil = __webpack_require__(303);
 
-	var Constant = __webpack_require__(528);
+	var Constant = __webpack_require__(548);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -50622,7 +51554,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 528 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -50635,7 +51567,7 @@
 	});
 
 /***/ },
-/* 529 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -50646,7 +51578,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(528);
+	var Constant = __webpack_require__(548);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -50668,13 +51600,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 530 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(531);
+	var content = __webpack_require__(551);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -50694,7 +51626,7 @@
 	}
 
 /***/ },
-/* 531 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
