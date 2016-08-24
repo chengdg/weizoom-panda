@@ -14,6 +14,7 @@ from core import resource
 import models as message_models
 from resource import models as resource_models
 import nav
+from util import string_util
 
 FIRST_NAV = 'message'
 SECOND_NAV = 'message_list'
@@ -55,7 +56,7 @@ class ProductCatalog(resource.Resource):
 				'attachment': attachments,
 				'id': message_id,
 				'title': title,
-				'text': text,
+				'text': string_util.raw_html(text),
 			}),))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,

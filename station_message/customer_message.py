@@ -19,6 +19,7 @@ from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
 import models as message_models
 from resource import models as resource_models
 import nav
+from util import string_util
 
 FIRST_NAV = 'message'
 SECOND_NAV = 'message_list'
@@ -64,7 +65,7 @@ class CustomerMessage(resource.Resource):
 
 		jsons['items'].append(('message', json.dumps({
 			'title': title,
-			'text': text,
+			'text': string_util.raw_html(text),
 			'created_at': created_at,
 			'attachments': attachments
 		}),))
