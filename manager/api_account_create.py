@@ -46,10 +46,12 @@ class AccountCreateApi(resource.Resource):
 		valid_time_from = args['valid_time_from']
 		valid_time_to = args['valid_time_to']
 		note = args.get('note', '')
-		points = args.get('points', 0)
-		order_money = args.get('order_money', 0)
-		rebate_proport = args.get('rebate_proport', 0)
-		default_rebate_proport = args.get('default_rebate_proport', 0)
+
+		#默认采购方式只是固定低价
+		# points = args.get('points', 0)
+		# order_money = args.get('order_money', 0)
+		# rebate_proport = args.get('rebate_proport', 0)
+		# default_rebate_proport = args.get('default_rebate_proport', 0)
 
 		if not check_username_valid(username):
 			response = create_response(500)
@@ -68,8 +70,7 @@ class AccountCreateApi(resource.Resource):
 				note = note,
 				company_name = company_name,
 				company_type = company_type,
-				purchase_method = purchase_method,
-				points = points,
+				purchase_method = 1, #默认采购方式只是固定低价
 				contacter = contacter,
 				phone = phone,
 				valid_time_from = valid_time_from,
