@@ -20,7 +20,7 @@ var Action = {
                 message_id: message_id,
             },
             success: function() {
-                Reactman.PageAction.showHint('success', 'SUCCESS!');
+                Reactman.PageAction.showHint('success', '操作成功!');
                 Dispatcher.dispatch({
 						actionType: Constant.MESSAGE_FILTER,
 						data: {
@@ -29,7 +29,7 @@ var Action = {
 					});
             },
             error: function() {
-                Reactman.PageAction.showHint('error', 'FAILED!');
+                Reactman.PageAction.showHint('error', '操作失败!');
             }
         })
 	}
