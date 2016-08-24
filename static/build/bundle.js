@@ -46941,35 +46941,39 @@
 	        });
 	        return React.createElement(
 	            'div',
-	            { className: 'xui-formPage ' },
+	            null,
 	            React.createElement(
 	                'div',
-	                { className: 'title' },
+	                { className: 'xui-message ' },
 	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.title
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'time' },
+	                    'div',
+	                    { className: 'title' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        this.state.title
+	                    )
+	                ),
 	                React.createElement(
-	                    'span',
-	                    null,
-	                    this.state.created_at
+	                    'div',
+	                    { className: 'time' },
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        this.state.created_at
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'text' },
+	                    React.createElement('div', { className: '', dangerouslySetInnerHTML: { __html: output } })
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'attachment' },
+	                    '附件:',
+	                    at_url
 	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'text' },
-	                React.createElement('div', { className: '', dangerouslySetInnerHTML: { __html: output } })
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'attachment' },
-	                '附件:',
-	                at_url
 	            )
 	        );
 	    }
@@ -47069,7 +47073,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.product-detail{\n    width: 640px;\n\n    margin: auto auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.title{\n    font-weight:bold;\n    display: block;\n    margin: auto auto;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 16px;\n\twidth: 800px;\n\tmargin-top:150px;\n}\n\n.time{\n    display: block;\n    width: 800px;\n    margin: auto auto;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 12px;\n\tcolor:#747474;\n\tborder-bottom: 1px solid #CCC;\n}\n.text{\n    display: block;\n    width: 800px;\n    margin: auto auto;\n    margin-top:20px;\n}\n.script{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.attachment{\n    display: block;\n    width: 800px;\n\n    margin: auto auto;\n    margin-top:20px;\n}", ""]);
+	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.product-detail{\n    width: 640px;\n\n    margin: auto auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.title{\n    font-weight:bold;\n    display: block;\n    margin: auto auto;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 16px;\n\twidth: 1200px;\n    margin-top:15px;\n}\n\n.time{\n    display: block;\n    width: 1200px;\n    margin: auto;\n    margin-top: 10px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 12px;\n\tcolor:#747474;\n\tborder-bottom: 1px solid rgba(204, 204, 204, 0.25);\n\tpadding-bottom: 5px;\n}\n.text{\n    display: block;\n    width: 1200px;\n    margin: auto auto;\n    margin-top:20px;\n}\n.script{\n    display: block;\n    width: 1200px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.attachment{\n    display: block;\n    width: 1200px;\n\n    margin: auto ;\n    margin-top:20px;\n    margin-bottom:20px;\n}\n.xui-message{\n\n    margin: auto auto;\n    margin-top:50px;\n    width: 1300px;\n    border: 1px solid rgba(204, 204, 204, 0.25);\n}", ""]);
 
 	// exports
 
