@@ -46971,7 +46971,7 @@
 	                React.createElement(
 	                    'div',
 	                    { className: 'attachment' },
-	                    '附件:',
+	                    '附件：',
 	                    at_url
 	                )
 	            )
