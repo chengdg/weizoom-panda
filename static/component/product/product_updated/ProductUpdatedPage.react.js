@@ -87,7 +87,7 @@ var ProductUpdatedPage = React.createClass({
 			return(
 				<span className="product-name">
 					{img}
-					<a title={value} style={colorStyle} href={'/product/new_product/?id='+data.id}>{value}</a>
+					<a title={value} style={colorStyle} href={'/product/product_contrast/?id='+data.id}>{value}</a>
 				</span>
 			)
 		} else if (field === 'catalog_name') {

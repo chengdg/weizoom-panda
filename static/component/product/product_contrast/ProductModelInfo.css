@@ -1,0 +1,30 @@
+.model-table-tr td{
+    width: 170px;
+    padding: 8px 0 8px 0px !important;
+}
+
+td div.form-group {
+    margin: 0;
+    width: 100%;
+    margin-left: 0 !important;
+}
+
+td div.form-group div{
+    width: 80%;
+    padding-right: 0px;
+}
+
+td div.form-group div input{
+	width: 100%;
+	padding: 1px !important;
+}
+
+.edui-default .edui-editor{
+    width: 419px !important;
+}
+
+.form-horizontal{
+    display: inline-block;
+    width: 600px;
+    margin-right: 70px;
+}

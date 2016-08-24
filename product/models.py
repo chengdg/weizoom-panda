@@ -33,6 +33,25 @@ class Product(models.Model):
 		db_table = 'product_product'
 
 
+class OldProduct(models.Model):
+	"""
+	已修改商品旧信息
+	"""
+	product_id = models.IntegerField(default=0)
+	product_name = models.CharField(max_length=50, null=True)  #商品名称
+	promotion_title = models.CharField(max_length=50, null=True)  #促销标题
+	product_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #商品价格 (元)
+	clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #结算价 (元)
+	product_weight = models.FloatField(default=0)  #商品重量 (kg)
+	product_store = models.IntegerField(default=0)  #商品库存 默认-1{大于0: 有限 ,-1:无限}
+	remark = models.TextField(null=True)  #备注
+	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
+	has_product_model = models.BooleanField(default=False) #是否是多规格商品
+	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
+
+	class Meta(object):
+		db_table = 'old_product'
+
 
 class ProductImage(models.Model):
 	"""

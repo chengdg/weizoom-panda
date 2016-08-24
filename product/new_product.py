@@ -297,6 +297,61 @@ class NewProduct(resource.Resource):
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark)
+		
+		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+		old_product_name = product.product_name
+		old_promotion_title = product.promotion_title
+		old_product_price = '%.2f' %product.product_price
+		old_clear_price = '%.2f' %product.clear_price
+		old_product_weight = str(product.product_weight)
+		old_product_store = int(product.product_store)
+		old_remark = string_util.raw_html(product.remark)
+		old_has_product_model = product.has_product_model
+		old_catalog_id = product.catalog_id
+
+		print type(old_product_weight),type(product_weight),"========"
+
+		models.OldProduct.objects.filter(product_id = product.id).delete()
+		models.OldProduct.objects.create(product_id = product.id)
+		if old_product_name != product_name:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				product_name = old_product_name
+			)
+		if old_promotion_title != promotion_title:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				promotion_title = old_promotion_title
+			)
+		if old_product_price != product_price:
+			print "========",type(str(product_price))
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				product_price = old_product_price
+			)
+		if old_clear_price != clear_price:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				clear_price = old_clear_price
+			)
+		if old_product_weight != product_weight:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				product_weight = old_product_weight
+			)
+		if old_product_store != int(product_store):
+			print old_product_store,"==222==========="
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				product_store = old_product_store
+			)
+		if old_remark != remark:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				remark = old_remark
+			)
+		if old_has_product_model != has_product_model:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				has_product_model = old_has_product_model
+			)
+		if old_catalog_id != second_level_id:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				catalog_id = old_catalog_id
+			)
+
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
@@ -388,6 +443,7 @@ class NewProduct(resource.Resource):
 		sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
 								 source_product=source_product,
 								 new_properties=new_properties, old_properties=old_properties)
+
 		response = create_response(200)
 		return response.get_response()
 

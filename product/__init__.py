@@ -16,3 +16,4 @@ import second_category
 import model_details
 import product_updated
 import sync_product
+import product_contrast
