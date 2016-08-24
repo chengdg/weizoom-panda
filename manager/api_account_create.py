@@ -29,7 +29,6 @@ class AccountCreateApi(resource.Resource):
 	app = 'manager'
 	resource = 'account_create_api'
 	
-	@param_required(['name', 'username', 'password', 'company_name', 'company_type', 'purchase_method', 'contacter', 'phone', 'valid_time_from', 'valid_time_to'])
 	def api_put(request):
 		"""
 		新建账号
@@ -104,7 +103,6 @@ class AccountCreateApi(resource.Resource):
 							'account_id': user_profile[0].id
 						}
 						return response.get_response()
-					pass
 				else:
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
@@ -112,17 +110,18 @@ class AccountCreateApi(resource.Resource):
 					response.errMsg = u'ZEUS创建账号失败'
 					return response.get_response()
 			except Exception,e:
+				print e
 				User.objects.filter(id=user_id).delete()
 				UserProfile.objects.filter(user_id=user_id).delete()
 				response = create_response(500)
 				response.errMsg = u'PANDA创建账号失败'
 				return response.get_response()
 		except Exception,e:
+			print e
 			response = create_response(500)
 			response.errMsg = u'PANDA创建账号失败'
 			return response.get_response()
 
-	@param_required(['account_id', 'password'])
 	def api_post(request):
 		"""
 		修改密码
@@ -140,6 +139,7 @@ class AccountCreateApi(resource.Resource):
 			response.data = u"修改密码成功"
 			return response.get_response()
 		except Exception,e:
+			print e
 			response = create_response(200)
 			response.data = u"该账号不存在"
 			return response.get_response()
