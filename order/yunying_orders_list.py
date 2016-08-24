@@ -324,13 +324,13 @@ class YunyingOrdersList(resource.Resource):
 		if customer_name:
 			all_sellers = UserProfile.objects.filter(role=CUSTOMER,
 													 name__icontains=customer_name)
-			account_ids = [seller.user_id for seller in all_sellers]
+			account_ids = [seller.id for seller in all_sellers]
 			# 获取该客户下旧的供货商id获取到
-			old_user_ids = [-seller.user_id for seller in all_sellers]
-			old_supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=old_user_ids)]
+			account_ids += [-seller.id for seller in all_sellers]
+			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(account_id__in=account_ids)]
 
-			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
-			supplier_ids = old_supplier_ids + supplier_ids
+			# supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
+			# supplier_ids = old_supplier_ids + supplier_ids
 			# print 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW', supplier_ids
 			# 如果根据名字获取不到供应商，就直接返回none
 			if not supplier_ids:

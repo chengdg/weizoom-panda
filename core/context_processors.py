@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from account.models import *
+from station_message import models as message_model
 #===============================================================================
 # top_navs : 获得top nav集合
 #===============================================================================
@@ -9,6 +10,20 @@ def top_navs(request):
 	try:
 		role = UserProfile.objects.get(user_id=request.user.id).role
 		if role == CUSTOMER:
+			# 获取该登录用户有多少条站内信(未读)
+			# TODO 每次都查询有点不科学,想办法优化
+			user_messages = message_model.UserMessage.objects.filter(user_id=request.user.id)
+			all_user_message_id = [user_message.message_id for user_message in user_messages]
+
+			un_read_messages = user_messages.filter(status=0)
+			# 所有系统消息
+			all_sys_messages = message_model.Message.objects.filter(is_deleted=False,
+																	receive_id=-1)
+			all_sys_message_id = [m.id for m in all_sys_messages]
+			# 系统消息,但是未插入用户表的消息
+			un_insert_sys_message = list(set(all_sys_message_id) - set(all_user_message_id))
+			un_read_message_count = len(un_insert_sys_message) + len(un_read_messages)
+			message_title = '站内消息 (%s)' % un_read_message_count
 			top_navs = [{
 				'name': 'product',
 				'displayName': '商品',
@@ -31,6 +46,11 @@ def top_navs(request):
 				'displayName': '商家设置',
 				'icon': 'list-alt',
 				'href': '/freight_service/freight/'
+			},{
+				'name': 'message',
+				'displayName': message_title,
+				'icon': 'glyphicon glyphicon-comment',
+				'href': '/message/customer_messages'
 			}]
 		elif role == AGENCY:
 			top_navs = [{
@@ -74,7 +94,13 @@ def top_navs(request):
 				'displayName': '客户管理',
 				'icon': 'credit-card',
 				'href': '/business/manager/'
-			}]
+			},{
+				'name': 'message',
+				'displayName': '站内消息',
+				'icon': 'glyphicon glyphicon-comment',
+				'href': '/message/message_list'
+			}
+			]
 		elif role == MANAGER:
 			top_navs = [{
 				'name': 'manager',
