@@ -105,8 +105,8 @@ class ProductCatalog(resource.Resource):
 			msg = "{}".format(unicode_full_stack())
 			watchdog.error(msg)
 			response = create_response(500)
-			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-			# print msg
+			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+			print msg
 			return response.get_response()
 		response = create_response(200)
 		return response.get_response()
