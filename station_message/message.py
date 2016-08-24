@@ -47,9 +47,9 @@ class ProductCatalog(resource.Resource):
 							'type': at.type,
 							'path': at.path} for at in attachments]
 
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-		print attachments, title, text
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print attachments, title, text
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 		jsons = {'items': []}
 		jsons['items'].append(('message', json.dumps({
 				'attachment': attachments,
@@ -105,8 +105,8 @@ class ProductCatalog(resource.Resource):
 			msg = "{}".format(unicode_full_stack())
 			watchdog.error(msg)
 			response = create_response(500)
-			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-			print msg
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+			# print msg
 			return response.get_response()
 		response = create_response(200)
 		return response.get_response()
@@ -126,8 +126,8 @@ class ProductCatalog(resource.Resource):
 			msg = "{}".format(unicode_full_stack())
 			watchdog.error(msg)
 			response = create_response(500)
-			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-			print msg
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+			# print msg
 			return response.get_response()
 		response = create_response(200)
 		return response.get_response()
