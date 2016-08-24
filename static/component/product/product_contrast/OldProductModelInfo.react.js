@@ -85,10 +85,10 @@ var OldProductModelInfo = React.createClass({
 				}
 			}
 
-			var oldProductPrice = this.state.old_product_price?this.state.old_product_price: this.state.product_price;
-			var oldclearPrice = this.state.old_clear_price?this.state.old_clear_price: this.state.clear_price;
+			var oldProductPrice = this.state.old_product_price!='None'?this.state.old_product_price: this.state.product_price;
+			var oldclearPrice = this.state.old_clear_price!='None'?this.state.old_clear_price: this.state.clear_price;
 			var oldProductWeight = this.state.old_product_weight!='0'?this.state.old_product_weight: this.state.product_weight;
-			var oldProductStore = this.state.old_product_store!='0'?this.state.old_product_store: this.state.product_store;
+			var oldProductStore = parseInt(this.state.old_product_store)!=0?this.state.old_product_store: this.state.product_store;
 			
 			return(
 				<div className="product_info_fieldset">

@@ -305,11 +305,9 @@ class NewProduct(resource.Resource):
 		old_clear_price = '%.2f' %product.clear_price
 		old_product_weight = str(product.product_weight)
 		old_product_store = int(product.product_store)
-		old_remark = string_util.raw_html(product.remark)
+		old_remark = product.remark
 		old_has_product_model = product.has_product_model
 		old_catalog_id = product.catalog_id
-
-		print type(old_product_weight),type(product_weight),"========"
 
 		models.OldProduct.objects.filter(product_id = product.id).delete()
 		models.OldProduct.objects.create(product_id = product.id)
@@ -322,7 +320,6 @@ class NewProduct(resource.Resource):
 				promotion_title = old_promotion_title
 			)
 		if old_product_price != product_price:
-			print "========",type(str(product_price))
 			models.OldProduct.objects.filter(product_id=product.id).update(
 				product_price = old_product_price
 			)
@@ -335,7 +332,6 @@ class NewProduct(resource.Resource):
 				product_weight = old_product_weight
 			)
 		if old_product_store != int(product_store):
-			print old_product_store,"==222==========="
 			models.OldProduct.objects.filter(product_id=product.id).update(
 				product_store = old_product_store
 			)
@@ -369,6 +365,7 @@ class NewProduct(resource.Resource):
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
 				is_update = True,
+				is_refused = False,
 				remark = remark
 			)
 		else:
@@ -387,6 +384,7 @@ class NewProduct(resource.Resource):
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
 				is_update = True,
+				is_refused = False,
 				remark = remark
 			)
 		#删除、重建商品图片

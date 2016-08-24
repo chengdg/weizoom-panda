@@ -31,8 +31,33 @@ var ProductContrastPage = React.createClass({
 		this.setState(Store.getData());
 	},
 
+	componentDidMount: function(){
+		if(this.state.old_product_name){
+			document.getElementById('product_name').parentNode.parentNode.firstChild.style.color='red';
+		}
+		if(this.state.old_promotion_title){
+			document.getElementById('promotion_title').parentNode.parentNode.firstChild.style.color='red';
+		}
+		// console.log(document.getElementById('edui115'))
+		// if(this.state.old_remark){
+		// 	document.getElementById('edui115').parentNode.parentNode.parentNode.firstChild.style.color='red';
+		// }
+		if(this.state.old_product_price!='None'){
+			document.getElementById('product_price').parentNode.parentNode.firstChild.style.color='red';
+		}
+		if(this.state.old_clear_price!='None'){
+			document.getElementById('clear_price').parentNode.parentNode.firstChild.style.color='red';
+		}
+		if(this.state.old_product_weight!='0'){
+			document.getElementById('product_weight').parentNode.parentNode.firstChild.style.color='red';
+		}
+		if(parseInt(this.state.old_product_store)!=0){
+			document.getElementById('product_store').parentNode.parentNode.firstChild.style.color='red';
+		}
+	},
+
 	render:function(){
-		var catalogName = W.catalogName;
+		var catalogName = '';
 		if(this.state.catalog_name.length>0){
 			catalogName = this.state.catalog_name;
 		}
@@ -42,7 +67,8 @@ var ProductContrastPage = React.createClass({
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
-		console.log(this.state.remark,'+========')
+		var oldCatalogNameStyle = this.state.old_second_catalog_id!=this.state.second_catalog_id?{color:'red'}: {};
+
 		return (
 			<div className="xui-newProduct-page xui-formPage">
 				<OldProduct />
@@ -50,7 +76,7 @@ var ProductContrastPage = React.createClass({
 					<fieldset>
 						<legend className="pl10 pt10 pb10">修改后信息</legend>
 						<span className="form-group ml15">
-							<label className="col-sm-2 control-label pr0">商品类目:</label>
+							<label className="col-sm-2 control-label pr0" style={oldCatalogNameStyle}>商品类目:</label>
 							<span className="xui-catalog-name">{catalogName}</span>
 						</span>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} />
@@ -73,7 +99,7 @@ var OldProduct = React.createClass({
 	},
 
 	render:function(){
-		var catalogName = W.catalogName;
+		var catalogName = '';
 		if(this.state.old_catalog_name.length>0){
 			catalogName = this.state.old_catalog_name;
 		}
@@ -84,10 +110,9 @@ var OldProduct = React.createClass({
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
 
-		var oldProductName = this.state.old_product_name.length>0?this.state.old_product_name: this.state.product_name;
-		var oldPromotionTitle = this.state.old_promotion_title.length>0?this.state.old_promotion_title: this.state.promotion_title;
+		var oldProductName = this.state.old_product_name?this.state.old_product_name: this.state.product_name;
+		var oldPromotionTitle = this.state.old_promotion_title?this.state.old_promotion_title: this.state.promotion_title;
 		var oldRemark = this.state.old_remark.length>0?this.state.old_remark: this.state.remark;
-		console.log(this.state.old_remark,'+========')
 		var hasProductModel = this.state.old_has_product_model;
 		
 		return (
@@ -103,7 +128,7 @@ var OldProduct = React.createClass({
 					<Reactman.FormRadio label="多规格商品:" type="text" name="old_has_product_model" value={hasProductModel} options={optionsForModel} />
 					<div> <OldProductModelInfo Disabled={disabled} Modeltype={hasProductModel}/> </div>	
 					<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
-					<Reactman.FormRichTextInput label="商品描述:" name="old_remark" value={this.state.remark} width="800" height="250" />
+					<Reactman.FormRichTextInput label="商品描述:" name="old_remark" value={oldRemark} width="800" height="250" />
 				</fieldset>
 			</form>
 		)

@@ -98,7 +98,7 @@ class ProductContrast(resource.Resource):
 				'model_values': json.dumps(model_values),
 				'images': [],
 				'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
-				'old_second_catalog_id': product.catalog_id,
+				'second_catalog_id': product.catalog_id,
 				'value_ids': ','.join(value_ids)
 			}
 			#组织多规格数据
@@ -125,27 +125,42 @@ class ProductContrast(resource.Resource):
 			#修改的商品旧数据
 			old_product = models.OldProduct.objects.get(product_id=product_id)
 			#获取商品分类
-			product_catalog = catalog_models.ProductCatalog.objects.filter(id=old_product.catalog_id)
-			first_level_name = ''
-			second_level_name = ''
-			if product_catalog:
-				second_level_name = product_catalog[0].name
-				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
+			old_product_catalog = catalog_models.ProductCatalog.objects.filter(id=old_product.catalog_id)
+			old_first_level_name = ''
+			old_second_level_name = ''
+			if old_product_catalog:
+				old_second_level_name = old_product_catalog[0].name
+				old_first_level_name = catalog_models.ProductCatalog.objects.get(id=old_product_catalog[0].father_id).name
 
-			product_data['old_product_name'] = old_product.product_name,
-			product_data['old_promotion_title'] = old_product.promotion_title,
-			product_data['old_product_price'] = '%s' % old_product.product_price if old_product.product_price>0 else '%s' % old_product.clear_price,
-			product_data['old_clear_price'] = '%s' % old_product.clear_price,
-			product_data['old_product_weight'] = '%s'% old_product.product_weight,
-			product_data['old_product_store'] = old_product.product_store,
-			product_data['old_remark'] = string_util.raw_html(old_product.remark),
-			product_data['old_has_product_model'] = '%s' %(1 if old_product.has_product_model else 0),
-			product_data['old_model_values'] = json.dumps(model_values),
-			product_data['old_images'] = [],
-			product_data['old_catalog_name'] = '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
-			product_data['old_old_second_catalog_id'] = old_product.catalog_id,
+			old_product_data = {
+				'old_product_name' : old_product.product_name,
+				'old_promotion_title' : old_product.promotion_title,
+				'old_product_price' : '%s' % old_product.product_price,
+				'old_clear_price' : '%s' % old_product.clear_price,
+				'old_product_weight' : old_product.product_weight,
+				'old_product_store' : old_product.product_store,
+				'old_remark' : string_util.raw_html(old_product.remark),
+				'old_has_product_model' : '%s' %(1 if old_product.has_product_model else 0),
+				'old_model_values' : json.dumps(model_values),
+				'old_images' : [],
+				'old_catalog_name' : '' if not old_first_level_name else ('%s--%s') %(old_first_level_name,old_second_level_name),
+				'old_second_catalog_id' : old_product.catalog_id,
+			}
+			product_data.update(old_product_data)
+			# product_data['old_product_name'] = old_product.product_name,
+			# product_data['old_promotion_title'] = old_product.promotion_title,
+			# product_data['old_product_price'] = '%s' % old_product.product_price if old_product.product_price>0 else '%s' % old_product.clear_price,
+			# product_data['old_clear_price'] = '%s' % old_product.clear_price,
+			# product_data['old_product_weight'] = '%s'% old_product.product_weight,
+			# product_data['old_product_store'] = old_product.product_store,
+			# product_data['old_remark'] = string_util.raw_html(old_product.remark),
+			# product_data['old_has_product_model'] = '%s' %(1 if old_product.has_product_model else 0),
+			# product_data['old_model_values'] = json.dumps(model_values),
+			# product_data['old_images'] = [],
+			# product_data['old_catalog_name'] = '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
+			# product_data['old_old_second_catalog_id'] = old_product.catalog_id,
 			# 'old_value_ids': ','.join(value_ids)
-			print ','.join(value_ids),'----------'
+			print product_data['old_product_price'],'----------'
 
 			jsons['items'].append(('product', json.dumps(product_data)))
 		else:
