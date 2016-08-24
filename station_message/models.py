@@ -53,7 +53,7 @@ class MessageText(models.Model):
 	# title
 	title = models.CharField(default='', max_length=100)
 	text = models.TextField()
-	message_id = models.IntegerField()
+	message_id = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	class Meta(object):
