@@ -103,7 +103,7 @@ class ProductCatalog(resource.Resource):
 					message_models.MessageAttachment.objects.bulk_create(bulk_create)
 		except:
 			msg = "{}".format(unicode_full_stack())
-			watchdog.watchdog_error(msg)
+			watchdog.error(msg)
 			response = create_response(500)
 			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 			# print msg
