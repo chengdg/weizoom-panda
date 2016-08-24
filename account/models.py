@@ -62,6 +62,7 @@ class UserProfile(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 	pre_sale_tel = models.CharField(max_length=32, default='') #售前电话
 	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
+	max_product = models.IntegerField(default=3) #最多可创建商品
 
 	class Meta(object):
 		db_table = 'account_user_profile'

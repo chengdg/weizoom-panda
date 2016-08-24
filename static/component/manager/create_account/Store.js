@@ -54,7 +54,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'rebates': [],
 				'order_money': 1000,
 				'rebate_proport': 50,
-				'default_rebate_proport': 5
+				'default_rebate_proport': 5,
+				'max_product':3
 			};
 		}
 	},

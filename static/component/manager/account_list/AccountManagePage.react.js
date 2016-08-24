@@ -144,6 +144,7 @@ var AccountManagePage = React.createClass({
 					<Reactman.TableColumn name="登录名" field="username" />
 					<Reactman.TableColumn name="经营类目" field="company_type" />
 					<Reactman.TableColumn name="采购方式" field="purchase_method" />
+					<Reactman.TableColumn name="最多上传商品数" field="max_product" />
 					<Reactman.TableColumn name="类型" field="account_type" />
 					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>

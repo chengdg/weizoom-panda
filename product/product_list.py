@@ -48,12 +48,21 @@ class ProductList(resource.Resource):
 		"""
 		显示商品列表
 		"""
-		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
+
+		user_has_products = models.Product.objects.filter(owner_id=request.user.id).count()
+
+		user_profile = request.user.get_profile()
+
+		if user_profile.max_product <= user_has_products:
+			can_created = False
+		else:
+			can_created = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
 			'user_has_products': user_has_products,
+			'can_created': can_created
 		})
 
 		return render_to_response('product/product_list.html', c)

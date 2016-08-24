@@ -50,7 +50,8 @@ var Action = {
 			username: data['username'],
 			password: data['password'],
 			account_type: parseInt(data['account_type']),
-			note: data['note']
+			note: data['note'],
+			max_product: data['max_product']
 			// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
 			// rebates: JSON.stringify(data['rebates']),
 			// order_money: data['order_money'],

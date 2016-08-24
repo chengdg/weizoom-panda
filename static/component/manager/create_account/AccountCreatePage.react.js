@@ -132,6 +132,8 @@ var AccountCreatePage = React.createClass({
 							Type = {this.state.account_type}
 							options_for_type = {this.state.options_for_type}
 							selfUserNames={this.state.self_user_names}
+							max_product={this.state.max_product}
+
 						/>
 					</div>
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
@@ -174,6 +176,7 @@ var AccountInfo = React.createClass({
 							Type = {this.props.purchase_method}
 						/>
 					</div>
+					<Reactman.FormInput label="最多上传商品数:" type="text" validate="require-int" name="max_product" value={this.props.max_product} onChange={this.props.onChange} />
 					<Reactman.FormInput label="联系人:" type="text" name="contacter" value={this.props.contacter} onChange={this.props.onChange} />
 					<Reactman.FormInput label="手机号:" type="text" name="phone" value={this.props.phone} onChange={this.props.onChange} />
 					<div className="account-create-valid-time">

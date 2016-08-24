@@ -87,7 +87,8 @@ class AccountCreate(resource.Resource):
 					'account_type': user_profile.role,
 					'note': user_profile.note,
 					'self_user_names': [] if not self_user_names else json.dumps(self_user_names),
-					'rebates': [] if not rebates else json.dumps(rebates)
+					'rebates': [] if not rebates else json.dumps(rebates),
+					'max_product': user_profile.max_product
 				}
 				#注释代码 请勿删除！！！
 				# if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
@@ -102,7 +103,8 @@ class AccountCreate(resource.Resource):
 					'name': user_profile.name,
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note
+					'note': user_profile.note,
+					'max_product': user_profile.max_product
 				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True
@@ -136,6 +138,8 @@ class AccountCreate(resource.Resource):
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
+			max_product = post.get('max_product',3)
+
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -202,7 +206,8 @@ class AccountCreate(resource.Resource):
 					contacter = contacter,
 					phone = phone,
 					valid_time_from = valid_time_from,
-					valid_time_to = valid_time_to
+					valid_time_to = valid_time_to,
+					max_product = max_product
 				)
 				#请求接口获得数据
 				try:
@@ -273,6 +278,7 @@ class AccountCreate(resource.Resource):
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
+			max_product = post.get('max_product',3)
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
 			user_id = user_profile.user_id
@@ -295,7 +301,8 @@ class AccountCreate(resource.Resource):
 					contacter = contacter,
 					phone = phone,
 					valid_time_from = valid_time_from,
-					valid_time_to = valid_time_to
+					valid_time_to = valid_time_to,
+					max_product = post.get('max_product',3)
 				)
 
 				#注释代码 请勿删除！！！
