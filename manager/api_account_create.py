@@ -119,7 +119,7 @@ class AccountCreateApi(resource.Resource):
 				return response.get_response()
 		except Exception,e:
 			response = create_response(500)
-			response.errMsg = u'PANDA创建账号失败:'
+			response.errMsg = u'PANDA创建账号失败'
 			return response.get_response()
 
 	@param_required(['account_id', 'password'])
@@ -141,7 +141,7 @@ class AccountCreateApi(resource.Resource):
 			return response.get_response()
 		except Exception,e:
 			response = create_response(200)
-			response.data = u"该账号不存在:"
+			response.data = u"该账号不存在"
 			return response.get_response()
 
 class GetAllFirstCatalog(resource.Resource):
