@@ -49,7 +49,7 @@ class ProductCatalog(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		messages = message_models.Message.objects.filter(is_deleted=False).order_by('-created_at')
 
-		page_infos, page_messages = paginator.paginate(messages, cur_page, 2)
+		page_infos, page_messages = paginator.paginate(messages, cur_page, 20)
 		# page_messages = page_infos[1]
 		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
 		# print page_messages[0]

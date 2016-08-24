@@ -54,7 +54,7 @@ var StationMessageList = React.createClass({
 	},
 
 	render:function(){
-		console.log("=====");
+//		console.log("=====");
         var messagesResource = {
 			resource: 'message.message_list',
 			data: {
