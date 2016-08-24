@@ -177,6 +177,7 @@ var YunyingOrderDatasPage = React.createClass({
 					<Reactman.TableColumn name="订单编号" field="order_id" />
 					<Reactman.TableColumn name="商品名称" field="product_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
+					<Reactman.TableColumn name="运费" field="postage" />
 					<Reactman.TableColumn name="订单状态" field="order_status" />
 					<Reactman.TableColumn name="客户名称" field="customer_name" />
 					<Reactman.TableColumn name="来源商城" field="from_mall" />

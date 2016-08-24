@@ -430,7 +430,8 @@ class YunyingOrdersList(resource.Resource):
 								 'from_mall': [order.get('store_name')],
 								 'order_status': order_status2text.get(order.get('status')),
 								 'product_name': '\n'.join(temp_product_name),
-								 'customer_name': [user_profile.name if user_profile else '']})
+								 'customer_name': [user_profile.name if user_profile else ''],
+								 'postage': '%.2f' %order.get('postage')})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
 					pageinfo = paginator.paginate_by_count(resp.get('data').get('count'),

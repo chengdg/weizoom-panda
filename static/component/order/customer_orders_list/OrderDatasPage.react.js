@@ -233,6 +233,7 @@ var OrderDatasPage = React.createClass({
 					<Reactman.TableColumn name="单价/数量" field="product_price" />
 					<Reactman.TableColumn name="收货人" field="ship_name" />
 					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
+					<Reactman.TableColumn name="运费" field="postage" />
 					<Reactman.TableColumn name="订单状态" field="status" />
 					<Reactman.TableColumn name="下单时间" field="order_create_at" />
 					<Reactman.TableColumn name="操作" field="action" width='60px'/>
