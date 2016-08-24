@@ -17,15 +17,26 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
-		'handleUpdateSyncProduct': Constant.UPDATE_SYNC_PRODUCT
+		'handleUpdateSyncProduct': Constant.UPDATE_SYNC_PRODUCT,
+		'handleChooseUnpassReason': Constant.PRODUCT_UNPASS_REASON,
+		'handleUpdateUnpassReason': Constant.UPDATE_UNPASS_REASON,
+		'handleProductRefused': Constant.PRODUCT_REFUSED
 	},
 
 	init: function() {
-		this.data = {};
+		this.data = {
+			'reasons': [],
+			'custom_reason': ''
+		};
 	},
 
 	handleProductDataFilter: function(action){
 		this.data.filterOptions = action.data;
+		this.__emitChange();
+	},
+
+	handleUpdateUnpassReason: function(action) {
+		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
@@ -37,6 +48,41 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}else{
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', '更新失败');
+			}, 10);
+		}
+		this.__emitChange();
+	},
+
+	handleChooseUnpassReason: function(action){
+		var reasons = this.data.reasons;
+		var reason = action.data.reason;
+		var isChoosed = true;
+
+		for(var index in reasons){
+			if(reasons[index]==reason){
+				isChoosed = false;
+				reasons.splice(index,1);
+			}
+		}
+
+		if(isChoosed){
+			reasons.push(reason);
+		}
+
+		this.data.reasons = reasons;
+		this.__emitChange();
+	},
+
+	handleProductRefused: function(action){
+		if(action.data['code']==200){
+			this.data.reasons = [];
+			this.data.custom_reason = '';
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('success', '驳回成功');
+			}, 10);
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', '驳回失败');
 			}, 10);
 		}
 		this.__emitChange();

@@ -23,6 +23,12 @@ class SyncProduct(resource.Resource):
 		print product_id.split(','),"======="
 		response = create_response(200)
 		data = {}
-		data['code'] = 200
+		try:
+			models.Product.objects.filter(id=product_id).update(
+				is_update = False
+			)		
+			data['code'] = 200
+		except:
+			data['code'] = 500
 		response.data = data
 		return response.get_response()

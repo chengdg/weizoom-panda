@@ -94,7 +94,12 @@ def getProductData(request, is_export):
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
 	if role == YUN_YING:
-		products = models.Product.objects.filter(is_deleted=False).order_by('-id')
+		product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
+		sync_product_ids = []
+		for product_sync_weapp in product_sync_weapps:
+			if product_sync_weapp.product_id not in sync_product_ids:
+				sync_product_ids.append(product_sync_weapp.product_id)
+		products = models.Product.objects.filter(is_deleted=False, is_refused=False).order_by('-id')
 	else:
 		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
@@ -217,7 +222,7 @@ def getProductData(request, is_export):
 				product_price = '%.2f' % product_prices[0]
 		else:
 			product_price = '%.2f' % product.product_price
-
+		print product_price,"====================="
 		image_paths = []
 		if product.id in product_id2image_id:
 			image_ids = product_id2image_id[product.id]

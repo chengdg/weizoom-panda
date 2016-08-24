@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+var UnPassDialog = require('./UnPassDialog.react');
 require('./style.css');
 var W = Reactman.W;
 
@@ -58,12 +59,25 @@ var ProductUpdatedPage = React.createClass({
 		});
 	},
 
+	onClickUnPass: function(product_id, event) {
+		Reactman.PageAction.showDialog({
+			title: "商品驳回",
+			component: UnPassDialog,
+			data: {
+				product_id: product_id
+			},
+			success: function() {
+				console.log('success');
+			}
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			return (
 				<div>
 					<a className="btn btn-link btn-xs" onClick={this.updateSyncProduct.bind(this,data['id'])}>商品更新</a><br></br>
-					<a className="btn btn-link btn-xs" >驳回修改</a>
+					<a className="btn btn-link btn-xs" onClick={this.onClickUnPass.bind(this,data['id'])}>驳回修改</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
@@ -100,7 +114,7 @@ var ProductUpdatedPage = React.createClass({
 		};
 
 		return (
-			<div className="mt15 xui-product-productListPage">
+			<div className="mt15 xui-product-productUpdatedPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 					<Reactman.FilterRow>
 						<Reactman.FilterField>

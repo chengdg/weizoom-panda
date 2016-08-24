@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import F
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
@@ -15,18 +14,13 @@ from core.jsonresponse import create_response
 from core import paginator
 
 from util import db_util
-from resource import models as resource_models
-from account.models import *
 from util import string_util
-from panda.settings import ZEUS_HOST
-from panda.settings import PANDA_HOST
-from product.sales_from_weapp import sales_from_weapp
+
 import nav
-import models
 import requests
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
-from product_catalog import models as product_catalog_models
+from account.models import *
+import models
 
 second_navs = [{
 	'name': 'product-relation-list',
@@ -58,3 +52,22 @@ class ProductUpdated(resource.Resource):
 		})
 
 		return render_to_response('product/product_updated.html', c)
+
+	@login_required
+	def api_post(request):
+		#驳回
+		product_id = int(request.POST.get('product_id',-1))
+		reasons = request.POST.get('reasons','')
+		data = {}
+		response = create_response(200)
+		try:
+			models.Product.objects.filter(id=product_id).update(
+				is_refused = True,
+				refuse_reason = reasons
+			)		
+			data['code'] = 200
+		except:
+			data['code'] = 500
+			response.errMsg = u'驳回失败'
+		response.data = data
+		return response.get_response()

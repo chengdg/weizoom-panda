@@ -80,11 +80,6 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		}
 	},
 
-	onChange: function(value, event) {
-		var property = event.target.getAttribute('name');
-		Action.addProductModelValue(property, value);
-	},
-
 	onChangeStore: function(){
 		this.setState({
 			select_self_shop: Store.getData()['selectSelfShop']

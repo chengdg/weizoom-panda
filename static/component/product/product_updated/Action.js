@@ -31,6 +31,39 @@ var Action = {
 				actionType: Constant.UPDATE_SYNC_PRODUCT
 			}
 		});
+	},
+
+	updateReason: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.UPDATE_UNPASS_REASON,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	chooseUnpassReason: function(reason){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_UNPASS_REASON,
+			data: {
+				reason: reason
+			}
+		});
+	},
+
+	refused: function(productId, reasons){
+		Resource.post({
+			resource: 'product.product_updated',
+			data: {
+				reasons: reasons,
+				product_id: productId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_REFUSED
+			}
+		});
 	}
 };
 
