@@ -42,10 +42,10 @@ var AddSelfShopDialog = React.createClass({
 		return (
 		    <div className="xui-formPage ">
                 <div className="title">
-                    <span >商品详情</span>
+                    <span >{this.state.title}</span>
                 </div>
                 <div className="time">
-                    <span >2016-03-03 09:09:09</span>
+                    <span >{this.state.created_at}</span>
                 </div>
                 <div className='text' >
                     <div className="" dangerouslySetInnerHTML={{__html: output}}></div>

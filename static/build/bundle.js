@@ -46678,7 +46678,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.bold_text{\n    font-weight:bold;\n    text-decoration: none;\n}\n.grey_text {\n    color:#747474;\n}\n.href_color {\n    color:#404040;\n}\n\n.href_color_gray {\n    color:#747474;\n}\n", ""]);
+	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.bold_text{\n    font-weight:bold;\n    text-decoration: none;\n}\n.red_color{\n    color:red;\n}\n.grey_text {\n    color:#747474;\n}\n.href_color {\n    color:#404040;\n}\n\n.href_color_gray {\n    color:#747474;\n}\n", ""]);
 
 	// exports
 
@@ -46734,7 +46734,11 @@
 	                    React.createElement(
 	                        'a',
 	                        { href: href, className: 'href_color' },
-	                        status,
+	                        React.createElement(
+	                            'span',
+	                            { className: 'red_color' },
+	                            status
+	                        ),
 	                        value
 	                    )
 	                );
@@ -46944,7 +46948,7 @@
 	                React.createElement(
 	                    'span',
 	                    null,
-	                    '商品详情'
+	                    this.state.title
 	                )
 	            ),
 	            React.createElement(
@@ -46953,7 +46957,7 @@
 	                React.createElement(
 	                    'span',
 	                    null,
-	                    '2016-03-03 09:09:09'
+	                    this.state.created_at
 	                )
 	            ),
 	            React.createElement(
@@ -47065,7 +47069,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.product-detail{\n    width: 640px;\n    margin-left: 1000px;\n\n    margin: 0 auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.title{\n    display: block;\n    margin-top:100px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 16px;\n\twidth: 800px;\n\tmargin-left:150px;\n}\n\n.time{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 12px;\n\tcolor:#747474;\n\tborder-bottom: 1px solid #CCC;\n}\n.text{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.script{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.attachment{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}", ""]);
+	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.product-detail{\n    width: 640px;\n    margin-left: 1000px;\n\n    margin: 0 auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.title{\n    font-weight:bold;\n    display: block;\n    margin-top:100px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 16px;\n\twidth: 800px;\n\tmargin-left:150px;\n}\n\n.time{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 12px;\n\tcolor:#747474;\n\tborder-bottom: 1px solid #CCC;\n}\n.text{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.script{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.attachment{\n    display: block;\n    width: 800px;\n    margin-left:150px;\n    margin-top:30px;\n}", ""]);
 
 	// exports
 

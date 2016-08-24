@@ -38,7 +38,7 @@ var StationMessageList = React.createClass({
                 var href = '/message/read_message?message_id=' + data.id;
                 return (
                     <div className='bold_text'>
-                        <a href={href} className='href_color'>{status}{value}</a>
+                        <a href={href} className='href_color'><span className='red_color'>{status}</span>{value}</a>
 
                     </div>
                 );
