@@ -115,6 +115,9 @@ var YunyingOrderDatasPage = React.createClass({
 		}, {
 			text: '微众良乡商城',
 			value: 'weizoom_xiaoyuan'
+		},	{
+			text: '微众精英',
+			value: 'weizoom_jy'
 		}];
 
 		var orderStatusOptions = [{

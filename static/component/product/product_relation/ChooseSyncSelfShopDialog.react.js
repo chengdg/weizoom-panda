@@ -73,6 +73,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		},{
 			'name': '微众良乡商城',
 			'value': 'weizoom_xiaoyuan'
+		},{
+			'name': '微众精英',
+			'value': 'weizoom_jy'
 		}];
 		return {
 			select_self_shop: Store.getData()['selectSelfShop'],
@@ -118,7 +121,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		var syncType = this.props.data.sync_type;
 		var selfShop = this.state.self_shop;
 		var selectSelfShop = this.state.select_self_shop;
-		var checked = this.state.select_self_shop.length==19?'checked':null;
+		var checked = this.state.select_self_shop.length==selfShop.length?'checked':null;
 
 		var selfs = selfShop.map(function(self_shop,index){
 			var value = self_shop.value;

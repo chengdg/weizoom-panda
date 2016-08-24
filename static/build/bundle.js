@@ -241,7 +241,6 @@
 /***/ function(module, exports) {
 
 	// shim for using process in browser
-
 	var process = module.exports = {};
 
 	// cached from whatever global is present so that test runners that stub it
@@ -268,6 +267,43 @@
 	        };
 	    }
 	})();
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -292,7 +328,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -309,7 +345,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout(timeout);
+	    runClearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -321,7 +357,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
+	        runTimeout(drainQueue);
 	    }
 	};
 
@@ -21478,8 +21514,8 @@
 	var PageStore = __webpack_require__(300);
 	var PageAction = __webpack_require__(244);
 
-	//var dynamicRequire = require('../../../../../../../../static/component/dynamic_require'); //for windows cnpm
-	var dynamicRequire = __webpack_require__(321); //for mac cnpm
+	var dynamicRequire = __webpack_require__(321); //for windows cnpm
+	//var dynamicRequire = require('../../../../../static/component/dynamic_require'); //for mac cnpm
 
 
 	var Page = React.createClass({
@@ -22410,9 +22446,14 @@
 				this.$el = $node;
 			}
 			this.$el.animate({ top: '50px', opacity: 1 }, 300);
+
+			var delayTime = 3000; //ms
+			if (this.props.type === 'error') {
+				delayTime = 5000;
+			}
 			_.delay(_.bind(function () {
 				this.$el.animate({ opacity: 0 }, 1000).animate({ top: -50 });
-			}, this), 3000);
+			}, this), delayTime);
 
 			_.delay(_.bind(function () {
 				if (this.props.hint.length > 0) {
@@ -24762,8 +24803,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -24781,7 +24822,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.wui-globalErrorPanel {\n    position: fixed;\n    top: -100px;\n    left: 50%;\n    margin-left: -225px;\n    width: 450px;\n    height: 40px;\n    z-index: 1100;\n    opacity: 0.9;\n    padding: 10px 20px;\n    color: #FFF;\n    font-size: 14px;\n    border-radius: 4px;\n    font-family: \"\\5B8B\\4F53\";\n    opacity: 0;\n    border:0;\n}\n.wui-globalErrorPanel.alert-success {\n    background-color: #82d588;\n}\n.wui-globalErrorPanel.alert-danger {\n    background-color: #FD7171;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.wui-globalErrorPanel {\r\n    position: fixed;\r\n    top: -100px;\r\n    left: 50%;\r\n    margin-left: -225px;\r\n    width: 450px;\r\n    height: 40px;\r\n    z-index: 1100;\r\n    opacity: 0.9;\r\n    padding: 10px 20px;\r\n    color: #FFF;\r\n    font-size: 14px;\r\n    border-radius: 4px;\r\n    font-family: \"\\5B8B\\4F53\";\r\n    opacity: 0;\r\n    border:0;\r\n}\r\n.wui-globalErrorPanel.alert-success {\r\n    background-color: #82d588;\r\n}\r\n.wui-globalErrorPanel.alert-danger {\r\n    background-color: #FD7171;\r\n}", ""]);
 
 	// exports
 
@@ -25190,8 +25231,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25209,7 +25250,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n#spin {\n    float: left;\n    height: 80px;\n    width: 100px;\n}\n#spin-wrapper {\n    background-color: #888;\n    opacity: 0.8;\n    -webkit-border-radius: 8px;\n    -moz-border-radius: 8px;\n    border-radius: 8px;\n    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);\n    -moz-box-shadow:    2px 2px 5px rgba(0, 0, 0, 0.75);\n    box-shadow:         2px 2px 5px rgba(0, 0, 0, 0.75);\n    color: #FFF;\n    display: none;\n    font-size: 14px;\n    height: 120px;\n    left: 50%;\n    position: fixed;\n    margin-left: -60px;\n    top: 200px;\n    width: 120px;\n    z-index: 10000;\n    padding: 10px;\n}\n#spin .spinner {\n    left: 50% !important;\n    top: 50% !important;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n#spin {\r\n    float: left;\r\n    height: 80px;\r\n    width: 100px;\r\n}\r\n#spin-wrapper {\r\n    background-color: #888;\r\n    opacity: 0.8;\r\n    -webkit-border-radius: 8px;\r\n    -moz-border-radius: 8px;\r\n    border-radius: 8px;\r\n    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    -moz-box-shadow:    2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    box-shadow:         2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    color: #FFF;\r\n    display: none;\r\n    font-size: 14px;\r\n    height: 120px;\r\n    left: 50%;\r\n    position: fixed;\r\n    margin-left: -60px;\r\n    top: 200px;\r\n    width: 120px;\r\n    z-index: 10000;\r\n    padding: 10px;\r\n}\r\n#spin .spinner {\r\n    left: 50% !important;\r\n    top: 50% !important;\r\n}", ""]);
 
 	// exports
 
@@ -25766,8 +25807,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25785,7 +25826,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-dialog {\n}\n", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-dialog {\r\n}\r\n", ""]);
 
 	// exports
 
@@ -34886,8 +34927,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -34905,7 +34946,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\n    background: #fff;\n}\n.money_note {\n    position: absolute;\n    display: inline-block;\n    height: 34px;\n    line-height: 34px;\n    margin-bottom: 15px;\n    margin-left: 15px;\n}\n.account-create-purchase-method div:nth-child(1) {\n    display: inline-block;\n}\ninput[name=company_money] {\n    width: 200px;\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.money_note {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=company_money] {\r\n    width: 200px;\r\n}", ""]);
 
 	// exports
 
@@ -36037,8 +36078,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36056,7 +36097,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\n    background: #fff;\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -36410,8 +36451,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36429,7 +36470,7 @@
 
 
 	// module
-	exports.push([module.id, ".xa-scales-div{\n\tmin-height:5px;\n\twidth:100px;\n\tmargin:auto;\n\tmargin-top:8px;\n    margin-left: 0;\n\tborder:2px solid #0099ff;\n\tcursor: pointer;\n\toverflow: hidden;\n}\n.xa-scale-div{\n\tmin-height:5px;\n\tbackground-color:#0099ff;\n}", ""]);
+	exports.push([module.id, ".xa-scales-div{\r\n\tmin-height:5px;\r\n\twidth:100px;\r\n\tmargin:auto;\r\n\tmargin-top:8px;\r\n    margin-left: 0;\r\n\tborder:2px solid #0099ff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n}\r\n.xa-scale-div{\r\n\tmin-height:5px;\r\n\tbackground-color:#0099ff;\r\n}", ""]);
 
 	// exports
 
@@ -36666,8 +36707,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36685,7 +36726,7 @@
 
 
 	// module
-	exports.push([module.id, "fieldset div:nth-child(2), \nfieldset div:nth-child(4){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n}\n\nfieldset div:nth-child(2) label,\nfieldset div:nth-child(4) label{\n\tdisplay: none;\n\tvertical-align: top;\n}\n\nfieldset div:nth-child(2) div,\nfieldset div:nth-child(4) div{\n\twidth: 100% !important;\n}\n\nfieldset{\n    margin-left: 90px;\n}\n\n.save-btn div{\n\tmargin-left: 0px !important;\n}\n\n.save-btn div label{\n\tdisplay: none;\n}", ""]);
+	exports.push([module.id, "fieldset div:nth-child(2), \r\nfieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\nfieldset div:nth-child(2) label,\r\nfieldset div:nth-child(4) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\nfieldset div:nth-child(2) div,\r\nfieldset div:nth-child(4) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\nfieldset{\r\n    margin-left: 90px;\r\n}\r\n\r\n.save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}", ""]);
 
 	// exports
 
@@ -36907,8 +36948,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36926,7 +36967,7 @@
 
 
 	// module
-	exports.push([module.id, ".save-btn div{\n\tmargin-left: 0px !important;\n}\n\n.save-btn div label{\n\tdisplay: none;\n}\n\n.save-btn{\n    padding-left: 76px;\n}", ""]);
+	exports.push([module.id, ".save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}\r\n\r\n.save-btn{\r\n    padding-left: 76px;\r\n}", ""]);
 
 	// exports
 
@@ -38133,8 +38174,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -38152,7 +38193,7 @@
 
 
 	// module
-	exports.push([module.id, ".account-create-valid-time{\n\tdisplay: flex;\n}\n.account-create-valid-time div:nth-child(2) label {\n    width: 18px !important;\n    padding: 7px 0 0 0;\n}\n.account-create-valid-time .col-sm-5{\n     width: 190px;\n}\ninput[name=points] {\n    width: 200px;\n}\n.errorHint {\n    width: 200px;\n}\n.money_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n.account-create-purchase-method div:nth-child(1){\n    display: inline-block;\n}\n.add-grounp-points{\n\tposition: absolute;\n\tdisplay: inline-block;\n\tmargin-left: 50px;\n\tmargin-top: 5px;\n}\n\n.rebate-per{\n    position: absolute;\n    top: 8px;\n    right: 35px;\n}\n\n.xui-close{\n    border: 1px solid #ADA2A2;\n    position: absolute;\n    width: 20px;\n    height: 20px;\n    border-radius: 20px;\n    padding-left: 5px;\n    font-size: 17px;\n    top: -8px;\n    line-height: 15px;\n    right: 54px;\n}\n\n.xui-close:hover{\n\tcursor: pointer;\n}\n\n.self-user-shop-ul{\n    border: 1px solid #C2D1E4;\n    padding-top: 15px;\n    margin-left: 70px;\n    max-width: 70%;\n    margin-bottom: 15px\n}\n\n.profilts-dialog, .rebates-dialog{\n\tborder: 1px solid #C2D1E4;\n    padding-top: 15px;\n    max-width: 60%;\n    margin-bottom: 15px;\n    padding-left: 15px;\n    margin-left: 86px;\n    padding-bottom: 15px;\n}\n\n.rebate-input{\n\twidth: 100px !important;\n}\n\n.profilts-dialog div:nth-child(2), \n.profilts-dialog div:nth-child(4), \n.profilts-dialog div:nth-child(6){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n}\n\n.profilts-dialog div:nth-child(2) label, \n.profilts-dialog div:nth-child(4) label, \n.profilts-dialog div:nth-child(6) label,\n\n.rebates-dialog div:nth-child(2) label,\n.rebates-dialog div:nth-child(4) label,\n.rebates-dialog div:nth-child(6) label,\n.rebates-dialog div:nth-child(8) label,\n.rebates-dialog div:nth-child(10) label{\n\tdisplay: none;\n\tvertical-align: top;\n}\n\n.profilts-dialog div:nth-child(2) div, \n.profilts-dialog div:nth-child(4) div, \n.profilts-dialog div:nth-child(6) div,\n\n.rebates-dialog div:nth-child(2) div,\n.rebates-dialog div:nth-child(4) div,\n.rebates-dialog div:nth-child(6) div,\n.rebates-dialog div:nth-child(8) div,\n.rebates-dialog div:nth-child(10) div{\n\twidth: 100% !important;\n}\n\n.rebates-dialog{\n    position: relative;\n    padding-top: 0px;\n}\n\n.rebates-dialog div:nth-child(2),\n.rebates-dialog div:nth-child(4),\n.rebates-dialog div:nth-child(6),\n.rebates-dialog div:nth-child(8),\n.rebates-dialog div:nth-child(10){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n\tmargin-top: 10px;\n\tmargin-bottom: 8px;\n}\n\n/*.rebates-dialog div:nth-child(2) label,\n.rebates-dialog div:nth-child(4) label,\n.rebates-dialog div:nth-child(6) label,\n.rebates-dialog div:nth-child(8) label,\n.rebates-dialog div:nth-child(10) label{\n\tdisplay: none;\n\tvertical-align: top;\n}*/\n\n/*.rebates-dialog div:nth-child(2) div,\n.rebates-dialog div:nth-child(4) div,\n.rebates-dialog div:nth-child(6) div,\n.rebates-dialog div:nth-child(8) div,\n.rebates-dialog div:nth-child(10) div{\n\twidth: 100% !important;\n}*/\n\n.rebates-dialog div:nth-child(2) div input,\n.rebates-dialog div:nth-child(4) div input,\n.rebates-dialog div:nth-child(6) div input,\n.rebates-dialog div:nth-child(8) div input,\n.rebates-dialog div:nth-child(10) div input{\n\tmargin-bottom: 8px;\n}\n\n.rebate-close{\n    position: absolute;\n    right: 0;\n    width: 20px;\n    top: 0;\n    font-size: 18px;\n    padding-left: 5px;\n    display: inline-block;\n    border-bottom: 1px solid #C2D1E4;\n    border-left: 1px solid #C2D1E4;\n}", ""]);
+	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 60%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}", ""]);
 
 	// exports
 
@@ -38881,8 +38922,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -38900,7 +38941,7 @@
 
 
 	// module
-	exports.push([module.id, ".inline-block{\n\tdisplay: inline-block;\n}\n\ntr td{\n    padding: 0 !important;\n}\n\n.product-item-info{\n    display: block;\n    padding: 5px 0px 5px 5px;\n    border-bottom: 1px solid #CCC;\n    height: 71px;\n    padding-top: 20px;\n    position: relative;\n}\n\n.product-item-info:last-child{\n\tborder-bottom: none;\n}\n\n.product-img{\n\twidth: 60px;\n\theight: 60px;\n\tmargin-right: 10px;\n}\n\n.product-name, .product-model-name{\n\tdisplay: inline-block;\n\tposition: absolute;\n}\n\n.product-name{\n\ttop: 15px;\n}\n\n.product-model-name{\n\ttop: 35px;\n}", ""]);
+	exports.push([module.id, ".inline-block{\r\n\tdisplay: inline-block;\r\n}\r\n\r\ntr td{\r\n    padding: 0 !important;\r\n}\r\n\r\n.product-item-info{\r\n    display: block;\r\n    padding: 5px 0px 5px 5px;\r\n    border-bottom: 1px solid #CCC;\r\n    height: 71px;\r\n    padding-top: 20px;\r\n    position: relative;\r\n}\r\n\r\n.product-item-info:last-child{\r\n\tborder-bottom: none;\r\n}\r\n\r\n.product-img{\r\n\twidth: 60px;\r\n\theight: 60px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.product-name, .product-model-name{\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n}\r\n\r\n.product-name{\r\n\ttop: 15px;\r\n}\r\n\r\n.product-model-name{\r\n\ttop: 35px;\r\n}", ""]);
 
 	// exports
 
@@ -39072,8 +39113,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./OrderBatchDelivery.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./OrderBatchDelivery.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -39091,7 +39132,7 @@
 
 
 	// module
-	exports.push([module.id, ".wui-globalErrorPanel.alert-danger{\n\theight: auto !important;\n}\n\n.alert-danger center{\n    word-break: break-all;\n    text-align: left;\n}", ""]);
+	exports.push([module.id, ".wui-globalErrorPanel.alert-danger{\r\n\theight: auto !important;\r\n}\r\n\r\n.alert-danger center{\r\n    word-break: break-all;\r\n    text-align: left;\r\n}", ""]);
 
 	// exports
 
@@ -39781,8 +39822,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -39800,7 +39841,7 @@
 
 
 	// module
-	exports.push([module.id, ".orders-list-btn-group a{\n\tdisplay: block;\n}\n.modal-content{\n\twidth: 720px;\n}\n.orders-list-product-name{\n\tmargin-left: 5px;\n\tdisplay: inline;\n\tvertical-align: top;\n}\n.orders-list-model-names{\n\tmargin-left: 5px;\n\tdisplay: block;\n\tvertical-align: bottom;\n}\nimg {\n    vertical-align: bottom !important;\n}", ""]);
+	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}", ""]);
 
 	// exports
 
@@ -40034,6 +40075,9 @@
 			}, {
 				text: '微众良乡商城',
 				value: 'weizoom_xiaoyuan'
+			}, {
+				text: '微众精英',
+				value: 'weizoom_jy'
 			}];
 
 			var orderStatusOptions = [{
@@ -41005,8 +41049,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -41024,7 +41068,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-outline-datasPage .xui-i-expandRow {\n\tmargin-bottom: 10px;\n}\n", ""]);
+	exports.push([module.id, ".xui-outline-datasPage .xui-i-expandRow {\r\n\tmargin-bottom: 10px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -41973,8 +42017,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./modelDialogStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./modelDialogStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -41992,7 +42036,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n    min-height: 200px;\n}\n\n.modal-content{\n\tbackground: #FFF !important;\n}\n\n.model_li{\n\tdisplay: inline-block;\n\tmargin-right: 20px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n    min-height: 200px;\r\n}\r\n\r\n.modal-content{\r\n\tbackground: #FFF !important;\r\n}\r\n\r\n.model_li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}", ""]);
 
 	// exports
 
@@ -42013,8 +42057,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42032,7 +42076,7 @@
 
 
 	// module
-	exports.push([module.id, ".category-ul{\n\twidth: 200px;\n\theight: 200px;\n\tdisplay: inline-block;\n\tborder: 1px solid #D4D3D3;\n\tbox-shadow: 1px 1px #D4D3D3;\n\tmargin-left: 40px;\n\toverflow-y:auto;\n}\n.category-ul li{\n\tmargin-top: 5px;\n    padding-left: 5px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.edit-product{\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-bottom: 20px;\n\twidth: 245px;\n\tmargin-left: 150px\n}\n#demo {\n\twidth: 44px;\n    display: inline-block;\n    height: 20px;\n    background-color: #CCC;\n    position: relative;\n    top: 42px;\n    left: 18px;\n    border: 1px solid #ccc;\n}\n\n#demo:after, #demo:before {\n\tborder: solid transparent;\n\tcontent: ' ';\n\theight: 0;\n\tleft: 100%;\n\tposition: absolute;\n\twidth: 0;\n}\n\n#demo:after {\n \tborder-width: 9px;\n}\n\n#demo:before {\n\tborder-width: 14px;\n\tborder-left-color: #CCC;\n\ttop: -5px\n}\n\n.erow{\n\tposition: relative;\n\tdisplay: inline-block;\n\ttop: -137px;\n\twidth: 90px\n}", ""]);
+	exports.push([module.id, ".category-ul{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tdisplay: inline-block;\r\n\tborder: 1px solid #D4D3D3;\r\n\tbox-shadow: 1px 1px #D4D3D3;\r\n\tmargin-left: 40px;\r\n\toverflow-y:auto;\r\n}\r\n.category-ul li{\r\n\tmargin-top: 5px;\r\n    padding-left: 5px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.edit-product{\r\n\tdisplay: block;\r\n\tmargin-top: 20px;\r\n\tmargin-bottom: 20px;\r\n\twidth: 245px;\r\n\tmargin-left: 150px\r\n}\r\n#demo {\r\n\twidth: 44px;\r\n    display: inline-block;\r\n    height: 20px;\r\n    background-color: #CCC;\r\n    position: relative;\r\n    top: 42px;\r\n    left: 18px;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n#demo:after, #demo:before {\r\n\tborder: solid transparent;\r\n\tcontent: ' ';\r\n\theight: 0;\r\n\tleft: 100%;\r\n\tposition: absolute;\r\n\twidth: 0;\r\n}\r\n\r\n#demo:after {\r\n \tborder-width: 9px;\r\n}\r\n\r\n#demo:before {\r\n\tborder-width: 14px;\r\n\tborder-left-color: #CCC;\r\n\ttop: -5px\r\n}\r\n\r\n.erow{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\ttop: -137px;\r\n\twidth: 90px\r\n}", ""]);
 
 	// exports
 
@@ -42614,8 +42658,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42633,7 +42677,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n}\n\n.modal-content{\n\tbackground: rgb(224, 222, 222) !important;\n}\n\n.product-detail{\n    width: 640px;\n    margin: 0 auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.product-image{\n    width: 400px;\n    height: 350px;\n    display: block;\n    margin: 0 auto;\n}\n\n.product-image-count{\n\tposition: absolute;\n\tbottom: 0px;\n\tcolor: #000;\n\tleft: 300px;\n}\n\n.product-name-price{\n\tpadding-bottom: 8px;\n\tmargin: 0 auto;\n\tmargin-top: 10px;\n\tpadding-top: 8px;\n    border-top: 1px solid #CCC;\n}\n\n.product-choose, .product-name-price, .product-introduce{\n\tpadding-left: 8px;\n\tbackground: #FFF;\n}\n\n.product-choose{\n    margin-top: 10px;\n\tpadding-top: 5px;\n    height: 40px;\n    border-top: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    padding-right: 40px;\n}\n\n.product-introduce{\n\tmargin-top: 10px;\n    min-height: 200px;\n\t/*height: 250px;\n\toverflow: hidden;*/\n}\n\n.product-introduce .title{\n    display: inline-block;\n    width: 600px;\n    /*border-bottom: 1px solid #CCC;*/\n\tpadding-top: 8px;\n\tfont-size: 16px;\n}\n\n.product-introduce .product-content{\n\tpadding-top: 5px;\n}\n\n.product-name, .product-price, .product-promotion-title{\n\tdisplay: block;\n\tfont-size: 16px;\n}\n\n.product-price, .product-promotion-title{\n\tcolor: red;\n\tfont-size: 14px;\n}\n\n.product-count, .choose-count{\n\tdisplay: inline-block;\n}\n\n.product-content img{\n    max-width: 640px;\n    /*width: 100%;*/\n}\n\n.choose-count{\n\tpadding-right: 5px;\n}\n\n.product-count li{\n\tlist-style: none;\n\tdisplay: inline-block;\n\twidth: 30px;\n\theight: 30px;\n\ttext-align: center;\n\tborder: 1px solid #CCC;\n\tpadding-top: 2px;\n\tfont-size: 16px;\n}\n\n.xui-newProduct-page{\n\tposition: relative;\n}\n\n.preview-btn{\n\tposition: absolute;\n    left: 110px;\n    top: 13px;\n    font-size: 18px;\n}\n\n.product-collect-title{\n    display: inline-block;\n    float: right;\n    width: 40px;\n    padding-left: 10px;\n    right: 27px;\n    border-left: 1px solid #CCC;\n    color: #CCC;\n    margin-right: 10px;\n    line-height: 40px;\n}\n\ninput[name=\"product_price\"],\ninput[name=\"clear_price\"],\ninput[name=\"product_weight\"]{\n\twidth: 200px;\n}\n\ninput[name=\"limit_clear_price\"]{\n\twidth: 100px;\n}\n\n.product_info_fieldset div:nth-child(1){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(4){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(7){\n\tdisplay: inline-block;\n}\n\n/*.product_info_fieldset div:nth-child(9){\n\tdisplay: inline-block;\n\twidth: 60px;\n\tmargin-left: 80px !important;\n\tposition: relative;\n}\n\n.product_info_fieldset div:nth-child(9) div{\n\tposition: absolute;\n    left: 24px;\n    top: -19px;\n}\n\n.product_info_fieldset div:nth-child(9) label{\n\twidth: 10px;\n\theight: 0px !important;\n}*/\n\n.product_info_fieldset div:nth-child(10){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(10) label{\n\twidth: 80px !important;\n}\n\n.product_info_fieldset div:nth-child(11){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(11) label{\n\twidth: 40px !important;\n\tpadding-left: 0px;\n}\n\n.product_info_fieldset div:nth-child(14){\n\tdisplay: inline-block;\n}\n\n.money_note, .count_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note_tips{\n\tdisplay: block;\n\theight: 34px;\n\tmargin-left: 178px;\n}\n\n.errorHint{\n\twidth: 200px;\n}\n\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\n\tz-index: 1000 !important;\n}\n\ntd div.form-group{\n    margin: 0;\n    width: 60px;\n    margin-left: 0 !important;\n}\n\ntd div.form-group label{\n\tdisplay: none;\n}\n\ntd div.form-group div input{\n    width: 100px;\n}\n\ntd div.form-group div .errorHint{\n\twidth: 100px;\n}\n\n.xui-catalog-name{\n    padding-left: 34px;\n    padding-top: 6px;\n    display: inline-block;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n}\r\n\r\n.modal-content{\r\n\tbackground: rgb(224, 222, 222) !important;\r\n}\r\n\r\n.product-detail{\r\n    width: 640px;\r\n    margin: 0 auto;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    height: 730px;\r\n}\r\n\r\n.product-image{\r\n    width: 400px;\r\n    height: 350px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.product-image-count{\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tcolor: #000;\r\n\tleft: 300px;\r\n}\r\n\r\n.product-name-price{\r\n\tpadding-bottom: 8px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 10px;\r\n\tpadding-top: 8px;\r\n    border-top: 1px solid #CCC;\r\n}\r\n\r\n.product-choose, .product-name-price, .product-introduce{\r\n\tpadding-left: 8px;\r\n\tbackground: #FFF;\r\n}\r\n\r\n.product-choose{\r\n    margin-top: 10px;\r\n\tpadding-top: 5px;\r\n    height: 40px;\r\n    border-top: 1px solid #CCC;\r\n    border-bottom: 1px solid #CCC;\r\n    padding-right: 40px;\r\n}\r\n\r\n.product-introduce{\r\n\tmargin-top: 10px;\r\n    min-height: 200px;\r\n\t/*height: 250px;\r\n\toverflow: hidden;*/\r\n}\r\n\r\n.product-introduce .title{\r\n    display: inline-block;\r\n    width: 600px;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tpadding-top: 8px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-introduce .product-content{\r\n\tpadding-top: 5px;\r\n}\r\n\r\n.product-name, .product-price, .product-promotion-title{\r\n\tdisplay: block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-price, .product-promotion-title{\r\n\tcolor: red;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.product-count, .choose-count{\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product-content img{\r\n    max-width: 640px;\r\n    /*width: 100%;*/\r\n}\r\n\r\n.choose-count{\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.product-count li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\tborder: 1px solid #CCC;\r\n\tpadding-top: 2px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.xui-newProduct-page{\r\n\tposition: relative;\r\n}\r\n\r\n.preview-btn{\r\n\tposition: absolute;\r\n    left: 110px;\r\n    top: 13px;\r\n    font-size: 18px;\r\n}\r\n\r\n.product-collect-title{\r\n    display: inline-block;\r\n    float: right;\r\n    width: 40px;\r\n    padding-left: 10px;\r\n    right: 27px;\r\n    border-left: 1px solid #CCC;\r\n    color: #CCC;\r\n    margin-right: 10px;\r\n    line-height: 40px;\r\n}\r\n\r\ninput[name=\"product_price\"],\r\ninput[name=\"clear_price\"],\r\ninput[name=\"product_weight\"]{\r\n\twidth: 200px;\r\n}\r\n\r\ninput[name=\"limit_clear_price\"]{\r\n\twidth: 100px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(1){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(7){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*.product_info_fieldset div:nth-child(9){\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\tmargin-left: 80px !important;\r\n\tposition: relative;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) div{\r\n\tposition: absolute;\r\n    left: 24px;\r\n    top: -19px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) label{\r\n\twidth: 10px;\r\n\theight: 0px !important;\r\n}*/\r\n\r\n.product_info_fieldset div:nth-child(10){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(10) label{\r\n\twidth: 80px !important;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11) label{\r\n\twidth: 40px !important;\r\n\tpadding-left: 0px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(14){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.money_note, .count_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note_tips{\r\n\tdisplay: block;\r\n\theight: 34px;\r\n\tmargin-left: 178px;\r\n}\r\n\r\n.errorHint{\r\n\twidth: 200px;\r\n}\r\n\r\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\r\n\tz-index: 1000 !important;\r\n}\r\n\r\ntd div.form-group{\r\n    margin: 0;\r\n    width: 60px;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group label{\r\n\tdisplay: none;\r\n}\r\n\r\ntd div.form-group div input{\r\n    width: 100px;\r\n}\r\n\r\ntd div.form-group div .errorHint{\r\n\twidth: 100px;\r\n}\r\n\r\n.xui-catalog-name{\r\n    padding-left: 34px;\r\n    padding-top: 6px;\r\n    display: inline-block;\r\n}", ""]);
 
 	// exports
 
@@ -42717,8 +42761,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./SetValidataTime.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./SetValidataTime.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42736,7 +42780,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n    min-height: 200px;\n}\n\n.modal-body .valid-time{\n\theight: 160px;\n}\n\n.modal-body div.form-group div{\n\twidth: 150px;\n}\n\n.ui-corner-all{\n\tz-index: 2000 !important;\n}\n\n.modal-body div.valid-time a.btn-success{\n    position: absolute;\n    bottom: 45px;\n    width: 100px;\n    letter-spacing: 12px;\n    text-indent: 10px;\n    left: 180px;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n    min-height: 200px;\r\n}\r\n\r\n.modal-body .valid-time{\r\n\theight: 160px;\r\n}\r\n\r\n.modal-body div.form-group div{\r\n\twidth: 150px;\r\n}\r\n\r\n.ui-corner-all{\r\n\tz-index: 2000 !important;\r\n}\r\n\r\n.modal-body div.valid-time a.btn-success{\r\n    position: absolute;\r\n    bottom: 45px;\r\n    width: 100px;\r\n    letter-spacing: 12px;\r\n    text-indent: 10px;\r\n    left: 180px;\r\n}", ""]);
 
 	// exports
 
@@ -43001,8 +43045,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43020,7 +43064,7 @@
 
 
 	// module
-	exports.push([module.id, ".model-table-tr td{\n    width: 170px;\n    padding: 8px 0 8px 0px !important;\n}\n\ntd div.form-group {\n    margin: 0;\n    width: 100%;\n    margin-left: 0 !important;\n}\n\ntd div.form-group div{\n    width: 80%;\n    padding-right: 0px;\n}\n\ntd div.form-group div input{\n\twidth: 100%;\n\tpadding: 1px !important;\n}", ""]);
+	exports.push([module.id, ".model-table-tr td{\r\n    width: 170px;\r\n    padding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n    margin: 0;\r\n    width: 100%;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n    width: 80%;\r\n    padding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}", ""]);
 
 	// exports
 
@@ -43377,8 +43421,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43396,7 +43440,7 @@
 
 
 	// module
-	exports.push([module.id, ".category-ul{\n\twidth: 200px;\n\theight: 200px;\n\tdisplay: inline-block;\n\tborder: 1px solid #D4D3D3;\n\tbox-shadow: 1px 1px #D4D3D3;\n\tmargin-left: 40px;\n\toverflow-y:auto;\n}\n.category-ul li{\n\tmargin-top: 5px;\n    padding-left: 5px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.edit-product{\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-bottom: 20px;\n\twidth: 245px;\n\tmargin-left: 150px\n}\n#demo {\n\twidth: 44px;\n    display: inline-block;\n    height: 20px;\n    background-color: #CCC;\n    position: relative;\n    top: 42px;\n    left: 18px;\n    border: 1px solid #ccc;\n}\n\n#demo:after, #demo:before {\n\tborder: solid transparent;\n\tcontent: ' ';\n\theight: 0;\n\tleft: 100%;\n\tposition: absolute;\n\twidth: 0;\n}\n\n#demo:after {\n \tborder-width: 9px;\n}\n\n#demo:before {\n\tborder-width: 14px;\n\tborder-left-color: #CCC;\n\ttop: -5px\n}\n\n.erow{\n\tposition: relative;\n\tdisplay: inline-block;\n\ttop: -137px;\n\twidth: 90px\n}", ""]);
+	exports.push([module.id, ".category-ul{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tdisplay: inline-block;\r\n\tborder: 1px solid #D4D3D3;\r\n\tbox-shadow: 1px 1px #D4D3D3;\r\n\tmargin-left: 40px;\r\n\toverflow-y:auto;\r\n}\r\n.category-ul li{\r\n\tmargin-top: 5px;\r\n    padding-left: 5px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.edit-product{\r\n\tdisplay: block;\r\n\tmargin-top: 20px;\r\n\tmargin-bottom: 20px;\r\n\twidth: 245px;\r\n\tmargin-left: 150px\r\n}\r\n#demo {\r\n\twidth: 44px;\r\n    display: inline-block;\r\n    height: 20px;\r\n    background-color: #CCC;\r\n    position: relative;\r\n    top: 42px;\r\n    left: 18px;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n#demo:after, #demo:before {\r\n\tborder: solid transparent;\r\n\tcontent: ' ';\r\n\theight: 0;\r\n\tleft: 100%;\r\n\tposition: absolute;\r\n\twidth: 0;\r\n}\r\n\r\n#demo:after {\r\n \tborder-width: 9px;\r\n}\r\n\r\n#demo:before {\r\n\tborder-width: 14px;\r\n\tborder-left-color: #CCC;\r\n\ttop: -5px\r\n}\r\n\r\n.erow{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\ttop: -137px;\r\n\twidth: 90px\r\n}", ""]);
 
 	// exports
 
@@ -43717,8 +43761,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43736,7 +43780,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-img{\n\twidth: 60px;\n\theight: 60px;\n\tmargin-right: 10px;\n}\n\n.product-name{\n\toverflow: hidden;\n\twhite-space: nowrap;\n\ttext-overflow: ellipsis;\n\tdisplay: inline-block;\n\twidth: 400px;\n\tposition: relative;\n}\n\n.product-model-detail{\n\tposition: absolute;\n\theight: 30px;\n\ttop: 35px;\n\tleft: 70px;\n\tline-height: 30px;\n}\n\ntr > td{\n\tvertical-align: middle !important;\n}\n\ntr.model-detail-tr > td{\n\theight: 40px;\n\tline-height: 30px!important;\n}\n\n.xui-filterPanel .control-label{\n\twidth: 90px;\n}", ""]);
+	exports.push([module.id, ".product-img{\r\n\twidth: 60px;\r\n\theight: 60px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.product-name{\r\n\toverflow: hidden;\r\n\twhite-space: nowrap;\r\n\ttext-overflow: ellipsis;\r\n\tdisplay: inline-block;\r\n\twidth: 400px;\r\n\tposition: relative;\r\n}\r\n\r\n.product-model-detail{\r\n\tposition: absolute;\r\n\theight: 30px;\r\n\ttop: 35px;\r\n\tleft: 70px;\r\n\tline-height: 30px;\r\n}\r\n\r\ntr > td{\r\n\tvertical-align: middle !important;\r\n}\r\n\r\ntr.model-detail-tr > td{\r\n\theight: 40px;\r\n\tline-height: 30px!important;\r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}", ""]);
 
 	// exports
 
@@ -44329,8 +44373,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44348,7 +44392,7 @@
 
 
 	// module
-	exports.push([module.id, ".radio_model_type{\n    width: 80px;\n    height: 21px;\n    position: relative;\n    display: block;\n}\n\n.model_type_text, .model_type_img{\n    position: absolute;\n    width: auto;\n}\n\n.model_type_text_value{\n\tposition: absolute;\n\tleft: 15px;\n}\n\n.xa-editModelPropertyValue{\n    overflow: hidden;\n    border: solid 1px #BFBFBF;\n    position: relative;\n    width: auto;\n    height: 37px;\n}\n\nli.model_li{\n    display: inline-block;\n    box-sizing: border-box;\n    margin: 8px 10px 5px 0px;\n    min-width: 35px;\n    height: 35px;\n    line-height: 35px;\n    text-align: center;\n    position: relative;\n    vertical-align: middle;\n    background: #fff;\n}\n\nbutton.xui-close{\n\tline-height: 16px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.xui-form-imageUploader{\n\twidth: 260px;\n}", ""]);
+	exports.push([module.id, ".radio_model_type{\r\n    width: 80px;\r\n    height: 21px;\r\n    position: relative;\r\n    display: block;\r\n}\r\n\r\n.model_type_text, .model_type_img{\r\n    position: absolute;\r\n    width: auto;\r\n}\r\n\r\n.model_type_text_value{\r\n\tposition: absolute;\r\n\tleft: 15px;\r\n}\r\n\r\n.xa-editModelPropertyValue{\r\n    overflow: hidden;\r\n    border: solid 1px #BFBFBF;\r\n    position: relative;\r\n    width: auto;\r\n    height: 37px;\r\n}\r\n\r\nli.model_li{\r\n    display: inline-block;\r\n    box-sizing: border-box;\r\n    margin: 8px 10px 5px 0px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    line-height: 35px;\r\n    text-align: center;\r\n    position: relative;\r\n    vertical-align: middle;\r\n    background: #fff;\r\n}\r\n\r\nbutton.xui-close{\r\n\tline-height: 16px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-form-imageUploader{\r\n\twidth: 260px;\r\n}", ""]);
 
 	// exports
 
@@ -44803,6 +44847,9 @@
 			}, {
 				'name': '微众良乡商城',
 				'value': 'weizoom_xiaoyuan'
+			}, {
+				'name': '微众精英',
+				'value': 'weizoom_jy'
 			}];
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
@@ -44848,7 +44895,7 @@
 			var syncType = this.props.data.sync_type;
 			var selfShop = this.state.self_shop;
 			var selectSelfShop = this.state.select_self_shop;
-			var checked = this.state.select_self_shop.length == 19 ? 'checked' : null;
+			var checked = this.state.select_self_shop.length == selfShop.length ? 'checked' : null;
 
 			var selfs = selfShop.map(function (self_shop, index) {
 				var value = self_shop.value;
@@ -45008,10 +45055,10 @@
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 
-			if (selectSelfShop.length == 19) {
+			if (selectSelfShop.length == 20) {
 				selectSelfShop = [];
 			} else {
-				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan'];
+				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy'];
 			}
 
 			this.data.selectSelfShop = selectSelfShop;
@@ -45050,8 +45097,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45069,7 +45116,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-relation-title{\n\twidth: 75%;\n\tbackground: #CCC;\n\tposition: relative;\n\tmargin: 0 auto;\n    line-height: 35px;\n    height: 35px;\n    margin-bottom: 10px;\n}\n\n.product-relation-title span{\n\tdisplay: inline-block;\n\tfont-size: 16px;\n}\n\n.self-shop-div{\n\theight: 40px;\n\twidth: 75%;\n\tmargin: 0 auto;\n}\n\n.self-shop-name{\n\tline-height: 30px;\n\twidth: 130px;\n\ttext-align: center;\n}\n\n.relation-btn-div{\n    width: 75%;\n    margin: 0 auto;\n    margin-top: 20px;\n}\n\n.relation-btn-div button{\n\twidth: 100px;\n}\n\n.relation-btn-div .relation-btn{\n    margin-right: 68px;\n    margin-left: 74px;\n}\n\n.modal-footer .btn-primary{\n\tdisplay: none;\n}\n\n.self-shop-li{\n    list-style: none;\n    display: inline-block;\n    margin-left: 40px;\n    border: 1px solid #CCC;\n    width: 90px;\n    margin-bottom: 10px;\n    padding-top: 3px;\n    height: 28px;\n    text-align: center;\n}\n.self-shop-li:hover{\n\tcursor: pointer;\n}\n\n.cancle-relation-tips{\n    display: block;\n    margin-left: 50px;\n    margin-top: 20px;\n    margin-bottom: 15px;\n    font-size: 14px;\n}", ""]);
+	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 40px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -45090,8 +45137,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./ProductRelation.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./ProductRelation.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45109,7 +45156,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\n\tfloat: left !important;\n\tmargin-left: 0px !important; \n}\n\n.xui-filterPanel .control-label{\n\twidth: 90px;\n}", ""]);
+	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}", ""]);
 
 	// exports
 
@@ -46006,8 +46053,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46025,7 +46072,7 @@
 
 
 	// module
-	exports.push([module.id, "td {\n    line-height: 30px !important;\n}\n.add_model .add_model-btn{\n    display: -webkit-box;\n}\ninput#qualification_name {\n    width: 180px;\n}\n.form-group label {\n    width: 20%;\n}", ""]);
+	exports.push([module.id, "td {\r\n    line-height: 30px !important;\r\n}\r\n.add_model .add_model-btn{\r\n    display: -webkit-box;\r\n}\r\ninput#qualification_name {\r\n    width: 180px;\r\n}\r\n.form-group label {\r\n    width: 20%;\r\n}", ""]);
 
 	// exports
 
@@ -46261,8 +46308,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46280,7 +46327,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}", ""]);
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}", ""]);
 
 	// exports
 
@@ -46753,8 +46800,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46772,7 +46819,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-datePicker {\n\tline-height: 24px;\n    width: 160px !important;\n    background: url(/static/img/calendar.jpg) no-repeat !important;\n    background-position: right !important;\n    background-color: #f2f2f2 !important;\n    display: block;\n}\n.ui-timepicker-div{\n    width:100%;\n    height:30px;\n}\n.ui-timepicker-div dl dt,\n.ui-timepicker-div dl dd{\n    width:50px;\n    height:15px;\n    float:left;\n    line-height:2;\n    text-align: center;\n}\n.ui_tpicker_time{\n    display:none;\n}\n.ui-timepicker-div dl dt:first-child{\n   display:none;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-datePicker {\r\n\tline-height: 24px;\r\n    width: 160px !important;\r\n    background: url(/static/img/calendar.jpg) no-repeat !important;\r\n    background-position: right !important;\r\n    background-color: #f2f2f2 !important;\r\n    display: block;\r\n}\r\n.ui-timepicker-div{\r\n    width:100%;\r\n    height:30px;\r\n}\r\n.ui-timepicker-div dl dt,\r\n.ui-timepicker-div dl dd{\r\n    width:50px;\r\n    height:15px;\r\n    float:left;\r\n    line-height:2;\r\n    text-align: center;\r\n}\r\n.ui_tpicker_time{\r\n    display:none;\r\n}\r\n.ui-timepicker-div dl dt:first-child{\r\n   display:none;\r\n}", ""]);
 
 	// exports
 
@@ -47716,7 +47763,7 @@
 	            if (pos == -1) {
 	                break;
 	            }
-	             var end = hSource.indexOf('/>', pos);
+	              var end = hSource.indexOf('/>', pos);
 	            var img = hSource.substring(pos, end+2);
 	            
 	            //获得图片名
@@ -47724,7 +47771,7 @@
 	            var nameEnd = img.indexOf('"', nameBeg);
 	            var imgName = img.substring(nameBeg, nameEnd);
 	            var title = W.EMOTIONNAME2TITLE[imgName];
-	             //替换
+	              //替换
 	            hSource = hSource.replace(img, title);
 	        }
 	        */
@@ -48522,8 +48569,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48541,7 +48588,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*\n * jQuery File Upload Plugin CSS\n * https://github.com/blueimp/jQuery-File-Upload\n *\n * Copyright 2013, Sebastian Tschan\n * https://blueimp.net\n *\n * Licensed under the MIT license:\n * http://www.opensource.org/licenses/MIT\n */\n\n.fileinput-button {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n}\n.fileinput-button input {\n  position: absolute;\n  top: 0;\n  right: 0;\n  margin: 0;\n  opacity: 0;\n  -ms-filter: 'alpha(opacity=0)';\n  font-size: 200px !important;\n  direction: ltr;\n  cursor: pointer;\n}\n\n/* Fixes for IE < 8 */\n@media screen\\9 {\n  .fileinput-button input {\n    filter: alpha(opacity=0);\n    font-size: 100%;\n    height: 100%;\n  }\n}\n\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\n  height: 5px;\n}\n.xui-form-imageUploader .xui-i-image {\n  padding: 5px;\n  border: solid 1px #EFEFEF;\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\n}\n.xui-form-imageUploader .xui-i-image .close {\n  position: absolute;\n  top: -6px;\n  right: -1px;\n}", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\r\n/*\r\n * jQuery File Upload Plugin CSS\r\n * https://github.com/blueimp/jQuery-File-Upload\r\n *\r\n * Copyright 2013, Sebastian Tschan\r\n * https://blueimp.net\r\n *\r\n * Licensed under the MIT license:\r\n * http://www.opensource.org/licenses/MIT\r\n */\r\n\r\n.fileinput-button {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n}\r\n.fileinput-button input {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  margin: 0;\r\n  opacity: 0;\r\n  -ms-filter: 'alpha(opacity=0)';\r\n  font-size: 200px !important;\r\n  direction: ltr;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Fixes for IE < 8 */\r\n@media screen\\9 {\r\n  .fileinput-button input {\r\n    filter: alpha(opacity=0);\r\n    font-size: 100%;\r\n    height: 100%;\r\n  }\r\n}\r\n\r\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\r\n  height: 5px;\r\n}\r\n.xui-form-imageUploader .xui-i-image {\r\n  padding: 5px;\r\n  border: solid 1px #EFEFEF;\r\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n.xui-form-imageUploader .xui-i-image .close {\r\n  position: absolute;\r\n  top: -6px;\r\n  right: -1px;\r\n}", ""]);
 
 	// exports
 
@@ -48723,8 +48770,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48742,7 +48789,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*\n * jQuery File Upload Plugin CSS\n * https://github.com/blueimp/jQuery-File-Upload\n *\n * Copyright 2013, Sebastian Tschan\n * https://blueimp.net\n *\n * Licensed under the MIT license:\n * http://www.opensource.org/licenses/MIT\n */\n\n.fileinput-button {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n}\n.fileinput-button input {\n  position: absolute;\n  top: 0;\n  right: 0;\n  margin: 0;\n  opacity: 0;\n  -ms-filter: 'alpha(opacity=0)';\n  font-size: 200px !important;\n  direction: ltr;\n  cursor: pointer;\n}\n\n/* Fixes for IE < 8 */\n@media screen\\9 {\n  .fileinput-button input {\n    filter: alpha(opacity=0);\n    font-size: 100%;\n    height: 100%;\n  }\n}\n\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\n  height: 5px;\n}", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\r\n/*\r\n * jQuery File Upload Plugin CSS\r\n * https://github.com/blueimp/jQuery-File-Upload\r\n *\r\n * Copyright 2013, Sebastian Tschan\r\n * https://blueimp.net\r\n *\r\n * Licensed under the MIT license:\r\n * http://www.opensource.org/licenses/MIT\r\n */\r\n\r\n.fileinput-button {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n}\r\n.fileinput-button input {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  margin: 0;\r\n  opacity: 0;\r\n  -ms-filter: 'alpha(opacity=0)';\r\n  font-size: 200px !important;\r\n  direction: ltr;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Fixes for IE < 8 */\r\n@media screen\\9 {\r\n  .fileinput-button input {\r\n    filter: alpha(opacity=0);\r\n    font-size: 100%;\r\n    height: 100%;\r\n  }\r\n}\r\n\r\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\r\n  height: 5px;\r\n}", ""]);
 
 	// exports
 
@@ -48784,6 +48831,10 @@
 			this.Action = Action(this.Dispatcher);
 			this.Store.addListener(this.onReloadData);
 
+			this.innerState = {
+				page: this.props.resource.data['page'] || 1
+			};
+
 			//加载数据
 			var autoLoad = true;
 			if (this.props.hasOwnProperty('autoLoad')) {
@@ -48803,7 +48854,7 @@
 			$table.delegate('a', 'click', function (event) {
 				var $link = $(event.target);
 				var href = $link.attr('href');
-				if (href.contains('__memorize')) {
+				if (href && href.contains('__memorize')) {
 					var top = $(window).scrollTop();
 					var url = _this.fullUrl + '&__r_top=' + top;
 					href += '&__r_rollback=' + encodeURIComponent(url);
@@ -48830,7 +48881,7 @@
 		onReloadData: function (event) {
 			var storeData = this.Store.getData();
 			var data = {};
-			data['pagination_info'] = storeData['pagination_info'];
+			data['paginationInfo'] = storeData.paginationInfo;
 			data['isAllRowSelected'] = storeData.isAllRowSelected;
 
 			var rows = storeData['rows'];
@@ -48849,10 +48900,14 @@
 			data['rows'] = rows;
 
 			this.setState(data);
+
+			if (this.props.onAfterLoad) {
+				this.props.onAfterLoad(storeData);
+			}
 		},
 
 		onChangePage: function (page) {
-			this.props.resource.data['page'] = page;
+			this.innerState.page = page;
 			this.__refresh(this.filterOptions);
 		},
 
@@ -48882,7 +48937,14 @@
 		},
 
 		refresh: function (filterOptions) {
-			this.props.resource.data['page'] = 1;
+			if (filterOptions) {
+				//当查询条件发生变化时，返回第一页
+				var originalFilterStr = JSON.stringify(this.filterOptions);
+				var newFilterStr = JSON.stringify(filterOptions);
+				if (newFilterStr !== originalFilterStr) {
+					this.innerState.page = 1;
+				}
+			}
 			this.__refresh(filterOptions);
 		},
 
@@ -48896,7 +48958,7 @@
 				this.rollbackInfo = System.getRollbackInfo();
 				System.clearRollbackInfo();
 
-				resource.data['page'] = this.rollbackInfo.page;
+				this.innerState.page = this.rollbackInfo.page;
 				if (this.rollbackInfo.filters) {
 					filterOptions = this.rollbackInfo.filters;
 				}
@@ -48906,11 +48968,15 @@
 			}
 
 			resource.data = _.clone(this.props.resource.data);
+			resource.data.page = this.innerState.page;
 			if (filterOptions) {
 				this.filterOptions = filterOptions;
 				_.extend(resource.data, filterOptions);
 			}
 			this.fullUrl = this.__buildUrl(resource.data);
+			if (this.props.onBeforeLoad) {
+				this.props.onBeforeLoad();
+			}
 			this.Action.reload(resource);
 		},
 
@@ -49049,7 +49115,7 @@
 			} else {
 				var tableInfo = this.createHeadAndRow();
 
-				var mPagination = this.createPagination(this.state['pagination_info']);
+				var mPagination = this.createPagination(this.state.paginationInfo);
 
 				var enableBorder = this.props.enableBorder === false ? false : true;
 				var enableHeader = this.props.enableHeader === false ? false : true;
@@ -49112,6 +49178,7 @@
 	 */
 
 	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
@@ -49125,6 +49192,19 @@
 				var page = event.target.getAttribute('data-page');
 				this.props.onChangePage(parseInt(page));
 			}
+		},
+
+		componentDidMount: function () {
+			var $pagination = $(ReactDOM.findDOMNode(this));
+			var changePageHandler = this.props.onChangePage;
+			$pagination.find('.xa-jump').click(function () {
+				var $input = $pagination.find('.xa-jumpPage');
+				var page = $input.val().trim();
+				$input.val('');
+				if (page && changePageHandler) {
+					changePageHandler(page);
+				}
+			});
 		},
 
 		render: function () {
@@ -49155,6 +49235,14 @@
 						);
 					}
 				});
+
+				var inputStyle = {
+					display: "inline-block",
+					width: '40px',
+					padding: '5px',
+					marginLeft: '5px',
+					marginRight: '5px'
+				};
 
 				return React.createElement(
 					'div',
@@ -49217,6 +49305,18 @@
 								'尾页'
 							)
 						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'disTc vm ml20', style: { paddingTop: '4px' } },
+						React.createElement(
+							'span',
+							{ className: 'ml40' },
+							'跳转到',
+							React.createElement('input', { className: 'form-control xa-jumpPage', type: 'text', style: inputStyle }),
+							'页 ',
+							React.createElement('input', { className: 'form-control btn btn-link xa-jump', type: 'button', value: 'Go', style: inputStyle })
+						)
 					)
 				);
 			} else {
@@ -49242,8 +49342,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49261,7 +49361,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.pagination input {\n\theight: 20px;\n\twidth: 30px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.pagination input {\r\n\theight: 20px;\r\n\twidth: 30px;\r\n}", ""]);
 
 	// exports
 
@@ -49297,7 +49397,9 @@
 			},
 
 			handleReload: function (action) {
-				this.data = action.data;
+				this.data.rows = action.data['rows'];
+				this.data.paginationInfo = action.data['pagination_info'];
+				//this.data = action.data;
 				this.isAllRowSelected = false;
 				this.selectedRowIds = [];
 				this.__emitChange();
@@ -49488,8 +49590,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49507,7 +49609,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-panel-table {\n    border: none;\n    box-shadow: none;\n}\n.xui-panel-table table {\n    margin-bottom: 5px;\n    padding-bottom: 0px;\n}\n.xui-panel-table table .btn-link {\n\tcolor: #1262b7;\n}\n.xui-panel-table table .btn-link:hover {\n\tcolor: #1262b7;\n\ttext-decoration: underline;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-panel-table {\r\n    border: none;\r\n    box-shadow: none;\r\n}\r\n.xui-panel-table table {\r\n    margin-bottom: 5px;\r\n    padding-bottom: 0px;\r\n}\r\n.xui-panel-table table .btn-link {\r\n\tcolor: #1262b7;\r\n}\r\n.xui-panel-table table .btn-link:hover {\r\n\tcolor: #1262b7;\r\n\ttext-decoration: underline;\r\n}", ""]);
 
 	// exports
 
@@ -49735,8 +49837,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49754,7 +49856,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-panel-table {\n    border: none;\n    box-shadow: none;\n}\n.xui-panel-table table {\n    margin-bottom: 5px;\n    padding-bottom: 0px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-panel-table {\r\n    border: none;\r\n    box-shadow: none;\r\n}\r\n.xui-panel-table table {\r\n    margin-bottom: 5px;\r\n    padding-bottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -50207,8 +50309,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50226,7 +50328,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-filterPanel {\n\tbackground-color: #FFF;\n    padding: 20px 10px;\n}\n.xui-filterPanel .xui-i-row {\n\tdisplay: table;\n\twidth: 100%;\n}\n.xui-filterPanel .xui-i-field {\n\tdisplay: table-cell;\n}\n.xui-filterPanel .xui-i-row-3 .xui-i-field {\n\twidth: 33.333%;\n}\n.xui-filterPanel .xui-i-row-2 .xui-i-field {\n\twidth: 50%;\n}\n.xui-filterPanel .xui-i-row-4 .xui-i-field {\n\twidth: 25%;\n}\n.xui-filterPanel .form-inline .form-group {\n\theight: 45px;\n}\n.xui-filterPanel .form-control {\n\tpadding: 3px 5px;\n\theight: 28px;\n\tmax-width: 150px;\n}\n.xui-filterPanel .control-label {\n\tpadding-top: 4px;\n\twidth: 70px;\n\ttext-align: right;\n}\n.xui-filterPanel .col-sm-5, .xui-filterPanel .col-sm-2, .xui-filterPanel .col-sm-3, , .xui-filterPanel .col-sm-7 {\n\tpadding-left: 5px;\n}\n.xui-filterPanel select.form-control {\n\twidth: 150px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-filterPanel {\r\n\tbackground-color: #FFF;\r\n    padding: 20px 10px;\r\n}\r\n.xui-filterPanel .xui-i-row {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n}\r\n.xui-filterPanel .xui-i-field {\r\n\tdisplay: table-cell;\r\n}\r\n.xui-filterPanel .xui-i-row-3 .xui-i-field {\r\n\twidth: 33.333%;\r\n}\r\n.xui-filterPanel .xui-i-row-2 .xui-i-field {\r\n\twidth: 50%;\r\n}\r\n.xui-filterPanel .xui-i-row-4 .xui-i-field {\r\n\twidth: 25%;\r\n}\r\n.xui-filterPanel .form-inline .form-group {\r\n\theight: 45px;\r\n}\r\n.xui-filterPanel .form-control {\r\n\tpadding: 3px 5px;\r\n\theight: 28px;\r\n\tmax-width: 150px;\r\n}\r\n.xui-filterPanel .control-label {\r\n\tpadding-top: 4px;\r\n\twidth: 70px;\r\n\ttext-align: right;\r\n}\r\n.xui-filterPanel .col-sm-5, .xui-filterPanel .col-sm-2, .xui-filterPanel .col-sm-3, , .xui-filterPanel .col-sm-7 {\r\n\tpadding-left: 5px;\r\n}\r\n.xui-filterPanel select.form-control {\r\n\twidth: 150px;\r\n}", ""]);
 
 	// exports
 
@@ -50380,8 +50482,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50399,7 +50501,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-widget {\n\tborder-radius: 5px;\n\tpadding: 15px 20px;\n\tmargin-bottom: 10px;\n\tmargin-top: 10px;\n}\n.xui-widget-navy {\n\tbackground-color: #1ab394;\n\tcolor: #ffffff;\n}\n.xui-widget-lazur {\n\tbackground-color: #23c6c8;\n\tcolor: #ffffff;\n}\n.xui-widget-yellow {\n\tbackground-color: #f8ac59;\n\tcolor: #ffffff;\n}\n.xui-widget .xui-i-content {\n\tfont-size: 20px;\n\tfont-weight: 600;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-widget {\r\n\tborder-radius: 5px;\r\n\tpadding: 15px 20px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.xui-widget-navy {\r\n\tbackground-color: #1ab394;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget-lazur {\r\n\tbackground-color: #23c6c8;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget-yellow {\r\n\tbackground-color: #f8ac59;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget .xui-i-content {\r\n\tfont-size: 20px;\r\n\tfont-weight: 600;\r\n}", ""]);
 
 	// exports
 
@@ -50605,8 +50707,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50624,7 +50726,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-rm-chart {\n\tmax-width: 800px;\n\tbackground-color: #FFF;\n}\n.xui-rm-chart .xui-i-title {\n\tborder-top: solid 3px #e7eaec;\n\tcolor: #676a6c;\n\theight: 40px;\n\tline-height: 40px;\n\tpadding-left: 10px;\n\tfont-size: 14;\n\tfont-weight: 600;\n}\n.xui-rm-chart .xui-i-content {\n\tborder-top: solid 1px #e7eaec;\n\tbackground-color: #FFF;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-rm-chart {\r\n\tmax-width: 800px;\r\n\tbackground-color: #FFF;\r\n}\r\n.xui-rm-chart .xui-i-title {\r\n\tborder-top: solid 3px #e7eaec;\r\n\tcolor: #676a6c;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding-left: 10px;\r\n\tfont-size: 14;\r\n\tfont-weight: 600;\r\n}\r\n.xui-rm-chart .xui-i-content {\r\n\tborder-top: solid 1px #e7eaec;\r\n\tbackground-color: #FFF;\r\n}", ""]);
 
 	// exports
 
