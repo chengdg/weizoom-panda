@@ -26,10 +26,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	    console.log(this.data)
 	    if(!this.data){
 	        this.data = {
-	            'id': -1,
                 'title': '',
                 'text': '',
-                'attachment': '',
+                'create_at': '',
+                'attachments': '',
             };
 	    }
 	},

@@ -76,7 +76,7 @@ MESSAGE_READED = 1
 
 class UserMessage(models.Model):
 	"""
-	用户的message
+	用户的message(如果是个人消息,这个表直接插入)
 	"""
 	# 用户id
 	user_id = models.IntegerField()

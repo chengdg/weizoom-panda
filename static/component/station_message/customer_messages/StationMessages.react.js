@@ -35,9 +35,10 @@ var StationMessageList = React.createClass({
         }
         if (data.status==0){
             if (field === 'title') {
+                var href = '/message/read_message?message_id=' + data.id;
                 return (
                     <div className='bold_text'>
-                        <a href='' className='href_color'>{status}{value}</a>
+                        <a href={href} className='href_color'>{status}{value}</a>
 
                     </div>
                 );
@@ -51,12 +52,23 @@ var StationMessageList = React.createClass({
 		    }
 
         }else{
-            return (
-                <div className='grey_text'>
-                    {value}
+            if (field === 'title') {
+                var href = '/message/read_message?message_id=' + data.id;
+                return (
+                    <div className='grey_text'>
+                        <a href={href} className='href_color_gray'>{value}</a>
 
-                </div>
-            );
+                    </div>
+                );
+		    }else{
+		        return (
+                    <div className='grey_text'>
+                        {value}
+
+                    </div>
+                );
+		    }
+
         }
 
 	},

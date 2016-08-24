@@ -25,7 +25,9 @@ var Action = {
                 Reactman.PageAction.showHint('success', 'SUCCESS!');
                 Dispatcher.dispatch({
 						actionType: Constant.MESSAGE_FILTER,
-						data: {}
+						data: {
+						    'models': [message_id]
+						}
 					});
             },
             error: function() {

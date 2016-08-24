@@ -32,13 +32,13 @@ for relation in relations:
     # print 'product_id:%s count :%s' % (product_id, count)
     # if count == 0:
     t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                           self_user_name='weizoom_jiaren')
+                                           self_user_name='weizoom_jy')
 
-    t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
-                                           self_user_name='weizoom_xiaoyuan')
+    # t2 = product_models.ProductSyncWeappAccount(product_id=product_id,
+    #                                        self_user_name='weizoom_xiaoyuan')
 
     bulk_create.append(t_1)
-    bulk_create.append(t2)
+    # bulk_create.append(t2)
 
     print 'product: %s is ok' % product_id
 product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)

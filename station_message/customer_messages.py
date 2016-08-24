@@ -56,10 +56,15 @@ class ProductCatalog(resource.Resource):
 		user_messages = message_models.UserMessage.objects.filter(user_id=request.user.id)
 		# 已经插入用户消息的系统消息
 		user_message_ids = [user_message.message_id for user_message in user_messages]
-		sys_messages = message_models.Message.objects.exclude(id__in=user_message_ids,
-															  is_deleted=False,
-															  receive_id=-1)
+		# 未插入的系统消息
+		sys_messages = message_models.Message.objects.exclude(id__in=user_message_ids,)
+
+		sys_messages = sys_messages.exclude(is_deleted=True,)
+		sys_messages = sys_messages.filter(receive_id=-1)
 		sys_message_ids = [sys_message.id for sys_message in sys_messages]
+		# print '++++++++++++++++++++++++++++++=='
+		# print sys_message_ids, user_message_ids
+		# print '++++++++++++++++++++++++++++++=='
 		if sys_message_ids:
 			# 说明有新的系统消息
 			bulk_create = []
@@ -69,7 +74,7 @@ class ProductCatalog(resource.Resource):
 				bulk_create.append(temp_model)
 			message_models.UserMessage.objects.bulk_create(bulk_create)
 		# 查询消息
-		messages = message_models.UserMessage.objects.all().order_by('status')
+		messages = message_models.UserMessage.objects.filter(user_id=request.user.id).order_by('status')
 		page_infos, page_user_messages = paginator.paginate(messages, cur_page, 20)
 		# page_messages = page_infos[1]
 		page_message_ids = [user_message.message_id for user_message in page_user_messages]

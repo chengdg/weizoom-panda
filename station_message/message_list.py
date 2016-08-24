@@ -51,9 +51,9 @@ class ProductCatalog(resource.Resource):
 
 		page_infos, page_messages = paginator.paginate(messages, cur_page, 2)
 		# page_messages = page_infos[1]
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
-		print page_messages[0]
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
+		# print page_messages[0]
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
 		message_to_text = dict([(message.id, message.text_id) for message in page_messages])
 		texts = message_models.MessageText.objects.filter(id__in=message_to_text.values())
 		text_id_to_info = dict([(text.id, {'title': text.title, 'text': text.text}) for text in texts])

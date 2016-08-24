@@ -41,9 +41,7 @@ var StationMessageList = React.createClass({
 		});
 	},
     onConfirmFilter:function(data){
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..3')
-        console.log(data)
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..4')
+
     },
 
     rowFormatter: function(field, value, data) {
@@ -67,13 +65,7 @@ var StationMessageList = React.createClass({
 		};
 		return (
 			<div className="mt15 xui-product-productListPage">
-				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
-					<Reactman.FilterRow>
-						<Reactman.FilterField>
-							<Reactman.FormInput label="标题:" name="title_query" match="=" />
-						</Reactman.FilterField>
-					</Reactman.FilterRow>
-				</Reactman.FilterPanel>
+
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加站内信" icon="plus" onClick={this.onAddMessage}/>
