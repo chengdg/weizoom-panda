@@ -77,6 +77,16 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			'name': '微众精英',
 			'value': 'weizoom_jy'
 		}];
+		if(W.is_ceshi){
+			selfShop.push({
+				'name': '开发测试',
+				'value': 'devceshi'
+			});
+			selfShop.push({
+				'name': '财务测试',
+				'value': 'caiwuceshi'
+			});
+		}
 		return {
 			select_self_shop: Store.getData()['selectSelfShop'],
 			self_shop: selfShop

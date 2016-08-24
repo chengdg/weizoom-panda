@@ -119,7 +119,16 @@ var YunyingOrderDatasPage = React.createClass({
 			text: '微众精英',
 			value: 'weizoom_jy'
 		}];
-
+		if(W.is_ceshi){
+			typeOptions.push({
+				text: '开发测试',
+				value: 'devceshi'
+			});
+			typeOptions.push({
+				text: '财务测试',
+				value: 'caiwuceshi'
+			});
+		}
 		var orderStatusOptions = [{
 			text: '全部',
 			value: '-1'

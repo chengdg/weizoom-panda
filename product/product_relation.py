@@ -18,8 +18,8 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
-from panda.settings import ZEUS_HOST
-from panda.settings import PANDA_HOST
+from panda.settings import ZEUS_HOST,PANDA_HOST
+from panda.settings import CESHI_USERNAMES
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
@@ -53,12 +53,17 @@ class ProductRelation(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		username = User.objects.get(id=request.user.id).username
+		is_ceshi = False
+		if username in CESHI_USERNAMES:
+			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': second_navs,
 			'second_nav_name': SECOND_NAV,
 			'first_catalog_id': request.GET.get('first_catalog_id', ''),
-			'second_catalog_id': request.GET.get('second_catalog_id', '')
+			'second_catalog_id': request.GET.get('second_catalog_id', ''),
+			'is_ceshi': is_ceshi
 		})
 
 		return render_to_response('product/product_relation.html', c)
