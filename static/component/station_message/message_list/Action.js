@@ -13,9 +13,7 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-
 	deleteMessage: function(message_id){
-
         Reactman.Resource.delete({
             resource: 'message.message',
             data: {

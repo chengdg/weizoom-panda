@@ -27,7 +27,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleMessageFilter: function(action) {
-
 		this.data.models = action.data.models;
 		this.__emitChange();
 	},

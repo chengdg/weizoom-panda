@@ -19,16 +19,15 @@ var StationMessageList = React.createClass({
 		return Store.getData()
 	},
 
-	onChange: function(value, event) {
-		var property = event.target.getAttribute('name');
-	},
-
 	onChangeStore: function(){
 		this.setState(Store.getData());
+		this.refs.table.refresh(); 
 	},
+
 	onAddMessage: function(){
 	    W.gotoPage('/message/message');
 	},
+
 	onClickDelete: function(event){
         var message_id = parseInt(event.target.getAttribute('data-id'));
 
@@ -40,9 +39,6 @@ var StationMessageList = React.createClass({
 			}, this)
 		});
 	},
-    onConfirmFilter:function(data){
-
-    },
 
     rowFormatter: function(field, value, data) {
 		if (field === 'action') {
@@ -56,16 +52,18 @@ var StationMessageList = React.createClass({
 			return value;
 		}
 	},
+
 	render:function(){
+		console.log("=====");
         var messagesResource = {
 			resource: 'message.message_list',
 			data: {
 				page: 1
 			}
 		};
-		return (
-			<div className="mt15 xui-product-productListPage">
 
+		return (
+			<div className="mt15 xui-stationMessage-StationMessageList">
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加站内信" icon="plus" onClick={this.onAddMessage}/>
@@ -74,7 +72,6 @@ var StationMessageList = React.createClass({
 						<Reactman.TableColumn name="标题" field="title" />
 						<Reactman.TableColumn name="创建时间" field="created_at" />
 						<Reactman.TableColumn name="操作" field="action" />
-
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
