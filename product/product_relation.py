@@ -28,16 +28,7 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
 
-second_navs = [{
-	'name': 'product-relation-list',
-	'displayName': '商品',
-	'href': '/product/product_relation/'
-},
-{
-	'name': 'product-update-list',
-	'displayName': '商品更新',
-	'href': '/product/product_updated/'
-}]
+
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-relation-list'
 
@@ -47,7 +38,6 @@ filter2field ={
 	'product_status_query': 'product_status',
 	'catalog_query': 'catalog_name'
 }
-
 
 class ProductRelation(resource.Resource):
 	app = 'product'
@@ -60,7 +50,7 @@ class ProductRelation(resource.Resource):
 		"""
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': second_navs,
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 			'first_catalog_id': request.GET.get('first_catalog_id', ''),
 			'second_catalog_id': request.GET.get('second_catalog_id', '')

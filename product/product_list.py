@@ -38,7 +38,6 @@ product_status2text = {
 	1: u'已上架'
 }
 
-
 class ProductList(resource.Resource):
 	app = 'product'
 	resource = 'product_list'
@@ -51,7 +50,7 @@ class ProductList(resource.Resource):
 		user_has_products = len(models.Product.objects.filter(owner_id=request.user.id))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 			'user_has_products': user_has_products,
 		})
