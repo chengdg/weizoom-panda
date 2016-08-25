@@ -142,7 +142,7 @@ class ManagerAccount(resource.Resource):
 		else:
 			change_to_status = 1
 		try:
-			UserProfile.objects.filter(manager_id = request.user.id,id = account_id).update(
+			UserProfile.objects.filter(id = account_id).update(
 				status = change_to_status
 			)
 			response = create_response(200)

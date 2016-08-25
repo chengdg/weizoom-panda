@@ -40120,7 +40120,16 @@
 				text: '微众精英',
 				value: 'weizoom_jy'
 			}];
-
+			if (W.is_ceshi) {
+				typeOptions.push({
+					text: '开发测试',
+					value: 'devceshi'
+				});
+				typeOptions.push({
+					text: '财务测试',
+					value: 'caiwuceshi'
+				});
+			}
 			var orderStatusOptions = [{
 				text: '全部',
 				value: '-1'
@@ -44907,6 +44916,16 @@
 				'name': '微众精英',
 				'value': 'weizoom_jy'
 			}];
+			if (W.is_ceshi) {
+				selfShop.push({
+					'name': '开发测试',
+					'value': 'devceshi'
+				});
+				selfShop.push({
+					'name': '财务测试',
+					'value': 'caiwuceshi'
+				});
+			}
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
 				self_shop: selfShop
@@ -45111,11 +45130,18 @@
 
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
-
-			if (selectSelfShop.length == 20) {
-				selectSelfShop = [];
+			if (W.is_ceshi) {
+				if (selectSelfShop.length == 22) {
+					selectSelfShop = [];
+				} else {
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'devceshi', 'caiwuceshi'];
+				}
 			} else {
-				selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy'];
+				if (selectSelfShop.length == 20) {
+					selectSelfShop = [];
+				} else {
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy'];
+				}
 			}
 
 			this.data.selectSelfShop = selectSelfShop;

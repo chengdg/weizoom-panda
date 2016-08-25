@@ -10,5 +10,10 @@
 	W.pageContentComponent = './product/product_relation/ProductRelationPage.react';
 	W.first_catalog_id = '{{first_catalog_id}}';
 	W.second_catalog_id = '{{second_catalog_id}}';
+	if('{{is_ceshi}}'=='True'){
+        W.is_ceshi = true;
+    }else{
+        W.is_ceshi = false;
+    }
 </script>
 {% endblock %}

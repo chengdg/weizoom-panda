@@ -20,8 +20,8 @@ import nav
 import models
 from account.models import *
 from product import models as product_models
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST, ZEUS_HOST
+from panda.settings import CESHI_USERNAMES
 
 
 FIRST_NAV = 'order'
@@ -51,10 +51,15 @@ class YunyingOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		username = User.objects.get(id=request.user.id).username
+		is_ceshi = False
+		if username in CESHI_USERNAMES:
+			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'is_ceshi': is_ceshi
 		})
 
 		return render_to_response('order/yunying_orders_list.html', c)
