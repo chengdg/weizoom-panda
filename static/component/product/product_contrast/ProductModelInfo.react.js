@@ -57,16 +57,16 @@ var ProductModelInfo = React.createClass({
 				<tr key={index} ref={model.modelId} className="model-table-tr">
 					{td}
 					<td>
-						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						{_this.state["clear_price_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						{_this.state["product_price_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						{_this.state["product_weight_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+						{_this.state["product_store_"+model.modelId]}
 					</td>
 				</tr>
 			)
@@ -107,14 +107,10 @@ var ProductModelInfo = React.createClass({
 					<th key={index}>{name.name}</th>
 				)
 			})
-			if(W.purchase_method==2){
-				var title='结算价格=商品售价*(1-返点)';
-			}
 			return(
 				<div>
 					<div>
-						<span style={{marginLeft:'180px'}}>{title}</span>
-						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
+						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'80px',marginBottom:'10px'}}>
 							<thead>
 								<tr>
 									{th}

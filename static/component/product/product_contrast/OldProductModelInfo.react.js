@@ -56,16 +56,16 @@ var OldProductModelInfo = React.createClass({
 				<tr key={index} className="model-table-tr">
 					{td}
 					<td>
-						<Reactman.FormInput label="" type="text" name={"old_clear_price_"+model.modelId} value={_this.state["old_clear_price_"+model.modelId]} />
+						{_this.state["old_clear_price_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"old_product_price_"+model.modelId} value={_this.state["old_product_price_"+model.modelId]} />
+						{_this.state["old_product_price_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"old_product_weight_"+model.modelId} value={_this.state["old_product_weight_"+model.modelId]} />
+						{_this.state["old_product_weight_"+model.modelId]}
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"old_product_store_"+model.modelId} value={_this.state["old_product_store_"+model.modelId]} />
+						{_this.state["old_product_store_"+model.modelId]}
 					</td>
 				</tr>
 			)
@@ -112,14 +112,10 @@ var OldProductModelInfo = React.createClass({
 					<th key={index}>{name.name}</th>
 				)
 			})
-			if(W.purchase_method==2){
-				var title='结算价格=商品售价*(1-返点)';
-			}
 			return(
 				<div>
 					<div>
-						<span style={{marginLeft:'180px'}}>{title}</span>
-						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
+						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'80px',marginBottom:'10px'}}>
 							<thead>
 								<tr>
 									{th}

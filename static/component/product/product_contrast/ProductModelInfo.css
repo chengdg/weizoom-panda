@@ -27,4 +27,9 @@ td div.form-group div input{
 	display: inline-block;
 	width: 44%;
 	margin-left: 4%;
+    float: left;
+}
+
+.model-table-tr td{
+    padding-left: 8px !important;
 }

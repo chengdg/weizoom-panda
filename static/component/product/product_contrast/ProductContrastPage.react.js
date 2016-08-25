@@ -38,7 +38,6 @@ var ProductContrastPage = React.createClass({
 		if(this.state.old_promotion_title){
 			document.getElementById('promotion_title').parentNode.parentNode.firstChild.style.color='red';
 		}
-		console.log(document.getElementsByTagName('textarea')[1],"===");
 		if(this.state.old_remark){
 			document.getElementsByTagName('textarea')[1].parentNode.parentNode.firstChild.style.color='red';
 		}
@@ -61,6 +60,14 @@ var ProductContrastPage = React.createClass({
 		var modelValues = this.state.model_values;
 		if(oldModelValues!=modelValues){
 			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
+		}
+		var oldHasProductModel = parseInt(this.state.old_has_product_model);
+		var hasProductModel = parseInt(this.state.has_product_model)
+		if(oldHasProductModel!=-1){
+			document.getElementById('product_price').parentNode.parentNode.firstChild.style.color='red';
+			document.getElementById('clear_price').parentNode.parentNode.firstChild.style.color='red';
+			document.getElementById('product_weight').parentNode.parentNode.firstChild.style.color='red';
+			document.getElementById('product_store').parentNode.parentNode.firstChild.style.color='red';
 		}
 	},
 
