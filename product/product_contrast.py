@@ -124,6 +124,15 @@ class ProductContrast(resource.Resource):
 
 			#修改的商品旧数据
 			old_product = models.OldProduct.objects.get(product_id=product_id)
+
+			old_product_model_ids = old_product.product_model_ids.split(',')
+			old_property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids)
+			
+			#获取规格值
+			old_value_ids = set([str(property_value.property_value_id) for property_value in old_property_values])
+			old_product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=old_value_ids)
+			old_model_values = get_product_model_property_values(old_product_model_property_values)
+
 			#获取商品分类
 			old_product_catalog = catalog_models.ProductCatalog.objects.filter(id=old_product.catalog_id)
 			old_first_level_name = ''
@@ -139,13 +148,27 @@ class ProductContrast(resource.Resource):
 				'old_clear_price' : '%s' % old_product.clear_price,
 				'old_product_weight' : old_product.product_weight,
 				'old_product_store' : old_product.product_store,
-				'old_remark' : string_util.raw_html(old_product.remark),
+				'old_remark' : '' if not old_product.remark else string_util.raw_html(old_product.remark),
 				'old_has_product_model' : '%s' %(1 if old_product.has_product_model else 0),
-				'old_model_values' : json.dumps(model_values),
-				'old_images' : [],
+				'old_model_values' : json.dumps(old_model_values),
+				'old_images' : [] if not old_product.images else json.loads(old_product.images),
 				'old_catalog_name' : '' if not old_first_level_name else ('%s--%s') %(old_first_level_name,old_second_level_name),
 				'old_second_catalog_id' : old_product.catalog_id,
+				'old_value_ids': ','.join(old_value_ids)
 			}
+
+			#组织多规格数据
+			for product_model in models.ProductModel.objects.filter(id__in=old_product_model_ids):
+				model_Id = product_model.name
+				old_product_data['old_product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
+				old_product_data['old_limit_clear_price_'+model_Id] = '%s' %product_model.limit_clear_price
+				old_product_data['old_clear_price_'+model_Id] = '%s' %product_model.market_price
+				old_product_data['old_product_weight_'+model_Id] = '%s' %product_model.weight
+				old_product_data['old_product_store_'+model_Id] = '%s' %product_model.stocks
+				old_product_data['old_product_code_'+model_Id] = '%s' %product_model.user_code
+				old_product_data['old_valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_from else ''
+				old_product_data['old_valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_to else ''
+			print product_data,"======"
 			product_data.update(old_product_data)
 			# product_data['old_product_name'] = old_product.product_name,
 			# product_data['old_promotion_title'] = old_product.promotion_title,

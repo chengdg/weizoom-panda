@@ -59,7 +59,7 @@ class NewProduct(resource.Resource):
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
-				product_models = models.ProductModel.objects.filter(product_id=product_id)
+				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
 			else:
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
@@ -67,14 +67,14 @@ class NewProduct(resource.Resource):
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 				product_has_model = len(property_values)
 				product = models.Product.objects.get(owner=request.user, id=product_id)
-				product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
+				product_models = models.ProductModel.objects.filter(product_id=product_id, owner=request.user, is_deleted=False)
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
 
 			# product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			product_model_ids = [product_model.id for product_model in product_models]
-			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
+			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids, is_deleted=False)
 			
 			#获取规格值
 			value_ids = set([str(property_value.property_value_id) for property_value in property_values])
@@ -307,10 +307,32 @@ class NewProduct(resource.Resource):
 		old_product_store = int(product.product_store)
 		old_remark = product.remark
 		old_has_product_model = product.has_product_model
-		old_catalog_id = product.catalog_id
+		old_catalog_id = int(product.catalog_id)
 
 		models.OldProduct.objects.filter(product_id = product.id).delete()
 		models.OldProduct.objects.create(product_id = product.id)
+		#获取图片
+		image_ids = [product_img.image_id for product_img in models.ProductImage.objects.filter(product_id=product.id)]
+		old_images = []
+		new_images = json.loads(request.POST['images'])
+		for image in resource_models.Image.objects.filter(id__in=image_ids):
+			old_images.append({
+				'id': image.id,
+				'path': image.path
+			})
+
+		#获取规格值
+		old_product_models = models.ProductModel.objects.filter(product_id=product.id, is_deleted=False)
+		old_product_model_ids = [str(old_product_model.id) for old_product_model in old_product_models]
+		# property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids)
+		# value_ids = set([str(property_value.property_value_id) for property_value in property_values])
+		# product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
+		# model_values = get_product_model_property_values(product_model_property_values)
+
+		if old_images != new_images:
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				images = json.dumps(old_images)
+			)
 		if old_product_name != product_name:
 			models.OldProduct.objects.filter(product_id=product.id).update(
 				product_name = old_product_name
@@ -397,12 +419,13 @@ class NewProduct(resource.Resource):
 		old_properties = []
 		new_properties = []
 		if model_values:
-			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'])
+			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'], is_deleted=False)
 			# 故意这么写的
 			old_properties = [product_model for product_model in product_models]
 			model_ids = [product_p.id for product_p in product_models]
-			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).delete()
-			product_models.delete()
+			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).update(is_deleted=True)
+			product_models.update(is_deleted=True)
+			new_product_model_ids = []
 			model_values = json.loads(model_values)
 			for model_value in model_values:
 				model_Id = model_value.get('modelId',0)
@@ -428,6 +451,7 @@ class NewProduct(resource.Resource):
 					valid_time_from= valid_from,
 					valid_time_to = valid_to
 				)
+				new_product_model_ids.append(str(product_model.id))
 				new_properties.append(product_model)
 				if propertyValues:
 					list_propery_create = []
@@ -441,6 +465,13 @@ class NewProduct(resource.Resource):
 		sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
 								 source_product=source_product,
 								 new_properties=new_properties, old_properties=old_properties)
+
+		
+		print old_product_model_ids,new_product_model_ids,"++++++"
+		if sorted(old_product_model_ids) != sorted(new_product_model_ids):
+			models.OldProduct.objects.filter(product_id=product.id).update(
+				product_model_ids = ','.join(set(old_product_model_ids))
+			)
 
 		response = create_response(200)
 		return response.get_response()

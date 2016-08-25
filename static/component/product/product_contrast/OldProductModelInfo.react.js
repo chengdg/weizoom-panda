@@ -32,43 +32,40 @@ var OldProductModelInfo = React.createClass({
 		var _this = this;
 		var model_type = this.props.Modeltype;
 		var disabled = this.props.Disabled;
-		var model_values = this.state.model_values;
-		var model_names = this.state.model_names;
+		var model_values = this.state.old_model_values;
+		var model_names = this.state.old_model_names;
+		console.log(this.state.model_values,model_names);
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
-		var model_value_tr = model_values.map(function(model,index){
+		var old_model_value_tr = model_values.map(function(model,index){
 			var td = model.propertyValues.map(function(value,index){
 				return(
 					<td key={index} style={{verticalAlign:'middle',width:'100px',paddingLeft:'6px !important'}}>{value.name}</td>
 				)
 			})
-
-			if(W.purchase_method==2){
-				var product_price = _this.state["product_price_"+model.modelId];
-				if(product_price){
-					var points = 1-(W.points/100);
-					var product_price = parseFloat(product_price);
-					_this.state["clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
-				}
-			}
+			// if(W.purchase_method==2){
+			// 	var product_price = _this.state["old_product_price_"+model.modelId];
+			// 	if(product_price){
+			// 		var points = 1-(W.points/100);
+			// 		var product_price = parseFloat(product_price);
+			// 		_this.state["old_clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
+			// 	}
+			// }
 			return(
-				<tr key={index} ref={model.modelId} className="model-table-tr">
+				<tr key={index} className="model-table-tr">
 					{td}
 					<td>
-						<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name={"old_clear_price_"+model.modelId} value={_this.state["old_clear_price_"+model.modelId]} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name={"old_product_price_"+model.modelId} value={_this.state["old_product_price_"+model.modelId]} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name={"old_product_weight_"+model.modelId} value={_this.state["old_product_weight_"+model.modelId]} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					</td>
-					<td className="show-active" style={{width:'80px'}}>
-						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
+						<Reactman.FormInput label="" type="text" name={"old_product_store_"+model.modelId} value={_this.state["old_product_store_"+model.modelId]} />
 					</td>
 				</tr>
 			)
@@ -130,11 +127,10 @@ var OldProductModelInfo = React.createClass({
 									<th>商品售价(元)</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
-									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="">
-							{model_value_tr}
+							{old_model_value_tr}
 							</tbody>
 						</table>
 					</div>

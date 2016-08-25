@@ -46,8 +46,10 @@ class OldProduct(models.Model):
 	product_store = models.IntegerField(default=0)  #商品库存 默认-1{大于0: 有限 ,-1:无限}
 	remark = models.TextField(null=True)  #备注
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
-	has_product_model = models.BooleanField(default=False) #是否是多规格商品
+	has_product_model = models.IntegerField(default=-1) #-1:没有更新这个属性,0:没有规格,1:有规格
 	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
+	images = models.CharField(max_length=2048, null=True) #图片url
+	product_model_ids = models.CharField(max_length=2048, null=True) #product_model id
 
 	class Meta(object):
 		db_table = 'old_product'
@@ -182,6 +184,7 @@ class ProductModelHasPropertyValue(models.Model):
 	property_id = models.IntegerField(default=0) #ProductModelProperty id
 	property_value_id = models.IntegerField(default=0) #ProductModelPropertyValue id
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
 
 	class Meta(object):
 		db_table = 'product_model_has_property'

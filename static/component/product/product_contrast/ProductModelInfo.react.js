@@ -34,6 +34,7 @@ var ProductModelInfo = React.createClass({
 		var disabled = this.props.Disabled;
 		var model_values = this.state.model_values;
 		var model_names = this.state.model_names;
+		console.log(model_values,model_names,'--------');
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
@@ -66,9 +67,6 @@ var ProductModelInfo = React.createClass({
 					</td>
 					<td>
 						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					</td>
-					<td className="show-active" style={{width:'80px'}}>
-						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
 					</td>
 				</tr>
 			)
@@ -124,7 +122,6 @@ var ProductModelInfo = React.createClass({
 									<th>商品售价(元)</th>
 									<th>重量(Kg)</th>
 									<th>库存</th>
-									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="">
