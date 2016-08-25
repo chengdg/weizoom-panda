@@ -22,17 +22,6 @@ from eaglet.utils.resource_client import Resource
 from account.models import *
 import models
 
-second_navs = [{
-	'name': 'product-relation-list',
-	'displayName': '商品',
-	'href': '/product/product_relation/'
-},
-{
-	'name': 'product-update-list',
-	'displayName': '商品更新',
-	'href': '/product/product_updated/'
-}]
-
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-update-list'
 
@@ -47,7 +36,7 @@ class ProductUpdated(resource.Resource):
 		"""
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': second_navs,
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV
 		})
 
@@ -62,6 +51,7 @@ class ProductUpdated(resource.Resource):
 		response = create_response(200)
 		try:
 			models.Product.objects.filter(id=product_id).update(
+				is_update = False,
 				is_refused = True,
 				refuse_reason = reasons
 			)		

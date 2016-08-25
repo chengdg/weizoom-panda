@@ -28,15 +28,6 @@ import models
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
-PRODUCT_RELATION_SECOND_NAV = [{
-	'name': 'product-list',
-	'displayName': '商品',
-	'href': '/product/product_relation/'
-},{
-	'name': 'product-update-list',
-	'displayName': '商品更新',
-	'href': '/product/product_updated/'
-}]
 
 class NewProduct(resource.Resource):
 	app = 'product'
@@ -143,16 +134,11 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-		
-		if role == YUN_YING:
-			second_navs = PRODUCT_RELATION_SECOND_NAV
-		else:
-			second_navs = nav.get_second_navs()
 
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': second_navs,
-			'second_nav_name': SECOND_NAV,
+			'second_navs': nav.get_second_navs(request),
+			'second_nav_name': SECOND_NAV if role==CUSTOMER else 'product-relation-list',#为了兼容运营查看商品详情页
 			'jsons': jsons,
 			'second_level_id': second_level_id,
 			'role': role,

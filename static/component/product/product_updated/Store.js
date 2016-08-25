@@ -42,6 +42,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleUpdateSyncProduct: function(action){
 		if(action.data['code']==200){
+			//更新二级导航栏的数字
+			var updateSyncCount = action.data['count'];
+			var str = '\\((.| )+?\\)';
+			var afterSyncCount = parseInt($('.xui-secondNav >ul >li:nth-child(2) span').text().match(str)[1])-parseInt(updateSyncCount);
+			if(afterSyncCount > 0){
+				$('.xui-secondNav >ul >li:nth-child(2) span').text('商品更新('+afterSyncCount+')')
+			}else{
+				$('.xui-secondNav >ul >li:nth-child(2) span').text('商品更新')
+			}
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('success', '更新成功');
 			}, 10);

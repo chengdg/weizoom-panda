@@ -42,7 +42,7 @@ class ProductModel(resource.Resource):
 		"""
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 		})
 
