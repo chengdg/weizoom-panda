@@ -239,7 +239,7 @@ elif 'test' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://panda.weapp.weizzz.com'
     DEBUG = True
-    PRODUCT_POOL_OWNER_ID = 7
+    PRODUCT_POOL_OWNER_ID = 8
 else:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
