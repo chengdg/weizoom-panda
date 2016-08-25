@@ -138,7 +138,7 @@ class NewProduct(resource.Resource):
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(request),
-			'second_nav_name': SECOND_NAV,
+			'second_nav_name': SECOND_NAV if role==CUSTOMER else 'product-relation-list',#为了兼容运营查看商品详情页
 			'jsons': jsons,
 			'second_level_id': second_level_id,
 			'role': role,
