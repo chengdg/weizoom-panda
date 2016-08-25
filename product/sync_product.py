@@ -28,6 +28,7 @@ class SyncProduct(resource.Resource):
 				is_update = False
 			)		
 			data['code'] = 200
+			data['count'] = len(product_id)
 		except:
 			data['code'] = 500
 		response.data = data
