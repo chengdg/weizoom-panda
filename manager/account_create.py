@@ -16,12 +16,13 @@ from core.jsonresponse import create_response
 from eaglet.utils.resource_client import Resource
 
 from core import paginator
+from eaglet.core import watchdog
 from util import db_util
 from panda.settings import ZEUS_HOST
 import nav
 import requests
 from account.models import *
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST, PRODUCT_POOL_OWNER_ID
 
 
 FIRST_NAV = 'manager'
@@ -158,6 +159,8 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
+			# 云上通的账户 normal: 普通账户, divide: 55分成
+			weapp_account_type = 'normal'
 			if account_type == '1':
 				points = 0 if not points else float(points)
 				if self_user_names and purchase_method== 2: #采购方式:零售价返点
@@ -172,26 +175,28 @@ class AccountCreate(resource.Resource):
 							group_points = float(self_user[self_user_name+'_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
-				if purchase_method== 3: #采购方式:首月55分成
+				# 采购方式:首月55分成
+				if purchase_method == 3:
+					weapp_account_type = 'divide'
 					AccountHasRebateProport.objects.create(
 						user_id = user_id,
 						order_money = order_money,
 						rebate_proport = rebate_proport,
 						default_rebate_proport = default_rebate_proport
 					)
-					if rebates:
-						rebates = json.loads(rebates)
-						list_create = []
-						for rebate in rebates:
-							list_create.append(AccountHasRebateProport(
-								user_id = user_id,
-								valid_time_from = rebate['validate_from_condition'],
-								valid_time_to = rebate['validate_to_condition'],
-								order_money_condition = rebate['order_money_condition'],
-								rebate_proport_condition = rebate['rebate_proport_condition'],
-								default_rebate_proport_condition = rebate['default_rebate_proport_condition']
-							))
-						AccountHasRebateProport.objects.bulk_create(list_create)
+					# if rebates:
+					# 	rebates = json.loads(rebates)
+					# 	list_create = []
+					# 	for rebate in rebates:
+					# 		list_create.append(AccountHasRebateProport(
+					# 			user_id = user_id,
+					# 			valid_time_from = rebate['validate_from_condition'],
+					# 			valid_time_to = rebate['validate_to_condition'],
+					# 			order_money_condition = rebate['order_money_condition'],
+					# 			rebate_proport_condition = rebate['rebate_proport_condition'],
+					# 			default_rebate_proport_condition = rebate['default_rebate_proport_condition']
+					# 		))
+					# 	AccountHasRebateProport.objects.bulk_create(list_create)
 
 				user_profile.update(
 					company_name = company_name,
@@ -210,7 +215,8 @@ class AccountCreate(resource.Resource):
 						'remark': note,
 						'responsible_person': u'8000FT',
 						'supplier_tel': phone if phone else '13112345678',
-						'supplier_address': u'中国 北京'
+						'supplier_address': u'中国 北京',
+						'type': weapp_account_type
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 						'resource': 'mall.supplier',
@@ -219,29 +225,42 @@ class AccountCreate(resource.Resource):
 					if resp and resp['code'] == 200:
 						supplier_datas = resp['data']
 						if supplier_datas:
-							AccountHasSupplier.objects.create(
+							account_relation = AccountHasSupplier.objects.create(
 								user_id = user_id,
 								account_id = user_profile[0].id,
 								# store_name = account_zypt_info['store_name'].encode('utf8'),
 								supplier_id = int(supplier_datas['id'])
 							)
+							# 同步五五分成的返点
+							if purchase_method == 3:
+								# user_id = user_id,
+								# valid_time_from = rebate['validate_from_condition'],
+								# valid_time_to = rebate['validate_to_condition'],
+								# order_money_condition = rebate['order_money_condition'],
+								# rebate_proport_condition = rebate['rebate_proport_condition'],
+								# default_rebate_proport_condition = rebate['default_rebate_proport_condition']
+								# 'owner_id', 'divide_money', 'basic_rebate', 'rebate', 'supplier_id'
+								sync_create_rebate_info(user_id=user_id, account_relation=account_relation)
 						pass
 					else:
 						User.objects.filter(id=user_id).delete()
 						UserProfile.objects.filter(user_id=user_id).delete()
 						response = create_response(500)
 						response.errMsg = u'创建账号失败'
-				except Exception,e:
-					print(e)
+				except:
+					msg = unicode_full_stack()
+					watchdog.error('{}'.format(msg))
+					print msg
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
 					response = create_response(500)
 					response.errMsg = u'创建账号失败'
 					response.innerErrMsg = unicode_full_stack()
 					return response.get_response()
-		except Exception,e:
-			print(e)
-			print('===========================')
+		except:
+			msg = unicode_full_stack()
+			watchdog.error('{}'.format(msg))
+			print msg
 			response = create_response(500)
 			response.errMsg = u'创建账号失败'
 			response.innerErrMsg = unicode_full_stack()
@@ -271,7 +290,7 @@ class AccountCreate(resource.Resource):
 			rebate_proport = post.get('rebate_proport',0)
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
-			rebates = post.get('rebates','')
+			# rebates = post.get('rebates','')
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
 			user_id = user_profile.user_id
@@ -284,7 +303,17 @@ class AccountCreate(resource.Resource):
 				user.set_password(password)
 			user.first_name = name
 			user.save()
-			
+			supplier_relation = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
+			# 不管咋地先把五五分成的删除,如果下边有需要就进行会进行添加新的.
+			old_rebates = AccountHasRebateProport.objects.filter(user_id=user_id)
+			old_rebate_ids = [old_rebate.id for old_rebate in old_rebates]
+
+			if old_rebate_ids:
+				# 同步把原来的删除了
+				sync_delete_rebate_info(old_rebate_ids, supplier_relation)
+			old_rebates.delete()
+			# 云上通的账户 normal: 普通账户, divide: 55分成
+			weapp_account_type = 'normal'
 			if account_type == '1':
 				UserProfile.objects.filter(id=request.POST['id']).update(
 					company_name = company_name,
@@ -310,38 +339,42 @@ class AccountCreate(resource.Resource):
 							group_points = float(self_user[self_user_name+'_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
-
-				if purchase_method == 3: #采购方式:首月55分成
-					AccountHasRebateProport.objects.filter(user_id=user_id).delete()
+				# 采购方式:首月55分成
+				if purchase_method == 3:
+					weapp_account_type = 'divide'
 					AccountHasRebateProport.objects.create(
 						user_id = user_id,
 						order_money = order_money,
 						rebate_proport = rebate_proport,
 						default_rebate_proport = default_rebate_proport
 					)
-					if rebates:
-						rebates = json.loads(rebates)
-						list_create = []
-						for rebate in rebates:
-							list_create.append(AccountHasRebateProport(
-								user_id = user_id,
-								valid_time_from = rebate['validate_from_condition'],
-								valid_time_to = rebate['validate_to_condition'],
-								order_money_condition = rebate['order_money_condition'],
-								rebate_proport_condition = rebate['rebate_proport_condition'],
-								default_rebate_proport_condition = rebate['default_rebate_proport_condition']
-							))
-						AccountHasRebateProport.objects.bulk_create(list_create)
+					# if rebates:
+					# 	rebates = json.loads(rebates)
+					# 	list_create = []
+					# 	for rebate in rebates:
+					# 		list_create.append(AccountHasRebateProport(
+					# 			user_id = user_id,
+					# 			valid_time_from = rebate['validate_from_condition'],
+					# 			valid_time_to = rebate['validate_to_condition'],
+					# 			order_money_condition = rebate['order_money_condition'],
+					# 			rebate_proport_condition = rebate['rebate_proport_condition'],
+					# 			default_rebate_proport_condition = rebate['default_rebate_proport_condition']
+					# 		))
+					# AccountHasRebateProport.objects.bulk_create(list_create)
 
-				supplier = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
-				if supplier:
+					# 同步新的rebate info
+					sync_create_rebate_info(user_id, supplier_relation)
+
+				if supplier_relation:
 					params = {
 						'name': user_profile.name,
 						'remark': note,
-						'supplier_id': supplier.supplier_id,
+						'supplier_id': supplier_relation.supplier_id,
 						'responsible_person': user_profile.contacter,
 						'supplier_tel': phone if phone else '',
-						'supplier_address': u'中国 北京'
+						'supplier_address': u'中国 北京',
+						# 55分成
+						'type': weapp_account_type
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
 						'resource': 'mall.supplier',
@@ -349,13 +382,14 @@ class AccountCreate(resource.Resource):
 					})
 					# if resp and resp['code'] == 200:
 					# 	response = create_response(200)
-				if not supplier:
+				if not supplier_relation:
 					params = {
 						'name': user_profile.name,
 						'remark': note,
 						'responsible_person': user_profile.contacter if user_profile.contacter else '8000FT',
 						'supplier_tel': phone if phone else '',
-						'supplier_address': u'中国 北京'
+						'supplier_address': u'中国 北京',
+						'type': weapp_account_type
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 						'resource': 'mall.supplier',
@@ -371,12 +405,13 @@ class AccountCreate(resource.Resource):
 								supplier_id=int(supplier_datas['id'])
 							)
 			
-		except Exception,e:
-			print(e)
-			print('===========================')
+		except:
+			msg = unicode_full_stack()
+			watchdog.error('{}'.format(msg))
+
 			response = create_response(500)
 			response.errMsg = u'编辑账号失败'
-			response.innerErrMsg = unicode_full_stack()
+			response.innerErrMsg = msg
 		response = create_response(200)
 		return response.get_response()
 
@@ -386,3 +421,56 @@ def check_username_valid(username):
 	"""
 	user = User.objects.filter(username = username)
 	return False if user else True
+
+
+def sync_create_rebate_info(user_id, account_relation):
+	"""
+	同步五五分成
+	"""
+	rebates = AccountHasRebateProport.objects.filter(user_id=user_id)
+	for rebate in rebates:
+
+		rebate_params = {
+			'supplier_id': account_relation.supplier_id,
+			'owner_id': PRODUCT_POOL_OWNER_ID,
+			'divide_money': int(rebate.order_money),
+			'basic_rebate': int(rebate.default_rebate_proport),
+			'rebate': int(rebate.rebate_proport),
+		}
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		print rebate_params
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+			'resource': 'mall.supplier_divide_rebate_info',
+			"data": rebate_params
+		})
+		if not resp or resp.get('code') != 200:
+			AccountHasRebateProport.objects.filter(user_id=user_id).delete()
+			raise Exception('Sync create rebate info failed!')
+		else:
+
+			AccountRebateProportRelation.objects.create(panda_proport_id=rebate.id,
+														weapp_divide_id=resp.get('data').get('info').get('id'))
+
+
+def sync_delete_rebate_info(old_rebate_ids, account_relation):
+	"""
+	删除weapp那边的五五分成详情.
+
+	"""
+	# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+	# print old_rebate_ids
+	# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+	rebate_relations = AccountRebateProportRelation.objects.filter(panda_proport_id__in=old_rebate_ids)
+	for relation in rebate_relations:
+		params = {
+			'id': relation.weapp_divide_id,
+			'supplier_id': account_relation.supplier_id
+		}
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
+			'resource': 'mall.supplier_divide_rebate_info',
+			"data": params
+		})
+		if not resp or resp.get('code') != 200:
+
+			raise Exception('Sync update rebate info failed!')

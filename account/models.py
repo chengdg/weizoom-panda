@@ -125,3 +125,15 @@ class AccountHasRebateProport(models.Model):
 
 	class Meta(object):
 		db_table = 'account_has_rebate_proport'
+
+
+class AccountRebateProportRelation(models.Model):
+	"""
+	采购方式:首月55分成(中间关系)
+	"""
+	panda_proport_id = models.IntegerField()
+	weapp_divide_id = models.IntegerField()
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'account_rebate_relation'
