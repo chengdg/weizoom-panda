@@ -67,15 +67,35 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
+	onClickDelete: function(product_id, event) {
+		var title = '确定删除么?';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				Action.deleteProduct(product_id);
+			}, this)
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if(field === 'product_name'){
 			return(
 				<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}>{value}</a>
 			)
 		} else if(field === 'action'){
-			return(
-				<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
-			)
+			if(data['product_status_value']==0){
+				return(
+					<div>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+					</div>
+				)
+			}else{
+				return(
+					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+				)
+			}	
 		}else if (field === 'catalog_name') {
 			var name = data['second_level_name'];
 			var line =name.length>0?'-':''

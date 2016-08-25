@@ -269,16 +269,39 @@
 	})();
 	function runTimeout(fun) {
 	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
 	        return setTimeout(fun, 0);
-	    } else {
-	        return cachedSetTimeout.call(null, fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
 	    }
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
-	        clearTimeout(marker);
-	    } else {
-	        cachedClearTimeout.call(null, marker);
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
 	    }
 	}
 	var queue = [];
@@ -22423,9 +22446,14 @@
 				this.$el = $node;
 			}
 			this.$el.animate({ top: '50px', opacity: 1 }, 300);
+
+			var delayTime = 3000; //ms
+			if (this.props.type === 'error') {
+				delayTime = 5000;
+			}
 			_.delay(_.bind(function () {
 				this.$el.animate({ opacity: 0 }, 1000).animate({ top: -50 });
-			}, this), 3000);
+			}, this), delayTime);
 
 			_.delay(_.bind(function () {
 				if (this.props.hint.length > 0) {
@@ -44695,6 +44723,19 @@
 			});
 		},
 
+		deleteProduct: function (product_id) {
+			Resource.delete({
+				resource: 'product.new_product',
+				data: {
+					id: product_id
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.PRODUCT_LIST_DELETE_PRODUCT
+				}
+			});
+		},
+
 		cancleChecked: function (product_id, self_names) {
 			Resource.delete({
 				resource: 'product.weapp_relation',
@@ -44779,7 +44820,8 @@
 		CHOOSE_SELF_SHOP: null,
 		GET_HAS_SYNC_SHOP: null,
 		CHOOSE_ALL_SELF_SHOP: null,
-		CANCLE_SELECT_SYNC_PRODUCT: null
+		CANCLE_SELECT_SYNC_PRODUCT: null,
+		PRODUCT_LIST_DELETE_PRODUCT: null
 	});
 
 /***/ },
@@ -45003,7 +45045,8 @@
 			'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
 			'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
 			'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
-			'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT
+			'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
+			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT
 		},
 
 		init: function () {
@@ -45081,6 +45124,11 @@
 
 		handleCancleSelectSyncProduct: function () {
 			this.data.selectSelfShop = [];
+			this.__emitChange();
+		},
+
+		handleDeleteProduct: function () {
+			console.log("----------");
 			this.__emitChange();
 		},
 
@@ -45250,6 +45298,17 @@
 			});
 		},
 
+		onClickDelete: function (product_id, event) {
+			var title = '确定删除么?';
+			Reactman.PageAction.showConfirm({
+				target: event.target,
+				title: title,
+				confirm: _.bind(function () {
+					Action.deleteProduct(product_id);
+				}, this)
+			});
+		},
+
 		rowFormatter: function (field, value, data) {
 			if (field === 'product_name') {
 				return React.createElement(
@@ -45258,11 +45317,28 @@
 					value
 				);
 			} else if (field === 'action') {
-				return React.createElement(
-					'a',
-					{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
-					'同步商品'
-				);
+				if (data['product_status_value'] == 0) {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
+							'同步商品'
+						),
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							'删除商品'
+						)
+					);
+				} else {
+					return React.createElement(
+						'a',
+						{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id']) },
+						'同步商品'
+					);
+				}
 			} else if (field === 'catalog_name') {
 				var name = data['second_level_name'];
 				var line = name.length > 0 ? '-' : '';
@@ -49746,6 +49822,10 @@
 			this.Action = Action(this.Dispatcher);
 			this.Store.addListener(this.onReloadData);
 
+			this.innerState = {
+				page: this.props.resource.data['page'] || 1
+			};
+
 			//加载数据
 			var autoLoad = true;
 			if (this.props.hasOwnProperty('autoLoad')) {
@@ -49765,7 +49845,7 @@
 			$table.delegate('a', 'click', function (event) {
 				var $link = $(event.target);
 				var href = $link.attr('href');
-				if (href.contains('__memorize')) {
+				if (href && href.contains('__memorize')) {
 					var top = $(window).scrollTop();
 					var url = _this.fullUrl + '&__r_top=' + top;
 					href += '&__r_rollback=' + encodeURIComponent(url);
@@ -49792,7 +49872,7 @@
 		onReloadData: function (event) {
 			var storeData = this.Store.getData();
 			var data = {};
-			data['pagination_info'] = storeData['pagination_info'];
+			data['paginationInfo'] = storeData.paginationInfo;
 			data['isAllRowSelected'] = storeData.isAllRowSelected;
 
 			var rows = storeData['rows'];
@@ -49818,7 +49898,7 @@
 		},
 
 		onChangePage: function (page) {
-			this.props.resource.data['page'] = page;
+			this.innerState.page = page;
 			this.__refresh(this.filterOptions);
 		},
 
@@ -49853,7 +49933,7 @@
 				var originalFilterStr = JSON.stringify(this.filterOptions);
 				var newFilterStr = JSON.stringify(filterOptions);
 				if (newFilterStr !== originalFilterStr) {
-					this.props.resource.data['page'] = 1;
+					this.innerState.page = 1;
 				}
 			}
 			this.__refresh(filterOptions);
@@ -49869,7 +49949,7 @@
 				this.rollbackInfo = System.getRollbackInfo();
 				System.clearRollbackInfo();
 
-				resource.data['page'] = this.rollbackInfo.page;
+				this.innerState.page = this.rollbackInfo.page;
 				if (this.rollbackInfo.filters) {
 					filterOptions = this.rollbackInfo.filters;
 				}
@@ -49879,6 +49959,7 @@
 			}
 
 			resource.data = _.clone(this.props.resource.data);
+			resource.data.page = this.innerState.page;
 			if (filterOptions) {
 				this.filterOptions = filterOptions;
 				_.extend(resource.data, filterOptions);
@@ -50025,7 +50106,7 @@
 			} else {
 				var tableInfo = this.createHeadAndRow();
 
-				var mPagination = this.createPagination(this.state['pagination_info']);
+				var mPagination = this.createPagination(this.state.paginationInfo);
 
 				var enableBorder = this.props.enableBorder === false ? false : true;
 				var enableHeader = this.props.enableHeader === false ? false : true;
@@ -50307,7 +50388,9 @@
 			},
 
 			handleReload: function (action) {
-				this.data = action.data;
+				this.data.rows = action.data['rows'];
+				this.data.paginationInfo = action.data['pagination_info'];
+				//this.data = action.data;
 				this.isAllRowSelected = false;
 				this.selectedRowIds = [];
 				this.__emitChange();

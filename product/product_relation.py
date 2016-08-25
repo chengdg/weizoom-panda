@@ -143,8 +143,10 @@ class ProductRelation(resource.Resource):
 			if owner_id in user_id2name:
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				product_status_text = u'未同步'
+				product_status_value = 0
 				if product.id in has_relation_p_ids:
 					product_status_text = u'已同步'
+					product_status_value = 1
 
 				#商品分类
 				first_level_name = ''
@@ -163,6 +165,7 @@ class ProductRelation(resource.Resource):
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
 					'product_status': product_status_text,
+					'product_status_value': product_status_value,
 					'first_level_name': first_level_name,
 					'second_level_name': second_level_name,
 					'cur_page': pageinfo.cur_page
