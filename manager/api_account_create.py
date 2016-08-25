@@ -103,6 +103,11 @@ class AccountCreateApi(resource.Resource):
 							'account_id': user_profile[0].id
 						}
 						return response.get_response()
+					else:
+						User.objects.filter(id=user_id).delete()
+						UserProfile.objects.filter(user_id=user_id).delete()
+						response = create_response(500)
+						response.errMsg = u'创建账号失败'
 				else:
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
