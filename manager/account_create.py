@@ -89,7 +89,8 @@ class AccountCreate(resource.Resource):
 					'account_type': user_profile.role,
 					'note': user_profile.note,
 					'self_user_names': [] if not self_user_names else json.dumps(self_user_names),
-					'rebates': [] if not rebates else json.dumps(rebates)
+					'rebates': [] if not rebates else json.dumps(rebates),
+					'max_product': user_profile.max_product
 				}
 				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
 					for rebate_proport in rebate_proports:
@@ -103,7 +104,8 @@ class AccountCreate(resource.Resource):
 					'name': user_profile.name,
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note
+					'note': user_profile.note,
+					'max_product': user_profile.max_product
 				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True
@@ -137,6 +139,7 @@ class AccountCreate(resource.Resource):
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
+			max_product = post.get('max_product',3)
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -159,7 +162,7 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
-			# 云上通的账户 normal: 普通账户, divide: 55分成
+			# 云商通的账户 normal: 普通账户, divide: 55分成
 			weapp_account_type = 'normal'
 			if account_type == '1':
 				points = 0 if not points else float(points)
@@ -206,7 +209,8 @@ class AccountCreate(resource.Resource):
 					contacter = contacter,
 					phone = phone,
 					valid_time_from = valid_time_from,
-					valid_time_to = valid_time_to
+					valid_time_to = valid_time_to,
+					max_product = max_product
 				)
 				#请求接口获得数据
 				try:
@@ -290,6 +294,7 @@ class AccountCreate(resource.Resource):
 			rebate_proport = post.get('rebate_proport',0)
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
+			max_product = post.get('max_product',3)
 			# rebates = post.get('rebates','')
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
@@ -323,7 +328,8 @@ class AccountCreate(resource.Resource):
 					contacter = contacter,
 					phone = phone,
 					valid_time_from = valid_time_from,
-					valid_time_to = valid_time_to
+					valid_time_to = valid_time_to,
+					max_product = post.get('max_product',3)
 				)
 
 				if self_user_names and purchase_method == 2: #采购方式:零售价返点

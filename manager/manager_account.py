@@ -103,7 +103,6 @@ class ManagerAccount(resource.Resource):
 					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
 					'account_type' : ROLE2NAME[account.role],
 					'status' : account.status,
-					'company_name': account.company_name,
 					'max_product': account.max_product if account.role == CUSTOMER else "-"
 				})
 			else:
@@ -118,7 +117,6 @@ class ManagerAccount(resource.Resource):
 					'role' : ROLE2NAME[account.role],
 					'note' : account.note,
 					'company_name': account.company_name,
-					'max_product': account.max_product if account.role == CUSTOMER else "-"
 				})
 		if is_for_list:
 			data = {

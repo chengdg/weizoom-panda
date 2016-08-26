@@ -55,7 +55,8 @@ var Action = {
 			rebates: JSON.stringify(data['rebates']),
 			order_money: data['order_money'],
 			rebate_proport: data['rebate_proport'],
-			default_rebate_proport: data['default_rebate_proport']
+			default_rebate_proport: data['default_rebate_proport'],
+            max_product: data['max_product']
 		};
 		if (data.id === -1) {
 			Resource.put({
