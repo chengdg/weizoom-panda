@@ -49,7 +49,7 @@ class ProductContrast(resource.Resource):
 		product_has_model = 0
 		if product_id:
 			product = models.Product.objects.get(id=product_id)
-			product_models = models.ProductModel.objects.filter(product_id=product_id)
+			product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 			product_has_model = 1
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
@@ -117,13 +117,13 @@ class ProductContrast(resource.Resource):
 			old_product = models.OldProduct.objects.get(product_id=product_id)
 
 			old_product_model_ids = old_product.product_model_ids.split(',')
-			old_property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids)
+			old_property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids, is_deleted=True)
 			
 			#获取规格值
 			old_value_ids = set([str(property_value.property_value_id) for property_value in old_property_values])
 			old_product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=old_value_ids)
 			old_model_values = get_product_model_property_values(old_product_model_property_values)
-
+			print old_model_values,"=======+++++========"
 			#获取商品分类
 			old_product_catalog = catalog_models.ProductCatalog.objects.filter(id=old_product.catalog_id)
 			old_first_level_name = ''
@@ -141,7 +141,7 @@ class ProductContrast(resource.Resource):
 				'old_product_store' : old_product.product_store,
 				'old_remark' : '' if not old_product.remark else string_util.raw_html(old_product.remark),
 				'old_has_product_model' : '%s' %(1 if old_product.has_product_model else 0),
-				'old_model_values' : json.dumps(old_model_values),
+				'old_models' : json.dumps(old_model_values),
 				'old_images' : [] if not old_product.images else json.loads(old_product.images),
 				'old_catalog_name' : '' if not old_first_level_name else ('%s--%s') %(old_first_level_name,old_second_level_name),
 				'old_second_catalog_id' : old_product.catalog_id,
@@ -159,7 +159,6 @@ class ProductContrast(resource.Resource):
 				old_product_data['old_product_code_'+model_Id] = '%s' %product_model.user_code
 				old_product_data['old_valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_from else ''
 				old_product_data['old_valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_to else ''
-			print product_data,"======"
 			product_data.update(old_product_data)
 			# product_data['old_product_name'] = old_product.product_name,
 			# product_data['old_promotion_title'] = old_product.promotion_title,
@@ -174,7 +173,6 @@ class ProductContrast(resource.Resource):
 			# product_data['old_catalog_name'] = '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
 			# product_data['old_old_second_catalog_id'] = old_product.catalog_id,
 			# 'old_value_ids': ','.join(value_ids)
-			print product_data['old_product_price'],'----------'
 
 			jsons['items'].append(('product', json.dumps(product_data)))
 		else:

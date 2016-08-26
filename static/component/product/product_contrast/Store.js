@@ -59,7 +59,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['model_names'] = organize_data[0];
 			console.log(this.data['model_values'],"-------");
 			//组织数据结构
-			var old_organize_data = this.organizeData(JSON.parse(this.data['old_model_values']));
+			var old_organize_data = this.organizeData(JSON.parse(this.data['old_models']));
 			//判断这个规格存不存在
 			var old_model_values = _.filter(old_organize_data[1], function(customModel) {
 				var product_price = 'product_price_'+ customModel.modelId;
@@ -68,6 +68,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 			this.data['old_model_values'] = old_model_values;
 			this.data['old_model_names'] = old_organize_data[0];
+			console.log(old_organize_data,"----++++---");
 		} else {
 			this.data = {
 				'id':-1,

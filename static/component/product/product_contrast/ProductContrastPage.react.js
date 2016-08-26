@@ -63,7 +63,7 @@ var ProductContrastPage = React.createClass({
 		}
 		var oldHasProductModel = parseInt(this.state.old_has_product_model);
 		var hasProductModel = parseInt(this.state.has_product_model)
-		if(oldHasProductModel!=-1){
+		if(oldHasProductModel!=-1 && hasProductModel==0){
 			document.getElementById('product_price').parentNode.parentNode.firstChild.style.color='red';
 			document.getElementById('clear_price').parentNode.parentNode.firstChild.style.color='red';
 			document.getElementById('product_weight').parentNode.parentNode.firstChild.style.color='red';
