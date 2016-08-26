@@ -34640,7 +34640,7 @@
 				account_opening_license_time: data['account_opening_license_time'],
 				apply_catalogs: JSON.stringify(data['apply_catalogs'])
 			};
-			business_info['upload_business_qualifications'] = JSON.stringify(data['upload_business_qualifications']);
+			business_info['uploadBusinessQualifications'] = JSON.stringify(data['uploadBusinessQualifications']);
 			business_info['id'] = data.id;
 			Resource.post({
 				resource: 'business.business_detail',
@@ -34741,7 +34741,7 @@
 
 		onSubmit: function () {
 			var data = Store.getData();
-			var upload_business_qualifications = data.upload_business_qualifications;
+			var uploadBusinessQualifications = data.uploadBusinessQualifications;
 			var is_upload = true;
 			var reg_phone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 			var reg_number = /^[1-9]\d*(\.\d+)?$/;
@@ -34781,10 +34781,10 @@
 				Reactman.PageAction.showHint('error', '请上传开户许可证!');
 				return;
 			}
-			upload_business_qualifications.map(function (upload_business_qualification, index) {
-				if (upload_business_qualification.img == '') {
+			uploadBusinessQualifications.map(function (uploadBusinessQualification, index) {
+				if (uploadBusinessQualification.img == '') {
 					is_upload = false;
-					Reactman.PageAction.showHint('error', '请上传' + upload_business_qualification.qualification_name);
+					Reactman.PageAction.showHint('error', '请上传' + uploadBusinessQualification.qualification_name);
 					return;
 				}
 			});
@@ -34862,7 +34862,7 @@
 							'入驻类目及特殊资质'
 						),
 						React.createElement(Reactman.FormCheckbox, { label: '申请类目:', name: 'apply_catalogs', value: this.state.apply_catalogs, options: this.state.options_for_type, onChange: this.onChange }),
-						React.createElement(ProductModelList, { name: 'models', value: this.state.upload_business_qualifications, onChange: this.onChange })
+						React.createElement(ProductModelList, { name: 'models', value: this.state.uploadBusinessQualifications, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
@@ -34916,7 +34916,7 @@
 		},
 
 		handleGetQualifications: function (action) {
-			this.data['upload_business_qualifications'] = action.data.rows;
+			this.data['uploadBusinessQualifications'] = action.data.rows;
 			this.__emitChange();
 		},
 
@@ -37538,7 +37538,7 @@
 				text: '零售价返点',
 				value: '2'
 			}, {
-				text: '以货抵款',
+				text: '首月55分成',
 				value: '3'
 			}];
 
@@ -37577,171 +37577,6 @@
 			}
 		}
 	});
-	// var PurchaseMethod = React.createClass({
-	// 	getInitialState: function() {
-	// 		Store.addListener(this.onChangeStore);
-	// 		return Store.getData();
-	// 	},
-
-	// 	onChangeStore: function() {
-	// 		this.setState(Store.getData());
-	// 	},
-
-	// 	onChangeValue: function(index, value, event){
-	// 		var property = event.target.getAttribute('name');
-	// 		console.log(index,value, property);
-	// 		Action.updateRebates(index, property, value);
-	// 	},
-
-	// 	addGrounpPoints: function(){
-	// 		Reactman.PageAction.showDialog({
-	// 			title: "添加自营平台",
-	// 			component: AddGrounpPointDialog,
-	// 			data: {},
-	// 			success: function(inputData, dialogState) {
-	// 				console.log("success");
-	// 			}
-	// 		});
-	// 	},
-
-	// 	addRebateDialog: function(){
-	// 		var rebates = this.state.rebates;
-	// 		console.log(rebates.length)
-	// 		if(rebates.length>2){
-	// 			Reactman.PageAction.showHint('error', '最多添加三个条件!');
-	// 			return;
-	// 		}
-	// 		Action.addRebateDialog();
-	// 	},
-
-	// 	deleteRebateValue: function(index){
-	// 		Action.deleteRebateValue(index);
-	// 	},
-
-	// 	render: function() {
-	// 		var type = this.props.Type;
-	// 		if (type == '2'){
-	// 			return(
-	// 				<div>
-	// 				<div className="account-create-purchase-method">
-	// 					<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
-	// 					<span className="money_note">%</span>
-	// 					<span className="add-grounp-points">
-	// 						<a href="javascript:void(0);" onClick={this.addGrounpPoints}>增加团购扣点</a>
-	// 					</span>
-	// 				</div>
-	// 				<div><GrounpPointsDialog /></div>
-	// 				</div>
-	// 			)
-	// 		}if(type == '3'){
-	// 			var rebates = this.state.rebates;
-	// 			var _this = this;
-	// 			console.log(rebates);
-	// 			var rebate_dialog = '';
-	// 			if(rebates.length>0){
-	// 				rebate_dialog = rebates.map(function(rebate, index){
-	// 					return(
-	// 						<div className="rebates-dialog" key={index}>
-	// 							<span>周期</span>
-	// 							<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-	// 							<span style={{marginLeft:'70px'}}>至</span>
-	// 							<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-	// 							<span style={{display:'inline-block',marginLeft:'70px'}}>且金额不大于</span>
-	// 							<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-	// 							<span>元时,返点比例为</span>
-	// 							<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-	// 							<span>否则,将按</span>
-	// 							<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-	// 							<span>%基础扣点结算。</span>
-	// 							<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
-	// 						</div>
-	// 					)
-	// 				})
-	// 			}
-	// 			return(
-	// 				<div>
-	// 					<div className="profilts-dialog" style={{display:'inline-block'}}>
-	// 						<span style={{display:'inline-block'}}>首月(商品上架后30天含内),且金额不大于</span>
-	// 						<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
-	// 						<span>元时,返点比例为</span>
-	// 						<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
-	// 						<span>否则,将按</span>
-	// 						<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
-	// 						<span>%基础扣点结算。</span>
-	// 					</div>
-	// 					<button type="button" className="btn btn-primary" style={{marginLeft:'10px'}} onClick={this.addRebateDialog}>+添加</button>
-	// 					{rebate_dialog}
-	// 				</div>
-	// 			)
-	// 		}else {
-	// 			return(
-	// 				<div></div>
-	// 			)
-	// 		}
-	// 	}
-	// });
-
-	// var GrounpPointsDialog = React.createClass({
-	// 	getInitialState: function() {
-	// 		Store.addListener(this.onChangeStore);
-	// 		return Store.getData();
-	// 	},
-
-	// 	onChangeStore: function() {
-	// 		this.setState(Store.getData());
-	// 	},
-
-	// 	onChange: function(value, event) {
-	// 		var property = event.target.getAttribute('name');
-	// 		console.log(property, value)
-	// 		Action.updateAccount(property, value);
-	// 	},
-
-	// 	deleteSelfShop: function(index){
-	// 		Action.deleteSelfShop(index);
-	// 	},
-
-	// 	render: function() {
-	// 		var SELF_SHOP2TEXT = {
-	// 			'weizoom_jia': '微众家',
-	// 			'weizoom_mama': '微众妈妈',
-	// 			'weizoom_xuesheng': '微众学生',
-	// 			'weizoom_baifumei': '微众白富美',
-	// 			'weizoom_shop': '微众商城',
-	// 			'weizoom_club': '微众俱乐部',
-	// 			'weizoom_life': '微众Life',
-	// 			'weizoom_yjr': '微众一家人',
-	// 			'weizoom_fulilaile': '惠惠来啦'
-	// 		}
-	// 		var selfUserNames = this.state.self_user_names;
-	// 		var _this = this;
-	// 		if (selfUserNames.length>0){
-	// 			var selfShop = selfUserNames.map(function(selfUser,index){
-	// 				var selfUserName = selfUser.self_user_name;
-	// 				var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
-	// 				return(
-	// 						<li key={index} style={{display:'inline-block',position:'relative'}}>
-	// 	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.onChange} value={_this.state[selfUserName+"_value"]}/>
-	// 	                    	<span className="rebate-per">%</span>
-	// 	                    	<span className="xui-close" onClick={_this.deleteSelfShop.bind(_this,index)} title="删除">x</span>
-	// 	                    </li>
-	// 					)
-	// 			})
-	// 			return(
-	// 				<div className="self-user-dialog" style={{position:'relative'}}>
-	// 					<span style={{position:'absolute',left:'75px'}}>团购扣点</span>
-	// 					<ul className="self-user-shop-ul">
-	// 						{selfShop}
-	// 					</ul>
-	// 				</div>
-	// 			)
-	// 		}else {
-	// 			return(
-	// 				<div></div>
-	// 			)
-	// 		}
-	// 	}
-	// });
 	module.exports = AccountCreatePage;
 
 /***/ },
@@ -37782,7 +37617,6 @@
 			this.data = Reactman.loadJSON('user_profile_data');
 			if (this.data) {
 				this.data['account_type'] = String(this.data['account_type']);
-				// this.data['self_user_names'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 				if (this.data['account_type'] == '1') {
 					this.data['purchase_method'] = String(this.data['purchase_method']);
 					this.data['company_type'] = JSON.parse(this.data['company_type']);
@@ -37791,6 +37625,7 @@
 						this.data['points'] = '';
 					}
 					this.data['rebates'] = this.data['rebates'].length > 0 ? JSON.parse(this.data['rebates']) : [];
+					this.data['self_user_names'] = this.data['self_user_names'].length > 0 ? JSON.parse(this.data['self_user_names']) : [];
 				}
 			} else {
 				this.data = {
@@ -37802,10 +37637,9 @@
 					'self_user_names': [],
 					'points': '',
 					'rebates': [],
-					'order_money': 1000,
-					'rebate_proport': 50,
-					'default_rebate_proport': 5,
-					'max_product': 3
+					'order_money': '',
+					'rebate_proport': '',
+					'default_rebate_proport': ''
 				};
 			}
 		},
@@ -37851,9 +37685,9 @@
 			oldRebates.push({
 				'validate_from_condition': '',
 				'validate_to_condition': '',
-				'order_money_condition': 1000,
-				'rebate_proport_condition': 50,
-				'default_rebate_proport_condition': 5
+				'order_money_condition': '',
+				'rebate_proport_condition': '',
+				'default_rebate_proport_condition': ''
 			});
 			this.data.rebates = oldRebates;
 			this.__emitChange();
@@ -37974,12 +37808,11 @@
 				password: data['password'],
 				account_type: parseInt(data['account_type']),
 				note: data['note'],
-				max_product: data['max_product']
-				// self_user_names: JSON.stringify(data['self_user_names']),注释代码 请勿删除
-				// rebates: JSON.stringify(data['rebates']),
-				// order_money: data['order_money'],
-				// rebate_proport: data['rebate_proport'],
-				// default_rebate_proport: data['default_rebate_proport']
+				self_user_names: JSON.stringify(data['self_user_names']),
+				rebates: JSON.stringify(data['rebates']),
+				order_money: data['order_money'],
+				rebate_proport: data['rebate_proport'],
+				default_rebate_proport: data['default_rebate_proport']
 			};
 			if (data.id === -1) {
 				Resource.put({
@@ -38224,7 +38057,7 @@
 
 
 	// module
-	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 60%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}", ""]);
+	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 65%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n    line-height: 34px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n    margin-right: 15px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n/*.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}\r\n\r\n.profilts-dialog .errorHint {\r\n    width: 190px !important;\r\n}", ""]);
 
 	// exports
 
@@ -38323,37 +38156,97 @@
 				);
 			}if (type == '3') {
 				// 注释代码 请勿删除
-				// var rebates = this.state.rebates;
-				// var _this = this;
-				// var rebate_dialog = '';
-				// if(rebates.length>0){
-				// 	rebate_dialog = rebates.map(function(rebate, index){
-				// 		return(
-				// 			<div className="rebates-dialog" key={index}>
-				// 				<span>周期</span>
-				// 				<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-				// 				<span style={{marginLeft:'70px'}}>至</span>
-				// 				<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-				// 				<span style={{display:'inline-block',marginLeft:'70px'}}>且金额不大于</span>
-				// 				<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-				// 				<span>元时,返点比例为</span>
-				// 				<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-				// 				<span>否则,将按</span>
-				// 				<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-				// 				<span>%基础扣点结算。</span>
-				// 				<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
-				// 			</div>
-				// 		)
-				// 	})
-				// }
+				var rebates = this.state.rebates;
+				var _this = this;
+				var rebate_dialog = '';
+				if (rebates.length > 0) {
+					rebate_dialog = rebates.map(function (rebate, index) {
+						return React.createElement(
+							'div',
+							{ className: 'rebates-dialog', key: index },
+							React.createElement(
+								'span',
+								null,
+								'周期'
+							),
+							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validate_from_condition', value: rebate.validate_from_condition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(
+								'span',
+								{ style: { marginLeft: '70px' } },
+								'至'
+							),
+							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validate_to_condition', value: rebate.validate_to_condition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(
+								'span',
+								{ style: { display: 'inline-block', marginLeft: '70px' } },
+								'或金额不大于'
+							),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'order_money_condition', value: rebate.order_money_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(
+								'span',
+								null,
+								'元前提下，返点比例为'
+							),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebate_proport_condition', value: rebate.rebate_proport_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(
+								'span',
+								null,
+								'%，否则，将按'
+							),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'default_rebate_proport_condition', value: rebate.default_rebate_proport_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(
+								'span',
+								null,
+								'%基础扣点结算。'
+							),
+							React.createElement(
+								'a',
+								{ className: 'rebate-close', href: 'javascript:void(0);', onClick: _this.deleteRebateValue.bind(_this, index), title: '删除' },
+								'x'
+							)
+						);
+					});
+				}
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'div',
+						{ className: 'profilts-dialog', style: { display: 'inline-block' } },
+						React.createElement(
+							'span',
+							{ style: { display: 'inline-block' } },
+							'首月(商品上架后30天含内)或金额不大于'
+						),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'order_money', validate: 'require-positive-int', value: this.state.order_money, onChange: this.props.onChange }),
+						React.createElement(
+							'span',
+							null,
+							'元前提下，返点比例为'
+						),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebate_proport', validate: 'require-percent', value: this.state.rebate_proport, onChange: this.props.onChange }),
+						React.createElement(
+							'span',
+							null,
+							'%，否则，将按'
+						),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'default_rebate_proport', validate: 'require-percent', value: this.state.default_rebate_proport, onChange: this.props.onChange }),
+						React.createElement(
+							'span',
+							null,
+							'%基础扣点结算。'
+						)
+					),
+					rebate_dialog
+				);
 				// return(
 				// 	<div>
 				// 		<div className="profilts-dialog" style={{display:'inline-block'}}>
-				// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内),且金额不大于</span>
+				// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内)或金额不大于</span>
 				// 			<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
-				// 			<span>元时,返点比例为</span>
+				// 			<span>元前提下，返点比例为</span>
 				// 			<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
-				// 			<span>否则,将按</span>
+				// 			<span>%，否则，将按</span>
 				// 			<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
 				// 			<span>%基础扣点结算。</span>
 				// 		</div>
