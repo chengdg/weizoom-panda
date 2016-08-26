@@ -66,9 +66,9 @@ class ProductRelation(resource.Resource):
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		if first_catalog_id != '':
 			catalog_ids = [catalog.id for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=int(first_catalog_id))]
-			products = models.Product.objects.filter(catalog_id__in=catalog_ids,is_deleted=False).order_by('-id')
+			products = models.Product.objects.filter(catalog_id__in=catalog_ids, is_deleted=False).order_by('-id')
 		elif second_catalog_id != '':
-			products = models.Product.objects.filter(catalog_id=int(second_catalog_id),is_deleted=False).order_by('-id')
+			products = models.Product.objects.filter(catalog_id=int(second_catalog_id), is_deleted=False).order_by('-id')
 		else:
 			products = models.Product.objects.filter(is_deleted=False).order_by('-id')
 		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')

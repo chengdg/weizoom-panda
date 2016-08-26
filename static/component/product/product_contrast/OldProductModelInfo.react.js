@@ -52,6 +52,7 @@ var OldProductModelInfo = React.createClass({
 			// 		_this.state["old_clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 			// 	}
 			// }
+			console.log(_this.state["old_clear_price_"+model.modelId])
 			return(
 				<tr key={index} className="model-table-tr">
 					{td}

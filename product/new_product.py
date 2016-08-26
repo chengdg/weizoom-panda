@@ -295,7 +295,7 @@ class NewProduct(resource.Resource):
 		old_has_product_model = product.has_product_model
 		old_catalog_id = int(product.catalog_id)
 
-		models.OldProduct.objects.filter(product_id = product.id).delete()
+		# models.OldProduct.objects.filter(product_id = product.id).delete()
 		models.OldProduct.objects.create(product_id = product.id)
 		#获取图片
 		image_ids = [product_img.image_id for product_img in models.ProductImage.objects.filter(product_id=product.id)]
@@ -310,49 +310,47 @@ class NewProduct(resource.Resource):
 		#获取规格值
 		old_product_models = models.ProductModel.objects.filter(product_id=product.id, is_deleted=False)
 		old_product_model_ids = [str(old_product_model.id) for old_product_model in old_product_models]
-		# property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids)
-		# value_ids = set([str(property_value.property_value_id) for property_value in property_values])
-		# product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
-		# model_values = get_product_model_property_values(product_model_property_values)
-
+		#保存修改之前的数据
+		last_old_products = models.OldProduct.objects.filter(product_id=product.id).order_by('-id')[0]
+		old_products = models.OldProduct.objects.filter(id=last_old_products.id)
 		if old_images != new_images:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				images = json.dumps(old_images)
 			)
 		if old_product_name != product_name:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				product_name = old_product_name
 			)
 		if old_promotion_title != promotion_title:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				promotion_title = old_promotion_title
 			)
 		if old_product_price != product_price:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				product_price = old_product_price
 			)
 		if old_clear_price != clear_price:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				clear_price = old_clear_price
 			)
 		if old_product_weight != product_weight:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				product_weight = old_product_weight
 			)
 		if old_product_store != int(product_store):
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				product_store = old_product_store
 			)
 		if old_remark != remark:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				remark = old_remark
 			)
 		if old_has_product_model != has_product_model:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				has_product_model = old_has_product_model
 			)
 		if old_catalog_id != second_level_id:
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				catalog_id = old_catalog_id
 			)
 
@@ -404,6 +402,7 @@ class NewProduct(resource.Resource):
 				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 		old_properties = []
 		new_properties = []
+		new_product_model_ids = []
 		if model_values:
 			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'], is_deleted=False)
 			# 故意这么写的
@@ -411,7 +410,6 @@ class NewProduct(resource.Resource):
 			model_ids = [product_p.id for product_p in product_models]
 			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).update(is_deleted=True)
 			product_models.update(is_deleted=True)
-			new_product_model_ids = []
 			model_values = json.loads(model_values)
 			for model_value in model_values:
 				model_Id = model_value.get('modelId',0)
@@ -453,9 +451,8 @@ class NewProduct(resource.Resource):
 								 new_properties=new_properties, old_properties=old_properties)
 
 		
-		print old_product_model_ids,new_product_model_ids,"++++++"
 		if sorted(old_product_model_ids) != sorted(new_product_model_ids):
-			models.OldProduct.objects.filter(product_id=product.id).update(
+			old_products.update(
 				product_model_ids = ','.join(set(old_product_model_ids))
 			)
 
@@ -479,16 +476,13 @@ def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None
 	判断商品是否需要同步并同步
 	"""
 	# 如果降价（售价，结算价）库存修改自动更新。
-	print '++++++++++++++++++++++++++++++++++++++++++++++=2'
 	new_product = models.Product.objects.filter(owner=owner_id, id=product_id).first()
 
 	relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
 	if new_product.has_product_model != source_product.has_product_model:
-		# print '++++++++++++++++++++++++++++++++++++++++++++++=1'
 		return False
 	#  未同步的不处理
 	if relation:
-
 		if new_product.has_product_model:
 			# 多规格,获取规格信息
 			model_type = 'custom'
@@ -542,15 +536,12 @@ def charge_models_product_sync(old_properties=None, new_properties=None):
 
 	# 只要有删除的规格就不同步
 	if len(new_properties_names) != len(old_properties_name):
-		# print '==============================================1'
 		return False
 	if len(list(set(old_properties_name) - set(new_properties_names))) > 0:
-		# print '==============================================2'
 		return False
 
 	# 有新规格不同步
 	if len(list(set(new_properties_names) - set(old_properties_name))) > 0:
-		# print '==============================================3'
 		return False
 
 	return True

@@ -32,6 +32,7 @@ var ProductContrastPage = React.createClass({
 	},
 
 	componentDidMount: function(){
+		var _this = this;
 		if(this.state.old_product_name){
 			document.getElementById('product_name').parentNode.parentNode.firstChild.style.color='red';
 		}
@@ -58,11 +59,46 @@ var ProductContrastPage = React.createClass({
 		}
 		var oldModelValues = this.state.old_model_values;
 		var modelValues = this.state.model_values;
-		if(oldModelValues!=modelValues){
-			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
-		}
 		var oldHasProductModel = parseInt(this.state.old_has_product_model);
 		var hasProductModel = parseInt(this.state.has_product_model)
+		if(oldHasProductModel!=-1 && (hasProductModel!=oldHasProductModel)){
+			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
+		}
+		//判断规格值是否相等
+		if(oldModelValues.sort().toString()==modelValues.sort().toString()){
+			var clearPrices =[];
+			var productPrices = [];
+			var productWeights = [];
+			var productStore = [];
+			modelValues.map(function(model,index){
+				clearPrices.push(_this.state["clear_price_"+model.modelId]);
+				productPrices.push(_this.state["product_price_"+model.modelId]);
+				productWeights.push(_this.state["product_weight_"+model.modelId]);
+				productStore.push(_this.state["product_store_"+model.modelId]);
+			})
+
+			var oldClearPrices =[];
+			var oldProductPrices = [];
+			var oldProductWeights = [];
+			var oldProductStore = [];
+			console.log(clearPrices,productPrices,productWeights,productStore);
+			console.log(oldClearPrices,oldProductPrices,oldProductWeights,oldProductStore);
+			oldModelValues.map(function(oldModel,index){
+				oldClearPrices.push(_this.state["old_clear_price_"+oldModel.modelId]);
+				oldProductPrices.push(_this.state["old_product_price_"+oldModel.modelId]);
+				oldProductWeights.push(_this.state["old_product_weight_"+oldModel.modelId]);
+				oldProductStore.push(_this.state["old_product_store_"+oldModel.modelId]);
+			})
+
+			if((clearPrices.sort().toString() != oldClearPrices.sort().toString())||
+				(productPrices.sort().toString() != oldProductPrices.sort().toString()) ||
+				(productWeights.sort().toString() != oldProductWeights.sort().toString()) ||
+				(productStore.sort().toString() != oldProductStore.sort().toString())
+			){
+				document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
+			}
+		}
+
 		if(oldHasProductModel!=-1 && hasProductModel==0){
 			document.getElementById('product_price').parentNode.parentNode.firstChild.style.color='red';
 			document.getElementById('clear_price').parentNode.parentNode.firstChild.style.color='red';
@@ -135,8 +171,10 @@ var OldProduct = React.createClass({
 		var oldPromotionTitle = this.state.old_promotion_title?this.state.old_promotion_title: this.state.promotion_title;
 		var oldRemark = this.state.old_remark.length>0?this.state.old_remark: this.state.remark;
 		var oldImages = this.state.old_images.length>0?this.state.old_images: this.state.images;
-		var hasProductModel = this.state.old_has_product_model==-1?this.state.has_product_model:this.state.old_has_product_model;
-		
+		var hasProductModel = parseInt(this.state.old_has_product_model)==-1?this.state.has_product_model:this.state.old_has_product_model;
+		hasProductModel = String(hasProductModel);
+		console.log(this.state.old_has_product_model,"=====");
+
 		return (
 			<form className="form-horizontal mt15">
 				<fieldset>

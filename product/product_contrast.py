@@ -114,16 +114,16 @@ class ProductContrast(resource.Resource):
 
 
 			#修改的商品旧数据
-			old_product = models.OldProduct.objects.get(product_id=product_id)
-
-			old_product_model_ids = old_product.product_model_ids.split(',')
+			old_product = models.OldProduct.objects.filter(product_id=product_id).order_by('-id')
+			old_product = old_product[0]
+			old_product_model_ids = [] if not old_product.product_model_ids else old_product.product_model_ids.split(',')
 			old_property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=old_product_model_ids, is_deleted=True)
 			
 			#获取规格值
 			old_value_ids = set([str(property_value.property_value_id) for property_value in old_property_values])
 			old_product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=old_value_ids)
 			old_model_values = get_product_model_property_values(old_product_model_property_values)
-			print old_model_values,"=======+++++========"
+
 			#获取商品分类
 			old_product_catalog = catalog_models.ProductCatalog.objects.filter(id=old_product.catalog_id)
 			old_first_level_name = ''
@@ -140,7 +140,7 @@ class ProductContrast(resource.Resource):
 				'old_product_weight' : old_product.product_weight,
 				'old_product_store' : old_product.product_store,
 				'old_remark' : '' if not old_product.remark else string_util.raw_html(old_product.remark),
-				'old_has_product_model' : '%s' %(1 if old_product.has_product_model else 0),
+				'old_has_product_model' : '%s' %(-1 if old_product.has_product_model ==-1 else old_product.has_product_model),
 				'old_models' : json.dumps(old_model_values),
 				'old_images' : [] if not old_product.images else json.loads(old_product.images),
 				'old_catalog_name' : '' if not old_first_level_name else ('%s--%s') %(old_first_level_name,old_second_level_name),
@@ -160,34 +160,7 @@ class ProductContrast(resource.Resource):
 				old_product_data['old_valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_from else ''
 				old_product_data['old_valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_to else ''
 			product_data.update(old_product_data)
-			# product_data['old_product_name'] = old_product.product_name,
-			# product_data['old_promotion_title'] = old_product.promotion_title,
-			# product_data['old_product_price'] = '%s' % old_product.product_price if old_product.product_price>0 else '%s' % old_product.clear_price,
-			# product_data['old_clear_price'] = '%s' % old_product.clear_price,
-			# product_data['old_product_weight'] = '%s'% old_product.product_weight,
-			# product_data['old_product_store'] = old_product.product_store,
-			# product_data['old_remark'] = string_util.raw_html(old_product.remark),
-			# product_data['old_has_product_model'] = '%s' %(1 if old_product.has_product_model else 0),
-			# product_data['old_model_values'] = json.dumps(model_values),
-			# product_data['old_images'] = [],
-			# product_data['old_catalog_name'] = '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
-			# product_data['old_old_second_catalog_id'] = old_product.catalog_id,
-			# 'old_value_ids': ','.join(value_ids)
-
 			jsons['items'].append(('product', json.dumps(product_data)))
-		else:
-			jsons['items'].append(('product', json.dumps(None)))
-			model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
-			property_ids = [model_propertie.id for model_propertie in model_properties]
-			property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
-			product_has_model = len(property_values)
-
-			product_catalog = catalog_models.ProductCatalog.objects.filter(id=second_level_id)
-			first_level_name = ''
-			second_level_name = ''
-			if product_catalog:
-				second_level_name = product_catalog[0].name
-				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
 
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
