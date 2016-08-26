@@ -121,7 +121,7 @@ class OrderBatchDelivery(resource.Resource):
 		#给接口传递批量发货的参数
 		file_url = request.POST.get('document_path','')
 		# 读取文件
-		datas, error_rows = _read_file(file_url[1:])
+		datas, error_rows = _read_file(file_url)
 		if error_rows:
 			response = create_response(500)
 			error_rows = ','.join(error_rows)
@@ -161,14 +161,13 @@ class OrderBatchDelivery(resource.Resource):
 			response.errMsg = res['data']['msg']
 			return response.get_response()
 
-def _read_file(file_url):
+def _read_file(file_path):
 	datas = []
 	error_rows = []
-	file_url_dictionary = file_url.split('/')[2]
-	file_name = file_url.split('/')[3]
-	file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
+	# file_url_dictionary = file_url.split('/')[2]
+	# file_name = file_url.split('/')[3]
+	# file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
 	if not file_path.startswith('http'):
-
 		data = xlrd.open_workbook(file_path)
 	else:
 		response = urllib.urlopen(file_path)
@@ -178,9 +177,9 @@ def _read_file(file_url):
 	nrows = table.nrows   #行数
 	for i in range(1,nrows):
 		item = dict()
-		order_id = table.cell(i,1).value
-		express_company_name = table.cell(i,2).value
-		express_number = table.cell(i,3).value
+		order_id = table.cell(i,0).value
+		express_company_name = table.cell(i,1).value
+		express_number = table.cell(i,2).value
 		
 		#EXCEL中直接输入的数字可能会被当成浮点数
 		if type(order_id) == float:
