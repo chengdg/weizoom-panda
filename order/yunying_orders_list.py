@@ -308,13 +308,13 @@ class YunyingOrdersList(resource.Resource):
 		filter_idct = dict(
 			[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET
 			 if key.startswith('__f-')])
-		customer_name = filter_idct.get('customer_name', '')
-		filter_product_name = filter_idct.get('product_name', '')
-		from_mall = filter_idct.get('from_mall', '-1')
-		order_status = filter_idct.get('order_status', '-1')
+		customer_name = filter_idct.get('customerName', '')
+		filter_product_name = filter_idct.get('productName', '')
+		from_mall = filter_idct.get('fromMall', '-1')
+		order_status = filter_idct.get('orderStatus', '-1')
 		# 订单号
-		order_id = filter_idct.get('order_id', '')
-		order_create_at_range = filter_idct.get('order_create_at__range', '')
+		order_id = filter_idct.get('orderId', '')
+		order_create_at_range = filter_idct.get('orderCreateAt__range', '')
 		# product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		if from_mall == '-1':
 			from_mall = ''
@@ -401,17 +401,16 @@ class YunyingOrdersList(resource.Resource):
 				rows = []
 				for order in orders:
 					weapp_supplier_id = order.get('products')[0].get('supplier')
-					supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).last()
+					supplier = AccountHasSupplier.objects.filter(supplier_id = weapp_supplier_id).last()
 					user_profile = None
 					if supplier:
-						user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
+						user_profile = UserProfile.objects.filter(user_id = supplier.user_id).first()
 					# print supplier.store_name, '------------------------------------------------'
 					# weapp_owner_id = order.get('owner_id')
 					# 规格信息
 					temp_product_name = []
 					product_model_properties = order['products']
 					for product_model in product_model_properties:
-
 						product_properties = product_model.get('custom_model_properties')
 						if product_properties:
 							model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
@@ -430,12 +429,12 @@ class YunyingOrdersList(resource.Resource):
 					# 	if model_info:
 					# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'total_purchase_price': '%.2f' %order.get('total_purchase_price'),
-								 'order_id': order.get('order_id'),
-								 'from_mall': [order.get('store_name')],
-								 'order_status': order_status2text.get(order.get('status')),
-								 'product_name': '\n'.join(temp_product_name),
-								 'customer_name': [user_profile.name if user_profile else ''],
+					rows.append({'totalPurchasePrice': '%.2f' %order.get('total_purchase_price'),
+								 'orderId': order.get('order_id'),
+								 'fromMall': [order.get('store_name')],
+								 'orderStatus': order_status2text.get(order.get('status')),
+								 'productName': '\n'.join(temp_product_name),
+								 'customerName': [user_profile.name if user_profile else ''],
 								 'postage': '%.2f' %order.get('postage')})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
@@ -450,7 +449,6 @@ class YunyingOrdersList(resource.Resource):
 					response.data = data
 					return response.get_response()
 				else:
-
 					return rows
 		if not resp:
 			pageinfo = paginator.paginate_by_count(0,
