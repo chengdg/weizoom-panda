@@ -43,6 +43,11 @@ filter2field ={
 	'catalog_query': 'catalog_name'
 }
 
+customer_from2text = {
+	0: '--',
+	1: u'渠道'
+}
+
 
 class ProductRelation(resource.Resource):
 	app = 'product'
@@ -140,6 +145,7 @@ class ProductRelation(resource.Resource):
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
+		user_id2customer_from = {user_profile.user_id:user_profile.customer_from for user_profile in user_profiles}
 
 		#组装数据
 		rows = []
@@ -162,6 +168,8 @@ class ProductRelation(resource.Resource):
 					second_level_name = product_catalog.name
 					first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
+				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
+				customer_from_text = customer_from2text[customer_from]
 				rows.append({
 					'id': product.id,
 					'role': role,
@@ -173,6 +181,7 @@ class ProductRelation(resource.Resource):
 					'product_status_value': product_status_value,
 					'first_level_name': first_level_name,
 					'second_level_name': second_level_name,
+					'customer_from_text': customer_from_text,
 					'cur_page': pageinfo.cur_page
 				})
 		data = {

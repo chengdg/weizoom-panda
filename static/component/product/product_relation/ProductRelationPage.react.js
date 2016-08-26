@@ -152,6 +152,7 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="商品名称" field="product_name" />
 						<Reactman.TableColumn name="客户名称" field="customer_name" />
 						<Reactman.TableColumn name="分类" field="catalog_name" />
+						<Reactman.TableColumn name="来源" field="customer_from_text" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
 						<Reactman.TableColumn name="状态" field="product_status" />
 						<Reactman.TableColumn name="操作" field="action" />
