@@ -316,8 +316,8 @@ class AccountCreate(resource.Resource):
 				# 同步把原来的删除了
 				sync_delete_rebate_info(old_rebate_ids, supplier_relation)
 			old_rebates.delete()
-			# 云上通的账户 normal: 普通账户, divide: 55分成
-			weapp_account_type = 'normal'
+			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			weapp_account_type = 'fixed'
 			if account_type == '1':
 				UserProfile.objects.filter(id = request.POST['id']).update(
 					company_name = company_name,
@@ -332,6 +332,7 @@ class AccountCreate(resource.Resource):
 				)
 
 				if self_user_names and purchase_method == 2: #采购方式:零售价返点
+					weapp_account_type = 'retail'
 					self_user_names = json.loads(self_user_names)
 					AccountHasGroupPoint.objects.filter(user_id = user_id).delete()
 					list_create = []
