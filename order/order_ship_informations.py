@@ -177,9 +177,9 @@ def _read_file(file_path):
 	nrows = table.nrows   #行数
 	for i in range(1,nrows):
 		item = dict()
-		order_id = table.cell(i,0).value
-		express_company_name = table.cell(i,1).value
-		express_number = table.cell(i,2).value
+		order_id = table.cell(i,1).value
+		express_company_name = table.cell(i,2).value
+		express_number = table.cell(i,3).value
 		
 		#EXCEL中直接输入的数字可能会被当成浮点数
 		if type(order_id) == float:
