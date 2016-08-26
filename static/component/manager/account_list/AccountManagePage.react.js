@@ -141,6 +141,7 @@ var AccountManagePage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="账号名称" field="name" />
+					<Reactman.TableColumn name="客户来源" field="customerFrom" />
 					<Reactman.TableColumn name="登录名" field="username" />
 					<Reactman.TableColumn name="经营类目" field="company_type" />
 					<Reactman.TableColumn name="采购方式" field="purchase_method" />

@@ -133,7 +133,6 @@ var AccountCreatePage = React.createClass({
 							options_for_type = {this.state.options_for_type}
 							selfUserNames={this.state.self_user_names}
 							max_product={this.state.max_product}
-
 						/>
 					</div>
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />

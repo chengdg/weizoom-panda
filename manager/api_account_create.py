@@ -22,7 +22,7 @@ import requests
 from account.models import *
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from product_catalog import models as product_catalog_models
-from manager.account_create import check_username_valid
+from manager.account_create import check_username_valid, sync_create_rebate_info
 from eaglet.decorator import param_required
 
 class AccountCreateApi(resource.Resource):
@@ -39,7 +39,7 @@ class AccountCreateApi(resource.Resource):
 		password = args['password']
 		company_name = args['company_name']
 		company_type = args['company_type']
-		purchase_method = args['purchase_method']
+		purchase_method = int(args['purchase_method'])
 		contacter = args['contacter']
 		phone = args['phone']
 		valid_time_from = args['valid_time_from']
@@ -47,10 +47,10 @@ class AccountCreateApi(resource.Resource):
 		note = args.get('note', '')
 
 		#默认采购方式只是固定低价
-		# points = args.get('points', 0)
-		# order_money = args.get('order_money', 0)
-		# rebate_proport = args.get('rebate_proport', 0)
-		# default_rebate_proport = args.get('default_rebate_proport', 0)
+		points = args.get('points', 0)
+		order_money = args.get('order_money', 0)
+		rebate_proport = args.get('rebate_proport', 0)
+		default_rebate_proport = args.get('default_rebate_proport', 0)
 
 		if not check_username_valid(username):
 			response = create_response(500)
@@ -62,6 +62,33 @@ class AccountCreateApi(resource.Resource):
 			user.save()
 			user_id = user.id
 			user_profile = UserProfile.objects.filter(user=user)
+			
+			
+			# 云商通的账户 normal: 普通账户, divide: 55分成
+			weapp_account_type = 'normal'
+			if purchase_method == 2:
+				if points == '':
+					response = create_response(500)
+					response.errMsg = u'请输入零售扣点'
+					return response.get_response()
+				else:
+					points = float(points)
+			if purchase_method == 3:
+				if order_money == '' or rebate_proport == '' or default_rebate_proport == '':
+					response = create_response(500)
+					response.errMsg = u'请输入55分成配置'
+					return response.get_response()
+				else:
+					order_money = int(order_money)
+					rebate_proport = int(rebate_proport)
+					default_rebate_proport = int(default_rebate_proport)
+				weapp_account_type = 'divide'
+				AccountHasRebateProport.objects.create(
+					user_id = user_id,
+					order_money = order_money,
+					rebate_proport = rebate_proport,
+					default_rebate_proport = default_rebate_proport
+				)
 			user_profile.update(
 				manager_id = 2,
 				role = 1,
@@ -69,11 +96,13 @@ class AccountCreateApi(resource.Resource):
 				note = note,
 				company_name = company_name,
 				company_type = company_type,
-				purchase_method = 1, #默认采购方式只是固定低价
+				purchase_method = purchase_method, #默认采购方式只是固定低价
+				points = points,
 				contacter = contacter,
 				phone = phone,
 				valid_time_from = valid_time_from,
-				valid_time_to = valid_time_to
+				valid_time_to = valid_time_to,
+				customer_from = 1
 			)
 			#请求接口获得数据
 			try:
@@ -91,12 +120,15 @@ class AccountCreateApi(resource.Resource):
 				if resp and resp['code'] == 200:
 					supplier_datas = resp['data']
 					if supplier_datas:
-						AccountHasSupplier.objects.create(
+						account_relation = AccountHasSupplier.objects.create(
 							user_id = user_id,
 							account_id = user_profile[0].id,
 							# store_name = account_zypt_info['store_name'].encode('utf8'),
 							supplier_id = int(supplier_datas['id'])
 						)
+						# 同步五五分成的返点
+						if purchase_method == 3:
+							sync_create_rebate_info(user_id=user_id, account_relation=account_relation)
 						response = create_response(200)
 						response.data = {
 							'supplier_id': int(supplier_datas['id']),
@@ -108,6 +140,7 @@ class AccountCreateApi(resource.Resource):
 						UserProfile.objects.filter(user_id=user_id).delete()
 						response = create_response(500)
 						response.errMsg = u'创建账号失败'
+						return response.get_response()
 				else:
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
