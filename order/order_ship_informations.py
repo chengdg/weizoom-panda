@@ -5,6 +5,7 @@ import json
 import time
 import requests
 import xlrd
+import urllib
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -166,8 +167,13 @@ def _read_file(file_url):
 	file_url_dictionary = file_url.split('/')[2]
 	file_name = file_url.split('/')[3]
 	file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
-	
-	data = xlrd.open_workbook(file_path)
+	if not file_path.startswith('http'):
+
+		data = xlrd.open_workbook(file_path)
+	else:
+		response = urllib.urlopen(file_path)
+		html_data = response.read()
+		data = xlrd.open_workbook(file_contents=html_data)
 	table = data.sheet_by_index(0)
 	nrows = table.nrows   #行数
 	for i in range(1,nrows):

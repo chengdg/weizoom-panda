@@ -24,18 +24,22 @@ from resource.models import *
 
 relations = product_models.ProductSyncWeappAccount.objects.all().values('product_id').distinct()
 bulk_create = []
+accounts = product_models.SelfUsernameWeappAccount.objects.all()
+account_count = accounts.count()
+all_user_names = [account.self_user_name for account in accounts]
+bulk_create = []
 for relation in relations:
 	product_id = relation.get('product_id')
-	count = product_models.ProductSyncWeappAccount.objects.filter(self_user_name__in=['weizoom_fulilaile'],
-																  product_id=product_id).count()
-	print 'product_id:%s count :%s' % (product_id, count)
-	if count == 0:
-		t_1 = product_models.ProductSyncWeappAccount(product_id=product_id,
-													 self_user_name='weizoom_fulilaile')
-
-		bulk_create.append(t_1)
-		print 'product: %s is ok' % product_id
+	product_accounts = product_models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
+	product_users = [product_account.self_user_name for product_account in product_accounts]
+	if account_count != len(product_users):
+		# 需要同步
+		need_insert_user_names = list(set(all_user_names) - set(product_users))
+		temp_bulk = [product_models.ProductSyncWeappAccount(product_id=product_id,
+															self_user_name=username)
+					 for username in need_insert_user_names]
+		bulk_create += temp_bulk
+		print product_id, need_insert_user_names, 'need insert!'
 product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
-print 'ALL is OK! COUNT is %s' % len(bulk_create)
-
-print('start...')
+print 'All count is %s' % len(bulk_create)
+print 'SUCCESS'
