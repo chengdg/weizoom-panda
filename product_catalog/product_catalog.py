@@ -40,19 +40,19 @@ class ProductCatalog(resource.Resource):
 		return render_to_response('product_catalog/product_catalogs.html', c)
 
 	def api_get(request):
-		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=1).order_by('-created_at')
-		all_second_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2).order_by('-created_at')
+		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(level = 1).order_by('-created_at')
+		all_second_catalogs = product_catalog_models.ProductCatalog.objects.filter(level = 2).order_by('-created_at')
 		rows = []
 		for catalog in all_first_catalogs:
 			second_catalogs = []
 			total_products_number = 0
-			belong_second_catalogs = all_second_catalogs.filter(father_id=catalog.id)
+			belong_second_catalogs = all_second_catalogs.filter(father_id = catalog.id)
 			for belong_second_catalog in belong_second_catalogs:
 				qualification_id2name = []
 				index = 0
-				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
+				products_number = product_models.Product.objects.filter(catalog_id = belong_second_catalog.id).count()
 				total_products_number += products_number
-				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
+				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id = belong_second_catalog.id)
 				for qualification in qualifications:
 					qualification_id2name.append({
 						'index': index,
@@ -62,21 +62,21 @@ class ProductCatalog(resource.Resource):
 					index += 1 
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
-					'father_catalog': belong_second_catalog.father_id,
-					'catalog_name': belong_second_catalog.name,
+					'fatherCatalog': belong_second_catalog.father_id,
+					'catalogName': belong_second_catalog.name,
 					'note': belong_second_catalog.note,
-					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-					'products_number': products_number,
-					'qualification_id2name': json.dumps(qualification_id2name)
+					'createdAt': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+					'productsNumber': products_number,
+					'qualificationId2name': json.dumps(qualification_id2name)
 				})
 			rows.append({
 				'id': catalog.id,
-				'father_catalog': catalog.father_id,
-				'catalog_name': catalog.name,
+				'fatherCatalog': catalog.father_id,
+				'catalogName': catalog.name,
 				'note': catalog.note,
-				'created_at': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-				'products_number': total_products_number,
-				'second_catalogs': json.dumps(second_catalogs)
+				'createdAt': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+				'productsNumber': total_products_number,
+				'secondCatalogs': json.dumps(second_catalogs)
 			})
 		data = {
 			'rows': rows
@@ -103,7 +103,7 @@ class ProductCatalog(resource.Resource):
 			#
 			weapp_father_id = father_id
 			if father_id > 0:
-				relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=father_id).first()
+				relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id = father_id).first()
 				if relation:
 					weapp_father_id = relation.weapp_catalog_id
 
@@ -120,11 +120,11 @@ class ProductCatalog(resource.Resource):
 			)
 			if resp and resp.get('code') == 200 and resp.get('data').get('classification'):
 				product_catalog_models.ProductCatalogRelation\
-					.objects.create(catalog_id=product_catalog.id,
-									weapp_catalog_id=resp.get('data').get('classification').get('id'))
+					.objects.create(catalog_id = product_catalog.id,
+									weapp_catalog_id = resp.get('data').get('classification').get('id'))
 				response = create_response(200)
 			else:
-				product_catalog_models.ProductCatalog.objects.filter(id=product_catalog.id).delete()
+				product_catalog_models.ProductCatalog.objects.filter(id = product_catalog.id).delete()
 				response = create_response(500)
 		except:
 			response = create_response(500)
@@ -141,11 +141,11 @@ class ProductCatalog(resource.Resource):
 		name = post.get('catalog_name','')
 		note = post.get('note','')
 		try:
-			product_catalog_models.ProductCatalog.objects.filter(id=catalog_id).update(
+			product_catalog_models.ProductCatalog.objects.filter(id = catalog_id).update(
 				name = name,
 				note = note
 			)
-			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id)
+			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id = catalog_id)
 			if relation:
 				relation = relation.first()
 				weapp_catalog_id = relation.weapp_catalog_id
@@ -181,13 +181,12 @@ class ProductCatalog(resource.Resource):
 	def api_delete(request):
 		catalog_id = request.POST.get('id','')
 		try:
-
 			relation = product_catalog_models.ProductCatalogRelation.objects.filter(
-				catalog_id=catalog_id).first()
-			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
+				catalog_id = catalog_id).first()
+			catalog = product_catalog_models.ProductCatalog.objects.get(id = catalog_id)
 			if catalog.father_id != -1:
 				#二级分类
-				if product_models.Product.objects.filter(catalog_id=catalog_id).count() > 0:
+				if product_models.Product.objects.filter(catalog_id = catalog_id).count() > 0:
 					response = create_response(500)
 					response.errMsg = u'该分类正在被使用，请先将商品调整分类后再删除分类'
 					return response.get_response()
@@ -207,12 +206,12 @@ class ProductCatalog(resource.Resource):
 					else:
 						catalog.delete()
 			else:
-				if product_catalog_models.ProductCatalog.objects.filter(father_id=catalog.id).count() > 0:
+				if product_catalog_models.ProductCatalog.objects.filter(father_id = catalog.id).count() > 0:
 					response = create_response(500)
 					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
 					return response.get_response()
 				else:
-					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type='')
+					customers = account_models.UserProfile.objects.filter(role = account_models.CUSTOMER).exclude(company_type = '')
 					using_catalog_ids = []
 					for customer in customers:
 						for company_type in json.loads(customer.company_type):
@@ -256,7 +255,7 @@ class GetAllFirstCatalog(resource.Resource):
 	@login_required
 	def api_get(request):
 		is_account_page = request.GET.get('is_account_page','')
-		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id=-1).order_by('-created_at')
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id = -1).order_by('-created_at')
 		if is_account_page:
 			rows = []
 		else:
@@ -282,7 +281,7 @@ class GetAllSecondCatalog(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2).order_by('-created_at')
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(level = 2).order_by('-created_at')
 		rows = []
 		for catalog in catalogs:
 			rows.append({
@@ -307,7 +306,7 @@ class GetAllFirstCatalog(resource.Resource):
 		post = request.POST
 		qualification_infos = json.loads(post.get('qualification_infos',''))
 		catalog_id = int(post.get('catalog_id'))
-		old_ids = [int(catalog.id) for catalog in product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=catalog_id)]
+		old_ids = [int(catalog.id) for catalog in product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id = catalog_id)]
 		new_ids = []
 		need_del_ids = []
 
@@ -318,13 +317,13 @@ class GetAllFirstCatalog(resource.Resource):
 		for old_id in old_ids:
 			if old_id not in new_ids:
 				need_del_ids.append(old_id)
-		product_catalog_models.ProductCatalogQualification.objects.filter(id__in=need_del_ids).delete()
+		product_catalog_models.ProductCatalogQualification.objects.filter(id__in = need_del_ids).delete()
 
 		# 循环第二次，更新需要修改的特殊资质信息
 		for qualification_info in qualification_infos:
 			if qualification_info.has_key('id'):
 				#编辑分类
-				product_catalog_models.ProductCatalogQualification.objects.filter(id=qualification_info['id']).update(
+				product_catalog_models.ProductCatalogQualification.objects.filter(id = qualification_info['id']).update(
 					name = qualification_info['name']
 					)
 			else:
