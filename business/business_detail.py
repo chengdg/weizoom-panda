@@ -85,7 +85,7 @@ class BusinessDetail(resource.Resource):
 				'account_opening_license': [{'id':1,'path':business.account_opening_license}],
 				'account_opening_license_time': business.account_opening_license_time.strftime("%Y-%m-%d %H:%M") if business.account_opening_license_time else '',
 				'apply_catalogs': apply_catalogs,
-				'upload_business_qualifications': upload_business_qualifications
+				'uploadBusinessQualifications': upload_business_qualifications
 			}
 			jsons['items'].append(('business_data', json.dumps(business_data)))
 

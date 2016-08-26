@@ -82,37 +82,51 @@ var PurchaseMethod = React.createClass({
 			)
 		}if(type == '3'){
 			// 注释代码 请勿删除
-			// var rebates = this.state.rebates;
-			// var _this = this;
-			// var rebate_dialog = '';
-			// if(rebates.length>0){
-			// 	rebate_dialog = rebates.map(function(rebate, index){
-			// 		return(
-			// 			<div className="rebates-dialog" key={index}>
-			// 				<span>周期</span>
-			// 				<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-			// 				<span style={{marginLeft:'70px'}}>至</span>
-			// 				<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
-			// 				<span style={{display:'inline-block',marginLeft:'70px'}}>且金额不大于</span>
-			// 				<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-			// 				<span>元时,返点比例为</span>
-			// 				<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-			// 				<span>否则,将按</span>
-			// 				<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
-			// 				<span>%基础扣点结算。</span>
-			// 				<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
-			// 			</div>
-			// 		)
-			// 	})
-			// }
+			var rebates = this.state.rebates;
+			var _this = this;
+			var rebate_dialog = '';
+			if(rebates.length>0){
+				rebate_dialog = rebates.map(function(rebate, index){
+					return(
+						<div className="rebates-dialog" key={index}>
+							<span>周期</span>
+							<Reactman.FormDateTimeInput label="" name="validate_from_condition" value={rebate.validate_from_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+							<span style={{marginLeft:'70px'}}>至</span>
+							<Reactman.FormDateTimeInput label="" name="validate_to_condition" value={rebate.validate_to_condition} readOnly onChange={_this.onChangeValue.bind(_this,index)} />
+							<span style={{display:'inline-block',marginLeft:'70px'}}>或金额不大于</span>
+							<Reactman.FormInput label="" type="text" name="order_money_condition" value={rebate.order_money_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+							<span>元前提下，返点比例为</span>
+							<Reactman.FormInput label="" type="text" name="rebate_proport_condition" value={rebate.rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+							<span>%，否则，将按</span>
+							<Reactman.FormInput label="" type="text" name="default_rebate_proport_condition" value={rebate.default_rebate_proport_condition} onChange={_this.onChangeValue.bind(_this,index)} />
+							<span>%基础扣点结算。</span>
+							<a className="rebate-close" href="javascript:void(0);" onClick={_this.deleteRebateValue.bind(_this,index)} title="删除">x</a>
+						</div>
+					)
+				})
+			}
+			return(
+				<div>
+					<div className="profilts-dialog" style={{display:'inline-block'}}>
+						<span style={{display:'inline-block'}}>首月(商品上架后30天含内)或金额不大于</span>
+						<Reactman.FormInput label="" type="text" name="order_money" validate="require-positive-int" value={this.state.order_money} onChange={this.props.onChange} />
+						<span>元前提下，返点比例为</span>
+						<Reactman.FormInput label="" type="text" name="rebate_proport" validate="require-percent" value={this.state.rebate_proport} onChange={this.props.onChange} />
+						<span>%，否则，将按</span>
+						<Reactman.FormInput label="" type="text" name="default_rebate_proport" validate="require-percent" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
+						<span>%基础扣点结算。</span>
+					</div>
+					{rebate_dialog}
+				</div>
+			)
 			// return(
 			// 	<div>
 			// 		<div className="profilts-dialog" style={{display:'inline-block'}}>
-			// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内),且金额不大于</span>
+			// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内)或金额不大于</span>
 			// 			<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
-			// 			<span>元时,返点比例为</span>
+			// 			<span>元前提下，返点比例为</span>
 			// 			<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
-			// 			<span>否则,将按</span>
+			// 			<span>%，否则，将按</span>
 			// 			<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
 			// 			<span>%基础扣点结算。</span>
 			// 		</div>
