@@ -90,6 +90,19 @@ var ProductContrastPage = React.createClass({
 				oldProductStore.push(_this.state["old_product_store_"+oldModel.modelId]);
 			})
 
+			if(clearPrices.sort().toString() != oldClearPrices.sort().toString()){
+				document.getElementById('model_clear_price').style.color='red';
+			}
+			if(productPrices.sort().toString() != oldProductPrices.sort().toString()){
+				document.getElementById('model_product_price').style.color='red';
+			}
+			if(productWeights.sort().toString() != oldProductWeights.sort().toString()){
+				document.getElementById('model_product_weight').style.color='red';
+			}
+			if(productStore.sort().toString() != oldProductStore.sort().toString()){
+				document.getElementById('model_product_store').style.color='red';
+			}
+
 			if((clearPrices.sort().toString() != oldClearPrices.sort().toString())||
 				(productPrices.sort().toString() != oldProductPrices.sort().toString()) ||
 				(productWeights.sort().toString() != oldProductWeights.sort().toString()) ||

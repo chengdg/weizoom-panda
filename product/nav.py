@@ -7,9 +7,7 @@ def get_second_navs(request):
 	user_profile = UserProfile.objects.get(user_id=request.user.id)
 	role = user_profile.role
 	if role == YUN_YING:
-		print models
-		print 'models============='
-		product_updated_count = Product.objects.filter(is_update=True).count()
+		product_updated_count = Product.objects.filter(is_update=True, is_deleted=False).count()
 		if product_updated_count > 0:
 			title = '商品更新('+str(product_updated_count)+')'
 		else:

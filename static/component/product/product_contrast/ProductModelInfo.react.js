@@ -34,7 +34,6 @@ var ProductModelInfo = React.createClass({
 		var disabled = this.props.Disabled;
 		var model_values = this.state.model_values;
 		var model_names = this.state.model_names;
-		console.log(model_values,model_names,'--------');
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
@@ -114,10 +113,10 @@ var ProductModelInfo = React.createClass({
 							<thead>
 								<tr>
 									{th}
-									<th>结算价格(元)</th>
-									<th>商品售价(元)</th>
-									<th>重量(Kg)</th>
-									<th>库存</th>
+									<th id="model_clear_price">结算价格(元)</th>
+									<th id="model_product_price">商品售价(元)</th>
+									<th id="model_product_weight">重量(Kg)</th>
+									<th id="model_product_store">库存</th>
 								</tr>
 							</thead>
 							<tbody id="">
