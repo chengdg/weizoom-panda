@@ -104,8 +104,7 @@ class AccountCreate(resource.Resource):
 					'name': user_profile.name,
 					'username': User.objects.get(id=user_profile.user_id).username,
 					'account_type': user_profile.role,
-					'note': user_profile.note,
-					'max_product': user_profile.max_product
+					'note': user_profile.note
 				}
 			jsons['items'].append(('user_profile_data', json.dumps(user_profile_data)))
 			is_edit = True
