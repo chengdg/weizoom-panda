@@ -32,7 +32,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['product_store_type'] = this.data['product_store'] > -1 ? '0' : '-1';
 			this.data['product_store'] = this.data['product_store'] == -1 ? '9999' : String(this.data['product_store']);
 			this.data['name2model'] = {};
-			console.log(this.data['value_ids'],this.data['old_value_ids'],"=====");
+
 			var dataStrArr=this.data['value_ids'].split(",");//分割成字符串数组  
 			var dataIntArr=[];//保存转换后的整型字符串  
 			dataStrArr.forEach(function(data,index,arr){  
@@ -49,6 +49,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 			//组织数据结构
 			var organize_data = this.organizeData(JSON.parse(this.data['model_values']));
+			console.log(this.data['model_values'],"-------");
 			//判断这个规格存不存在
 			var model_values = _.filter(organize_data[1], function(customModel) {
 				var product_price = 'product_price_'+ customModel.modelId;
@@ -57,18 +58,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 			this.data['model_values'] = model_values;
 			this.data['model_names'] = organize_data[0];
-			console.log(this.data['model_values'],"-------");
 			//组织数据结构
 			var old_organize_data = this.organizeData(JSON.parse(this.data['old_models']));
 			//判断这个规格存不存在
 			var old_model_values = _.filter(old_organize_data[1], function(customModel) {
-				var product_price = 'product_price_'+ customModel.modelId;
-				return _this.data[product_price] !== undefined;
+				var old_product_price = 'old_product_price_'+ customModel.modelId;
+				return _this.data[old_product_price] !== undefined;
 			});
-
+			console.log(old_organize_data);
 			this.data['old_model_values'] = old_model_values;
 			this.data['old_model_names'] = old_organize_data[0];
-			console.log(old_organize_data,"----++++---");
+			console.log(this.data['old_models'],"----++++---");
 		} else {
 			this.data = {
 				'id':-1,
