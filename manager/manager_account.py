@@ -52,25 +52,25 @@ class ManagerAccount(resource.Resource):
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
+		accounts = UserProfile.objects.filter(is_active = True).exclude(role = MANAGER).order_by('-id')
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id = -1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
 		username = filters.get('username','')
-		role = filters.get('role','')
+		role = filters.get('accountType','')
 		if name:
 			accounts = accounts.filter(name__icontains=name)
 		if username:
 			user_ids = [user.id for user in User.objects.filter(username__icontains = username)]
-			accounts = accounts.filter(user_id__in=user_ids)
+			accounts = accounts.filter(user_id__in = user_ids)
 		if role:
-			accounts = accounts.filter(role=role)
+			accounts = accounts.filter(role = role)
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
 		user_ids = [account.user_id for account in accounts]
-		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
+		user_id2username = {user.id: user.username for user in User.objects.filter(id__in = user_ids)}
 		rows = []
 		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		for account in accounts:
@@ -99,11 +99,11 @@ class ManagerAccount(resource.Resource):
 					'id' : account.id,
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
-					'company_type' : catalog_names,
-					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
-					'account_type' : ROLE2NAME[account.role],
+					'companyType' : catalog_names,
+					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'accountType' : ROLE2NAME[account.role],
 					'status' : account.status,
-					'max_product': account.max_product if account.role == CUSTOMER else "--",
+					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
 					'customerFrom': '渠道' if account.customer_from == 1 else '--'
 				})
 			else:
@@ -163,8 +163,8 @@ class ManagerAccount(resource.Resource):
 			if products:
 				product_ids = [product.id for product in products]
 				products.delete()
-				ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
-			AccountHasSupplier.objects.filter(account_id=account_id).delete()
+				ProductHasRelationWeapp.objects.filter(product_id__in = product_ids).delete()
+			AccountHasSupplier.objects.filter(account_id = account_id).delete()
 			response = create_response(200)
 			return response.get_response()
 		except:

@@ -14,8 +14,6 @@ var Constant = require('./Constant');
 
 var Action = {
 	changeAccountStatus: function(id,_method) {
-		console.log('changeAccountStatus');
-		console.log(id,_method);
 		Resource.post({
 			resource: 'manager.account',
 			data: {
