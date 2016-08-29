@@ -37063,7 +37063,6 @@
 		},
 
 		onChangeStore: function (event) {
-			console.log(Store.getData().filterOptions, "--------");
 			var filterOptions = Store.getData().filterOptions;
 			this.refs.table.refresh(filterOptions);
 		},
@@ -37177,7 +37176,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '账号类型:', name: 'account_type', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '账号类型:', name: 'accountType', options: typeOptions, match: '=' })
 						)
 					)
 				),
@@ -37196,10 +37195,10 @@
 						React.createElement(Reactman.TableColumn, { name: '账号名称', field: 'name' }),
 						React.createElement(Reactman.TableColumn, { name: '客户来源', field: 'customerFrom' }),
 						React.createElement(Reactman.TableColumn, { name: '登录名', field: 'username' }),
-						React.createElement(Reactman.TableColumn, { name: '经营类目', field: 'company_type' }),
-						React.createElement(Reactman.TableColumn, { name: '采购方式', field: 'purchase_method' }),
-						React.createElement(Reactman.TableColumn, { name: '最多上传商品数', field: 'max_product' }),
-						React.createElement(Reactman.TableColumn, { name: '类型', field: 'account_type' }),
+						React.createElement(Reactman.TableColumn, { name: '经营类目', field: 'companyType' }),
+						React.createElement(Reactman.TableColumn, { name: '采购方式', field: 'purchaseMethod' }),
+						React.createElement(Reactman.TableColumn, { name: '最多上传商品数', field: 'maxProduct' }),
+						React.createElement(Reactman.TableColumn, { name: '类型', field: 'accountType' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)
@@ -37253,8 +37252,6 @@
 		},
 		handleAccountDatasExport: function (action) {
 			var filterOptions = this.data.filterOptions;
-			console.log('filterOptions');
-			console.log(filterOptions);
 			var filter_str = '';
 			window.location.href = '/manager/account_export';
 		}
@@ -37299,8 +37296,6 @@
 
 	var Action = {
 		changeAccountStatus: function (id, _method) {
-			console.log('changeAccountStatus');
-			console.log(id, _method);
 			Resource.post({
 				resource: 'manager.account',
 				data: {
@@ -37396,7 +37391,7 @@
 
 		onChange: function (value, event) {
 			var property = event.target.getAttribute('name');
-			if (property == 'account_type') {
+			if (property == 'accountType') {
 				if (!W.is_edit) {
 					Action.updateAccount(property, value);
 				}
@@ -37411,48 +37406,48 @@
 
 		onSubmit: function () {
 			var account = Store.getData();
-			var account_type = parseInt(account.account_type);
-			var purchase_method = parseInt(account.purchase_method);
+			var accountType = parseInt(account.accountType);
+			var purchaseMethod = parseInt(account.purchaseMethod);
 			var reg = /^(0|[1-9]|[1-9]\d|99)$/;
 			// var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-			var reg_phone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
-			var reg_username = /^[0-9a-zA-Z]*$/g;
+			var regPhone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
+			var regUsername = /^[0-9a-zA-Z]*$/g;
 
-			if (account_type == 1 && purchase_method == 2 && account.hasOwnProperty('points') && account.points.length > 0) {
+			if (accountType == 1 && purchaseMethod == 2 && account.hasOwnProperty('points') && account.points.length > 0) {
 				if (parseFloat(account.points.trim()) == 0 || !reg.test(account.points.trim())) {
 					Reactman.PageAction.showHint('error', '零售价返点数字需在1-99之间的整数');
 					return;
 				}
 			}
-			if (account_type == 1 && (!account.hasOwnProperty('valid_time_from') || !account.hasOwnProperty('valid_time_to'))) {
+			if (accountType == 1 && (!account.hasOwnProperty('validTimeFrom') || !account.hasOwnProperty('validTimeTo'))) {
 				Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
 				return;
 			}
-			if (account_type == 1 && (account.hasOwnProperty('valid_time_from') && account.valid_time_from.length <= 0 || account.hasOwnProperty('valid_time_to') && account.valid_time_to.length <= 0)) {
+			if (accountType == 1 && (account.hasOwnProperty('validTimeFrom') && account.validTimeFrom.length <= 0 || account.hasOwnProperty('validTimeTo') && account.validTimeTo.length <= 0)) {
 				Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
 				return;
 			}
-			if (account_type == 1 && account.hasOwnProperty('valid_time_from') && account.hasOwnProperty('valid_time_to') && account.valid_time_from > account.valid_time_to) {
+			if (accountType == 1 && account.hasOwnProperty('validTimeFrom') && account.hasOwnProperty('validTimeTo') && account.validTimeFrom > account.validTimeTo) {
 				Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
 				return;
 			}
-			if (account_type == 1 && account.hasOwnProperty('phone') && account.phone.length > 0) {
-				if (!reg_phone.test(account.phone.trim())) {
+			if (accountType == 1 && account.hasOwnProperty('phone') && account.phone.length > 0) {
+				if (!regPhone.test(account.phone.trim())) {
 					Reactman.PageAction.showHint('error', '请填写合法的手机号码');
 					return;
 				}
 			}
-			if (account_type == 1 && account.hasOwnProperty('contacter') && account.contacter.length > 0) {
+			if (accountType == 1 && account.hasOwnProperty('contacter') && account.contacter.length > 0) {
 				if (account.contacter.length > 10) {
 					Reactman.PageAction.showHint('error', '联系人最多10个字符');
 					return;
 				}
 			}
-			if (!reg_username.test(account.username.trim())) {
+			if (!regUsername.test(account.username.trim())) {
 				Reactman.PageAction.showHint('error', '登录名请填写英文字母或数字');
 				return;
 			}
-			if (account_type == 1 && account.company_type.length <= 0) {
+			if (accountType == 1 && account.companyType.length <= 0) {
 				Reactman.PageAction.showHint('error', '请选择经营类目');
 				return;
 			}
@@ -37472,10 +37467,10 @@
 
 			var disabled = W.is_edit ? 'disabled' : '';
 			if (W.is_edit) {
-				var label_name = '修改密码:';
+				var labelName = '修改密码:';
 				var validate = "";
 			} else {
-				var label_name = '登录密码:';
+				var labelName = '登录密码:';
 				var validate = "require-notempty";
 			}
 			return React.createElement(
@@ -37492,28 +37487,28 @@
 							{ className: 'pl10 pt10 pb10' },
 							'账号信息'
 						),
-						React.createElement(Reactman.FormRadio, { label: '账号类型:', name: 'account_type', value: this.state.account_type, options: optionsForAccountType, onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '账号类型:', name: 'accountType', value: this.state.accountType, options: optionsForAccountType, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							null,
 							React.createElement(AccountInfo, { onChange: this.onChange,
-								company_name: this.state.company_name,
+								companyName: this.state.companyName,
 								name: this.state.name,
-								company_type: this.state.company_type,
-								purchase_method: this.state.purchase_method,
+								companyType: this.state.companyType,
+								purchaseMethod: this.state.purchaseMethod,
 								points: this.state.points,
 								contacter: this.state.contacter,
 								phone: this.state.phone,
-								valid_time_from: this.state.valid_time_from,
-								valid_time_to: this.state.valid_time_to,
-								Type: this.state.account_type,
-								options_for_type: this.state.options_for_type,
-								selfUserNames: this.state.self_user_names,
-								max_product: this.state.max_product
+								validTimeFrom: this.state.validTimeFrom,
+								validTimeTo: this.state.validTimeTo,
+								Type: this.state.accountType,
+								optionsForType: this.state.optionsForType,
+								selfUserNames: this.state.selfUserNames,
+								maxProduct: this.state.maxProduct
 							})
 						),
 						React.createElement(Reactman.FormInput, { label: '登录名:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: label_name, type: 'password', name: 'password', validate: validate, placeholder: '', value: this.state.password, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: labelName, type: 'password', name: 'password', validate: validate, placeholder: '', value: this.state.password, onChange: this.onChange }),
 						React.createElement(Reactman.FormText, { label: '备注:', name: 'note', value: this.state.note, inDialog: true, width: 320, height: 200, onChange: this.onChange })
 					),
 					React.createElement(
@@ -37530,7 +37525,7 @@
 		displayName: 'AccountInfo',
 
 		render: function () {
-			var account_type = this.props.Type;
+			var accountType = this.props.Type;
 			var optionsForPurchaseMethod = [{
 				text: '固定底价',
 				value: '1'
@@ -37542,30 +37537,30 @@
 				value: '3'
 			}];
 
-			if (account_type == '1') {
+			if (accountType == '1') {
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '公司名称:', type: 'text', name: 'company_name', value: this.props.company_name, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '公司名称:', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '店铺名称:', type: 'text', name: 'name', validate: 'require-notempty', placeholder: '建议填写为客户公司简称，将在微众平台手机端展示给用户', value: this.props.name, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormCheckbox, { label: '经营类目:', name: 'company_type', value: this.props.company_type, options: this.props.options_for_type, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormRadio, { label: '采购方式:', name: 'purchase_method', value: this.props.purchase_method, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormCheckbox, { label: '经营类目:', name: 'companyType', value: this.props.companyType, options: this.props.optionsForType, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormRadio, { label: '采购方式:', name: 'purchaseMethod', value: this.props.purchaseMethod, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
 					React.createElement(
 						'div',
 						null,
 						React.createElement(PurchaseMethod, { onChange: this.props.onChange,
 							points: this.props.points,
-							Type: this.props.purchase_method
+							Type: this.props.purchaseMethod
 						})
 					),
-					React.createElement(Reactman.FormInput, { label: '最多上传商品数:', type: 'text', validate: 'require-int', name: 'max_product', value: this.props.max_product, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '最多上传商品数:', type: 'text', validate: 'require-int', name: 'maxProduct', value: this.props.maxProduct, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '联系人:', type: 'text', name: 'contacter', value: this.props.contacter, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '手机号:', type: 'text', name: 'phone', value: this.props.phone, onChange: this.props.onChange }),
 					React.createElement(
 						'div',
 						{ className: 'account-create-valid-time' },
-						React.createElement(Reactman.FormDateTimeInput, { label: '有效期:', name: 'valid_time_from', validate: 'require-notempty', value: this.props.valid_time_from, readOnly: true, onChange: this.props.onChange }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '至:', name: 'valid_time_to', value: this.props.valid_time_to, readOnly: true, onChange: this.props.onChange })
+						React.createElement(Reactman.FormDateTimeInput, { label: '有效期:', name: 'validTimeFrom', validate: 'require-notempty', value: this.props.validTimeFrom, readOnly: true, onChange: this.props.onChange }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '至:', name: 'validTimeTo', value: this.props.validTimeTo, readOnly: true, onChange: this.props.onChange })
 					)
 				);
 			} else {
@@ -37616,37 +37611,46 @@
 		init: function () {
 			this.data = Reactman.loadJSON('user_profile_data');
 			if (this.data) {
-				this.data['account_type'] = String(this.data['account_type']);
-				if (this.data['account_type'] == '1') {
-					this.data['purchase_method'] = String(this.data['purchase_method']);
-					this.data['company_type'] = JSON.parse(this.data['company_type']);
-					this.data['options_for_type'] = [];
-					if (this.data['purchase_method'] != '2') {
+				this.data['accountType'] = String(this.data['account_type']);
+				if (this.data['accountType'] == '1') {
+					this.data['companyName'] = this.data['company_name'];
+					this.data['purchaseMethod'] = String(this.data['purchase_method']);
+					this.data['companyType'] = JSON.parse(this.data['company_type']);
+					this.data['optionsForType'] = [];
+					this.data['validTimeFrom'] = this.data['valid_time_from'];
+					this.data['validTimeTo'] = this.data['valid_time_to'];
+					if (this.data['purchaseMethod'] != '2') {
 						this.data['points'] = '';
 					}
+					if (this.data['purchaseMethod'] == '3') {
+						this.data['orderMoney'] = this.data['order_money'];
+						this.data['rebateProport'] = this.data['rebate_proport'];
+						this.data['defaultRebateProport'] = this.data['default_rebate_proport'];
+					}
 					this.data['rebates'] = this.data['rebates'].length > 0 ? JSON.parse(this.data['rebates']) : [];
-					this.data['self_user_names'] = this.data['self_user_names'].length > 0 ? JSON.parse(this.data['self_user_names']) : [];
+					this.data['selfUserNames'] = this.data['self_user_names'].length > 0 ? JSON.parse(this.data['self_user_names']) : [];
+					this.data['maxProduct'] = this.data['max_product'];
 				}
 			} else {
 				this.data = {
 					'id': -1,
-					'account_type': '1',
-					'purchase_method': '2',
-					'company_type': [],
-					'options_for_type': [],
-					'self_user_names': [],
+					'accountType': '1',
+					'purchaseMethod': '2',
+					'companyType': [],
+					'optionsForType': [],
+					'selfUserNames': [],
 					'points': '',
 					'rebates': [],
-					'order_money': '',
-					'rebate_proport': '',
-					'default_rebate_proport': '',
-					'max_product': 3
+					'orderMoney': '',
+					'rebateProport': '',
+					'defaultRebateProport': '',
+					'maxProduct': 3
 				};
 			}
 		},
 
 		handleSelect: function (action) {
-			this.data['options_for_type'] = action.data.rows;
+			this.data['optionsForType'] = action.data.rows;
 			this.__emitChange();
 		},
 
@@ -37661,7 +37665,6 @@
 
 		handleAddSelfShop: function (action) {
 			var selfUserName = action.data.self_user_name;
-
 			var selfShop = this.data.self_user_names;
 			var self_obj = {
 				'self_user_name': selfUserName
@@ -37797,24 +37800,24 @@
 		saveAccount: function (data) {
 			var account_info = {
 				name: data['name'],
-				company_name: data['company_name'],
-				company_type: JSON.stringify(data['company_type']),
-				purchase_method: data['purchase_method'],
+				company_name: data['companyName'],
+				company_type: JSON.stringify(data['companyType']),
+				purchase_method: data['purchaseMethod'],
 				points: data['points'],
 				contacter: data['contacter'],
 				phone: data['phone'],
-				valid_time_from: data['valid_time_from'],
-				valid_time_to: data['valid_time_to'],
+				valid_time_from: data['validTimeFrom'],
+				valid_time_to: data['validTimeTo'],
 				username: data['username'],
 				password: data['password'],
-				account_type: parseInt(data['account_type']),
+				account_type: parseInt(data['accountType']),
 				note: data['note'],
-				self_user_names: JSON.stringify(data['self_user_names']),
+				self_user_names: JSON.stringify(data['selfUserNames']),
 				rebates: JSON.stringify(data['rebates']),
-				order_money: data['order_money'],
-				rebate_proport: data['rebate_proport'],
-				default_rebate_proport: data['default_rebate_proport'],
-				max_product: data['max_product']
+				order_money: data['orderMoney'],
+				rebate_proport: data['rebateProport'],
+				default_rebate_proport: data['defaultRebateProport'],
+				max_product: data['maxProduct']
 			};
 			if (data.id === -1) {
 				Resource.put({
@@ -37854,11 +37857,11 @@
 			}
 		},
 
-		addSelfShop: function (self_user_name) {
+		addSelfShop: function (selfUserName) {
 			Dispatcher.dispatch({
 				actionType: Constant.ADD_SELF_SHOP,
 				data: {
-					self_user_name: self_user_name
+					selfUserName: selfUserName
 				}
 			});
 		},
@@ -37937,7 +37940,7 @@
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
 			return {
-				'self_user_name': ''
+				'selfUserName': ''
 			};
 		},
 
@@ -37952,23 +37955,23 @@
 
 		onBeforeCloseDialog: function () {
 			var _this = this;
-			var selfUserNames = this.state.self_user_names;
-			var is_true = false;
+			var selfUserNames = this.state.selfUserNames;
+			var isChecked = false;
 			_.each(selfUserNames, function (userNames) {
-				if (userNames.self_user_name == _this.state.self_user_name) {
-					is_true = true;
+				if (userNames.selfUserName == _this.state.selfUserName) {
+					isChecked = true;
 				}
 			});
 
-			if (is_true) {
+			if (isChecked) {
 				Reactman.PageAction.showHint('error', '该自营平台已选,请重新选择!');
 				return;
 			}
 
-			if (this.state.self_user_name == '') {
+			if (this.state.selfUserName == '') {
 				Reactman.PageAction.showHint('error', '请选择自营平台');
 			} else {
-				Action.addSelfShop(this.state.self_user_name);
+				Action.addSelfShop(this.state.selfUserName);
 				_.delay(function () {
 					_this.closeDialog();
 				}, 200);
@@ -38016,7 +38019,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'self_user_name', options: typeOptions, value: this.state.self_user_name, onChange: this.onChange })
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'selfUserName', options: typeOptions, value: this.state.selfUserName, onChange: this.onChange })
 					)
 				)
 			);
@@ -38101,7 +38104,6 @@
 
 		onChangeValue: function (index, value, event) {
 			var property = event.target.getAttribute('name');
-			console.log(index, value, property);
 			Action.updateRebates(index, property, value);
 		},
 
@@ -38157,12 +38159,11 @@
 					)
 				);
 			}if (type == '3') {
-				// 注释代码 请勿删除
 				var rebates = this.state.rebates;
 				var _this = this;
-				var rebate_dialog = '';
+				var rebateDialog = '';
 				if (rebates.length > 0) {
-					rebate_dialog = rebates.map(function (rebate, index) {
+					rebateDialog = rebates.map(function (rebate, index) {
 						return React.createElement(
 							'div',
 							{ className: 'rebates-dialog', key: index },
@@ -38171,31 +38172,31 @@
 								null,
 								'周期'
 							),
-							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validate_from_condition', value: rebate.validate_from_condition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validateFromCondition', value: rebate.validateFromCondition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								{ style: { marginLeft: '70px' } },
 								'至'
 							),
-							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validate_to_condition', value: rebate.validate_to_condition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validateToCondition', value: rebate.validateToCondition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								{ style: { display: 'inline-block', marginLeft: '70px' } },
 								'或金额不大于'
 							),
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'order_money_condition', value: rebate.order_money_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'orderMoneyCondition', value: rebate.orderMoneyCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
 								'元前提下，返点比例为'
 							),
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebate_proport_condition', value: rebate.rebate_proport_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebateProportCondition', value: rebate.rebateProportCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
 								'%，否则，将按'
 							),
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'default_rebate_proport_condition', value: rebate.default_rebate_proport_condition, onChange: _this.onChangeValue.bind(_this, index) }),
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'defaultRebateProportCondition', value: rebate.defaultRebateProportCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
@@ -38220,36 +38221,36 @@
 							{ style: { display: 'inline-block' } },
 							'首月(商品上架后30天含内)或金额不大于'
 						),
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'order_money', validate: 'require-positive-int', value: this.state.order_money, onChange: this.props.onChange }),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'orderMoney', validate: 'require-positive-int', value: this.state.orderMoney, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
 							'元前提下，返点比例为'
 						),
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebate_proport', validate: 'require-percent', value: this.state.rebate_proport, onChange: this.props.onChange }),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebateProport', validate: 'require-percent', value: this.state.rebateProport, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
 							'%，否则，将按'
 						),
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'default_rebate_proport', validate: 'require-percent', value: this.state.default_rebate_proport, onChange: this.props.onChange }),
+						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'defaultRebateProport', validate: 'require-percent', value: this.state.defaultRebateProport, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
 							'%基础扣点结算。'
 						)
 					),
-					rebate_dialog
+					rebateDialog
 				);
 				// return(
 				// 	<div>
 				// 		<div className="profilts-dialog" style={{display:'inline-block'}}>
 				// 			<span style={{display:'inline-block'}}>首月(商品上架后30天含内)或金额不大于</span>
-				// 			<Reactman.FormInput label="" type="text" name="order_money" value={this.state.order_money} onChange={this.props.onChange} />
+				// 			<Reactman.FormInput label="" type="text" name="orderMoney" value={this.state.orderMoney} onChange={this.props.onChange} />
 				// 			<span>元前提下，返点比例为</span>
-				// 			<Reactman.FormInput label="" type="text" name="rebate_proport" value={this.state.rebate_proport} onChange={this.props.onChange} />
+				// 			<Reactman.FormInput label="" type="text" name="rebateProport" value={this.state.rebateProport} onChange={this.props.onChange} />
 				// 			<span>%，否则，将按</span>
-				// 			<Reactman.FormInput label="" type="text" name="default_rebate_proport" value={this.state.default_rebate_proport} onChange={this.props.onChange} />
+				// 			<Reactman.FormInput label="" type="text" name="defaultRebateProport" value={this.state.defaultRebateProport} onChange={this.props.onChange} />
 				// 			<span>%基础扣点结算。</span>
 				// 		</div>
 				// 		<button type="button" className="btn btn-primary" style={{marginLeft:'10px'}} onClick={this.addRebateDialog}>+添加</button>
@@ -38300,13 +38301,11 @@
 
 		onChange: function (value, event) {
 			var property = event.target.getAttribute('name');
-			console.log(property, value);
 			Action.updateAccount(property, value);
 		},
 
 		updateGroupPoints: function (index, value, event) {
 			var property = event.target.getAttribute('name');
-			console.log(index, value, property);
 			Action.updateGroupPoints(index, property, value);
 		},
 
@@ -38326,12 +38325,12 @@
 				'weizoom_yjr': '微众一家人',
 				'weizoom_fulilaile': '惠惠来啦'
 			};
-			var selfUserNames = this.state.self_user_names;
+			var selfUserNames = this.state.selfUserNames;
 			var _this = this;
 			if (selfUserNames.length > 0) {
 				var selfShop = selfUserNames.map(function (selfUser, index) {
-					var selfUserName = selfUser.self_user_name;
-					var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
+					var selfUserName = selfUser.selfUserName;
+					var userName = SELF_SHOP2TEXT[selfUser.selfUserName];
 					return React.createElement(
 						'li',
 						{ key: index, style: { display: 'inline-block', position: 'relative' } },
@@ -39802,7 +39801,6 @@
 
 	var Action = {
 		filterOrders: function (filterOptions) {
-			console.log(filterOptions);
 			Dispatcher.dispatch({
 				actionType: Constant.FILTER_ORDERS,
 				data: filterOptions
@@ -39870,12 +39868,12 @@
 		},
 		handleOrderDatasExport: function (action) {
 			var filterOptions = this.data.filterOptions;
-			var filter_str = '';
+			var filterStr = '';
 			for (var key in filterOptions) {
-				filter_str = filter_str + key + '=' + filterOptions[key] + '&';
+				filterStr = filterStr + key + '=' + filterOptions[key] + '&';
 			}
-			filter_str = filter_str.substring(0, filter_str.length - 1);
-			window.location.href = '/order/yunying_export_orders/?' + filter_str;
+			filterStr = filterStr.substring(0, filterStr.length - 1);
+			window.location.href = '/order/yunying_export_orders/?' + filterStr;
 		},
 		getData: function () {
 			return this.data;
@@ -39929,14 +39927,14 @@
 			Action.exportOrders();
 		},
 		rowFormatter: function (field, value, data) {
-			if (field === 'order_id') {
+			if (field === 'orderId') {
 				return React.createElement(
 					'div',
 					{ style: { textAlign: 'left' } },
 					React.createElement(
 						'a',
-						{ href: '/order/customer_order_detail/?id=' + data.order_id, target: '_blank' },
-						data.order_id
+						{ href: '/order/customer_order_detail/?id=' + data.orderId, target: '_blank' },
+						data.orderId
 					)
 				);
 			} else {
@@ -40014,6 +40012,9 @@
 			}, {
 				text: '微众精英',
 				value: 'weizoom_jy'
+			}, {
+				text: '爱尔康',
+				value: 'weizoom_aierkang'
 			}];
 			if (W.is_ceshi) {
 				typeOptions.push({
@@ -40059,17 +40060,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customer_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customerName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'productName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '订单号:', name: 'order_id', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '订单号:', name: 'orderId', match: '=' })
 						)
 					),
 					React.createElement(
@@ -40078,17 +40079,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'order_create_at', match: '[t]' })
+							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'orderCreateAt', match: '[t]' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'from_mall', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'fromMall', options: typeOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'order_status', options: orderStatusOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'orderStatus', options: orderStatusOptions, match: '=' })
 						)
 					)
 				),
@@ -40103,13 +40104,13 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: ordersResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'order_id' }),
-						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
-						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'total_purchase_price' }),
+						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'orderId' }),
+						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'productName' }),
+						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'totalPurchasePrice' }),
 						React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage' }),
-						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'order_status' }),
-						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '来源商城', field: 'from_mall' })
+						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'orderStatus' }),
+						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customerName' }),
+						React.createElement(Reactman.TableColumn, { name: '来源商城', field: 'fromMall' })
 					)
 				)
 			);
@@ -44810,6 +44811,9 @@
 			}, {
 				'name': '微众精英',
 				'value': 'weizoom_jy'
+			}, {
+				'name': '爱尔康',
+				'value': 'weizoom_aierkang'
 			}];
 			if (W.is_ceshi) {
 				selfShop.push({
@@ -45026,16 +45030,16 @@
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 			if (W.is_ceshi) {
-				if (selectSelfShop.length == 22) {
+				if (selectSelfShop.length == 23) {
 					selectSelfShop = [];
 				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'devceshi', 'caiwuceshi'];
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang', 'devceshi', 'caiwuceshi'];
 				}
 			} else {
-				if (selectSelfShop.length == 20) {
+				if (selectSelfShop.length == 21) {
 					selectSelfShop = [];
 				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy'];
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang'];
 				}
 			}
 
@@ -45478,19 +45482,19 @@
 	var AddCatalogDialog = Reactman.createDialog({
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
-			var catalog_id = this.props.data.catalog_id;
-			if (this.props.data.father_catalog) {
-				var father_catalog = this.props.data.father_catalog;
+			var catalogId = this.props.data.catalogId;
+			if (this.props.data.fatherCatalog) {
+				var fatherCatalog = this.props.data.fatherCatalog;
 			} else {
-				var father_catalog = '-1';
+				var fatherCatalog = '-1';
 			}
-			var catalog_name = this.props.data.catalog_name;
+			var catalogName = this.props.data.catalogName;
 			var note = this.props.data.note;
 			var options = this.props.data.options;
 			return {
-				catalog_id: catalog_id,
-				father_catalog: father_catalog,
-				catalog_name: catalog_name,
+				catalogId: catalogId,
+				fatherCatalog: fatherCatalog,
+				catalogName: catalogName,
 				note: note,
 				options: options
 			};
@@ -45500,8 +45504,8 @@
 			var property = event.target.getAttribute('name');
 			var newState = {};
 			newState[property] = value;
-			if (property == 'father_catalog') {
-				if (!this.props.data.catalog_id) {
+			if (property == 'fatherCatalog') {
+				if (!this.props.data.catalogId) {
 					this.setState(newState);
 				}
 			} else {
@@ -45512,24 +45516,24 @@
 		onChangeStore: function () {
 			var infomations = Store.getData();
 			this.setState({
-				father_catalog: infomations['father_catalog'],
-				catalog_name: infomations['catalog_name'],
+				fatherCatalog: infomations['fatherCatalog'],
+				catalogName: infomations['catalogName'],
 				note: infomations['note']
 			});
 		},
 
 		onBeforeCloseDialog: function () {
-			var catalog_name = this.state.catalog_name;
-			if (catalog_name.length > 48) {
+			var catalogName = this.state.catalogName;
+			if (catalogName.length > 48) {
 				Reactman.PageAction.showHint('error', '分类名称不能超过48个字符');
 				return;
 			}
-			if (this.state.catalog_id) {
+			if (this.state.catalogId) {
 				Reactman.Resource.post({
 					resource: 'product_catalog.product_catalogs',
 					data: {
-						catalog_id: this.state.catalog_id,
-						catalog_name: this.state.catalog_name,
+						catalog_id: this.state.catalogId,
+						catalog_name: this.state.catalogName,
 						note: this.state.note
 					},
 					success: function () {
@@ -45547,8 +45551,8 @@
 				Reactman.Resource.put({
 					resource: 'product_catalog.product_catalogs',
 					data: {
-						father_catalog: this.state.father_catalog,
-						catalog_name: this.state.catalog_name,
+						father_catalog: this.state.fatherCatalog,
+						catalog_name: this.state.catalogName,
 						note: this.state.note
 					},
 					success: function () {
@@ -45575,8 +45579,8 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { disabled: 'true', label: '上级分类:', name: 'father_catalog', value: this.state.father_catalog, options: this.state.options, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '分类名称:', name: 'catalog_name', validate: 'require-notempty', value: this.state.catalog_name, onChange: this.onChange }),
+						React.createElement(Reactman.FormSelect, { disabled: 'true', label: '上级分类:', name: 'fatherCatalog', value: this.state.fatherCatalog, options: this.state.options, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '分类名称:', name: 'catalogName', validate: 'require-notempty', value: this.state.catalogName, onChange: this.onChange }),
 						React.createElement(Reactman.FormText, { label: '备注:', type: 'text', name: 'note', value: this.state.note, onChange: this.onChange, inDialog: true, width: 300, height: 200 })
 					)
 				)
@@ -45627,30 +45631,30 @@
 			return this.data;
 		},
 		handleUpdateCatalog: function (action) {
-			var old_models = action.data.models;
-			var target_index = action.data.index;
-			_.each(old_models, function (old_model) {
-				if (old_model.index == target_index) {
-					old_model['name'] = action.data.value;
+			var oldModels = action.data.models;
+			var targetIndex = action.data.index;
+			_.each(oldModels, function (oldModel) {
+				if (oldModel.index == targetIndex) {
+					oldModel['name'] = action.data.value;
 				}
 			});
-			this.data['models'] = old_models;
+			this.data['models'] = oldModels;
 			this.__emitChange();
 		},
 		handleDeleteCatalog: function (action) {
 			var index = action.data.index;
-			var old_models = action.data.models;
-			old_models.splice(index, 1);
-			this.data['models'] = old_models;
+			var oldModels = action.data.models;
+			oldModels.splice(index, 1);
+			this.data['models'] = oldModels;
 			this.__emitChange();
 		},
 		handleAddCatalog: function (action) {
-			var old_models = action.data.models;
-			old_models.push({
+			var oldModels = action.data.models;
+			oldModels.push({
 				name: '',
 				index: action.data.index
 			});
-			this.data['models'] = old_models;
+			this.data['models'] = oldModels;
 			this.__emitChange();
 		}
 	});
@@ -45679,13 +45683,13 @@
 	var AddCatalogQualificationDialog = Reactman.createDialog({
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
-			var qualification_infos = JSON.parse(this.props.data.qualification_infos);
-			var catalog_id = this.props.data.catalog_id;
+			var qualificationInfos = JSON.parse(this.props.data.qualificationInfos);
+			var catalogId = this.props.data.catalogId;
 			return {
-				'models': qualification_infos,
-				qualification_infos: qualification_infos,
-				name: qualification_infos,
-				catalog_id: catalog_id
+				'models': qualificationInfos,
+				qualificationInfos: qualificationInfos,
+				name: qualificationInfos,
+				catalogId: catalogId
 			};
 		},
 		onChange: function (value, event) {
@@ -45705,16 +45709,16 @@
 			});
 		},
 		onClickAddModel: function (event) {
-			Action.addCatalogQualification(this.state.qualification_infos);
+			Action.addCatalogQualification(this.state.qualificationInfos);
 		},
 		onDeleteModel: function (index) {
-			Action.deleteCatalogQualification(index, this.state.qualification_infos);
+			Action.deleteCatalogQualification(index, this.state.qualificationInfos);
 		},
 		onBeforeCloseDialog: function () {
 			Reactman.Resource.put({
 				resource: 'product_catalog.qualification',
 				data: {
-					catalog_id: this.state.catalog_id,
+					catalog_id: this.state.catalogId,
 					qualification_infos: JSON.stringify(this.state.models)
 				},
 				success: function () {
@@ -45730,7 +45734,7 @@
 			});
 		},
 		render: function () {
-			var models = this.state.qualification_infos;
+			var models = this.state.qualificationInfos;
 			var cModels = '';
 			if (models) {
 				var _this = this;
@@ -45845,9 +45849,9 @@
 			this.refs.table.refresh(filterOptions);
 		},
 		onAddCatalog: function (event) {
-			var catalog_id = event.target.getAttribute('data-id');
-			var father_catalog = event.target.getAttribute('data-father-catalog');
-			var catalog_name = event.target.getAttribute('data-catalog-name');
+			var catalogId = event.target.getAttribute('data-id');
+			var fatherCatalog = event.target.getAttribute('data-father-catalog');
+			var catalogName = event.target.getAttribute('data-catalog-name');
 			var note = event.target.getAttribute('data-note');
 			Reactman.Resource.get({
 				resource: 'product_catalog.get_all_first_catalog',
@@ -45858,9 +45862,9 @@
 						title: "添加/修改分类",
 						component: AddCatalogDialog,
 						data: {
-							catalog_id: catalog_id,
-							father_catalog: father_catalog,
-							catalog_name: catalog_name,
+							catalogId: catalogId,
+							fatherCatalog: fatherCatalog,
+							catalogName: catalogName,
 							note: note,
 							options: options
 						},
@@ -45876,14 +45880,14 @@
 			});
 		},
 		onAddQualification: function (event) {
-			var catalog_id = event.target.getAttribute('data-id');
-			var qualification_infos = event.target.getAttribute('data-qualification-info');
+			var catalogId = event.target.getAttribute('data-id');
+			var qualificationInfos = event.target.getAttribute('data-qualification-info');
 			Reactman.PageAction.showDialog({
 				title: "配置特殊资质文件",
 				component: AddCatalogQualificationDialog,
 				data: {
-					catalog_id: catalog_id,
-					qualification_infos: qualification_infos
+					catalogId: catalogId,
+					qualificationInfos: qualificationInfos
 				},
 				success: function () {
 					Action.updateCatalogs();
@@ -45891,48 +45895,48 @@
 			});
 		},
 		onClickDelete: function (event) {
-			var catalog_id = parseInt(event.target.getAttribute('data-id'));
+			var catalogId = parseInt(event.target.getAttribute('data-id'));
 			Reactman.PageAction.showConfirm({
 				target: event.target,
 				title: '确认删除该商品分类吗?',
 				confirm: _.bind(function () {
-					Action.deleteCatalog(catalog_id);
+					Action.deleteCatalog(catalogId);
 				}, this)
 			});
 		},
 
-		showSecondCatalogs: function (class_name) {
-			var display = document.getElementsByClassName(class_name)[0].style.display;
+		showSecondCatalogs: function (className) {
+			var display = document.getElementsByClassName(className)[0].style.display;
 			if (display == 'none') {
-				document.getElementsByClassName(class_name)[0].style.display = "block";
+				document.getElementsByClassName(className)[0].style.display = "block";
 			} else {
-				document.getElementsByClassName(class_name)[0].style.display = "none";
+				document.getElementsByClassName(className)[0].style.display = "none";
 			}
 		},
 
 		rowFormatter: function (field, value, data) {
 			if (field === 'expand-row') {
 				var _this = this;
-				var class_name = 'data-' + data['id'];
-				var second_catalogs = JSON.parse(data['second_catalogs']);
-				if (second_catalogs.length > 0) {
-					var catalogs = second_catalogs.map(function (catalog, index) {
-						var catalog_id = catalog['id'];
-						var src = '/product/product_relation/?second_catalog_id=' + catalog_id;
-						var has_info = catalog['qualification_id2name'];
+				var className = 'data-' + data['id'];
+				var secondCatalogs = JSON.parse(data['secondCatalogs']);
+				if (secondCatalogs.length > 0) {
+					var catalogs = secondCatalogs.map(function (catalog, index) {
+						var catalogId = catalog['id'];
+						var src = '/product/product_relation/?second_catalog_id=' + catalogId;
+						var hasInfo = catalog['qualificationId2name'];
 						return React.createElement(
 							'div',
 							{ style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px' }, key: index },
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'left', paddingLeft: '15px', width: '44%', height: '50px' } },
-								catalog.catalog_name,
+								catalog.catalogName,
 								' '
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { display: 'inline' } },
-								catalog.created_at
+								catalog.createdAt
 							),
 							React.createElement(
 								'div',
@@ -45941,7 +45945,7 @@
 								React.createElement(
 									'a',
 									{ href: src, target: '_blank' },
-									catalog.products_number
+									catalog.productsNumber
 								)
 							),
 							React.createElement(
@@ -45949,7 +45953,7 @@
 								{ className: 'xui-expand-row-info', style: { float: 'right', paddingRight: '24px', display: 'inline' } },
 								React.createElement(
 									'a',
-									{ className: 'btn btn-primary', onClick: _this.onAddCatalog, 'data-id': catalog.id, 'data-father-catalog': catalog.father_catalog, 'data-catalog-name': catalog.catalog_name, 'data-note': catalog.note },
+									{ className: 'btn btn-primary', onClick: _this.onAddCatalog, 'data-id': catalog.id, 'data-father-catalog': catalog.fatherCatalog, 'data-catalog-name': catalog.catalogName, 'data-note': catalog.note },
 									'修改'
 								),
 								React.createElement(
@@ -45957,13 +45961,13 @@
 									{ className: 'btn btn-danger ml10', onClick: _this.onClickDelete, 'data-id': catalog.id },
 									'删除'
 								),
-								has_info == '[]' ? React.createElement(
+								hasInfo == '[]' ? React.createElement(
 									'a',
-									{ className: 'btn btn-primary ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualification_id2name },
+									{ className: 'btn btn-primary ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
 									'配置特殊资质'
 								) : React.createElement(
 									'a',
-									{ className: 'btn btn-info ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualification_id2name },
+									{ className: 'btn btn-info ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
 									'已配置'
 								)
 							)
@@ -45971,13 +45975,13 @@
 					});
 					return React.createElement(
 						'div',
-						{ className: class_name, style: { display: 'none' } },
+						{ className: className, style: { display: 'none' } },
 						catalogs
 					);
 				} else {
 					return React.createElement(
 						'div',
-						{ className: class_name, style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px', display: 'none' } },
+						{ className: className, style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px', display: 'none' } },
 						React.createElement(
 							'div',
 							{ style: { float: 'left', paddingLeft: '15px' } },
@@ -45985,9 +45989,9 @@
 						)
 					);
 				}
-			} else if (field === 'products_number') {
-				var catalog_id = data['id'];
-				var src = '/product/product_relation/?first_catalog_id=' + catalog_id;
+			} else if (field === 'productsNumber') {
+				var catalogId = data['id'];
+				var src = '/product/product_relation/?first_catalog_id=' + catalogId;
 				return React.createElement(
 					'a',
 					{ href: src, target: '_blank' },
@@ -45999,7 +46003,7 @@
 					{ className: 'orders-list-btn-group' },
 					React.createElement(
 						'a',
-						{ className: 'btn btn-primary', onClick: this.onAddCatalog, 'data-id': data.id, 'data-father-catalog': data.father_catalog, 'data-catalog-name': data.catalog_name, 'data-note': data.note },
+						{ className: 'btn btn-primary', onClick: this.onAddCatalog, 'data-id': data.id, 'data-father-catalog': data.fatherCatalog, 'data-catalog-name': data.catalogName, 'data-note': data.note },
 						'修改'
 					),
 					React.createElement(
@@ -46008,11 +46012,11 @@
 						'删除'
 					)
 				);
-			} else if (field === 'catalog_name') {
-				var class_name = 'data-' + data['id'];
+			} else if (field === 'catalogName') {
+				var className = 'data-' + data['id'];
 				return React.createElement(
 					'a',
-					{ href: 'javascript:void(0);', onClick: this.showSecondCatalogs.bind(this, class_name) },
+					{ href: 'javascript:void(0);', onClick: this.showSecondCatalogs.bind(this, className) },
 					value
 				);
 			} else {
@@ -46038,9 +46042,9 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: catalogsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '分类名称', field: 'catalog_name' }),
-						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: '商品数', field: 'products_number' }),
+						React.createElement(Reactman.TableColumn, { name: '分类名称', field: 'catalogName' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'createdAt', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '商品数', field: 'productsNumber' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '150px' })
 					)
 				)
