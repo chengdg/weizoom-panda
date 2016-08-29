@@ -54,7 +54,7 @@ class SyncProduct(resource.Resource):
 
 			relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
 			if not relation:
-				sync_add_product(params, product)
+				sync_add_product(params, product, user_id=request.user.id)
 			else:
 				params.update({'product_id': relation.weapp_product_id})
 				sync_update_product(params, product)
@@ -62,7 +62,7 @@ class SyncProduct(resource.Resource):
 			data['code'] = 200
 			data['count'] = len(product_id)
 		except:
-			msg = unicode_full_stack
+			msg = unicode_full_stack()
 			watchdog.error('{}'.format(msg))
 			data['code'] = 500
 		response.data = data
@@ -75,7 +75,7 @@ def get_product_images(product=None):
 	"""
 	product_images = models.ProductImage.objects.filter(product_id=product.id)
 	image_ids = [product_image.image_id for product_image in product_images]
-	images = Image.objects.filter(image_id__in=image_ids)
+	images = Image.objects.filter(id__in=image_ids)
 	return [{'order': 1, 'url': image.path} for image in images]
 
 
@@ -101,7 +101,7 @@ def organize_params(product=None, supplier_id=None, images=None,model_type=None,
 	return params
 
 
-def sync_add_product(params, product, weapp_catalog_id=None):
+def sync_add_product(params, product, weapp_catalog_id=None, user_id=None):
 	"""
 	同步新增加商品
 	"""
@@ -116,7 +116,11 @@ def sync_add_product(params, product, weapp_catalog_id=None):
 	if resp:
 		if resp.get('code') == 200 and resp.get('data').get('product'):
 			weapp_product_id = resp.get('data').get('product').get('id')
-
+			models.ProductHasRelationWeapp.objects.create(
+				product_id=product.id,
+				weapp_product_id=weapp_product_id,
+				self_user_name=user_id
+			)
 			# 同步类目
 			if weapp_catalog_id:
 				catalog_params = {'classification_id': weapp_catalog_id, 'product_id': weapp_product_id}
