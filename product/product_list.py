@@ -137,8 +137,10 @@ def getProductData(request, is_export):
 	# 从weapp获取商品销量
 	if role == YUN_YING:
 		id2sales = {}
+		resource_images = resource_models.Image.objects.all()
 	else:
 		id2sales = sales_from_weapp(product_has_relations)
+		resource_images = resource_models.Image.objects.filter(user_id=request.user.id)
 
 	#获取分类
 	product_catalogs = catalog_models.ProductCatalog.objects.all()
@@ -153,7 +155,9 @@ def getProductData(request, is_export):
 			product_id2image_id[product.product_id] = [product.image_id]
 		else:
 			product_id2image_id[product.product_id].append(product.image_id)
-	for image in resource_models.Image.objects.all():
+	
+
+	for image in resource_images:
 		image_id2images[image.id] = image.path
 
 	# 组装数据
