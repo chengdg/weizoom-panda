@@ -204,6 +204,7 @@ def get_weapp_model_properties(product=None):
 		weapp_models_info.append(temp_model_info)
 	return weapp_models_info
 
+
 def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				  account_has_supplier,product_id2image_id,image_id2paths,
 				  product_id2relation, weapp_catalog_id):
