@@ -246,7 +246,7 @@ class AccountCreate(resource.Resource):
 								# rebate_proport_condition = rebate['rebate_proport_condition'],
 								# default_rebate_proport_condition = rebate['default_rebate_proport_condition']
 								# 'owner_id', 'divide_money', 'basic_rebate', 'rebate', 'supplier_id'
-								sync_create_rebate_info(user_id = user_id, account_relation = account_relation)
+								sync_create_rebate_info(user_id=user_id, account_relation=account_relation)
 							# 同步零售返点
 							if purchase_method == 2:
 								sync_add_retail_rebate_info(account_relation, user_id=-1, rebate=points)
