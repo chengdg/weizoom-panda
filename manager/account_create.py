@@ -161,11 +161,13 @@ class AccountCreate(resource.Resource):
 				name = name,
 				note = note
 			)
-			# 云商通的账户 normal: 普通账户, divide: 55分成
-			weapp_account_type = 'normal'
+			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			weapp_account_type = 'fixed'
 			if account_type == '1':
 				points = 0 if not points else float(points)
-				if self_user_names and purchase_method == 2: #采购方式:零售价返点
+				# 采购方式:零售价返点
+				if self_user_names and purchase_method == 2:
+					weapp_account_type = 'retail'
 					self_user_names = json.loads(self_user_names)
 					list_create = []
 					for self_user in self_user_names:
@@ -244,6 +246,9 @@ class AccountCreate(resource.Resource):
 								# default_rebate_proport_condition = rebate['default_rebate_proport_condition']
 								# 'owner_id', 'divide_money', 'basic_rebate', 'rebate', 'supplier_id'
 								sync_create_rebate_info(user_id = user_id, account_relation = account_relation)
+							# 同步零售返点
+							if purchase_method == 2:
+								sync_add_retail_rebate_info(account_relation, user_id=-1, rebate=points)
 						pass
 					else:
 						User.objects.filter(id = user_id).delete()
@@ -345,6 +350,10 @@ class AccountCreate(resource.Resource):
 							group_points = float(self_user[self_user_name+'_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
+					# 同步零售反点
+					sync_delete_retail_rebate_info(supplier_relation)
+					sync_add_retail_rebate_info(supplier_relation, user_id=-1, rebate=points)
+
 				# 采购方式:首月55分成
 				if purchase_method == 3:
 					weapp_account_type = 'divide'
@@ -479,3 +488,39 @@ def sync_delete_rebate_info(old_rebate_ids, account_relation):
 		})
 		if not resp or resp.get('code') != 200:
 			raise Exception('Sync update rebate info failed!')
+
+
+def sync_add_retail_rebate_info(account_relation, user_id, rebate):
+	"""
+	同步增加零售返点
+	user_id 属于哪个平台的团购扣点,-1表示基础扣点
+	"""
+	params = {
+		'supplier_id': account_relation.supplier_id,
+		'owner_id': PRODUCT_POOL_OWNER_ID,
+		'user_id': user_id,
+		'rebate': int(rebate)
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+		'resource': 'mall.supplier_retail_rebate_info',
+		"data": params
+	})
+	if not resp or resp.get('code') != 200:
+		AccountHasRebateProport.objects.filter(user_id=user_id).delete()
+		raise Exception('Sync create retail rebate info failed!')
+
+def sync_delete_retail_rebate_info(account_relation):
+	"""
+	同步增加零售返点
+	user_id 属于哪个平台的团购扣点,-1表示基础扣点
+	"""
+	params = {
+		'supplier_id': account_relation.supplier_id,
+
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
+		'resource': 'mall.supplier_retail_rebate_info',
+		"data": params
+	})
+	if not resp or resp.get('code') != 200:
+		raise Exception('Sync create delete retail rebate info failed!')
