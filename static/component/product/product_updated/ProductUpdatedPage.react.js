@@ -130,11 +130,12 @@ var ProductUpdatedPage = React.createClass({
 						<Reactman.TableActionButton text="批量更新" onClick={this.batchUpdateSyncProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} enableSelector={true} ref="table">
-						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
+						<Reactman.TableColumn name="商品" field="product_name" width="400px"/>
 						<Reactman.TableColumn name="分类" field="catalog_name" />
+						<Reactman.TableColumn name="供货商" field="customer_name" />
 						<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 						<Reactman.TableColumn name="售价(元)" field="product_price" />
-						<Reactman.TableColumn name="销量" field="sales" />
+						<Reactman.TableColumn name="库存" field="product_store" />
 						<Reactman.TableColumn name="状态" field="status" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>

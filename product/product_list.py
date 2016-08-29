@@ -85,11 +85,11 @@ def getProductData(request, is_export):
 	cur_page = request.GET.get('page', 1)
 	is_update = request.GET.get('is_update', False)
 
-	filter_idct = dict(
+	filter_dict = dict(
 		[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if
 		 key.startswith('__f-')])
-	product_name = filter_idct.get('product_name', '')
-	catalog_name = filter_idct.get('catalog_name','')
+	product_name = filter_dict.get('product_name', '')
+	catalog_name = filter_dict.get('catalog_name','')
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
 	if role == YUN_YING:
@@ -132,7 +132,10 @@ def getProductData(request, is_export):
 	product_images = models.ProductImage.objects.filter(product_id__in=product_ids)
 
 	# 从weapp获取商品销量
-	id2sales = sales_from_weapp(product_has_relations)
+	if role == YUN_YING:
+		id2sales = {}
+	else:
+		id2sales = sales_from_weapp(product_has_relations)
 
 	#获取分类
 	product_catalogs = catalog_models.ProductCatalog.objects.all()
@@ -154,7 +157,14 @@ def getProductData(request, is_export):
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 	# 组装数据
 	# 获取多规格商品id和结算价,售价的对应数据
-	model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
+	user_id2name = {}
+	if role == YUN_YING:
+		model_properties = models.ProductModel.objects.filter(is_deleted=False)
+		p_owner_ids = [product.owner_id for product in products]
+		user_profiles = UserProfile.objects.filter(user_id__in=p_owner_ids)
+		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
+	else:
+		model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
 	product_id2market_price = {}
 	product_id2product_price = {}
 	for model_property in model_properties:
@@ -196,6 +206,7 @@ def getProductData(request, is_export):
 							 if product_statu.get('status') == 'on']
 
 	for product in products:
+		owner_id = product.owner_id
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
 		image_path = '' if image_id not in image_id2images else image_id2images[image_id]
 		sales = 0 if product.id not in id2sales else id2sales[product.id]
@@ -221,7 +232,7 @@ def getProductData(request, is_export):
 				product_price = '%.2f' % product_prices[0]
 		else:
 			product_price = '%.2f' % product.product_price
-		print product_price,"====================="
+
 		image_paths = []
 		if product.id in product_id2image_id:
 			image_ids = product_id2image_id[product.id]
@@ -244,12 +255,14 @@ def getProductData(request, is_export):
 		rows.append({
 			'id': product.id,
 			'role': role,
+			'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 			'promotion_title': product.promotion_title,
 			'clear_price': clear_price,
 			'product_price': product_price,
 			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price > 0 else '',
 			'product_weight': '%.2f' % product.product_weight,
 			'product_name': product.product_name,
+			'product_store': product.product_store,
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,

@@ -96,8 +96,8 @@ class ProductContrast(resource.Resource):
 			for product_model in product_models:
 				model_Id = product_model.name
 				product_data['product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
-				product_data['limit_clear_price_'+model_Id] = '%s' %product_model.limit_clear_price
-				product_data['clear_price_'+model_Id] = '%s' %product_model.market_price
+				product_data['limit_clear_price_'+model_Id] = '%s' %('%.2f'%product_model.limit_clear_price)
+				product_data['clear_price_'+model_Id] = '%s' %('%.2f'%product_model.market_price)
 				product_data['product_weight_'+model_Id] = '%s' %product_model.weight
 				product_data['product_store_'+model_Id] = '%s' %product_model.stocks
 				product_data['product_code_'+model_Id] = '%s' %product_model.user_code
@@ -152,8 +152,8 @@ class ProductContrast(resource.Resource):
 			for product_model in models.ProductModel.objects.filter(id__in=old_product_model_ids):
 				model_Id = product_model.name
 				old_product_data['old_product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
-				old_product_data['old_limit_clear_price_'+model_Id] = '%s' %product_model.limit_clear_price
-				old_product_data['old_clear_price_'+model_Id] = '%s' %product_model.market_price
+				old_product_data['old_limit_clear_price_'+model_Id] = '%s' %('%.2f'%product_model.limit_clear_price)
+				old_product_data['old_clear_price_'+model_Id] = '%s' %('%.2f'%product_model.market_price)
 				old_product_data['old_product_weight_'+model_Id] = '%s' %product_model.weight
 				old_product_data['old_product_store_'+model_Id] = '%s' %product_model.stocks
 				old_product_data['old_product_code_'+model_Id] = '%s' %product_model.user_code
