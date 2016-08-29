@@ -232,7 +232,7 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
-    PRODUCT_POOL_OWNER_ID = 3
+    PRODUCT_POOL_OWNER_ID = 7
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
