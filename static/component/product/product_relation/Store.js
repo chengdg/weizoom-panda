@@ -89,20 +89,22 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleChooseAllSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
 		if(W.is_ceshi){
-			if(selectSelfShop.length==22){
+			if(selectSelfShop.length==23){
 				selectSelfShop = [];
 			}else{
 				selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
 					'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
-					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy','devceshi','caiwuceshi'];
+					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy',
+					'weizoom_aierkang','devceshi','caiwuceshi'];
 			}
 		}else{
-			if(selectSelfShop.length==20){
+			if(selectSelfShop.length==21){
 				selectSelfShop = [];
 			}else{
 				selectSelfShop = ['weizoom_baifumei','weizoom_club','weizoom_jia','weizoom_mama','weizoom_shop','weizoom_xuesheng',
 					'weizoom_life','weizoom_yjr','weizoom_fulilaile','weizoom_juweihui','weizoom_zhonghai','weizoom_zoomjulebu','weizoom_chh',
-					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy'];
+					'weizoom_pengyouquan','weizoom_shxd','weizoom_jinmeihui','weizoom_wzbld','weizoom_jiaren','weizoom_xiaoyuan','weizoom_jy',
+					'weizoom_aierkang'];
 			}
 		}
 		
