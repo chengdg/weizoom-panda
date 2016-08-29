@@ -283,76 +283,79 @@ class NewProduct(resource.Resource):
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark)
-		
-		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
-		old_product_name = product.product_name
-		old_promotion_title = product.promotion_title
-		old_product_price = '%.2f' %product.product_price
-		old_clear_price = '%.2f' %product.clear_price
-		old_product_weight = str(product.product_weight)
-		old_product_store = int(product.product_store)
-		old_remark = product.remark
-		old_has_product_model = product.has_product_model
-		old_catalog_id = int(product.catalog_id)
 
-		# models.OldProduct.objects.filter(product_id = product.id).delete()
-		models.OldProduct.objects.create(product_id = product.id)
-		#获取图片
-		image_ids = [product_img.image_id for product_img in models.ProductImage.objects.filter(product_id=product.id)]
-		old_images = []
-		new_images = json.loads(request.POST['images'])
-		for image in resource_models.Image.objects.filter(id__in=image_ids):
-			old_images.append({
-				'id': image.id,
-				'path': image.path
-			})
+		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
+		#判断商品是否同步
+		if product_sync_weapp_accounts:
+			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+			old_product_name = product.product_name
+			old_promotion_title = product.promotion_title
+			old_product_price = '%.2f' %product.product_price
+			old_clear_price = '%.2f' %product.clear_price
+			old_product_weight = str(product.product_weight)
+			old_product_store = int(product.product_store)
+			old_remark = product.remark
+			old_has_product_model = product.has_product_model
+			old_catalog_id = int(product.catalog_id)
 
-		#获取规格值
-		old_product_models = models.ProductModel.objects.filter(product_id=product.id, is_deleted=False)
-		old_product_model_ids = [str(old_product_model.id) for old_product_model in old_product_models]
-		#保存修改之前的数据
-		last_old_products = models.OldProduct.objects.filter(product_id=product.id).order_by('-id')[0]
-		old_products = models.OldProduct.objects.filter(id=last_old_products.id)
-		if old_images != new_images:
-			old_products.update(
-				images = json.dumps(old_images)
-			)
-		if old_product_name != product_name:
-			old_products.update(
-				product_name = old_product_name
-			)
-		if old_promotion_title != promotion_title:
-			old_products.update(
-				promotion_title = old_promotion_title
-			)
-		if old_product_price != product_price:
-			old_products.update(
-				product_price = old_product_price
-			)
-		if old_clear_price != clear_price:
-			old_products.update(
-				clear_price = old_clear_price
-			)
-		if old_product_weight != product_weight:
-			old_products.update(
-				product_weight = old_product_weight
-			)
-		if old_product_store != int(product_store):
-			old_products.update(
-				product_store = old_product_store
-			)
-		if old_remark != remark:
-			old_products.update(
-				remark = old_remark
-			)
-		if old_has_product_model != has_product_model:
-			old_products.update(
-				has_product_model = old_has_product_model
-			)
-		if old_catalog_id != second_level_id:
-			old_products.update(
-				catalog_id = old_catalog_id
-			)
+			# models.OldProduct.objects.filter(product_id = product.id).delete()
+			models.OldProduct.objects.create(product_id = product.id)
+			#获取图片
+			image_ids = [product_img.image_id for product_img in models.ProductImage.objects.filter(product_id=product.id)]
+			old_images = []
+			new_images = json.loads(request.POST['images'])
+			for image in resource_models.Image.objects.filter(id__in=image_ids):
+				old_images.append({
+					'id': image.id,
+					'path': image.path
+				})
+
+			#获取规格值
+			old_product_models = models.ProductModel.objects.filter(product_id=product.id, is_deleted=False)
+			old_product_model_ids = [str(old_product_model.id) for old_product_model in old_product_models]
+			#保存修改之前的数据
+			last_old_products = models.OldProduct.objects.filter(product_id=product.id).order_by('-id')[0]
+			old_products = models.OldProduct.objects.filter(id=last_old_products.id)
+			if old_images != new_images:
+				old_products.update(
+					images = json.dumps(old_images)
+				)
+			if old_product_name != product_name:
+				old_products.update(
+					product_name = old_product_name
+				)
+			if old_promotion_title != promotion_title:
+				old_products.update(
+					promotion_title = old_promotion_title
+				)
+			if old_product_price != product_price:
+				old_products.update(
+					product_price = old_product_price
+				)
+			if old_clear_price != clear_price:
+				old_products.update(
+					clear_price = old_clear_price
+				)
+			if old_product_weight != product_weight:
+				old_products.update(
+					product_weight = old_product_weight
+				)
+			if old_product_store != int(product_store):
+				old_products.update(
+					product_store = old_product_store
+				)
+			if old_remark != remark:
+				old_products.update(
+					remark = old_remark
+				)
+			if old_has_product_model != has_product_model:
+				old_products.update(
+					has_product_model = old_has_product_model
+				)
+			if old_catalog_id != second_level_id:
+				old_products.update(
+					catalog_id = old_catalog_id
+				)
 
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
@@ -370,8 +373,6 @@ class NewProduct(resource.Resource):
 				valid_time_to = valid_time_to,
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
-				is_update = True,
-				is_refused = False,
 				remark = remark
 			)
 		else:
@@ -389,9 +390,12 @@ class NewProduct(resource.Resource):
 				valid_time_to = None,
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
-				is_update = True,
-				is_refused = False,
 				remark = remark
+			)
+		if product_sync_weapp_accounts:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				is_update = True,
+				is_refused = False
 			)
 		#删除、重建商品图片
 		if images:
@@ -450,11 +454,11 @@ class NewProduct(resource.Resource):
 								 source_product=source_product,
 								 new_properties=new_properties, old_properties=old_properties)
 
-		
-		if sorted(old_product_model_ids) != sorted(new_product_model_ids):
-			old_products.update(
-				product_model_ids = ','.join(set(old_product_model_ids))
-			)
+		if product_sync_weapp_accounts:
+			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
+				old_products.update(
+					product_model_ids = ','.join(set(old_product_model_ids))
+				)
 
 		response = create_response(200)
 		return response.get_response()

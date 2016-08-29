@@ -7,7 +7,12 @@ def get_second_navs(request):
 	user_profile = UserProfile.objects.get(user_id=request.user.id)
 	role = user_profile.role
 	if role == YUN_YING:
-		product_updated_count = Product.objects.filter(is_update=True, is_deleted=False).count()
+		sync_product_ids = []
+		product_sync_weapps = ProductSyncWeappAccount.objects.all()
+		for product_sync_weapp in product_sync_weapps:
+			if product_sync_weapp.product_id not in sync_product_ids:
+				sync_product_ids.append(product_sync_weapp.product_id)
+		product_updated_count = Product.objects.filter(id__in=sync_product_ids, is_update=True, is_deleted=False).count()
 		if product_updated_count > 0:
 			title = '商品更新('+str(product_updated_count)+')'
 		else:

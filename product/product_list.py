@@ -98,7 +98,7 @@ def getProductData(request, is_export):
 		for product_sync_weapp in product_sync_weapps:
 			if product_sync_weapp.product_id not in sync_product_ids:
 				sync_product_ids.append(product_sync_weapp.product_id)
-		products = models.Product.objects.filter(is_deleted=False, is_update=True).order_by('-id')
+		products = models.Product.objects.filter(id__in=sync_product_ids, is_deleted=False, is_update=True).order_by('-id')
 	else:
 		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
