@@ -36,7 +36,7 @@ var ProductContrastPage = React.createClass({
 		if(this.state.old_product_name){
 			document.getElementById('product_name').parentNode.parentNode.firstChild.style.color='red';
 		}
-		if(this.state.old_promotion_title){
+		if(this.state.old_promotion_title!=null){
 			document.getElementById('promotion_title').parentNode.parentNode.firstChild.style.color='red';
 		}
 		if(this.state.old_remark){
@@ -65,6 +65,9 @@ var ProductContrastPage = React.createClass({
 			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
 		}
 		//判断规格值是否相等
+		if(oldModelValues.length!=modelValues.length){
+			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
+		}
 		if(oldModelValues.sort().toString()==modelValues.sort().toString()){
 			var clearPrices =[];
 			var productPrices = [];
@@ -81,8 +84,6 @@ var ProductContrastPage = React.createClass({
 			var oldProductPrices = [];
 			var oldProductWeights = [];
 			var oldProductStore = [];
-			console.log(clearPrices,productPrices,productWeights,productStore);
-			console.log(oldClearPrices,oldProductPrices,oldProductWeights,oldProductStore);
 			oldModelValues.map(function(oldModel,index){
 				oldClearPrices.push(_this.state["old_clear_price_"+oldModel.modelId]);
 				oldProductPrices.push(_this.state["old_product_price_"+oldModel.modelId]);
@@ -181,13 +182,11 @@ var OldProduct = React.createClass({
 		var disabled = role == 3 ? 'disabled' : '';
 
 		var oldProductName = this.state.old_product_name?this.state.old_product_name: this.state.product_name;
-		var oldPromotionTitle = this.state.old_promotion_title?this.state.old_promotion_title: this.state.promotion_title;
+		var oldPromotionTitle = this.state.old_promotion_title!=null?this.state.old_promotion_title: this.state.promotion_title;
 		var oldRemark = this.state.old_remark.length>0?this.state.old_remark: this.state.remark;
 		var oldImages = this.state.old_images.length>0?this.state.old_images: this.state.images;
 		var hasProductModel = parseInt(this.state.old_has_product_model)==-1?this.state.has_product_model:this.state.old_has_product_model;
 		hasProductModel = String(hasProductModel);
-		console.log(this.state.old_has_product_model,"=====");
-
 		return (
 			<form className="form-horizontal mt15">
 				<fieldset>

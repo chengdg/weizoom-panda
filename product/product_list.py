@@ -126,6 +126,9 @@ def getProductData(request, is_export):
 				catalog_ids.extend(father_id2ids[catalog_id])
 		products = products.filter(catalog_id__in=catalog_ids)
 
+	if not is_export:
+		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
+
 	product_ids = ['%s' % product.id for product in products]
 	product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(
 		weapp_product_id='')
@@ -153,8 +156,6 @@ def getProductData(request, is_export):
 	for image in resource_models.Image.objects.all():
 		image_id2images[image.id] = image.path
 
-	if not is_export:
-		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 	# 组装数据
 	# 获取多规格商品id和结算价,售价的对应数据
 	user_id2name = {}
@@ -164,7 +165,7 @@ def getProductData(request, is_export):
 		user_profiles = UserProfile.objects.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 	else:
-		model_properties = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
+		model_properties = models.ProductModel.objects.filter(owner=request.user, product_id__in=product_ids, is_deleted=False)
 	product_id2market_price = {}
 	product_id2product_price = {}
 	for model_property in model_properties:
@@ -180,7 +181,7 @@ def getProductData(request, is_export):
 
 	rows = []
 	# 获取商品是否上线
-	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=[p.id for p in products])
+	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
 	product_2_weapp_product = {}
 	for relation in relations:
 		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
