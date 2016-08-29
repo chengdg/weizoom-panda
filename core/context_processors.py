@@ -24,11 +24,7 @@ def top_navs(request):
 			un_insert_sys_message = list(set(all_sys_message_id) - set(all_user_message_id))
 			un_read_message_count = len(un_insert_sys_message) + len(un_read_messages)
 			message_title = '站内消息 (%s)' % un_read_message_count
-
-			#登录财务系统
-			token = user_token(request)
-			print 'token=========',token
-
+			
 			top_navs = [{
 				'name': 'product',
 				'displayName': '商品',
@@ -50,7 +46,7 @@ def top_navs(request):
 				'name': 'finance',
 				'displayName': '对账结算',
 				'icon': 'list-alt',
-				'href': 'https://www.baidu.com/?token=' + token
+				'href': 'http://finance.weizoom.com/balance_account/account_profile/?token=' + user_token(request) #登录财务系统
 			},{
 				'name': 'freight_service',
 				'displayName': '商家设置',

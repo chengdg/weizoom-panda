@@ -20,8 +20,11 @@ def get_token_for_logined_user(user):
 	"""
 	if (user is None) or (not isinstance(user, User)):
 		return None
-
-	encoded_str_with_userinfo = "{}_{}_{}".format(59, MAGIC_CODE, user.username)
+	#传递supplier_id作为关键值
+	from account import models as account_models
+	supplier_id = account_models.AccountHasSupplier.objects.filter(user_id=user.id).first().supplier_id
+	supplier_id = 3883
+	encoded_str_with_userinfo = "{}_{}_{}".format(59, MAGIC_CODE, supplier_id)
 	encoded_hex_str = byte_to_hex(encoded_str_with_userinfo)
 
 	#进行字节码的混淆处理
