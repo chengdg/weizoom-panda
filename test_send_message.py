@@ -22,10 +22,10 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 import json
 products = product_models.Product.objects.filter(is_deleted=False)
 temp_list = []
-supplier_ids = [1880,1881,1882,1883,1884,1885,1886,1887,1888,1889,1890,1891,1892,3789]
+supplier_ids = [3752,481,677,676]
 params = {
     'page': 1,
-    'per_count_page': 15,
+    'per_count_page': 1000,
     'order_status': 3,
     'supplier_ids': json.dumps(supplier_ids)
 }
