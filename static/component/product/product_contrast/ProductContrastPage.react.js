@@ -65,9 +65,10 @@ var ProductContrastPage = React.createClass({
 			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
 		}
 		//判断规格值是否相等
-		if(oldModelValues.length!=modelValues.length){
+		if((hasProductModel==oldHasProductModel==1) && oldModelValues.length!=modelValues.length){
 			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
 		}
+		
 		if(oldModelValues.sort().toString()==modelValues.sort().toString()){
 			var clearPrices =[];
 			var productPrices = [];
