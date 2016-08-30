@@ -137,7 +137,8 @@ var ProductContrastPage = React.createClass({
 		var oldCatalogNameStyle ={}
 		var oldSecondId = this.state.old_second_catalog_id;
 		var secondId = this.state.second_catalog_id;
-		if(oldSecondId >0 && (oldSecondId != secondId)){
+		console.log(oldSecondId,secondId,"=======")
+		if(oldSecondId >=0 && (oldSecondId != secondId)){
 			oldCatalogNameStyle = {color:'red'}
 		}
 
@@ -171,10 +172,7 @@ var OldProduct = React.createClass({
 	},
 
 	render:function(){
-		var oldCatalogName = this.state.catalog_name;
-		if(this.state.old_catalog_name.length>0){
-			oldCatalogName = this.state.old_catalog_name;
-		}
+		var oldCatalogName = this.state.old_second_catalog_id!=-1? this.state.old_catalog_name:this.state.catalog_name;
 
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];

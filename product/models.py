@@ -47,7 +47,7 @@ class OldProduct(models.Model):
 	remark = models.TextField(null=True)  #备注
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
 	has_product_model = models.IntegerField(default=-1) #-1:没有更新这个属性,0:没有规格,1:有规格
-	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
+	catalog_id = models.IntegerField(default=-1) #所属分类id(二级分类id)
 	images = models.CharField(max_length=2048, null=True) #图片url
 	product_model_ids = models.CharField(max_length=2048, null=True) #product_model id
 

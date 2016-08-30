@@ -23,11 +23,37 @@ from product_catalog import models as catalog_models
 from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
+# from services.panda_send_sync_product_ding_talk_service.tasks import send_sync_product_ding_talk
 import nav
 import models
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
+
+SELF_SHOP2TEXT = {
+	'weizoom_jia': u'微众家',
+	'weizoom_mama': u'微众妈妈',
+	'weizoom_xuesheng': u'微众学生',
+	'weizoom_baifumei': u'微众白富美',
+	'weizoom_shop': u'微众商城',
+	'weizoom_club': u'微众俱乐部',
+	'weizoom_life': u'微众Life',
+	'weizoom_yjr': u'微众一家人',
+	'weizoom_fulilaile': u'惠惠来啦',
+	'weizoom_juweihui': u'居委汇',
+	'weizoom_zhonghai': u'微众中海',
+	'weizoom_zoomjulebu': u'微众club',
+	'weizoom_chh': u'微众吃货',
+	'weizoom_pengyouquan': u'微众圈',
+	'weizoom_shxd': u'少先队',
+	'weizoom_jinmeihui': u'津美汇',
+	'weizoom_wzbld': u'微众便利店',
+	'weizoom_jiaren': u'微众佳人',
+	'weizoom_xiaoyuan': u'微众良乡商城',
+	'weizoom_jy': u'微众精英',
+	'devceshi': u'开发测试',
+	'caiwuceshi': u'财务测试'
+}
 
 class NewProduct(resource.Resource):
 	app = 'product'
@@ -284,6 +310,7 @@ class NewProduct(resource.Resource):
 		if remark:
 			remark = parser.unescape(remark)
 
+		modify_contents = []
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 		#判断商品是否同步
 		if product_sync_weapp_accounts:
@@ -320,35 +347,43 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					images = json.dumps(old_images)
 				)
+				modify_contents.append(u'商品图片')
 			if old_product_name != product_name:
 				old_products.update(
 					product_name = old_product_name
 				)
+				modify_contents.append(u'商品名称')
 			if old_promotion_title != promotion_title:
 				old_products.update(
 					promotion_title = old_promotion_title
 				)
+				modify_contents.append(u'促销标题')
 			if has_product_model == 0:
 				if product_price and (old_product_price != product_price):
 					old_products.update(
 						product_price = old_product_price
 					)
+					modify_contents.append(u'商品售价')
 				if clear_price and (old_clear_price != clear_price):
 					old_products.update(
 						clear_price = old_clear_price
 					)
+					modify_contents.append(u'结算价')
 				if product_weight and (old_product_weight != product_weight):
 					old_products.update(
 						product_weight = old_product_weight
 					)
+					modify_contents.append(u'商品重量')
 				if product_store and (old_product_store != int(product_store)):
 					old_products.update(
 						product_store = old_product_store
 					)
+					modify_contents.append(u'库存数量')
 			if old_remark != remark:
 				old_products.update(
 					remark = old_remark
 				)
+				modify_contents.append(u'商品描述')
 			if old_has_product_model != has_product_model:
 				old_products.update(
 					has_product_model = old_has_product_model
@@ -357,6 +392,7 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					catalog_id = old_catalog_id
 				)
+				modify_contents.append(u'商品类目')
 
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
@@ -461,6 +497,28 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					product_model_ids = ','.join(set(old_product_model_ids))
 				)
+				modify_contents.append(u'商品规格')
+
+		#发送钉钉消息
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		product_status = u'待同步更新'
+		if product_sync_weapp_accounts:
+			product_status = u'已自动更新'
+		#获取已同步自营平台	
+		shop_names = []
+		for product_sync_weapp in product_sync_weapp_accounts:
+			self_user_name = product_sync_weapp.self_user_name
+			if self_user_name in SELF_SHOP2TEXT:
+				shop_names.append(SELF_SHOP2TEXT[self_user_name])
+		# print u'、'.join(modify_contents),"===="
+		# show_product_name = u"商品名称: " + '%s'%product_name + "\n"
+		# show_customer_name = u"商家名称: " + user_profile.name + "\n"
+		# show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
+		# show_shop_names = u"同步平台平台 :" + u'、'.join(shop_names) + "\n"
+		# show_product_status = u"状态: " + product_status + "\n"
+		# message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
+		# message = show_product_name+show_customer_name+show_modify_contents+show_shop_names+show_product_status
+		# send_sync_product_ding_talk(message,request.POST['id'])
 
 		response = create_response(200)
 		return response.get_response()
