@@ -34666,7 +34666,7 @@
 				account_opening_license_time: data['account_opening_license_time'],
 				apply_catalogs: JSON.stringify(data['apply_catalogs'])
 			};
-			business_info['upload_business_qualifications'] = JSON.stringify(data['upload_business_qualifications']);
+			business_info['uploadBusinessQualifications'] = JSON.stringify(data['uploadBusinessQualifications']);
 			business_info['id'] = data.id;
 			Resource.post({
 				resource: 'business.business_detail',
@@ -34767,7 +34767,7 @@
 
 		onSubmit: function () {
 			var data = Store.getData();
-			var upload_business_qualifications = data.upload_business_qualifications;
+			var uploadBusinessQualifications = data.uploadBusinessQualifications;
 			var is_upload = true;
 			var reg_phone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 			var reg_number = /^[1-9]\d*(\.\d+)?$/;
@@ -34807,10 +34807,10 @@
 				Reactman.PageAction.showHint('error', '请上传开户许可证!');
 				return;
 			}
-			upload_business_qualifications.map(function (upload_business_qualification, index) {
-				if (upload_business_qualification.img == '') {
+			uploadBusinessQualifications.map(function (uploadBusinessQualification, index) {
+				if (uploadBusinessQualification.img == '') {
 					is_upload = false;
-					Reactman.PageAction.showHint('error', '请上传' + upload_business_qualification.qualification_name);
+					Reactman.PageAction.showHint('error', '请上传' + uploadBusinessQualification.qualification_name);
 					return;
 				}
 			});
@@ -34888,7 +34888,7 @@
 							'入驻类目及特殊资质'
 						),
 						React.createElement(Reactman.FormCheckbox, { label: '申请类目:', name: 'apply_catalogs', value: this.state.apply_catalogs, options: this.state.options_for_type, onChange: this.onChange }),
-						React.createElement(ProductModelList, { name: 'models', value: this.state.upload_business_qualifications, onChange: this.onChange })
+						React.createElement(ProductModelList, { name: 'models', value: this.state.uploadBusinessQualifications, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
@@ -34942,7 +34942,7 @@
 		},
 
 		handleGetQualifications: function (action) {
-			this.data['upload_business_qualifications'] = action.data.rows;
+			this.data['uploadBusinessQualifications'] = action.data.rows;
 			this.__emitChange();
 		},
 
@@ -37435,7 +37435,6 @@
 			var accountType = parseInt(account.accountType);
 			var purchaseMethod = parseInt(account.purchaseMethod);
 			var reg = /^(0|[1-9]|[1-9]\d|99)$/;
-			// var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 			var regPhone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 			var regUsername = /^[0-9a-zA-Z]*$/g;
 
@@ -37824,7 +37823,7 @@
 		},
 
 		saveAccount: function (data) {
-			var account_info = {
+			var accountInfo = {
 				name: data['name'],
 				company_name: data['companyName'],
 				company_type: JSON.stringify(data['companyType']),
@@ -37848,7 +37847,7 @@
 			if (data.id === -1) {
 				Resource.put({
 					resource: 'manager.account_create',
-					data: account_info,
+					data: accountInfo,
 					success: function () {
 						Reactman.PageAction.showHint('success', '创建账号成功');
 						setTimeout(function () {
@@ -37863,10 +37862,10 @@
 					}
 				});
 			} else {
-				account_info['id'] = data.id;
+				accountInfo['id'] = data.id;
 				Resource.post({
 					resource: 'manager.account_create',
-					data: account_info,
+					data: accountInfo,
 					success: function () {
 						Reactman.PageAction.showHint('success', '编辑账号成功');
 						setTimeout(function () {
@@ -39827,7 +39826,6 @@
 
 	var Action = {
 		filterOrders: function (filterOptions) {
-			console.log(filterOptions);
 			Dispatcher.dispatch({
 				actionType: Constant.FILTER_ORDERS,
 				data: filterOptions
@@ -39895,12 +39893,12 @@
 		},
 		handleOrderDatasExport: function (action) {
 			var filterOptions = this.data.filterOptions;
-			var filter_str = '';
+			var filterStr = '';
 			for (var key in filterOptions) {
-				filter_str = filter_str + key + '=' + filterOptions[key] + '&';
+				filterStr = filterStr + key + '=' + filterOptions[key] + '&';
 			}
-			filter_str = filter_str.substring(0, filter_str.length - 1);
-			window.location.href = '/order/yunying_export_orders/?' + filter_str;
+			filterStr = filterStr.substring(0, filterStr.length - 1);
+			window.location.href = '/order/yunying_export_orders/?' + filterStr;
 		},
 		getData: function () {
 			return this.data;
@@ -39954,14 +39952,14 @@
 			Action.exportOrders();
 		},
 		rowFormatter: function (field, value, data) {
-			if (field === 'order_id') {
+			if (field === 'orderId') {
 				return React.createElement(
 					'div',
 					{ style: { textAlign: 'left' } },
 					React.createElement(
 						'a',
-						{ href: '/order/customer_order_detail/?id=' + data.order_id, target: '_blank' },
-						data.order_id
+						{ href: '/order/customer_order_detail/?id=' + data.orderId, target: '_blank' },
+						data.orderId
 					)
 				);
 			} else {
@@ -40084,17 +40082,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customer_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customerName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'productName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '订单号:', name: 'order_id', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '订单号:', name: 'orderId', match: '=' })
 						)
 					),
 					React.createElement(
@@ -40103,17 +40101,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'order_create_at', match: '[t]' })
+							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'orderCreateAt', match: '[t]' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'from_mall', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'fromMall', options: typeOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'order_status', options: orderStatusOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'orderStatus', options: orderStatusOptions, match: '=' })
 						)
 					)
 				),
@@ -40128,13 +40126,13 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: ordersResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'order_id' }),
-						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
-						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'total_purchase_price' }),
+						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'orderId' }),
+						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'productName' }),
+						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'totalPurchasePrice' }),
 						React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage' }),
-						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'order_status' }),
-						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '来源商城', field: 'from_mall' })
+						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'orderStatus' }),
+						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customerName' }),
+						React.createElement(Reactman.TableColumn, { name: '来源商城', field: 'fromMall' })
 					)
 				)
 			);
@@ -43820,7 +43818,8 @@
 			var oldCatalogNameStyle = {};
 			var oldSecondId = this.state.old_second_catalog_id;
 			var secondId = this.state.second_catalog_id;
-			if (oldSecondId > 0 && oldSecondId != secondId) {
+			console.log(oldSecondId, secondId, "=======");
+			if (oldSecondId >= 0 && oldSecondId != secondId) {
 				oldCatalogNameStyle = { color: 'red' };
 			}
 
@@ -43880,10 +43879,7 @@
 		},
 
 		render: function () {
-			var oldCatalogName = this.state.catalog_name;
-			if (this.state.old_catalog_name.length > 0) {
-				oldCatalogName = this.state.old_catalog_name;
-			}
+			var oldCatalogName = this.state.old_second_catalog_id != -1 ? this.state.old_catalog_name : this.state.catalog_name;
 
 			var optionsForStore = [{ text: '无限', value: '-1' }, { text: '有限', value: '0' }];
 			var optionsForModel = [{ text: '是', value: '1' }, { text: '否', value: '0' }];
@@ -46201,16 +46197,16 @@
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
 			if (W.is_ceshi) {
-				if (selectSelfShop.length == 22) {
+				if (selectSelfShop.length == 23) {
 					selectSelfShop = [];
 				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'devceshi', 'caiwuceshi'];
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang', 'devceshi', 'caiwuceshi'];
 				}
 			} else {
-				if (selectSelfShop.length == 20) {
+				if (selectSelfShop.length == 21) {
 					selectSelfShop = [];
 				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy'];
+					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang'];
 				}
 			}
 
