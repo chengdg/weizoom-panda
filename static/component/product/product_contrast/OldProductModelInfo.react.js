@@ -34,7 +34,6 @@ var OldProductModelInfo = React.createClass({
 		var disabled = this.props.Disabled;
 		var model_values = this.state.old_model_values;
 		var model_names = this.state.old_model_names;
-		console.log(this.state.model_values,model_names);
 		var optionsForStore = [{text: '无限', value: '-1'}, {text: '有限', value: '0'}];
 		var optionsForModel = [{text: '是', value: '1'}, {text: '否', value: '0'}];
 		var optionsForCheckbox = [{text: '', value: '1'}]
@@ -44,15 +43,6 @@ var OldProductModelInfo = React.createClass({
 					<td key={index} style={{verticalAlign:'middle',width:'100px',paddingLeft:'6px !important'}}>{value.name}</td>
 				)
 			})
-			// if(W.purchase_method==2){
-			// 	var product_price = _this.state["old_product_price_"+model.modelId];
-			// 	if(product_price){
-			// 		var points = 1-(W.points/100);
-			// 		var product_price = parseFloat(product_price);
-			// 		_this.state["old_clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
-			// 	}
-			// }
-			console.log(_this.state["old_clear_price_"+model.modelId])
 			return(
 				<tr key={index} className="model-table-tr">
 					{td}

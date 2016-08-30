@@ -43283,7 +43283,6 @@
 			var disabled = this.props.Disabled;
 			var model_values = this.state.old_model_values;
 			var model_names = this.state.old_model_names;
-			console.log(this.state.model_values, model_names);
 			var optionsForStore = [{ text: '无限', value: '-1' }, { text: '有限', value: '0' }];
 			var optionsForModel = [{ text: '是', value: '1' }, { text: '否', value: '0' }];
 			var optionsForCheckbox = [{ text: '', value: '1' }];
@@ -43295,15 +43294,6 @@
 						value.name
 					);
 				});
-				// if(W.purchase_method==2){
-				// 	var product_price = _this.state["old_product_price_"+model.modelId];
-				// 	if(product_price){
-				// 		var points = 1-(W.points/100);
-				// 		var product_price = parseFloat(product_price);
-				// 		_this.state["old_clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
-				// 	}
-				// }
-				console.log(_this.state["old_clear_price_" + model.modelId]);
 				return React.createElement(
 					'tr',
 					{ key: index, className: 'model-table-tr' },
@@ -43483,16 +43473,13 @@
 				dataStrArr.forEach(function (data, index, arr) {
 					dataIntArr.push(+data);
 				});
-				console.log(dataIntArr);
 				this.data['valueIds'] = dataIntArr;
-				console.log(this.data['valueIds']);
 				var oldValueIdsStr = this.data['old_value_ids'].split(","); //分割成字符串数组  
 				var oldValueIds = []; //保存转换后的整型字符串  
 				oldValueIdsStr.forEach(function (data, index, arr) {
 					oldValueIds.push(+data);
 				});
 				this.data['oldValueIds'] = oldValueIds;
-				console.log(this.data['oldValueIds']);
 				//组织数据结构
 				var organize_data = this.organizeData(JSON.parse(this.data['model_values']));
 				//判断这个规格存不存在
@@ -43821,7 +43808,7 @@
 			var oldCatalogNameStyle = {};
 			var oldSecondId = this.state.old_second_catalog_id;
 			var secondId = this.state.second_catalog_id;
-			console.log(oldSecondId, secondId, "=======");
+
 			if (oldSecondId >= 0 && oldSecondId != secondId) {
 				oldCatalogNameStyle = { color: 'red' };
 			}

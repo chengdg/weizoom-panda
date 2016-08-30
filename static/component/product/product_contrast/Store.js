@@ -38,16 +38,13 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			dataStrArr.forEach(function(data,index,arr){  
 				dataIntArr.push(+data);
 			});
-			console.log(dataIntArr)
 			this.data['valueIds'] = dataIntArr;
-			console.log(this.data['valueIds'])
 			var oldValueIdsStr = this.data['old_value_ids'].split(",");//分割成字符串数组  
 			var oldValueIds=[];//保存转换后的整型字符串  
 			oldValueIdsStr.forEach(function(data,index,arr){  
 				oldValueIds.push(+data);
 			});
 			this.data['oldValueIds'] = oldValueIds;
-			console.log(this.data['oldValueIds'])
 			//组织数据结构
 			var organize_data = this.organizeData(JSON.parse(this.data['model_values']));
 			//判断这个规格存不存在

@@ -137,7 +137,7 @@ var ProductContrastPage = React.createClass({
 		var oldCatalogNameStyle ={}
 		var oldSecondId = this.state.old_second_catalog_id;
 		var secondId = this.state.second_catalog_id;
-		console.log(oldSecondId,secondId,"=======")
+		
 		if(oldSecondId >=0 && (oldSecondId != secondId)){
 			oldCatalogNameStyle = {color:'red'}
 		}
