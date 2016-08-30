@@ -27,37 +27,36 @@ class SyncProduct(resource.Resource):
 		response = create_response(200)
 		data = {}
 		try:
-			product = models.Product.objects.filter(id=product_id).first()
-			if not product:
-				data['code'] = 500
-				response.data = data
-				return response.get_response()
-			models.Product.objects.filter(id=product_id).update(
-				is_update=False
-			)
-			# 供货商中间关系
-			account_has_supplier = account_models.AccountHasSupplier.objects.filter(user_id=product.owner_id).first()
-			if not account_has_supplier:
-				data['code'] = 500
-				response.data = data
-				return response.get_response()
-			images = get_product_images(product=product)
+			product_ids = product_id.split(',')
+			products = models.Product.objects.filter(id__in=product_ids)
+			
+			for product in products:
+				# 供货商中间关系
+				account_has_supplier = account_models.AccountHasSupplier.objects.filter(user_id=product.owner_id).first()
+				if not account_has_supplier:
+					data['code'] = 500
+					response.data = data
+					return response.get_response()
+				images = get_product_images(product=product)
 
-			# 获取是单品还是多规格
-			model_type = 'single' if not product.has_product_model else 'custom'
-			weapp_models_info = []
-			if product.has_product_model:
-				# 多规格,获取规格信息
-				weapp_models_info = get_weapp_model_properties(product=product)
-			params = organize_params(product=product, supplier_id=account_has_supplier.supplier_id, images=images,
-									 model_type=model_type, weapp_models_info=weapp_models_info)
+				# 获取是单品还是多规格
+				model_type = 'single' if not product.has_product_model else 'custom'
+				weapp_models_info = []
+				if product.has_product_model:
+					# 多规格,获取规格信息
+					weapp_models_info = get_weapp_model_properties(product=product)
+				params = organize_params(product=product, supplier_id=account_has_supplier.supplier_id, images=images,
+										 model_type=model_type, weapp_models_info=weapp_models_info)
 
-			relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
-			if not relation:
-				sync_add_product(params, product, user_id=request.user.id)
-			else:
-				params.update({'product_id': relation.weapp_product_id})
-				sync_update_product(params, product)
+				relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
+				if not relation:
+					sync_add_product(params, product, user_id=request.user.id)
+				else:
+					params.update({'product_id': relation.weapp_product_id})
+					sync_update_product(params, product)
+				models.Product.objects.filter(id=product.id).update(
+					is_update=False
+				)
 
 			data['code'] = 200
 			data['count'] = len(product_id)
