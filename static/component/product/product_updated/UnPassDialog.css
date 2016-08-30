@@ -1,0 +1,32 @@
+.xui-formPage .form-horizontal .control-label{
+	width: 60px !important;
+}
+
+.modal-footer .btn-primary{
+	display: none;
+}
+
+.xui-un-pass-reasons{
+    padding-left: 50px;
+    margin-bottom: 20px;
+}
+
+.xi-un-pass-reason{
+	list-style: none;
+	display: inline-block;
+	margin-left: 40px;
+	border: 1px solid #CCC;
+	width: 100px;
+	margin-bottom: 10px;
+	padding-top: 3px;
+	height: 28px;
+	text-align: center;
+}
+.xi-un-pass-reason:hover{
+	cursor: pointer;
+}
+
+.xui-product-productUpdatedPage .btn-success{
+	float: left !important;
+	margin-left: 0px !important; 
+}

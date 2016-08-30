@@ -24,11 +24,35 @@ class Product(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
 	has_product_model = models.BooleanField(default=False) #是否是多规格商品
 	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
+	is_update = models.BooleanField(default=False) #是否更新
+	is_refused = models.BooleanField(default=False) #是否驳回
+	refuse_reason = models.TextField(null=True) #驳回原因
 	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):
 		db_table = 'product_product'
 
+
+class OldProduct(models.Model):
+	"""
+	已修改商品旧信息
+	"""
+	product_id = models.IntegerField(default=0)
+	product_name = models.CharField(max_length=50, null=True)  #商品名称
+	promotion_title = models.CharField(max_length=50, null=True)  #促销标题
+	product_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #商品价格 (元)
+	clear_price = models.DecimalField(max_digits=65, decimal_places=2, null=True)  #结算价 (元)
+	product_weight = models.FloatField(default=0)  #商品重量 (kg)
+	product_store = models.IntegerField(default=0)  #商品库存 默认-1{大于0: 有限 ,-1:无限}
+	remark = models.TextField(null=True)  #备注
+	created_at = models.DateTimeField(auto_now_add=True)  #添加时间
+	has_product_model = models.IntegerField(default=-1) #-1:没有更新这个属性,0:没有规格,1:有规格
+	catalog_id = models.IntegerField(default=-1) #所属分类id(二级分类id)
+	images = models.CharField(max_length=2048, null=True) #图片url
+	product_model_ids = models.CharField(max_length=2048, null=True) #product_model id
+
+	class Meta(object):
+		db_table = 'old_product'
 
 
 class ProductImage(models.Model):
@@ -160,6 +184,7 @@ class ProductModelHasPropertyValue(models.Model):
 	property_id = models.IntegerField(default=0) #ProductModelProperty id
 	property_value_id = models.IntegerField(default=0) #ProductModelPropertyValue id
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+	is_deleted = models.BooleanField(default=False)  # 是否已删除
 
 	class Meta(object):
 		db_table = 'product_model_has_property'

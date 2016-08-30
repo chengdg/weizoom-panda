@@ -37,10 +37,10 @@ var YunyingOrderDatasPage = React.createClass({
 		Action.exportOrders();
 	},
 	rowFormatter: function(field, value, data) {
-		if (field === 'orderId') {
+		if (field === 'order_id') {
 			return (
 				<div style={{textAlign:'left'}}>
-					<a href={'/order/customer_order_detail/?id='+data.orderId} target="_blank">{data.orderId}</a>
+					<a href={'/order/customer_order_detail/?id='+data.order_id} target="_blank">{data.order_id}</a>
 				</div>
 			)
 		}else {
@@ -115,12 +115,9 @@ var YunyingOrderDatasPage = React.createClass({
 		}, {
 			text: '微众良乡商城',
 			value: 'weizoom_xiaoyuan'
-		}, {
+		},	{
 			text: '微众精英',
 			value: 'weizoom_jy'
-		}, {
-			text: '爱尔康',
-			value: 'weizoom_aierkang'
 		}];
 		if(W.is_ceshi){
 			typeOptions.push({
@@ -159,24 +156,24 @@ var YunyingOrderDatasPage = React.createClass({
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="客户名称:" name="customerName" match='=' />
+						<Reactman.FormInput label="客户名称:" name="customer_name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="商品名称:" name="productName" match='=' />
+						<Reactman.FormInput label="商品名称:" name="product_name" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="订单号:" name="orderId" match='=' />
+						<Reactman.FormInput label="订单号:" name="order_id" match='=' />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormDateRangeInput label="下单时间:" name="orderCreateAt" match="[t]" />
+						<Reactman.FormDateRangeInput label="下单时间:" name="order_create_at" match="[t]" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="来源商城:" name="fromMall" options={typeOptions} match="=" />
+						<Reactman.FormSelect label="来源商城:" name="from_mall" options={typeOptions} match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="订单状态:" name="orderStatus" options={orderStatusOptions} match="=" />
+						<Reactman.FormSelect label="订单状态:" name="order_status" options={orderStatusOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -186,13 +183,13 @@ var YunyingOrderDatasPage = React.createClass({
 					<Reactman.TableActionButton text="导出发货文件" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} ref="table">
-					<Reactman.TableColumn name="订单编号" field="orderId" />
-					<Reactman.TableColumn name="商品名称" field="productName" />
-					<Reactman.TableColumn name="订单金额" field="totalPurchasePrice" />
+					<Reactman.TableColumn name="订单编号" field="order_id" />
+					<Reactman.TableColumn name="商品名称" field="product_name" />
+					<Reactman.TableColumn name="订单金额" field="total_purchase_price" />
 					<Reactman.TableColumn name="运费" field="postage" />
-					<Reactman.TableColumn name="订单状态" field="orderStatus" />
-					<Reactman.TableColumn name="客户名称" field="customerName" />
-					<Reactman.TableColumn name="来源商城" field="fromMall" />
+					<Reactman.TableColumn name="订单状态" field="order_status" />
+					<Reactman.TableColumn name="客户名称" field="customer_name" />
+					<Reactman.TableColumn name="来源商城" field="from_mall" />
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>

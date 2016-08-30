@@ -1,0 +1,244 @@
+.modal-content{
+    width: 700px;
+}
+
+.modal-content{
+	background: rgb(224, 222, 222) !important;
+}
+
+.product-detail{
+    width: 640px;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 730px;
+}
+
+.product-image{
+    width: 400px;
+    height: 350px;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-image-count{
+	position: absolute;
+	bottom: 0px;
+	color: #000;
+	left: 300px;
+}
+
+.product-name-price{
+	padding-bottom: 8px;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding-top: 8px;
+    border-top: 1px solid #CCC;
+}
+
+.product-choose, .product-name-price, .product-introduce{
+	padding-left: 8px;
+	background: #FFF;
+}
+
+.product-choose{
+    margin-top: 10px;
+	padding-top: 5px;
+    height: 40px;
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    padding-right: 40px;
+}
+
+.product-introduce{
+	margin-top: 10px;
+    min-height: 200px;
+	/*height: 250px;
+	overflow: hidden;*/
+}
+
+.product-introduce .title{
+    display: inline-block;
+    width: 600px;
+    /*border-bottom: 1px solid #CCC;*/
+	padding-top: 8px;
+	font-size: 16px;
+}
+
+.product-introduce .product-content{
+	padding-top: 5px;
+}
+
+.product-name, .product-price, .product-promotion-title{
+	display: block;
+	font-size: 16px;
+}
+
+.product-price, .product-promotion-title{
+	color: red;
+	font-size: 14px;
+}
+
+.product-count, .choose-count{
+	display: inline-block;
+}
+
+.product-content img{
+    max-width: 640px;
+    /*width: 100%;*/
+}
+
+.choose-count{
+	padding-right: 5px;
+}
+
+.product-count li{
+	list-style: none;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	border: 1px solid #CCC;
+	padding-top: 2px;
+	font-size: 16px;
+}
+
+.xui-newProduct-page{
+	position: relative;
+}
+
+.preview-btn{
+	position: absolute;
+    left: 110px;
+    top: 13px;
+    font-size: 18px;
+}
+
+.product-collect-title{
+    display: inline-block;
+    float: right;
+    width: 40px;
+    padding-left: 10px;
+    right: 27px;
+    border-left: 1px solid #CCC;
+    color: #CCC;
+    margin-right: 10px;
+    line-height: 40px;
+}
+
+input[name="product_price"],
+input[name="clear_price"],
+input[name="product_weight"]{
+	width: 200px;
+}
+
+input[name="limit_clear_price"]{
+	width: 100px;
+}
+
+.product_info_fieldset div:nth-child(1){
+	display: inline-block;
+}
+
+.product_info_fieldset div:nth-child(4){
+	display: inline-block;
+}
+
+.product_info_fieldset div:nth-child(7){
+	display: inline-block;
+}
+
+/*.product_info_fieldset div:nth-child(9){
+	display: inline-block;
+	width: 60px;
+	margin-left: 80px !important;
+	position: relative;
+}
+
+.product_info_fieldset div:nth-child(9) div{
+	position: absolute;
+    left: 24px;
+    top: -19px;
+}
+
+.product_info_fieldset div:nth-child(9) label{
+	width: 10px;
+	height: 0px !important;
+}*/
+
+.product_info_fieldset div:nth-child(10){
+	display: inline-block;
+}
+
+.product_info_fieldset div:nth-child(10) label{
+	width: 80px !important;
+}
+
+.product_info_fieldset div:nth-child(11){
+	display: inline-block;
+}
+
+.product_info_fieldset div:nth-child(11) label{
+	width: 40px !important;
+	padding-left: 0px;
+}
+
+.product_info_fieldset div:nth-child(14){
+	display: inline-block;
+}
+
+.money_note, .count_note{
+	position: absolute;
+	display: inline-block;
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+
+.limit_money_note{
+	position: absolute;
+	display: inline-block;
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+
+.limit_money_note_tips{
+	display: block;
+	height: 34px;
+	margin-left: 178px;
+}
+
+.errorHint{
+	width: 200px;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
+	z-index: 1000 !important;
+}
+
+td div.form-group{
+    margin: 0;
+    width: 60px;
+    margin-left: 0 !important;
+}
+
+td div.form-group label{
+	display: none;
+}
+
+td div.form-group div input{
+    width: 100px;
+}
+
+td div.form-group div .errorHint{
+	width: 100px;
+}
+
+.xui-catalog-name{
+    padding-left: 34px;
+    padding-top: 6px;
+    display: inline-block;
+}

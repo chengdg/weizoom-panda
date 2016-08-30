@@ -23,16 +23,37 @@ from product_catalog import models as catalog_models
 from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
+# from services.panda_send_sync_product_ding_talk_service.tasks import send_sync_product_ding_talk
 import nav
 import models
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
-PRODUCT_RELATION_SECOND_NAV = [{
-	'name': 'product-list',
-	'displayName': '商品',
-	'href': '/product/product_relation/'
-}]
+
+SELF_SHOP2TEXT = {
+	'weizoom_jia': u'微众家',
+	'weizoom_mama': u'微众妈妈',
+	'weizoom_xuesheng': u'微众学生',
+	'weizoom_baifumei': u'微众白富美',
+	'weizoom_shop': u'微众商城',
+	'weizoom_club': u'微众俱乐部',
+	'weizoom_life': u'微众Life',
+	'weizoom_yjr': u'微众一家人',
+	'weizoom_fulilaile': u'惠惠来啦',
+	'weizoom_juweihui': u'居委汇',
+	'weizoom_zhonghai': u'微众中海',
+	'weizoom_zoomjulebu': u'微众club',
+	'weizoom_chh': u'微众吃货',
+	'weizoom_pengyouquan': u'微众圈',
+	'weizoom_shxd': u'少先队',
+	'weizoom_jinmeihui': u'津美汇',
+	'weizoom_wzbld': u'微众便利店',
+	'weizoom_jiaren': u'微众佳人',
+	'weizoom_xiaoyuan': u'微众良乡商城',
+	'weizoom_jy': u'微众精英',
+	'devceshi': u'开发测试',
+	'caiwuceshi': u'财务测试'
+}
 
 class NewProduct(resource.Resource):
 	app = 'product'
@@ -55,7 +76,7 @@ class NewProduct(resource.Resource):
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
-				product_models = models.ProductModel.objects.filter(product_id=product_id)
+				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
 			else:
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
@@ -63,14 +84,14 @@ class NewProduct(resource.Resource):
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 				product_has_model = len(property_values)
 				product = models.Product.objects.get(owner=request.user, id=product_id)
-				product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
+				product_models = models.ProductModel.objects.filter(product_id=product_id, owner=request.user, is_deleted=False)
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
 
 			# product_models = models.ProductModel.objects.filter(product_id=product_id,owner=request.user)
 			product_model_ids = [product_model.id for product_model in product_models]
-			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids)
+			property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=product_model_ids, is_deleted=False)
 			
 			#获取规格值
 			value_ids = set([str(property_value.property_value_id) for property_value in property_values])
@@ -139,16 +160,11 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-		
-		if role == YUN_YING:
-			second_navs = PRODUCT_RELATION_SECOND_NAV
-		else:
-			second_navs = nav.get_second_navs()
 
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': second_navs,
-			'second_nav_name': SECOND_NAV,
+			'second_navs': nav.get_second_navs(request),
+			'second_nav_name': SECOND_NAV if role==CUSTOMER else 'product-relation-list',#为了兼容运营查看商品详情页
 			'jsons': jsons,
 			'second_level_id': second_level_id,
 			'role': role,
@@ -293,16 +309,97 @@ class NewProduct(resource.Resource):
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark)
+
+		modify_contents = []
+		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
+		#判断商品是否同步
+		if product_sync_weapp_accounts:
+			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+			old_product_name = product.product_name
+			old_promotion_title = product.promotion_title
+			old_product_price = '%.2f' %product.product_price
+			old_clear_price = '%.2f' %product.clear_price
+			old_product_weight = str(product.product_weight)
+			old_product_store = int(product.product_store)
+			old_remark = product.remark
+			old_has_product_model = product.has_product_model
+			old_catalog_id = int(product.catalog_id)
+
+			# models.OldProduct.objects.filter(product_id = product.id).delete()
+			models.OldProduct.objects.create(product_id = product.id)
+			#获取图片
+			image_ids = [product_img.image_id for product_img in models.ProductImage.objects.filter(product_id=product.id)]
+			old_images = []
+			new_images = json.loads(request.POST['images'])
+			for image in resource_models.Image.objects.filter(id__in=image_ids):
+				old_images.append({
+					'id': image.id,
+					'path': image.path
+				})
+
+			#获取规格值
+			old_product_models = models.ProductModel.objects.filter(product_id=product.id, is_deleted=False)
+			old_product_model_ids = [str(old_product_model.id) for old_product_model in old_product_models]
+			#保存修改之前的数据
+			last_old_products = models.OldProduct.objects.filter(product_id=product.id).order_by('-id')[0]
+			old_products = models.OldProduct.objects.filter(id=last_old_products.id)
+			if old_images != new_images:
+				old_products.update(
+					images = json.dumps(old_images)
+				)
+				modify_contents.append(u'商品图片')
+			if old_product_name != product_name:
+				old_products.update(
+					product_name = old_product_name
+				)
+				modify_contents.append(u'商品名称')
+			if old_promotion_title != promotion_title:
+				old_products.update(
+					promotion_title = old_promotion_title
+				)
+				modify_contents.append(u'促销标题')
+			if has_product_model == 0:
+				if product_price and (old_product_price != product_price):
+					old_products.update(
+						product_price = old_product_price
+					)
+					modify_contents.append(u'商品售价')
+				if clear_price and (old_clear_price != clear_price):
+					old_products.update(
+						clear_price = old_clear_price
+					)
+					modify_contents.append(u'结算价')
+				if product_weight and (old_product_weight != product_weight):
+					old_products.update(
+						product_weight = old_product_weight
+					)
+					modify_contents.append(u'商品重量')
+				if product_store and (old_product_store != int(product_store)):
+					old_products.update(
+						product_store = old_product_store
+					)
+					modify_contents.append(u'库存数量')
+			if old_remark != remark:
+				old_products.update(
+					remark = old_remark
+				)
+				modify_contents.append(u'商品描述')
+			if old_has_product_model != has_product_model:
+				old_products.update(
+					has_product_model = old_has_product_model
+				)
+			if old_catalog_id != second_level_id:
+				old_products.update(
+					catalog_id = old_catalog_id
+				)
+				modify_contents.append(u'商品类目')
+
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
 		if has_limit_time ==1:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
 				owner = request.user, 
 				product_name = product_name, 
 				promotion_title = promotion_title, 
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store,
 				has_limit_time = has_limit_time,
 				limit_clear_price = limit_clear_price,
 				valid_time_from = valid_time_from,
@@ -316,10 +413,6 @@ class NewProduct(resource.Resource):
 				owner = request.user, 
 				product_name = product_name, 
 				promotion_title = promotion_title, 
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store,
 				has_limit_time = has_limit_time,
 				limit_clear_price = limit_clear_price,
 				valid_time_from = None,
@@ -327,6 +420,20 @@ class NewProduct(resource.Resource):
 				has_product_model= has_product_model,
 				catalog_id = second_level_id,
 				remark = remark
+			)
+
+		if has_product_model == 0:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store
+			)
+
+		if product_sync_weapp_accounts:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				is_update = True,
+				is_refused = False
 			)
 		#删除、重建商品图片
 		if images:
@@ -337,13 +444,14 @@ class NewProduct(resource.Resource):
 				models.ProductImage.objects.create(product=product, image_id=product_image['id'])
 		old_properties = []
 		new_properties = []
+		new_product_model_ids = []
 		if model_values:
-			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'])
+			product_models = models.ProductModel.objects.filter(product_id=request.POST['id'], is_deleted=False)
 			# 故意这么写的
 			old_properties = [product_model for product_model in product_models]
 			model_ids = [product_p.id for product_p in product_models]
-			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).delete()
-			product_models.delete()
+			models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids).update(is_deleted=True)
+			product_models.update(is_deleted=True)
 			model_values = json.loads(model_values)
 			for model_value in model_values:
 				model_Id = model_value.get('modelId',0)
@@ -369,6 +477,7 @@ class NewProduct(resource.Resource):
 					valid_time_from= valid_from,
 					valid_time_to = valid_to
 				)
+				new_product_model_ids.append(str(product_model.id))
 				new_properties.append(product_model)
 				if propertyValues:
 					list_propery_create = []
@@ -382,6 +491,35 @@ class NewProduct(resource.Resource):
 		sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
 								 source_product=source_product,
 								 new_properties=new_properties, old_properties=old_properties)
+
+		if product_sync_weapp_accounts:
+			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
+				old_products.update(
+					product_model_ids = ','.join(set(old_product_model_ids))
+				)
+				modify_contents.append(u'商品规格')
+
+		#发送钉钉消息
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		product_status = u'待同步更新'
+		if product_sync_weapp_accounts:
+			product_status = u'已自动更新'
+		#获取已同步自营平台	
+		shop_names = []
+		for product_sync_weapp in product_sync_weapp_accounts:
+			self_user_name = product_sync_weapp.self_user_name
+			if self_user_name in SELF_SHOP2TEXT:
+				shop_names.append(SELF_SHOP2TEXT[self_user_name])
+		# print u'、'.join(modify_contents),"===="
+		# show_product_name = u"商品名称: " + '%s'%product_name + "\n"
+		# show_customer_name = u"商家名称: " + user_profile.name + "\n"
+		# show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
+		# show_shop_names = u"同步平台平台 :" + u'、'.join(shop_names) + "\n"
+		# show_product_status = u"状态: " + product_status + "\n"
+		# message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
+		# message = show_product_name+show_customer_name+show_modify_contents+show_shop_names+show_product_status
+		# send_sync_product_ding_talk(message,request.POST['id'])
+
 		response = create_response(200)
 		return response.get_response()
 
@@ -400,16 +538,13 @@ def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None
 	判断商品是否需要同步并同步
 	"""
 	# 如果降价（售价，结算价）库存修改自动更新。
-	print '++++++++++++++++++++++++++++++++++++++++++++++=2'
 	new_product = models.Product.objects.filter(owner=owner_id, id=product_id).first()
 
 	relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
 	if new_product.has_product_model != source_product.has_product_model:
-		# print '++++++++++++++++++++++++++++++++++++++++++++++=1'
 		return False
 	#  未同步的不处理
 	if relation:
-
 		if new_product.has_product_model:
 			# 多规格,获取规格信息
 			model_type = 'custom'
@@ -463,15 +598,12 @@ def charge_models_product_sync(old_properties=None, new_properties=None):
 
 	# 只要有删除的规格就不同步
 	if len(new_properties_names) != len(old_properties_name):
-		# print '==============================================1'
 		return False
 	if len(list(set(old_properties_name) - set(new_properties_names))) > 0:
-		# print '==============================================2'
 		return False
 
 	# 有新规格不同步
 	if len(list(set(new_properties_names) - set(old_properties_name))) > 0:
-		# print '==============================================3'
 		return False
 
 	return True

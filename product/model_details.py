@@ -27,9 +27,9 @@ class ModelDetails(resource.Resource):
 	def api_get(request):
 		user_id = request.user.id
 		product_id = request.GET.get('product_id',0)
-		product_models = models.ProductModel.objects.filter(product_id=product_id)
+		product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 		model_ids = [product_model.id for product_model in product_models]
-		property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids)
+		property_values = models.ProductModelHasPropertyValue.objects.filter(model_id__in=model_ids, is_deleted=False)
 		value_ids = [property_value.property_value_id for property_value in property_values]
 		product_model_property_values = models.ProductModelPropertyValue.objects.filter(id__in=value_ids)
 		rows = get_product_model_property_values(product_model_property_values)

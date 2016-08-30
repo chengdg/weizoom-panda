@@ -42,7 +42,7 @@ class ProductModel(resource.Resource):
 		"""
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 		})
 
@@ -60,7 +60,7 @@ class ProductModel(resource.Resource):
 																query_string=request.META['QUERY_STRING'])
 		property_ids = [product_model_property.id for product_model_property in product_model_properties]
 		product_model_property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
-		product_models = models.ProductModel.objects.filter(owner=request.user)
+		product_models = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)
 		# 获取用户使用的规格
 		model_ids = []
 		for product_model in product_models:
@@ -221,9 +221,9 @@ class ProductModel(resource.Resource):
 			if model_id != 0:
 				models.ProductModelProperty.objects.filter(id=model_id).update(is_deleted=True)
 				models.ProductModelPropertyValue.objects.filter(property_id=model_id).update(is_deleted=True)
-				has_properrty_values = models.ProductModelHasPropertyValue.objects.filter(property_id=model_id)
+				has_properrty_values = models.ProductModelHasPropertyValue.objects.filter(property_id=model_id, is_deleted=False)
 				model_ids = [has_properrty_value.model_id for has_properrty_value in has_properrty_values]
-				product_models = models.ProductModel.objects.filter(id__in=model_ids)
+				product_models = models.ProductModel.objects.filter(id__in=model_ids, is_deleted=False)
 				product_ids = [product_model.product_id for product_model in product_models]
 				product_models.update(
 					stocks= 0,

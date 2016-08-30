@@ -80,8 +80,9 @@ var ProductRelationPage = React.createClass({
 
 	rowFormatter: function(field, value, data) {
 		if(field === 'product_name'){
+			var colorStyle = data['is_update']? {color: 'red'}: {};
 			return(
-				<a className="btn btn-link btn-xs" href={'/product/new_product/?id='+data.id}>{value}</a>
+				<a className="btn btn-link btn-xs" style={colorStyle} href={'/product/new_product/?id='+data.id}>{value}</a>
 			)
 		} else if(field === 'action'){
 			if(data['product_status_value']==0){

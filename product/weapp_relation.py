@@ -204,6 +204,7 @@ def get_weapp_model_properties(product=None):
 		weapp_models_info.append(temp_model_info)
 	return weapp_models_info
 
+
 def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				  account_has_supplier,product_id2image_id,image_id2paths,
 				  product_id2relation, weapp_catalog_id):
@@ -242,12 +243,10 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				'model_type': model_type,
 				'model_info': json.dumps(weapp_models_info),
 				'stocks': product.product_store if product.product_store > 0 else 0,
-				# 商品需要同步到哪个自营平台
-				'accounts': json.dumps(weapp_user_ids),
 				'detail': product.remark
 			}
 
-			# 判断是更新还是新曾商品同步
+			# 判断是更新还是新曾商品同步(只处理添加)
 			relation = [] if product_id not in product_id2relation else product_id2relation[product_id]
 			if not relation:
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
@@ -269,11 +268,17 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 							self_user_name=username
 						)for username in weizoom_self]
 						models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
-
-						# if product.has_limit_time:
-						# 	# TODO 同步限时抢购
-						# 	pass
-
+						# 同步到那些平台
+						account_params = {
+							'product_id': weapp_product_id,
+							'accounts': json.dumps(weapp_user_ids)
+						}
+						account_resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+							'resource': 'mall.product_pool',
+							'data': account_params
+						})
+						if not account_resp or not account_resp.get('code') == 200:
+							watchdog.error({'errorMsg': 'Panda product: %s sync account failed!' % product_id})
 						# 同步类目
 						if weapp_catalog_id:
 							catalog_params = {'classification_id': weapp_catalog_id,
@@ -288,60 +293,24 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
-
 			else:
-				model_type = 'single' if not product.has_product_model else 'custom'
-				params = {
-					'name': product.product_name,
-					'promotion_title': product.promotion_title,
-					'purchase_price': product.clear_price,
-					'price': product.product_price,
-					'weight': product.product_weight,
-					'stock_type': 'unbound' if product.product_store == -1 else product.product_store,
-					'swipe_images': json.dumps(images),
+				account_params = {
 					'product_id': relation.weapp_product_id,
-					'model_type': model_type,
-					'stocks': product.product_store if product.product_store > 0 else 0,
-					# 商品需要同步到哪个自营平台
-					'accounts': json.dumps(weapp_user_ids),
-					'detail': product.remark,
-					'model_info': json.dumps(weapp_models_info),
+					'accounts': json.dumps(weapp_user_ids)
 				}
-				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-					'resource': 'mall.sync_product',
-					'data': params
+				account_resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+					'resource': 'mall.product_pool',
+					'data': account_params
 				})
-				if resp and resp.get('code') == 200 and resp.get('data').get('success'):
-					# 先删除数据
-					models.ProductSyncWeappAccount.objects.filter(product_id=product.id,).delete()
-					# 再同步商品
+				if not account_resp or not account_resp.get('code') == 200:
+					watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
+				else:
+					models.ProductSyncWeappAccount.objects.filter(product_id=product_id).delete()
 					sync_models = [models.ProductSyncWeappAccount(
 						product_id=product.id,
 						self_user_name=username
-					)for username in weizoom_self]
+					) for username in weizoom_self]
 					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
-					if weapp_catalog_id:
-						catalog_params = {'classification_id': weapp_catalog_id,
-										  'product_id': relation.weapp_product_id}
-						resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-							'resource': 'mall.classification_product',
-							'data': catalog_params
-						})
-						if not resp or resp.get('code') == 200:
-							watchdog.error({'errorMsg': 'Panda product: %s sync catalog Success!' % product_id})
-							print '====================================================================='
-						else:
-							# catalog_params = {'classification_id': weapp_catalog_id,
-							# 				  'product_id': relation.weapp_product_id}
-							resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
-								'resource': 'mall.classification_product',
-								'data': catalog_params
-							})
-							if not resp or resp.get('code') != 200:
-								watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
-				else:
-					data['is_error'] = True
-					data['error_product_id'] = product_id
 	except:
 		data['is_error'] = True
 		data['error_product_id'] = product_id

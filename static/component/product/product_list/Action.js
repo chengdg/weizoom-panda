@@ -85,6 +85,13 @@ var Action = {
 				actionType: Constant.PRODUCT_MODEL_DETAILS
 			}
 		});
+	},
+
+	plusProductStore: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PLUS_PRODUCT_STORE,
+			data: {}
+		});
 	}
 };
 

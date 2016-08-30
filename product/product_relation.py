@@ -28,13 +28,9 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
 
-second_navs = [{
-	'name': 'product-list',
-	'displayName': '商品',
-	'href': '/product/product_relation/'
-}]
+
 FIRST_NAV = 'product'
-SECOND_NAV = 'product-list'
+SECOND_NAV = 'product-relation-list'
 
 filter2field ={
 	'product_name_query': 'product_name',
@@ -47,7 +43,6 @@ customer_from2text = {
 	0: '--',
 	1: u'渠道'
 }
-
 
 class ProductRelation(resource.Resource):
 	app = 'product'
@@ -64,7 +59,7 @@ class ProductRelation(resource.Resource):
 			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
-			'second_navs': second_navs,
+			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 			'first_catalog_id': request.GET.get('first_catalog_id', ''),
 			'second_catalog_id': request.GET.get('second_catalog_id', ''),
@@ -81,9 +76,9 @@ class ProductRelation(resource.Resource):
 		user_profiles = UserProfile.objects.filter(role=1)#role{1:客户}
 		if first_catalog_id != '':
 			catalog_ids = [catalog.id for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=int(first_catalog_id))]
-			products = models.Product.objects.filter(catalog_id__in=catalog_ids,is_deleted=False).order_by('-id')
+			products = models.Product.objects.filter(catalog_id__in=catalog_ids, is_deleted=False).order_by('-id')
 		elif second_catalog_id != '':
-			products = models.Product.objects.filter(catalog_id=int(second_catalog_id),is_deleted=False).order_by('-id')
+			products = models.Product.objects.filter(catalog_id=int(second_catalog_id), is_deleted=False).order_by('-id')
 		else:
 			products = models.Product.objects.filter(is_deleted=False).order_by('-id')
 		product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
@@ -181,6 +176,7 @@ class ProductRelation(resource.Resource):
 					'product_status_value': product_status_value,
 					'first_level_name': first_level_name,
 					'second_level_name': second_level_name,
+					'is_update': product.is_update,
 					'customer_from_text': customer_from_text,
 					'cur_page': pageinfo.cur_page
 				})

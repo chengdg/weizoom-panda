@@ -1,0 +1,18 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '商品基本信息',
+		href: '#'
+	}];
+
+	W.pageContentComponent = './product/product_contrast/ProductContrastPage.react';
+	W.role = "{{role}}";
+	W.second_level_id = "{{second_level_id}}";
+	W.points = "{{points}}";
+	W.purchase_method = "{{purchase_method}}";
+	W.product_has_model = "{{product_has_model}}";
+	W.catalogName = "{{catalog_name}}";
+</script>
+{% endblock %}

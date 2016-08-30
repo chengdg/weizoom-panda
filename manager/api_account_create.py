@@ -22,7 +22,7 @@ import requests
 from account.models import *
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from product_catalog import models as product_catalog_models
-from manager.account_create import check_username_valid, sync_create_rebate_info
+from manager.account_create import check_username_valid, sync_create_rebate_info, sync_add_retail_rebate_info
 from eaglet.decorator import param_required
 
 class AccountCreateApi(resource.Resource):
@@ -63,10 +63,11 @@ class AccountCreateApi(resource.Resource):
 			user_id = user.id
 			user_profile = UserProfile.objects.filter(user = user)
 			points = 0 if points == '' else points
-			
-			# 云商通的账户 normal: 普通账户, divide: 55分成
-			weapp_account_type = 'normal'
+
+			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			weapp_account_type = 'fixed'
 			if purchase_method == 2:
+				weapp_account_type = 'retail'
 				if points == '':
 					response = create_response(500)
 					response.errMsg = u'请输入零售扣点'
@@ -111,7 +112,8 @@ class AccountCreateApi(resource.Resource):
 					'remark': note,
 					'responsible_person': u'8000FT',
 					'supplier_tel': phone if phone else '13112345678',
-					'supplier_address': u'中国 北京'
+					'supplier_address': u'中国 北京',
+					'type': weapp_account_type
 				}
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 					'resource': 'mall.supplier',
@@ -129,6 +131,9 @@ class AccountCreateApi(resource.Resource):
 						# 同步五五分成的返点
 						if purchase_method == 3:
 							sync_create_rebate_info(user_id = user_id, account_relation = account_relation)
+						# 同步零售返点
+						if purchase_method == 2:
+							sync_add_retail_rebate_info(account_relation, user_id=-1, rebate=points)
 						response = create_response(200)
 						response.data = {
 							'supplier_id': int(supplier_datas['id']),

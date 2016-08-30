@@ -78,6 +78,16 @@ var ProductDataListPage = React.createClass({
 		// W.gotoPage('/product/new_product/?second_level_id='+0);
 	},
 
+	plusProductStore: function(product_id, event){
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定提交?',
+			confirm: _.bind(function() {
+				Action.plusProductStore(product_id);
+			}, this)
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			return (

@@ -48,11 +48,11 @@ class AccountCreate(resource.Resource):
 		is_edit = False
 		jsons = {'items':[]}
 		if user_profile_id:
-			user_profile = UserProfile.objects.get(id=user_profile_id)
+			user_profile = UserProfile.objects.get(id = user_profile_id)
 			# 采购方式:零售价返点(团购扣点)
-			group_points = AccountHasGroupPoint.objects.filter(user_id=user_profile.user_id)
+			group_points = AccountHasGroupPoint.objects.filter(user_id = user_profile.user_id)
 			# 采购方式:首月55分成
-			rebate_proports = AccountHasRebateProport.objects.filter(user_id=user_profile.user_id)
+			rebate_proports = AccountHasRebateProport.objects.filter(user_id = user_profile.user_id)
 			self_user_names = []
 			if group_points and user_profile.purchase_method == 2:#采购方式:零售价返点
 				for group_point in group_points:
@@ -67,7 +67,7 @@ class AccountCreate(resource.Resource):
 				for rebate_proport in rebate_proports:
 					if rebate_proport.order_money_condition:
 						rebates.append({
-							'orderMoneyCondition': '%.0f' % rebate_proport.order_money_condition,
+							'orderMoneyCondition': '%.0f' %rebate_proport.order_money_condition,
 							'rebateProportCondition': rebate_proport.rebate_proport_condition,
 							'defaultRebateProportCondition': rebate_proport.default_rebate_proport_condition,
 							'validateFromCondition': rebate_proport.valid_time_from.strftime("%Y-%m-%d %H:%M"),
@@ -78,7 +78,7 @@ class AccountCreate(resource.Resource):
 					'id': user_profile.id,
 					'name': user_profile.name,
 					'company_name': user_profile.company_name,
-					'company_type': user_profile.company_type if user_profile.company_type != '' else '[]',
+					'company_type': user_profile.company_type if user_profile.company_type!='' else '[]',
 					'purchase_method': user_profile.purchase_method,
 					'points': user_profile.points,
 					'contacter': user_profile.contacter,
@@ -95,7 +95,7 @@ class AccountCreate(resource.Resource):
 				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
 					for rebate_proport in rebate_proports:
 						if rebate_proport.order_money:
-							user_profile_data['order_money'] = '%.0f' % rebate_proport.order_money
+							user_profile_data['order_money'] = '%.0f' %rebate_proport.order_money
 							user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
 							user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
 			else:
@@ -139,6 +139,7 @@ class AccountCreate(resource.Resource):
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
+
 		name = post.get('name','')
 		username = post.get('username','')
 		password = post.get('password','')
@@ -154,18 +155,20 @@ class AccountCreate(resource.Resource):
 			user.first_name = name
 			user.save()
 			user_id = user.id
-			user_profile = UserProfile.objects.filter(user=user)
+			user_profile = UserProfile.objects.filter(user = user)
 			user_profile.update(
 				manager_id = request.user.id,
 				role = account_type,
 				name = name,
 				note = note
 			)
-			# 云商通的账户 normal: 普通账户, divide: 55分成
-			weapp_account_type = 'normal'
+			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			weapp_account_type = 'fixed'
 			if account_type == '1':
 				points = 0 if not points else float(points)
-				if self_user_names and purchase_method == 2: #采购方式:零售价返点
+				# 采购方式:零售价返点
+				if self_user_names and purchase_method == 2:
+					weapp_account_type = 'retail'
 					self_user_names = json.loads(self_user_names)
 					list_create = []
 					for self_user in self_user_names:
@@ -174,7 +177,7 @@ class AccountCreate(resource.Resource):
 							user_id = user_id,
 							self_user_name = self_user_name,
 							points = points,
-							group_points = float(self_user[self_user_name + '_value'])
+							group_points = float(self_user[self_user_name+'_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
 				# 采购方式:首月55分成
@@ -244,6 +247,9 @@ class AccountCreate(resource.Resource):
 								# default_rebate_proport_condition = rebate['default_rebate_proport_condition']
 								# 'owner_id', 'divide_money', 'basic_rebate', 'rebate', 'supplier_id'
 								sync_create_rebate_info(user_id=user_id, account_relation=account_relation)
+							# 同步零售返点
+							if purchase_method == 2:
+								sync_add_retail_rebate_info(account_relation, user_id=-1, rebate=points)
 						pass
 					else:
 						User.objects.filter(id = user_id).delete()
@@ -254,8 +260,8 @@ class AccountCreate(resource.Resource):
 					msg = unicode_full_stack()
 					watchdog.error('{}'.format(msg))
 					print msg
-					User.objects.filter(id=user_id).delete()
-					UserProfile.objects.filter(user_id=user_id).delete()
+					User.objects.filter(id = user_id).delete()
+					UserProfile.objects.filter(user_id = user_id).delete()
 					response = create_response(500)
 					response.errMsg = u'创建账号失败'
 					response.innerErrMsg = unicode_full_stack()
@@ -293,12 +299,13 @@ class AccountCreate(resource.Resource):
 			rebate_proport = post.get('rebate_proport',0)
 			default_rebate_proport = post.get('default_rebate_proport',0)
 			self_user_names = post.get('self_user_names','')
+			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
-			# rebates = post.get('rebates','')
+
 		try:
-			user_profile = UserProfile.objects.get(id=request.POST['id'])
+			user_profile = UserProfile.objects.get(id = request.POST['id'])
 			user_id = user_profile.user_id
-			user = User.objects.get(id=user_id)
+			user = User.objects.get(id = user_id)
 			user_profile.note = note
 			user_profile.name = name
 			user_profile.save()
@@ -307,19 +314,19 @@ class AccountCreate(resource.Resource):
 				user.set_password(password)
 			user.first_name = name
 			user.save()
-			supplier_relation = AccountHasSupplier.objects.filter(account_id=user_profile.id).first()
+			supplier_relation = AccountHasSupplier.objects.filter(account_id = user_profile.id).first()
 			# 不管咋地先把五五分成的删除,如果下边有需要就进行会进行添加新的.
-			old_rebates = AccountHasRebateProport.objects.filter(user_id=user_id)
+			old_rebates = AccountHasRebateProport.objects.filter(user_id = user_id)
 			old_rebate_ids = [old_rebate.id for old_rebate in old_rebates]
 
 			if old_rebate_ids:
 				# 同步把原来的删除了
 				sync_delete_rebate_info(old_rebate_ids, supplier_relation)
 			old_rebates.delete()
-			# 云上通的账户 normal: 普通账户, divide: 55分成
-			weapp_account_type = 'normal'
+			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			weapp_account_type = 'fixed'
 			if account_type == '1':
-				UserProfile.objects.filter(id=request.POST['id']).update(
+				UserProfile.objects.filter(id = request.POST['id']).update(
 					company_name = company_name,
 					company_type = company_type,
 					purchase_method = purchase_method,
@@ -332,8 +339,9 @@ class AccountCreate(resource.Resource):
 				)
 
 				if self_user_names and purchase_method == 2: #采购方式:零售价返点
+					weapp_account_type = 'retail'
 					self_user_names = json.loads(self_user_names)
-					AccountHasGroupPoint.objects.filter(user_id=user_id).delete()
+					AccountHasGroupPoint.objects.filter(user_id = user_id).delete()
 					list_create = []
 					for self_user in self_user_names:
 						self_user_name = str(self_user['self_user_name'])
@@ -341,9 +349,13 @@ class AccountCreate(resource.Resource):
 							user_id = user_id,
 							self_user_name = self_user_name,
 							points = points,
-							group_points = float(self_user[self_user_name + '_value'])
+							group_points = float(self_user[self_user_name+'_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
+					# 同步零售反点
+					sync_delete_retail_rebate_info(supplier_relation)
+					sync_add_retail_rebate_info(supplier_relation, user_id=-1, rebate=points)
+
 				# 采购方式:首月55分成
 				if purchase_method == 3:
 					weapp_account_type = 'divide'
@@ -432,7 +444,7 @@ def sync_create_rebate_info(user_id, account_relation):
 	"""
 	同步五五分成
 	"""
-	rebates = AccountHasRebateProport.objects.filter(user_id=user_id)
+	rebates = AccountHasRebateProport.objects.filter(user_id = user_id)
 	for rebate in rebates:
 
 		rebate_params = {
@@ -454,8 +466,8 @@ def sync_create_rebate_info(user_id, account_relation):
 			raise Exception('Sync create rebate info failed!')
 		else:
 
-			AccountRebateProportRelation.objects.create(panda_proport_id=rebate.id,
-														weapp_divide_id=resp.get('data').get('info').get('id'))
+			AccountRebateProportRelation.objects.create(panda_proport_id = rebate.id,
+														weapp_divide_id = resp.get('data').get('info').get('id'))
 
 
 def sync_delete_rebate_info(old_rebate_ids, account_relation):
@@ -466,7 +478,7 @@ def sync_delete_rebate_info(old_rebate_ids, account_relation):
 	# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 	# print old_rebate_ids
 	# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-	rebate_relations = AccountRebateProportRelation.objects.filter(panda_proport_id__in=old_rebate_ids)
+	rebate_relations = AccountRebateProportRelation.objects.filter(panda_proport_id__in = old_rebate_ids)
 	for relation in rebate_relations:
 		params = {
 			'id': relation.weapp_divide_id,
@@ -478,3 +490,39 @@ def sync_delete_rebate_info(old_rebate_ids, account_relation):
 		})
 		if not resp or resp.get('code') != 200:
 			raise Exception('Sync update rebate info failed!')
+
+
+def sync_add_retail_rebate_info(account_relation, user_id, rebate):
+	"""
+	同步增加零售返点
+	user_id 属于哪个平台的团购扣点,-1表示基础扣点
+	"""
+	params = {
+		'supplier_id': account_relation.supplier_id,
+		'owner_id': PRODUCT_POOL_OWNER_ID,
+		'user_id': user_id,
+		'rebate': int(rebate)
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+		'resource': 'mall.supplier_retail_rebate_info',
+		"data": params
+	})
+	if not resp or resp.get('code') != 200:
+		AccountHasRebateProport.objects.filter(user_id=user_id).delete()
+		raise Exception('Sync create retail rebate info failed!')
+
+def sync_delete_retail_rebate_info(account_relation):
+	"""
+	同步增加零售返点
+	user_id 属于哪个平台的团购扣点,-1表示基础扣点
+	"""
+	params = {
+		'supplier_id': account_relation.supplier_id,
+
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
+		'resource': 'mall.supplier_retail_rebate_info',
+		"data": params
+	})
+	if not resp or resp.get('code') != 200:
+		raise Exception('Sync create delete retail rebate info failed!')
