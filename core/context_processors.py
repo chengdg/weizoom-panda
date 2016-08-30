@@ -24,6 +24,7 @@ def top_navs(request):
 			un_insert_sys_message = list(set(all_sys_message_id) - set(all_user_message_id))
 			un_read_message_count = len(un_insert_sys_message) + len(un_read_messages)
 			message_title = '站内消息 (%s)' % un_read_message_count
+			
 			top_navs = [{
 				'name': 'product',
 				'displayName': '商品',
@@ -41,6 +42,11 @@ def top_navs(request):
 				'displayName': '订单',
 				'icon': 'list-alt',
 				'href': '/order/customer_orders_list/'
+			},{
+				'name': 'finance',
+				'displayName': '对账结算',
+				'icon': 'list-alt',
+				'href': 'http://finance.weizoom.com/balance_account/account_profile/?token=' + user_token(request) #登录财务系统
 			},{
 				'name': 'freight_service',
 				'displayName': '商家设置',
@@ -126,7 +132,7 @@ def top_navs(request):
 				'href': '/manager/account/'
 			}]
 		return {'top_navs': top_navs}
-	except:
+	except Exception,e:
 		top_navs = [{
 			'name': 'product',
 			'displayName': '商品',
@@ -138,11 +144,6 @@ def top_navs(request):
 			'icon': 'list-alt',
 			'href': '/order/yunying_orders_list/'
 
-		}, {
-			'name': 'manager',
-			'displayName': '账号管理',
-			'icon': 'cog',
-			'href': '/manager/account/'
 		}]
 	return {'top_navs': top_navs}
 
@@ -150,3 +151,11 @@ def webpack_bundle_js(request):
 	return {
 		'webpack_bundle_js': settings.WEBPACK_BUNDLE_JS
 	}
+
+def user_token(request):
+	if not hasattr(request, 'user') or request.user is None:
+		return ''
+
+	from account import account_util
+	user_token = account_util.get_token_for_logined_user(request.user)
+	return user_token
