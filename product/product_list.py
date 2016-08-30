@@ -181,6 +181,7 @@ def getProductData(request, is_export):
 		model_properties = models.ProductModel.objects.filter(owner=request.user, product_id__in=product_ids, is_deleted=False)
 	product_id2market_price = {}
 	product_id2product_price = {}
+	product_id2product_store = {}
 	for model_property in model_properties:
 		if model_property.product_id not in product_id2market_price:
 			product_id2market_price[model_property.product_id] = [model_property.market_price]
@@ -191,6 +192,11 @@ def getProductData(request, is_export):
 			product_id2product_price[model_property.product_id] = [model_property.price]
 		else:
 			product_id2product_price[model_property.product_id].append(model_property.price)
+
+		if model_property.product_id not in product_id2product_store:
+			product_id2product_store[model_property.product_id] = [model_property.stocks]
+		else:
+			product_id2product_store[model_property.product_id].append(model_property.stocks)
 
 	rows = []
 	# 获取商品是否上线
@@ -247,6 +253,16 @@ def getProductData(request, is_export):
 		else:
 			product_price = '%.2f' % product.product_price
 
+		if product.id in product_id2product_store and product.has_product_model:
+			product_stores = product_id2product_store[product.id]
+			product_stores = sorted(product_stores)
+			if (product_stores[0] != product_stores[-1]) and len(product_stores) > 1:
+				product_store = ('%s ~ %s') % (product_stores[0], product_stores[-1])
+			else:
+				product_store = '%s' % product_stores[0]
+		else:
+			product_store = '%s' % product.product_store
+
 		image_paths = []
 		if product.id in product_id2image_id:
 			image_ids = product_id2image_id[product.id]
@@ -276,7 +292,7 @@ def getProductData(request, is_export):
 			'limit_clear_price': '%.2f' % product.limit_clear_price if product.limit_clear_price > 0 else '',
 			'product_weight': '%.2f' % product.product_weight,
 			'product_name': product.product_name,
-			'product_store': product.product_store,
+			'product_store': product_store,
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,

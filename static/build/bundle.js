@@ -40037,6 +40037,9 @@
 			}, {
 				text: '微众精英',
 				value: 'weizoom_jy'
+			}, {
+				text: '爱尔康',
+				value: 'weizoom_aierkang'
 			}];
 			if (W.is_ceshi) {
 				typeOptions.push({

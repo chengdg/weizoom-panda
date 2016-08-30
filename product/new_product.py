@@ -23,7 +23,7 @@ from product_catalog import models as catalog_models
 from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
-# from services.panda_send_sync_product_ding_talk_service.tasks import send_sync_product_ding_talk
+from services.panda_send_modify_product_ding_talk_service.tasks import send_modify_product_ding_talk
 import nav
 import models
 
@@ -378,7 +378,10 @@ class NewProduct(resource.Resource):
 					old_products.update(
 						product_store = old_product_store
 					)
-					modify_contents.append(u'库存数量')
+					if int(product_store)>int(old_product_store):
+						modify_contents.append(u'库存数量(增加)')
+					else:
+						modify_contents.append(u'库存数量(减少)')
 			if old_remark != remark:
 				old_products.update(
 					remark = old_remark
@@ -492,33 +495,36 @@ class NewProduct(resource.Resource):
 								 source_product=source_product,
 								 new_properties=new_properties, old_properties=old_properties)
 
-		if product_sync_weapp_accounts:
+		if product_sync_weapp_accounts and (old_has_product_model == has_product_model ==1):
 			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
 				old_products.update(
 					product_model_ids = ','.join(set(old_product_model_ids))
 				)
-				modify_contents.append(u'商品规格')
+		if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
+			modify_contents.append(u'商品规格')
 
 		#发送钉钉消息
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
-		product_status = u'待同步更新'
+		
 		if product_sync_weapp_accounts:
-			product_status = u'已自动更新'
-		#获取已同步自营平台	
-		shop_names = []
-		for product_sync_weapp in product_sync_weapp_accounts:
-			self_user_name = product_sync_weapp.self_user_name
-			if self_user_name in SELF_SHOP2TEXT:
-				shop_names.append(SELF_SHOP2TEXT[self_user_name])
-		# print u'、'.join(modify_contents),"===="
-		# show_product_name = u"商品名称: " + '%s'%product_name + "\n"
-		# show_customer_name = u"商家名称: " + user_profile.name + "\n"
-		# show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
-		# show_shop_names = u"同步平台平台 :" + u'、'.join(shop_names) + "\n"
-		# show_product_status = u"状态: " + product_status + "\n"
-		# message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
-		# message = show_product_name+show_customer_name+show_modify_contents+show_shop_names+show_product_status
-		# send_sync_product_ding_talk(message,request.POST['id'])
+			product_status = u'待同步更新'
+			#获取已同步自营平台	
+			shop_names = []
+			for product_sync_weapp in product_sync_weapp_accounts:
+				self_user_name = product_sync_weapp.self_user_name
+				if self_user_name in SELF_SHOP2TEXT:
+					shop_names.append(SELF_SHOP2TEXT[self_user_name])
+
+			if len(modify_contents)==1 and (modify_contents[0]==u'库存数量(增加)' or modify_contents[0]==u'库存数量(减少)'):
+				product_status = u'已自动更新'
+
+			show_product_name = u"商品名称: " + '%s'%product_name + "\n"
+			show_customer_name = u"商家名称: " + user_profile.name + "\n"
+			show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
+			show_shop_names = u"同步平台平台 :" + u'、'.join(shop_names) + "\n"
+			show_product_status = u"状态: " + product_status + "\n"
+			message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
+			send_modify_product_ding_talk(message,request.POST['id'])
 
 		response = create_response(200)
 		return response.get_response()
