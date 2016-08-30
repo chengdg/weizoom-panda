@@ -153,9 +153,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'resource',
     'account',
     'outline',
-    'resource',
+    
 
     'order',
     'product',
@@ -174,6 +175,10 @@ INSTALLED_APPS = [
     # 'django_behave',
 ]
 
+# Celery任务
+INSTALLED_TASKS = [
+    'services.panda_send_sync_product_ding_talk_service.tasks.send_sync_product_ding_talk'
+]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
