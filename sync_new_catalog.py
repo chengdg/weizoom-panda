@@ -50,6 +50,7 @@ for i in range(0, nrows):
     catalog = catalog_models.ProductCatalog.objects.filter(name=second_catalog).first()
     if not catalog:
         can_not_find_catalog.append(product_name)
+        continue
     # 更新商品的类目
 
     product_models.Product.objects.filter(id=product.id).update(catalog_id=catalog.id)
