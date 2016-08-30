@@ -51,7 +51,9 @@ for i in range(0, nrows):
     if not catalog:
         can_not_find_catalog.append(product_name)
     # 更新商品的类目
-    product_models.Product.objects.filter(product.id).update(catalog_id=catalog.id)
+
+    product_models.Product.objects.filter(id=product.id).update(catalog_id=catalog.id)
+
     catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(id=catalog.id).first()
 
     product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
