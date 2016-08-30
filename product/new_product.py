@@ -328,22 +328,23 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					promotion_title = old_promotion_title
 				)
-			if old_product_price != product_price:
-				old_products.update(
-					product_price = old_product_price
-				)
-			if old_clear_price != clear_price:
-				old_products.update(
-					clear_price = old_clear_price
-				)
-			if old_product_weight != product_weight:
-				old_products.update(
-					product_weight = old_product_weight
-				)
-			if old_product_store != int(product_store):
-				old_products.update(
-					product_store = old_product_store
-				)
+			if has_product_model == 0:
+				if product_price and (old_product_price != product_price):
+					old_products.update(
+						product_price = old_product_price
+					)
+				if clear_price and (old_clear_price != clear_price):
+					old_products.update(
+						clear_price = old_clear_price
+					)
+				if product_weight and (old_product_weight != product_weight):
+					old_products.update(
+						product_weight = old_product_weight
+					)
+				if product_store and (old_product_store != int(product_store)):
+					old_products.update(
+						product_store = old_product_store
+					)
 			if old_remark != remark:
 				old_products.update(
 					remark = old_remark
@@ -363,10 +364,6 @@ class NewProduct(resource.Resource):
 				owner = request.user, 
 				product_name = product_name, 
 				promotion_title = promotion_title, 
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store,
 				has_limit_time = has_limit_time,
 				limit_clear_price = limit_clear_price,
 				valid_time_from = valid_time_from,
@@ -380,10 +377,6 @@ class NewProduct(resource.Resource):
 				owner = request.user, 
 				product_name = product_name, 
 				promotion_title = promotion_title, 
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store,
 				has_limit_time = has_limit_time,
 				limit_clear_price = limit_clear_price,
 				valid_time_from = None,
@@ -392,6 +385,15 @@ class NewProduct(resource.Resource):
 				catalog_id = second_level_id,
 				remark = remark
 			)
+
+		if has_product_model == 0:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store
+			)
+
 		if product_sync_weapp_accounts:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
 				is_update = True,
