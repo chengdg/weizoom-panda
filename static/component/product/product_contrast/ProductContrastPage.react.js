@@ -69,7 +69,7 @@ var ProductContrastPage = React.createClass({
 			document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color='red';
 		}
 
-		if(oldModelValues.sort().toString()==modelValues.sort().toString()){
+		if(oldHasProductModel==-1 && hasProductModel==1){
 			var clearPrices =[];
 			var productPrices = [];
 			var productWeights = [];
