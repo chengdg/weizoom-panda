@@ -47,14 +47,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 					this.data['rebateProport'] = this.data['rebate_proport'];
 					this.data['defaultRebateProport'] = this.data['default_rebate_proport'];
 				}
-				this.data['rebates'] = this.data['rebates'].length>0?JSON.parse(this.data['rebates']): [];
+				this.data['rebates'] = this.data['rebates'].length > 0 ?JSON.parse(this.data['rebates']): [];
 				this.data['selfUserNames'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 				this.data['maxProduct'] = this.data['max_product'];
 			}
 		} else {
 			this.data = {
-				'id':-1,
-				'accountType':'1',
+				'id': -1,
+				'accountType': '1',
 				'purchaseMethod': '2',
 				'companyType': [],
 				'optionsForType': [],
@@ -107,8 +107,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleAddRebateDialog: function(){
 		var oldRebates = this.data.rebates;
 		oldRebates.push({
-			'validate_from_condition':'',
-			'validate_to_condition':'',
+			'validate_from_condition': '',
+			'validate_to_condition': '',
 			'order_money_condition': '',
 			'rebate_proport_condition': '',
 			'default_rebate_proport_condition': ''

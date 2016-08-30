@@ -125,7 +125,7 @@ class OrderBatchDelivery(resource.Resource):
 		if error_rows:
 			response = create_response(500)
 			error_rows = ','.join(error_rows)
-			response.errMsg = u'文件第'+error_rows+u'行格式错误'
+			response.errMsg = u'文件第' + error_rows + u'行格式错误'
 			return response.get_response()
 		datas = json.dumps(datas)
 		params = {
@@ -148,8 +148,8 @@ class OrderBatchDelivery(resource.Resource):
 			for data in datas:
 				if not data['result']:
 					order_id_str = ','.join(order_ids)
-					err_msg = u"订单:"+order_id_str+','+data['msg']
-			if err_msg!='':
+					err_msg = u"订单:" + order_id_str + ',' + data['msg']
+			if err_msg != '':
 				response = create_response(500)
 				response.errMsg = err_msg
 				return response.get_response()
@@ -187,7 +187,7 @@ def _read_file(file_path):
 		if type(express_number) == float:
 			express_number = str(int(express_number))
 		
-		if (order_id and express_company_name and express_number)!= '':
+		if (order_id and express_company_name and express_number) != '':
 			item['order_id'] = order_id
 			if express_company_name not in text2express_company_name:
 				error_rows.append(str(i))

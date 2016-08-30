@@ -155,8 +155,6 @@ class CustomerOrdersList(resource.Resource):
 			filter_params['end_time'] = end_time
 
 		supplier_ids = '_'.join(supplier_ids)
-		# print('supplier_ids:')
-		# print(supplier_ids)
 		rows = []
 		if supplier_ids != '':
 			#请求接口获得数据
@@ -262,8 +260,8 @@ class CustomerOrdersList(resource.Resource):
 							'total_price': return_product_info['total_price']
 						})
 					if not is_for_list:
-						total_weight +=  return_product_info['weight']
-					total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+						total_weight += return_product_info['weight']
+					total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
 
 				if is_for_list:
 					rows.append({

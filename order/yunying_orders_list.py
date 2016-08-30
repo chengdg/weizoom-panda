@@ -382,7 +382,6 @@ class YunyingOrdersList(resource.Resource):
 			'product_ids': json.dumps(weapp_product_ids),
 			'per_count_page': 15,
 			'order_id': order_id
-
 		}
 		if order_create_at_range:
 			params.update({'order_create_start': order_create_at_range[0],
@@ -401,10 +400,10 @@ class YunyingOrdersList(resource.Resource):
 				rows = []
 				for order in orders:
 					weapp_supplier_id = order.get('products')[0].get('supplier')
-					supplier = AccountHasSupplier.objects.filter(supplier_id = weapp_supplier_id).last()
+					supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).last()
 					user_profile = None
 					if supplier:
-						user_profile = UserProfile.objects.filter(user_id = supplier.user_id).first()
+						user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
 					# print supplier.store_name, '------------------------------------------------'
 					# weapp_owner_id = order.get('owner_id')
 					# 规格信息
@@ -429,13 +428,13 @@ class YunyingOrdersList(resource.Resource):
 					# 	if model_info:
 					# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'totalPurchasePrice': '%.2f' %order.get('total_purchase_price'),
+					rows.append({'totalPurchasePrice': '%.2f' % order.get('total_purchase_price'),
 								 'orderId': order.get('order_id'),
 								 'fromMall': [order.get('store_name')],
 								 'orderStatus': order_status2text.get(order.get('status')),
 								 'productName': '\n'.join(temp_product_name),
 								 'customerName': [user_profile.name if user_profile else ''],
-								 'postage': '%.2f' %order.get('postage')})
+								 'postage': '%.2f' % order.get('postage')})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
 					pageinfo = paginator.paginate_by_count(resp.get('data').get('count'),

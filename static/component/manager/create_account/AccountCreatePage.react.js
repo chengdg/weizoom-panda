@@ -47,37 +47,36 @@ var AccountCreatePage = React.createClass({
 		var accountType = parseInt(account.accountType);
 		var purchaseMethod = parseInt(account.purchaseMethod);
 		var reg = /^(0|[1-9]|[1-9]\d|99)$/;
-		// var reg_phone = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 		var regPhone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 		var regUsername = /^[0-9a-zA-Z]*$/g;
 
-		if(accountType ==1 && purchaseMethod == 2 &&account.hasOwnProperty('points') && account.points.length>0){
+		if(accountType == 1 && purchaseMethod == 2 && account.hasOwnProperty('points') && account.points.length > 0){
 			if((parseFloat(account.points.trim())==0) || !reg.test(account.points.trim())){
 				Reactman.PageAction.showHint('error', '零售价返点数字需在1-99之间的整数');
 				return;
 			}
 		}
-		if(accountType ==1 && (!account.hasOwnProperty('validTimeFrom') || !account.hasOwnProperty('validTimeTo'))){
+		if(accountType == 1 && (!account.hasOwnProperty('validTimeFrom') || !account.hasOwnProperty('validTimeTo'))){
 			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
 			return;
 		}
-		if(accountType ==1 && ((account.hasOwnProperty('validTimeFrom') && account.validTimeFrom.length<=0) 
-			|| (account.hasOwnProperty('validTimeTo')&& account.validTimeTo.length<=0))){
+		if(accountType == 1 && ((account.hasOwnProperty('validTimeFrom') && account.validTimeFrom.length <= 0) 
+			|| (account.hasOwnProperty('validTimeTo') && account.validTimeTo.length <= 0))){
 			Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
 			return;
 		}
-		if(accountType ==1 && account.hasOwnProperty('validTimeFrom') && account.hasOwnProperty('validTimeTo') && (account.validTimeFrom>account.validTimeTo)){
+		if(accountType == 1 && account.hasOwnProperty('validTimeFrom') && account.hasOwnProperty('validTimeTo') && (account.validTimeFrom > account.validTimeTo)){
 			Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
 			return;
 		}
-		if(accountType ==1 && account.hasOwnProperty('phone') && account.phone.length>0){
+		if(accountType == 1 && account.hasOwnProperty('phone') && account.phone.length > 0){
 			if(!regPhone.test(account.phone.trim())){
 				Reactman.PageAction.showHint('error', '请填写合法的手机号码');
 				return;
 			}
 		}
-		if(accountType ==1 && account.hasOwnProperty('contacter') && account.contacter.length>0){
-			if(account.contacter.length>10){
+		if(accountType == 1 && account.hasOwnProperty('contacter') && account.contacter.length > 0){
+			if(account.contacter.length > 10){
 				Reactman.PageAction.showHint('error', '联系人最多10个字符');
 				return;
 			}
@@ -86,7 +85,7 @@ var AccountCreatePage = React.createClass({
 			Reactman.PageAction.showHint('error', '登录名请填写英文字母或数字');
 			return;
 		}
-		if(accountType ==1 && account.companyType.length<=0){
+		if(accountType ==1 && account.companyType.length <= 0){
 			Reactman.PageAction.showHint('error', '请选择经营类目');
 			return;
 		}
@@ -162,7 +161,7 @@ var AccountInfo = React.createClass({
 			value: '3'
 		}];
 		
-		if (accountType == '1'){
+		if(accountType == '1'){
 			return(
 				<div>
 					<Reactman.FormInput label="公司名称:" type="text" name="companyName" value={this.props.companyName} onChange={this.props.onChange} />

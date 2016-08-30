@@ -37,7 +37,7 @@ var Action = {
 	},
 
 	saveAccount: function(data) {
-		var account_info = {
+		var accountInfo = {
 			name: data['name'],
 			company_name: data['companyName'],
 			company_type: JSON.stringify(data['companyType']),
@@ -61,7 +61,7 @@ var Action = {
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'manager.account_create',
-				data: account_info,
+				data: accountInfo,
 				success: function() {
 					Reactman.PageAction.showHint('success', '创建账号成功');
 					setTimeout(function(){
@@ -76,10 +76,10 @@ var Action = {
 				}
 			});
 		} else {
-			account_info['id'] = data.id;
+			accountInfo['id'] = data.id;
 			Resource.post({
 				resource: 'manager.account_create',
-				data: account_info,
+				data: accountInfo,
 				success: function() {
 					Reactman.PageAction.showHint('success', '编辑账号成功');
 					setTimeout(function(){
