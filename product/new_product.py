@@ -500,8 +500,10 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					product_model_ids = ','.join(set(old_product_model_ids))
 				)
-		if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
-			modify_contents.append(u'商品规格')
+				
+		if product_sync_weapp_accounts:
+			if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
+				modify_contents.append(u'商品规格')
 
 		#发送钉钉消息
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
