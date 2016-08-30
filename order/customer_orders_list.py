@@ -237,7 +237,7 @@ class CustomerOrdersList(resource.Resource):
 					product_id = str(return_product_info['id'])
 					if product_weapp_id2info.has_key(product_id):#只展示关联了商品id的订单
 						if return_product_info['model_names']:
-							model_names = u'规格：'+'/'.join(return_product_info['model_names'])
+							model_names = u'规格：' + '/'.join(return_product_info['model_names'])
 						else:
 							model_names = ''
 						product_infos.append({
@@ -250,7 +250,7 @@ class CustomerOrdersList(resource.Resource):
 						})
 					else:
 						if return_product_info['model_names']:
-							model_names = u'规格：'+'/'.join(return_product_info['model_names'])
+							model_names = u'规格：' + '/'.join(return_product_info['model_names'])
 						else:
 							model_names = ''
 						product_infos.append({
@@ -262,8 +262,8 @@ class CustomerOrdersList(resource.Resource):
 							'total_price': return_product_info['total_price']
 						})
 					if not is_for_list:
-						total_weight +=  return_product_info['weight']
-					total_purchase_price += int(return_product_info['count'])*float(return_product_info['purchase_price'])#计算订单总金额
+						total_weight += return_product_info['weight']
+					total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
 
 				if is_for_list:
 					rows.append({

@@ -61,7 +61,7 @@ class AccountCreateApi(resource.Resource):
 			user.first_name = name
 			user.save()
 			user_id = user.id
-			user_profile = UserProfile.objects.filter(user = user)
+			user_profile = UserProfile.objects.filter(user=user)
 			points = 0 if points == '' else points
 
 			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
@@ -130,7 +130,7 @@ class AccountCreateApi(resource.Resource):
 						)
 						# 同步五五分成的返点
 						if purchase_method == 3:
-							sync_create_rebate_info(user_id = user_id, account_relation = account_relation)
+							sync_create_rebate_info(user_id=user_id, account_relation=account_relation)
 						# 同步零售返点
 						if purchase_method == 2:
 							sync_add_retail_rebate_info(account_relation, user_id=-1, rebate=points)
@@ -141,21 +141,21 @@ class AccountCreateApi(resource.Resource):
 						}
 						return response.get_response()
 					else:
-						User.objects.filter(id = user_id).delete()
-						UserProfile.objects.filter(user_id = user_id).delete()
+						User.objects.filter(id=user_id).delete()
+						UserProfile.objects.filter(user_id=user_id).delete()
 						response = create_response(500)
 						response.errMsg = u'创建账号失败'
 						return response.get_response()
 				else:
-					User.objects.filter(id = user_id).delete()
-					UserProfile.objects.filter(user_id = user_id).delete()
+					User.objects.filter(id=user_id).delete()
+					UserProfile.objects.filter(user_id=user_id).delete()
 					response = create_response(500)
 					response.errMsg = u'ZEUS创建账号失败'
 					return response.get_response()
 			except Exception,e:
 				print e
-				User.objects.filter(id = user_id).delete()
-				UserProfile.objects.filter(user_id = user_id).delete()
+				User.objects.filter(id=user_id).delete()
+				UserProfile.objects.filter(user_id=user_id).delete()
 				response = create_response(500)
 				response.errMsg = u'PANDA创建账号失败'
 				return response.get_response()
@@ -173,9 +173,9 @@ class AccountCreateApi(resource.Resource):
 		account_id = args['account_id']
 		password = args['password']
 		try:
-			user_profile = UserProfile.objects.get(id = account_id)
+			user_profile = UserProfile.objects.get(id=account_id)
 			user_id = user_profile.user_id
-			user = User.objects.get(id = user_id)
+			user = User.objects.get(id=user_id)
 			user.set_password(password)
 			user.save()
 			response = create_response(200)
@@ -195,7 +195,7 @@ class GetAllFirstCatalog(resource.Resource):
 		"""
 		获得一级经营类目
 		"""
-		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id = -1).order_by('-created_at')
+		catalogs = product_catalog_models.ProductCatalog.objects.filter(father_id=-1).order_by('-created_at')
 		rows = []
 		for catalog in catalogs:
 			rows.append({

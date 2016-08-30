@@ -52,8 +52,8 @@ class ManagerAccount(resource.Resource):
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active = True).exclude(role = MANAGER).order_by('-id')
-		catalogs = catalog_models.ProductCatalog.objects.filter(father_id = -1)
+		accounts = UserProfile.objects.filter(is_active=True).exclude(role=MANAGER).order_by('-id')
+		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
@@ -62,15 +62,15 @@ class ManagerAccount(resource.Resource):
 		if name:
 			accounts = accounts.filter(name__icontains=name)
 		if username:
-			user_ids = [user.id for user in User.objects.filter(username__icontains = username)]
-			accounts = accounts.filter(user_id__in = user_ids)
+			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
+			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
-			accounts = accounts.filter(role = role)
+			accounts = accounts.filter(role=role)
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
 		user_ids = [account.user_id for account in accounts]
-		user_id2username = {user.id: user.username for user in User.objects.filter(id__in = user_ids)}
+		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
 		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		for account in accounts:
@@ -100,7 +100,7 @@ class ManagerAccount(resource.Resource):
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
 					'companyType' : catalog_names,
-					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
 					'accountType' : ROLE2NAME[account.role],
 					'status' : account.status,
 					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
@@ -113,7 +113,7 @@ class ManagerAccount(resource.Resource):
 					'phone' : account.phone,
 					'name' : account.name,
 					'contacter' : account.contacter,
-					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
 					'username' : user_id2username[account.user_id],
 					'role' : ROLE2NAME[account.role],
 					'note' : account.note,
@@ -141,7 +141,7 @@ class ManagerAccount(resource.Resource):
 		else:
 			change_to_status = 1
 		try:
-			UserProfile.objects.filter(id = account_id).update(
+			UserProfile.objects.filter(id=account_id).update(
 				status = change_to_status
 			)
 			response = create_response(200)
@@ -155,16 +155,16 @@ class ManagerAccount(resource.Resource):
 	def api_delete(request):
 		account_id = request.POST.get('id','')
 		try:
-			user_profile = UserProfile.objects.get(id = account_id)
+			user_profile = UserProfile.objects.get(id=account_id)
 			user_id = user_profile.user_id
 			user_profile.delete()
-			User.objects.filter(id = user_id).delete()
+			User.objects.filter(id=user_id).delete()
 			products = Product.objects.filter(owner_id=user_id)
 			if products:
 				product_ids = [product.id for product in products]
 				products.delete()
-				ProductHasRelationWeapp.objects.filter(product_id__in = product_ids).delete()
-			AccountHasSupplier.objects.filter(account_id = account_id).delete()
+				ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+			AccountHasSupplier.objects.filter(account_id=account_id).delete()
 			response = create_response(200)
 			return response.get_response()
 		except:
@@ -180,7 +180,7 @@ class ExportAccounts(resource.Resource):
 	def get(request):
 		accounts = ManagerAccount.api_get(request)
 		titles = [
-			u'账号id', u'对应user_id', u'账号类型', u'账号名称',u'登录账号', u'公司名称',
+			u'账号id', u'对应user_id', u'账号类型', u'账号名称', u'登录账号', u'公司名称',
 			u'联系人', u'手机号', u'采购方式', u'备注'
 		]
 		table = []
@@ -198,4 +198,4 @@ class ExportAccounts(resource.Resource):
 				account['purchase_method'],
 				account['note']
 			])
-		return ExcelResponse(table,output_name=u'账号管理文件'.encode('utf8'),force_csv=False)
+		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)

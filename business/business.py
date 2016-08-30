@@ -80,9 +80,9 @@ class BusinessApply(resource.Resource):
 
 	def api_post(request):
 		post = request.POST
-		company_type = models.DIRECT if post.get('company_type')=='direct' else models.AGENCY
+		company_type = models.DIRECT if post.get('company_type') == 'direct' else models.AGENCY
 		company_name = post.get('company_name','')
-		company_money = float(post.get('company_money')) if post.get('company_money')!='' else 0
+		company_money = float(post.get('company_money')) if post.get('company_money') != '' else 0
 		legal_representative = post.get('legal_representative','')
 		contacter = post.get('contacter','')
 		phone = post.get('phone','')
@@ -97,11 +97,11 @@ class BusinessApply(resource.Resource):
 		business_license = data_page_2['business_license']
 		business_license_time = data_page_2['business_license_time'] if data_page_2['business_license_time'] !='' else None
 		tax_registration_certificate = data_page_2['tax_registration_certificate']
-		tax_registration_certificate_time = data_page_2['tax_registration_certificate_time'] if data_page_2['tax_registration_certificate_time'] !='' else None
+		tax_registration_certificate_time = data_page_2['tax_registration_certificate_time'] if data_page_2['tax_registration_certificate_time'] != '' else None
 		organization_code_certificate = data_page_2['organization_code_certificate']
-		organization_code_certificate_time = data_page_2['organization_code_certificate_time'] if data_page_2['organization_code_certificate_time'] !='' else None
+		organization_code_certificate_time = data_page_2['organization_code_certificate_time'] if data_page_2['organization_code_certificate_time'] != '' else None
 		account_opening_license = data_page_2['account_opening_license']
-		account_opening_license_time = data_page_2['account_opening_license_time'] if data_page_2['account_opening_license_time'] !='' else None
+		account_opening_license_time = data_page_2['account_opening_license_time'] if data_page_2['account_opening_license_time'] != '' else None
 		product_catalog_ids = '_'.join(data_page_3['selectedSortIds'])
 		upload_qualifications = data_page_3['uploadQualifications'] 
 
@@ -141,7 +141,7 @@ class BusinessApply(resource.Resource):
 					business_id = business.id,
 					qualification_id = upload_qualification['qualification_id'],
 					path = upload_qualification['path'],
-					qualification_time = upload_qualification['time'] if upload_qualification['time'] !='' else None
+					qualification_time = upload_qualification['time'] if upload_qualification['time'] != '' else None
 				)
 		response = create_response(200)
 		return response.get_response()

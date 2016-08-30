@@ -207,7 +207,7 @@ class ProductCatalog(resource.Resource):
 					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
 					return response.get_response()
 				else:
-					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type = '')
+					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type='')
 					using_catalog_ids = []
 					for customer in customers:
 						for company_type in json.loads(customer.company_type):

@@ -40,7 +40,7 @@ class BusinessDetail(resource.Resource):
 		响应GET
 		"""
 		business_id = request.GET.get('id', None)
-		jsons = {'items':[]}
+		jsons = {'items' : []}
 		apply_catalogs = []
 		upload_business_qualifications = []
 		if business_id:
