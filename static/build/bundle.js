@@ -43720,6 +43720,8 @@
 
 		componentDidMount: function () {
 			var _this = this;
+			var oldHasProductModel = parseInt(this.state.old_has_product_model);
+			var hasProductModel = parseInt(this.state.has_product_model);
 			if (this.state.old_product_name) {
 				document.getElementById('product_name').parentNode.parentNode.firstChild.style.color = 'red';
 			}
@@ -43729,16 +43731,16 @@
 			if (this.state.old_remark) {
 				document.getElementsByTagName('textarea')[1].parentNode.parentNode.firstChild.style.color = 'red';
 			}
-			if (this.state.old_product_price != 'None') {
+			if (hasProductModel == 0 && this.state.old_product_price != 'None') {
 				document.getElementById('product_price').parentNode.parentNode.firstChild.style.color = 'red';
 			}
-			if (this.state.old_clear_price != 'None') {
+			if (hasProductModel == 0 && this.state.old_clear_price != 'None') {
 				document.getElementById('clear_price').parentNode.parentNode.firstChild.style.color = 'red';
 			}
-			if (this.state.old_product_weight != '0') {
+			if (hasProductModel == 0 && this.state.old_product_weight != '0') {
 				document.getElementById('product_weight').parentNode.parentNode.firstChild.style.color = 'red';
 			}
-			if (parseInt(this.state.old_product_store) != 0) {
+			if (hasProductModel == 0 && parseInt(this.state.old_product_store) != 0) {
 				document.getElementById('product_store').parentNode.parentNode.firstChild.style.color = 'red';
 			}
 			if (this.state.old_images.length != 0) {
@@ -43746,8 +43748,6 @@
 			}
 			var oldModelValues = this.state.old_model_values;
 			var modelValues = this.state.model_values;
-			var oldHasProductModel = parseInt(this.state.old_has_product_model);
-			var hasProductModel = parseInt(this.state.has_product_model);
 			if (oldHasProductModel != -1 && hasProductModel != oldHasProductModel) {
 				document.getElementsByClassName('radio-inline')[2].parentNode.parentNode.parentNode.firstChild.style.color = 'red';
 			}
@@ -45005,11 +45005,6 @@
 						'a',
 						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
 						'编辑'
-					),
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs', target: '_blank', onClick: this.plusProductStore.bind(this, data.id) },
-						'提交'
 					)
 				);
 			} else if (field === 'product_name') {

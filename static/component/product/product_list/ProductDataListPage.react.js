@@ -93,7 +93,6 @@ var ProductDataListPage = React.createClass({
 			return (
 				<div>
 					<a className="btn btn-link btn-xs" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
-					<a className="btn btn-link btn-xs" target="_blank" onClick={this.plusProductStore.bind(this, data.id)}>提交</a>
 				</div>
 			);
 		}else if(field === 'product_name'){
