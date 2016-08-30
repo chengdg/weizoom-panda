@@ -31,12 +31,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 	handleOrderDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;
-		var filter_str = '';
+		var filterStr = '';
 		for (var key in filterOptions){
-			filter_str = filter_str + key + '=' + filterOptions[key] + '&';
+			filterStr = filterStr + key + '=' + filterOptions[key] + '&';
 		}
-		filter_str = filter_str.substring(0,filter_str.length-1);
-		window.location.href = '/order/yunying_export_orders/?'+filter_str;
+		filterStr = filterStr.substring(0,filterStr.length-1);
+		window.location.href = '/order/yunying_export_orders/?'+filterStr;
 	},
 	getData: function() {
 		return this.data;

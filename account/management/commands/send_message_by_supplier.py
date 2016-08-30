@@ -30,8 +30,8 @@ class Command(BaseCommand):
 
             # print '++++++++++++++++++++++'
             if account.phone:
-                supplier_relation = account_models.AccountHasSupplier.objects.filter(user_id=account.user_id).first()
-                old_supplier_relation = account_models.AccountHasSupplier.objects.filter(user_id=-account.user_id)
+                supplier_relation = account_models.AccountHasSupplier.objects.filter(account_id=account.id).first()
+                old_supplier_relation = account_models.AccountHasSupplier.objects.filter(account_id=-account.id)
                 supplier_ids = []
                 if supplier_relation:
                     supplier_ids.append(supplier_relation.supplier_id)

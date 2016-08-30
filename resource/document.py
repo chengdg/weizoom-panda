@@ -16,6 +16,7 @@ from django.conf import settings
 from core import resource
 from core.jsonresponse import create_response
 import models
+from resource.image import upload_image_to_upyun
 
 suffix2type = {
 	'ppt': 'ppt',
@@ -78,6 +79,13 @@ class Document(resource.Resource):
 
 		#保存图片信息到mysql中
 		document_path = '/static/upload/%s/%s' % (store_dir, file_name)
+
+		try:
+			value = upload_image_to_upyun(file_path,document_path)
+			document_path = value
+		except:
+			document_path = PANDA_HOST + '/static/upload/%s/%s' % (store_dir, file_name)
+
 		document = models.Document.objects.create(
 			filename = file.name,
 			type = file_type,

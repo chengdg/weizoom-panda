@@ -62,21 +62,21 @@ class ProductCatalog(resource.Resource):
 					index += 1 
 				second_catalogs.append({
 					'id': belong_second_catalog.id,
-					'father_catalog': belong_second_catalog.father_id,
-					'catalog_name': belong_second_catalog.name,
+					'fatherCatalog': belong_second_catalog.father_id,
+					'catalogName': belong_second_catalog.name,
 					'note': belong_second_catalog.note,
-					'created_at': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-					'products_number': products_number,
-					'qualification_id2name': json.dumps(qualification_id2name)
+					'createdAt': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+					'productsNumber': products_number,
+					'qualificationId2name': json.dumps(qualification_id2name)
 				})
 			rows.append({
 				'id': catalog.id,
-				'father_catalog': catalog.father_id,
-				'catalog_name': catalog.name,
+				'fatherCatalog': catalog.father_id,
+				'catalogName': catalog.name,
 				'note': catalog.note,
-				'created_at': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-				'products_number': total_products_number,
-				'second_catalogs': json.dumps(second_catalogs)
+				'createdAt': catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+				'productsNumber': total_products_number,
+				'secondCatalogs': json.dumps(second_catalogs)
 			})
 		data = {
 			'rows': rows
@@ -151,9 +151,7 @@ class ProductCatalog(resource.Resource):
 				weapp_catalog_id = relation.weapp_catalog_id
 				params = {
 					'id': weapp_catalog_id,
-					'name': name,
-					# 'level': level,
-					# 'father_id': father_id
+					'name': name
 				}
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
 					{
@@ -161,7 +159,6 @@ class ProductCatalog(resource.Resource):
 						'data': params
 					}
 				)
-
 				if resp and resp.get('code') == 200:
 					response = create_response(200)
 				else:
@@ -181,9 +178,7 @@ class ProductCatalog(resource.Resource):
 	def api_delete(request):
 		catalog_id = request.POST.get('id','')
 		try:
-
-			relation = product_catalog_models.ProductCatalogRelation.objects.filter(
-				catalog_id=catalog_id).first()
+			relation = product_catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id).first()
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
 			if catalog.father_id != -1:
 				#二级分类
@@ -212,20 +207,18 @@ class ProductCatalog(resource.Resource):
 					response.errMsg = u'该分类下还存在二级分类，请先删除二级分类'
 					return response.get_response()
 				else:
-					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type='')
+					customers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER).exclude(company_type = '')
 					using_catalog_ids = []
 					for customer in customers:
 						for company_type in json.loads(customer.company_type):
 							if company_type not in using_catalog_ids:
 								using_catalog_ids.append(company_type)
-					print using_catalog_ids
 					if int(catalog_id) in using_catalog_ids:
 						response = create_response(500)
 						response.errMsg = u'分类已被使用，删除失败，请先修改客户账户'
 						return response.get_response()
 					else:
 						if relation:
-
 							params = {
 								'id': relation.weapp_catalog_id
 							}

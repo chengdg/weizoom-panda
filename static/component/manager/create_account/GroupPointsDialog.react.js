@@ -27,13 +27,11 @@ var GroupPointsDialog = React.createClass({
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		console.log(property, value)
 		Action.updateAccount(property, value);
 	},
 
 	updateGroupPoints: function(index, value, event){
 		var property = event.target.getAttribute('name');
-		console.log(index,value, property);
 		Action.updateGroupPoints(index, property, value);
 	},
 
@@ -53,12 +51,12 @@ var GroupPointsDialog = React.createClass({
 			'weizoom_yjr': '微众一家人',
 			'weizoom_fulilaile': '惠惠来啦'
 		}
-		var selfUserNames = this.state.self_user_names;
+		var selfUserNames = this.state.selfUserNames;
 		var _this = this;
 		if (selfUserNames.length>0){
 			var selfShop = selfUserNames.map(function(selfUser,index){
-				var selfUserName = selfUser.self_user_name;
-				var userName = SELF_SHOP2TEXT[selfUser.self_user_name];
+				var selfUserName = selfUser.selfUserName;
+				var userName = SELF_SHOP2TEXT[selfUser.selfUserName];
 				return(
 						<li key={index} style={{display:'inline-block',position:'relative'}}>
 	                        <Reactman.FormInput label={userName} type="text" name={selfUserName+"_value"} onChange={_this.updateGroupPoints.bind(_this,index)} value={selfUser[selfUserName+"_value"]}/>

@@ -1,0 +1,4 @@
+import message_list
+import message
+import customer_messages
+import customer_message

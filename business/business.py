@@ -182,7 +182,7 @@ class Business(resource.Resource):
 		if company_name:
 			businesses = businesses.filter(company_name__icontains=company_name)
 		if product_catalog:
-			filter_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2,name__icontains=product_catalog)
+			filter_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2, name__icontains=product_catalog)
 			filter_catalogs_ids = [str(filter_catalog.id) for filter_catalog in filter_catalogs]
 			filter_business_ids = []
 			for business in businesses:
@@ -219,7 +219,7 @@ class Business(resource.Resource):
 				'product_catalogs': catalog_name,
 				'contacter': business.contacter,
 				'phone': business.phone,
-				'status': models.STATUS2NAME[business.status] if business.status!=3 else models.STATUS2NAME[business.status]+'('+business.reason+')'
+				'status': models.STATUS2NAME[business.status] if business.status != 3 else models.STATUS2NAME[business.status] + '(' + business.reason + ')'
 			})
 		pageinfo, businesses = paginator.paginate(businesses, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		data = {
@@ -235,7 +235,7 @@ class Business(resource.Resource):
 		#审核通过
 		business_id = request.POST.get('id','')
 		try:
-			models.Business.objects.filter(id = business_id).update(
+			models.Business.objects.filter(id=business_id).update(
 				status = models.PASSED
 			)
 			response = create_response(200)
@@ -251,12 +251,12 @@ class Business(resource.Resource):
 		business_id = request.POST.get('id','')
 		reason = request.POST.get('reason','')
 		try:
-			models.Business.objects.filter(id = business_id).update(
+			models.Business.objects.filter(id=business_id).update(
 				status = models.UNPASSED,
 				reason = reason
 			)
 			try:
-				business = models.Business.objects.get(id = business_id)
+				business = models.Business.objects.get(id=business_id)
 				if business.phone:
 					content = u'%s【微众传媒】' %  reason
 					rs = send_phone_msg.send_phone_captcha(phones=str(business.phone), content=content)
@@ -274,7 +274,7 @@ class Business(resource.Resource):
 	def api_delete(request):
 		business_id = request.POST.get('id','')
 		try:
-			models.Business.objects.filter(id = business_id).delete()
+			models.Business.objects.filter(id=business_id).delete()
 			response = create_response(200)
 			return response.get_response()
 		except:

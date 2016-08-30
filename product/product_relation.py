@@ -18,8 +18,8 @@ from util import db_util
 from resource import models as resource_models
 from account.models import *
 from util import string_util
-from panda.settings import ZEUS_HOST
-from panda.settings import PANDA_HOST
+from panda.settings import ZEUS_HOST,PANDA_HOST
+from panda.settings import CESHI_USERNAMES
 from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
@@ -43,6 +43,11 @@ filter2field ={
 	'catalog_query': 'catalog_name'
 }
 
+customer_from2text = {
+	0: '--',
+	1: u'渠道'
+}
+
 
 class ProductRelation(resource.Resource):
 	app = 'product'
@@ -53,12 +58,17 @@ class ProductRelation(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		username = User.objects.get(id=request.user.id).username
+		is_ceshi = False
+		if username in CESHI_USERNAMES:
+			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': second_navs,
 			'second_nav_name': SECOND_NAV,
 			'first_catalog_id': request.GET.get('first_catalog_id', ''),
-			'second_catalog_id': request.GET.get('second_catalog_id', '')
+			'second_catalog_id': request.GET.get('second_catalog_id', ''),
+			'is_ceshi': is_ceshi
 		})
 
 		return render_to_response('product/product_relation.html', c)
@@ -135,6 +145,7 @@ class ProductRelation(resource.Resource):
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
+		user_id2customer_from = {user_profile.user_id:user_profile.customer_from for user_profile in user_profiles}
 
 		#组装数据
 		rows = []
@@ -143,8 +154,10 @@ class ProductRelation(resource.Resource):
 			if owner_id in user_id2name:
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				product_status_text = u'未同步'
+				product_status_value = 0
 				if product.id in has_relation_p_ids:
 					product_status_text = u'已同步'
+					product_status_value = 1
 
 				#商品分类
 				first_level_name = ''
@@ -155,6 +168,8 @@ class ProductRelation(resource.Resource):
 					second_level_name = product_catalog.name
 					first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
+				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
+				customer_from_text = customer_from2text[customer_from]
 				rows.append({
 					'id': product.id,
 					'role': role,
@@ -163,8 +178,10 @@ class ProductRelation(resource.Resource):
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
 					'product_status': product_status_text,
+					'product_status_value': product_status_value,
 					'first_level_name': first_level_name,
 					'second_level_name': second_level_name,
+					'customer_from_text': customer_from_text,
 					'cur_page': pageinfo.cur_page
 				})
 		data = {

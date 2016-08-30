@@ -1,0 +1,23 @@
+.rebate_tips{
+    width: 78%;
+    margin: 0 auto;
+    margin-left: 90px;
+    margin-bottom: 15px;
+}
+.bold_text{
+    font-weight:bold;
+    text-decoration: none;
+}
+.red_color{
+    color:red;
+}
+.grey_text {
+    color:#747474;
+}
+.href_color {
+    color:#404040;
+}
+
+.href_color_gray {
+    color:#747474;
+}

@@ -36,30 +36,30 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		return this.data;
 	},
 	handleUpdateCatalog: function(action) {
-		var old_models = action.data.models;
-		var target_index = action.data.index;
-		_.each(old_models, function(old_model) {
-			if(old_model.index == target_index){
-				old_model['name'] = action.data.value;
+		var oldModels = action.data.models;
+		var targetIndex = action.data.index;
+		_.each(oldModels, function(oldModel) {
+			if(oldModel.index == targetIndex){
+				oldModel['name'] = action.data.value;
 			}
 		});
-		this.data['models'] = old_models;
+		this.data['models'] = oldModels;
 		this.__emitChange();
 	},
 	handleDeleteCatalog: function(action) {
 		var index = action.data.index;
-		var old_models = action.data.models;
-		old_models.splice(index, 1);
-		this.data['models'] = old_models;
+		var oldModels = action.data.models;
+		oldModels.splice(index, 1);
+		this.data['models'] = oldModels;
 		this.__emitChange();
 	},
 	handleAddCatalog: function(action) {
-		var old_models = action.data.models;
-		old_models.push({
+		var oldModels = action.data.models;
+		oldModels.push({
 				name: '',
 				index: action.data.index
 			});
-		this.data['models'] = old_models;
+		this.data['models'] = oldModels;
 		this.__emitChange();
 	},
 });

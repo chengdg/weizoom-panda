@@ -8,5 +8,10 @@
 	}];
 
 	W.pageContentComponent = './order/yunying_orders_list/YunyingOrderDatasPage.react';
+	if('{{is_ceshi}}'=='True'){
+        W.is_ceshi = true;
+    }else{
+        W.is_ceshi = false;
+    }
 </script>
 {% endblock %}

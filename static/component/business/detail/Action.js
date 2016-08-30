@@ -67,7 +67,7 @@ var Action = {
 			account_opening_license_time: data['account_opening_license_time'],
 			apply_catalogs: JSON.stringify(data['apply_catalogs'])
 		};
-		business_info['upload_business_qualifications'] = JSON.stringify(data['upload_business_qualifications']);
+		business_info['uploadBusinessQualifications'] = JSON.stringify(data['uploadBusinessQualifications']);
 		business_info['id'] = data.id;
 		Resource.post({
 			resource: 'business.business_detail',

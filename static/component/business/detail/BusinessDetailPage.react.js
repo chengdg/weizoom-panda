@@ -40,7 +40,7 @@ var BusinessDetailPage = React.createClass({
 
 	onSubmit: function() {
 		var data = Store.getData();
-		var upload_business_qualifications = data.upload_business_qualifications;
+		var uploadBusinessQualifications = data.uploadBusinessQualifications;
 		var is_upload = true;
 		var reg_phone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 		var reg_number = /^[1-9]\d*(\.\d+)?$/;
@@ -80,10 +80,10 @@ var BusinessDetailPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请上传开户许可证!');
 			return;
 		}
-		upload_business_qualifications.map(function(upload_business_qualification,index){
-			if(upload_business_qualification.img == ''){
+		uploadBusinessQualifications.map(function(uploadBusinessQualification,index){
+			if(uploadBusinessQualification.img == ''){
 				is_upload = false;
-				Reactman.PageAction.showHint('error', '请上传' + upload_business_qualification.qualification_name);
+				Reactman.PageAction.showHint('error', '请上传' + uploadBusinessQualification.qualification_name);
 				return;
 			}
 		});
@@ -134,7 +134,7 @@ var BusinessDetailPage = React.createClass({
 				<fieldset>
 					<legend className="pl10 pt10 pb10">入驻类目及特殊资质</legend>
 					<Reactman.FormCheckbox label="申请类目:" name="apply_catalogs" value={this.state.apply_catalogs} options={this.state.options_for_type} onChange={this.onChange} />
-					<ProductModelList name='models' value={this.state.upload_business_qualifications} onChange={this.onChange} />
+					<ProductModelList name='models' value={this.state.uploadBusinessQualifications} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>

@@ -35,7 +35,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetQualifications: function(action) {
-		this.data['upload_business_qualifications'] = action.data.rows;
+		this.data['uploadBusinessQualifications'] = action.data.rows;
 		this.__emitChange();
 	},
 	

@@ -17,3 +17,6 @@
 img {
     vertical-align: bottom !important;
 }
+.col-sm-7.xa-inputs {
+    width: auto;
+}

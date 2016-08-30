@@ -52,18 +52,18 @@ class ManagerAccount(resource.Resource):
 	def api_get(request):
 		is_for_list = True if request.GET.get('is_for_list') else False
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active = True).exclude(role=MANAGER).order_by('-id')
-		catalogs = catalog_models.ProductCatalog.objects.filter(father_id = -1)
+		accounts = UserProfile.objects.filter(is_active=True).exclude(role=MANAGER).order_by('-id')
+		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		name = filters.get('name','')
 		username = filters.get('username','')
-		role = filters.get('role','')
+		role = filters.get('accountType','')
 		if name:
 			accounts = accounts.filter(name__icontains=name)
 		if username:
-			user_ids = [user.id for user in User.objects.filter(username__icontains = username)]
-			accounts = accounts.filter(user_id__in=user_ids)
+			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
+			accounts = accounts.filter(user_id__in = user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
 		if is_for_list:
@@ -99,12 +99,12 @@ class ManagerAccount(resource.Resource):
 					'id' : account.id,
 					'name' : account.name,
 					'username' : user_id2username[account.user_id],
-					'company_type' : catalog_names,
-					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
-					'account_type' : ROLE2NAME[account.role],
+					'companyType' : catalog_names,
+					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role==1 else '--',
+					'accountType' : ROLE2NAME[account.role],
 					'status' : account.status,
-					'company_name': account.company_name,
-					'max_product': account.max_product if account.role == CUSTOMER else "-"
+					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
+					'customerFrom': '渠道' if account.customer_from == 1 else '--'
 				})
 			else:
 				rows.append({
@@ -118,7 +118,6 @@ class ManagerAccount(resource.Resource):
 					'role' : ROLE2NAME[account.role],
 					'note' : account.note,
 					'company_name': account.company_name,
-					'max_product': account.max_product if account.role == CUSTOMER else "-"
 				})
 		if is_for_list:
 			data = {
@@ -142,7 +141,7 @@ class ManagerAccount(resource.Resource):
 		else:
 			change_to_status = 1
 		try:
-			UserProfile.objects.filter(manager_id = request.user.id,id = account_id).update(
+			UserProfile.objects.filter(id=account_id).update(
 				status = change_to_status
 			)
 			response = create_response(200)
@@ -156,10 +155,10 @@ class ManagerAccount(resource.Resource):
 	def api_delete(request):
 		account_id = request.POST.get('id','')
 		try:
-			user_profile = UserProfile.objects.get(id = account_id)
+			user_profile = UserProfile.objects.get(id=account_id)
 			user_id = user_profile.user_id
 			user_profile.delete()
-			User.objects.filter(id = user_id).delete()
+			User.objects.filter(id=user_id).delete()
 			products = Product.objects.filter(owner_id=user_id)
 			if products:
 				product_ids = [product.id for product in products]
@@ -181,7 +180,7 @@ class ExportAccounts(resource.Resource):
 	def get(request):
 		accounts = ManagerAccount.api_get(request)
 		titles = [
-			u'账号id', u'对应user_id', u'账号类型', u'账号名称',u'登录账号', u'公司名称',
+			u'账号id', u'对应user_id', u'账号类型', u'账号名称', u'登录账号', u'公司名称',
 			u'联系人', u'手机号', u'采购方式', u'备注'
 		]
 		table = []
@@ -199,4 +198,4 @@ class ExportAccounts(resource.Resource):
 				account['purchase_method'],
 				account['note']
 			])
-		return ExcelResponse(table,output_name=u'账号管理文件'.encode('utf8'),force_csv=False)
+		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)

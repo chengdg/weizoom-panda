@@ -168,6 +168,7 @@ INSTALLED_APPS = [
     'self_shop',
     'freight_service',
     'business',
+    'station_message',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -236,7 +237,7 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
-    PRODUCT_POOL_OWNER_ID = 7
+    PRODUCT_POOL_OWNER_ID = 3
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
@@ -244,7 +245,7 @@ elif 'test' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://panda.weapp.weizzz.com'
     DEBUG = True
-    PRODUCT_POOL_OWNER_ID = 7
+    PRODUCT_POOL_OWNER_ID = 9
 else:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
@@ -259,3 +260,5 @@ UPLOAD_DIR = os.path.join(PROJECT_HOME, '../static', 'upload') #文件上传路�
 EAGLET_CLIENT_ZEUS_HOST = 'api.zeus.com'
 ZEUS_SERVICE_NAME = 'zeus'
 SYNC_ACCOUNTS = ['5', '3']
+
+CESHI_USERNAMES = ['yunying','zhifuyy1','docyy1','yunying1']

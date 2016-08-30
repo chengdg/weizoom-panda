@@ -20,8 +20,8 @@ import nav
 import models
 from account.models import *
 from product import models as product_models
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST, ZEUS_HOST
+from panda.settings import CESHI_USERNAMES
 
 
 FIRST_NAV = 'order'
@@ -51,10 +51,15 @@ class YunyingOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		username = User.objects.get(id=request.user.id).username
+		is_ceshi = False
+		if username in CESHI_USERNAMES:
+			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'is_ceshi': is_ceshi
 		})
 
 		return render_to_response('order/yunying_orders_list.html', c)
@@ -303,13 +308,13 @@ class YunyingOrdersList(resource.Resource):
 		filter_idct = dict(
 			[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET
 			 if key.startswith('__f-')])
-		customer_name = filter_idct.get('customer_name', '')
-		filter_product_name = filter_idct.get('product_name', '')
-		from_mall = filter_idct.get('from_mall', '-1')
-		order_status = filter_idct.get('order_status', '-1')
+		customer_name = filter_idct.get('customerName', '')
+		filter_product_name = filter_idct.get('productName', '')
+		from_mall = filter_idct.get('fromMall', '-1')
+		order_status = filter_idct.get('orderStatus', '-1')
 		# 订单号
-		order_id = filter_idct.get('order_id', '')
-		order_create_at_range = filter_idct.get('order_create_at__range', '')
+		order_id = filter_idct.get('orderId', '')
+		order_create_at_range = filter_idct.get('orderCreateAt__range', '')
 		# product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		if from_mall == '-1':
 			from_mall = ''
@@ -324,13 +329,13 @@ class YunyingOrdersList(resource.Resource):
 		if customer_name:
 			all_sellers = UserProfile.objects.filter(role=CUSTOMER,
 													 name__icontains=customer_name)
-			account_ids = [seller.user_id for seller in all_sellers]
+			account_ids = [seller.id for seller in all_sellers]
 			# 获取该客户下旧的供货商id获取到
-			old_user_ids = [-seller.user_id for seller in all_sellers]
-			old_supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=old_user_ids)]
+			account_ids += [-seller.id for seller in all_sellers]
+			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(account_id__in=account_ids)]
 
-			supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
-			supplier_ids = old_supplier_ids + supplier_ids
+			# supplier_ids = [a.supplier_id for a in AccountHasSupplier.objects.filter(user_id__in=account_ids)]
+			# supplier_ids = old_supplier_ids + supplier_ids
 			# print 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWW', supplier_ids
 			# 如果根据名字获取不到供应商，就直接返回none
 			if not supplier_ids:
@@ -377,7 +382,6 @@ class YunyingOrdersList(resource.Resource):
 			'product_ids': json.dumps(weapp_product_ids),
 			'per_count_page': 15,
 			'order_id': order_id
-
 		}
 		if order_create_at_range:
 			params.update({'order_create_start': order_create_at_range[0],
@@ -406,7 +410,6 @@ class YunyingOrdersList(resource.Resource):
 					temp_product_name = []
 					product_model_properties = order['products']
 					for product_model in product_model_properties:
-
 						product_properties = product_model.get('custom_model_properties')
 						if product_properties:
 							model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
@@ -425,12 +428,13 @@ class YunyingOrdersList(resource.Resource):
 					# 	if model_info:
 					# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'total_purchase_price': '%.2f' %order.get('total_purchase_price'),
-								 'order_id': order.get('order_id'),
-								 'from_mall': [order.get('store_name')],
-								 'order_status': order_status2text.get(order.get('status')),
-								 'product_name': '\n'.join(temp_product_name),
-								 'customer_name': [user_profile.name if user_profile else '']})
+					rows.append({'totalPurchasePrice': '%.2f' % order.get('total_purchase_price'),
+								 'orderId': order.get('order_id'),
+								 'fromMall': [order.get('store_name')],
+								 'orderStatus': order_status2text.get(order.get('status')),
+								 'productName': '\n'.join(temp_product_name),
+								 'customerName': [user_profile.name if user_profile else ''],
+								 'postage': '%.2f' % order.get('postage')})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
 					pageinfo = paginator.paginate_by_count(resp.get('data').get('count'),
@@ -444,7 +448,6 @@ class YunyingOrdersList(resource.Resource):
 					response.data = data
 					return response.get_response()
 				else:
-
 					return rows
 		if not resp:
 			pageinfo = paginator.paginate_by_count(0,

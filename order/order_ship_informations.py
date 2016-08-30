@@ -5,6 +5,7 @@ import json
 import time
 import requests
 import xlrd
+import urllib
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -120,11 +121,11 @@ class OrderBatchDelivery(resource.Resource):
 		#给接口传递批量发货的参数
 		file_url = request.POST.get('document_path','')
 		# 读取文件
-		datas, error_rows = _read_file(file_url[1:])
+		datas, error_rows = _read_file(file_url)
 		if error_rows:
 			response = create_response(500)
 			error_rows = ','.join(error_rows)
-			response.errMsg = u'文件第'+error_rows+u'行格式错误'
+			response.errMsg = u'文件第' + error_rows + u'行格式错误'
 			return response.get_response()
 		datas = json.dumps(datas)
 		params = {
@@ -147,8 +148,8 @@ class OrderBatchDelivery(resource.Resource):
 			for data in datas:
 				if not data['result']:
 					order_id_str = ','.join(order_ids)
-					err_msg = u"订单:"+order_id_str+','+data['msg']
-			if err_msg!='':
+					err_msg = u"订单:" + order_id_str + ',' + data['msg']
+			if err_msg != '':
 				response = create_response(500)
 				response.errMsg = err_msg
 				return response.get_response()
@@ -160,14 +161,18 @@ class OrderBatchDelivery(resource.Resource):
 			response.errMsg = res['data']['msg']
 			return response.get_response()
 
-def _read_file(file_url):
+def _read_file(file_path):
 	datas = []
 	error_rows = []
-	file_url_dictionary = file_url.split('/')[2]
-	file_name = file_url.split('/')[3]
-	file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
-	
-	data = xlrd.open_workbook(file_path)
+	# file_url_dictionary = file_url.split('/')[2]
+	# file_name = file_url.split('/')[3]
+	# file_path = os.path.join(BASE_DIR,'static','upload',file_url_dictionary,file_name)
+	if not file_path.startswith('http'):
+		data = xlrd.open_workbook(file_path)
+	else:
+		response = urllib.urlopen(file_path)
+		html_data = response.read()
+		data = xlrd.open_workbook(file_contents=html_data)
 	table = data.sheet_by_index(0)
 	nrows = table.nrows   #行数
 	for i in range(1,nrows):
@@ -182,7 +187,7 @@ def _read_file(file_url):
 		if type(express_number) == float:
 			express_number = str(int(express_number))
 		
-		if (order_id and express_company_name and express_number)!= '':
+		if (order_id and express_company_name and express_number) != '':
 			item['order_id'] = order_id
 			if express_company_name not in text2express_company_name:
 				error_rows.append(str(i))
