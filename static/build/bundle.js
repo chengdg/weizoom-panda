@@ -45005,11 +45005,6 @@
 						'a',
 						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
 						'编辑'
-					),
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs', target: '_blank', onClick: this.plusProductStore.bind(this, data.id) },
-						'提交'
 					)
 				);
 			} else if (field === 'product_name') {
