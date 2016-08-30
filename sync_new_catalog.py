@@ -66,6 +66,10 @@ for i in range(0, nrows):
     catalog_params = {'classification_id': catalog_relation.weapp_catalog_id,
                       'product_id': product_relation.weapp_product_id}
     print '%s will sync' % product_name
+    resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+        'resource': 'mall.classification_product',
+        'data': catalog_params
+    })
     if not resp or resp.get('code') == 200:
         watchdog.info({'errorMsg': 'Panda product: %s sync catalog Success!' % product.id})
         print '====================================================================='
