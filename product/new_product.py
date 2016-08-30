@@ -523,7 +523,7 @@ class NewProduct(resource.Resource):
 			show_product_name = u"商品名称: " + '%s'%product_name + "\n"
 			show_customer_name = u"商家名称: " + user_profile.name + "\n"
 			show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
-			show_shop_names = u"同步平台平台 :" + u'、'.join(shop_names) + "\n"
+			show_shop_names = u"涉及平台 :" + u'、'.join(shop_names) + "\n"
 			show_product_status = u"状态: " + product_status + "\n"
 			message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
 			send_modify_product_ding_talk(message,request.POST['id'])
