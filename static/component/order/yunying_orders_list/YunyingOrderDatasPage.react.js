@@ -115,9 +115,12 @@ var YunyingOrderDatasPage = React.createClass({
 		}, {
 			text: '微众良乡商城',
 			value: 'weizoom_xiaoyuan'
-		},	{
+		}, {
 			text: '微众精英',
 			value: 'weizoom_jy'
+		}, {
+			text: '爱尔康',
+			value: 'weizoom_aierkang'
 		}];
 		if(W.is_ceshi){
 			typeOptions.push({
