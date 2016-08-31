@@ -84,11 +84,11 @@ class ProductRelation(resource.Resource):
 		# product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
 		# product_images = models.ProductImage.objects.all().order_by('id')
 		# product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
-		filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
-		product_name = filter_idct.get('product_name','')
-		customer_name = filter_idct.get('customer_name','')
-		product_status_value = filter_idct.get('product_status','0')
-		catalog_name = filter_idct.get('catalog_name','')
+		filter_dict = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
+		product_name = filter_dict.get('product_name','')
+		customer_name = filter_dict.get('customer_name','')
+		product_status_value = filter_dict.get('product_status','0')
+		catalog_name = filter_dict.get('catalog_name','')
 		#查询
 		if product_name:
 			products = products.filter(product_name__icontains=product_name)

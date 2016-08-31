@@ -500,7 +500,7 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					product_model_ids = ','.join(set(old_product_model_ids))
 				)
-				
+
 		if product_sync_weapp_accounts:
 			if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
 				modify_contents.append(u'商品规格')
@@ -516,6 +516,10 @@ class NewProduct(resource.Resource):
 				self_user_name = product_sync_weapp.self_user_name
 				if self_user_name in SELF_SHOP2TEXT:
 					shop_names.append(SELF_SHOP2TEXT[self_user_name])
+			# 组织格式,两个换行
+			if len(shop_names)>2:
+				for i in range(2,len(shop_names),2):
+					shop_names[i] = '\n'+ shop_names[i]
 
 			if len(modify_contents)==1 and (modify_contents[0]==u'库存数量(增加)' or modify_contents[0]==u'库存数量(减少)'):
 				product_status = u'已自动更新'
