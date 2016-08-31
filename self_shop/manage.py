@@ -55,15 +55,13 @@ class manage(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		self_shop_has_rebates = models.SelfShopHasRebate.objects.filter(is_deleted=False)
+		self_shops = models.SelfShops.objects.filter(is_deleted=False)
 		rows = []
-		for self_shop_has_rebate in self_shop_has_rebates:
+		for self_shop in self_shops:
 			rows.append({
 				'self_shop_name': self_shop_has_rebate.self_shop_name,
-				'user_name': self_shop_has_rebate.user_name,
-				'rebate_value': self_shop_has_rebate.rebate_value
+				'user_name': self_shop_has_rebate.user_name
 				})
-
 		data = {
 			'rows': rows
 		}
