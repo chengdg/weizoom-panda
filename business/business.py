@@ -202,6 +202,7 @@ class Business(resource.Resource):
 		if company_location:
 			businesses = businesses.filter(company_location__icontains=company_location)
 
+		pageinfo, businesses = paginator.paginate(businesses, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		rows = []
 		for business in businesses:
 			catalog_name = []
@@ -221,7 +222,6 @@ class Business(resource.Resource):
 				'phone': business.phone,
 				'status': models.STATUS2NAME[business.status] if business.status != 3 else models.STATUS2NAME[business.status] + '(' + business.reason + ')'
 			})
-		pageinfo, businesses = paginator.paginate(businesses, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		data = {
 			'rows': rows,
 			'pagination_info': pageinfo.to_dict()
