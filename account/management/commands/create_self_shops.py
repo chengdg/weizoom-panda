@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# __author__ = 'charles'
 
 from django.core.management.base import BaseCommand
 from eaglet.utils.resource_client import Resource
@@ -11,70 +10,83 @@ from account import models as account_models
 
 class Command(BaseCommand):
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         """
         把已经存在的自营平台到自营平台管理表中
         """
-        selfShop = [{
-            'name': '微众白富美',
+        selfShops = [{
+            'name': u'微众白富美',
             'value': 'weizoom_baifumei'
         },{
-            'name': '微众俱乐部',
+            'name': u'微众俱乐部',
             'value': 'weizoom_club'
         },{
-            'name': '微众家',
+            'name': u'微众家',
             'value': 'weizoom_jia'
         },{
-            'name': '微众妈妈',
+            'name': u'微众妈妈',
             'value': 'weizoom_mama'
         },{
-            'name': '微众商城',
+            'name': u'微众商城',
             'value': 'weizoom_shop'
         },{
-            'name': '微众学生',
+            'name': u'微众学生',
             'value': 'weizoom_xuesheng'
         },{
-            'name': '微众Life',
+            'name': u'微众Life',
             'value': 'weizoom_life'
         },{
-            'name': '微众一家人',
+            'name': u'微众一家人',
             'value': 'weizoom_yjr'
         },{
-            'name': '惠惠来啦',
+            'name': u'惠惠来啦',
             'value': 'weizoom_fulilaile'
         },{
-            'name': '居委汇',
+            'name': u'居委汇',
             'value': 'weizoom_juweihui'
         },{
-            'name': '微众中海',
+            'name': u'微众中海',
             'value': 'weizoom_zhonghai'
         },{
-            'name': '微众club',
+            'name': u'微众club',
             'value': 'weizoom_zoomjulebu'
         },{
-            'name': '微众吃货',
+            'name': u'微众吃货',
             'value': 'weizoom_chh'
         },{
-            'name': '微众圈',
+            'name': u'微众圈',
             'value': 'weizoom_pengyouquan'
         },{
-            'name': '少先队',
+            'name': u'少先队',
             'value': 'weizoom_shxd'
         },{
-            'name': '津美汇',
+            'name': u'津美汇',
             'value': 'weizoom_jinmeihui'
         },{
-            'name': '微众便利店',
+            'name': u'微众便利店',
             'value': 'weizoom_wzbld'
         },{
-            'name': '微众佳人',
+            'name': u'微众佳人',
             'value': 'weizoom_jiaren'
         },{
-            'name': '微众良乡商城',
+            'name': u'微众良乡商城',
             'value': 'weizoom_xiaoyuan'
         },{
-            'name': '微众精英',
+            'name': u'微众精英',
             'value': 'weizoom_jy'
+        },{
+            'name': u'爱尔康',
+            'value': 'weizoom_aierkang'
+        },{
+            'name': u'开发测试',
+            'value': 'devceshi'
+        },{
+            'name': u'财务测试',
+            'value': 'caiwuceshi'
         }]
-
-
+        for selfShop in selfShops:
+            print selfShop['name']
+            self_shop_models.SelfShops.objects.create(
+                self_shop_name = selfShop['name'],
+                user_name = selfShop['value']
+                )

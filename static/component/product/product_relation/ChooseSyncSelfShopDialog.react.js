@@ -76,6 +76,9 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		},{
 			'name': '微众精英',
 			'value': 'weizoom_jy'
+		},{
+			'name': '爱尔康',
+			'value': 'weizoom_aierkang'
 		}];
 		if(W.is_ceshi){
 			selfShop.push({

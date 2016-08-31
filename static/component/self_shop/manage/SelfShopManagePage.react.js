@@ -73,7 +73,6 @@ var SelfShopManagePage = React.createClass({
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="平台名称" field="self_shop_name" width="200px"/>
 						<Reactman.TableColumn name="user_name" field="user_name" />
-						<Reactman.TableColumn name="扣点基数" field="rebate_value" />
 						<Reactman.TableColumn name="操作" field="action" width="100px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
