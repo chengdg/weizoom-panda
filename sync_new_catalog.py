@@ -37,27 +37,42 @@ nrows = table.nrows
 can_not_find_products = []
 can_not_find_catalog = []
 catalog_not_sync = []
-
+catalogs = catalog_models.ProductCatalog.objects.filter(level=2)
+catalog_name_2_id = dict([(catalog.name, catalog.id) for catalog in catalogs])
+products = product_models.Product.objects.filter(is_deleted=False)
+product_name_2_id = dict([(product.product_name, product.id) for product in products])
+product_name_2_catalog_id = dict([(product.product_name, product.catalog_id) for product in products])
+# print product_name_2_catalog_id
+# print product_name_2_id
+# print catalog_name_2_id
 for i in range(0, nrows):
-    product_name = table.cell(i, 0).value.strip().encode('utf8')
+    product_name = table.cell(i, 0).value.strip()
     # first_catalog = table.cell(i, 3).value
-    second_catalog = table.cell(i, 4).value.strip().encode('utf8')
-    product = product_models.Product.objects.filter(product_name=product_name).first()
+    second_catalog = table.cell(i, 4).value.strip()
+    product_id = product_name_2_id.get(product_name, '')
+    # product = product_models.Product.objects.filter(product_name=product_name).first()
     # print '%s' % product_name
-    if not product:
+    catalog_id = catalog_name_2_id.get(second_catalog, '')
+    # print '====================================================================='
+    # print catalog_id, product_id
+    # print '====================================================================='
+
+    if not product_id:
         can_not_find_products.append(product_name)
         continue
-    catalog = catalog_models.ProductCatalog.objects.filter(name=second_catalog).first()
-    if not catalog:
+    if not catalog_id:
         can_not_find_catalog.append(product_name)
+        continue
+    if product_name_2_catalog_id.get(product_name) == catalog_id:
+
         continue
     # 更新商品的类目
 
-    product_models.Product.objects.filter(id=product.id).update(catalog_id=catalog.id)
+    product_models.Product.objects.filter(id=product_id).update(catalog_id=catalog_id)
 
-    catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(id=catalog.id).first()
+    catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(id=catalog_id).first()
 
-    product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
+    product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
     if not catalog_relation:
         catalog_not_sync.append(product_name)
         continue
@@ -71,6 +86,7 @@ for i in range(0, nrows):
         'resource': 'mall.classification_product',
         'data': catalog_params
     })
+
     if not resp or resp.get('code') == 200:
         watchdog.info({'errorMsg': 'Panda product: %s sync catalog Success!' % product.id})
         print '====================================================================='
