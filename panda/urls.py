@@ -33,7 +33,8 @@ urlpatterns = patterns('',
 	url(r'^self_shop/', restful_url('self_shop')),
 	url(r'^freight_service/', restful_url('freight_service')),
 	url(r'^business/',restful_url('business')),
-	url(r'^message/',restful_url('message'))
+	url(r'^message/',restful_url('message')),
+	url(r'^label/',restful_url('label'))
 )
 
 urlpatterns += staticfiles_urlpatterns()

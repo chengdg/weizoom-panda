@@ -74,6 +74,12 @@ def top_navs(request):
 				'href': '/product_catalog/product_catalogs/'
 			},
 			{
+				'name': 'label',
+				'displayName': '标签管理',
+				'icon': 'list-alt',
+				'href': '/label/label_manager/'
+			},
+			{
 				'name': 'product',
 				'displayName': '商品',
 				'icon': 'credit-card',
