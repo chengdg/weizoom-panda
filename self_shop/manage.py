@@ -24,6 +24,7 @@ import models
 
 FIRST_NAV = 'self_shop'
 SECOND_NAV = 'manage'
+COUNT_PER_PAGE = 10
 
 SELF_SHOP2TEXT = {
 	'weizoom_jia': u'微众家',
@@ -56,14 +57,18 @@ class manage(resource.Resource):
 	@login_required
 	def api_get(request):
 		self_shops = models.SelfShops.objects.filter(is_deleted=False)
+		cur_page = request.GET.get('page', 1)
 		rows = []
 		for self_shop in self_shops:
 			rows.append({
-				'self_shop_name': self_shop_has_rebate.self_shop_name,
-				'user_name': self_shop_has_rebate.user_name
+				'self_shop_name': self_shop.self_shop_name,
+				'user_name': self_shop.user_name
 				})
+		pageinfo, orders = paginator.paginate(self_shops, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
+		pageinfo = pageinfo.to_dict()
 		data = {
-			'rows': rows
+			'rows': rows,
+			'pagination_info': pageinfo
 		}
 
 		# 构造response
