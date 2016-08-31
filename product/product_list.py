@@ -102,12 +102,12 @@ def getProductData(request, is_export):
 
 	role = UserProfile.objects.get(user_id=request.user.id).role
 	if role == YUN_YING:
-		product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
-		sync_product_ids = []
-		for product_sync_weapp in product_sync_weapps:
-			if product_sync_weapp.product_id not in sync_product_ids:
-				sync_product_ids.append(product_sync_weapp.product_id)
-		products = models.Product.objects.filter(id__in=sync_product_ids, is_deleted=False, is_update=True).order_by('-id')
+		# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
+		# sync_product_ids = []
+		# for product_sync_weapp in product_sync_weapps:
+		# 	if product_sync_weapp.product_id not in sync_product_ids:
+		# 		sync_product_ids.append(product_sync_weapp.product_id)
+		products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
 	else:
 		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 
