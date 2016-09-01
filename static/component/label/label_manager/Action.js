@@ -51,27 +51,27 @@ var Action = {
 		});
 	},
 
-	addProductModel: function(filterOptions){
+	addLabelProperty: function(filterOptions){
 		Resource.put({
-			resource: 'product.product_model',
+			resource: 'label.label_manager',
 			data: {},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.NEW_PRODUCT_MODEL
+				actionType: Constant.LABEL_LABEL_MANAGER_ADD_LABEL_PROPERTY
 			}
 		});
 	},
 
-	updateProductModel: function(id,name){
+	updateLabelProperty: function(id,name){
 		Resource.post({
-			resource: 'product.product_model',
+			resource: 'label.label_manager',
 			data: {
-				'id':id,
+				'label_id':id,
 				'name':name
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.UPDATE_PRODUCT_MODEL
+				actionType: Constant.LABEL_LABEL_MANAGER_UPDATE_LABEL_PROPERTY
 			}
 		});
 	},

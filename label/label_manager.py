@@ -43,3 +43,48 @@ class LabelManager(resource.Resource):
 		})
 
 		return render_to_response('label/label_manager.html', c)
+
+	def api_get(request):
+		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
+		label_property_values = models.LabelPropertyValue.objects.all()
+		rows = []
+		for label_property in label_properties:
+			rows.append({
+				'id': label_property.id,
+				'labelName': label_property.name,
+				'labelValue': '2'
+				})
+		data = {
+			'rows': rows
+		}
+
+		# 构造response
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
+	def api_put(request):
+		try:
+			models.LabelProperty.objects.create(
+				user_id= request.user.id
+			)
+			response = create_response(200)
+		except Exception, e:
+			response = create_response(500)
+			msg = unicode_full_stack()
+			watchdog.error(msg)
+		return response.get_response()
+
+	def api_post(request):
+		label_id = request.POST.get('label_id', -1)
+		name = request.POST.get('name', '')
+		try:
+			models.LabelProperty.objects.create(
+				user_id= request.user.id
+			)
+			response = create_response(200)
+		except Exception, e:
+			response = create_response(500)
+			msg = unicode_full_stack()
+			watchdog.error(msg)
+		return response.get_response()

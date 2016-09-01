@@ -65,8 +65,8 @@ var LabelManagerListPage = React.createClass({
 		});
 	},
 
-	addProductModel: function(){
-		Action.addProductModel();
+	addLabelProperty: function(){
+		Action.addLabelProperty();
 	},
 
 	editProductModelName: function(id,ref){
@@ -75,7 +75,7 @@ var LabelManagerListPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请输入规格名');
 			return;
 		}
-		Action.updateProductModel(id,name);
+		Action.updateLabelProperty(id,name);
 	},
 
 	deleteProductModelValue: function(value_id){
@@ -99,28 +99,6 @@ var LabelManagerListPage = React.createClass({
 					<a className="btn btn-link btn-xs" onClick={this.deleteProductModel.bind(this,data['id'],data['model_ids'])} data-product-id={data.id}>删除</a>
 				</div>
 			);
-		}else if(field === 'model_type'){
-			var model_type = parseInt(data['model_type']);
-			var name = 'model_type_'+data['id'];
-			var text_checked = null;
-			var img_checked = null;
-			if(model_type==0){
-				text_checked = 'checked';
-			}else{
-				img_checked = 'checked';
-			}
-			return(
-				<div>
-					<label className="radio_model_type">
-						<input type="radio" className="radio model_type_text" name={name} value="0" checked={text_checked} onChange={this.onChangeModelType.bind(this,data['id'],0)}/>
-						<span className="model_type_text_value">文本</span>
-					</label>
-					<label className="radio_model_type">
-						<input type="radio" className="radio model_type_img" name={name} value="1" checked={img_checked} onChange={this.onChangeModelType.bind(this,data['id'],1)}/>
-						<span className="model_type_text_value">图片</span>
-					</label>
-				</div>
-			)
 		} else if(field === 'product_model_value'){
 			var _this = this;
 			var model_name = data['model_name'];
@@ -160,13 +138,13 @@ var LabelManagerListPage = React.createClass({
 				</div>
 			)
 
-		}else if(field === 'product_model_name'){
-			var product_model_name = data['product_model_name'];
-			var ref = 'product_model_' + data['id'];
-			if(product_model_name){
+		}else if(field === 'labelName'){
+			var labelName = data['labelName'];
+			var ref = 'labelName_' + data['id'];
+			if(labelName){
 				return(
-					<div>
-						{product_model_name}
+					<div>-
+						{labelName}
 					</div>
 				)
 			}else{
@@ -183,22 +161,21 @@ var LabelManagerListPage = React.createClass({
 
 	render:function(){
 		var productsResource = {
-			resource: 'product.product_model',
+			resource: 'label.label_manager',
 			data: {
 				page: 1
 			}
 		};
 
 		return (
-			<div className="mt15 xui-product-productListPage">
+			<div className="mt15 xui-label-labelManagerListPage">
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
-						<Reactman.TableActionButton text="添加规格" icon="plus" onClick={this.addProductModel}/>
+						<Reactman.TableActionButton text="添加规格" icon="plus" onClick={this.addLabelProperty}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
-						<Reactman.TableColumn name="规格名" field="product_model_name" width="200px"/>
-						<Reactman.TableColumn name="显示样式" field="model_type" width="200px"/>
-						<Reactman.TableColumn name="规格值" field="product_model_value" />
+						<Reactman.TableColumn name="分类" field="labelName" width="200px"/>
+						<Reactman.TableColumn name="标签" field="labelValue" />
 						<Reactman.TableColumn name="操作" field="action" width="100px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>

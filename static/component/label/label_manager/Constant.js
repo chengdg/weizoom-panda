@@ -6,8 +6,8 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	NEW_PRODUCT_MODEL: null,
-	UPDATE_PRODUCT_MODEL: null,
+	LABEL_LABEL_MANAGER_ADD_LABEL_PROPERTY: null,
+	LABEL_LABEL_MANAGER_UPDATE_LABEL_PROPERTY: null,
 	DELETE_PRODUCT_MODEL: null,
 	NEW_PRODUCT_MODEL_VALUE: null,
 	ADD_PRODUCT_MODEL_VALUE: null,

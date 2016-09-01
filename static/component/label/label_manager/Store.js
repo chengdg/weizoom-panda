@@ -16,8 +16,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleCreateNewProductModel': Constant.NEW_PRODUCT_MODEL,
-		'handleUpdateProductModel': Constant.UPDATE_PRODUCT_MODEL,
+		'handleAddLabelProperty': Constant.LABEL_LABEL_MANAGER_ADD_LABEL_PROPERTY,
+		'handleUpdateLabelProperty': Constant.LABEL_LABEL_MANAGER_UPDATE_LABEL_PROPERTY,
 		'handleDeleteProductModel': Constant.DELETE_PRODUCT_MODEL,
 
 		'handleAddProductModelValue': Constant.ADD_PRODUCT_MODEL_VALUE,
@@ -51,11 +51,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleCreateNewProductModel: function(action){
+	handleAddLabelProperty: function(action){
 		this.__emitChange();
 	},
 
-	handleUpdateProductModel: function(action){
+	handleUpdateLabelProperty: function(action){
 		this.__emitChange();
 	},
 
