@@ -47,12 +47,25 @@ class LabelManager(resource.Resource):
 	def api_get(request):
 		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
 		label_property_values = models.LabelPropertyValue.objects.all()
+		property_id2name = {}
+		for label_property_value in label_property_values:
+			if label_property_value.property_id not in property_id2name:
+				property_id2name[label_property_value.property_id] = [{
+					'label_value_id': label_property_value.id,
+					'name': label_property_value.name
+				}]
+			else:
+				property_id2name[label_property_value.property_id].append({
+					'label_value_id': label_property_value.id,
+					'name': label_property_value.name
+				})
+
 		rows = []
 		for label_property in label_properties:
 			rows.append({
 				'id': label_property.id,
 				'labelName': label_property.name,
-				'labelValue': '2'
+				'labelValues': [] if label_property.id not in property_id2name else json.dumps(property_id2name[label_property.id])
 				})
 		data = {
 			'rows': rows
@@ -79,12 +92,26 @@ class LabelManager(resource.Resource):
 		label_id = request.POST.get('label_id', -1)
 		name = request.POST.get('name', '')
 		try:
-			models.LabelProperty.objects.create(
-				user_id= request.user.id
+			models.LabelProperty.objects.filter(id=int(label_id)).update(
+				name= name
 			)
 			response = create_response(200)
 		except Exception, e:
 			response = create_response(500)
 			msg = unicode_full_stack()
 			watchdog.error(msg)
+		return response.get_response()
+
+	def api_delete(request):
+		label_id = request.POST.get('label_id', 0)
+		response = create_response(500)
+		try:
+			if label_id != 0:
+				models.LabelProperty.objects.filter(id=label_id).update(is_deleted=True)
+				models.LabelPropertyValue.objects.filter(property_id=label_id).delete()
+				response = create_response(200)
+		except:
+			msg = unicode_full_stack()
+			watchdog.error(msg)
+			response.innerErrMsg = msg
 		return response.get_response()

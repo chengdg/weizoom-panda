@@ -16,42 +16,19 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleAddLabelProperty': Constant.LABEL_LABEL_MANAGER_ADD_LABEL_PROPERTY,
 		'handleUpdateLabelProperty': Constant.LABEL_LABEL_MANAGER_UPDATE_LABEL_PROPERTY,
-		'handleDeleteProductModel': Constant.DELETE_PRODUCT_MODEL,
+		'handleDeleteLabelProperty': Constant.LABEL_LABEL_MANAGER_DELETE_LABEL_PROPERTY,
 
-		'handleAddProductModelValue': Constant.ADD_PRODUCT_MODEL_VALUE,
-		'handleCreateProductModelValue': Constant.NEW_PRODUCT_MODEL_VALUE,
-		'handleDeleteProductModelValue': Constant.DELETE_PRODUCT_MODEL_VALUE,
-		'handleClearProductModelValue': Constant.CLEAR_PRODUCT_MODEL_VALUE,
+		'handleUpdateLabelValue': Constant.LABEL_LABEL_MANAGER_UPDATE_LABEL_VALUE
 	},
 
 	init: function() {
 		this.data = {
-			'images': [],
-			'model_value': '',
+			'labelValue': ''
 		};
-		this.filter = {};
 	},
 
-	handleAddProductModelValue: function(action) {
-		this.data[action.data.property] = action.data.value;
-		this.__emitChange();
-	},
-
-	handleCreateProductModelValue: function(action){
-		setTimeout(function() {
-		 	Reactman.PageAction.showHint('success', '添加成功');
-		}, 10);
-		
-		this.__emitChange();
-	},
-
-	handleDeleteProductModelValue: function(action) {
-		this.__emitChange();
-	},
-
-	handleAddLabelProperty: function(action){
+	handleUpdateLabelValue: function(action) {
 		this.__emitChange();
 	},
 
@@ -59,27 +36,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 
-	handleDeleteProductModel: function(action) {
+	handleDeleteLabelProperty: function(action) {
 		setTimeout(function() {
 		 	Reactman.PageAction.showHint('success', '删除成功');
 		}, 10);
 		this.__emitChange();
 	},
 
-	handleClearProductModelValue: function(){
-		this.data = {
-			'images': [],
-			'model_value': '',
-		};
-		this.__emitChange();
-	},
-
 	getData: function() {
 		return this.data;
-	},
-
-	getFilter: function() {
-		return this.filter;
 	}
 });
 

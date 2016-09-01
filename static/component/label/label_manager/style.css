@@ -15,15 +15,16 @@
 	left: 15px;
 }
 
-.xa-editModelPropertyValue{
+.xa-editLabelValues{
     overflow: hidden;
     border: solid 1px #BFBFBF;
     position: relative;
     width: auto;
     height: 37px;
+    padding: 0 5px;
 }
 
-li.model_li{
+li.model-li{
     display: inline-block;
     box-sizing: border-box;
     margin: 8px 10px 5px 0px;
@@ -40,9 +41,9 @@ button.xui-close{
 	line-height: 16px;
 }
 
-.modal-footer{
+/*.modal-footer{
 	display: none;
-}
+}*/
 
 .xui-form-imageUploader{
 	width: 260px;
