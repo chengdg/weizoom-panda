@@ -41,7 +41,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleAccountDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;
 		var filter_str = '';
-		window.location.href = '/manager/account_export';
+		window.location.href = '/manager/account_no_product_export';
 	},
 });
 

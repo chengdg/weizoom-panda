@@ -132,6 +132,7 @@ var AccountManagePage = React.createClass({
 			
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
+					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">

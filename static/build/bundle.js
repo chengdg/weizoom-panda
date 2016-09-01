@@ -37525,6 +37525,7 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
+						React.createElement(Reactman.TableActionButton, { text: '导出', onClick: this.onExport }),
 						React.createElement(Reactman.TableActionButton, { text: '添加账号', icon: 'plus', href: '/manager/account_create/' })
 					),
 					React.createElement(
@@ -37591,7 +37592,7 @@
 		handleAccountDatasExport: function (action) {
 			var filterOptions = this.data.filterOptions;
 			var filter_str = '';
-			window.location.href = '/manager/account_export';
+			window.location.href = '/manager/account_no_product_export';
 		}
 	});
 
