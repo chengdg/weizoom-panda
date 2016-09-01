@@ -103,7 +103,10 @@ class GetAllSyncedSelfShops(resource.Resource):
 	@login_required
 	def api_get(request):
 		self_shops = models.SelfShops.objects.filter(is_deleted=False, is_synced=True)
-		rows = []
+		rows = [{
+			'text': u'全部',
+			'value': -1
+		}]
 		for self_shop in self_shops:
 			rows.append({
 				'text': self_shop.self_shop_name,

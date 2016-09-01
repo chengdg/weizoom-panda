@@ -28,7 +28,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	initAllSelfShops: function(action) {
-		// console.log(action.data.rows);
 		this.data['typeOptions'] = action.data.rows;
 		this.__emitChange();
 	},
@@ -49,7 +48,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	getData: function() {
-		console.log(this.data.typeOptions);
 		return this.data;
 	}
 });
