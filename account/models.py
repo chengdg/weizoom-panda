@@ -64,6 +64,7 @@ class UserProfile(models.Model):
 	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
 	max_product = models.IntegerField(default=3) #最多可创建商品
 	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
+	product_count = models.IntegerField(default=0) #客户商品数量
 
 	class Meta(object):
 		db_table = 'account_user_profile'

@@ -16,6 +16,8 @@ from core import paginator
 from util import db_util
 from util import string_util
 from eaglet.utils.resource_client import Resource
+from eaglet.core.exceptionutil import unicode_full_stack
+from util import watchdog
 
 from account.models import *
 from resource import models as resource_models
@@ -274,6 +276,12 @@ class NewProduct(resource.Resource):
 								property_value_id = property_value['id']
 							))
 						models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
+
+			try:
+				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
+			except :
+				message = u"修改帐号商品数异常：{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
 			response = create_response(200)
 		except:
 			response = create_response(500)
@@ -536,10 +544,15 @@ class NewProduct(resource.Resource):
 		return response.get_response()
 
 	def api_delete(request):
-		products = models.Product.objects.filter(id=request.POST['id'])
-		product_ids = [product.id for product in products]
-		products.update(is_deleted=True)
-		models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+		if models.Product.objects.filter(id=request.POST['id']).count():
+			products = models.Product.objects.filter(id=request.POST['id']).update(is_deleted=True)
+			models.ProductHasRelationWeapp.objects.filter(product_id__in=request.POST['id']).delete()
+			try:
+				product = models.Product.objects.get(id=request.POST['id'])
+				UserProfile.objects.filter(user=product.owner).update(product_count=F('product_count') - 1)
+			except :
+				message = u"api_delete修改帐号商品数异常：{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
 		response = create_response(200)
 		return response.get_response()
 
