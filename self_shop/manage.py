@@ -77,6 +77,7 @@ class manage(resource.Resource):
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
 
+#得到所有还未同步的自营平台
 class GetAllUnsyncedSelfShops(resource.Resource):
 	app = 'self_shop'
 	resource = 'get_all_unsynced_self_shops'
@@ -87,6 +88,27 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 			'text': u'自营平台1111',
 			'value': 'aaaa'
 		}]
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
+#得到所有已经同步过的自营平台
+class GetAllSyncedSelfShops(resource.Resource):
+	app = 'self_shop'
+	resource = 'get_all_synced_self_shops'
+
+	@login_required
+	def api_get(request):
+		self_shops = models.SelfShops.objects.filter(is_deleted=False, is_synced=True)
+		rows = []
+		for self_shop in self_shops:
+			rows.append({
+				'text': self_shop.self_shop_name,
+				'value': self_shop.user_name
+			})
 		data = {
 			'rows': rows
 		}
