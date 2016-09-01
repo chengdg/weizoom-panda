@@ -28,14 +28,27 @@ var SelfShopManagePage = React.createClass({
 	},
 
 	addSelfShop:function(){
-		Reactman.PageAction.showDialog({
-			title: "添加自营平台",
-			component: AddSelfShopDialog,
+		Reactman.Resource.get({
+			resource: 'self_shop.get_all_unsynced_self_shops',
 			data: {},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
+			success: function(data) {
+				var options = data.rows;
+				Reactman.PageAction.showDialog({
+					title: "添加自营平台",
+					component: AddSelfShopDialog,
+					data: {
+						options: options
+					},
+					success: function() {
+						console.log("success");
+					}
+				});
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			},
+			scope: this
+		})
 	},
 
 	rowFormatter: function(field, value, data) {

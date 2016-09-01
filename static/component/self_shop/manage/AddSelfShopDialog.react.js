@@ -16,10 +16,16 @@ require('./style.css');
 var AddSelfShopDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
+		var options = this.props.data.options;
+		var selfUserName = ''
+		if(options.length > 0){
+			selfUserName = options[0]['value']
+		}
 		return {
-			'selfUserName': '',
-			'remark': '',
-			'isSync': ''
+			selfUserName: selfUserName,
+			remark: '',
+			isSync: '',
+			options: options
 		};
 	},
 
@@ -29,6 +35,8 @@ var AddSelfShopDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
+		var infomations = Store.getData();
+		console.log(infomations);
 		this.setState(Store.getData());
 	},
 
@@ -62,19 +70,15 @@ var AddSelfShopDialog = Reactman.createDialog({
 	},
 
 	render:function(){
-		var typeOptions = [{
-	        text: '平台1',
-	        value: 'aaaa'
-    	}];
 		var optionsForSync = [{
-	        text: '批量同步已有的商品',
-	        value: 'isSync'
-    	}];
+			text: '批量同步已有的商品',
+			value: 'isSync'
+		}];
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<Reactman.FormSelect label="选择平台:" name="selfUserName" options={typeOptions} value={this.state.selfUserName} onChange={this.onChange}/>
+						<Reactman.FormSelect label="选择平台:" name="selfUserName" value={this.state.selfUserName} options={this.state.options} onChange={this.onChange}/>
 						<Reactman.FormText label="备注说明:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
 						<Reactman.FormCheckbox label="" name="isSync" value={this.state.isSync} options={optionsForSync} onChange={this.onChange} />
 					</fieldset>

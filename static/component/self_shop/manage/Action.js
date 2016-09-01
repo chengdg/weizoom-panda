@@ -15,7 +15,7 @@ var Constant = require('./Constant');
 var Action = {
 	updateSelfShopDialog: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.updateSelfShopDialog,
+			actionType: Constant.UPDATE_SELF_SHOP_DIALOG,
 			data: {
 				property: property,
 				value: value

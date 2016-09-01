@@ -16,7 +16,7 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateSelfShopDialog': Constant.updateSelfShopDialog
+		'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG
 	},
 
 	init: function() {

@@ -76,3 +76,20 @@ class manage(resource.Resource):
 			response = create_response(500)
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
+
+class GetAllUnsyncedSelfShops(resource.Resource):
+	app = 'self_shop'
+	resource = 'get_all_unsynced_self_shops'
+
+	@login_required
+	def api_get(request):
+		rows = [{
+			'text': u'自营平台1111',
+			'value': 'aaaa'
+		}]
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
