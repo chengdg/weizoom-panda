@@ -51,7 +51,7 @@ class ManagerAccount(resource.Resource):
 	@login_required
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active=True, role=1).order_by('created_at')
+		accounts = UserProfile.objects.filter(is_active=True, role=1, product_count=0).order_by('created_at')
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
