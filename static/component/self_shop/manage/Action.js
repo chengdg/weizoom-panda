@@ -13,9 +13,9 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	addRebateValue: function(property, value) {
+	updateSelfShopDialog: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.ADD_REBATE_VALUE,
+			actionType: Constant.updateSelfShopDialog,
 			data: {
 				property: property,
 				value: value

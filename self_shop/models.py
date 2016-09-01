@@ -10,6 +10,7 @@ class SelfShops(models.Model):
 	self_shop_name = models.CharField(max_length=50, null=True)  #平台名称
 	user_name = models.CharField(max_length=50, null=True)  #user_name
 	remark = models.TextField(null=True) #备注
+	is_synced = models.BooleanField(default=False) #是否已同步过
 	is_deleted = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 

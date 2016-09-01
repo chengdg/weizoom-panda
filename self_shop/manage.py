@@ -24,19 +24,7 @@ import models
 
 FIRST_NAV = 'self_shop'
 SECOND_NAV = 'manage'
-COUNT_PER_PAGE = 10
-
-SELF_SHOP2TEXT = {
-	'weizoom_jia': u'微众家',
-	'weizoom_mama': u'微众妈妈',
-	'weizoom_xuesheng': u'微众学生',
-	'weizoom_baifumei': u'微众白富美',
-	'weizoom_shop': u'微众商城',
-	'weizoom_club': u'微众俱乐部',
-	'weizoom_life': u'微众Life',
-	'weizoom_yjr': u'微众一家人',
-	'weizoom_fulilaile': u'惠惠来啦'
-}
+COUNT_PER_PAGE = 20
 
 class manage(resource.Resource):
 	app = 'self_shop'
@@ -63,8 +51,9 @@ class manage(resource.Resource):
 		rows = []
 		for self_shop in self_shops:
 			rows.append({
-				'self_shop_name': self_shop.self_shop_name,
-				'user_name': self_shop.user_name
+				'selfShopName': self_shop.self_shop_name,
+				'userName': self_shop.user_name,
+				'isSynced': self_shop.is_synced
 				})
 		data = {
 			'rows': rows,
@@ -78,26 +67,10 @@ class manage(resource.Resource):
 	@login_required
 	def api_put(request):
 		user_name = request.POST.get('self_user_name','')
-		rebate_value = request.POST.get('rebate_value','')
+		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
-		print user_name,rebate_value,remark,"============"
-		self_shop_name = SELF_SHOP2TEXT[user_name] if user_name in SELF_SHOP2TEXT else ''
 		try:
-			self_shop_has_rebate = models.SelfShopHasRebate.objects.filter(user_name=user_name)
-			if self_shop_has_rebate:
-				print "----------"
-				self_shop_has_rebate.update(
-					rebate_value = rebate_value,
-					remark = remark
-				)
-			else:
-				print "-----sssssss-----"
-				models.SelfShopHasRebate.objects.create(
-					self_shop_name = self_shop_name,
-					user_name = user_name,
-					rebate_value = rebate_value,
-					remark = remark
-				)
+			print user_name,is_sync,remark,"============"
 			response = create_response(200)
 		except Exception, e:
 			response = create_response(500)

@@ -85,8 +85,10 @@ class Command(BaseCommand):
             'value': 'caiwuceshi'
         }]
         for selfShop in selfShops:
-            print selfShop['name']
             self_shop_models.SelfShops.objects.create(
                 self_shop_name = selfShop['name'],
-                user_name = selfShop['value']
-                )
+                user_name = selfShop['value'],
+                is_synced = True
+            )
+            print '--------------sync--------' + selfShop['value']
+        print '--------------sync all success--------------'

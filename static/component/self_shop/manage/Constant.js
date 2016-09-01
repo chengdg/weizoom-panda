@@ -6,5 +6,5 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	ADD_REBATE_VALUE: null
+	updateSelfShopDialog: null
 });

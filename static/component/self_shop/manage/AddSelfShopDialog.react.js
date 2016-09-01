@@ -17,15 +17,15 @@ var AddSelfShopDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return {
-			'self_user_name': '',
-			'rebate_value': '',
+			'selfUserName': '',
 			'remark': '',
+			'isSync': ''
 		};
 	},
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.addRebateValue(property, value);
+		Action.updateSelfShopDialog(property, value);
 	},
 
 	onChangeStore: function(){
@@ -33,20 +33,17 @@ var AddSelfShopDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		if (this.state.self_user_name == '') {
+		console.log(this.state);
+		if (this.state.selfUserName == '') {
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
 			//给接口传递发货信息的参数
-			var selfUserName = this.state.self_user_name;
-			var rebateValue = this.state.rebate_value;
-			var remark = this.state.remark;
-			console.log(selfUserName,rebateValue,remark,'========');
 			Reactman.Resource.put({
 				resource: 'self_shop.manage',
 				data: {
-					self_user_name: selfUserName,
-					rebate_value: rebateValue,
-					remark: remark
+					self_user_name: this.state.selfUserName,
+					remark: this.state.remark,
+					is_sync: this.state.isSync
 				},
 				success: function(action) {
 					console.log(action,"===========");
@@ -66,44 +63,20 @@ var AddSelfShopDialog = Reactman.createDialog({
 
 	render:function(){
 		var typeOptions = [{
-			text: '',
-			value: ''
-		},{
-			text: '微众商城',
-			value: 'weizoom_shop'
-		}, {
-			text: '微众家',
-			value: 'weizoom_jia'
-		}, {
-			text: '微众妈妈',
-			value: 'weizoom_mama'
-		}, {
-			text: '微众学生',
-			value: 'weizoom_xuesheng'
-		}, {
-			text: '微众白富美',
-			value: 'weizoom_baifumei'
-		}, {
-			text: '微众俱乐部',
-			value: 'weizoom_club'
-		}, {
-			text: '微众Life',
-			value: 'weizoom_life'
-		}, {
-			text: '微众一家人',
-			value: 'weizoom_yjr'
-		}, {
-			text: '惠惠来啦',
-			value: 'weizoom_fulilaile'
-		}];
+	        text: '平台1',
+	        value: 'aaaa'
+    	}];
+		var optionsForSync = [{
+	        text: '批量同步已有的商品',
+	        value: 'isSync'
+    	}];
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<Reactman.FormSelect label="选择平台:" name="self_user_name" options={typeOptions} value={this.state.self_user_name} onChange={this.onChange}/>
-						<div className="rebate_tips">提示：扣点基础表示该平台与商品管理系统约定的额外扣点设置。如某客户标准扣点5%，微众家的扣点基数是2，则该客户商品同步到微众家后按照10%的扣点来计算出商品采购价（即结算价）。</div>
-						<Reactman.FormInput label="扣点基数:" type="text" name="rebate_value" value={this.state.rebate_value} onChange={this.onChange} validate="require-float" />
-						<Reactman.FormText label="备注:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
+						<Reactman.FormSelect label="选择平台:" name="selfUserName" options={typeOptions} value={this.state.selfUserName} onChange={this.onChange}/>
+						<Reactman.FormText label="备注说明:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
+						<Reactman.FormCheckbox label="" name="isSync" value={this.state.isSync} options={optionsForSync} onChange={this.onChange} />
 					</fieldset>
 				</form>
 			</div>
