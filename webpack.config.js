@@ -23,12 +23,16 @@ module.exports = {
 	module: {
 		loaders: [{
 			test: /\.jsx?$/,
-			loader: 'babel-loader'
+			loader: 'babel-loader',
+			exclude: ['*.py', '*.pyc', 'templates']
 		}, {
 			test: /\.css$/, // Only .css files
 			loader: 'style!css' // Run both loaders
+		},{
+			test: /\.html$/,
+			loader: 'raw'
 		}]
-	}
+	},
 	// plugins: [
 	// 	//使用丑化js插件
 	// 	new UglifyJsPlugin({
@@ -39,5 +43,8 @@ module.exports = {
 	// 			except: ['window', '$']
 	// 		}
 	// 	})
-	// ]
+	// ],
+	node: {
+    	fs: "empty"
+    }
 };
