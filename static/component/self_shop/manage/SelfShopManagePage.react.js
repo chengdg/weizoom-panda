@@ -25,6 +25,8 @@ var SelfShopManagePage = React.createClass({
 
 	onChangeStore: function() {
 		this.setState(Store.getData());
+		var filterOptions = Store.getData();
+		this.refs.table.refresh(filterOptions);
 	},
 
 	addSelfShop:function(){
@@ -51,6 +53,11 @@ var SelfShopManagePage = React.createClass({
 		})
 	},
 
+	//同步自营平台现有商品
+	chooseSyncSelfShopProduct: function(userName){
+		Action.syncSelfShopProduct(userName);
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			if(data.isSynced){
@@ -60,7 +67,7 @@ var SelfShopManagePage = React.createClass({
 			}else{
 				return (
 					<div>
-						<a className="btn btn-link btn-xs">批量同步现有商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShopProduct.bind(this,data['userName'])}>批量同步现有商品</a>
 					</div>
 				);
 			}

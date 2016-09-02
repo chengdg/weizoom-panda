@@ -46,7 +46,7 @@ class manage(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		self_shops = models.SelfShops.objects.filter(is_deleted=False)
+		self_shops = models.SelfShops.objects.filter(is_deleted=False).order_by('-created_at')
 		cur_page = request.GET.get('page', 1)
 		pageinfo, self_shops = paginator.paginate(self_shops, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		
@@ -67,14 +67,38 @@ class manage(resource.Resource):
 		return response.get_response()
 
 	@login_required
+	#新建自营平台
 	def api_put(request):
+		self_shop_name = request.POST.get('self_shop_name','')
 		user_name = request.POST.get('self_user_name','')
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
 		try:
-			print user_name,is_sync,remark,"============"
+			models.SelfShops.objects.create(
+				self_shop_name = self_shop_name,
+				user_name = user_name,
+				remark = remark
+			)
+			is_sync = True if is_sync == 'is_sync' else False
 			response = create_response(200)
 		except Exception, e:
+			print e
+			response = create_response(500)
+			response.innerErrMsg = unicode_full_stack()
+		return response.get_response()
+
+	@login_required
+	#同步自营平台下的商品
+	def api_post(request):
+		user_name = request.POST.get('self_user_name','')
+		try:
+			print user_name
+			models.SelfShops.objects.filter(user_name=user_name).update(
+				is_synced = True
+				)
+			response = create_response(200)
+		except Exception, e:
+			print e
 			response = create_response(500)
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()

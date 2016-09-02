@@ -37,7 +37,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleInitAllSelfShops: function(action) {
 		this.data['selfShop'] = action.data.rows;
-		this.data['AllSelfShop'] = action.data.allSelfShopsValue;
+		this.data['allSelfShop'] = action.data.allSelfShopsValue;
 		this.__emitChange();
 	},
 	
@@ -95,11 +95,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleChooseAllSelfShop: function(action){
 		var selectSelfShop = this.data.selectSelfShop;
-		var AllSelfShop = this.data.AllSelfShop;
+		var allSelfShop = this.data.allSelfShop;
 		if(selectSelfShop.length == this.data.selfShop.length){
 			selectSelfShop = [];
 		}else{
-			selectSelfShop = AllSelfShop;
+			selectSelfShop = allSelfShop;
 		}
 		this.data.selectSelfShop = selectSelfShop;
 		this.__emitChange();

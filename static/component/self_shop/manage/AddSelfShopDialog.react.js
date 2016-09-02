@@ -36,30 +36,28 @@ var AddSelfShopDialog = Reactman.createDialog({
 
 	onChangeStore: function(){
 		var infomations = Store.getData();
-		console.log(infomations);
 		this.setState(Store.getData());
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log(this.state);
 		if (this.state.selfUserName == '') {
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
-			//给接口传递发货信息的参数
+			var self_shop_name = $('#selfUserName').find("option:selected").text();
+			//添加自营平台
 			Reactman.Resource.put({
 				resource: 'self_shop.manage',
 				data: {
+					self_shop_name: self_shop_name,
 					self_user_name: this.state.selfUserName,
 					remark: this.state.remark,
-					is_sync: this.state.isSync
+					is_sync: this.state.isSync.length > 0 ? 'is_sync': ''
 				},
 				success: function(action) {
-					console.log(action,"===========");
-					Reactman.PageAction.showHint('success', '添加自营平台成功');
-					_.delay(function() {
-							W.gotoPage('/self_shop/manage/');
-						}, 500);
-					// this.closeDialog();
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '添加自营平台成功');
+					},500);
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', '添加自营平台失败');

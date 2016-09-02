@@ -21,7 +21,27 @@ var Action = {
 				value: value
 			}
 		});
-	}
+	},
+	syncSelfShopProduct: function(userName) {
+		Resource.post({
+			resource: 'self_shop.manage',
+			data: {
+				self_user_name: userName
+			},
+			success: function() {
+				Reactman.PageAction.showHint('success', '同步成功');
+				setTimeout(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.UPDATE_SELF_SHOPS,
+						data: {}
+					});
+				},500);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			}
+		});
+	},
 };
 
 module.exports = Action;
