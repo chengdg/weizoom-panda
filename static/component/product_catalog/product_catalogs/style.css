@@ -10,3 +10,17 @@ input#qualification_name {
 .form-group label {
     width: 20%;
 }
+.label-value-li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 10px;
+    border: 1px solid #CCC;
+    width: 90px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    height: 28px;
+    text-align: center;
+}
+.label-value-li:hover{
+	cursor: pointer;
+}

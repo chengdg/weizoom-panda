@@ -14,6 +14,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 var AddCatalogDialog = require('./AddCatalogDialog.react');
 var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
+var AddLabelDialog = require('./AddLabelDialog.react');
 require('./style.css')
 
 var ProductCatalogPage = React.createClass({
@@ -26,6 +27,11 @@ var ProductCatalogPage = React.createClass({
 		var filterOptions = Store.getData();
 		this.refs.table.refresh(filterOptions);
 	},
+
+	componentDidMount: function(){
+		Action.getLabels();
+	},
+
 	onAddCatalog: function(event) {
 		var catalogId = event.target.getAttribute('data-id');
 		var fatherCatalog = event.target.getAttribute('data-father-catalog');
@@ -57,6 +63,7 @@ var ProductCatalogPage = React.createClass({
 			scope: this
 		})
 	},
+
 	onAddQualification: function(event) {
 		var catalogId = event.target.getAttribute('data-id');
 		var qualificationInfos = event.target.getAttribute('data-qualification-info');
@@ -72,6 +79,21 @@ var ProductCatalogPage = React.createClass({
 			}
 		});
 	},
+
+	onAddLabel: function(event){
+		var catalogId = event.target.getAttribute('data-id');
+		Reactman.PageAction.showDialog({
+			title: "配置标签",
+			component: AddLabelDialog,
+			data: {
+				catalogId: catalogId
+			},
+			success: function() {
+				// Action.updateLabels();
+			}
+		});
+	},
+
 	onClickDelete: function(event) {
 		var catalogId = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
@@ -113,7 +135,7 @@ var ProductCatalogPage = React.createClass({
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.fatherCatalog} data-catalog-name={catalog.catalogName} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
 								{hasInfo == '[]'? <a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>配置特殊资质</a>: <a className="btn btn-info ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>已配置</a>}
-								
+								<a className="btn btn-primary ml10" onClick={_this.onAddLabel} data-id={catalog.id}>配置标签</a>
 							</div>
 						</div>
 					)

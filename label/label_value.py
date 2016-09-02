@@ -16,13 +16,9 @@ from core import paginator
 from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
 
-from util import db_util
-from account.models import *
-from util import string_util
-
-import nav
 import models
 
+#标签内容
 class LabelValue(resource.Resource):
 	app = 'label'
 	resource = 'label_value'

@@ -26,7 +26,7 @@ import models
 FIRST_NAV = 'label'
 SECOND_NAV = 'label-manager'
 
-
+#标签管理
 class LabelManager(resource.Resource):
 	app = 'label'
 	resource = 'label_manager'
@@ -34,7 +34,7 @@ class LabelManager(resource.Resource):
 	@login_required
 	def get(request):
 		"""
-		显示商品列表
+		显示标签列表
 		"""
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,

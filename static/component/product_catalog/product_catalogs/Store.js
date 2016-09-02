@@ -18,12 +18,16 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleCatelogDataFilter': Constant.CATALOG_DATAS_FILTER,
 		'handleUpdateCatalog': Constant.UPDATE_CATALOG,
 		'handleDeleteCatalog': Constant.DELETE_CATALOG,
-		'handleAddCatalog': Constant.ADD_CATALOG_QUALIFICATION
+		'handleAddCatalog': Constant.ADD_CATALOG_QUALIFICATION,
+		'handleGetLabels': Constant.PRODUCT_CATALOGS_GET_LABELS
 	},
 
 	init: function() {
 		this.data = {
 			'models': [],
+			'propertyId2names': {},
+			'labelCatalogs': [],
+			'labelValues': []
 		};
 	},
 
@@ -35,6 +39,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	getData: function() {
 		return this.data;
 	},
+
 	handleUpdateCatalog: function(action) {
 		var oldModels = action.data.models;
 		var targetIndex = action.data.index;
@@ -46,6 +51,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['models'] = oldModels;
 		this.__emitChange();
 	},
+
 	handleDeleteCatalog: function(action) {
 		var index = action.data.index;
 		var oldModels = action.data.models;
@@ -53,6 +59,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['models'] = oldModels;
 		this.__emitChange();
 	},
+
 	handleAddCatalog: function(action) {
 		var oldModels = action.data.models;
 		oldModels.push({
@@ -61,7 +68,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			});
 		this.data['models'] = oldModels;
 		this.__emitChange();
-	},
+	}
 });
 
 module.exports = Store;
