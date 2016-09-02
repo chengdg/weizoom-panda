@@ -29,7 +29,7 @@ logger = logging.Logger('message')
 
 execute_from_command_line(sys.argv)
 
-file_name_dir = '%s' % './new_product_catalog.xls'
+file_name_dir = '%s' % './new_product_catalog_love.xls'
 data = xlrd.open_workbook(file_name_dir)
 table = data.sheet_by_index(0)
 # 行数
