@@ -53,17 +53,12 @@ class ProductRelation(resource.Resource):
 		"""
 		显示商品列表
 		"""
-		username = User.objects.get(id=request.user.id).username
-		is_ceshi = False
-		if username in CESHI_USERNAMES:
-			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 			'first_catalog_id': request.GET.get('first_catalog_id', ''),
-			'second_catalog_id': request.GET.get('second_catalog_id', ''),
-			'is_ceshi': is_ceshi
+			'second_catalog_id': request.GET.get('second_catalog_id', '')
 		})
 
 		return render_to_response('product/product_relation.html', c)

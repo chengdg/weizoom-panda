@@ -13,15 +13,35 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	addRebateValue: function(property, value) {
+	updateSelfShopDialog: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.ADD_REBATE_VALUE,
+			actionType: Constant.UPDATE_SELF_SHOP_DIALOG,
 			data: {
 				property: property,
 				value: value
 			}
 		});
-	}
+	},
+	syncSelfShopProduct: function(userName) {
+		Resource.post({
+			resource: 'self_shop.manage',
+			data: {
+				self_user_name: userName
+			},
+			success: function() {
+				Reactman.PageAction.showHint('success', '同步成功');
+				setTimeout(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.UPDATE_SELF_SHOPS,
+						data: {}
+					});
+				},500);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			}
+		});
+	},
 };
 
 module.exports = Action;

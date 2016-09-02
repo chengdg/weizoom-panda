@@ -16,15 +16,21 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleAddRebateValue': Constant.ADD_REBATE_VALUE
+		'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG,
+		'handelUpdateSelfShops': Constant.UPDATE_SELF_SHOPS
 	},
 
 	init: function() {
 		this.data = {};
 	},
 
-	handleAddRebateValue: function(action) {
+	handleUpdateSelfShopDialog: function(action) {
 		this.data[action.data.property] = action.data.value;
+		this.__emitChange();
+	},
+
+	handelUpdateSelfShops: function(action){
+		this.data = action.data;
 		this.__emitChange();
 	},
 
