@@ -16,6 +16,7 @@ from core import paginator
 
 from util import string_util
 from account import models as account_models
+from product import models as product_models
 from panda.settings import ZEUS_HOST
 from util import db_util
 from panda.settings import CESHI_USERNAMES
@@ -80,7 +81,18 @@ class manage(resource.Resource):
 				remark = remark
 			)
 			is_sync = True if is_sync == 'is_sync' else False
-			response = create_response(200)
+			if is_sync: #需要在创建时候同步
+				is_synced = SyncAllProduct2NewSelfShop(user_name)
+				if is_synced:
+					models.SelfShops.objects.filter(user_name=user_name).update(
+						is_synced = True
+						)
+					response = create_response(200)
+				else:
+					response = create_response(500)
+					response.innerErrMsg = unicode_full_stack()
+			else:
+				response = create_response(200)
 		except Exception, e:
 			print e
 			response = create_response(500)
@@ -92,11 +104,15 @@ class manage(resource.Resource):
 	def api_post(request):
 		user_name = request.POST.get('self_user_name','')
 		try:
-			print user_name
-			models.SelfShops.objects.filter(user_name=user_name).update(
-				is_synced = True
-				)
-			response = create_response(200)
+			is_synced = SyncAllProduct2NewSelfShop(user_name)
+			if is_synced:
+				models.SelfShops.objects.filter(user_name=user_name).update(
+					is_synced = True
+					)
+				response = create_response(200)
+			else:
+				response = create_response(500)
+				response.innerErrMsg = unicode_full_stack()
 		except Exception, e:
 			print e
 			response = create_response(500)
@@ -164,3 +180,19 @@ class GetAllSyncedSelfShops(resource.Resource):
 		response = create_response(200)
 		response.data = data
 		return response.get_response()
+
+def SyncAllProduct2NewSelfShop(self_user_name):
+	"""
+	同步商品到新的自营平台
+	"""
+	try:
+		relations = product_models.ProductSyncWeappAccount.objects.all().values('product_id').distinct()
+		bulk_create = []
+		for relation in relations:
+			product_id = relation.get('product_id')
+			t_1 = product_models.ProductSyncWeappAccount(product_id=product_id, self_user_name=self_user_name)
+			bulk_create.append(t_1)
+		product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
+		return True
+	except:
+		return False
