@@ -516,7 +516,7 @@ class NewProduct(resource.Resource):
 		#发送钉钉消息
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
 		
-		if product_sync_weapp_accounts:
+		if product_sync_weapp_accounts and len(modify_contents)>0:
 			product_status = u'待同步更新'
 			#获取已同步自营平台	
 			shop_names = []
