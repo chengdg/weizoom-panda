@@ -16,11 +16,13 @@ from core import paginator
 
 from util import string_util
 from account import models as account_models
-from product import models as product_models
 from panda.settings import ZEUS_HOST
 from util import db_util
+from panda.settings import CESHI_USERNAMES
+
 import nav
 import models
+
 
 FIRST_NAV = 'self_shop'
 SECOND_NAV = 'manage'
@@ -102,18 +104,38 @@ class GetAllSyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		self_shops = models.SelfShops.objects.filter(is_deleted=False, is_synced=True)
-		rows = [{
-			'text': u'全部',
-			'value': -1
-		}]
+		is_for_search = request.GET.get('is_for_search', '')
+		all_self_shop_value = []
+		if is_for_search == 'true':
+			rows = [{
+				'text': u'全部',
+				'value': '-1'
+			}]
+		else:
+			rows = []
+		self_shops = models.SelfShops.objects.filter(is_deleted=False, is_synced=True).exclude(self_shop_name__in=['开发测试','财务测试'])
 		for self_shop in self_shops:
 			rows.append({
 				'text': self_shop.self_shop_name,
 				'value': self_shop.user_name
 			})
+			all_self_shop_value.append(self_shop.user_name)
+
+		username = account_models.User.objects.get(id=request.user.id).username
+		if username in CESHI_USERNAMES:
+			rows.append({
+				'text': u'开发测试',
+				'value': 'devceshi'
+			})
+			rows.append({
+				'text': u'财务测试',
+				'value': 'caiwuceshi'
+			})
+			all_self_shop_value.append('devceshi')
+			all_self_shop_value.append('caiwuceshi')
 		data = {
-			'rows': rows
+			'rows': rows,
+			'allSelfShopsValue' : all_self_shop_value
 		}
 		response = create_response(200)
 		response.data = data
