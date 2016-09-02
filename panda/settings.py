@@ -225,6 +225,11 @@ LOGGING = {
     }
 }
 
+
+MAIL_NOTIFY_USERNAME = u'noreply@notice.weizoom.com'
+MAIL_NOTIFY_PASSWORD = u'Weizoom2015'
+MAIL_NOTIFY_ACCOUNT_SMTP = u'smtp.dm.aliyun.com'
+
 SESSION_COOKIE_AGE = 5 * 24 * 3600  # one week
 AUTH_PROFILE_MODULE = "account.UserProfile"
 LOGIN_URL = '/account/login/'
