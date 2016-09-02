@@ -29,7 +29,7 @@ logger = logging.Logger('message')
 
 execute_from_command_line(sys.argv)
 
-file_name_dir = '%s' % './new_product_catalog_love.xls'
+file_name_dir = '%s' % './new_product_catalog_hate.xls'
 data = xlrd.open_workbook(file_name_dir)
 table = data.sheet_by_index(0)
 # 行数
@@ -48,7 +48,7 @@ product_name_2_catalog_id = dict([(product.product_name, product.catalog_id) for
 for i in range(0, nrows):
     product_name = table.cell(i, 0).value.strip()
     # first_catalog = table.cell(i, 3).value
-    second_catalog = table.cell(i, 4).value.strip()
+    second_catalog = table.cell(i, 3).value.strip()
     product_id = product_name_2_id.get(product_name, '')
     # product = product_models.Product.objects.filter(product_name=product_name).first()
     # print '%s' % product_name
