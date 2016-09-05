@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     continue
                 params = {
                     'page': 1,
-                    'per_count_page': 15,
+                    'per_count_page': 1000,
                     'order_status': 3,
                     'supplier_ids': json.dumps(supplier_ids)
                 }

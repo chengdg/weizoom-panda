@@ -59,7 +59,11 @@ for i in range(0, nrows):
 
     if not product_id:
         can_not_find_products.append(product_name)
-        continue
+        product = product_models.Product.objects.filter(product_name__contains=product_name).first()
+        if product:
+            product_id = product.id
+        else:
+            continue
     if not catalog_id:
         can_not_find_catalog.append(product_name)
         continue
