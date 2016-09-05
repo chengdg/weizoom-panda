@@ -85,6 +85,7 @@ class CustomerOrdersList(resource.Resource):
 		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>', request.user.id
 		if user_profile:
 			user_profile_id = user_profile.id
+			purchase_method = user_profile.purchase_method #采购方式
 			account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=user_profile_id)
 			# 为了适配新逻辑
 			old_account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id=-user_profile_id)
@@ -227,6 +228,7 @@ class CustomerOrdersList(resource.Resource):
 					response = create_response(500)
 					return response.get_response()
 
+			# price【商品单价】，purchase_price【结算价】，total_price【商品售价*数量】
 			for order in orders:
 				order_id = order['order_id']
 				product_infos = []
@@ -244,9 +246,8 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': product_weapp_id2info[product_id][0]['product_name'],
 							'model_names': model_names,
 							'product_img': product_weapp_id2info[product_id][0]['product_img'],
-							'purchase_price': return_product_info['price'],
-							'count': return_product_info['count'],
-							'total_price': return_product_info['total_price']
+							'price': return_product_info['price'],
+							'count': return_product_info['count']
 						})
 					else:
 						if return_product_info['model_names']:
@@ -257,13 +258,15 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': return_product_info['name'],
 							'model_names': model_names,
 							'product_img': return_product_info['thumbnails_url'],
-							'purchase_price': return_product_info['price'],
-							'count': return_product_info['count'],
-							'total_price': return_product_info['total_price']
+							'price': return_product_info['price'],
+							'count': return_product_info['count']
 						})
 					if not is_for_list:
 						total_weight += return_product_info['weight']
-					total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
+					if purchase_method == 1: #固定底价类型客户
+						total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
+					else: #扣点类型客户
+						total_purchase_price += float(return_product_info['total_price'])
 
 				if is_for_list:
 					rows.append({
