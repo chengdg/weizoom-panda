@@ -112,7 +112,7 @@ var OrderDatasPage = React.createClass({
 			}else if (value == 'product_price'){
 				return (
 					<div key={index} style={{paddingLeft:'10px'}}>
-						<div>{product['purchase_price']}</div>
+						<div>{product['price']}</div>
 						<div>({product['count']}件)</div>
 					</div>
 				)
