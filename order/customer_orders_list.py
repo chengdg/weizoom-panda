@@ -266,7 +266,7 @@ class CustomerOrdersList(resource.Resource):
 					if purchase_method == 1: #固定底价类型客户
 						total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
 					else: #扣点类型客户
-						total_purchase_price += float(return_product_info['total_price'])
+						total_purchase_price += float(return_product_info['origin_total_price'])
 
 				if is_for_list:
 					rows.append({
