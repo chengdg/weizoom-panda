@@ -19,14 +19,15 @@ var AddLabelDialog = Reactman.createDialog({
 		var catalogId = this.props.data.catalogId;
 		return {
 			catalogId: catalogId,
+			catalogs: Store.getData().catalogs,
 			labelFirstId: Store.getData().labelFirstId,
 			labelCatalogs: Store.getData().labelCatalogs,//所有的标签分类值
 			propertyId2names: Store.getData().propertyId2names,
 			labelId2name: Store.getData().labelId2name,
 			valueId2name: Store.getData().valueId2name,
 			labelValues: [],//所有的标签值
-			selectLabels: [],//选择的标签值(id)
-			selectCatalogLabels: []//组织 选择的标签,分类
+			selectLabels: Store.getData().selectLabels,//选择的标签值(id)
+			selectCatalogLabels: Store.getData().selectCatalogLabels//组织 选择的标签,分类
 		}
 	},
 
@@ -53,27 +54,28 @@ var AddLabelDialog = Reactman.createDialog({
 
 	onBeforeCloseDialog: function() {
 		var selectCatalogLabels = this.state.selectCatalogLabels;
-		console.log(selectCatalogLabels.length,selectCatalogLabels,selectCatalogLabels[0],"==========");
+		var catalogId = this.state.catalogId;
+
 		if(selectCatalogLabels.length==0) {
 			Reactman.PageAction.showHint('error', '请选择标签!');
 		}else{
-			// Reactman.Resource.put({
-			// 	resource: 'product_catalog.qualification',
-			// 	data: {
-			// 		catalog_id: this.state.catalogId,
-			// 		qualification_infos: JSON.stringify(this.state.models)
-			// 	},
-			// 	success: function() {
-			// 		this.closeDialog();
-			// 		_.delay(function(){
-			// 			Reactman.PageAction.showHint('success', '配置资质成功');
-			// 		},500);
-			// 	},
-			// 	error: function(data) {
-			// 		Reactman.PageAction.showHint('error', data.errMsg);
-			// 	},
-			// 	scope: this
-			// })
+			Reactman.Resource.put({
+				resource: 'label.catalog_label',
+				data: {
+					select_catalog_labels: JSON.stringify(selectCatalogLabels),
+					catalog_id: catalogId
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '配置标签成功');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', '配置标签失败');
+				},
+				scope: this
+			})
 		}
 	},
 
@@ -87,6 +89,7 @@ var AddLabelDialog = Reactman.createDialog({
 		var valueId2name = this.state.valueId2name;
 		var labelValuesList = '';
 		var selectCatalogLabelsList = '';
+
 		if(this.state.labelFirstId != -1){
 			labelValues = this.state.propertyId2names[this.state.labelFirstId];
 		}
@@ -134,13 +137,13 @@ var AddLabelDialog = Reactman.createDialog({
 		var title_tips = selectCatalogLabels.length>0 ? <li>已选择:</li>: '';
 
 		return (
-			<div className="xui-formPage" style={{minHeight: '140px'}}>
+			<div className="xui-formPage xui-add-label-dialog">
 				<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
 				<div style={{clear: 'both'}}></div>
-				<ul style={{marginTop: '20px', paddingLeft: '130px'}}>
+				<ul className="xui-label-dialog-ul">
 					{labelValuesList}
 				</ul>
-				<ul style={{marginTop: '20px', paddingLeft: '30px'}}>
+				<ul className="xui-label-dialog-ul" style={{paddingLeft: '30px'}}>
 					{title_tips}
 					{selectCatalogLabelsList}
 				</ul>

@@ -16,12 +16,14 @@ var Constant = require('./Constant');
 var AddLabelDialogStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleGetLabels': Constant.PRODUCT_CATALOGS_GET_LABELS,
-		'handleChooseLabelValue': Constant.PRODUCT_CATALOGS_CHOOSE_LABEL_VALUE
+		'handleChooseLabelValue': Constant.PRODUCT_CATALOGS_CHOOSE_LABEL_VALUE,
+		'handleGetCatalogHasLabel': Constant.PRODUCT_CATALOGS_GET_CATALOG_HAS_LABEL
 	},
 
 	init: function() {
 		this.data = {
 			'labelFirstId': 0,//默认id
+			'catalogs': '',
 			'propertyId2names': {},
 			'labelCatalogs': [],//所有的标签分类值
 			'labelValues': [],//所有的标签值
@@ -38,6 +40,14 @@ var AddLabelDialogStore = StoreUtil.createStore(Dispatcher, {
 		this.data['valueId2name'] = action.data.valueId2name;
 		this.data['labelId2name'] = action.data.labelId2name;
 		this.data['labelFirstId'] = action.data.labelFirstId;
+	},
+
+	handleGetCatalogHasLabel: function(action){
+		var selectCatalogLabels = action.data.selectCatalogLabels.length>0 ? JSON.parse(action.data.selectCatalogLabels): [];
+		this.data['selectCatalogLabels'] = selectCatalogLabels;
+		this.data['selectLabels'] = action.data.selectLabels;
+		this.data['labelFirstId'] = action.data.labelFirstId;
+		this.data['catalogs'] = action.data.labelFirstId;
 	},
 
 	handleChooseLabelValue: function(action){

@@ -42,6 +42,8 @@ class ProductCatalog(resource.Resource):
 	def api_get(request):
 		all_first_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=1).order_by('-created_at')
 		all_second_catalogs = product_catalog_models.ProductCatalog.objects.filter(level=2).order_by('-created_at')
+		product_catalog_has_labels = product_catalog_models.ProductCatalogHasLabel.objects.all()
+		catalog_ids = [product_catalog_has_label.catalog_id for product_catalog_has_label in product_catalog_has_labels]
 		rows = []
 		for catalog in all_first_catalogs:
 			second_catalogs = []
@@ -67,7 +69,8 @@ class ProductCatalog(resource.Resource):
 					'note': belong_second_catalog.note,
 					'createdAt': belong_second_catalog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 					'productsNumber': products_number,
-					'qualificationId2name': json.dumps(qualification_id2name)
+					'qualificationId2name': json.dumps(qualification_id2name),
+					'has_label': False if belong_second_catalog.id not in catalog_ids else True
 				})
 			rows.append({
 				'id': catalog.id,

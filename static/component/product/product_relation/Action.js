@@ -94,6 +94,13 @@ var Action = {
 			actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
 			data: {}
 		});
+	},
+
+	updateDatas: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
+			data: {}
+		});
 	}
 };
 

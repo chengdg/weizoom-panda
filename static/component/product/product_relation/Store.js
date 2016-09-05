@@ -23,7 +23,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
 		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
 		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
-		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT
+		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
+		'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS
 	},
 
 	init: function() {
@@ -32,6 +33,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			'selectSelfShop': [],
 			'product_info': {}
 		};
+	},
+
+	handleUpdateDatas: function(){
+		this.__emitChange();
 	},
 
 	handleProductRelationWeapp: function(action) {

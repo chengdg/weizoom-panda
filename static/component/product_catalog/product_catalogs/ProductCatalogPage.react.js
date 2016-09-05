@@ -82,16 +82,19 @@ var ProductCatalogPage = React.createClass({
 
 	onAddLabel: function(event){
 		var catalogId = event.target.getAttribute('data-id');
-		Reactman.PageAction.showDialog({
-			title: "配置标签",
-			component: AddLabelDialog,
-			data: {
-				catalogId: catalogId
-			},
-			success: function() {
-				// Action.updateLabels();
-			}
-		});
+		Action.getCatalogHasLabel(catalogId);//获取已经配置好的分类标签
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "配置标签",
+				component: AddLabelDialog,
+				data: {
+					catalogId: catalogId
+				},
+				success: function() {
+					Action.updateLabels();
+				}
+			});
+		},100)
 	},
 
 	onClickDelete: function(event) {
@@ -124,7 +127,9 @@ var ProductCatalogPage = React.createClass({
 					var catalogId = catalog['id'];
 					var src = '/product/product_relation/?second_catalog_id='+catalogId;
 					var hasInfo = catalog['qualificationId2name'];
-				return(
+					var hasLabel = catalog['has_label'];
+					
+					return(
 						<div style={{backgroundColor: '#EFEFEF',height: '50px',lineHeight: '50px'}} key={index}>
 							<div className="xui-expand-row-info" style={{float: 'left',paddingLeft:'15px',width: '44%',height: '50px'}}>{catalog.catalogName} </div>
 							<div className="xui-expand-row-info" style={{display: 'inline'}}>{catalog.createdAt}</div>
@@ -134,12 +139,13 @@ var ProductCatalogPage = React.createClass({
 							<div className="xui-expand-row-info" style={{float:'right',paddingRight:'24px',display:'inline'}}>
 								<a className="btn btn-primary" onClick={_this.onAddCatalog} data-id={catalog.id} data-father-catalog={catalog.fatherCatalog} data-catalog-name={catalog.catalogName} data-note={catalog.note}>修改</a>
 								<a className="btn btn-danger ml10" onClick={_this.onClickDelete} data-id={catalog.id}>删除</a>
-								{hasInfo == '[]'? <a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>配置特殊资质</a>: <a className="btn btn-info ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>已配置</a>}
-								<a className="btn btn-primary ml10" onClick={_this.onAddLabel} data-id={catalog.id}>配置标签</a>
+								{hasInfo == '[]'? <a className="btn btn-primary ml10" onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>配置特殊资质</a>: <a className="btn btn-info ml10" style={{width:'110px'}} onClick={_this.onAddQualification} data-id={catalog.id} data-qualification-info={catalog.qualificationId2name}>已配置资质</a>}
+								{hasLabel? <a className="btn btn-info ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>已配置标签</a>: <a className="btn btn-primary ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>配置标签</a>}
 							</div>
 						</div>
 					)
 				});
+
 				return (
 					<div className={className} style={{display:'none'}}>{catalogs}</div>
 				)

@@ -86,13 +86,33 @@ var Action = {
 		});
 	},
 
-	chooseLabelValue: function(propertyId, valueId){
+	chooseLabelValue: function(propertyId, valueId) {
 		Dispatcher.dispatch({
 			actionType: Constant.PRODUCT_CATALOGS_CHOOSE_LABEL_VALUE,
 			data: {
 				propertyId: propertyId,
 				valueId: valueId
 			}
+		});
+	},
+
+	getCatalogHasLabel: function(catalogId) {
+		Resource.get({
+			resource: 'product_catalog.catalog_has_labels',
+			data: {
+				catalog_id: catalogId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_CATALOGS_GET_CATALOG_HAS_LABEL
+			}
+		});
+	},
+
+	updateLabels: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CATALOG_DATAS_FILTER,
+			data: {}
 		});
 	}
 };

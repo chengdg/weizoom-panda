@@ -6,3 +6,42 @@
 .xui-filterPanel .control-label{
 	width: 90px;
 }
+
+.xui-label-name-li{
+	display: inline-block;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+.xui-i-expandRow{
+	background: #EFEFEF;
+}
+
+.label-value-li{
+	list-style: none;
+	display: inline-block;
+	margin-left: 10px;
+	border: 1px solid #CCC;
+	width: 90px;
+	margin-bottom: 10px;
+	padding-top: 3px;
+	height: 28px;
+	text-align: center;
+}
+
+.label-value-li:hover{
+	cursor: pointer;
+}
+
+.xui-add-label-dialog{
+	display: block;
+}
+
+.xui-add-label-dialog{
+	min-height: 140px;
+}
+
+.xui-label-dialog-ul{
+	margin-top: 20px;
+	padding-left: 110px;
+}

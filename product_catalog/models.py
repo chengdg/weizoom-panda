@@ -38,3 +38,15 @@ class ProductCatalogQualification(models.Model):
 
 	class Meta(object):
 		db_table = 'product_catalog_qualification'
+
+
+class ProductCatalogHasLabel(models.Model):
+	"""
+	商品分类是否关联标签属性
+	"""
+	catalog_id = models.IntegerField(default=-1) # 二级分类id
+	property_id = models.IntegerField(default=-1) # 标签id
+	label_ids = models.CharField(max_length=1024, default='') # 标签属性值id 多个用,隔开 1,2,3
+
+	class Meta(object):
+		db_table = 'product_catalog_has_label'

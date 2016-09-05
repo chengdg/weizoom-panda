@@ -14,6 +14,8 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
+var AddLabelDialog = require('../.././product_catalog/product_catalogs/AddLabelDialog.react');
+var ProductCatalogAction = require('../.././product_catalog/product_catalogs/Action');
 require('./ProductRelation.css');
 
 var ProductRelationPage = React.createClass({
@@ -27,15 +29,19 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);  
 	},
 
-	chooseSyncSelfShop: function(product_id){
-		Action.getHasSyncShop(product_id);
+	componentDidMount: function(){
+		ProductCatalogAction.getLabels();
+	},
+
+	chooseSyncSelfShop: function(productId){
+		Action.getHasSyncShop(productId);
 
 		_.delay(function(){
 			Reactman.PageAction.showDialog({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
 				data: {
-					product_id: String(product_id),
+					product_id: String(productId),
 					sync_type: 'single'
 				},
 				success: function(inputData, dialogState) {
@@ -67,20 +73,39 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
-	onClickDelete: function(product_id, event) {
+	onClickDelete: function(productId, event) {
 		var title = '确定删除么?';
 		Reactman.PageAction.showConfirm({
 			target: event.target, 
 			title: title,
 			confirm: _.bind(function() {
-				Action.deleteProduct(product_id);
+				Action.deleteProduct(productId);
 			}, this)
 		});
+	},
+
+	onAddLabel: function(event){
+		var catalogId = event.target.getAttribute('data-id');
+		ProductCatalogAction.getCatalogHasLabel(catalogId);//获取已经配置好的分类标签
+
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "配置标签",
+				component: AddLabelDialog,
+				data: {
+					catalogId: catalogId
+				},
+				success: function() {
+					Action.updateDatas();
+				}
+			});
+		},100)
 	},
 
 	rowFormatter: function(field, value, data) {
 		if(field === 'product_name'){
 			var colorStyle = data['is_update']? {color: 'red'}: {};
+
 			return(
 				<a className="btn btn-link btn-xs" style={colorStyle} href={'/product/new_product/?id='+data.id}>{value}</a>
 			)
@@ -99,13 +124,36 @@ var ProductRelationPage = React.createClass({
 			}	
 		}else if (field === 'catalog_name') {
 			var name = data['second_level_name'];
-			var line =name.length>0?'-':''
+			var line =name.length>0?'-':'';
+
 			return (
 				<div>
 					<span>{data['first_level_name']}</span><br></br>
 					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
 				</div>
 			);
+		}else if(field === 'expand-row'){
+			var labelNames = data['labelNames'];
+			var catalogId = data['catalogId'];
+			var labelNameLi = '';
+
+			if(labelNames.length>0){
+				labelNameLi = JSON.parse(labelNames).map(function(labelName, index){
+					return(
+						<li className='xui-label-name-li' key={index}>{labelName.name}</li>
+					)
+				})
+			}
+
+			var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-id={data.catalogId}>配置标签</a></li>: '';
+			return (
+				<div>
+					<ul style={{height: '30px'}}>
+						{labelNameLi}
+						{catalogManager}
+					</ul>
+				</div>
+			)
 		}else {
 			return value;
 		}

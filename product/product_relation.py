@@ -27,6 +27,7 @@ import requests
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
+from label import models as label_models
 
 
 FIRST_NAV = 'product'
@@ -132,6 +133,28 @@ class ProductRelation(resource.Resource):
 		#从weapp获取销量sales_from_weapp
 		id2sales = sales_from_weapp(p_has_relations)
 
+		#获取标签
+		catalog_ids = [product.catalog_id for product in products]
+		product_catalog_has_labels = product_catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id__in=catalog_ids)
+		property_ids = [product_catalog_has_label.property_id for product_catalog_has_label in product_catalog_has_labels]
+		label_property_values = label_models.LabelPropertyValue.objects.filter(property_id__in=property_ids)
+
+		value_id2name = {label_property_value.id:label_property_value.name for label_property_value in label_property_values}
+		catalog_id2names = {}
+		for product_catalog_has_label in product_catalog_has_labels:
+			label_ids = product_catalog_has_label.label_ids.split(',')
+			property_id = product_catalog_has_label.property_id
+			catalog_id = product_catalog_has_label.catalog_id
+			names = []
+			for label_id in label_ids:
+				if int(label_id) in value_id2name:
+					names.append(value_id2name[int(label_id)])
+
+			if catalog_id not in catalog_id2names:
+				catalog_id2names[catalog_id] = names
+			else:
+				catalog_id2names[catalog_id].extend(names)
+
 		#获取分类
 		product_catalogs = product_catalog_models.ProductCatalog.objects.all()
 		id2product_catalog = {product_catalog.id:product_catalog for product_catalog in product_catalogs}
@@ -146,6 +169,7 @@ class ProductRelation(resource.Resource):
 		rows = []
 		for product in products:
 			owner_id = product.owner_id
+			catalog_id = product.catalog_id
 			if owner_id in user_id2name:
 				sales = 0 if product.id not in id2sales else id2sales[product.id]
 				product_status_text = u'未同步'
@@ -157,18 +181,27 @@ class ProductRelation(resource.Resource):
 				#商品分类
 				first_level_name = ''
 				second_level_name = ''
-				if product.catalog_id in id2product_catalog:
-					product_catalog = id2product_catalog[product.catalog_id]
+				if catalog_id in id2product_catalog:
+					product_catalog = id2product_catalog[catalog_id]
 					father_id = product_catalog.father_id
 					second_level_name = product_catalog.name
 					first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
+				#标签
+				property_value_names = [] if catalog_id not in catalog_id2names else catalog_id2names[catalog_id]
+				#组织成json格式
+				label_names = []
+				for property_value_name in property_value_names:
+					label_names.append({
+						'name': property_value_name
+					})
 				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
 				customer_from_text = customer_from2text[customer_from]
 				rows.append({
 					'id': product.id,
 					'role': role,
 					'owner_id': owner_id,
+					'catalogId': catalog_id,
 					'product_name': product.product_name,
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
@@ -178,7 +211,8 @@ class ProductRelation(resource.Resource):
 					'second_level_name': second_level_name,
 					'is_update': product.is_update,
 					'customer_from_text': customer_from_text,
-					'cur_page': pageinfo.cur_page
+					'cur_page': pageinfo.cur_page,
+					'labelNames': [] if not label_names else json.dumps(label_names)
 				})
 		data = {
 			'rows': rows,

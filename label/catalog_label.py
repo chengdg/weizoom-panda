@@ -13,8 +13,10 @@ from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
 from core import paginator
+
 from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
+from product_catalog import models as catalog_models
 
 import models
 
@@ -63,4 +65,27 @@ class CataloLabel(resource.Resource):
 		}
 		response = create_response(200)
 		response.data = data
+		return response.get_response()
+
+	# 保存分类跟标签的对应关系
+	def api_put(request):
+		select_catalog_labels = request.POST.get('select_catalog_labels', '')
+		catalog_id = request.POST.get('catalog_id', -1)
+		if select_catalog_labels:
+			catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
+			select_catalog_labels = json.loads(select_catalog_labels)
+			
+			for select_catalog_label in select_catalog_labels:
+				value_ids = []
+				select_value_ids = select_catalog_label['valueIds']
+				property_id = select_catalog_label['propertyId']
+				for value_id in select_value_ids:
+					value_ids.append(str(value_id))
+			
+				catalog_models.ProductCatalogHasLabel.objects.create(
+					catalog_id = catalog_id,
+					label_ids = ','.join(value_ids),
+					property_id = property_id
+				)
+		response = create_response(200)
 		return response.get_response()

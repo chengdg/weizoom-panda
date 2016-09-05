@@ -2,3 +2,4 @@
 __author__ = 'lihanyi'
 
 import product_catalog
+import catalog_has_labels

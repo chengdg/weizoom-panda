@@ -24,3 +24,10 @@ input#qualification_name {
 .label-value-li:hover{
 	cursor: pointer;
 }
+.xui-add-label-dialog{
+    min-height: 140px;
+}
+.xui-label-dialog-ul{
+    margin-top: 20px;
+    padding-left: 130px;
+}
