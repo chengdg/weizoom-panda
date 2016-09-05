@@ -20,6 +20,10 @@ input#qualification_name {
     padding-top: 3px;
     height: 28px;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 .label-value-li:hover{
 	cursor: pointer;

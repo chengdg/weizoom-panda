@@ -107,7 +107,9 @@ var AddLabelDialog = Reactman.createDialog({
 				}
 
 				return (
-					<li key={index} style={bgStyle['style']} className="label-value-li" onClick={_this.chooseLabelValue.bind(_this, label.property_id, label.value_id)}>{label.name}</li>
+					<li key={index} style={bgStyle['style']} className="label-value-li" onClick={_this.chooseLabelValue.bind(_this, label.property_id, label.value_id)} title={label.name}>
+						{label.name}
+					</li>
 				)
 			})
 		}
