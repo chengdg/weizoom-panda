@@ -66,9 +66,8 @@ class Command(BaseCommand):
                         # print rs
                         msg = u'send_message_by_supplier供货商%s 手机号%s发送结果是%s' % (str(account.user_id), phone, 'SUCCESS' if rs else 'FAILED')
                         # print msg.encode('utf-8')
-                        watchdog.info(msg)
-                        logger.info(msg=msg)
+                        watchdog.info({u'send_message_by_supplier': msg})
                     # watchdog.info('供货商%s发送结果是%s' % (account.user_id, 'SUCCESS' if rs else 'FAILED'))
         print u'send_message_by_supplier本次一共发送了%s条短信' % number_message
-        watchdog.info(u'send_message_by_supplier本次一共发送了%s条短信' % number_message)
+        watchdog.info({u'send_message_by_supplier': u'send_message_by_supplier本次一共发送了%s条短信' % number_message})
         # print u'这些帐号ｉｄ是:', account_ids
