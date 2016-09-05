@@ -13,11 +13,13 @@ from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
 from core import paginator
+from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
 
 from util import string_util
 from account import models as account_models
 from product import models as product_models
-from panda.settings import ZEUS_HOST
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from util import db_util
 from panda.settings import CESHI_USERNAMES
 
@@ -87,7 +89,7 @@ class manage(resource.Resource):
 			)
 			is_sync = True if is_sync == 'is_sync' else False
 			if is_sync: #需要在创建时候同步
-				is_synced = SyncAllProduct2NewSelfShop(user_name)
+				is_synced = sync_all_product_2_new_self_shop(user_name)
 				if is_synced:
 					models.SelfShops.objects.filter(user_name=user_name).update(
 						is_synced = True
@@ -109,7 +111,7 @@ class manage(resource.Resource):
 	def api_post(request):
 		user_name = request.POST.get('self_user_name','')
 		try:
-			is_synced = SyncAllProduct2NewSelfShop(user_name)
+			is_synced = sync_all_product_2_new_self_shop(user_name)
 			if is_synced:
 				models.SelfShops.objects.filter(user_name=user_name).update(
 					is_synced = True
@@ -131,10 +133,24 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		rows = [{
-			'text': u'自营平台1111',
-			'value': 'aaaa/45854'
-		}]
+		# rows = [{
+		# 	'text': u'自营平台1111',
+		# 	'value': 'aaaa/45854'
+		# }]
+		params = {
+			'status': 'new'
+		}
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+			{
+				'resource': 'panda.proprietary_account_list',
+				'data': params
+			}
+		)
+		rows = []
+		if resp and resp.get('code') == 200:
+			data = resp.get('data').get('profiles')
+			rows = [{'text': profile.get('store_name'),
+					 'value': profile.get('user_id')} for profile in data]
 		data = {
 			'rows': rows
 		}
@@ -186,7 +202,7 @@ class GetAllSyncedSelfShops(resource.Resource):
 		response.data = data
 		return response.get_response()
 
-def SyncAllProduct2NewSelfShop(self_user_name):
+def sync_all_product_2_new_self_shop(self_user_name):
 	"""
 	同步商品到新的自营平台
 	"""
@@ -198,6 +214,23 @@ def SyncAllProduct2NewSelfShop(self_user_name):
 			t_1 = product_models.ProductSyncWeappAccount(product_id=product_id, self_user_name=self_user_name)
 			bulk_create.append(t_1)
 		product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
+
 		return True
 	except:
 		return False
+
+def sync_all_product_2_weapp(self_user_name):
+	relation = product_models.SelfUsernameWeappAccount.objects.filter(self_user_name=self_user_name).first()
+	weapp_account_id = relation.weapp_account_id
+	params = {
+		'new_proprietary_id': weapp_account_id
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+		{
+			'resource': 'panda.sync_product_new_proprietary',
+			'data': params
+		}
+	)
+	if not resp or not resp.get('code') == 200:
+
+		watchdog.error('sync_all_product_2_weapp:{} failed!'.format(self_user_name))
