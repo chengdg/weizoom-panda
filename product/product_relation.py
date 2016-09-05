@@ -76,9 +76,6 @@ class ProductRelation(resource.Resource):
 			products = models.Product.objects.filter(catalog_id=int(second_catalog_id), is_deleted=False).order_by('-id')
 		else:
 			products = models.Product.objects.filter(is_deleted=False).order_by('-id')
-		# product_relations = models.ProductRelation.objects.all().order_by('self_user_name')
-		# product_images = models.ProductImage.objects.all().order_by('id')
-		# product_has_relations = models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='').order_by('self_user_name')
 		filter_dict = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		product_name = filter_dict.get('product_name','')
 		customer_name = filter_dict.get('customer_name','')

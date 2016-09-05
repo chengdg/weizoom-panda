@@ -67,18 +67,6 @@ class ProductImage(models.Model):
 		db_table = 'product_image'
 
 
-class ProductRelation(models.Model):
-	"""
-	自营商城名称
-	"""
-	self_user_name = models.CharField(max_length=50, null=True)
-	self_first_name = models.CharField(max_length=50, null=True)
-	created_at = models.DateTimeField(auto_now_add=True)
-
-	class Meta(object):
-		db_table = 'product_relation'
-
-
 class ProductHasRelationWeapp(models.Model):
 	"""
 	商品关联云商通ID
