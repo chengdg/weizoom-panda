@@ -550,6 +550,8 @@ class NewProduct(resource.Resource):
 			try:
 				product = models.Product.objects.get(id=request.POST['id'])
 				UserProfile.objects.filter(user=product.owner).update(product_count=F('product_count') - 1)
+				sync_deleted_product(product=product)
+				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
 			except :
 				message = u"api_delete修改帐号商品数异常：{}".format(unicode_full_stack())
 				watchdog.watchdog_error(message)
@@ -632,3 +634,26 @@ def charge_models_product_sync(old_properties=None, new_properties=None):
 		return False
 
 	return True
+
+
+# from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
+
+def sync_deleted_product(product):
+	"""
+
+	同步删除商品
+	"""
+	if product:
+		relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
+		if not relation:
+			return
+		weapp_product_id = relation.weapp_product_id
+		params = {
+			'weapp_product_id': weapp_product_id
+		}
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).delete({
+			'resource': 'mall.sync_product',
+			'data': params
+		})
+		if not resp or not resp.get('code') != 200:
+			watchdog.watchdog_warning('sync_deleted_product failed! procuct_id: {}'.format(product.id))
