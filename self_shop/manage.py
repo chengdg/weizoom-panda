@@ -74,11 +74,16 @@ class manage(resource.Resource):
 		user_name = request.POST.get('self_user_name','')
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
+		weapp_account_id = request.POST.get('weapp_account_id',0)
 		try:
 			models.SelfShops.objects.create(
 				self_shop_name = self_shop_name,
 				user_name = user_name,
 				remark = remark
+			)
+			product_models.SelfUsernameWeappAccount.objects.create(
+				self_user_name = user_name,
+				weapp_account_id = weapp_account_id
 			)
 			is_sync = True if is_sync == 'is_sync' else False
 			if is_sync: #需要在创建时候同步
