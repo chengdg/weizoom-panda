@@ -42,7 +42,7 @@ var SelfShopManagePage = React.createClass({
 						options: options
 					},
 					success: function() {
-						console.log("success");
+						Action.updateSelfShopDialog();
 					}
 				});
 			},

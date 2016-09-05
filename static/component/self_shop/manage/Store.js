@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Store');
+var debug = require('debug')('m:self_shop.manage:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');

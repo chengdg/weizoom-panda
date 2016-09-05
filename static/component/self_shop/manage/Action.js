@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:outline.datas:Action');
+var debug = require('debug')('m:self_shop.manage:Action');
 var _ = require('underscore');
 
 var Reactman = require('reactman');
@@ -15,11 +15,8 @@ var Constant = require('./Constant');
 var Action = {
 	updateSelfShopDialog: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.UPDATE_SELF_SHOP_DIALOG,
-			data: {
-				property: property,
-				value: value
-			}
+			actionType: Constant.UPDATE_SELF_SHOPS,
+			data: {}
 		});
 	},
 	syncSelfShopProduct: function(userName) {

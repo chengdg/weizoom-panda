@@ -31,7 +31,9 @@ var AddSelfShopDialog = Reactman.createDialog({
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateSelfShopDialog(property, value);
+		var newState = {};
+		newState[property] = value;
+		this.setState(newState);
 	},
 
 	onChangeStore: function(){
@@ -43,13 +45,16 @@ var AddSelfShopDialog = Reactman.createDialog({
 		if (this.state.selfUserName == '') {
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
-			var self_shop_name = $('#selfUserName').find("option:selected").text();
+			var selfShopName = $('#selfUserName').find("option:selected").text();
+			var selfUserName = this.state.selfUserName.split('/')[0];
+			var weappAccountId = this.state.selfUserName.split('/')[1];
 			//添加自营平台
 			Reactman.Resource.put({
 				resource: 'self_shop.manage',
 				data: {
-					self_shop_name: self_shop_name,
-					self_user_name: this.state.selfUserName,
+					self_shop_name: selfShopName,
+					self_user_name: selfUserName,
+					weapp_account_id: weappAccountId,
 					remark: this.state.remark,
 					is_sync: this.state.isSync.length > 0 ? 'is_sync': ''
 				},

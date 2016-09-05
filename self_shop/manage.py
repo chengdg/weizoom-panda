@@ -133,7 +133,7 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 	def api_get(request):
 		rows = [{
 			'text': u'自营平台1111',
-			'value': 'aaaa'
+			'value': 'aaaa/45854'
 		}]
 		data = {
 			'rows': rows
