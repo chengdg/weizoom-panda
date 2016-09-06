@@ -246,7 +246,7 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': product_weapp_id2info[product_id][0]['product_name'],
 							'model_names': model_names,
 							'product_img': product_weapp_id2info[product_id][0]['product_img'],
-							'price': return_product_info['price'],
+							'price': return_product_info['origin_price'],
 							'count': return_product_info['count']
 						})
 					else:
@@ -258,7 +258,7 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': return_product_info['name'],
 							'model_names': model_names,
 							'product_img': return_product_info['thumbnails_url'],
-							'price': return_product_info['price'],
+							'price': return_product_info['origin_price'],
 							'count': return_product_info['count']
 						})
 					if not is_for_list:
