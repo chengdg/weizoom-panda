@@ -93,6 +93,7 @@ class manage(resource.Resource):
 			is_sync = True if is_sync == 'is_sync' else False
 			if is_sync: #需要在创建时候同步
 				is_synced = sync_all_product_2_new_self_shop(weapp_user_id)
+				sync_all_product_2_weapp(weapp_user_id)
 				if is_synced:
 					models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
 						is_synced = True
