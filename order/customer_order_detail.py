@@ -121,7 +121,7 @@ class CustomerOrderDetail(resource.Resource):
 					property_value = custom_model_propertie['property_value']
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
-			origin_total_price += float(data['origin_total_price'])
+			origin_total_price += float(product['origin_total_price'])
 
 		express_details = ''
 		if data:
