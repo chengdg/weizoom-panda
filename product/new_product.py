@@ -311,7 +311,7 @@ class NewProduct(resource.Resource):
 			remark = parser.unescape(remark)
 
 		modify_contents = []
-		old_catalog_id = 0
+		catalog_id = models.Product.objects.get(owner=request.user, id=request.POST['id']).catalog_id
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 		#判断商品是否同步
 		if product_sync_weapp_accounts:
@@ -440,7 +440,7 @@ class NewProduct(resource.Resource):
 				is_refused = False
 			)
 
-		if old_catalog_id != second_level_id:
+		if int(catalog_id) != second_level_id:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
 				label_ids = '',
 			)
