@@ -228,7 +228,6 @@ class CustomerOrdersList(resource.Resource):
 					response = create_response(500)
 					return response.get_response()
 
-			# price【商品单价】，purchase_price【结算价】，total_price【商品售价*数量】 origin_price【售价】
 			# price【售价】，purchase_price【结算价】，total_price【售价金额】
 			for order in orders:
 				order_id = order['order_id']
