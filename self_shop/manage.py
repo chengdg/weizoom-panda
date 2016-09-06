@@ -173,9 +173,9 @@ class GetAllSyncedSelfShops(resource.Resource):
 		for self_shop in self_shops:
 			rows.append({
 				'text': self_shop.self_shop_name,
-				'value': self_shop.user_name
+				'value': self_shop.weapp_user_id
 			})
-			all_self_shop_value.append(self_shop.user_name)
+			all_self_shop_value.append(self_shop.weapp_user_id)
 
 		username = account_models.User.objects.get(id=request.user.id).username
 		if username in CESHI_USERNAMES:
