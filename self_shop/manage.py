@@ -57,7 +57,7 @@ class manage(resource.Resource):
 		for self_shop in self_shops:
 			rows.append({
 				'selfShopName': self_shop.self_shop_name,
-				'userName': self_shop.user_name,
+				'userName': self_shop.weapp_user_id,
 				'isSynced': self_shop.is_synced
 				})
 		data = {
@@ -73,19 +73,18 @@ class manage(resource.Resource):
 	#新建自营平台
 	def api_put(request):
 		self_shop_name = request.POST.get('self_shop_name','')
-		user_name = request.POST.get('self_user_name','')
+		weapp_user_id = request.POST.get('weapp_user_id','')
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
-		weapp_account_id = request.POST.get('weapp_account_id',0)
 		try:
 			models.SelfShops.objects.create(
 				self_shop_name = self_shop_name,
-				user_name = user_name,
+				weapp_user_id = weapp_user_id,
 				remark = remark
 			)
 			product_models.SelfUsernameWeappAccount.objects.create(
-				self_user_name = user_name,
-				weapp_account_id = weapp_account_id
+				self_user_name = weapp_user_id,
+				weapp_account_id = weapp_user_id
 			)
 			is_sync = True if is_sync == 'is_sync' else False
 			if is_sync: #需要在创建时候同步
@@ -133,10 +132,6 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		# rows = [{
-		# 	'text': u'自营平台1111',
-		# 	'value': 'aaaa/45854'
-		# }]
 		params = {
 			'status': 'new'
 		}
@@ -214,7 +209,6 @@ def sync_all_product_2_new_self_shop(self_user_name):
 			t_1 = product_models.ProductSyncWeappAccount(product_id=product_id, self_user_name=self_user_name)
 			bulk_create.append(t_1)
 		product_models.ProductSyncWeappAccount.objects.bulk_create(bulk_create)
-
 		return True
 	except:
 		return False

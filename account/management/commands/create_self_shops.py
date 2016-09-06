@@ -87,7 +87,7 @@ class Command(BaseCommand):
         for selfShop in selfShops:
             self_shop_models.SelfShops.objects.create(
                 self_shop_name = selfShop['name'],
-                user_name = selfShop['value'],
+                weapp_user_id = selfShop['value'],
                 is_synced = True
             )
             print '--------------sync--------' + selfShop['value']

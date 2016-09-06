@@ -8,7 +8,7 @@ class SelfShops(models.Model):
 	自营平台
 	"""
 	self_shop_name = models.CharField(max_length=50, null=True)  #平台名称
-	user_name = models.CharField(max_length=50, null=True)  #user_name
+	weapp_user_id = models.CharField(max_length=50, null=True)  #weapp_user_id,历史记录存的是【weizoom_****】字符串
 	remark = models.TextField(null=True) #备注
 	is_synced = models.BooleanField(default=False) #是否已同步过
 	is_deleted = models.BooleanField(default=False)

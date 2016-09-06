@@ -46,15 +46,12 @@ var AddSelfShopDialog = Reactman.createDialog({
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
 			var selfShopName = $('#selfUserName').find("option:selected").text();
-			var selfUserName = this.state.selfUserName.split('/')[0];
-			var weappAccountId = this.state.selfUserName.split('/')[1];
 			//添加自营平台
 			Reactman.Resource.put({
 				resource: 'self_shop.manage',
 				data: {
 					self_shop_name: selfShopName,
-					self_user_name: selfUserName,
-					weapp_account_id: weappAccountId,
+					weapp_user_id: this.state.selfUserName, 
 					remark: this.state.remark,
 					is_sync: this.state.isSync.length > 0 ? 'is_sync': ''
 				},
