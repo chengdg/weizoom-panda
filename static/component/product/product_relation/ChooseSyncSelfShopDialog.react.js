@@ -75,7 +75,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 				bgStyle['style'] = {background: '#009DD9', color:'#FFF'};
 			}
 			return(
-				<li key={index} style={bgStyle['style']} className="self-shop-li" onClick={_this.ChooseSelfShop.bind(_this,value)}>{self_shop.text}</li>
+				<li key={index} style={bgStyle['style']} className="self-shop-li" onClick={_this.ChooseSelfShop.bind(_this,value)} title={self_shop.text}>{self_shop.text}</li>
 			)
 		})
 
