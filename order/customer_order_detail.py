@@ -106,6 +106,7 @@ class CustomerOrderDetail(resource.Resource):
 		product_id2name = {product.id:product.product_name for product in products}
 		order_products = data['product'] if data else []
 		total_count = 0
+		origin_total_price = 0 
 		for product in order_products:
 			total_count += product['count']
 			product['origin_price'] = '%.2f' % product['origin_price']
@@ -120,12 +121,12 @@ class CustomerOrderDetail(resource.Resource):
 					property_value = custom_model_propertie['property_value']
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
+			origin_total_price += float(data['origin_total_price'])
 
 		express_details = ''
 		if data:
 			express_details = json.dumps(data['express_details']) if data['express_details'] else ''
 		status = '' if not data else data['status']
-		origin_total_price = 0 if not data else data['origin_total_price']
 		orders = [{
 			'order_id': '' if not data else data['order_id'],#订单编号
 			'order_status': '' if status not in order_status2text else order_status2text[status],#订单状态
