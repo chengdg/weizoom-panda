@@ -142,7 +142,7 @@ var ProductRelationPage = React.createClass({
 			if(labelNames.length>0){
 				labelNameLi = JSON.parse(labelNames).map(function(labelName, index){
 					return(
-						<li className='xui-label-name-li' key={index}>{labelName.name}</li>
+						<li className='xui-label-name-li' key={index}>{labelName.name} ;</li>
 					)
 				})
 			}

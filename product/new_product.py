@@ -311,6 +311,7 @@ class NewProduct(resource.Resource):
 			remark = parser.unescape(remark)
 
 		modify_contents = []
+		old_catalog_id = 0
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 		#判断商品是否同步
 		if product_sync_weapp_accounts:
@@ -437,6 +438,11 @@ class NewProduct(resource.Resource):
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
 				is_update = True,
 				is_refused = False
+			)
+
+		if old_catalog_id != second_level_id:
+			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+				label_ids = '',
 			)
 		#删除、重建商品图片
 		if images:

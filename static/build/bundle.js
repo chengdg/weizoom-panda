@@ -47221,7 +47221,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}\r\n\r\n.xui-label-name-li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 15px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.xui-i-expandRow{\r\n\tbackground: #EFEFEF;\r\n}\r\n\r\n.label-value-li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 10px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 90px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n\toverflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tdisplay: block;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tmin-height: 140px;\r\n}\r\n\r\n.xui-label-dialog-ul{\r\n\tmargin-top: 20px;\r\n\tpadding-left: 110px;\r\n}", ""]);
+	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}\r\n\r\n.xui-label-name-li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 5px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.xui-i-expandRow{\r\n\tbackground: #EFEFEF;\r\n}\r\n\r\n.label-value-li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 10px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 90px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n\toverflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tdisplay: block;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tmin-height: 140px;\r\n}\r\n\r\n.xui-label-dialog-ul{\r\n\tmargin-top: 20px;\r\n\tpadding-left: 110px;\r\n}", ""]);
 
 	// exports
 
@@ -47400,7 +47400,8 @@
 						return React.createElement(
 							'li',
 							{ className: 'xui-label-name-li', key: index },
-							labelName.name
+							labelName.name,
+							' ;'
 						);
 					});
 				}

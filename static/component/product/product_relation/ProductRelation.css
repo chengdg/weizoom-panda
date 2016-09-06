@@ -9,8 +9,9 @@
 
 .xui-label-name-li{
 	display: inline-block;
-	margin-right: 15px;
+	margin-right: 10px;
 	margin-top: 5px;
+	font-weight: bold;
 }
 
 .xui-i-expandRow{
