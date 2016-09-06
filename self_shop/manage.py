@@ -82,6 +82,9 @@ class manage(resource.Resource):
 				weapp_user_id = weapp_user_id,
 				remark = remark
 			)
+			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+			print weapp_user_id
+			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 			product_models.SelfUsernameWeappAccount.objects.create(
 				self_user_name = weapp_user_id,
 				weapp_account_id = weapp_user_id
@@ -100,9 +103,9 @@ class manage(resource.Resource):
 			else:
 				response = create_response(200)
 		except Exception, e:
-			print e
+			msg = unicode_full_stack()
 			response = create_response(500)
-			response.innerErrMsg = unicode_full_stack()
+			print msg
 		return response.get_response()
 
 	@login_required
@@ -111,6 +114,7 @@ class manage(resource.Resource):
 		user_name = request.POST.get('self_user_name','')
 		try:
 			is_synced = sync_all_product_2_new_self_shop(user_name)
+			sync_all_product_2_weapp(user_name)
 			if is_synced:
 				models.SelfShops.objects.filter(weapp_user_id=user_name).update(
 					is_synced = True
@@ -219,7 +223,7 @@ def sync_all_product_2_weapp(self_user_name):
 	params = {
 		'new_proprietary_id': weapp_account_id
 	}
-	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
 		{
 			'resource': 'panda.sync_product_new_proprietary',
 			'data': params
