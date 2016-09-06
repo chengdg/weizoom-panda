@@ -48632,7 +48632,7 @@
 						}, 500);
 					},
 					error: function (data) {
-						Reactman.PageAction.showHint('error', '添加自营平台失败');
+						Reactman.PageAction.showHint('error', data.errMsg);
 					},
 					scope: this
 				});

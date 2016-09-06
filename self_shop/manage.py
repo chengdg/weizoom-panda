@@ -76,13 +76,16 @@ class manage(resource.Resource):
 		weapp_user_id = request.POST.get('weapp_user_id','')
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
+		if models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).count() > 0:
+			response = create_response(500)
+			response.errMsg = u'该自营平台已存在'
+			return response.get_response()
 		try:
 			models.SelfShops.objects.create(
 				self_shop_name = self_shop_name,
 				weapp_user_id = weapp_user_id,
 				remark = remark
 			)
-
 			product_models.SelfUsernameWeappAccount.objects.create(
 				self_user_name = weapp_user_id,
 				weapp_account_id = weapp_user_id
@@ -97,12 +100,14 @@ class manage(resource.Resource):
 					response = create_response(200)
 				else:
 					response = create_response(500)
+					response.errMsg = u'同步失败'
 					response.innerErrMsg = unicode_full_stack()
 			else:
 				response = create_response(200)
 		except Exception, e:
 			msg = unicode_full_stack()
 			response = create_response(500)
+			response.errMsg = u'添加自营平台失败'
 			print msg
 		return response.get_response()
 
