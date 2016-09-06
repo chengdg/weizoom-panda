@@ -61,7 +61,7 @@ class CataloLabel(resource.Resource):
 			'propertyId2name': property_id2name,
 			'valueId2name': value_id2name,
 			'labelId2name': label_id2name,
-			'labelFirstId': label_properties[0].id
+			'labelFirstId': -1 if not label_properties else label_properties[0].id
 		}
 		response = create_response(200)
 		response.data = data

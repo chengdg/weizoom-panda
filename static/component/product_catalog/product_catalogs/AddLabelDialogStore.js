@@ -22,7 +22,7 @@ var AddLabelDialogStore = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {
-			'labelFirstId': 0,//默认id
+			'labelFirstId': 0,//默认首次显示分类id
 			'catalogs': '',
 			'propertyId2names': {},
 			'labelCatalogs': [],//所有的标签分类值

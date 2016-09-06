@@ -43,11 +43,14 @@ class CatalogHasLabels(resource.Resource):
 					'valueIds': value_ids
 				})
 
-		Label_property_values = label_models.LabelPropertyValue.objects.filter(id__in=select_labels)
-		if Label_property_values:
-			label_first_id = Label_property_values[0].property_id
+		label_property_values = label_models.LabelPropertyValue.objects.filter(id__in=select_labels)
+		all_label_property_values = label_models.LabelPropertyValue.objects.all()
+		if label_property_values:
+			label_first_id = label_property_values[0].property_id
+		elif all_label_property_values:
+			label_first_id = all_label_property_values[0].property_id
 		else:
-			label_first_id = label_models.LabelPropertyValue.objects.all()[0].property_id
+			label_first_id = -1
 
 		data = {
 			'labelFirstId': str(label_first_id),

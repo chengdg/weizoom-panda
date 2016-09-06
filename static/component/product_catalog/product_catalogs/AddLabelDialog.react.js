@@ -137,20 +137,25 @@ var AddLabelDialog = Reactman.createDialog({
 		}
 
 		var title_tips = selectCatalogLabels.length>0 ? <li>已选择:</li>: '';
-
-		return (
-			<div className="xui-formPage xui-add-label-dialog">
-				<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
-				<div style={{clear: 'both'}}></div>
-				<ul className="xui-label-dialog-ul">
-					{labelValuesList}
-				</ul>
-				<ul className="xui-label-dialog-ul" style={{paddingLeft: '30px'}}>
-					{title_tips}
-					{selectCatalogLabelsList}
-				</ul>
-			</div>
-		)
+		if(this.state.labelFirstId == -1) {
+			return(
+				<div>暂无标签</div>
+			)
+		}else{
+			return (
+				<div className="xui-formPage xui-add-label-dialog">
+					<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
+					<div style={{clear: 'both'}}></div>
+					<ul className="xui-label-dialog-ul">
+						{labelValuesList}
+					</ul>
+					<ul className="xui-label-dialog-ul" style={{paddingLeft: '30px'}}>
+						{title_tips}
+						{selectCatalogLabelsList}
+					</ul>
+				</div>
+			)
+		}
 	}
 })
 module.exports = AddLabelDialog;
