@@ -17,7 +17,6 @@ from core.exceptionutil import unicode_full_stack
 
 from resource import models as resource_models
 from product import models as product_models
-from account import models as account_models
 from util import string_util
 from panda.settings import ZEUS_HOST, ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
@@ -65,9 +64,7 @@ class CustomerOrderDetail(resource.Resource):
 		order_id = request.GET.get('order_id', 0)
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_images = product_models.ProductImage.objects.all().order_by('-id')
-		user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id).first()
-		purchase_method = user_profile.purchase_method #采购方式
-		
+
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
@@ -124,10 +121,7 @@ class CustomerOrderDetail(resource.Resource):
 					property_value = custom_model_propertie['property_value']
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
-			if purchase_method == 1: #固定底价类型客户
-				origin_total_price += int(product['count']) * float(product['purchase_price'])#计算订单总金额
-			else: #扣点类型客户
-				origin_total_price += float(product['total_price'])
+			origin_total_price += float(product['origin_total_price'])
 
 		express_details = ''
 		if data:
