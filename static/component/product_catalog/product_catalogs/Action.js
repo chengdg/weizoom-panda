@@ -96,11 +96,12 @@ var Action = {
 		});
 	},
 
-	getCatalogHasLabel: function(catalogId) {
+	getCatalogHasLabel: function(catalogId, productId) {
 		Resource.get({
 			resource: 'product_catalog.catalog_has_labels',
 			data: {
-				catalog_id: catalogId
+				catalog_id: catalogId,
+				product_id: productId
 			},
 			dispatch: {
 				dispatcher: Dispatcher,

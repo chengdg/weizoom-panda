@@ -82,13 +82,15 @@ var ProductCatalogPage = React.createClass({
 
 	onAddLabel: function(event){
 		var catalogId = event.target.getAttribute('data-id');
-		Action.getCatalogHasLabel(catalogId);//获取已经配置好的分类标签
+		var productId = -1;
+		Action.getCatalogHasLabel(catalogId, productId);//获取已经配置好的分类标签
 		_.delay(function(){
 			Reactman.PageAction.showDialog({
 				title: "配置标签",
 				component: AddLabelDialog,
 				data: {
-					catalogId: catalogId
+					catalogId: catalogId,
+					productId: productId
 				},
 				success: function() {
 					Action.updateLabels();

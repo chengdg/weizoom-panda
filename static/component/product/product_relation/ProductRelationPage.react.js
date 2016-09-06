@@ -85,15 +85,17 @@ var ProductRelationPage = React.createClass({
 	},
 
 	onAddLabel: function(event){
-		var catalogId = event.target.getAttribute('data-id');
-		ProductCatalogAction.getCatalogHasLabel(catalogId);//获取已经配置好的分类标签
+		var catalogId = event.target.getAttribute('data-catalog-id');
+		var productId = event.target.getAttribute('data-id');
+		ProductCatalogAction.getCatalogHasLabel(catalogId, productId);//获取已经配置好的分类标签
 
 		_.delay(function(){
 			Reactman.PageAction.showDialog({
 				title: "配置标签",
 				component: AddLabelDialog,
 				data: {
-					catalogId: catalogId
+					catalogId: catalogId,
+					productId: productId
 				},
 				success: function() {
 					Action.updateDatas();
@@ -145,7 +147,7 @@ var ProductRelationPage = React.createClass({
 				})
 			}
 
-			var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-id={data.catalogId}>配置标签</a></li>: '';
+			var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-catalog-id={data.catalogId} data-id={data.id}>配置标签</a></li>: '';
 			return (
 				<div>
 					<ul style={{height: '30px'}}>

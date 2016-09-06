@@ -47319,15 +47319,17 @@
 		},
 
 		onAddLabel: function (event) {
-			var catalogId = event.target.getAttribute('data-id');
-			ProductCatalogAction.getCatalogHasLabel(catalogId); //获取已经配置好的分类标签
+			var catalogId = event.target.getAttribute('data-catalog-id');
+			var productId = event.target.getAttribute('data-id');
+			ProductCatalogAction.getCatalogHasLabel(catalogId, productId); //获取已经配置好的分类标签
 
 			_.delay(function () {
 				Reactman.PageAction.showDialog({
 					title: "配置标签",
 					component: AddLabelDialog,
 					data: {
-						catalogId: catalogId
+						catalogId: catalogId,
+						productId: productId
 					},
 					success: function () {
 						Action.updateDatas();
@@ -47408,7 +47410,7 @@
 					{ style: { display: 'inline-block' } },
 					React.createElement(
 						'a',
-						{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-id': data.catalogId },
+						{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-catalog-id': data.catalogId, 'data-id': data.id },
 						'配置标签'
 					)
 				) : '';
@@ -47524,8 +47526,10 @@
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
 			var catalogId = this.props.data.catalogId;
+			var productId = this.props.data.productId;
 			return {
 				catalogId: catalogId,
+				productId: productId,
 				catalogs: Store.getData().catalogs,
 				labelFirstId: Store.getData().labelFirstId,
 				labelCatalogs: Store.getData().labelCatalogs, //所有的标签分类值
@@ -47562,6 +47566,7 @@
 		onBeforeCloseDialog: function () {
 			var selectCatalogLabels = this.state.selectCatalogLabels;
 			var catalogId = this.state.catalogId;
+			var productId = this.state.productId;
 
 			if (selectCatalogLabels.length == 0) {
 				Reactman.PageAction.showHint('error', '请选择标签!');
@@ -47570,7 +47575,8 @@
 					resource: 'label.catalog_label',
 					data: {
 						select_catalog_labels: JSON.stringify(selectCatalogLabels),
-						catalog_id: catalogId
+						catalog_id: catalogId,
+						product_id: productId
 					},
 					success: function () {
 						this.closeDialog();
@@ -47839,11 +47845,12 @@
 			});
 		},
 
-		getCatalogHasLabel: function (catalogId) {
+		getCatalogHasLabel: function (catalogId, productId) {
 			Resource.get({
 				resource: 'product_catalog.catalog_has_labels',
 				data: {
-					catalog_id: catalogId
+					catalog_id: catalogId,
+					product_id: productId
 				},
 				dispatch: {
 					dispatcher: Dispatcher,
@@ -49038,13 +49045,15 @@
 
 		onAddLabel: function (event) {
 			var catalogId = event.target.getAttribute('data-id');
-			Action.getCatalogHasLabel(catalogId); //获取已经配置好的分类标签
+			var productId = -1;
+			Action.getCatalogHasLabel(catalogId, productId); //获取已经配置好的分类标签
 			_.delay(function () {
 				Reactman.PageAction.showDialog({
 					title: "配置标签",
 					component: AddLabelDialog,
 					data: {
-						catalogId: catalogId
+						catalogId: catalogId,
+						productId: productId
 					},
 					success: function () {
 						Action.updateLabels();

@@ -17,8 +17,10 @@ var AddLabelDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		var catalogId = this.props.data.catalogId;
+		var productId = this.props.data.productId;
 		return {
 			catalogId: catalogId,
+			productId: productId,
 			catalogs: Store.getData().catalogs,
 			labelFirstId: Store.getData().labelFirstId,
 			labelCatalogs: Store.getData().labelCatalogs,//所有的标签分类值
@@ -41,29 +43,31 @@ var AddLabelDialog = Reactman.createDialog({
 		this.setState(newState);
 	},
 
-	onChangeStore: function(){
+	onChangeStore: function() {
 		this.setState({
 			selectLabels: Store.getData().selectLabels,
 			selectCatalogLabels: Store.getData().selectCatalogLabels
 		});
 	},
 
-	chooseLabelValue: function(propertyId, valueId){
+	chooseLabelValue: function(propertyId, valueId) {
 		Action.chooseLabelValue(propertyId, valueId);
 	},
 
 	onBeforeCloseDialog: function() {
 		var selectCatalogLabels = this.state.selectCatalogLabels;
 		var catalogId = this.state.catalogId;
+		var productId = this.state.productId;
 
-		if(selectCatalogLabels.length==0) {
+		if(selectCatalogLabels.length == 0) {
 			Reactman.PageAction.showHint('error', '请选择标签!');
 		}else{
 			Reactman.Resource.put({
 				resource: 'label.catalog_label',
 				data: {
 					select_catalog_labels: JSON.stringify(selectCatalogLabels),
-					catalog_id: catalogId
+					catalog_id: catalogId,
+					product_id: productId
 				},
 				success: function() {
 					this.closeDialog();
@@ -79,7 +83,7 @@ var AddLabelDialog = Reactman.createDialog({
 		}
 	},
 
-	render:function(){
+	render: function() {
 		var _this = this;
 		var labelCatalogs = this.state.labelCatalogs.length>0? JSON.parse(this.state.labelCatalogs): [];
 		var labelValues = this.state.labelValues;
@@ -114,19 +118,19 @@ var AddLabelDialog = Reactman.createDialog({
 			})
 		}
 
-		if(selectCatalogLabels.length>0){
-			selectCatalogLabelsList = selectCatalogLabels.map(function(selectCatalogLabel, index){
+		if(selectCatalogLabels.length>0) {
+			selectCatalogLabelsList = selectCatalogLabels.map(function(selectCatalogLabel, index) {
 				var propertyId = selectCatalogLabel.propertyId;
 				var valueIds = selectCatalogLabel.valueIds;
 				var labelValueNames = '';
 
-				for(var i in valueIds){
-					if(valueId2name.hasOwnProperty(valueIds[i])){
+				for(var i in valueIds) {
+					if(valueId2name.hasOwnProperty(valueIds[i])) {
 						labelValueNames = labelValueNames + valueId2name[valueIds[i]] + '; '
 					}
 				}
 
-				if(labelId2name[propertyId] != undefined){
+				if(labelId2name[propertyId] != undefined) {
 					return (
 						<li key={index} style={{marginTop: '5px'}}>
 							<span style={{color: '#000'}}>{labelId2name[propertyId]}</span>:<span style={{marginLeft: '10px'}}>{labelValueNames}</span>

@@ -136,10 +136,11 @@ class ProductRelation(resource.Resource):
 		#获取标签
 		catalog_ids = [product.catalog_id for product in products]
 		product_catalog_has_labels = product_catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id__in=catalog_ids)
-		property_ids = [product_catalog_has_label.property_id for product_catalog_has_label in product_catalog_has_labels]
-		label_property_values = label_models.LabelPropertyValue.objects.filter(property_id__in=property_ids)
-
+		# property_ids = [product_catalog_has_label.property_id for product_catalog_has_label in product_catalog_has_labels]
+		label_property_values = label_models.LabelPropertyValue.objects.all()
 		value_id2name = {label_property_value.id:label_property_value.name for label_property_value in label_property_values}
+			
+		#分类配置的标签
 		catalog_id2names = {}
 		for product_catalog_has_label in product_catalog_has_labels:
 			label_ids = product_catalog_has_label.label_ids.split(',')
@@ -154,6 +155,22 @@ class ProductRelation(resource.Resource):
 				catalog_id2names[catalog_id] = names
 			else:
 				catalog_id2names[catalog_id].extend(names)
+
+		#商品配置的标签 展示商品配置优先
+		product_id2label_names = {}
+		for product in products:
+			label_ids = product.label_ids
+			if label_ids:
+				label_ids = label_ids.split(';')
+				names = []
+				for label_id in label_ids:
+					label_id_and_value_ids = label_id.split(',')
+					value_id_str = str(label_id_and_value_ids[1])
+					for value_id in value_id_str.split('_'):
+						if int(value_id) in value_id2name:
+							names.append(value_id2name[int(value_id)])
+
+				product_id2label_names[product.id] = names
 
 		#获取分类
 		product_catalogs = product_catalog_models.ProductCatalog.objects.all()
@@ -188,13 +205,19 @@ class ProductRelation(resource.Resource):
 					first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
 				#标签
-				property_value_names = [] if catalog_id not in catalog_id2names else catalog_id2names[catalog_id]
+				if product.id not in product_id2label_names:
+					property_value_names = [] if catalog_id not in catalog_id2names else catalog_id2names[catalog_id]
+				else:
+					property_value_names = [] if product.id not in product_id2label_names else product_id2label_names[product.id]
+				
 				#组织成json格式
 				label_names = []
 				for property_value_name in property_value_names:
 					label_names.append({
 						'name': property_value_name
 					})
+
+
 				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
 				customer_from_text = customer_from2text[customer_from]
 				rows.append({

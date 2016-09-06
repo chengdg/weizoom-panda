@@ -27,6 +27,7 @@ class Product(models.Model):
 	is_update = models.BooleanField(default=False) #是否更新
 	is_refused = models.BooleanField(default=False) #是否驳回
 	refuse_reason = models.TextField(null=True) #驳回原因
+	label_ids = models.CharField(max_length=1024, default='') #关联标签 格式'9,28_29;11,33_34;10,32_31'(LabelProperty.id,LabelPropertyValue.id_LabelPropertyValue.id;)
 	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):

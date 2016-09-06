@@ -17,6 +17,7 @@ from core import paginator
 from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
 from product_catalog import models as catalog_models
+from product import models as product_models
 
 import models
 
@@ -28,10 +29,9 @@ class CataloLabel(resource.Resource):
 	def api_get(request):
 		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
 		label_values = models.LabelPropertyValue.objects.filter(is_deleted=False)
-		
+
 		label_catalogs = []
 		label_id2name = {}
-
 		for label_property in label_properties:
 			label_catalogs.append({
 				'text': label_property.name,
@@ -62,6 +62,7 @@ class CataloLabel(resource.Resource):
 				'text': u'暂无分类',
 				'value': -1
 			}]
+			
 		data = {
 			'labelCatalogs': json.dumps(label_catalogs),
 			'propertyId2name': property_id2name,
@@ -77,21 +78,39 @@ class CataloLabel(resource.Resource):
 	def api_put(request):
 		select_catalog_labels = request.POST.get('select_catalog_labels', '')
 		catalog_id = request.POST.get('catalog_id', -1)
+		product_id = int(request.POST.get('product_id', -1))
 		if select_catalog_labels:
-			catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
 			select_catalog_labels = json.loads(select_catalog_labels)
 			
+			list_create = []
+			property_id_and_value_ids = []
 			for select_catalog_label in select_catalog_labels:
 				value_ids = []
 				select_value_ids = select_catalog_label['valueIds']
 				property_id = select_catalog_label['propertyId']
 				for value_id in select_value_ids:
 					value_ids.append(str(value_id))
-			
-				catalog_models.ProductCatalogHasLabel.objects.create(
+
+				str_value_ids = ','.join(value_ids)
+				#商品配置标签
+				property_id_and_value_ids.append(str(property_id) + ',' + '_'.join(value_ids))
+				#分类配置标签
+				list_create.append(catalog_models.ProductCatalogHasLabel(
 					catalog_id = catalog_id,
-					label_ids = ','.join(value_ids),
+					label_ids = str_value_ids,
 					property_id = property_id
+				))
+
+			if product_id == -1:
+				#分类关联标签
+				catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
+				catalog_models.ProductCatalogHasLabel.objects.bulk_create(list_create)
+			else:
+				#商品关联标签
+				property_id_and_value_ids = ';'.join(property_id_and_value_ids)
+				product_models.Product.objects.filter(id=product_id, is_deleted=False).update(
+					label_ids = property_id_and_value_ids
 				)
+
 		response = create_response(200)
 		return response.get_response()
