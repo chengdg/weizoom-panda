@@ -108,7 +108,7 @@ class CustomerOrderDetail(resource.Resource):
 		total_count = 0
 		for product in order_products:
 			total_count += product['count']
-			product['purchase_price'] = '%.2f' %product['purchase_price']
+			product['origin_price'] = '%.2f' % product['origin_price']
 			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
 			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
@@ -125,8 +125,8 @@ class CustomerOrderDetail(resource.Resource):
 		if data:
 			express_details = json.dumps(data['express_details']) if data['express_details'] else ''
 		status = '' if not data else data['status']
-		total_purchase_price = 0 if not data else data['total_purchase_price']
-		orders=[{
+		origin_total_price = 0 if not data else data['origin_total_price']
+		orders = [{
 			'order_id': '' if not data else data['order_id'],#订单编号
 			'order_status': '' if status not in order_status2text else order_status2text[status],#订单状态
 			'order_express_details': express_details,#订单物流
@@ -137,8 +137,8 @@ class CustomerOrderDetail(resource.Resource):
 			'ship_address': '' if not data else data['ship_address'],#收货地址
 			'express_company_name': '' if not data else data['express_company_name'],#物流公司名称
 			'express_number': '' if not data else data['express_number'],#运单号
-			'order_money': '%.2f' %total_purchase_price,#订单金额
-			'postage': '%.2f' %data['postage'],#运费
+			'origin_total_price': '%.2f' % origin_total_price,#订单金额
+			'postage': '%.2f' % data['postage'],#运费
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
 		}]

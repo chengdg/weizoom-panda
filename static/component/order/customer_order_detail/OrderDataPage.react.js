@@ -55,7 +55,7 @@ var OrderDataPage = React.createClass({
 				)
 			}else if (value == 'unit_price/quantity'){
 				return (
-					<span key={index} className="product-item-info">{product["purchase_price"]}/({product["count"]}件)<br></br></span>
+					<span key={index} className="product-item-info">{product["origin_price"]}/({product["count"]}件)<br></br></span>
 				)
 			}
 		})
@@ -78,7 +78,7 @@ var OrderDataPage = React.createClass({
 			return (
 				<div style={{margin:'20px 0 0 10px'}}>{value}(件)</div>
 			);
-		}else if(field === 'order_money'){
+		}else if(field === 'origin_total_price'){
 			return (
 				<div style={{margin:'20px 0 0 10px'}}>{value}(元)</div>
 			);
@@ -114,7 +114,7 @@ var OrderDataPage = React.createClass({
 								<Reactman.TableColumn name="商品" field="product_name" />
 								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
 								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
-								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+								<Reactman.TableColumn name="订单金额" field="origin_total_price" width='200px'/>
 								<Reactman.TableColumn name="运费" field="postage" width='200px'/>
 							</Reactman.Table>
 						</Reactman.TablePanel>
@@ -132,7 +132,7 @@ var OrderDataPage = React.createClass({
 								<Reactman.TableColumn name="商品" field="product_name" />
 								<Reactman.TableColumn name="单价/数量" field="unit_price/quantity" />
 								<Reactman.TableColumn name="商品件数" field="total_count" width='200px'/>
-								<Reactman.TableColumn name="订单金额" field="order_money" width='200px'/>
+								<Reactman.TableColumn name="订单金额" field="origin_total_price" width='200px'/>
 								<Reactman.TableColumn name="运费" field="postage" width='200px'/>
 							</Reactman.Table>
 						</Reactman.TablePanel>
