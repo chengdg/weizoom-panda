@@ -51,15 +51,10 @@ class YunyingOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
-		username = User.objects.get(id=request.user.id).username
-		is_ceshi = False
-		if username in CESHI_USERNAMES:
-			is_ceshi = True
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV,
-			'is_ceshi': is_ceshi
+			'second_nav_name': SECOND_NAV
 		})
 
 		return render_to_response('order/yunying_orders_list.html', c)
@@ -341,7 +336,7 @@ class YunyingOrdersList(resource.Resource):
 			if not supplier_ids:
 				pageinfo = paginator.paginate_by_count(0,
 											1, 15, '')
-				print pageinfo
+				# print pageinfo
 				data = {
 					'rows': [],
 					'pagination_info': pageinfo

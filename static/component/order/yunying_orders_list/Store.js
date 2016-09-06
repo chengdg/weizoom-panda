@@ -17,27 +17,36 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleFilterOrders': Constant.FILTER_ORDERS,
-		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
+		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
+		'initAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
 	},
 
 	init: function() {
 		this.data = {
+			typeOptions: []
 		};
+	},
+
+	initAllSelfShops: function(action) {
+		this.data['typeOptions'] = action.data.rows;
+		this.__emitChange();
 	},
 
 	handleFilterOrders: function(action) {
 		this.data.filterOptions = action.data;
 		this.__emitChange();
 	},
+
 	handleOrderDatasExport: function(action){
 		var filterOptions = this.data.filterOptions;
 		var filterStr = '';
 		for (var key in filterOptions){
 			filterStr = filterStr + key + '=' + filterOptions[key] + '&';
 		}
-		filterStr = filterStr.substring(0,filterStr.length-1);
-		window.location.href = '/order/yunying_export_orders/?'+filterStr;
+		filterStr = filterStr.substring(0, filterStr.length-1);
+		window.location.href = '/order/yunying_export_orders/?' + filterStr;
 	},
+
 	getData: function() {
 		return this.data;
 	}

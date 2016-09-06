@@ -39223,7 +39223,7 @@
 					return React.createElement(
 						'span',
 						{ key: index, className: 'product-item-info' },
-						product["purchase_price"],
+						product["origin_price"],
 						'/(',
 						product["count"],
 						'件)',
@@ -39256,7 +39256,7 @@
 					value,
 					'(件)'
 				);
-			} else if (field === 'order_money') {
+			} else if (field === 'origin_total_price') {
 				return React.createElement(
 					'div',
 					{ style: { margin: '20px 0 0 10px' } },
@@ -39304,7 +39304,7 @@
 								React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
 								React.createElement(Reactman.TableColumn, { name: '单价/数量', field: 'unit_price/quantity' }),
 								React.createElement(Reactman.TableColumn, { name: '商品件数', field: 'total_count', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'order_money', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'origin_total_price', width: '200px' }),
 								React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage', width: '200px' })
 							)
 						)
@@ -39327,7 +39327,7 @@
 								React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
 								React.createElement(Reactman.TableColumn, { name: '单价/数量', field: 'unit_price/quantity' }),
 								React.createElement(Reactman.TableColumn, { name: '商品件数', field: 'total_count', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'order_money', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'origin_total_price', width: '200px' }),
 								React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage', width: '200px' })
 							)
 						)
@@ -40543,6 +40543,18 @@
 				actionType: Constant.ORDER_DATAS_EXPORT,
 				data: {}
 			});
+		},
+		getAllSyncedSelfShops: function () {
+			Resource.get({
+				resource: 'self_shop.get_all_synced_self_shops',
+				data: {
+					'is_for_search': true
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.INIT_ALL_SELF_SHOPS
+				}
+			});
 		}
 	};
 
@@ -40561,7 +40573,8 @@
 
 	module.exports = keyMirror({
 	  FILTER_ORDERS: null,
-	  ORDER_DATAS_EXPORT: null
+	  ORDER_DATAS_EXPORT: null,
+	  INIT_ALL_SELF_SHOPS: null
 	});
 
 /***/ },
@@ -40587,17 +40600,26 @@
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
 			'handleFilterOrders': Constant.FILTER_ORDERS,
-			'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
+			'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
+			'initAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
 		},
 
 		init: function () {
-			this.data = {};
+			this.data = {
+				typeOptions: []
+			};
+		},
+
+		initAllSelfShops: function (action) {
+			this.data['typeOptions'] = action.data.rows;
+			this.__emitChange();
 		},
 
 		handleFilterOrders: function (action) {
 			this.data.filterOptions = action.data;
 			this.__emitChange();
 		},
+
 		handleOrderDatasExport: function (action) {
 			var filterOptions = this.data.filterOptions;
 			var filterStr = '';
@@ -40607,6 +40629,7 @@
 			filterStr = filterStr.substring(0, filterStr.length - 1);
 			window.location.href = '/order/yunying_export_orders/?' + filterStr;
 		},
+
 		getData: function () {
 			return this.data;
 		}
@@ -40642,13 +40665,14 @@
 			return Store.getData();
 		},
 
-		onChangeStore: function (event) {
-			var filterOptions = Store.getData().filterOptions;
-			this.refs.table.refresh(filterOptions);
+		componentDidMount: function () {
+			Action.getAllSyncedSelfShops();
 		},
 
-		rowFormatter: function (field, value, data) {
-			return value;
+		onChangeStore: function (event) {
+			this.setState(Store.getData());
+			var filterOptions = Store.getData().filterOptions;
+			this.refs.table.refresh(filterOptions);
 		},
 
 		onConfirmFilter: function (data) {
@@ -40681,83 +40705,6 @@
 					is_for_list: true
 				}
 			};
-			var typeOptions = [{
-				text: '全部',
-				value: '-1'
-			}, {
-				text: '微众商城',
-				value: 'weizoom_shop'
-			}, {
-				text: '微众家',
-				value: 'weizoom_jia'
-			}, {
-				text: '微众妈妈',
-				value: 'weizoom_mama'
-			}, {
-				text: '微众学生',
-				value: 'weizoom_xuesheng'
-			}, {
-				text: '微众白富美',
-				value: 'weizoom_baifumei'
-			}, {
-				text: '微众俱乐部',
-				value: 'weizoom_club'
-			}, {
-				text: '微众Life',
-				value: 'weizoom_life'
-			}, {
-				text: '微众一家人',
-				value: 'weizoom_yjr'
-			}, {
-				text: '惠惠来啦',
-				value: 'weizoom_fulilaile'
-			}, {
-				text: '居委汇',
-				value: 'weizoom_juweihui'
-			}, {
-				text: '微众中海',
-				value: 'weizoom_zhonghai'
-			}, {
-				text: '微众club',
-				value: 'weizoom_zoomjulebu'
-			}, {
-				text: '微众吃货',
-				value: 'weizoom_chh'
-			}, {
-				text: '微众圈',
-				value: 'weizoom_pengyouquan'
-			}, {
-				text: '少先队',
-				value: 'weizoom_shxd'
-			}, {
-				text: '津美汇',
-				value: 'weizoom_jinmeihui'
-			}, {
-				text: '微众便利店',
-				value: 'weizoom_wzbld'
-			}, {
-				text: '微众佳人',
-				value: 'weizoom_jiaren'
-			}, {
-				text: '微众良乡商城',
-				value: 'weizoom_xiaoyuan'
-			}, {
-				text: '微众精英',
-				value: 'weizoom_jy'
-			}, {
-				text: '爱尔康',
-				value: 'weizoom_aierkang'
-			}];
-			if (W.is_ceshi) {
-				typeOptions.push({
-					text: '开发测试',
-					value: 'devceshi'
-				});
-				typeOptions.push({
-					text: '财务测试',
-					value: 'caiwuceshi'
-				});
-			}
 			var orderStatusOptions = [{
 				text: '全部',
 				value: '-1'
@@ -40816,7 +40763,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'fromMall', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'fromMall', options: this.state.typeOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
@@ -46574,6 +46521,19 @@
 				actionType: Constant.CANCLE_SELECT_SYNC_PRODUCT,
 				data: {}
 			});
+		},
+
+		getAllSyncedSelfShops: function () {
+			Resource.get({
+				resource: 'self_shop.get_all_synced_self_shops',
+				data: {
+					is_for_search: false
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.INIT_ALL_SELF_SHOPS
+				}
+			});
 		}
 	};
 
@@ -46598,7 +46558,8 @@
 		GET_HAS_SYNC_SHOP: null,
 		CHOOSE_ALL_SELF_SHOP: null,
 		CANCLE_SELECT_SYNC_PRODUCT: null,
-		PRODUCT_LIST_DELETE_PRODUCT: null
+		PRODUCT_LIST_DELETE_PRODUCT: null,
+		INIT_ALL_SELF_SHOPS: null
 	});
 
 /***/ },
@@ -46623,89 +46584,17 @@
 	var ChooseSyncSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
-			var selfShop = [{
-				'name': '微众白富美',
-				'value': 'weizoom_baifumei'
-			}, {
-				'name': '微众俱乐部',
-				'value': 'weizoom_club'
-			}, {
-				'name': '微众家',
-				'value': 'weizoom_jia'
-			}, {
-				'name': '微众妈妈',
-				'value': 'weizoom_mama'
-			}, {
-				'name': '微众商城',
-				'value': 'weizoom_shop'
-			}, {
-				'name': '微众学生',
-				'value': 'weizoom_xuesheng'
-			}, {
-				'name': '微众Life',
-				'value': 'weizoom_life'
-			}, {
-				'name': '微众一家人',
-				'value': 'weizoom_yjr'
-			}, {
-				'name': '惠惠来啦',
-				'value': 'weizoom_fulilaile'
-			}, {
-				'name': '居委汇',
-				'value': 'weizoom_juweihui'
-			}, {
-				'name': '微众中海',
-				'value': 'weizoom_zhonghai'
-			}, {
-				'name': '微众club',
-				'value': 'weizoom_zoomjulebu'
-			}, {
-				'name': '微众吃货',
-				'value': 'weizoom_chh'
-			}, {
-				'name': '微众圈',
-				'value': 'weizoom_pengyouquan'
-			}, {
-				'name': '少先队',
-				'value': 'weizoom_shxd'
-			}, {
-				'name': '津美汇',
-				'value': 'weizoom_jinmeihui'
-			}, {
-				'name': '微众便利店',
-				'value': 'weizoom_wzbld'
-			}, {
-				'name': '微众佳人',
-				'value': 'weizoom_jiaren'
-			}, {
-				'name': '微众良乡商城',
-				'value': 'weizoom_xiaoyuan'
-			}, {
-				'name': '微众精英',
-				'value': 'weizoom_jy'
-			}, {
-				'name': '爱尔康',
-				'value': 'weizoom_aierkang'
-			}];
-			if (W.is_ceshi) {
-				selfShop.push({
-					'name': '开发测试',
-					'value': 'devceshi'
-				});
-				selfShop.push({
-					'name': '财务测试',
-					'value': 'caiwuceshi'
-				});
-			}
+			Action.getAllSyncedSelfShops();
 			return {
 				select_self_shop: Store.getData()['selectSelfShop'],
-				self_shop: selfShop
+				self_shop: []
 			};
 		},
 
 		onChangeStore: function () {
 			this.setState({
-				select_self_shop: Store.getData()['selectSelfShop']
+				select_self_shop: Store.getData()['selectSelfShop'],
+				self_shop: Store.getData()['selfShop']
 			});
 		},
 
@@ -46755,8 +46644,8 @@
 				}
 				return React.createElement(
 					'li',
-					{ key: index, style: bgStyle['style'], className: 'self-shop-li', onClick: _this.ChooseSelfShop.bind(_this, value) },
-					self_shop.name
+					{ key: index, style: bgStyle['style'], className: 'self-shop-li', onClick: _this.ChooseSelfShop.bind(_this, value), title: self_shop.text },
+					self_shop.text
 				);
 			});
 
@@ -46831,7 +46720,8 @@
 			'handleGetHasSyncShop': Constant.GET_HAS_SYNC_SHOP,
 			'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
 			'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
-			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT
+			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
+			'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
 		},
 
 		init: function () {
@@ -46840,6 +46730,12 @@
 				'selectSelfShop': [],
 				'product_info': {}
 			};
+		},
+
+		handleInitAllSelfShops: function (action) {
+			this.data['selfShop'] = action.data.rows;
+			this.data['allSelfShop'] = action.data.allSelfShopsValue;
+			this.__emitChange();
 		},
 
 		handleProductRelationWeapp: function (action) {
@@ -46896,20 +46792,12 @@
 
 		handleChooseAllSelfShop: function (action) {
 			var selectSelfShop = this.data.selectSelfShop;
-			if (W.is_ceshi) {
-				if (selectSelfShop.length == 23) {
-					selectSelfShop = [];
-				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang', 'devceshi', 'caiwuceshi'];
-				}
+			var allSelfShop = this.data.allSelfShop;
+			if (selectSelfShop.length == this.data.selfShop.length) {
+				selectSelfShop = [];
 			} else {
-				if (selectSelfShop.length == 21) {
-					selectSelfShop = [];
-				} else {
-					selectSelfShop = ['weizoom_baifumei', 'weizoom_club', 'weizoom_jia', 'weizoom_mama', 'weizoom_shop', 'weizoom_xuesheng', 'weizoom_life', 'weizoom_yjr', 'weizoom_fulilaile', 'weizoom_juweihui', 'weizoom_zhonghai', 'weizoom_zoomjulebu', 'weizoom_chh', 'weizoom_pengyouquan', 'weizoom_shxd', 'weizoom_jinmeihui', 'weizoom_wzbld', 'weizoom_jiaren', 'weizoom_xiaoyuan', 'weizoom_jy', 'weizoom_aierkang'];
-				}
+				selectSelfShop = allSelfShop;
 			}
-
 			this.data.selectSelfShop = selectSelfShop;
 			this.__emitChange();
 		},
@@ -46970,7 +46858,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 40px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 40px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -48619,7 +48507,7 @@
 	 */
 	"use strict";
 
-	var debug = __webpack_require__(235)('m:outline.datas:Action');
+	var debug = __webpack_require__(235)('m:self_shop.manage:Action');
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
@@ -48629,12 +48517,29 @@
 	var Constant = __webpack_require__(494);
 
 	var Action = {
-		addRebateValue: function (property, value) {
+		updateSelfShopDialog: function (property, value) {
 			Dispatcher.dispatch({
-				actionType: Constant.ADD_REBATE_VALUE,
+				actionType: Constant.UPDATE_SELF_SHOPS,
+				data: {}
+			});
+		},
+		syncSelfShopProduct: function (userName) {
+			Resource.post({
+				resource: 'self_shop.manage',
 				data: {
-					property: property,
-					value: value
+					self_user_name: userName
+				},
+				success: function () {
+					Reactman.PageAction.showHint('success', '同步成功');
+					setTimeout(function () {
+						Dispatcher.dispatch({
+							actionType: Constant.UPDATE_SELF_SHOPS,
+							data: {}
+						});
+					}, 500);
+				},
+				error: function (data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
 				}
 			});
 		}
@@ -48654,7 +48559,8 @@
 	var keyMirror = __webpack_require__(251);
 
 	module.exports = keyMirror({
-	  ADD_REBATE_VALUE: null
+	  UPDATE_SELF_SHOP_DIALOG: null,
+	  UPDATE_SELF_SHOPS: null
 	});
 
 /***/ },
@@ -48680,48 +48586,53 @@
 	var AddSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
+			var options = this.props.data.options;
+			var selfUserName = '';
+			if (options.length > 0) {
+				selfUserName = options[0]['value'];
+			}
 			return {
-				'self_user_name': '',
-				'rebate_value': '',
-				'remark': ''
+				selfUserName: selfUserName,
+				remark: '',
+				isSync: '',
+				options: options
 			};
 		},
 
 		onChange: function (value, event) {
 			var property = event.target.getAttribute('name');
-			Action.addRebateValue(property, value);
+			var newState = {};
+			newState[property] = value;
+			this.setState(newState);
 		},
 
 		onChangeStore: function () {
+			var infomations = Store.getData();
 			this.setState(Store.getData());
 		},
 
 		onBeforeCloseDialog: function () {
-			if (this.state.self_user_name == '') {
+			if (this.state.selfUserName == '') {
 				Reactman.PageAction.showHint('error', '请选择自营平台');
 			} else {
-				//给接口传递发货信息的参数
-				var selfUserName = this.state.self_user_name;
-				var rebateValue = this.state.rebate_value;
-				var remark = this.state.remark;
-				console.log(selfUserName, rebateValue, remark, '========');
+				var selfShopName = $('#selfUserName').find("option:selected").text();
+				//添加自营平台
 				Reactman.Resource.put({
 					resource: 'self_shop.manage',
 					data: {
-						self_user_name: selfUserName,
-						rebate_value: rebateValue,
-						remark: remark
+						self_shop_name: selfShopName,
+						weapp_user_id: this.state.selfUserName,
+						remark: this.state.remark,
+						is_sync: this.state.isSync.length > 0 ? 'is_sync' : ''
 					},
 					success: function (action) {
-						console.log(action, "===========");
-						Reactman.PageAction.showHint('success', '添加自营平台成功');
+						this.closeDialog();
 						_.delay(function () {
-							W.gotoPage('/self_shop/manage/');
+							Reactman.PageAction.showHint('success', '添加自营平台成功');
 						}, 500);
-						// this.closeDialog();
 					},
 					error: function (data) {
-						Reactman.PageAction.showHint('error', '添加自营平台失败');
+						Reactman.PageAction.showHint('error', data.errMsg);
 					},
 					scope: this
 				});
@@ -48729,36 +48640,9 @@
 		},
 
 		render: function () {
-			var typeOptions = [{
-				text: '',
-				value: ''
-			}, {
-				text: '微众商城',
-				value: 'weizoom_shop'
-			}, {
-				text: '微众家',
-				value: 'weizoom_jia'
-			}, {
-				text: '微众妈妈',
-				value: 'weizoom_mama'
-			}, {
-				text: '微众学生',
-				value: 'weizoom_xuesheng'
-			}, {
-				text: '微众白富美',
-				value: 'weizoom_baifumei'
-			}, {
-				text: '微众俱乐部',
-				value: 'weizoom_club'
-			}, {
-				text: '微众Life',
-				value: 'weizoom_life'
-			}, {
-				text: '微众一家人',
-				value: 'weizoom_yjr'
-			}, {
-				text: '惠惠来啦',
-				value: 'weizoom_fulilaile'
+			var optionsForSync = [{
+				text: '批量同步已有的商品',
+				value: 'isSync'
 			}];
 			return React.createElement(
 				'div',
@@ -48769,14 +48653,9 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'self_user_name', options: typeOptions, value: this.state.self_user_name, onChange: this.onChange }),
-						React.createElement(
-							'div',
-							{ className: 'rebate_tips' },
-							'提示：扣点基础表示该平台与商品管理系统约定的额外扣点设置。如某客户标准扣点5%，微众家的扣点基数是2，则该客户商品同步到微众家后按照10%的扣点来计算出商品采购价（即结算价）。'
-						),
-						React.createElement(Reactman.FormInput, { label: '扣点基数:', type: 'text', name: 'rebate_value', value: this.state.rebate_value, onChange: this.onChange, validate: 'require-float' }),
-						React.createElement(Reactman.FormText, { label: '备注:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 })
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'selfUserName', value: this.state.selfUserName, options: this.state.options, onChange: this.onChange }),
+						React.createElement(Reactman.FormText, { label: '备注说明:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 }),
+						React.createElement(Reactman.FormCheckbox, { label: '', name: 'isSync', value: this.state.isSync, options: optionsForSync, onChange: this.onChange })
 					)
 				)
 			);
@@ -48793,7 +48672,7 @@
 	 */
 	"use strict";
 
-	var debug = __webpack_require__(235)('m:outline.datas:Store');
+	var debug = __webpack_require__(235)('m:self_shop.manage:Store');
 	var EventEmitter = __webpack_require__(303).EventEmitter;
 	var assign = __webpack_require__(304);
 	var _ = __webpack_require__(243);
@@ -48806,15 +48685,21 @@
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
-			'handleAddRebateValue': Constant.ADD_REBATE_VALUE
+			'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG,
+			'handelUpdateSelfShops': Constant.UPDATE_SELF_SHOPS
 		},
 
 		init: function () {
 			this.data = {};
 		},
 
-		handleAddRebateValue: function (action) {
+		handleUpdateSelfShopDialog: function (action) {
 			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		handelUpdateSelfShops: function (action) {
+			this.data = action.data;
 			this.__emitChange();
 		},
 
@@ -48860,7 +48745,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}", ""]);
+	exports.push([module.id, "", ""]);
 
 	// exports
 
@@ -48893,58 +48778,74 @@
 
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
-			return {
-				'self_user_name': '',
-				'rebate_value': '',
-				'remark': ''
-			};
+			return {};
 		},
 
 		onChangeStore: function () {
 			this.setState(Store.getData());
+			var filterOptions = Store.getData();
+			this.refs.table.refresh(filterOptions);
 		},
 
 		addSelfShop: function () {
-			Reactman.PageAction.showDialog({
-				title: "添加自营平台",
-				component: AddSelfShopDialog,
+			Reactman.Resource.get({
+				resource: 'self_shop.get_all_unsynced_self_shops',
 				data: {},
-				success: function (inputData, dialogState) {
-					console.log("success");
-				}
+				success: function (data) {
+					var options = data.rows;
+					Reactman.PageAction.showDialog({
+						title: "添加自营平台",
+						component: AddSelfShopDialog,
+						data: {
+							options: options
+						},
+						success: function () {
+							Action.updateSelfShopDialog();
+						}
+					});
+				},
+				error: function (data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
 			});
+		},
+
+		//同步自营平台现有商品
+		chooseSyncSelfShopProduct: function (userName) {
+			Action.syncSelfShopProduct(userName);
 		},
 
 		rowFormatter: function (field, value, data) {
 			if (field === 'action') {
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs' },
-						'删除'
-					),
-					React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs' },
-						'批量同步'
-					)
-				);
+				if (data.isSynced) {
+					return React.createElement(
+						'div',
+						null,
+						'已同步'
+					);
+				} else {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShopProduct.bind(this, data['userName']) },
+							'批量同步现有商品'
+						)
+					);
+				}
 			} else {
 				return value;
 			}
 		},
-
 		render: function () {
-			console.log("======");
 			var productsResource = {
 				resource: 'self_shop.manage',
 				data: {
 					page: 1
 				}
 			};
-
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-product-productListPage' },
@@ -48959,9 +48860,8 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '平台名称', field: 'self_shop_name', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: 'user_name', field: 'user_name' }),
-						React.createElement(Reactman.TableColumn, { name: '扣点基数', field: 'rebate_value' }),
+						React.createElement(Reactman.TableColumn, { name: '平台名称', field: 'selfShopName', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: 'user_name', field: 'userName' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)

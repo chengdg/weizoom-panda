@@ -20,50 +20,68 @@ var W = Reactman.W;
 var SelfShopManagePage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return {
-			'self_user_name': '',
-			'rebate_value': '',
-			'remark': ''
-		};
+		return ({});
 	},
 
 	onChangeStore: function() {
 		this.setState(Store.getData());
+		var filterOptions = Store.getData();
+		this.refs.table.refresh(filterOptions);
 	},
 
 	addSelfShop:function(){
-		Reactman.PageAction.showDialog({
-			title: "添加自营平台",
-			component: AddSelfShopDialog,
+		Reactman.Resource.get({
+			resource: 'self_shop.get_all_unsynced_self_shops',
 			data: {},
-			success: function(inputData, dialogState) {
-				console.log("success");
-			}
-		});
+			success: function(data) {
+				var options = data.rows;
+				Reactman.PageAction.showDialog({
+					title: "添加自营平台",
+					component: AddSelfShopDialog,
+					data: {
+						options: options
+					},
+					success: function() {
+						Action.updateSelfShopDialog();
+					}
+				});
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			},
+			scope: this
+		})
+	},
+
+	//同步自营平台现有商品
+	chooseSyncSelfShopProduct: function(userName){
+		Action.syncSelfShopProduct(userName);
 	},
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
-			return (
-				<div>
-					<a className="btn btn-link btn-xs">删除</a>
-					<a className="btn btn-link btn-xs">批量同步</a>
-				</div>
-			);
+			if(data.isSynced){
+				return (
+					<div>已同步</div>
+				);
+			}else{
+				return (
+					<div>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShopProduct.bind(this,data['userName'])}>批量同步现有商品</a>
+					</div>
+				);
+			}
 		}else{
 			return value;
 		}
 	},
-
 	render:function(){
-		console.log("======");
 		var productsResource = {
 			resource: 'self_shop.manage',
 			data: {
 				page: 1
 			}
 		};
-
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<Reactman.TablePanel>
@@ -71,9 +89,8 @@ var SelfShopManagePage = React.createClass({
 						<Reactman.TableActionButton text="添加自营平台" icon="plus" onClick={this.addSelfShop}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
-						<Reactman.TableColumn name="平台名称" field="self_shop_name" width="200px"/>
-						<Reactman.TableColumn name="user_name" field="user_name" />
-						<Reactman.TableColumn name="扣点基数" field="rebate_value" />
+						<Reactman.TableColumn name="平台名称" field="selfShopName" width="200px"/>
+						<Reactman.TableColumn name="user_name" field="userName" />
 						<Reactman.TableColumn name="操作" field="action" width="100px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>

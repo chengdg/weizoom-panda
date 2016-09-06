@@ -16,48 +16,53 @@ require('./style.css');
 var AddSelfShopDialog = Reactman.createDialog({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
+		var options = this.props.data.options;
+		var selfUserName = ''
+		if(options.length > 0){
+			selfUserName = options[0]['value']
+		}
 		return {
-			'self_user_name': '',
-			'rebate_value': '',
-			'remark': '',
+			selfUserName: selfUserName,
+			remark: '',
+			isSync: '',
+			options: options
 		};
 	},
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.addRebateValue(property, value);
+		var newState = {};
+		newState[property] = value;
+		this.setState(newState);
 	},
 
 	onChangeStore: function(){
+		var infomations = Store.getData();
 		this.setState(Store.getData());
 	},
 
 	onBeforeCloseDialog: function() {
-		if (this.state.self_user_name == '') {
+		if (this.state.selfUserName == '') {
 			Reactman.PageAction.showHint('error', '请选择自营平台');
 		} else {
-			//给接口传递发货信息的参数
-			var selfUserName = this.state.self_user_name;
-			var rebateValue = this.state.rebate_value;
-			var remark = this.state.remark;
-			console.log(selfUserName,rebateValue,remark,'========');
+			var selfShopName = $('#selfUserName').find("option:selected").text();
+			//添加自营平台
 			Reactman.Resource.put({
 				resource: 'self_shop.manage',
 				data: {
-					self_user_name: selfUserName,
-					rebate_value: rebateValue,
-					remark: remark
+					self_shop_name: selfShopName,
+					weapp_user_id: this.state.selfUserName, 
+					remark: this.state.remark,
+					is_sync: this.state.isSync.length > 0 ? 'is_sync': ''
 				},
 				success: function(action) {
-					console.log(action,"===========");
-					Reactman.PageAction.showHint('success', '添加自营平台成功');
-					_.delay(function() {
-							W.gotoPage('/self_shop/manage/');
-						}, 500);
-					// this.closeDialog();
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '添加自营平台成功');
+					},500);
 				},
 				error: function(data) {
-					Reactman.PageAction.showHint('error', '添加自营平台失败');
+					Reactman.PageAction.showHint('error', data.errMsg);
 				},
 				scope: this
 			})
@@ -65,45 +70,17 @@ var AddSelfShopDialog = Reactman.createDialog({
 	},
 
 	render:function(){
-		var typeOptions = [{
-			text: '',
-			value: ''
-		},{
-			text: '微众商城',
-			value: 'weizoom_shop'
-		}, {
-			text: '微众家',
-			value: 'weizoom_jia'
-		}, {
-			text: '微众妈妈',
-			value: 'weizoom_mama'
-		}, {
-			text: '微众学生',
-			value: 'weizoom_xuesheng'
-		}, {
-			text: '微众白富美',
-			value: 'weizoom_baifumei'
-		}, {
-			text: '微众俱乐部',
-			value: 'weizoom_club'
-		}, {
-			text: '微众Life',
-			value: 'weizoom_life'
-		}, {
-			text: '微众一家人',
-			value: 'weizoom_yjr'
-		}, {
-			text: '惠惠来啦',
-			value: 'weizoom_fulilaile'
+		var optionsForSync = [{
+			text: '批量同步已有的商品',
+			value: 'isSync'
 		}];
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<Reactman.FormSelect label="选择平台:" name="self_user_name" options={typeOptions} value={this.state.self_user_name} onChange={this.onChange}/>
-						<div className="rebate_tips">提示：扣点基础表示该平台与商品管理系统约定的额外扣点设置。如某客户标准扣点5%，微众家的扣点基数是2，则该客户商品同步到微众家后按照10%的扣点来计算出商品采购价（即结算价）。</div>
-						<Reactman.FormInput label="扣点基数:" type="text" name="rebate_value" value={this.state.rebate_value} onChange={this.onChange} validate="require-float" />
-						<Reactman.FormText label="备注:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
+						<Reactman.FormSelect label="选择平台:" name="selfUserName" value={this.state.selfUserName} options={this.state.options} onChange={this.onChange}/>
+						<Reactman.FormText label="备注说明:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
+						<Reactman.FormCheckbox label="" name="isSync" value={this.state.isSync} options={optionsForSync} onChange={this.onChange} />
 					</fieldset>
 				</form>
 			</div>
