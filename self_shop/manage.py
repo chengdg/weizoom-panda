@@ -176,7 +176,7 @@ class GetAllSyncedSelfShops(resource.Resource):
 			}]
 		else:
 			rows = []
-		self_shops = models.SelfShops.objects.filter(is_deleted=False, is_synced=True).exclude(self_shop_name__in=['开发测试','财务测试'])
+		self_shops = models.SelfShops.objects.filter(is_deleted=False).exclude(self_shop_name__in=['开发测试','财务测试'])
 		for self_shop in self_shops:
 			rows.append({
 				'text': self_shop.self_shop_name,
