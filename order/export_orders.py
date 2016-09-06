@@ -68,7 +68,7 @@ class ExportOrders(resource.Resource):
 					leader_name_message = ''
 				else:
 					leader_name,leader_name_message = order['leader_name'].split('|')
-				sales_price = str('%.2f' % (product_info['purchase_price']*int(product_info['count'])))
+				sales_price = str('%.2f' % (product_info['price']*int(product_info['count'])))
 				table.append([
 					order['order_id'],
 					order['order_create_at'],
