@@ -70,9 +70,9 @@ class ExportOrders(resource.Resource):
 					leader_name,leader_name_message = order['leader_name'].split('|')
 
 				sales_price = str('%.2f' % (product_info['price']*int(product_info['count'])))
-				print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-				print order['express_company_name']
-				print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+				# print order['express_company_name']
+				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 				table.append([
 					order['order_id'],
 					order['order_create_at'],
