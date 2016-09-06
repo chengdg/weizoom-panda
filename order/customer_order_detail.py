@@ -112,7 +112,7 @@ class CustomerOrderDetail(resource.Resource):
 		origin_total_price = 0 
 		for product in order_products:
 			total_count += product['count']
-			product['origin_price'] = '%.2f' % product['purchase_price'] if purchase_method == 1 else '%.2f' %return_product_info['price']
+			product['origin_price'] = '%.2f' % product['purchase_price'] if purchase_method == 1 else '%.2f' % product['price']
 			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
 			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
