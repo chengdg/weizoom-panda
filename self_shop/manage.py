@@ -112,7 +112,7 @@ class manage(resource.Resource):
 		try:
 			is_synced = sync_all_product_2_new_self_shop(user_name)
 			if is_synced:
-				models.SelfShops.objects.filter(user_name=user_name).update(
+				models.SelfShops.objects.filter(weapp_user_id=user_name).update(
 					is_synced = True
 					)
 				response = create_response(200)
