@@ -125,7 +125,7 @@ var LabelManagerListPage = React.createClass({
 			var ref = 'labelName_' + data['id'];
 			if(labelName){
 				return(
-					<div>
+					<div style={{paddingTop: '12px'}}>
 						{labelName}
 					</div>
 				)

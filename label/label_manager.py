@@ -46,7 +46,7 @@ class LabelManager(resource.Resource):
 
 	def api_get(request):
 		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
-		label_property_values = models.LabelPropertyValue.objects.all()
+		label_property_values = models.LabelPropertyValue.objects.filter(is_deleted=False)
 		property_id2name = {}
 		for label_property_value in label_property_values:
 			if label_property_value.property_id not in property_id2name:
@@ -108,7 +108,7 @@ class LabelManager(resource.Resource):
 		try:
 			if label_id != 0:
 				models.LabelProperty.objects.filter(id=label_id).update(is_deleted=True)
-				models.LabelPropertyValue.objects.filter(property_id=label_id).delete()
+				models.LabelPropertyValue.objects.filter(property_id=label_id).update(is_deleted=True)
 				response = create_response(200)
 		except:
 			msg = unicode_full_stack()

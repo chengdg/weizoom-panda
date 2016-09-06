@@ -27,10 +27,11 @@ class CataloLabel(resource.Resource):
 
 	def api_get(request):
 		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
-		label_values = models.LabelPropertyValue.objects.all()
+		label_values = models.LabelPropertyValue.objects.filter(is_deleted=False)
 		
 		label_catalogs = []
 		label_id2name = {}
+
 		for label_property in label_properties:
 			label_catalogs.append({
 				'text': label_property.name,
@@ -56,8 +57,13 @@ class CataloLabel(resource.Resource):
 
 			value_id2name[label_value.id] = label_value.name
 
+		if not label_catalogs:
+			label_catalogs = [{
+				'text': u'暂无分类',
+				'value': -1
+			}]
 		data = {
-			'labelCatalogs': [] if not label_catalogs else json.dumps(label_catalogs),
+			'labelCatalogs': json.dumps(label_catalogs),
 			'propertyId2name': property_id2name,
 			'valueId2name': value_id2name,
 			'labelId2name': label_id2name,

@@ -24,6 +24,7 @@ class LabelPropertyValue(models.Model):
 	property_id = models.IntegerField(default=0) #LabelProperty id
 	name = models.CharField(max_length=256)  # 规格属性值
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
+	is_deleted = models.BooleanField(default=False)  # 是否删除
 
 	class Meta(object):
 		db_table = 'label_property_value'

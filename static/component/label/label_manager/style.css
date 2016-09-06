@@ -41,9 +41,9 @@ button.xui-close{
 	line-height: 16px;
 }
 
-/*.modal-footer{
-	display: none;
-}*/
+.product-model-name{
+    margin-top: 8px;
+}
 
 .xui-form-imageUploader{
 	width: 260px;
