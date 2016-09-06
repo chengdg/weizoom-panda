@@ -82,9 +82,7 @@ class manage(resource.Resource):
 				weapp_user_id = weapp_user_id,
 				remark = remark
 			)
-			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-			print weapp_user_id
-			print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+
 			product_models.SelfUsernameWeappAccount.objects.create(
 				self_user_name = weapp_user_id,
 				weapp_account_id = weapp_user_id
@@ -218,7 +216,9 @@ def sync_all_product_2_new_self_shop(self_user_name):
 		return False
 
 def sync_all_product_2_weapp(self_user_name):
-	relation = product_models.SelfUsernameWeappAccount.objects.filter(self_user_name=self_user_name).first()
+
+	relation = product_models.SelfUsernameWeappAccount.objects.\
+		filter(self_user_name=self_user_name).order_by('-id').first()
 	weapp_account_id = relation.weapp_account_id
 	params = {
 		'new_proprietary_id': weapp_account_id
