@@ -246,7 +246,7 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': product_weapp_id2info[product_id][0]['product_name'],
 							'model_names': model_names,
 							'product_img': product_weapp_id2info[product_id][0]['product_img'],
-							'price': return_product_info['purchase_price'] if purchase_method == 1 else return_product_info['origin_price'],
+							'price': return_product_info['purchase_price'] if purchase_method == 1 else return_product_info['price'],
 							'count': return_product_info['count']
 						})
 					else:
@@ -258,7 +258,7 @@ class CustomerOrdersList(resource.Resource):
 							'product_name': return_product_info['name'],
 							'model_names': model_names,
 							'product_img': return_product_info['thumbnails_url'],
-							'price': return_product_info['purchase_price'] if purchase_method == 1 else return_product_info['origin_price'],
+							'price': return_product_info['purchase_price'] if purchase_method == 1 else return_product_info['price'],
 							'count': return_product_info['count']
 						})
 					if not is_for_list:
@@ -266,7 +266,7 @@ class CustomerOrdersList(resource.Resource):
 					if purchase_method == 1: #固定底价类型客户
 						total_purchase_price += int(return_product_info['count']) * float(return_product_info['purchase_price'])#计算订单总金额
 					else: #扣点类型客户
-						total_purchase_price += float(return_product_info['origin_total_price'])
+						total_purchase_price += float(return_product_info['total_price'])
 
 				if is_for_list:
 					rows.append({
