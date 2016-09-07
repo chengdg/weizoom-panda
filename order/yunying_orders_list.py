@@ -404,7 +404,10 @@ class YunyingOrdersList(resource.Resource):
 					# 规格信息
 					temp_product_name = []
 					product_model_properties = order['products']
+					total_price = 0
 					for product_model in product_model_properties:
+
+						total_price += product_model.get('origin_total_price')
 						product_properties = product_model.get('custom_model_properties')
 						if product_properties:
 							model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
@@ -423,7 +426,7 @@ class YunyingOrdersList(resource.Resource):
 					# 	if model_info:
 					# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'totalPurchasePrice': '%.2f' % order.get('total_purchase_price'),
+					rows.append({'totalPurchasePrice': '%.2f' % total_price,
 								 'orderId': order.get('order_id'),
 								 'fromMall': [order.get('store_name')],
 								 'orderStatus': order_status2text.get(order.get('status')),

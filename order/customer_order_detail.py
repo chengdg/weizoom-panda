@@ -66,7 +66,14 @@ class CustomerOrderDetail(resource.Resource):
 		products = product_models.Product.objects.filter(owner_id=request.user.id)
 		product_images = product_models.ProductImage.objects.all().order_by('-id')
 		user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id).first()
+
 		purchase_method = user_profile.purchase_method #采购方式
+		if user_profile.role == 3:
+			#  运营也显示售价等（和饭店类型一样）
+			purchase_method = 2
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+		# print purchase_method, user_profile.role
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 		#获取商品图片
 		product_id2image_id = {}
 		image_id2images = {}
