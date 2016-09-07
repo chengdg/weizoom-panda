@@ -115,7 +115,7 @@ class CustomerOrderDetail(resource.Resource):
 		product_id2name = {product.id:product.product_name for product in products}
 		order_products = data['product'] if data else []
 		total_count = 0
-		origin_total_price = 0 
+		total_price = 0 
 		for product in order_products:
 			total_count += product['count']
 			product['origin_price'] = '%.2f' % product['purchase_price'] if purchase_method == 1 else product['origin_total_price']/product['count']
@@ -130,7 +130,10 @@ class CustomerOrderDetail(resource.Resource):
 					property_value = custom_model_propertie['property_value']
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
-			origin_total_price += float(product['origin_total_price'])
+			if purchase_method == 1: #固定底价类型客户
+				total_price += float(product['total_price'])
+			else:
+				total_price += float(product['origin_total_price'])
 		express_details = ''
 		if data:
 			express_details = json.dumps(data['express_details']) if data['express_details'] else ''
@@ -146,7 +149,7 @@ class CustomerOrderDetail(resource.Resource):
 			'ship_address': '' if not data else data['ship_address'],#收货地址
 			'express_company_name': '' if not data else data['express_company_name'],#物流公司名称
 			'express_number': '' if not data else data['express_number'],#运单号
-			'origin_total_price': '%.2f' % origin_total_price,#订单金额
+			'origin_total_price': '%.2f' % total_price,#订单金额
 			'postage': '%.2f' % data['postage'],#运费
 			'total_count': total_count,#商品件数
 			'products': json.dumps(order_products)# 购买商品
