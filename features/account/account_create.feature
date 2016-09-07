@@ -8,6 +8,10 @@ Feature:精简版云商通-创建合作客户、代理商、运营账号
 	3.管理员创建运营账号
 	4.新增团购返点账号
 	5.新增首月55分成账号
+	6.新增需求，从渠道系统获取账号
+		#在渠道系统新增客户，新增非代理商且购买了质保金的客户才可以在创建账号时的联想式搜索中看到
+		#在Panda新增客户类型账号时，所选的公司名称必须是在渠道系统中已经存在的
+
 
 """
 #account_type   账号类型
@@ -15,6 +19,33 @@ Feature:精简版云商通-创建合作客户、代理商、运营账号
 #login_account  登录账号
 #password       密码
 #remarks        备注
+
+Background:
+	Given test22使用密码weizoom登录系统:axe
+	When test22创建销售
+	"""
+	{
+	"sale_name":"爱伲咖啡",
+	"connect_way":"13813984485"
+	}
+	"""
+
+	Then test22新建客户
+	"""
+	{
+	"costumer_name":"爱伲咖啡",
+	"agent":"test22",
+	"sales":"爱伲咖啡",
+	"area":"南京",
+	"business_license":"国家安全许可证",
+	"connect_man":"爱伲",
+	"tel":"025-85341268",
+	"mobile":"13813984402",
+	"email":"1414102598@qq.com",
+	"address":"南京市玄武区湖南路224号",
+	"main_product":"咖啡豆"
+	}
+	"""
 
 @panda @account_create
 Scenario:1  管理员创建合作客户账号
@@ -159,6 +190,7 @@ Scenario:5  新增首月55分成账号
 	"login_account":"aini",
 	"password":"123456",
 	"valid_time":"2016-07-15"至"2017-07-15",
+	"settlement_time":"15天",
 	"ramarks":"爱昵咖啡客户体验账号"
 	}]
 	"""
@@ -181,6 +213,7 @@ Scenario:5  新增首月55分成账号
 	"login_account":"aini",
 	"password":"123456",
 	"valid_time":"2016-07-15"至"2017-07-15",
+	"settlement_time":"15天",
 	"ramarks":"爱昵咖啡客户体验账号"
 	}]
 	"""
@@ -208,6 +241,9 @@ Scenario:5  新增首月55分成账号
 	"login_account":"aini",
 	"password":"123456",
 	"valid_time":"2016-07-15"至"2017-07-15",
+	"settlement_time":"15天",
 	"ramarks":"爱昵咖啡客户体验账号"
 	}]
 
+@panda @account
+Scenario:6.新增需求，从渠道系统获取账号
