@@ -47640,7 +47640,7 @@
 						}
 					}
 
-					if (labelId2name[propertyId] != undefined) {
+					if (labelId2name[propertyId] != undefined && labelValueNames.length > 0) {
 						return React.createElement(
 							'li',
 							{ key: index, style: { marginTop: '5px' } },
@@ -47660,11 +47660,11 @@
 				});
 			}
 
-			var title_tips = selectCatalogLabels.length > 0 ? React.createElement(
+			var title_tips = selectCatalogLabels.length > 0 ? labelValues.length > 0 ? React.createElement(
 				'li',
 				null,
 				'已选择:'
-			) : '';
+			) : '' : '';
 			return React.createElement(
 				'div',
 				{ className: 'xui-formPage xui-add-label-dialog' },

@@ -130,7 +130,7 @@ var AddLabelDialog = Reactman.createDialog({
 					}
 				}
 
-				if(labelId2name[propertyId] != undefined) {
+				if(labelId2name[propertyId] != undefined && labelValueNames.length>0) {
 					return (
 						<li key={index} style={{marginTop: '5px'}}>
 							<span style={{color: '#000'}}>{labelId2name[propertyId]}</span>:<span style={{marginLeft: '10px'}}>{labelValueNames}</span>
@@ -140,7 +140,7 @@ var AddLabelDialog = Reactman.createDialog({
 			})
 		}
 		
-		var title_tips = selectCatalogLabels.length>0 ? <li>已选择:</li>: '';
+		var title_tips = selectCatalogLabels.length>0 ? labelValues.length > 0? <li>已选择:</li>: '' : '';
 		return (
 			<div className="xui-formPage xui-add-label-dialog">
 				<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
