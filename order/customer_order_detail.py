@@ -111,7 +111,7 @@ class CustomerOrderDetail(resource.Resource):
 		origin_total_price = 0 
 		for product in order_products:
 			total_count += product['count']
-			product['origin_price'] = '%.2f' % product['purchase_price'] if purchase_method == 1 else '%.2f' % product['origin_price'] 
+			product['origin_price'] = '%.2f' % product['purchase_price'] if purchase_method == 1 else float(product['total_price'])/product['count']
 			weapp_product_id = str(product['id'])
 			product_id = -1 if weapp_product_id not in product_weapp_id2product_id else product_weapp_id2product_id[weapp_product_id]
 			product['product_name'] = product['name'] if product_id not in product_id2name else product_id2name[product_id]
@@ -124,7 +124,6 @@ class CustomerOrderDetail(resource.Resource):
 					custom_model_properties.append(property_value)
 			product['custom_models'] = '' if not custom_model_properties else '/'.join(custom_model_properties)
 			origin_total_price += float(product['origin_total_price'])
-
 		express_details = ''
 		if data:
 			express_details = json.dumps(data['express_details']) if data['express_details'] else ''
