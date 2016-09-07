@@ -29,11 +29,11 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);  
 	},
 
-	componentDidMount: function(){
+	componentDidMount: function() {
 		ProductCatalogAction.getLabels();
 	},
 
-	chooseSyncSelfShop: function(productId){
+	chooseSyncSelfShop: function(productId) {
 		Action.getHasSyncShop(productId);
 
 		_.delay(function(){
@@ -51,7 +51,7 @@ var ProductRelationPage = React.createClass({
 		},100)
 	},
 
-	batchSyncProduct: function(){
+	batchSyncProduct: function() {
 		//取消选中的平台
 		Action.cancleSelectSyncProduct();
 		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
@@ -84,7 +84,7 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
-	onAddLabel: function(event){
+	onAddLabel: function(event) {
 		var catalogId = event.target.getAttribute('data-catalog-id');
 		var productId = event.target.getAttribute('data-id');
 		ProductCatalogAction.getCatalogHasLabel(catalogId, productId);//获取已经配置好的分类标签

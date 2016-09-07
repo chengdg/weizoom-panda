@@ -94,12 +94,13 @@ var AddLabelDialog = Reactman.createDialog({
 		var labelValuesList = '';
 		var selectCatalogLabelsList = '';
 
-		if(this.state.labelFirstId != -1){
+		if(this.state.labelFirstId != -1) {
 			labelValues = this.state.propertyId2names[this.state.labelFirstId];
 		}
-		
+
+		//显示所有的标签 
 		if(labelValues.length > 0) {
-			labelValuesList = labelValues.map(function(label, index){
+			labelValuesList = labelValues.map(function(label, index) {
 				var value = label.value_id;
 				var bgStyle = {};
 				bgStyle['style'] = {};
@@ -118,6 +119,7 @@ var AddLabelDialog = Reactman.createDialog({
 			})
 		}
 
+		//显示所有 已选择的标签
 		if(selectCatalogLabels.length>0) {
 			selectCatalogLabelsList = selectCatalogLabels.map(function(selectCatalogLabel, index) {
 				var propertyId = selectCatalogLabel.propertyId;
@@ -140,7 +142,7 @@ var AddLabelDialog = Reactman.createDialog({
 			})
 		}
 		
-		var title_tips = selectCatalogLabels.length>0 ? labelValues.length > 0? <li>已选择:</li>: '' : '';
+		var titleTips = selectCatalogLabels.length>0 ? labelValues.length > 0? <li>已选择:</li>: '' : '';
 		return (
 			<div className="xui-formPage xui-add-label-dialog">
 				<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
@@ -149,7 +151,7 @@ var AddLabelDialog = Reactman.createDialog({
 					{labelValuesList}
 				</ul>
 				<ul className="xui-label-dialog-ul" style={{paddingLeft: '30px'}}>
-					{title_tips}
+					{titleTips}
 					{selectCatalogLabelsList}
 				</ul>
 			</div>
