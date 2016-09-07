@@ -134,10 +134,16 @@ class ProductRelation(resource.Resource):
 		id2sales = sales_from_weapp(p_has_relations)
 
 		#获取标签
+		property_ids = []
 		catalog_ids = [product.catalog_id for product in products]
 		product_catalog_has_labels = product_catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id__in=catalog_ids)
-		# property_ids = [product_catalog_has_label.property_id for product_catalog_has_label in product_catalog_has_labels]
-		label_property_values = label_models.LabelPropertyValue.objects.all()
+		product_has_labels = models.ProductHasLabel.objects.filter(product_id__in=p_ids)
+		
+		catalog_property_ids = [product_catalog_has_label.property_id for product_catalog_has_label in product_catalog_has_labels]
+		product_property_ids = [product_has_label.property_id for product_has_label in product_has_labels]
+		property_ids.extend(catalog_property_ids)
+		property_ids.extend(product_property_ids)
+		label_property_values = label_models.LabelPropertyValue.objects.filter(property_id__in=property_ids, is_deleted=False)
 		value_id2name = {label_property_value.id:label_property_value.name for label_property_value in label_property_values}
 			
 		#分类配置的标签
@@ -158,19 +164,19 @@ class ProductRelation(resource.Resource):
 
 		#商品配置的标签 展示商品配置优先
 		product_id2label_names = {}
-		for product in products:
-			label_ids = product.label_ids
-			if label_ids:
-				label_ids = label_ids.split(';')
-				names = []
-				for label_id in label_ids:
-					label_id_and_value_ids = label_id.split(',')
-					value_id_str = str(label_id_and_value_ids[1])
-					for value_id in value_id_str.split('_'):
-						if int(value_id) in value_id2name:
-							names.append(value_id2name[int(value_id)])
+		for product_has_label in product_has_labels:
+			label_ids = product_has_label.label_ids.split(',')
+			property_id = product_has_label.property_id
+			label_product_id = product_has_label.product_id
+			lanel_names = []
+			for label_id in label_ids:
+				if int(label_id) in value_id2name:
+					lanel_names.append(value_id2name[int(label_id)])
 
-				product_id2label_names[product.id] = names
+			if label_product_id not in product_id2label_names:
+				product_id2label_names[label_product_id] = lanel_names
+			else:
+				product_id2label_names[label_product_id].extend(lanel_names)
 
 		#获取分类
 		product_catalogs = product_catalog_models.ProductCatalog.objects.all()

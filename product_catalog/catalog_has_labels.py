@@ -34,7 +34,6 @@ class CatalogHasLabels(resource.Resource):
 		select_labels = []
 		product_select_catalog_labels = []
 		product_select_labels = []
-		product_label_first_id = -1
 
 		#获取分类配置标签
 		product_catalog_has_labels = models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id)
@@ -52,30 +51,25 @@ class CatalogHasLabels(resource.Resource):
 				})
 
 		#获取商品配置标签,展示商品配置优先
-		product = product_models.Product.objects.filter(id=product_id, is_deleted=False)
-		if product:
-			#label_ids 格式 '9,28_29;11,33_34_44'
-			label_ids = product[0].label_ids
-			if label_ids:
-				label_ids = label_ids.split(';')
+		product_has_labels = product_models.ProductHasLabel.objects.filter(product_id=product_id)
+		if product_has_labels:
+			for product_has_label in product_has_labels:
+				value_ids = []
+				label_ids = product_has_label.label_ids.split(',')
 				for label_id in label_ids:
-					value_ids = []
-					label_id_and_value_ids = label_id.split(',')
-					property_id_str = label_id_and_value_ids[0]
-					product_label_first_id = property_id_str
-					value_id_str = str(label_id_and_value_ids[1])
-					for value_id in value_id_str.split('_'):
-						value_ids.append(int(value_id))
-						product_select_labels.append(int(value_id))
+					product_select_labels.append(int(label_id))
+					value_ids.append(int(label_id))
 
-					product_select_catalog_labels.append({
-						'propertyId': int(property_id_str),
-						'valueIds': value_ids
-					})
-		
+				product_select_catalog_labels.append({
+					'propertyId': product_has_label.property_id,
+					'valueIds': value_ids
+				})
+	
 		label_property_values = label_models.LabelPropertyValue.objects.filter(id__in=select_labels, is_deleted=False)
 		all_label_property_values = label_models.LabelPropertyValue.objects.filter(is_deleted=False)
-		if label_property_values:
+		if product_has_labels:
+			label_first_id = product_has_labels[0].property_id
+		elif label_property_values:
 			label_first_id = label_property_values[0].property_id
 		elif all_label_property_values:
 			label_first_id = all_label_property_values[0].property_id
@@ -85,7 +79,6 @@ class CatalogHasLabels(resource.Resource):
 		if product_id != -1:
 			select_catalog_labels = select_catalog_labels if not product_select_catalog_labels else product_select_catalog_labels
 			select_labels = select_labels if not product_select_labels else product_select_labels
-			label_first_id = product_label_first_id if product_label_first_id != -1 else label_first_id
 
 		data = {
 			'labelFirstId': str(label_first_id),

@@ -62,7 +62,7 @@ class CataloLabel(resource.Resource):
 				'text': u'暂无分类',
 				'value': -1
 			}]
-			
+
 		data = {
 			'labelCatalogs': json.dumps(label_catalogs),
 			'propertyId2name': property_id2name,
@@ -82,7 +82,8 @@ class CataloLabel(resource.Resource):
 		if select_catalog_labels:
 			select_catalog_labels = json.loads(select_catalog_labels)
 			
-			list_create = []
+			catalog_label_create = []
+			product_label_create = []
 			property_id_and_value_ids = []
 			for select_catalog_label in select_catalog_labels:
 				value_ids = []
@@ -95,8 +96,14 @@ class CataloLabel(resource.Resource):
 				#商品配置标签
 				property_id_and_value_ids.append(str(property_id) + ',' + '_'.join(value_ids))
 				#分类配置标签
-				list_create.append(catalog_models.ProductCatalogHasLabel(
+				catalog_label_create.append(catalog_models.ProductCatalogHasLabel(
 					catalog_id = catalog_id,
+					label_ids = str_value_ids,
+					property_id = property_id
+				))
+
+				product_label_create.append(product_models.ProductHasLabel(
+					product_id = product_id,
 					label_ids = str_value_ids,
 					property_id = property_id
 				))
@@ -104,13 +111,11 @@ class CataloLabel(resource.Resource):
 			if product_id == -1:
 				#分类关联标签
 				catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
-				catalog_models.ProductCatalogHasLabel.objects.bulk_create(list_create)
+				catalog_models.ProductCatalogHasLabel.objects.bulk_create(catalog_label_create)
 			else:
 				#商品关联标签
-				property_id_and_value_ids = ';'.join(property_id_and_value_ids)
-				product_models.Product.objects.filter(id=product_id, is_deleted=False).update(
-					label_ids = property_id_and_value_ids
-				)
+				product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+				product_models.ProductHasLabel.objects.bulk_create(product_label_create)
 
 		response = create_response(200)
 		return response.get_response()

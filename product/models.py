@@ -27,7 +27,6 @@ class Product(models.Model):
 	is_update = models.BooleanField(default=False) #是否更新
 	is_refused = models.BooleanField(default=False) #是否驳回
 	refuse_reason = models.TextField(null=True) #驳回原因
-	label_ids = models.CharField(max_length=1024, default='') #关联标签 格式'9,28_29;11,33_34;10,32_31'(LabelProperty.id,LabelPropertyValue.id_LabelPropertyValue.id;)
 	is_deleted = models.BooleanField(default=False) 
 
 	class Meta(object):
@@ -212,3 +211,15 @@ class ProductModelPropertyValueRelation(models.Model):
 
 	class Meta(object):
 		db_table = 'product_model_property_value_relation'
+
+
+class ProductHasLabel(models.Model):
+	"""
+	商品是否关联标签属性
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	property_id = models.IntegerField(default=-1) # 标签分类id
+	label_ids = models.CharField(max_length=1024, default='') # 标签属性值id 多个用,隔开 1,2,3
+
+	class Meta(object):
+		db_table = 'product_has_label'

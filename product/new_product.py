@@ -441,9 +441,7 @@ class NewProduct(resource.Resource):
 			)
 
 		if int(catalog_id) != second_level_id:
-			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-				label_ids = '',
-			)
+			models.ProductHasLabel.objects.filter(product_id=request.POST['id']).delete()
 		#删除、重建商品图片
 		if images:
 			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
