@@ -32,6 +32,7 @@ class Command(BaseCommand):
 			try:
 				account_info = account_models.UserProfile.objects.get(id=data['account_id'])
 				account_info.company_name = data['company_name']
+				account_info.save()
 				print "==="+'updating company_name:'+str(data['account_id'])+"==="
 			except Exception,e:
 				errors.append({
