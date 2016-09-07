@@ -139,13 +139,14 @@ var AccountManagePage = React.createClass({
 					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="账号名称" field="name" />
+					<Reactman.TableColumn name="店铺名称" field="name" />
+					<Reactman.TableColumn name="公司名称" field="companyName" />
 					<Reactman.TableColumn name="客户来源" field="customerFrom" />
 					<Reactman.TableColumn name="登录名" field="username" />
+					<Reactman.TableColumn name="类型" field="accountType" />
 					<Reactman.TableColumn name="经营类目" field="companyType" />
 					<Reactman.TableColumn name="采购方式" field="purchaseMethod" />
-					<Reactman.TableColumn name="最多上传商品数" field="maxProduct" />
-					<Reactman.TableColumn name="类型" field="accountType" />
+					<Reactman.TableColumn name="商品数上限" field="maxProduct" />
 					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>

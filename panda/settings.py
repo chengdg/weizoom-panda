@@ -241,6 +241,7 @@ if 'develop' == MODE:
     # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
+    AXE_HOST = 'http://192.168.0.105:8033'
     DEBUG = True
     PRODUCT_POOL_OWNER_ID = 3
 elif 'test' == MODE:
@@ -249,6 +250,7 @@ elif 'test' == MODE:
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://panda.weapp.weizzz.com'
+    AXE_HOST = 'http://axe.weapp.weizzz.com'
     DEBUG = True
     PRODUCT_POOL_OWNER_ID = 9
 else:
@@ -257,6 +259,7 @@ else:
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://chaozhi.weizoom.com'
+    AXE_HOST = 'http://axe.weizoom.com'
     DEBUG = False
     PRODUCT_POOL_OWNER_ID = 1127
 

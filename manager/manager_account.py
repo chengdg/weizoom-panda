@@ -16,10 +16,12 @@ from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
 import nav
+import requests
 from account.models import *
 from product.models import *
 from product_catalog import models as catalog_models
 from excel_response import ExcelResponse
+from panda.settings import AXE_HOST
 
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
@@ -50,7 +52,7 @@ class ManagerAccount(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		is_for_list = True if request.GET.get('is_for_list') else False
+		is_for_list = True if request.GET.get('is_for_list') else False #是列表还是导出
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(is_active=True).exclude(role=MANAGER).order_by('-id')
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
@@ -73,6 +75,19 @@ class ManagerAccount(resource.Resource):
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
 		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+		#从渠道接口获得客户来源字段
+		company_names = '白色'
+		params = {
+			'name': company_names
+		}
+		r = requests.get(AXE_HOST + '/api/customers/', params=params)
+		res = json.loads(r.text)
+		print 'res'
+		print res
+		# if res and res['code'] == 200:
+
+
 		for account in accounts:
 			#关闭已过期的账号/开启可以登录的账号
 			if account.valid_time_from and account.valid_time_to:
@@ -96,27 +111,28 @@ class ManagerAccount(resource.Resource):
 				else:
 					catalog_names = '--'
 				rows.append({
-					'id' : account.id,
-					'name' : account.name,
-					'username' : user_id2username[account.user_id],
-					'companyType' : catalog_names,
-					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-					'accountType' : ROLE2NAME[account.role],
-					'status' : account.status,
+					'id': account.id,
+					'name': account.name,
+					'companyName': account.company_name,
+					'username': user_id2username[account.user_id],
+					'companyType': catalog_names,
+					'purchaseMethod': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
+					'accountType': ROLE2NAME[account.role],
+					'status': account.status,
 					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
 					'customerFrom': '渠道' if account.customer_from == 1 else '--'
 				})
-			else:
+			else: #导出
 				rows.append({
-					'id' : account.id,
-					'user_id' : account.user_id,
-					'phone' : account.phone,
-					'name' : account.name,
-					'contacter' : account.contacter,
-					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-					'username' : user_id2username[account.user_id],
-					'role' : ROLE2NAME[account.role],
-					'note' : account.note,
+					'id': account.id,
+					'user_id': account.user_id,
+					'phone': account.phone,
+					'name': account.name,
+					'contacter': account.contacter,
+					'purchase_method': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
+					'username': user_id2username[account.user_id],
+					'role': ROLE2NAME[account.role],
+					'note': account.note,
 					'company_name': account.company_name,
 				})
 		if is_for_list:
