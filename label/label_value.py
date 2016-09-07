@@ -15,7 +15,8 @@ from core.exceptionutil import unicode_full_stack
 from core import paginator
 from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
-
+from product_catalog import models as catalog_models
+from product import models as product_models
 import models
 
 #标签内容
@@ -44,7 +45,10 @@ class LabelValue(resource.Resource):
 		response = create_response(500)
 		try:
 			if label_value_id!=0:
-				models.LabelPropertyValue.objects.filter(id=label_value_id).delete()
+				label_property_value = models.LabelPropertyValue.objects.filter(id=label_value_id)
+				label_property_value.update(is_deleted=True)
+				product_models.ProductHasLabel.objects.filter(property_id=label_property_value[0].property_id).delete()
+				catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_property_value[0].property_id).delete()
 				response = create_response(200)
 		except:
 			msg = unicode_full_stack()

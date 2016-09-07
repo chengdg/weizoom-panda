@@ -21,6 +21,8 @@ from account.models import *
 from util import string_util
 
 import nav
+from product_catalog import models as catalog_models
+from product import models as product_models
 import models
 
 FIRST_NAV = 'label'
@@ -109,6 +111,8 @@ class LabelManager(resource.Resource):
 			if label_id != 0:
 				models.LabelProperty.objects.filter(id=label_id).update(is_deleted=True)
 				models.LabelPropertyValue.objects.filter(property_id=label_id).update(is_deleted=True)
+				product_models.ProductHasLabel.objects.filter(property_id=label_id).delete()
+				catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_id).delete()
 				response = create_response(200)
 		except:
 			msg = unicode_full_stack()
