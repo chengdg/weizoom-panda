@@ -65,8 +65,14 @@ var LabelManagerListPage = React.createClass({
 		Action.updateLabelProperty(id,name);
 	},
 
-	deleteLabelValue: function(labelValueId){
-		Action.deleteLabelValue(labelValueId);
+	deleteLabelValue: function(labelValueId, event){
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定删除么?',
+			confirm: _.bind(function() {
+				Action.deleteLabelValue(labelValueId);
+			}, this)
+		});
 	},
 
 	onMouseOver: function(className){
