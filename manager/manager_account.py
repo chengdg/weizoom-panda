@@ -77,16 +77,21 @@ class ManagerAccount(resource.Resource):
 		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 		#从渠道接口获得客户来源字段
-		company_names = '白色'
+		company_name2info = {}
+		company_names = [account.company_name for account in accounts]
+		company_names = '_'.join(company_names)
 		params = {
 			'name': company_names
 		}
 		r = requests.get(AXE_HOST + '/api/customers/', params=params)
 		res = json.loads(r.text)
-		print 'res'
-		print res
-		# if res and res['code'] == 200:
-
+		if res and res['code'] == 200:
+			axe_datas = res['data']
+			for axe_data in axe_datas:
+				for (k,v) in axe_data.items():
+					agengt2sale = v['agent']+'-'+v['sale']
+					company_name2info[k] = agengt2sale
+		print company_name2info
 
 		for account in accounts:
 			#关闭已过期的账号/开启可以登录的账号
@@ -110,6 +115,15 @@ class ManagerAccount(resource.Resource):
 					catalog_names = ','.join(catalog_names)
 				else:
 					catalog_names = '--'
+				
+				#客户来源
+				customerFrom = '--'
+				if account.customer_from == 1:
+					if company_name2info.has_key(account.company_name):
+						customerFrom = company_name2info[account.company_name]
+					else:
+						customerFrom = '渠道'
+				
 				rows.append({
 					'id': account.id,
 					'name': account.name,
@@ -119,8 +133,8 @@ class ManagerAccount(resource.Resource):
 					'purchaseMethod': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
 					'accountType': ROLE2NAME[account.role],
 					'status': account.status,
-					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
-					'customerFrom': '渠道' if account.customer_from == 1 else '--'
+					'maxProduct': account.max_product if account.role == CUSTOMER else '--',
+					'customerFrom': customerFrom
 				})
 			else: #导出
 				rows.append({
