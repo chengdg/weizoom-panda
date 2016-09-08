@@ -2,22 +2,19 @@
 
 # 调用接口发送钉钉消息的工具 duhao
 
-import requests, json
+from django.conf import settings
 
-SECRET = '_WEIZOOM_DING_SECRET_'
+from bdem import msgutil
+
 def send_to_ding(text, cid):
-	success = False
-	if text and cid:
-		url = 'http://weoa.weizzz.com:8081/wapi/ding/conversation/'
-		params = {
-			'cid': cid,
-			'text': text,
-			'secret': SECRET
-		}
-		response = requests.post(url, params)
+	if settings.MODE == "deploy":
+		uuid = 199597313
+	else:
+		uuid = 80035247
 
-		result = json.loads(response.text)
-		if result['code'] == 200:
-			success = True
-
-	return success 
+	data = {
+		"uuid": uuid,
+		"content": text
+	}
+	msgutil.send_queue_message('notify', 'ding', data)
+	
