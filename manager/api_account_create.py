@@ -10,15 +10,17 @@ from django.shortcuts import render_to_response
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from core.exceptionutil import unicode_full_stack
+from eaglet.core.exceptionutil import unicode_full_stack
+from eaglet.utils.resource_client import Resource
+from eaglet.core import watchdog
+
 from core import resource
 from core.jsonresponse import create_response
-from eaglet.utils.resource_client import Resource
-
 from util import db_util
 from panda.settings import ZEUS_HOST
 import nav
 import requests
+
 from account.models import *
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from product_catalog import models as product_catalog_models
@@ -152,15 +154,17 @@ class AccountCreateApi(resource.Resource):
 					response = create_response(500)
 					response.errMsg = u'ZEUS创建账号失败'
 					return response.get_response()
-			except Exception,e:
-				print e
+			except:
+				watchdog.error(unicode_full_stack())
 				User.objects.filter(id=user_id).delete()
 				UserProfile.objects.filter(user_id=user_id).delete()
 				response = create_response(500)
 				response.errMsg = u'PANDA创建账号失败'
 				return response.get_response()
-		except Exception,e:
-			print e
+		except:
+			watchdog.error(unicode_full_stack())
+			User.objects.filter(id=user_id).delete()
+			UserProfile.objects.filter(user_id=user_id).delete()
 			response = create_response(500)
 			response.errMsg = u'PANDA创建账号失败'
 			return response.get_response()
