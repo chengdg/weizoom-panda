@@ -65,14 +65,14 @@ class CatalogHasLabels(resource.Resource):
 					'valueIds': value_ids
 				})
 	
-		label_property_values = label_models.LabelPropertyValue.objects.filter(id__in=select_labels, is_deleted=False)
-		all_label_property_values = label_models.LabelPropertyValue.objects.filter(is_deleted=False)
+		label_group_values = label_models.LabelGroupValue.objects.filter(id__in=select_labels, is_deleted=False)
+		all_label_group_values = label_models.LabelGroupValue.objects.filter(is_deleted=False)
 		if product_has_labels:
 			label_first_id = product_has_labels[0].property_id
-		elif label_property_values:
-			label_first_id = label_property_values[0].property_id
-		elif all_label_property_values:
-			label_first_id = all_label_property_values[0].property_id
+		elif label_group_values:
+			label_first_id = label_group_values[0].property_id
+		elif all_label_group_values:
+			label_first_id = all_label_group_values[0].property_id
 		else:
 			label_first_id = -1
 

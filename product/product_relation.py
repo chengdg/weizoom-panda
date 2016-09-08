@@ -143,8 +143,8 @@ class ProductRelation(resource.Resource):
 		product_property_ids = [product_has_label.property_id for product_has_label in product_has_labels]
 		property_ids.extend(catalog_property_ids)
 		property_ids.extend(product_property_ids)
-		label_property_values = label_models.LabelPropertyValue.objects.filter(property_id__in=property_ids, is_deleted=False)
-		value_id2name = {label_property_value.id:label_property_value.name for label_property_value in label_property_values}
+		label_group_values = label_models.LabelGroupValue.objects.filter(property_id__in=property_ids, is_deleted=False)
+		value_id2name = {label_property_value.id:label_property_value.name for label_property_value in label_group_values}
 			
 		#分类配置的标签
 		catalog_id2names = {}

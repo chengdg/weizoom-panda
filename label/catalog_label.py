@@ -27,12 +27,12 @@ class CataloLabel(resource.Resource):
 	resource = 'catalog_label'
 
 	def api_get(request):
-		label_properties = models.LabelProperty.objects.filter(is_deleted=False)
-		label_values = models.LabelPropertyValue.objects.filter(is_deleted=False)
+		label_groups = models.LabelGroup.objects.filter(is_deleted=False)
+		label_group_values = models.LabelGroupValue.objects.filter(is_deleted=False)
 
 		label_catalogs = []
 		label_id2name = {}
-		for label_property in label_properties:
+		for label_property in label_groups:
 			label_catalogs.append({
 				'text': label_property.name,
 				'value': label_property.id
@@ -41,7 +41,7 @@ class CataloLabel(resource.Resource):
 
 		property_id2name = {}
 		value_id2name = {}
-		for label_value in label_values:
+		for label_value in label_group_values:
 			if label_value.property_id not in property_id2name:
 				property_id2name[label_value.property_id] = [{
 					'name': label_value.name,
@@ -68,7 +68,7 @@ class CataloLabel(resource.Resource):
 			'propertyId2name': property_id2name,
 			'valueId2name': value_id2name,
 			'labelId2name': label_id2name,
-			'labelFirstId': -1 if not label_properties else label_properties[0].id
+			'labelFirstId': -1 if not label_groups else label_groups[0].id
 		}
 		response = create_response(200)
 		response.data = data

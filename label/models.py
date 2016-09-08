@@ -2,9 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class LabelProperty(models.Model):
+class LabelGroup(models.Model):
 	"""
-	LabelProperty:标签分类属性
+	LabelGroup:标签分类
 	"""
 	user_id = models.IntegerField(default=0)
 	name = models.CharField(max_length=256,null=True)  # 标签分类名
@@ -12,21 +12,21 @@ class LabelProperty(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 
 	class Meta(object):
-		db_table = 'label_property'
-		verbose_name = '标签分类属性'
-		verbose_name_plural = '标签分类属性'
+		db_table = 'label_group'
+		verbose_name = '标签分类'
+		verbose_name_plural = '标签分类'
 
 
-class LabelPropertyValue(models.Model):
+class LabelGroupValue(models.Model):
 	"""
-	LabelPropertyValue:标签属性值
+	LabelGroupValue:标签分类值
 	"""
-	property_id = models.IntegerField(default=0) #LabelProperty id
+	property_id = models.IntegerField(default=0) #LabelGroup id
 	name = models.CharField(max_length=256)  # 规格属性值
 	created_at = models.DateTimeField(auto_now_add=True)  # 添加时间
 	is_deleted = models.BooleanField(default=False)  # 是否删除
 
 	class Meta(object):
-		db_table = 'label_property_value'
-		verbose_name = '标签属性值'
-		verbose_name_plural = '标签属性值'
+		db_table = 'label_group_value'
+		verbose_name = '标签分类值'
+		verbose_name_plural = '标签分类值'

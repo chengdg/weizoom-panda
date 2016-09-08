@@ -29,7 +29,7 @@ class LabelValue(resource.Resource):
 		label_value = request.POST.get('label_value', '')
 		try:
 			if label_id != -1:
-				models.LabelPropertyValue.objects.create(
+				models.LabelGroupValue.objects.create(
 					property_id= label_id,
 					name= label_value
 				)
@@ -45,10 +45,10 @@ class LabelValue(resource.Resource):
 		response = create_response(500)
 		try:
 			if label_value_id!=0:
-				label_property_value = models.LabelPropertyValue.objects.filter(id=label_value_id)
-				label_property_value.update(is_deleted=True)
-				product_models.ProductHasLabel.objects.filter(property_id=label_property_value[0].property_id).delete()
-				catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_property_value[0].property_id).delete()
+				label_group_values = models.LabelGroupValue.objects.filter(id=label_value_id)
+				label_group_values.update(is_deleted=True)
+				product_models.ProductHasLabel.objects.filter(property_id=label_group_values[0].property_id).delete()
+				catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_group_values[0].property_id).delete()
 				response = create_response(200)
 		except:
 			msg = unicode_full_stack()
