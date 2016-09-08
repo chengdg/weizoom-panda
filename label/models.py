@@ -17,6 +17,17 @@ class LabelGroup(models.Model):
 		verbose_name_plural = '标签分类'
 
 
+class LabelGroupRelation(models.Model):
+	"""
+
+	"""
+	label_group_id = models.IntegerField(default=0)
+	weapp_label_group_id = models.IntegerField(default=0)
+
+	class Meta(object):
+		db_table = 'label_group_relation'
+
+
 class LabelGroupValue(models.Model):
 	"""
 	LabelGroupValue:标签分类值
@@ -30,3 +41,14 @@ class LabelGroupValue(models.Model):
 		db_table = 'label_group_value'
 		verbose_name = '标签分类值'
 		verbose_name_plural = '标签分类值'
+
+
+class LabelGroupValueRelation(models.Model):
+	"""
+
+	"""
+	label_value_id = models.IntegerField(default=0)
+	weapp_label_value_id = models.IntegerField(default=0)
+
+	class Meta(object):
+		db_table = 'label_group_value_relation'
