@@ -95,10 +95,12 @@ var AccountCreatePage = React.createClass({
 		var optionsForAccountType = [{
 			text: '合作客户',
 			value: '1'
-		}, {
-			text: '代理商',
-			value: '2'
-		}, {
+		}, 
+		// {
+		// 	text: '代理商',
+		// 	value: '2'
+		// }, 
+		{
 			text: '运营',
 			value: '3'
 		}];

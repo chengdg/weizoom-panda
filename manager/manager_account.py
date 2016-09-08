@@ -58,11 +58,11 @@ class ManagerAccount(resource.Resource):
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
-		name = filters.get('name','')
+		companyName = filters.get('companyName','')
 		username = filters.get('username','')
 		role = filters.get('accountType','')
-		if name:
-			accounts = accounts.filter(name__icontains=name)
+		if companyName:
+			accounts = accounts.filter(company_name__icontains=companyName)
 		if username:
 			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
 			accounts = accounts.filter(user_id__in=user_ids)

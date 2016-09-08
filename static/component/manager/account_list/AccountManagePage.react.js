@@ -109,26 +109,43 @@ var AccountManagePage = React.createClass({
 		}, {
 			text: '客户账号',
 			value: 1
-		}, {
-			text: '代理商账号',
-			value: 2
-		}, {
+		}, 
+		// {
+		// 	text: '代理商账号',
+		// 	value: 2
+		// }, 
+		{
 			text: '运营账号',
 			value: 3
 		}];
+		var statusOptions = [{
+			text: '全部',
+			value: -1
+		}, {
+			text: '启用中',
+			value: 1
+		}, {
+			text: '已关闭',
+			value: 0
+		}]
 
 		return (
 		<div className="mt15 xui-outline-datasPage">
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="账号名称:" name="name" match='=' />
+						<Reactman.FormInput label="公司名称:" name="companyName" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormInput label="登录名:" name="username" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="账号类型:" name="accountType" options={typeOptions} match="=" />
+					</Reactman.FilterField>
+				</Reactman.FilterRow>
+				<Reactman.FilterRow>
+					<Reactman.FilterField>
+						<Reactman.FormSelect label="账号状态:" name="status" options={statusOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
