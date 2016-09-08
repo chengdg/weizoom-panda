@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
-import json
-import time
 
-from django.http import HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib import auth
-
-from core import resource
-from core.jsonresponse import create_response
-from core.exceptionutil import unicode_full_stack
-from core import paginator
-from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
-from product_catalog import models as catalog_models
-from product import models as product_models
-from panda.settings import PRODUCT_POOL_OWNER_ID
+
 import models
-import sync_util
+from core import resource
+from core.exceptionutil import unicode_full_stack
+from core.jsonresponse import create_response
+from panda.settings import PRODUCT_POOL_OWNER_ID
+from product import models as product_models
+from product_catalog import models as catalog_models
+from util import sync_util
 
 
 #标签内容
