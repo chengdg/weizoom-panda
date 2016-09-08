@@ -14,5 +14,6 @@ module.exports = keyMirror({
 	ADD_REBATE_DIALOG: null,
 	UPDATE_REBATES: null,
 	DELETE_REBATE_VALUE: null,
-	UPDATE_GROUP_POINTS: null
+	UPDATE_GROUP_POINTS: null,
+	GET_COMPANY_INFO_FROM_AXE: null
 });

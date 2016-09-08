@@ -58,16 +58,26 @@ class ManagerAccount(resource.Resource):
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
-		companyName = filters.get('companyName','')
+		company_name = filters.get('companyName','')
 		username = filters.get('username','')
 		role = filters.get('accountType','')
-		if companyName:
-			accounts = accounts.filter(company_name__icontains=companyName)
+		status = filters.get('status','')
+		customer_from = filters.get('customerFrom','')
+		if company_name:
+			accounts = accounts.filter(company_name__icontains=company_name)
 		if username:
 			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
 			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
+		if status:
+			if status == '1':
+				accounts = accounts.filter(status=status)
+			else:
+				accounts = accounts.exclude(status=1)
+		if customer_from:
+			print customer_from
+			# customer_from = accounts.filter(role=role)
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
@@ -80,18 +90,7 @@ class ManagerAccount(resource.Resource):
 		company_name2info = {}
 		company_names = [account.company_name for account in accounts]
 		company_names = '_'.join(company_names)
-		params = {
-			'name': company_names
-		}
-		r = requests.get(AXE_HOST + '/api/customers/', params=params)
-		res = json.loads(r.text)
-		if res and res['code'] == 200:
-			axe_datas = res['data']
-			for axe_data in axe_datas:
-				for (k,v) in axe_data.items():
-					agengt2sale = v['agent']+'-'+v['sale']
-					company_name2info[k] = agengt2sale
-		print company_name2info
+		company_name2info = get_info_from_axe(company_names)
 
 		for account in accounts:
 			#关闭已过期的账号/开启可以登录的账号
@@ -229,3 +228,51 @@ class ExportAccounts(resource.Resource):
 				account['note']
 			])
 		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)
+
+#从渠道获得账号列表的客户来源信息
+def get_info_from_axe(company_names):
+	company_name2info = {}
+	params = {
+		'name': company_names
+	}
+	r = requests.get(AXE_HOST + '/api/customers/', params=params)
+	res = json.loads(r.text)
+	if res and res['code'] == 200:
+		axe_datas = res['data']
+		for axe_data in axe_datas:
+			for (k,v) in axe_data.items():
+				agengt2sale = v['agent']+'-'+v['sale']
+				company_name2info[k] = agengt2sale
+	return company_name2info
+
+#从渠道获得公司信息
+class GetCompanyInfoFromAxe(resource.Resource):
+	app = 'manager'
+	resource = 'get_company_info_from_axe'
+
+	@login_required
+	def api_get(request):
+		company_name = request.GET.get('companyName','')
+		params = {
+			'name': company_name
+		}
+		r = requests.get(AXE_HOST + '/api/customers/', params=params)
+		res = json.loads(r.text)
+		rows = []
+		if res and res['code'] == 200:
+			axe_datas = res['data']
+			for axe_data in axe_datas:
+				for (k,v) in axe_data.items():
+					rows.append({
+						'text': v['name'],
+						'value': {
+							'contact': v['contact'],
+							'tel': v['tel']
+						}
+					})
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()

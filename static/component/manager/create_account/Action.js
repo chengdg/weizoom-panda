@@ -150,6 +150,19 @@ var Action = {
 				value: value
 			}
 		});
+	},
+
+	getCompanyInfoFromAxe: function(value){
+		Resource.get({
+			resource: 'manager.get_company_info_from_axe',
+			data: {
+				companyName: value
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.GET_COMPANY_INFO_FROM_AXE
+			}
+		})
 	}
 };
 
