@@ -5,7 +5,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from eaglet.core import watchdog
 
-import models
 import nav
 from account.models import *
 from core import resource
@@ -15,6 +14,7 @@ from panda.settings import PRODUCT_POOL_OWNER_ID
 from product import models as product_models
 from product_catalog import models as catalog_models
 from util import sync_util
+import models
 
 FIRST_NAV = 'label'
 SECOND_NAV = 'label-manager'

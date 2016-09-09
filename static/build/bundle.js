@@ -37804,8 +37804,14 @@
 			Action.updateLabelProperty(id, name);
 		},
 
-		deleteLabelValue: function (labelValueId) {
-			Action.deleteLabelValue(labelValueId);
+		deleteLabelValue: function (labelValueId, event) {
+			Reactman.PageAction.showConfirm({
+				target: event.target,
+				title: '确定删除么?',
+				confirm: _.bind(function () {
+					Action.deleteLabelValue(labelValueId);
+				}, this)
+			});
 		},
 
 		onMouseOver: function (className) {
@@ -47608,6 +47614,7 @@
 				labelValues = this.state.propertyId2names[this.state.labelFirstId];
 			}
 
+			//显示所有的标签 
 			if (labelValues.length > 0) {
 				labelValuesList = labelValues.map(function (label, index) {
 					var value = label.value_id;
@@ -47628,6 +47635,7 @@
 				});
 			}
 
+			//显示所有 已选择的标签
 			if (selectCatalogLabels.length > 0) {
 				selectCatalogLabelsList = selectCatalogLabels.map(function (selectCatalogLabel, index) {
 					var propertyId = selectCatalogLabel.propertyId;
@@ -47660,7 +47668,7 @@
 				});
 			}
 
-			var title_tips = selectCatalogLabels.length > 0 ? labelValues.length > 0 ? React.createElement(
+			var titleTips = selectCatalogLabels.length > 0 ? labelValues.length > 0 ? React.createElement(
 				'li',
 				null,
 				'已选择:'
@@ -47678,7 +47686,7 @@
 				React.createElement(
 					'ul',
 					{ className: 'xui-label-dialog-ul', style: { paddingLeft: '30px' } },
-					title_tips,
+					titleTips,
 					selectCatalogLabelsList
 				)
 			);
