@@ -56,7 +56,8 @@ var Action = {
 			order_money: data['orderMoney'],
 			rebate_proport: data['rebateProport'],
 			default_rebate_proport: data['defaultRebateProport'],
-            max_product: data['maxProduct']
+            max_product: data['maxProduct'],
+            settlement_period: data['settlementPeriod']
 		};
 		if (data.id === -1) {
 			Resource.put({

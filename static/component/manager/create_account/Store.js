@@ -52,12 +52,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				this.data['rebates'] = this.data['rebates'].length > 0 ?JSON.parse(this.data['rebates']): [];
 				this.data['selfUserNames'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 				this.data['maxProduct'] = this.data['max_product'];
+				this.data['settlementPeriod'] = String(this.data['settlement_period']);
 			}
 		} else {
 			this.data = {
 				'id': -1,
 				'accountType': '1',
 				'purchaseMethod': '2',
+				'settlementPeriod': '1',
 				'companyType': [],
 				'optionsForType': [],
 				'optionsForCompanyName': [],

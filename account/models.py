@@ -65,6 +65,7 @@ class UserProfile(models.Model):
 	max_product = models.IntegerField(default=3) #最多可创建商品
 	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
 	product_count = models.IntegerField(default=0) #客户商品数量
+	settlement_period = models.IntegerField(default=1) #结算账期  1【自然月】   2【15天】   3【自然周】
 
 	class Meta(object):
 		db_table = 'account_user_profile'

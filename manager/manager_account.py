@@ -258,6 +258,7 @@ class GetCompanyInfoFromAxe(resource.Resource):
 		}
 		r = requests.get(AXE_HOST + '/api/customers/', params=params)
 		res = json.loads(r.text)
+		#第一个需要为空，因为reactman的FormSelect没有onClick事件，只有onChange事件，不添加第一个为空的话无法触发onChange事件
 		rows = [{
 			'text': '',
 			'value': ''+ '/' +''

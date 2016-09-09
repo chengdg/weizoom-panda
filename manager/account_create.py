@@ -90,7 +90,8 @@ class AccountCreate(resource.Resource):
 					'note': user_profile.note,
 					'self_user_names': [] if not self_user_names else json.dumps(self_user_names),
 					'rebates': [] if not rebates else json.dumps(rebates),
-					'max_product': user_profile.max_product
+					'max_product': user_profile.max_product,
+					'settlement_period': user_profile.settlement_period
 				}
 				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
 					for rebate_proport in rebate_proports:
@@ -139,6 +140,7 @@ class AccountCreate(resource.Resource):
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
+			settlement_period = int(post.get('settlement_period',1))
 
 		name = post.get('name','')
 		username = post.get('username','')
@@ -151,7 +153,7 @@ class AccountCreate(resource.Resource):
 			return response.get_response()
 		try:
 			response = create_response(200)
-			user = User.objects.create_user(username,username+'@weizoom.com',password)
+			user = User.objects.create_user(username, username+'@weizoom.com', password)
 			user.first_name = name
 			user.save()
 			user_id = user.id
@@ -212,7 +214,8 @@ class AccountCreate(resource.Resource):
 					phone = phone,
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
-					max_product = max_product
+					max_product = max_product,
+					settlement_period = settlement_period
 				)
 				#请求接口获得数据
 				try:
@@ -301,6 +304,7 @@ class AccountCreate(resource.Resource):
 			self_user_names = post.get('self_user_names','')
 			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
+			settlement_period = int(post.get('settlement_period',1))
 
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
@@ -335,7 +339,8 @@ class AccountCreate(resource.Resource):
 					phone = phone,
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
-					max_product = post.get('max_product',3)
+					max_product = max_product,
+					settlement_period = settlement_period
 				)
 
 				if self_user_names and purchase_method == 2: #采购方式:零售价返点
@@ -425,7 +430,6 @@ class AccountCreate(resource.Resource):
 		except:
 			msg = unicode_full_stack()
 			watchdog.error('{}'.format(msg))
-
 			response = create_response(500)
 			response.errMsg = u'编辑账号失败'
 			response.innerErrMsg = msg
