@@ -61,7 +61,8 @@ class ProductList(resource.Resource):
 			'second_navs': nav.get_second_navs(request),
 			'second_nav_name': SECOND_NAV,
 			'user_has_products': user_has_products,
-			'can_created': can_created
+			'can_created': can_created,
+			'purchaseMethod': user_profile.purchase_method
 		})
 
 		return render_to_response('product/product_list.html', c)

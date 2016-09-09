@@ -45847,50 +45847,97 @@
 					page: 1
 				}
 			};
-
-			return React.createElement(
-				'div',
-				{ className: 'mt15 xui-product-productListPage' },
-				React.createElement(
-					Reactman.FilterPanel,
-					{ onConfirm: this.onConfirmFilter },
+			//返点用户
+			if (W.purchaseMethod == '1') {
+				return React.createElement(
+					'div',
+					{ className: 'mt15 xui-product-productListPage' },
 					React.createElement(
-						Reactman.FilterRow,
-						null,
+						Reactman.FilterPanel,
+						{ onConfirm: this.onConfirmFilter },
 						React.createElement(
-							Reactman.FilterField,
+							Reactman.FilterRow,
 							null,
-							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
-						),
-						React.createElement(
-							Reactman.FilterField,
-							null,
-							React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
+							),
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
+							)
 						)
-					)
-				),
-				React.createElement(
-					Reactman.TablePanel,
-					null,
-					React.createElement(
-						Reactman.TableActionBar,
-						null,
-						React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport }),
-						React.createElement(Reactman.TableActionButton, { text: '添加新商品', icon: 'plus', onClick: this.onValidateAddProduct })
 					),
 					React.createElement(
-						Reactman.Table,
-						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
-						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
-						React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
-						React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
-						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
-						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
-						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
+						Reactman.TablePanel,
+						null,
+						React.createElement(
+							Reactman.TableActionBar,
+							null,
+							React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport }),
+							React.createElement(Reactman.TableActionButton, { text: '添加新商品', icon: 'plus', onClick: this.onValidateAddProduct })
+						),
+						React.createElement(
+							Reactman.Table,
+							{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+							React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
+							React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+							React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
+							React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
+							React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+							React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
+						)
 					)
-				)
-			);
+				);
+			} else {
+				return React.createElement(
+					'div',
+					{ className: 'mt15 xui-product-productListPage' },
+					React.createElement(
+						Reactman.FilterPanel,
+						{ onConfirm: this.onConfirmFilter },
+						React.createElement(
+							Reactman.FilterRow,
+							null,
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
+							),
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
+							)
+						)
+					),
+					React.createElement(
+						Reactman.TablePanel,
+						null,
+						React.createElement(
+							Reactman.TableActionBar,
+							null,
+							React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport }),
+							React.createElement(Reactman.TableActionButton, { text: '添加新商品', icon: 'plus', onClick: this.onValidateAddProduct })
+						),
+						React.createElement(
+							Reactman.Table,
+							{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+							React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
+							React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+							React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
+							React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+							React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
+						)
+					)
+				);
+			}
 		}
 	});
 	module.exports = ProductDataListPage;

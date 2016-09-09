@@ -167,36 +167,70 @@ var ProductDataListPage = React.createClass({
 				page: 1
 			}
 		};
+		//返点用户
+		if(W.purchaseMethod == '1') {
+			return (
+				<div className="mt15 xui-product-productListPage">
+					<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
+						<Reactman.FilterRow>
+							<Reactman.FilterField>
+								<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
+							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
+							</Reactman.FilterField>
+						</Reactman.FilterRow>
+					</Reactman.FilterPanel>
+					<Reactman.TablePanel>
+						<Reactman.TableActionBar>
+							<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
+							<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
+						</Reactman.TableActionBar>
+						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
+							<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
+							<Reactman.TableColumn name="分类" field="catalog_name" />
+							<Reactman.TableColumn name="售价(元)" field="product_price" />
+							<Reactman.TableColumn name="结算价(元)" field="clear_price" />
+							<Reactman.TableColumn name="销量" field="sales" />
+							<Reactman.TableColumn name="创建时间" field="created_at" />
+							<Reactman.TableColumn name="状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" />
+						</Reactman.Table>
+					</Reactman.TablePanel>
+				</div>
+			)
+		}else{
+			return (
+				<div className="mt15 xui-product-productListPage">
+					<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
+						<Reactman.FilterRow>
+							<Reactman.FilterField>
+								<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
+							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
+							</Reactman.FilterField>
+						</Reactman.FilterRow>
+					</Reactman.FilterPanel>
+					<Reactman.TablePanel>
+						<Reactman.TableActionBar>
+							<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
+							<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
+						</Reactman.TableActionBar>
+						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
+							<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
+							<Reactman.TableColumn name="分类" field="catalog_name" />
+							<Reactman.TableColumn name="售价(元)" field="product_price" />
+							<Reactman.TableColumn name="销量" field="sales" />
+							<Reactman.TableColumn name="创建时间" field="created_at" />
+							<Reactman.TableColumn name="状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" />
+						</Reactman.Table>
+					</Reactman.TablePanel>
+				</div>
+			)
+		}
 		
-		return (
-			<div className="mt15 xui-product-productListPage">
-				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
-					<Reactman.FilterRow>
-						<Reactman.FilterField>
-							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
-						</Reactman.FilterField>
-						<Reactman.FilterField>
-							<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
-						</Reactman.FilterField>
-					</Reactman.FilterRow>
-				</Reactman.FilterPanel>
-				<Reactman.TablePanel>
-					<Reactman.TableActionBar>
-						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
-						<Reactman.TableActionButton text="添加新商品" icon="plus" onClick={this.onValidateAddProduct}/>
-					</Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
-						<Reactman.TableColumn name="商品信息" field="product_name" width="400px"/>
-						<Reactman.TableColumn name="分类" field="catalog_name" />
-						<Reactman.TableColumn name="售价(元)" field="product_price" />
-						<Reactman.TableColumn name="销量" field="sales" />
-						<Reactman.TableColumn name="创建时间" field="created_at" />
-						<Reactman.TableColumn name="状态" field="status" />
-						<Reactman.TableColumn name="操作" field="action" />
-					</Reactman.Table>
-				</Reactman.TablePanel>
-			</div>
-		)
 	}
 })
 module.exports = ProductDataListPage;
