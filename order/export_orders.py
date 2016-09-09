@@ -68,8 +68,8 @@ class ExportOrders(resource.Resource):
 					leader_name_message = ''
 				else:
 					leader_name,leader_name_message = order['leader_name'].split('|')
-
-				sales_price = str('%.2f' % (product_info['price']*int(product_info['count'])))
+				price = float(product_info['price'])
+				sales_price = str('%.2f' %  ( price*int(product_info['count'])) )
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 				# print order['express_company_name']
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
@@ -78,7 +78,7 @@ class ExportOrders(resource.Resource):
 					order['order_create_at'],
 					product_info['product_name'],
 					product_models,
-					str('%.2f' % product_info['price']),
+					str('%.2f' % price),
 					str(product_info['count'])+u'件',
 					sales_price,
 					order['total_weight'],
