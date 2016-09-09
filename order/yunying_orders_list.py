@@ -394,45 +394,53 @@ class YunyingOrdersList(resource.Resource):
 				orders = resp.get('data').get('orders')
 				rows = []
 				for order in orders:
-					weapp_supplier_id = order.get('products')[0].get('supplier')
-					supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).last()
-					user_profile = None
-					if supplier:
-						user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
-					# print supplier.store_name, '------------------------------------------------'
-					# weapp_owner_id = order.get('owner_id')
-					# 规格信息
-					temp_product_name = []
-					product_model_properties = order['products']
-					total_price = 0
-					for product_model in product_model_properties:
+					if is_for_list:#运营订单列表展示用
+						weapp_supplier_id = order.get('products')[0].get('supplier')
+						supplier = AccountHasSupplier.objects.filter(supplier_id=weapp_supplier_id).last()
+						user_profile = None
+						if supplier:
+							user_profile = UserProfile.objects.filter(user_id=supplier.user_id).first()
+						# print supplier.store_name, '------------------------------------------------'
+						# weapp_owner_id = order.get('owner_id')
+						# 规格信息
+						temp_product_name = []
+						product_model_properties = order['products']
+						total_price = 0
+						for product_model in product_model_properties:
 
-						total_price += product_model.get('origin_total_price')
-						product_properties = product_model.get('custom_model_properties')
-						if product_properties:
-							model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
+							total_price += product_model.get('origin_total_price')
+							product_properties = product_model.get('custom_model_properties')
+							if product_properties:
+								model_info = [p_model.get('property_value') for p_model in product_properties if product_properties]
 
-							if model_info:
-								model_info = u'(' + '/'.join(model_info) + u')'
-						else:
-							model_info = ''
-						# print type(model_info), type(product_model.get('count', 0)), type(product_model.get('name', ''))
-						temp_product_name.append( product_model.get('name', '') + model_info \
-										 + u',' + str(product_model.get('count', 0)) + u'件' )
+								if model_info:
+									model_info = u'(' + '/'.join(model_info) + u')'
+							else:
+								model_info = ''
+							# print type(model_info), type(product_model.get('count', 0)), type(product_model.get('name', ''))
+							temp_product_name.append( product_model.get('name', '') + model_info \
+											 + u',' + str(product_model.get('count', 0)) + u'件' )
 
-					# model_info = ''
-					# if product_models:
-					# 	model_info = [p_model.get('property_value') for p_model in product_models]
-					# 	if model_info:
-					# 		model_info = u'('+ '/'.join(model_info) + u')'
+						# model_info = ''
+						# if product_models:
+						# 	model_info = [p_model.get('property_value') for p_model in product_models]
+						# 	if model_info:
+						# 		model_info = u'('+ '/'.join(model_info) + u')'
 
-					rows.append({'totalPurchasePrice': '%.2f' % total_price,
-								 'orderId': order.get('order_id'),
-								 'fromMall': [order.get('store_name')],
-								 'orderStatus': order_status2text.get(order.get('status')),
-								 'productName': '\n'.join(temp_product_name),
-								 'customerName': [user_profile.name if user_profile else ''],
-								 'postage': '%.2f' % order.get('postage')})
+						rows.append({'totalPurchasePrice': '%.2f' % total_price,
+									 'orderId': order.get('order_id'),
+									 'fromMall': [order.get('store_name')],
+									 'orderStatus': order_status2text.get(order.get('status')),
+									 'productName': '\n'.join(temp_product_name),
+									 'customerName': [user_profile.name if user_profile else ''],
+									 'postage': '%.2f' % order.get('postage')})
+					else:
+						#导出订单字段
+						rows.append({
+							'order_id': order['order_id'],
+							'express_company_name': order['express_company_name'],
+							'express_number': order['express_number']
+						})
 				# print rows, '------------------------------------------------'
 				if is_for_list:
 					pageinfo = paginator.paginate_by_count(resp.get('data').get('count'),
