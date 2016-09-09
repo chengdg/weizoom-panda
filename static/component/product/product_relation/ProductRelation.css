@@ -39,11 +39,8 @@
 }
 
 .xui-add-label-dialog{
-	display: block;
-}
-
-.xui-add-label-dialog{
 	min-height: 140px;
+	display: block;
 }
 
 .xui-label-dialog-ul{

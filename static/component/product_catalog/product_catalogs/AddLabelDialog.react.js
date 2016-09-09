@@ -12,6 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./AddLabelDialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
+require('./style.css')
 
 var AddLabelDialog = Reactman.createDialog({
 	getInitialState: function() {
@@ -48,6 +49,12 @@ var AddLabelDialog = Reactman.createDialog({
 			selectLabels: Store.getData().selectLabels,
 			selectCatalogLabels: Store.getData().selectCatalogLabels
 		});
+	},
+
+	componentDidMount: function(){
+		document.getElementById('xui-add-label-dialog').parentNode.parentNode.lastChild.style.display='block';
+		document.getElementById('xui-add-label-dialog').parentNode.parentNode.lastChild.firstChild.style.display='block';
+		document.getElementById('xui-add-label-dialog').parentNode.parentNode.lastChild.firstChild.style.float='right';
 	},
 
 	chooseLabelValue: function(propertyId, valueId) {
@@ -144,7 +151,7 @@ var AddLabelDialog = Reactman.createDialog({
 		
 		var titleTips = selectCatalogLabels.length>0 ? labelValues.length > 0? <li>已选择:</li>: '' : '';
 		return (
-			<div className="xui-formPage xui-add-label-dialog">
+			<div className="xui-formPage xui-add-label-dialog" id="xui-add-label-dialog">
 				<Reactman.FormSelect label="标签分类:" name="catalogs" value={this.state.catalogs} options={labelCatalogs} onChange={this.onChange} />
 				<div style={{clear: 'both'}}></div>
 				<ul className="xui-label-dialog-ul">
