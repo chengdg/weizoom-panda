@@ -27,7 +27,7 @@ var AddLabelDialog = Reactman.createDialog({
 			propertyId2names: Store.getData().propertyId2names,
 			labelId2name: Store.getData().labelId2name,
 			valueId2name: Store.getData().valueId2name,
-			labelValues: [],//所有的标签值
+			labelValues: Store.getData().labelValues,//所有的标签值
 			selectLabels: Store.getData().selectLabels,//选择的标签值(id)
 			selectCatalogLabels: Store.getData().selectCatalogLabels//组织 选择的标签,分类
 		}
@@ -97,7 +97,7 @@ var AddLabelDialog = Reactman.createDialog({
 		if(this.state.labelFirstId != -1) {
 			labelValues = this.state.propertyId2names[this.state.labelFirstId];
 		}
-
+		console.log(labelValues,"==========");
 		//显示所有的标签 
 		if(labelValues.length > 0) {
 			labelValuesList = labelValues.map(function(label, index) {
