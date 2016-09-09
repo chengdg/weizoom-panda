@@ -133,6 +133,7 @@ var ProductUpdatedPage = React.createClass({
 						<Reactman.TableColumn name="商品" field="product_name" width="400px"/>
 						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="供货商" field="customer_name" />
+						<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 						<Reactman.TableColumn name="售价(元)" field="product_price" />
 						<Reactman.TableColumn name="库存" field="product_store" />
 						<Reactman.TableColumn name="状态" field="status" />

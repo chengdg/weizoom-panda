@@ -75,70 +75,158 @@ var ProductModelInfo = React.createClass({
 			// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
 			// 	src = '/static/img/panda_img/icon1.png';
 			// }
-
-			return(
-				<tr key={index} ref={model.modelId} className="model-table-tr">
-					{td}
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					</td>
-					<td>
-						<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					</td>
-					<td className="show-active" style={{width:'80px'}}>
-						<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
-					</td>
-				</tr>
-			)
-
+			if(W.purchase_method==2){
+				var product_price = _this.state["product_price_"+model.modelId];
+				if(product_price){
+					var points = 1-(W.points/100);
+					var product_price = parseFloat(product_price);
+					_this.state["clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
+				}
+			}
+			if(W.purchase_method==1){
+				return(
+					<tr key={index} ref={model.modelId} className="model-table-tr">
+						{td}
+						<td>
+							<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+						</td>
+						<td className="show-active" style={{width:'80px'}}>
+							<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
+						</td>
+					</tr>
+				)
+			}else{
+				return(
+					<tr key={index} ref={model.modelId} className="model-table-tr">
+						{td}
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+						</td>
+						<td>
+							<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+						</td>
+						<td className="show-active" style={{width:'80px'}}>
+							<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
+						</td>
+					</tr>
+				)
+			}
 		})
 		if (model_type == '0'){
-			return(
-				<div className="product_info_fieldset">
-					<Reactman.FormInput label="商品售价:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} validate="require-float"/>
-					<span className="money_note">
-						元
-					</span>
-					<div></div>
-					<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
-					<span className="money_note">
-						Kg
-					</span>
-					<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
-				</div>
-			)
+			if(W.purchase_method==2){
+				var product_price = this.state["product_price"];
+				if(product_price){
+					var points = 1-(W.points/100);
+					var product_price = parseFloat(product_price);
+					var clear_price = (Math.round((product_price*points*100).toFixed(2))/100).toFixed(2)
+					this.state["clear_price"] = clear_price;
+				}
+			}
+			if(W.purchase_method==1){
+				return(
+					<div className="product_info_fieldset">
+						<Reactman.FormInput label="商品售价:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} validate="require-float"/>
+						<span className="money_note">
+							元
+						</span>
+						<div></div>
+						<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.props.onChange} validate="require-float"/>
+						<span className="money_note">
+							元
+						</span>
+						<div></div>
+						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
+						<span className="money_note">
+							Kg
+						</span>
+						<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
+					</div>
+				)
+			}else{
+				return(
+					<div className="product_info_fieldset">
+						<Reactman.FormInput label="商品售价:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} validate="require-float"/>
+						<span className="money_note">
+							元
+						</span>
+						<div></div>
+						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
+						<span className="money_note">
+							Kg
+						</span>
+						<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
+					</div>
+				)
+			}
 		}else {
 			var th = model_names.map(function(name,index){
 				return(
 					<th key={index}>{name.name}</th>
 				)
 			})
-			return(
-				<div>
+			if(W.purchase_method==1){
+				return(
 					<div>
-						<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
-							<thead>
-								<tr>
-									{th}
-									<th>商品售价(元)</th>
-									<th>重量(Kg)</th>
-									<th>库存</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody id="">
-							{model_value_tr}
-							</tbody>
-						</table>
+						<div>
+							<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
+								<thead>
+									<tr>
+										{th}
+										<th>结算价格(元)</th>
+										<th>商品售价(元)</th>
+										<th>重量(Kg)</th>
+										<th>库存</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="">
+								{model_value_tr}
+								</tbody>
+							</table>
+						</div>
+						<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
+							{W.role==1?<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>:''}
+						</div>
 					</div>
-					<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
-						{W.role==1?<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>:''}
+				)
+			}else{
+				return(
+					<div>
+						<div>
+							<table className="table table-bordered" style={{margin:'0 auto',width:'80%',marginLeft:'180px',marginBottom:'10px'}}>
+								<thead>
+									<tr>
+										{th}
+										<th>商品售价(元)</th>
+										<th>重量(Kg)</th>
+										<th>库存</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="">
+								{model_value_tr}
+								</tbody>
+							</table>
+						</div>
+						<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
+							{W.role==1?<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>:''}
+						</div>
 					</div>
-				</div>
-			)
+				)
+			}
+			
 		}
 	}
 });

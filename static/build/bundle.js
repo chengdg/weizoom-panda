@@ -42810,6 +42810,9 @@
 			if (product.hasOwnProperty('product_name') && product.product_name.length <= 0) {
 				is_true = true;
 			}
+			if (product.hasOwnProperty('clear_price') && product.clear_price.length <= 0) {
+				is_true = true;
+			}
 			if (product.hasOwnProperty('product_weight') && product.product_weight.length <= 0 || product.hasOwnProperty('remark') && product.remark.length <= 0) {
 				is_true = true;
 			}
@@ -42840,6 +42843,15 @@
 			// 	}
 			// }
 			if (has_product_model === '0') {
+				if (W.purchase_method == 2) {
+					var product_price = product.product_price;
+					if (product_price) {
+						var points = 1 - W.points / 100;
+						var product_price = parseFloat(product_price);
+						var clear_price = (Math.round((product_price * points * 100).toFixed(2)) / 100).toFixed(2);
+						product["clear_price"] = clear_price;
+					}
+				}
 				if (product.hasOwnProperty('product_price') && product.product_price.length > 0) {
 					if (!reg_2.test(product.product_price.trim())) {
 						Reactman.PageAction.showHint('error', '商品售价是数字且保留两位小数,请重新输入!');
@@ -42885,33 +42897,47 @@
 				return;
 			}
 
-			// var is_true = false;
-			// if(has_product_model==='1'){
-			// 	_.each(model_values, function(model) {
-			// var product_price = product['product_price_'+model.modelId];
-			// var clear_price = product['clear_price_'+model.modelId];
-			// var time_from = product['valid_time_from_'+model.modelId]
-			// var time_to = product['valid_time_to_'+model.modelId]
-			// if(time_from>time_to){
-			// 	is_true = true;
-			// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
-			// 	return;
-			// }
-			// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-			// 	is_true = true;
-			// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-			// 	return;
-			// }
-			// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-			// 	is_true = true;
-			// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-			// 	return;
-			// }
-			// 	})
-			// }
-			// if(is_true){
-			// 	return false;
-			// }
+			var is_true = false;
+			if (has_product_model === '1') {
+				_.each(model_values, function (model) {
+					if (W.purchase_method == 2) {
+						var product_price = product['product_price_' + model.modelId];
+						if (product_price) {
+							var points = 1 - W.points / 100;
+							var product_price = parseFloat(product_price);
+							var clear_price = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
+						}
+					} else if (W.purchase_method == 1) {
+						var product_price = product['product_price_' + model.modelId];
+						var clear_price = product['clear_price_' + model.modelId];
+						if (parseFloat(clear_price) > parseFloat(product_price)) {
+							is_true = true;
+							Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+							return;
+						}
+					}
+					// var time_from = product['valid_time_from_'+model.modelId]
+					// var time_to = product['valid_time_to_'+model.modelId]
+					// if(time_from>time_to){
+					// 	is_true = true;
+					// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
+					// 	return;
+					// }
+					// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
+					// 	is_true = true;
+					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+					// 	return;
+					// }
+					// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
+					// 	is_true = true;
+					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+					// 	return;
+					// }
+				});
+			}
+			if (is_true) {
+				return false;
+			}
 
 			_.each(model_values, function (model) {
 				model['product_price_' + model.modelId] = product['product_price_' + model.modelId];
@@ -42921,6 +42947,13 @@
 				model['product_store_' + model.modelId] = product['product_store_' + model.modelId];
 				// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 				// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
+				if (W.purchase_method == 2) {
+					var points = 1 - W.points / 100;
+					var product_price = parseFloat(product["product_price_" + model.modelId]);
+					if (product_price) {
+						model["clear_price_" + model.modelId] = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
+					}
+				}
 			});
 
 			model_values = model_values.length > 0 ? JSON.stringify(model_values) : '';
@@ -43452,56 +43485,137 @@
 				// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
 				// 	src = '/static/img/panda_img/icon1.png';
 				// }
-
-				return React.createElement(
-					'tr',
-					{ key: index, ref: model.modelId, className: 'model-table-tr' },
-					td,
-					React.createElement(
-						'td',
-						null,
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-					),
-					React.createElement(
-						'td',
-						null,
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-					),
-					React.createElement(
-						'td',
-						null,
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
-					),
-					React.createElement(
-						'td',
-						{ className: 'show-active', style: { width: '80px' } },
+				if (W.purchase_method == 2) {
+					var product_price = _this.state["product_price_" + model.modelId];
+					if (product_price) {
+						var points = 1 - W.points / 100;
+						var product_price = parseFloat(product_price);
+						_this.state["clear_price_" + model.modelId] = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
+					}
+				}
+				if (W.purchase_method == 1) {
+					return React.createElement(
+						'tr',
+						{ key: index, ref: model.modelId, className: 'model-table-tr' },
+						td,
 						React.createElement(
-							'a',
-							{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
-							'删除'
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+						),
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+						),
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+						),
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+						),
+						React.createElement(
+							'td',
+							{ className: 'show-active', style: { width: '80px' } },
+							React.createElement(
+								'a',
+								{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
+								'删除'
+							)
 						)
-					)
-				);
+					);
+				} else {
+					return React.createElement(
+						'tr',
+						{ key: index, ref: model.modelId, className: 'model-table-tr' },
+						td,
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+						),
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+						),
+						React.createElement(
+							'td',
+							null,
+							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+						),
+						React.createElement(
+							'td',
+							{ className: 'show-active', style: { width: '80px' } },
+							React.createElement(
+								'a',
+								{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
+								'删除'
+							)
+						)
+					);
+				}
 			});
 			if (model_type == '0') {
-				return React.createElement(
-					'div',
-					{ className: 'product_info_fieldset' },
-					React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
-					React.createElement(
-						'span',
-						{ className: 'money_note' },
-						'元'
-					),
-					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
-					React.createElement(
-						'span',
-						{ className: 'money_note' },
-						'Kg'
-					),
-					React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
-				);
+				if (W.purchase_method == 2) {
+					var product_price = this.state["product_price"];
+					if (product_price) {
+						var points = 1 - W.points / 100;
+						var product_price = parseFloat(product_price);
+						var clear_price = (Math.round((product_price * points * 100).toFixed(2)) / 100).toFixed(2);
+						this.state["clear_price"] = clear_price;
+					}
+				}
+				if (W.purchase_method == 1) {
+					return React.createElement(
+						'div',
+						{ className: 'product_info_fieldset' },
+						React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(
+							'span',
+							{ className: 'money_note' },
+							'元'
+						),
+						React.createElement('div', null),
+						React.createElement(Reactman.FormInput, { label: '结算价:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(
+							'span',
+							{ className: 'money_note' },
+							'元'
+						),
+						React.createElement('div', null),
+						React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(
+							'span',
+							{ className: 'money_note' },
+							'Kg'
+						),
+						React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+					);
+				} else {
+					return React.createElement(
+						'div',
+						{ className: 'product_info_fieldset' },
+						React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(
+							'span',
+							{ className: 'money_note' },
+							'元'
+						),
+						React.createElement('div', null),
+						React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(
+							'span',
+							{ className: 'money_note' },
+							'Kg'
+						),
+						React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+					);
+				}
 			} else {
 				var th = model_names.map(function (name, index) {
 					return React.createElement(
@@ -43510,61 +43624,124 @@
 						name.name
 					);
 				});
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
+				if (W.purchase_method == 1) {
+					return React.createElement(
 						'div',
 						null,
 						React.createElement(
-							'table',
-							{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
+							'div',
+							null,
 							React.createElement(
-								'thead',
-								null,
+								'table',
+								{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
 								React.createElement(
-									'tr',
+									'thead',
 									null,
-									th,
 									React.createElement(
-										'th',
+										'tr',
 										null,
-										'商品售价(元)'
-									),
-									React.createElement(
-										'th',
-										null,
-										'重量(Kg)'
-									),
-									React.createElement(
-										'th',
-										null,
-										'库存'
-									),
-									React.createElement(
-										'th',
-										null,
-										'操作'
+										th,
+										React.createElement(
+											'th',
+											null,
+											'结算价格(元)'
+										),
+										React.createElement(
+											'th',
+											null,
+											'商品售价(元)'
+										),
+										React.createElement(
+											'th',
+											null,
+											'重量(Kg)'
+										),
+										React.createElement(
+											'th',
+											null,
+											'库存'
+										),
+										React.createElement(
+											'th',
+											null,
+											'操作'
+										)
 									)
+								),
+								React.createElement(
+									'tbody',
+									{ id: '' },
+									model_value_tr
 								)
-							),
-							React.createElement(
-								'tbody',
-								{ id: '' },
-								model_value_tr
 							)
+						),
+						React.createElement(
+							'div',
+							{ style: { paddingLeft: '180px', marginBottom: '10px' } },
+							W.role == 1 ? React.createElement(
+								'a',
+								{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
+								'添加商品规格'
+							) : ''
 						)
-					),
-					React.createElement(
+					);
+				} else {
+					return React.createElement(
 						'div',
-						{ style: { paddingLeft: '180px', marginBottom: '10px' } },
-						W.role == 1 ? React.createElement(
-							'a',
-							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-							'添加商品规格'
-						) : ''
-					)
-				);
+						null,
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								'table',
+								{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
+								React.createElement(
+									'thead',
+									null,
+									React.createElement(
+										'tr',
+										null,
+										th,
+										React.createElement(
+											'th',
+											null,
+											'商品售价(元)'
+										),
+										React.createElement(
+											'th',
+											null,
+											'重量(Kg)'
+										),
+										React.createElement(
+											'th',
+											null,
+											'库存'
+										),
+										React.createElement(
+											'th',
+											null,
+											'操作'
+										)
+									)
+								),
+								React.createElement(
+									'tbody',
+									{ id: '' },
+									model_value_tr
+								)
+							)
+						),
+						React.createElement(
+							'div',
+							{ style: { paddingLeft: '180px', marginBottom: '10px' } },
+							W.role == 1 ? React.createElement(
+								'a',
+								{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
+								'添加商品规格'
+							) : ''
+						)
+					);
+				}
 			}
 		}
 	});
@@ -47305,6 +47482,7 @@
 						React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name', width: '400px' }),
 						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
 						React.createElement(Reactman.TableColumn, { name: '供货商', field: 'customer_name' }),
+						React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
 						React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
 						React.createElement(Reactman.TableColumn, { name: '库存', field: 'product_store' }),
 						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
