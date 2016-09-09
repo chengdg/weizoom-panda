@@ -19,31 +19,57 @@ class CustomerExported(resource.Resource):
 
 	def get(request):
 		is_export = True
+		purchase_method = account_models.UserProfile.objects.get(user_id=request.user.id).purchase_method
 		product_list = getProductData(request,is_export)
-		titles = [
-			u'id', u'编号', u'一级分类', u'二级分类', u'商品名称', u'促销标题', u'商品价格(元)', 
-			u'销量', u'创建时间', u'状态', u'商品重量(Kg)', u'商品主图', u'商品轮播图', u'商品描述'
-		]
+		if purchase_method == 1:
+			titles = [
+				u'id', u'编号', u'一级分类', u'二级分类', u'商品名称', u'促销标题', u'商品价格(元)', u'结算价(元)'
+				, u'销量', u'创建时间', u'状态', u'商品重量(Kg)', u'商品主图', u'商品轮播图', u'商品描述'
+			]
+		else:
+			titles = [
+				u'id', u'编号', u'一级分类', u'二级分类', u'商品名称', u'促销标题', u'商品价格(元)', 
+				u'销量', u'创建时间', u'状态', u'商品重量(Kg)', u'商品主图', u'商品轮播图', u'商品描述'
+			]
 		product_table = []
 		product_table.append(titles)
 		for product in product_list:
 			product_name = product['product_name']
-			info = [
-				product['id'],
-				'',
-				product['first_level_name'],
-				product['second_level_name'],
-				product['product_name'],
-				product['promotion_title'],
-				product['product_price'],
-				product['sales'],
-				product['created_at'],
-				product['status'],
-				product['product_weight'],
-				product['image_path'],
-				u'，'.join(product['image_paths']),
-				product['remark']
-			]
+			if purchase_method == 1:
+				info = [
+					product['id'],
+					'',
+					product['first_level_name'],
+					product['second_level_name'],
+					product['product_name'],
+					product['promotion_title'],
+					product['product_price'],
+					product['clear_price'],
+					product['sales'],
+					product['created_at'],
+					product['status'],
+					product['product_weight'],
+					product['image_path'],
+					u'，'.join(product['image_paths']),
+					product['remark']
+				]
+			else:
+				info = [
+					product['id'],
+					'',
+					product['first_level_name'],
+					product['second_level_name'],
+					product['product_name'],
+					product['promotion_title'],
+					product['product_price'],
+					product['sales'],
+					product['created_at'],
+					product['status'],
+					product['product_weight'],
+					product['image_path'],
+					u'，'.join(product['image_paths']),
+					product['remark']
+				]
 			product_table.append(info)
 		filename = u'商品统计列表'
 		return ExcelResponse(product_table,output_name=filename.encode('utf8'),force_csv=False)
