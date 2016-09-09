@@ -47341,7 +47341,7 @@
 						Action.updateDatas();
 					}
 				});
-			}, 100);
+			}, 300);
 		},
 
 		rowFormatter: function (field, value, data) {
