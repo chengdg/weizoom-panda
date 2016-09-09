@@ -26,15 +26,19 @@ var AccountCreatePage = React.createClass({
 	componentDidMount: function () {
 		Action.selectCatalog();
 	},
-	
+
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		if(property == 'companyName'){
 			Action.getCompanyInfoFromAxe(value);
 		}
-		if(property == 'companyNameOption'){
-			console.log(value);
-			console.log(typeof(value));
+		if(property == 'companyNameOption'){ //选择公司名称时自动填充【公司名称】、【联系人】、【手机号】字段
+			var companyName = $(event.target).find("option:selected").text();
+			var contacter = value.split('/')[0];
+			var phone = value.split('/')[1];
+			Action.updateAccount('companyName', companyName);
+			Action.updateAccount('contacter', contacter);
+			Action.updateAccount('phone', phone);
 		}
 		if(property == 'accountType'){
 			if(!W.is_edit){

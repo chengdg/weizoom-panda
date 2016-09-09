@@ -173,3 +173,7 @@ input[name=points] {
 .profilts-dialog .errorHint {
     width: 190px !important;
 }
+
+select#companyNameOption {
+    margin-top: -16px;
+}

@@ -258,17 +258,17 @@ class GetCompanyInfoFromAxe(resource.Resource):
 		}
 		r = requests.get(AXE_HOST + '/api/customers/', params=params)
 		res = json.loads(r.text)
-		rows = []
+		rows = [{
+			'text': '',
+			'value': ''+ '/' +''
+		}]
 		if res and res['code'] == 200:
 			axe_datas = res['data']
 			for axe_data in axe_datas:
 				for (k,v) in axe_data.items():
 					rows.append({
 						'text': v['name'],
-						'value': {
-							'contact': v['contact'],
-							'tel': v['tel']
-						}
+						'value': v['contact']+ '/' +v['tel']  #把联系人、手机号通过“/”分割开传到前台
 					})
 		data = {
 			'rows': rows
