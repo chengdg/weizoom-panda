@@ -66,28 +66,24 @@ var AddLabelDialog = Reactman.createDialog({
 		var catalogId = this.state.catalogId;
 		var productId = this.state.productId;
 
-		if(selectCatalogLabels.length == 0) {
-			Reactman.PageAction.showHint('error', '请选择标签!');
-		}else{
-			Reactman.Resource.put({
-				resource: 'label.catalog_label',
-				data: {
-					select_catalog_labels: JSON.stringify(selectCatalogLabels),
-					catalog_id: catalogId,
-					product_id: productId
-				},
-				success: function() {
-					this.closeDialog();
-					_.delay(function(){
-						Reactman.PageAction.showHint('success', '配置标签成功');
-					},500);
-				},
-				error: function(data) {
-					Reactman.PageAction.showHint('error', '配置标签失败');
-				},
-				scope: this
-			})
-		}
+		Reactman.Resource.put({
+			resource: 'label.catalog_label',
+			data: {
+				select_catalog_labels: JSON.stringify(selectCatalogLabels),
+				catalog_id: catalogId,
+				product_id: productId
+			},
+			success: function() {
+				this.closeDialog();
+				_.delay(function(){
+					Reactman.PageAction.showHint('success', '配置标签成功');
+				},500);
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', '配置标签失败');
+			},
+			scope: this
+		})
 	},
 
 	render: function() {
