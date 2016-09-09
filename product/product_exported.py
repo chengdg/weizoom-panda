@@ -21,8 +21,8 @@ class CustomerExported(resource.Resource):
 		is_export = True
 		product_list = getProductData(request,is_export)
 		titles = [
-			u'id', u'编号', u'一级分类', u'二级分类', u'商品名称', u'促销标题', u'商品价格(元)', u'结算价(元)', u'限时结算价(元)', u'有效期'
-			, u'销量', u'创建时间', u'状态', u'商品重量(Kg)', u'商品主图', u'商品轮播图', u'商品描述'
+			u'id', u'编号', u'一级分类', u'二级分类', u'商品名称', u'促销标题', u'商品价格(元)', 
+			u'销量', u'创建时间', u'状态', u'商品重量(Kg)', u'商品主图', u'商品轮播图', u'商品描述'
 		]
 		product_table = []
 		product_table.append(titles)
@@ -36,9 +36,6 @@ class CustomerExported(resource.Resource):
 				product['product_name'],
 				product['promotion_title'],
 				product['product_price'],
-				product['clear_price'],
-				product['limit_clear_price'],
-				product['has_limit_time'],
 				product['sales'],
 				product['created_at'],
 				product['status'],

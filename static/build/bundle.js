@@ -33726,7 +33726,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -33735,8 +33735,7 @@
 	 */
 
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(314),
-	  EmitterSubscription: __webpack_require__(315)
+	  EventEmitter: __webpack_require__(314)
 	};
 
 	module.exports = fbemitter;
@@ -33746,7 +33745,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -33947,7 +33946,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34008,7 +34007,7 @@
 /***/ function(module, exports) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34066,7 +34065,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34179,7 +34178,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34233,18 +34232,17 @@
 /* 319 */
 /***/ function(module, exports) {
 
-	"use strict";
-
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * 
 	 */
+
+	"use strict";
 
 	function makeEmptyFunction(arg) {
 	  return function () {
@@ -34257,7 +34255,7 @@
 	 * primarily useful idiomatically for overridable function endpoints which
 	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
 	 */
-	var emptyFunction = function emptyFunction() {};
+	function emptyFunction() {}
 
 	emptyFunction.thatReturns = makeEmptyFunction;
 	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
@@ -42806,13 +42804,10 @@
 		validateProduct: function () {
 			var is_true = false;
 			var product = Store.getData();
-			if (!product.hasOwnProperty('product_name') || !product.hasOwnProperty('remark') || !product.hasOwnProperty('clear_price') || !product.hasOwnProperty('product_weight')) {
+			if (!product.hasOwnProperty('product_name') || !product.hasOwnProperty('remark') || !product.hasOwnProperty('product_weight')) {
 				is_true = true;
 			}
 			if (product.hasOwnProperty('product_name') && product.product_name.length <= 0) {
-				is_true = true;
-			}
-			if (product.hasOwnProperty('clear_price') && product.clear_price.length <= 0) {
 				is_true = true;
 			}
 			if (product.hasOwnProperty('product_weight') && product.product_weight.length <= 0 || product.hasOwnProperty('remark') && product.remark.length <= 0) {
@@ -42845,24 +42840,11 @@
 			// 	}
 			// }
 			if (has_product_model === '0') {
-				if (W.purchase_method == 2) {
-					var product_price = product.product_price;
-					if (product_price) {
-						var points = 1 - W.points / 100;
-						var product_price = parseFloat(product_price);
-						var clear_price = (Math.round((product_price * points * 100).toFixed(2)) / 100).toFixed(2);
-						product["clear_price"] = clear_price;
-					}
-				}
 				if (product.hasOwnProperty('product_price') && product.product_price.length > 0) {
 					if (!reg_2.test(product.product_price.trim())) {
 						Reactman.PageAction.showHint('error', '商品售价是数字且保留两位小数,请重新输入!');
 						return;
 					}
-				}
-				if (parseFloat(product.clear_price) > parseFloat(product.product_price)) {
-					Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-					return;
 				}
 			}
 
@@ -42903,52 +42885,33 @@
 				return;
 			}
 
-			var is_true = false;
-			if (has_product_model === '1') {
-				_.each(model_values, function (model) {
-					if (W.purchase_method == 2) {
-						var product_price = product['product_price_' + model.modelId];
-						if (product_price) {
-							var points = 1 - W.points / 100;
-							var product_price = parseFloat(product_price);
-							var clear_price = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
-						}
-						if (parseFloat(clear_price) > parseFloat(product_price)) {
-							is_true = true;
-							Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-							return;
-						}
-					} else {
-						var product_price = product['product_price_' + model.modelId];
-						var clear_price = product['clear_price_' + model.modelId];
-						if (parseFloat(clear_price) > parseFloat(product_price)) {
-							is_true = true;
-							Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-							return;
-						}
-					}
-					// var time_from = product['valid_time_from_'+model.modelId]
-					// var time_to = product['valid_time_to_'+model.modelId]
-					// if(time_from>time_to){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
-					// 	return;
-					// }
-					// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-					// 	return;
-					// }
-					// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-					// 	return;
-					// }
-				});
-			}
-			if (is_true) {
-				return false;
-			}
+			// var is_true = false;
+			// if(has_product_model==='1'){
+			// 	_.each(model_values, function(model) {
+			// var product_price = product['product_price_'+model.modelId];
+			// var clear_price = product['clear_price_'+model.modelId];
+			// var time_from = product['valid_time_from_'+model.modelId]
+			// var time_to = product['valid_time_to_'+model.modelId]
+			// if(time_from>time_to){
+			// 	is_true = true;
+			// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
+			// 	return;
+			// }
+			// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
+			// 	is_true = true;
+			// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+			// 	return;
+			// }
+			// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
+			// 	is_true = true;
+			// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
+			// 	return;
+			// }
+			// 	})
+			// }
+			// if(is_true){
+			// 	return false;
+			// }
 
 			_.each(model_values, function (model) {
 				model['product_price_' + model.modelId] = product['product_price_' + model.modelId];
@@ -42958,13 +42921,6 @@
 				model['product_store_' + model.modelId] = product['product_store_' + model.modelId];
 				// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 				// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
-				if (W.purchase_method == 2) {
-					var points = 1 - W.points / 100;
-					var product_price = parseFloat(product["product_price_" + model.modelId]);
-					if (product_price) {
-						model["clear_price_" + model.modelId] = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
-					}
-				}
 			});
 
 			model_values = model_values.length > 0 ? JSON.stringify(model_values) : '';
@@ -43496,23 +43452,11 @@
 				// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
 				// 	src = '/static/img/panda_img/icon1.png';
 				// }
-				if (W.purchase_method == 2) {
-					var product_price = _this.state["product_price_" + model.modelId];
-					if (product_price) {
-						var points = 1 - W.points / 100;
-						var product_price = parseFloat(product_price);
-						_this.state["clear_price_" + model.modelId] = (Math.round((points * product_price * 100).toFixed(2)) / 100).toFixed(2);
-					}
-				}
+
 				return React.createElement(
 					'tr',
 					{ key: index, ref: model.modelId, className: 'model-table-tr' },
 					td,
-					React.createElement(
-						'td',
-						null,
-						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-					),
 					React.createElement(
 						'td',
 						null,
@@ -43540,26 +43484,10 @@
 				);
 			});
 			if (model_type == '0') {
-				if (W.purchase_method == 2) {
-					var product_price = this.state["product_price"];
-					if (product_price) {
-						var points = 1 - W.points / 100;
-						var product_price = parseFloat(product_price);
-						var clear_price = (Math.round((product_price * points * 100).toFixed(2)) / 100).toFixed(2);
-						this.state["clear_price"] = clear_price;
-					}
-				}
 				return React.createElement(
 					'div',
 					{ className: 'product_info_fieldset' },
 					React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
-					React.createElement(
-						'span',
-						{ className: 'money_note' },
-						'元'
-					),
-					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '结算价:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
@@ -43582,20 +43510,12 @@
 						name.name
 					);
 				});
-				if (W.purchase_method == 2) {
-					var title = '结算价格=商品售价*(1-返点)';
-				}
 				return React.createElement(
 					'div',
 					null,
 					React.createElement(
 						'div',
 						null,
-						React.createElement(
-							'span',
-							{ style: { marginLeft: '180px' } },
-							title
-						),
 						React.createElement(
 							'table',
 							{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
@@ -43606,11 +43526,6 @@
 									'tr',
 									null,
 									th,
-									React.createElement(
-										'th',
-										null,
-										'结算价格(元)'
-									),
 									React.createElement(
 										'th',
 										null,
@@ -45249,7 +45164,7 @@
 					React.createElement(
 						'td',
 						null,
-						_this.state["clear_price_" + model.modelId]
+						_this.state["price_" + model.modelId]
 					),
 					React.createElement(
 						'td',
@@ -45289,7 +45204,7 @@
 								React.createElement(
 									'th',
 									null,
-									'结算价格(元)'
+									'商品价格(元)'
 								),
 								React.createElement(
 									'th',
@@ -45477,8 +45392,8 @@
 			//判断这个规格存不存在
 			var model_values = _.filter(models, function (customModel) {
 				console.log(customModel.modelId);
-				var clear_price = 'clear_price_' + customModel.modelId;
-				return action.data.product_data[clear_price] !== undefined;
+				var price = 'price_' + customModel.modelId;
+				return action.data.product_data[price] !== undefined;
 			});
 			this.data['model_values'] = model_values;
 			this.data['model_names'] = headers;
@@ -45791,7 +45706,6 @@
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
 						React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
 						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
-						React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
 						React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
 						React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
 						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
@@ -47391,7 +47305,6 @@
 						React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name', width: '400px' }),
 						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
 						React.createElement(Reactman.TableColumn, { name: '供货商', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
 						React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
 						React.createElement(Reactman.TableColumn, { name: '库存', field: 'product_store' }),
 						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),

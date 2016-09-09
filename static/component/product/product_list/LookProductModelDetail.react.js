@@ -40,7 +40,7 @@ var lookProductModelDetail = React.createClass({
 				<tr key={index} ref={model.modelId} className="model-detail-tr">
 					{td}
 					<td>
-						{_this.state["clear_price_"+model.modelId]}
+						{_this.state["price_"+model.modelId]}
 					</td>
 					<td>
 						{_this.state["product_weight_"+model.modelId]}
@@ -64,7 +64,7 @@ var lookProductModelDetail = React.createClass({
 						<thead>
 							<tr>
 								{th}
-								<th>结算价格(元)</th>
+								<th>商品价格(元)</th>
 								<th>重量(Kg)</th>
 								<th>库存</th>
 							</tr>

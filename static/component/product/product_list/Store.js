@@ -154,8 +154,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		//判断这个规格存不存在
 		var model_values = _.filter(models, function(customModel) {
 			console.log(customModel.modelId);
-			var clear_price = 'clear_price_'+ customModel.modelId;
-			return action.data.product_data[clear_price] !== undefined;
+			var price = 'price_'+ customModel.modelId;
+			return action.data.product_data[price] !== undefined;
 		});
 		this.data['model_values']= model_values;
 		this.data['model_names']= headers;

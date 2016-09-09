@@ -38,6 +38,7 @@ class ModelDetails(resource.Resource):
 		for product_model in product_models:
 			model_Id = product_model.name
 			product_data['clear_price_'+model_Id] = '%s' %('%.2f'%product_model.market_price)
+			product_data['price_'+model_Id] = '%s' %('%.2f'%product_model.price)
 			product_data['product_store_'+model_Id] = '%s' %product_model.stocks
 			product_data['product_weight_'+model_Id] = '%s' %product_model.weight
 			product_data['product_code_'+model_Id] = '%s' %product_model.user_code
