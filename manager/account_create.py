@@ -225,7 +225,8 @@ class AccountCreate(resource.Resource):
 						'responsible_person': u'8000FT',
 						'supplier_tel': phone if phone else '13112345678',
 						'supplier_address': u'中国 北京',
-						'type': weapp_account_type
+						'type': weapp_account_type,
+						'settlement_period': settlement_period
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 						'resource': 'mall.supplier',
@@ -395,6 +396,7 @@ class AccountCreate(resource.Resource):
 						'responsible_person': user_profile.contacter,
 						'supplier_tel': phone if phone else '',
 						'supplier_address': u'中国 北京',
+						'settlement_period': settlement_period,
 						# 55分成
 						'type': weapp_account_type
 					}
@@ -411,6 +413,7 @@ class AccountCreate(resource.Resource):
 						'responsible_person': user_profile.contacter if user_profile.contacter else '8000FT',
 						'supplier_tel': phone if phone else '',
 						'supplier_address': u'中国 北京',
+						'settlement_period': settlement_period,
 						'type': weapp_account_type
 					}
 					resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
