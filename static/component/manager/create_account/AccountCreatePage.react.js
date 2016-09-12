@@ -36,9 +36,11 @@ var AccountCreatePage = React.createClass({
 			var companyName = $(event.target).find("option:selected").text();
 			var contacter = value.split('/')[0];
 			var phone = value.split('/')[1];
-			Action.updateAccount('companyName', companyName);
-			Action.updateAccount('contacter', contacter);
-			Action.updateAccount('phone', phone);
+			if(companyName != '请选择已有公司'){
+				Action.updateAccount('companyName', companyName);
+				Action.updateAccount('contacter', contacter);
+				Action.updateAccount('phone', phone);
+			}
 		}
 		if(property == 'accountType'){
 			if(!W.is_edit){
