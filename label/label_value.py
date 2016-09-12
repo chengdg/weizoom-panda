@@ -59,8 +59,25 @@ class LabelValue(resource.Resource):
 			if label_value_id!=0:
 				label_group_values = models.LabelGroupValue.objects.filter(id=label_value_id)
 				label_group_values.update(is_deleted=True)
-				product_models.ProductHasLabel.objects.filter(property_id=label_group_values[0].property_id).delete()
-				catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_group_values[0].property_id).delete()
+				product_has_labels = product_models.ProductHasLabel.objects.filter(property_id=label_group_values[0].property_id, label_ids__icontains=label_value_id)
+				product_catalog_has_labels = catalog_models.ProductCatalogHasLabel.objects.filter(property_id=label_group_values[0].property_id, label_ids__icontains=label_value_id)
+				
+				for product_has_label in product_has_labels:
+					label_ids = [str(label_id) for label_id in product_has_label.label_ids.split(',')]
+					label_ids.remove(str(label_value_id))
+					if label_ids:
+						product_models.ProductHasLabel.objects.filter(id=product_has_label.id).update(label_ids = ','.join(label_ids))
+					else:
+						product_models.ProductHasLabel.objects.filter(id=product_has_label.id).delete()
+
+				for product_catalog_has_label in product_catalog_has_labels:
+					label_ids = [str(label_id) for label_id in product_catalog_has_label.label_ids.split(',')]
+					label_ids.remove(str(label_value_id))
+					if label_ids:
+						product_models.ProductCatalogHasLabel.objects.filter(id=product_catalog_has_label.id).update(label_ids = ','.join(label_ids))
+					else:
+						product_models.ProductCatalogHasLabel.objects.filter(id=product_catalog_has_label.id).delete()
+						
 				response = create_response(200)
 				relation = models.LabelGroupValueRelation.objects.filter(label_value_id=label_value_id).first()
 				if relation:
