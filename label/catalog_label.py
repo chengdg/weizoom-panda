@@ -147,5 +147,8 @@ class CataloLabel(resource.Resource):
 					else:
 						response = create_response(500)
 						return response.get_response()
+				else:
+					product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+					product_models.ProductHasLabel.objects.bulk_create(product_label_create)
 		response = create_response(200)
 		return response.get_response()
