@@ -128,23 +128,24 @@ class CataloLabel(resource.Resource):
 			else:
 
 				product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
-				weapp_product_id = product_relation.weapp_product_id
+				if product_relation:
+					weapp_product_id = product_relation.weapp_product_id
 
-				# label_ids = select_catalog_labels[0].get('valueIds')
-				label_relations = models.LabelGroupValueRelation.objects.filter(label_value_id__in=label_ids)
-				params = {
-					'product_id': weapp_product_id,
-					'owner_id': PRODUCT_POOL_OWNER_ID,
-					'label_ids': json.dumps([relation.weapp_label_value_id for relation in label_relations]),
-				}
-				resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product_has_label',
-													  method='post')
-				if resp:
-					# 商品关联标签
-					product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
-					product_models.ProductHasLabel.objects.bulk_create(product_label_create)
-				else:
-					response = create_response(500)
-					return response.get_response()
+					# label_ids = select_catalog_labels[0].get('valueIds')
+					label_relations = models.LabelGroupValueRelation.objects.filter(label_value_id__in=label_ids)
+					params = {
+						'product_id': weapp_product_id,
+						'owner_id': PRODUCT_POOL_OWNER_ID,
+						'label_ids': json.dumps([relation.weapp_label_value_id for relation in label_relations]),
+					}
+					resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product_has_label',
+														  method='post')
+					if resp:
+						# 商品关联标签
+						product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+						product_models.ProductHasLabel.objects.bulk_create(product_label_create)
+					else:
+						response = create_response(500)
+						return response.get_response()
 		response = create_response(200)
 		return response.get_response()
