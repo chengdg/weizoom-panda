@@ -1,0 +1,12 @@
+{% extends "page.html" %}
+
+{% block js %}
+<script type="text/javascript">
+	W.breadcrumb = [{
+		name: '标签管理',
+		href: '/label/label_manager/'
+	}];
+
+	W.pageContentComponent = './label/label_manager/LabelManagerListPage.react';
+</script>
+{% endblock %}

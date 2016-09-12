@@ -108,6 +108,13 @@ var Action = {
 			}
 		})
 	},
+
+	updateDatas: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
+			data: {}
+		});
+	}
 };
 
 module.exports = Action;

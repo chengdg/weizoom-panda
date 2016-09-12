@@ -19,6 +19,7 @@ var Action = {
 			data: {}
 		});
 	},
+
 	deleteCatalog: function(id) {
 		Resource.delete({
 			resource: 'product_catalog.product_catalogs',
@@ -39,6 +40,7 @@ var Action = {
 			}
 		});
 	},
+
 	//更新类目所需特殊资质
 	updateCatalog: function(property, value, models, index) {
 		Dispatcher.dispatch({
@@ -51,6 +53,7 @@ var Action = {
 			}
 		});
 	},
+
 	deleteCatalogQualification: function(index, models) {
 		Dispatcher.dispatch({
 			actionType: Constant.DELETE_CATALOG,
@@ -60,6 +63,7 @@ var Action = {
 			}
 		});
 	},
+
 	addCatalogQualification: function(models) {
 		var index = models.length;
 		Dispatcher.dispatch({
@@ -70,6 +74,48 @@ var Action = {
 			}
 		});
 	},
+	//分类配置标签
+	getLabels: function(){
+		Resource.get({
+			resource: 'label.catalog_label',
+			data: {},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_CATALOGS_GET_LABELS
+			}
+		});
+	},
+
+	chooseLabelValue: function(propertyId, valueId) {
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_CATALOGS_CHOOSE_LABEL_VALUE,
+			data: {
+				propertyId: propertyId,
+				valueId: valueId
+			}
+		});
+	},
+
+	getCatalogHasLabel: function(catalogId, productId) {
+		Resource.get({
+			resource: 'product_catalog.catalog_has_labels',
+			data: {
+				catalog_id: catalogId,
+				product_id: productId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_CATALOGS_GET_CATALOG_HAS_LABEL
+			}
+		});
+	},
+
+	updateLabels: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.CATALOG_DATAS_FILTER,
+			data: {}
+		});
+	}
 };
 
 module.exports = Action;

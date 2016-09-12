@@ -24,7 +24,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleChooseAllSelfShop': Constant.CHOOSE_ALL_SELF_SHOP,
 		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
 		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
-		'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
+		'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
+		'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS
 	},
 
 	init: function() {
@@ -41,6 +42,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.__emitChange();
 	},
 	
+	handleUpdateDatas: function(){
+		this.__emitChange();
+	},
+
 	handleProductRelationWeapp: function(action) {
 		if(action.data['code']==200){
 			setTimeout(function() {
