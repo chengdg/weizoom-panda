@@ -168,6 +168,13 @@ class LabelManager(resource.Resource):
 															  method='delete')
 						if not resp:
 							watchdog.error('sync_disable_product_label: %s failed' % label_group_value.id)
+						# 将有这个标签的类目的标签删掉
+						params = {
+							'owner_id': PRODUCT_POOL_OWNER_ID,
+							'label_id': value_relation.weapp_label_value_id
+						}
+						resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.classification_has_label',
+															  method='delete')
 		except:
 			msg = unicode_full_stack()
 			watchdog.error(msg)
