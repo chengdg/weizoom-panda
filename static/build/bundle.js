@@ -33726,7 +33726,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -33735,8 +33735,7 @@
 	 */
 
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(314),
-	  EmitterSubscription: __webpack_require__(315)
+	  EventEmitter: __webpack_require__(314)
 	};
 
 	module.exports = fbemitter;
@@ -33746,7 +33745,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -33947,7 +33946,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34008,7 +34007,7 @@
 /***/ function(module, exports) {
 
 	/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34066,7 +34065,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-present, Facebook, Inc.
+	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34179,7 +34178,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
@@ -34233,18 +34232,17 @@
 /* 319 */
 /***/ function(module, exports) {
 
-	"use strict";
-
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * 
 	 */
+
+	"use strict";
 
 	function makeEmptyFunction(arg) {
 	  return function () {
@@ -34257,7 +34255,7 @@
 	 * primarily useful idiomatically for overridable function endpoints which
 	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
 	 */
-	var emptyFunction = function emptyFunction() {};
+	function emptyFunction() {}
 
 	emptyFunction.thatReturns = makeEmptyFunction;
 	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
@@ -47692,9 +47690,9 @@
 			this.refs.table.refresh(filterOptions);
 		},
 
-		componentDidMount: function () {
-			ProductCatalogAction.getLabels();
-		},
+		// componentDidMount: function() {
+		// 	ProductCatalogAction.getLabels();
+		// },
 
 		chooseSyncSelfShop: function (productId) {
 			Action.getHasSyncShop(productId);
@@ -47819,44 +47817,33 @@
 						data['second_level_name']
 					)
 				);
-			} else if (field === 'expand-row') {
-				var labelNames = data['labelNames'];
-				var catalogId = data['catalogId'];
-				var labelNameLi = '';
-
-				if (labelNames.length > 0) {
-					labelNameLi = JSON.parse(labelNames).map(function (labelName, index) {
-						return React.createElement(
-							'li',
-							{ className: 'xui-label-name-li', key: index },
-							labelName.name,
-							' ;'
-						);
-					});
-				}
-
-				var catalogManager = catalogId != 0 ? React.createElement(
-					'li',
-					{ style: { display: 'inline-block' } },
-					React.createElement(
-						'a',
-						{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-catalog-id': data.catalogId, 'data-id': data.id },
-						'配置标签'
-					)
-				) : '';
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
-						'ul',
-						{ style: { height: '30px' } },
-						labelNameLi,
-						catalogManager
-					)
-				);
-			} else {
-				return value;
 			}
+			// else if(field === 'expand-row'){
+			// 	var labelNames = data['labelNames'];
+			// 	var catalogId = data['catalogId'];
+			// 	var labelNameLi = '';
+
+			// 	if(labelNames.length>0){
+			// 		labelNameLi = JSON.parse(labelNames).map(function(labelName, index){
+			// 			return(
+			// 				<li className='xui-label-name-li' key={index}>{labelName.name} ;</li>
+			// 			)
+			// 		})
+			// 	}
+
+			// 	var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-catalog-id={data.catalogId} data-id={data.id}>配置标签</a></li>: '';
+			// 	return (
+			// 		<div>
+			// 			<ul style={{height: '30px'}}>
+			// 				{labelNameLi}
+			// 				{catalogManager}
+			// 			</ul>
+			// 		</div>
+			// 	)
+			// }
+			else {
+					return value;
+				}
 		},
 
 		onConfirmFilter: function (data) {
@@ -49466,9 +49453,9 @@
 			this.refs.table.refresh(filterOptions);
 		},
 
-		componentDidMount: function () {
-			Action.getLabels();
-		},
+		// componentDidMount: function(){
+		// 	Action.getLabels();
+		// },
 
 		onAddCatalog: function (event) {
 			var catalogId = event.target.getAttribute('data-id');
@@ -49568,7 +49555,7 @@
 						var src = '/product/product_relation/?second_catalog_id=' + catalogId;
 						var hasInfo = catalog['qualificationId2name'];
 						var hasLabel = catalog['has_label'];
-
+						// {hasLabel? <a className="btn btn-info ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>已配置标签</a>: <a className="btn btn-primary ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>配置标签</a>}
 						return React.createElement(
 							'div',
 							{ style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px' }, key: index },
@@ -49614,15 +49601,6 @@
 									'a',
 									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
 									'已配置资质'
-								),
-								hasLabel ? React.createElement(
-									'a',
-									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
-									'已配置标签'
-								) : React.createElement(
-									'a',
-									{ className: 'btn btn-primary ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
-									'配置标签'
 								)
 							)
 						);
