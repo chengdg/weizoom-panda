@@ -124,13 +124,6 @@ class ManagerAccount(resource.Resource):
 				else:
 					catalog_names = '--'
 				
-				#客户来源
-				# customerFrom = '--'
-				# if company_name2info.has_key(account.company_name):
-				# 	customerFrom = company_name2info[account.company_name]
-				# else:
-				# 	customerFrom = '渠道'
-				
 				rows.append({
 					'id': account.id,
 					'name': account.name,
@@ -244,15 +237,20 @@ def get_info_from_axe(company_names):
 		'name': company_names
 	}
 	r = requests.get(AXE_HOST + '/api/customers/', params=params)
+	print params
+	print 'params---------------'
 	print r.text
 	print 'r.text======================'
-	res = json.loads(r.text)
-	if res and res['code'] == 200:
-		axe_datas = res['data']
-		for axe_data in axe_datas:
-			for (k,v) in axe_data.items():
-				agengt2sale = v['agent']+'-'+v['sale']
-				company_name2info[k] = agengt2sale
+	try:
+		res = json.loads(r.text)
+		if res and res['code'] == 200:
+			axe_datas = res['data']
+			for axe_data in axe_datas:
+				for (k,v) in axe_data.items():
+					agengt2sale = v['agent']+'-'+v['sale']
+					company_name2info[k] = agengt2sale
+	except:
+		pass
 	return company_name2info
 
 #从渠道获得公司信息
