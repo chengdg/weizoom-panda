@@ -62,7 +62,7 @@ class ManagerAccount(resource.Resource):
 		username = filters.get('username','')
 		role = filters.get('accountType','')
 		status = filters.get('status','')
-		customer_from = filters.get('customerFrom','')
+		# customer_from = filters.get('customerFrom','')
 		if company_name:
 			accounts = accounts.filter(company_name__icontains=company_name)
 		if username:
@@ -75,9 +75,8 @@ class ManagerAccount(resource.Resource):
 				accounts = accounts.filter(status=status)
 			else:
 				accounts = accounts.exclude(status=1)
-		if customer_from:
-			print customer_from
-			# customer_from = accounts.filter(role=role)
+		# if customer_from: 客户来源暂时渠道没有接口实现，先注释
+		# 	print customer_from
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 

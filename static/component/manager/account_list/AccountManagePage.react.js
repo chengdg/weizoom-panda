@@ -147,9 +147,6 @@ var AccountManagePage = React.createClass({
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="账号状态:" name="status" options={statusOptions} match="=" />
 					</Reactman.FilterField>
-					<Reactman.FilterField>
-						<Reactman.FormInput label="客户来源:" name="customerFrom" match='=' />
-					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
 			
