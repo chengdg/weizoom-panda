@@ -19,13 +19,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateAccount': Constant.NEW_ACCOUNT_UPDATE_ACCOUNT,
 		'handleCreateNewAccount': Constant.NEW_ACCOUNT_CREATE,
-		'handleSelect':Constant.NEW_ACCOUNT_SELECT_CATALOG,
-		'handleAddSelfShop':Constant.ADD_SELF_SHOP,
-		'handleDeleteSelfShop':Constant.DELETE_SELF_SHOP,
-		'handleAddRebateDialog':Constant.ADD_REBATE_DIALOG,
-		'handleUpdateRebates':Constant.UPDATE_REBATES,
-		'handleDeleteRebateValue':Constant.DELETE_REBATE_VALUE,
-		'handleUpdateGroupPoiints':Constant.UPDATE_GROUP_POINTS
+		'handleSelect': Constant.NEW_ACCOUNT_SELECT_CATALOG,
+		'handleAddSelfShop': Constant.ADD_SELF_SHOP,
+		'handleDeleteSelfShop': Constant.DELETE_SELF_SHOP,
+		'handleAddRebateDialog': Constant.ADD_REBATE_DIALOG,
+		'handleUpdateRebates': Constant.UPDATE_REBATES,
+		'handleDeleteRebateValue': Constant.DELETE_REBATE_VALUE,
+		'handleUpdateGroupPoiints': Constant.UPDATE_GROUP_POINTS,
+		'handleGetCompanyInfoFromAxe': Constant.GET_COMPANY_INFO_FROM_AXE
 	},
 
 	init: function() {
@@ -37,6 +38,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				this.data['purchaseMethod'] = String(this.data['purchase_method']);
 				this.data['companyType'] = JSON.parse(this.data['company_type']);
 				this.data['optionsForType'] = [];
+				this.data['optionsForCompanyName'] = [];
 				this.data['validTimeFrom'] = this.data['valid_time_from'];
 				this.data['validTimeTo'] = this.data['valid_time_to'];
 				if (this.data['purchaseMethod'] != '2'){
@@ -50,14 +52,17 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				this.data['rebates'] = this.data['rebates'].length > 0 ?JSON.parse(this.data['rebates']): [];
 				this.data['selfUserNames'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 				this.data['maxProduct'] = this.data['max_product'];
+				this.data['settlementPeriod'] = String(this.data['settlement_period']);
 			}
 		} else {
 			this.data = {
 				'id': -1,
 				'accountType': '1',
 				'purchaseMethod': '2',
+				'settlementPeriod': '1',
 				'companyType': [],
 				'optionsForType': [],
+				'optionsForCompanyName': [],
 				'selfUserNames': [],
 				'points': '',
 				'rebates': [],
@@ -142,6 +147,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		var selfUserName = this.data.self_user_names;
 		selfUserName[index][property] = value;
 		this.data.self_user_names = selfUserName;
+		this.__emitChange();
+	},
+
+	handleGetCompanyInfoFromAxe: function(action) {
+		this.data['optionsForCompanyName'] = action.data.rows;
 		this.__emitChange();
 	},
 

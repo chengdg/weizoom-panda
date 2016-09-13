@@ -23,8 +23,6 @@ from panda.settings import ZEUS_HOST, ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 import nav
 import models
-import urllib2
-import urllib
 import requests
 
 FIRST_NAV = 'order'

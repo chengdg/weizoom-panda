@@ -39,6 +39,10 @@ METHOD = (
 )
 METHOD2NAME = dict(METHOD)
 
+# 结算账期  1【自然月】   2【15天】   3【自然周】
+SETTLEMENT_PERIOD_MONTH = 1
+SETTLEMENT_PERIOD_15TH_DAY = 2
+SETTLEMENT_PERIOD_WEEK = 3
 #===============================================================================
 # UserProfile ： 用户信息
 #===============================================================================
@@ -65,6 +69,7 @@ class UserProfile(models.Model):
 	max_product = models.IntegerField(default=3) #最多可创建商品
 	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
 	product_count = models.IntegerField(default=0) #客户商品数量
+	settlement_period = models.IntegerField(default=SETTLEMENT_PERIOD_MONTH) #结算账期  1【自然月】   2【15天】   3【自然周】
 
 	class Meta(object):
 		db_table = 'account_user_profile'

@@ -38096,12 +38096,24 @@
 			}, {
 				text: '客户账号',
 				value: 1
-			}, {
-				text: '代理商账号',
-				value: 2
-			}, {
+			},
+			// {
+			// 	text: '代理商账号',
+			// 	value: 2
+			// }, 
+			{
 				text: '运营账号',
 				value: 3
+			}];
+			var statusOptions = [{
+				text: '全部',
+				value: -1
+			}, {
+				text: '启用中',
+				value: 1
+			}, {
+				text: '已关闭',
+				value: 0
 			}];
 
 			return React.createElement(
@@ -38116,7 +38128,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '账号名称:', name: 'name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '公司名称:', name: 'companyName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
@@ -38127,6 +38139,15 @@
 							Reactman.FilterField,
 							null,
 							React.createElement(Reactman.FormSelect, { label: '账号类型:', name: 'accountType', options: typeOptions, match: '=' })
+						)
+					),
+					React.createElement(
+						Reactman.FilterRow,
+						null,
+						React.createElement(
+							Reactman.FilterField,
+							null,
+							React.createElement(Reactman.FormSelect, { label: '账号状态:', name: 'status', options: statusOptions, match: '=' })
 						)
 					)
 				),
@@ -38142,13 +38163,14 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '账号名称', field: 'name' }),
+						React.createElement(Reactman.TableColumn, { name: '店铺名称', field: 'name' }),
+						React.createElement(Reactman.TableColumn, { name: '公司名称', field: 'companyName' }),
 						React.createElement(Reactman.TableColumn, { name: '客户来源', field: 'customerFrom' }),
 						React.createElement(Reactman.TableColumn, { name: '登录名', field: 'username' }),
+						React.createElement(Reactman.TableColumn, { name: '类型', field: 'accountType' }),
 						React.createElement(Reactman.TableColumn, { name: '经营类目', field: 'companyType' }),
 						React.createElement(Reactman.TableColumn, { name: '采购方式', field: 'purchaseMethod' }),
-						React.createElement(Reactman.TableColumn, { name: '最多上传商品数', field: 'maxProduct' }),
-						React.createElement(Reactman.TableColumn, { name: '类型', field: 'accountType' }),
+						React.createElement(Reactman.TableColumn, { name: '商品数上限', field: 'maxProduct' }),
 						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)
@@ -38645,6 +38667,20 @@
 
 		onChange: function (value, event) {
 			var property = event.target.getAttribute('name');
+			if (property == 'companyName') {
+				Action.getCompanyInfoFromAxe(value);
+			}
+			if (property == 'companyNameOption') {
+				//选择公司名称时自动填充【公司名称】、【联系人】、【手机号】字段
+				var companyName = $(event.target).find("option:selected").text();
+				var contacter = value.split('/')[0];
+				var phone = value.split('/')[1];
+				if (companyName != '请选择已有公司') {
+					Action.updateAccount('companyName', companyName);
+					Action.updateAccount('contacter', contacter);
+					Action.updateAccount('phone', phone);
+				}
+			}
 			if (property == 'accountType') {
 				if (!W.is_edit) {
 					Action.updateAccount(property, value);
@@ -38710,10 +38746,12 @@
 			var optionsForAccountType = [{
 				text: '合作客户',
 				value: '1'
-			}, {
-				text: '代理商',
-				value: '2'
-			}, {
+			},
+			// {
+			// 	text: '代理商',
+			// 	value: '2'
+			// }, 
+			{
 				text: '运营',
 				value: '3'
 			}];
@@ -38756,8 +38794,11 @@
 								validTimeTo: this.state.validTimeTo,
 								Type: this.state.accountType,
 								optionsForType: this.state.optionsForType,
+								optionsForCompanyName: this.state.optionsForCompanyName,
+								companyNameOption: this.state.companyNameOption,
 								selfUserNames: this.state.selfUserNames,
-								maxProduct: this.state.maxProduct
+								maxProduct: this.state.maxProduct,
+								settlementPeriod: this.state.settlementPeriod
 							})
 						),
 						React.createElement(Reactman.FormInput, { label: '登录名:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
@@ -38789,14 +38830,24 @@
 				text: '首月55分成',
 				value: '3'
 			}];
+			var optionsForSettlementPeriod = [{
+				text: '自然月',
+				value: '1'
+			}, {
+				text: '15天',
+				value: '2'
+			}, {
+				text: '自然周',
+				value: '3'
+			}];
 
 			if (accountType == '1') {
 				return React.createElement(
 					'div',
 					null,
 					React.createElement(Reactman.FormInput, { label: '公司名称:', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormSelect, { label: '', name: 'companyNameOption', value: this.props.companyNameOption, options: this.props.optionsForCompanyName, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '店铺名称:', type: 'text', name: 'name', validate: 'require-notempty', placeholder: '建议填写为客户公司简称，将在微众平台手机端展示给用户', value: this.props.name, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormCheckbox, { label: '经营类目:', name: 'companyType', value: this.props.companyType, options: this.props.optionsForType, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormRadio, { label: '采购方式:', name: 'purchaseMethod', value: this.props.purchaseMethod, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
 					React.createElement(
 						'div',
@@ -38806,7 +38857,9 @@
 							Type: this.props.purchaseMethod
 						})
 					),
-					React.createElement(Reactman.FormInput, { label: '最多上传商品数:', type: 'text', validate: 'require-int', name: 'maxProduct', value: this.props.maxProduct, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormRadio, { label: '结算账期:', name: 'settlementPeriod', value: this.props.settlementPeriod, options: optionsForSettlementPeriod, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormCheckbox, { label: '经营类目:', name: 'companyType', value: this.props.companyType, options: this.props.optionsForType, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品个数上限:', type: 'text', validate: 'require-int', name: 'maxProduct', value: this.props.maxProduct, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '联系人:', type: 'text', name: 'contacter', value: this.props.contacter, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '手机号:', type: 'text', name: 'phone', value: this.props.phone, onChange: this.props.onChange }),
 					React.createElement(
@@ -38858,7 +38911,8 @@
 			'handleAddRebateDialog': Constant.ADD_REBATE_DIALOG,
 			'handleUpdateRebates': Constant.UPDATE_REBATES,
 			'handleDeleteRebateValue': Constant.DELETE_REBATE_VALUE,
-			'handleUpdateGroupPoiints': Constant.UPDATE_GROUP_POINTS
+			'handleUpdateGroupPoiints': Constant.UPDATE_GROUP_POINTS,
+			'handleGetCompanyInfoFromAxe': Constant.GET_COMPANY_INFO_FROM_AXE
 		},
 
 		init: function () {
@@ -38870,6 +38924,7 @@
 					this.data['purchaseMethod'] = String(this.data['purchase_method']);
 					this.data['companyType'] = JSON.parse(this.data['company_type']);
 					this.data['optionsForType'] = [];
+					this.data['optionsForCompanyName'] = [];
 					this.data['validTimeFrom'] = this.data['valid_time_from'];
 					this.data['validTimeTo'] = this.data['valid_time_to'];
 					if (this.data['purchaseMethod'] != '2') {
@@ -38883,14 +38938,17 @@
 					this.data['rebates'] = this.data['rebates'].length > 0 ? JSON.parse(this.data['rebates']) : [];
 					this.data['selfUserNames'] = this.data['self_user_names'].length > 0 ? JSON.parse(this.data['self_user_names']) : [];
 					this.data['maxProduct'] = this.data['max_product'];
+					this.data['settlementPeriod'] = String(this.data['settlement_period']);
 				}
 			} else {
 				this.data = {
 					'id': -1,
 					'accountType': '1',
 					'purchaseMethod': '2',
+					'settlementPeriod': '1',
 					'companyType': [],
 					'optionsForType': [],
+					'optionsForCompanyName': [],
 					'selfUserNames': [],
 					'points': '',
 					'rebates': [],
@@ -38978,6 +39036,11 @@
 			this.__emitChange();
 		},
 
+		handleGetCompanyInfoFromAxe: function (action) {
+			this.data['optionsForCompanyName'] = action.data.rows;
+			this.__emitChange();
+		},
+
 		getData: function () {
 			return this.data;
 		}
@@ -39005,7 +39068,8 @@
 		ADD_REBATE_DIALOG: null,
 		UPDATE_REBATES: null,
 		DELETE_REBATE_VALUE: null,
-		UPDATE_GROUP_POINTS: null
+		UPDATE_GROUP_POINTS: null,
+		GET_COMPANY_INFO_FROM_AXE: null
 	});
 
 /***/ },
@@ -39070,7 +39134,8 @@
 				order_money: data['orderMoney'],
 				rebate_proport: data['rebateProport'],
 				default_rebate_proport: data['defaultRebateProport'],
-				max_product: data['maxProduct']
+				max_product: data['maxProduct'],
+				settlement_period: data['settlementPeriod']
 			};
 			if (data.id === -1) {
 				Resource.put({
@@ -39162,6 +39227,19 @@
 					index: index,
 					property: property,
 					value: value
+				}
+			});
+		},
+
+		getCompanyInfoFromAxe: function (value) {
+			Resource.get({
+				resource: 'manager.get_company_info_from_axe',
+				data: {
+					companyName: value
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.GET_COMPANY_INFO_FROM_AXE
 				}
 			});
 		}
@@ -39315,7 +39393,7 @@
 
 
 	// module
-	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 65%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n    line-height: 34px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n    margin-right: 15px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n/*.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}\r\n\r\n.profilts-dialog .errorHint {\r\n    width: 190px !important;\r\n}", ""]);
+	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 65%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n    line-height: 34px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n    margin-right: 15px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n/*.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}\r\n\r\n.profilts-dialog .errorHint {\r\n    width: 190px !important;\r\n}\r\n\r\nselect#companyNameOption {\r\n    margin-top: -16px;\r\n}", ""]);
 
 	// exports
 

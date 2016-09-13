@@ -26,9 +26,22 @@ var AccountCreatePage = React.createClass({
 	componentDidMount: function () {
 		Action.selectCatalog();
 	},
-	
+
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
+		if(property == 'companyName'){
+			Action.getCompanyInfoFromAxe(value);
+		}
+		if(property == 'companyNameOption'){ //选择公司名称时自动填充【公司名称】、【联系人】、【手机号】字段
+			var companyName = $(event.target).find("option:selected").text();
+			var contacter = value.split('/')[0];
+			var phone = value.split('/')[1];
+			if(companyName != '请选择已有公司'){
+				Action.updateAccount('companyName', companyName);
+				Action.updateAccount('contacter', contacter);
+				Action.updateAccount('phone', phone);
+			}
+		}
 		if(property == 'accountType'){
 			if(!W.is_edit){
 				Action.updateAccount(property, value);
@@ -95,10 +108,12 @@ var AccountCreatePage = React.createClass({
 		var optionsForAccountType = [{
 			text: '合作客户',
 			value: '1'
-		}, {
-			text: '代理商',
-			value: '2'
-		}, {
+		}, 
+		// {
+		// 	text: '代理商',
+		// 	value: '2'
+		// }, 
+		{
 			text: '运营',
 			value: '3'
 		}];
@@ -130,8 +145,11 @@ var AccountCreatePage = React.createClass({
 							validTimeTo = {this.state.validTimeTo}
 							Type = {this.state.accountType}
 							optionsForType = {this.state.optionsForType}
+							optionsForCompanyName = {this.state.optionsForCompanyName}
+							companyNameOption = {this.state.companyNameOption}
 							selfUserNames = {this.state.selfUserNames}
 							maxProduct = {this.state.maxProduct}
+							settlementPeriod = {this.state.settlementPeriod}
 						/>
 					</div>
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
@@ -160,21 +178,33 @@ var AccountInfo = React.createClass({
 			text: '首月55分成',
 			value: '3'
 		}];
+		var optionsForSettlementPeriod =  [{
+			text: '自然月',
+			value: '1'
+		}, {
+			text: '15天',
+			value: '2'
+		}, {
+			text: '自然周',
+			value: '3'
+		}];
 		
 		if(accountType == '1'){
 			return(
 				<div>
 					<Reactman.FormInput label="公司名称:" type="text" name="companyName" value={this.props.companyName} onChange={this.props.onChange} />
+					<Reactman.FormSelect label="" name="companyNameOption" value={this.props.companyNameOption} options={this.props.optionsForCompanyName } onChange={this.props.onChange} />
 					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
-                    <Reactman.FormCheckbox label="经营类目:" name="companyType" value={this.props.companyType} options={this.props.optionsForType} onChange={this.props.onChange} />
-					<Reactman.FormRadio label="采购方式:" name="purchaseMethod" value={this.props.purchaseMethod} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
+                    <Reactman.FormRadio label="采购方式:" name="purchaseMethod" value={this.props.purchaseMethod} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
 					<div>
 						<PurchaseMethod onChange = {this.props.onChange}
 							points = {this.props.points}
 							Type = {this.props.purchaseMethod}
 						/>
 					</div>
-					<Reactman.FormInput label="最多上传商品数:" type="text" validate="require-int" name="maxProduct" value={this.props.maxProduct} onChange={this.props.onChange} />
+                    <Reactman.FormRadio label="结算账期:" name="settlementPeriod" value={this.props.settlementPeriod} options={optionsForSettlementPeriod} onChange={this.props.onChange} />
+                    <Reactman.FormCheckbox label="经营类目:" name="companyType" value={this.props.companyType} options={this.props.optionsForType} onChange={this.props.onChange} />
+					<Reactman.FormInput label="商品个数上限:" type="text" validate="require-int" name="maxProduct" value={this.props.maxProduct} onChange={this.props.onChange} />
 					<Reactman.FormInput label="联系人:" type="text" name="contacter" value={this.props.contacter} onChange={this.props.onChange} />
 					<Reactman.FormInput label="手机号:" type="text" name="phone" value={this.props.phone} onChange={this.props.onChange} />
 					<div className="account-create-valid-time">

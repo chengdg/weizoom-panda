@@ -109,26 +109,43 @@ var AccountManagePage = React.createClass({
 		}, {
 			text: '客户账号',
 			value: 1
-		}, {
-			text: '代理商账号',
-			value: 2
-		}, {
+		}, 
+		// {
+		// 	text: '代理商账号',
+		// 	value: 2
+		// }, 
+		{
 			text: '运营账号',
 			value: 3
 		}];
+		var statusOptions = [{
+			text: '全部',
+			value: -1
+		}, {
+			text: '启用中',
+			value: 1
+		}, {
+			text: '已关闭',
+			value: 0
+		}]
 
 		return (
 		<div className="mt15 xui-outline-datasPage">
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="账号名称:" name="name" match='=' />
+						<Reactman.FormInput label="公司名称:" name="companyName" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormInput label="登录名:" name="username" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
 						<Reactman.FormSelect label="账号类型:" name="accountType" options={typeOptions} match="=" />
+					</Reactman.FilterField>
+				</Reactman.FilterRow>
+				<Reactman.FilterRow>
+					<Reactman.FilterField>
+						<Reactman.FormSelect label="账号状态:" name="status" options={statusOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
@@ -139,13 +156,14 @@ var AccountManagePage = React.createClass({
 					<Reactman.TableActionButton text="添加账号" icon="plus" href="/manager/account_create/" />
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
-					<Reactman.TableColumn name="账号名称" field="name" />
+					<Reactman.TableColumn name="店铺名称" field="name" />
+					<Reactman.TableColumn name="公司名称" field="companyName" />
 					<Reactman.TableColumn name="客户来源" field="customerFrom" />
 					<Reactman.TableColumn name="登录名" field="username" />
+					<Reactman.TableColumn name="类型" field="accountType" />
 					<Reactman.TableColumn name="经营类目" field="companyType" />
 					<Reactman.TableColumn name="采购方式" field="purchaseMethod" />
-					<Reactman.TableColumn name="最多上传商品数" field="maxProduct" />
-					<Reactman.TableColumn name="类型" field="accountType" />
+					<Reactman.TableColumn name="商品数上限" field="maxProduct" />
 					<Reactman.TableColumn name="操作" field="action" width="100px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>

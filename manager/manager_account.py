@@ -16,10 +16,12 @@ from core.jsonresponse import create_response
 from core import paginator
 from util import db_util
 import nav
+import requests
 from account.models import *
 from product.models import *
 from product_catalog import models as catalog_models
 from excel_response import ExcelResponse
+from panda.settings import AXE_HOST
 
 FIRST_NAV = 'manager'
 SECOND_NAV = 'account-list'
@@ -50,22 +52,31 @@ class ManagerAccount(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		is_for_list = True if request.GET.get('is_for_list') else False
+		is_for_list = True if request.GET.get('is_for_list') else False #是列表还是导出
 		cur_page = request.GET.get('page', 1)
 		accounts = UserProfile.objects.filter(is_active=True).exclude(role=MANAGER).order_by('-id')
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
-		name = filters.get('name','')
+		company_name = filters.get('companyName','')
 		username = filters.get('username','')
 		role = filters.get('accountType','')
-		if name:
-			accounts = accounts.filter(name__icontains=name)
+		status = filters.get('status','')
+		# customer_from = filters.get('customerFrom','')
+		if company_name:
+			accounts = accounts.filter(company_name__icontains=company_name)
 		if username:
 			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
 			accounts = accounts.filter(user_id__in=user_ids)
 		if role:
 			accounts = accounts.filter(role=role)
+		if status:
+			if status == '1':
+				accounts = accounts.filter(status=status)
+			else:
+				accounts = accounts.exclude(status=1)
+		# if customer_from: 客户来源暂时渠道没有接口实现，先注释
+		# 	print customer_from
 		if is_for_list:
 			pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
@@ -73,6 +84,13 @@ class ManagerAccount(resource.Resource):
 		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
 		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+		#从渠道接口获得客户来源字段
+		company_name2info = {}
+		company_names = [account.company_name for account in accounts]
+		company_names = '_'.join(company_names)
+		company_name2info = get_info_from_axe(company_names)
+
 		for account in accounts:
 			#关闭已过期的账号/开启可以登录的账号
 			if account.valid_time_from and account.valid_time_to:
@@ -95,28 +113,38 @@ class ManagerAccount(resource.Resource):
 					catalog_names = ','.join(catalog_names)
 				else:
 					catalog_names = '--'
+				
+				#客户来源
+				customerFrom = '--'
+				if account.customer_from == 1:
+					if company_name2info.has_key(account.company_name):
+						customerFrom = company_name2info[account.company_name]
+					else:
+						customerFrom = '渠道'
+				
 				rows.append({
-					'id' : account.id,
-					'name' : account.name,
-					'username' : user_id2username[account.user_id],
-					'companyType' : catalog_names,
-					'purchaseMethod' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-					'accountType' : ROLE2NAME[account.role],
-					'status' : account.status,
-					'maxProduct': account.max_product if account.role == CUSTOMER else "--",
-					'customerFrom': '渠道' if account.customer_from == 1 else '--'
+					'id': account.id,
+					'name': account.name,
+					'companyName': account.company_name,
+					'username': user_id2username[account.user_id],
+					'companyType': catalog_names,
+					'purchaseMethod': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
+					'accountType': ROLE2NAME[account.role],
+					'status': account.status,
+					'maxProduct': account.max_product if account.role == CUSTOMER else '--',
+					'customerFrom': customerFrom
 				})
-			else:
+			else: #导出
 				rows.append({
-					'id' : account.id,
-					'user_id' : account.user_id,
-					'phone' : account.phone,
-					'name' : account.name,
-					'contacter' : account.contacter,
-					'purchase_method' : METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-					'username' : user_id2username[account.user_id],
-					'role' : ROLE2NAME[account.role],
-					'note' : account.note,
+					'id': account.id,
+					'user_id': account.user_id,
+					'phone': account.phone,
+					'name': account.name,
+					'contacter': account.contacter,
+					'purchase_method': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
+					'username': user_id2username[account.user_id],
+					'role': ROLE2NAME[account.role],
+					'note': account.note,
 					'company_name': account.company_name,
 				})
 		if is_for_list:
@@ -199,3 +227,55 @@ class ExportAccounts(resource.Resource):
 				account['note']
 			])
 		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)
+
+#从渠道获得账号列表的客户来源信息
+def get_info_from_axe(company_names):
+	company_name2info = {}
+	params = {
+		'name': company_names
+	}
+	r = requests.get(AXE_HOST + '/api/customers/', params=params)
+	res = json.loads(r.text)
+	if res and res['code'] == 200:
+		axe_datas = res['data']
+		for axe_data in axe_datas:
+			for (k,v) in axe_data.items():
+				agengt2sale = v['agent']+'-'+v['sale']
+				company_name2info[k] = agengt2sale
+	return company_name2info
+
+#从渠道获得公司信息
+class GetCompanyInfoFromAxe(resource.Resource):
+	app = 'manager'
+	resource = 'get_company_info_from_axe'
+
+	@login_required
+	def api_get(request):
+		company_name = request.GET.get('companyName','')
+		params = {
+			'name': company_name
+		}
+		r = requests.get(AXE_HOST + '/api/customers/', params=params)
+		res = json.loads(r.text)
+
+		rows = []
+		if res and res['code'] == 200:
+			axe_datas = res['data']
+			#因为reactman的FormSelect没有onClick事件，只有onChange事件，不添加第一个默认值的话无法触发onChange事件
+			if len(axe_datas) > 0:
+				rows.append({
+					'text': '请选择已有公司',
+					'value': ''+ '/' +''
+				})
+			for axe_data in axe_datas:
+				for (k,v) in axe_data.items():
+					rows.append({
+						'text': v['name'],
+						'value': v['contact']+ '/' +v['tel']  #把联系人、手机号通过“/”分割开传到前台
+					})
+		data = {
+			'rows': rows
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
