@@ -87,7 +87,10 @@ class ManagerAccount(resource.Resource):
 
 		#从渠道接口获得客户来源字段
 		company_name2info = {}
-		company_names = [account.company_name for account in accounts]
+		company_names = []
+		for account in accounts:
+			if account.company_name != '':
+				company_names.append(account.company_name)
 		company_names = '_'.join(company_names)
 		company_name2info = get_info_from_axe(company_names)
 
@@ -103,6 +106,7 @@ class ManagerAccount(resource.Resource):
 					account.status = 2
 					account.save()
 			if is_for_list:
+				customerFrom = '--' 
 				if account.role == 1 :
 					catalog_names = []
 					if account.company_type != '':
@@ -111,16 +115,21 @@ class ManagerAccount(resource.Resource):
 						for catalog_id in catalog_ids:
 							catalog_names.append(catalog_id2name.get(catalog_id, ''))
 					catalog_names = ','.join(catalog_names)
+
+					#客户来源
+					if company_name2info.has_key(account.company_name):
+						customerFrom = company_name2info[account.company_name]
+					else:
+						customerFrom = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
 				else:
 					catalog_names = '--'
 				
 				#客户来源
-				customerFrom = '--'
-				if account.customer_from == 1:
-					if company_name2info.has_key(account.company_name):
-						customerFrom = company_name2info[account.company_name]
-					else:
-						customerFrom = '渠道'
+				# customerFrom = '--'
+				# if company_name2info.has_key(account.company_name):
+				# 	customerFrom = company_name2info[account.company_name]
+				# else:
+				# 	customerFrom = '渠道'
 				
 				rows.append({
 					'id': account.id,
@@ -234,10 +243,12 @@ def get_info_from_axe(company_names):
 	params = {
 		'name': company_names
 	}
+	print company_names
 	r = requests.get(AXE_HOST + '/api/customers/', params=params)
 	res = json.loads(r.text)
 	if res and res['code'] == 200:
 		axe_datas = res['data']
+		print axe_datas
 		for axe_data in axe_datas:
 			for (k,v) in axe_data.items():
 				agengt2sale = v['agent']+'-'+v['sale']
