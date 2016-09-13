@@ -244,10 +244,11 @@ def get_info_from_axe(company_names):
 		'name': company_names
 	}
 	r = requests.get(AXE_HOST + '/api/customers/', params=params)
+	print r.text
+	print 'r.text======================'
 	res = json.loads(r.text)
 	if res and res['code'] == 200:
 		axe_datas = res['data']
-		print axe_datas
 		for axe_data in axe_datas:
 			for (k,v) in axe_data.items():
 				agengt2sale = v['agent']+'-'+v['sale']
