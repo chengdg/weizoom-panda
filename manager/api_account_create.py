@@ -54,6 +54,11 @@ class AccountCreateApi(resource.Resource):
 		rebate_proport = args.get('rebate_proport', 0)
 		default_rebate_proport = args.get('default_rebate_proport', 0)
 
+		if company_type == '' or company_type == '[]'
+			response = create_response(500)
+			response.errMsg = u'请选择经营类目'
+			return response.get_response()
+		
 		if not check_username_valid(username):
 			response = create_response(500)
 			response.errMsg = u'登录账号已存在，请重新输入'
