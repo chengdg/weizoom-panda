@@ -236,11 +236,7 @@ def get_info_from_axe(company_names):
 	params = {
 		'name': company_names
 	}
-	r = requests.get(AXE_HOST + '/api/customers/', params=params)
-	print params
-	print 'params---------------'
-	print r.text
-	print 'r.text======================'
+	r = requests.post(AXE_HOST + '/api/customers/', data=params)
 	try:
 		res = json.loads(r.text)
 		if res and res['code'] == 200:
@@ -264,7 +260,7 @@ class GetCompanyInfoFromAxe(resource.Resource):
 		params = {
 			'name': company_name
 		}
-		r = requests.get(AXE_HOST + '/api/customers/', params=params)
+		r = requests.post(AXE_HOST + '/api/customers/', data=params)
 		res = json.loads(r.text)
 
 		rows = []
