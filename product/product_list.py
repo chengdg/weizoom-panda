@@ -222,9 +222,10 @@ def getProductData(request, is_export):
 	product_shelve_on = []
 	if resp and resp.get('code') == 200:
 		product_status = resp.get('data').get('product_status')
-		product_shelve_on = [product_2_weapp_product.get(product_statu.get('product_id'))
+		product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
 							 for product_statu in product_status
 							 if product_statu.get('status') == 'on']
+
 
 	for product in products:
 		owner_id = product.owner_id
