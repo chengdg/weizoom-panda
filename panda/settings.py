@@ -242,6 +242,7 @@ if 'develop' == MODE:
     # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
+    # AXE_HOST = 'http://192.168.0.105:8033' #FOR TEST
     AXE_HOST = 'http://axe.weapp.weizzz.com'
     DEBUG = True
     PRODUCT_POOL_OWNER_ID = 3
