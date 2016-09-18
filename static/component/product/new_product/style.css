@@ -128,12 +128,16 @@
 
 input[name="product_price"],
 input[name="clear_price"],
+input[name="limit_zone_type"],
 input[name="product_weight"]{
 	width: 200px;
 }
 
 input[name="limit_clear_price"]{
 	width: 100px;
+}
+input[name="limit_zone_type"]{
+	width: 100px !important;
 }
 
 .product_info_fieldset div:nth-child(1){

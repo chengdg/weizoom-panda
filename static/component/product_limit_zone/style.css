@@ -1,0 +1,37 @@
+td {
+    line-height: 30px !important;
+}
+.add_model .add_model-btn{
+    display: -webkit-box;
+}
+input#qualification_name {
+    width: 180px;
+}
+.form-group label {
+    width: 20%;
+}
+.label-value-li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 10px;
+    border: 1px solid #CCC;
+    width: 90px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    height: 28px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.label-value-li:hover{
+	cursor: pointer;
+}
+.xui-add-label-dialog{
+    min-height: 140px;
+}
+.xui-label-dialog-ul{
+    margin-top: 20px;
+    padding-left: 130px;
+}

@@ -59,6 +59,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 			this.data['model_values'] = model_values;
 			this.data['model_names'] = organize_data[0];
+			this.data['limit_zone_type'] = this.data['limit_zone_type'];
+			this.data['limit_zone_id'] = this.data['limit_zone_id'];
 		} else {
 			this.data = {
 				'id':-1,
@@ -72,7 +74,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'name2model': {},
 				'model_names': [],
 				'second_id': 0,
-				'catalog_name': ''
+				'catalog_name': '',
+				'limit_zone_type': 0,
+				'limit_zone_id': 0,
+				'limit_zone_info': []
 			};
 		}
 	},

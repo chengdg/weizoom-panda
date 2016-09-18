@@ -57,6 +57,11 @@ def top_navs(request):
 				'displayName': message_title,
 				'icon': 'glyphicon glyphicon-comment',
 				'href': '/message/customer_messages'
+			},{
+				'name': 'limit_zone',
+				'displayName': '禁售仅售模板',
+				'icon': 'glyphicon glyphicon-file',
+				'href': '/limit_zone/template_list'
 			}]
 		elif role == AGENCY:
 			top_navs = [{
@@ -68,10 +73,10 @@ def top_navs(request):
 		elif role == YUN_YING:
 			top_navs = [
 			{
-				'name': 'product_catalog',
+				'name': 'product_limit_zone',
 				'displayName': '商品分类',
 				'icon': 'credit-card',
-				'href': '/product_catalog/product_catalogs/'
+				'href': '/product_limit_zone/product_catalogs/'
 			},
 			{
 				'name': 'label',

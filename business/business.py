@@ -172,7 +172,7 @@ class Business(resource.Resource):
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		customer_number = filters.get('customer_number','')
 		company_name = filters.get('company_name','')
-		product_catalog = filters.get('product_catalog','')
+		product_catalog = filters.get('product_limit_zone','')
 		company_type = filters.get('company_type','')
 		phone = filters.get('phone','')
 		status = filters.get('status','')
