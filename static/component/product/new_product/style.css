@@ -128,7 +128,6 @@
 
 input[name="product_price"],
 input[name="clear_price"],
-input[name="limit_zone_type"],
 input[name="product_weight"]{
 	width: 200px;
 }
@@ -136,10 +135,17 @@ input[name="product_weight"]{
 input[name="limit_clear_price"]{
 	width: 100px;
 }
-input[name="limit_zone_type"]{
-	width: 100px !important;
-}
 
+#limit_zone_type{
+  width: 200px;
+}
+#limit_zone_info{
+  width: 200px;
+}
+.button{
+    margin-left: 180px;
+    margin-buttom: 10px;
+}
 .product_info_fieldset div:nth-child(1){
 	display: inline-block;
 }
