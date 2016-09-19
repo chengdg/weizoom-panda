@@ -28,6 +28,7 @@ from weapp_relation import get_weapp_model_properties
 from services.panda_send_modify_product_ding_talk_service.tasks import send_modify_product_ding_talk
 import nav
 import models
+from product_limit_zone import models as limit_zone_models
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -75,6 +76,11 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
+		# 获取所有的限制
+		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
+																				owner_id=request.user.id)
+		limit_zone_info = [dict(text=limit_zone.name,
+								value=limit_zone.id) for limit_zone in limit_zones]
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
@@ -126,7 +132,10 @@ class NewProduct(resource.Resource):
 				'images': [],
 				'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
 				'old_second_catalog_id': product.catalog_id,
-				'value_ids': ','.join(value_ids)
+				'value_ids': ','.join(value_ids),
+				'limit_zone_type': product.limit_zone_type,
+				'limit_zone_id': product.limit_zone,
+
 			}
 			#组织多规格数据
 			for product_model in product_models:
@@ -162,7 +171,11 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-
+		limit_zone_info.append(dict(text='请选择限定区域',
+								value=0))
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		print jsons.get('items')
+		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(request),
@@ -187,13 +200,18 @@ class NewProduct(resource.Resource):
 		product_store = int(post.get('product_store',-1))
 		has_limit_time = int(post.get('has_limit_time',0))
 		limit_clear_price = post.get('limit_clear_price',-1)
-		valid_time_from = post.get('valid_time_from','')
-		valid_time_to = post.get('valid_time_to','')
+		# valid_time_from = post.get('valid_time_from','')
+		# valid_time_to = post.get('valid_time_to','')
 		remark = post.get('remark','')
 		images = post.get('images','')
 		has_product_model = int(post.get('has_product_model',0))
 		second_level_id = int(post.get('second_level_id',0))
 		model_values = post.get('model_values','')
+		limit_zone_type = post.get('limit_zone_type', 0)
+		limit_zone_id = post.get('limit_zone_id', 0)
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
+		print limit_zone_type, limit_zone_id
+		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark)
@@ -202,38 +220,42 @@ class NewProduct(resource.Resource):
 		if not limit_clear_price:
 			limit_clear_price = -1
 		try:
-			if has_limit_time == 1:
-				product = models.Product.objects.create(
-					owner = request.user, 
-					product_name = product_name, 
-					promotion_title = promotion_title, 
-					product_price = product_price,
-					clear_price = clear_price,
-					product_weight = product_weight,
-					product_store = product_store,
-					has_limit_time = has_limit_time,
-					limit_clear_price = limit_clear_price,
-					valid_time_from = valid_time_from,
-					valid_time_to = valid_time_to,
-					has_product_model = has_product_model,
-					catalog_id = second_level_id,
-					remark = remark
-				)
-			else:
-				product = models.Product.objects.create(
-					owner = request.user, 
-					product_name = product_name, 
-					promotion_title = promotion_title, 
-					product_price = product_price,
-					clear_price = clear_price,
-					product_weight = product_weight,
-					product_store = product_store,
-					has_limit_time = has_limit_time,
-					limit_clear_price = limit_clear_price,
-					has_product_model = has_product_model,
-					catalog_id = second_level_id,
-					remark = remark
-				)
+			# if has_limit_time == 1:
+			# 	product = models.Product.objects.create(
+			# 		owner = request.user,
+			# 		product_name = product_name,
+			# 		promotion_title = promotion_title,
+			# 		product_price = product_price,
+			# 		clear_price = clear_price,
+			# 		product_weight = product_weight,
+			# 		product_store = product_store,
+			# 		has_limit_time = has_limit_time,
+			# 		limit_clear_price = limit_clear_price,
+			# 		valid_time_from = valid_time_from,
+			# 		valid_time_to = valid_time_to,
+			# 		has_product_model = has_product_model,
+			# 		catalog_id = second_level_id,
+			# 		remark = remark,
+			# 		limit_zone_type = limit_zone_type,
+			# 		limit_zone = limit_zone_id,
+			# 	)
+			# else:
+			product = models.Product.objects.create(
+				owner = request.user,
+				product_name = product_name,
+				promotion_title = promotion_title,
+				product_price = product_price,
+				clear_price = clear_price,
+				product_weight = product_weight,
+				product_store = product_store,
+				has_limit_time = has_limit_time,
+				limit_clear_price = limit_clear_price,
+				has_product_model = has_product_model,
+				catalog_id = second_level_id,
+				remark = remark,
+				limit_zone_type=limit_zone_type,
+				limit_zone=limit_zone_id,
+			)
 
 			#获取商品图片
 			if images:
@@ -306,6 +328,11 @@ class NewProduct(resource.Resource):
 		has_product_model = int(post.get('has_product_model',0))
 		model_values = post.get('model_values','')
 		second_level_id = int(post.get('second_level_id',0))
+		limit_zone_type = post.get('limit_zone_type', 0)
+		limit_zone_id = post.get('limit_zone_id', 0)
+		print '======================================='
+		print post
+		print limit_zone_id
 		# if product_store_type == -1:
 		# 	product_store = -1
 		if not limit_clear_price:
@@ -407,32 +434,21 @@ class NewProduct(resource.Resource):
 				modify_contents.append(u'商品类目')
 
 		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
-		if has_limit_time ==1:
-			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-				owner = request.user, 
-				product_name = product_name, 
-				promotion_title = promotion_title, 
-				has_limit_time = has_limit_time,
-				limit_clear_price = limit_clear_price,
-				valid_time_from = valid_time_from,
-				valid_time_to = valid_time_to,
-				has_product_model= has_product_model,
-				catalog_id = second_level_id,
-				remark = remark
-			)
-		else:
-			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-				owner = request.user, 
-				product_name = product_name, 
-				promotion_title = promotion_title, 
-				has_limit_time = has_limit_time,
-				limit_clear_price = limit_clear_price,
-				valid_time_from = None,
-				valid_time_to = None,
-				has_product_model= has_product_model,
-				catalog_id = second_level_id,
-				remark = remark
-			)
+
+		models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+			owner = request.user,
+			product_name = product_name,
+			promotion_title = promotion_title,
+			has_limit_time = has_limit_time,
+			limit_clear_price = limit_clear_price,
+			valid_time_from = None,
+			valid_time_to = None,
+			has_product_model= has_product_model,
+			catalog_id = second_level_id,
+			remark = remark,
+			limit_zone=limit_zone_id,
+			limit_zone_type=limit_zone_type
+		)
 
 		if has_product_model == 0:
 			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(

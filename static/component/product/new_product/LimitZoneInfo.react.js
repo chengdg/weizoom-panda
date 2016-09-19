@@ -21,10 +21,10 @@ var LimitZoneInfo = React.createClass({
 		Store.addListener(this.onChangeStore);
 
 
-        var data = Store.getData();
-        var limit_zone_type = data.limit_zone_type;
-        var limit_zone_info = data.limit_zone_info;
-        console.log(limit_zone_type, limit_zone_info)
+//        var data = Store.getData();
+//        var limit_zone_type = data.limit_zone_type;
+//        var limit_zone_info = data.limit_zone_info;
+//        console.log(limit_zone_type, limit_zone_info)
 		return Store.getData();
 	},
 
@@ -34,22 +34,30 @@ var LimitZoneInfo = React.createClass({
 	},
 
 	render: function() {
-	    var limit_zone_info = '';
-	    var button = '';
+
         console.log('==================================2')
-	    console.log(this.state.limit_zone_type)
+
+	    console.log(this.state.limit_zone_info)
 	    if(this.state.limit_zone_type!=0){
-            limit_zone_info = <Reactman.FormSelect name='limit_zone_info'
-                label="地区限制:"
-                options={this.state.limit_zone_info }  />
-            button = <div style={{paddingLeft:'180px',marginBottom:'10px'}}><a  className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" >配置模板</a></div>
-	    }
-        return (
-                <div>
-                    <div>{limit_zone_info}</div>
-                        {button}
+	        return (
+	            <div>
+                    <div>
+                        <Reactman.FormSelect name='limit_zone_id' value={this.state.limit_zone_id}
+                                label="地区限制:"
+                                options={this.state.limit_zone_info } validate="require" />
+                    </div>
+                    <div style={{paddingLeft:'180px',marginBottom:'10px'}}>
+                        <a  className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" >配置模板</a>
+                    </div>
                 </div>
-            )
+	        )
+
+	    }else{
+	        return (
+	            <div></div>
+	        )
+	    }
+
 	}
 });
 module.exports = LimitZoneInfo;

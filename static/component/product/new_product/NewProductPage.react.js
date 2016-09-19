@@ -288,7 +288,7 @@ var NewProductPage = React.createClass({
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
                         <Reactman.FormSelect label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
-                        <div> <LimitZoneInfo /></div>
+                        <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
