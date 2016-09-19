@@ -44,7 +44,7 @@ var LimitZoneInfo = React.createClass({
                     <div>
                         <Reactman.FormSelect name='limit_zone_id' value={this.state.limit_zone_id}
                                 label="地区限制:"
-                                options={this.state.limit_zone_info } validate="require" />
+                                options={this.state.limit_zone_info } validate="require" onChange={this.props.onChange}/>
                     </div>
                     <div style={{paddingLeft:'180px',marginBottom:'10px'}}>
                         <a  className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" >配置模板</a>
