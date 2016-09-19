@@ -35,9 +35,9 @@ var LimitZoneInfo = React.createClass({
 
 	render: function() {
 
-        console.log('==================================2')
-
-	    console.log(this.state.limit_zone_info)
+//        console.log('==================================2')
+//
+//	    console.log(this.state.limit_zone_info)
 	    if(this.state.limit_zone_type!=0){
 	        return (
 	            <div>

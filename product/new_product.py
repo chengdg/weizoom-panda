@@ -333,6 +333,7 @@ class NewProduct(resource.Resource):
 		print '======================================='
 		print post
 		print limit_zone_id
+		print '======================================='
 		# if product_store_type == -1:
 		# 	product_store = -1
 		if not limit_clear_price:
