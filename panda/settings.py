@@ -251,7 +251,6 @@ if 'develop' == MODE:
     result = cursor.fetchone()
 
     PRODUCT_POOL_OWNER_ID = result[0]
-    print PRODUCT_POOL_OWNER_ID
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
