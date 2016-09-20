@@ -5,7 +5,6 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from eaglet.core.exceptionutil import unicode_full_stack
-from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
 
 from core import resource
@@ -13,10 +12,11 @@ from core.jsonresponse import create_response
 
 from account import models as account_models
 from product import models as product_models
-from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
 
 import models
 import nav
+from util import sync_util
+from panda.settings import PRODUCT_POOL_OWNER_ID
 
 FIRST_NAV = 'limit_zone'
 SECOND_NAV = 'limit_zone'
@@ -51,14 +51,33 @@ class ProductLimitZone(resource.Resource):
 	def api_put(request):
 		post = request.POST
 		name = post.get('name')
-
+		db_model = None
 		try:
-			models.ProductLimitZoneTemplate.objects.create(name=name,
-														   owner_id=request.user.id)
-			response = create_response(200)
+			db_model = models.ProductLimitZoneTemplate.objects.create(name=name,
+																	  owner_id=request.user.id)
+			params = {
+				'name': name,
+				'owner_id': PRODUCT_POOL_OWNER_ID
+			}
+			resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product_limit_zone_template',
+												  method='put')
+
+			if resp and resp_data:
+				# 创建中间关系
+				models.ProductLimitZoneTemplateRelation.objects.create(
+					template_id=db_model.id,
+					weapp_template_id=resp_data.get('template').get('id')
+				)
+				response = create_response(200)
+			else:
+				models.ProductLimitZoneTemplate.objects.filter(id=db_model).delete()
+				response = create_response(500)
+
 		except:
 			msg = unicode_full_stack()
 			watchdog.error('product_limit_zone.template_PUT{}'.format(msg))
+			if db_model:
+				models.ProductLimitZoneTemplate.objects.filter(id=db_model).delete()
 			response = create_response(500)
 		return response.get_response()
 
