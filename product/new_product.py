@@ -171,10 +171,7 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-		limit_zone_info.append(dict(text='请选择限定区域',
-								value=0))
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-		print jsons.get('items')
+
 		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
@@ -209,9 +206,7 @@ class NewProduct(resource.Resource):
 		model_values = post.get('model_values','')
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
-		print limit_zone_type, limit_zone_id
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..'
+
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark)
@@ -220,26 +215,7 @@ class NewProduct(resource.Resource):
 		if not limit_clear_price:
 			limit_clear_price = -1
 		try:
-			# if has_limit_time == 1:
-			# 	product = models.Product.objects.create(
-			# 		owner = request.user,
-			# 		product_name = product_name,
-			# 		promotion_title = promotion_title,
-			# 		product_price = product_price,
-			# 		clear_price = clear_price,
-			# 		product_weight = product_weight,
-			# 		product_store = product_store,
-			# 		has_limit_time = has_limit_time,
-			# 		limit_clear_price = limit_clear_price,
-			# 		valid_time_from = valid_time_from,
-			# 		valid_time_to = valid_time_to,
-			# 		has_product_model = has_product_model,
-			# 		catalog_id = second_level_id,
-			# 		remark = remark,
-			# 		limit_zone_type = limit_zone_type,
-			# 		limit_zone = limit_zone_id,
-			# 	)
-			# else:
+
 			product = models.Product.objects.create(
 				owner = request.user,
 				product_name = product_name,
@@ -332,7 +308,7 @@ class NewProduct(resource.Resource):
 		limit_zone_id = post.get('limit_zone_id', 0)
 		print '======================================='
 		print post
-		print limit_zone_id
+		print limit_zone_id, limit_zone_type
 		print '======================================='
 		# if product_store_type == -1:
 		# 	product_store = -1

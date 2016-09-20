@@ -29,7 +29,7 @@ class LimitTemplateHasZone(models.Model):
 	"""
 	template_id = models.IntegerField()
 	province = models.IntegerField(null=False)
-	city = models.IntegerField(null=True)
+	city = models.IntegerField(null=True, default=0)
 
 	class Meta(object):
 		db_table = 'template_has_zone'

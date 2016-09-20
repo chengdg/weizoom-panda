@@ -16,12 +16,16 @@ var AddCatalogDialog = require('./AddCatalogDialog.react');
 var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
 var AddLimitZoneTemplateDialog = require('./AddLimitZoneTemplateDialog.react');
 var AddLabelDialog = require('./AddLabelDialog.react');
+var LimitZoneText = require('./LimitZoneText.react');
 require('./style.css')
 
 var ProductCatalogPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return ({});
+		return ({
+		    id: '',
+		    name: ''
+		});
 	},
 
 	onChangeStore: function(event) {
@@ -31,51 +35,6 @@ var ProductCatalogPage = React.createClass({
 
 	componentDidMount: function(){
 		Action.getLabels();
-	},
-
-	onAddCatalog: function(event) {
-		var catalogId = event.target.getAttribute('data-id');
-		var fatherCatalog = event.target.getAttribute('data-father-catalog');
-		var catalogName = event.target.getAttribute('data-catalog-name');
-		var note = event.target.getAttribute('data-note');
-		Reactman.Resource.get({
-			resource: 'product_catalog.get_all_first_catalog',
-			data: {},
-			success: function(data) {
-				var options = data.rows;
-				Reactman.PageAction.showDialog({
-					title: "添加/修改分类",
-					component: AddCatalogDialog,
-					data: {
-						catalogId: catalogId,
-						fatherCatalog: fatherCatalog,
-						catalogName: catalogName,
-						note: note,
-						options: options
-					},
-					success: function() {
-						Action.updateCatalogs();
-					}
-				});
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
-			},
-			scope: this
-		})
-	},
-
-	onAddQualification: function(event) {
-
-		Reactman.PageAction.showDialog({
-			title: "配置特殊资质文件",
-			component: AddCatalogQualificationDialog,
-			data: {
-
-			},
-			success: function() {
-			}
-		});
 	},
 
 	onAddTemplate: function(event){
@@ -97,25 +56,42 @@ var ProductCatalogPage = React.createClass({
 		var template_id = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
 			target: event.target,
-			title: '确认删除该商品分类吗?',
+			title: '确认删除吗?',
 			confirm: _.bind(function() {
-				Action.deleteCatalog(template_id);
+				Action.deleteLimitZone(template_id);
 			}, this)
 		});
 	},
 
-	showSecondCatalogs:function(className){
-		var display = document.getElementsByClassName(className)[0].style.display;
-		if (display == 'none'){
-			document.getElementsByClassName(className)[0].style.display = "block";
-		}else{
-			document.getElementsByClassName(className)[0].style.display = "none";
-		}
+	onSelectArea:function(selectedIds,selectedDatas, event){
+	    console.log('+++++++++++++++++++++++++++++++')
+        console.log(event.props['data-name'])
+
+        Reactman.Resource.post({
+                resource: 'product_limit_zone.template',
+                data: {
+                    name: event.props['data-name'],
+                    id: event.props['data-id'],
+                    selected_data: JSON.stringify(selectedDatas),
+                    flag: 'provinces'
+                },
+                success: function() {
+                    _.delay(function(){
+						Reactman.PageAction.showHint('success', '保存成功');
+					},500);
+                    Action.updateLimitZoneTemplates();
+
+                },
+                error: function() {
+                    Reactman.PageAction.showHint('error', '保存失败！');
+                },
+                scope: this
+            })
 	},
 	
 	rowFormatter: function(field, value, data) {
 
-        if(field=='action'){
+        if(field == 'action'){
             return (
                 <div className="orders-list-btn-group">
 					<a className="btn btn-primary" onClick={this.onAddTemplate}
@@ -123,6 +99,29 @@ var ProductCatalogPage = React.createClass({
 					    data-name={data.name} >修改</a>
 					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-id={data.id}>删除</a>
 				</div>
+            )
+        }
+        if(field == 'zone_info'){
+
+//            console.log(data)
+//            console.log('+++++++++++++++++++++++++++++++')
+            return (
+                <div>
+                    <div>
+
+                        <LimitZoneText info={data.limit_zone_info_text}/>
+                    </div>
+                    <div>
+                        <Reactman.ProvinceCitySelect
+                            data-id={data.id}
+					        data-name={data.name}
+					        initSelectedIds={data.zone_list}
+					        onSelect={this.onSelectArea}
+					        resource="product.provinces_cities">
+                            选择区域
+                        </Reactman.ProvinceCitySelect>
+                    </div>
+                </div>
             )
         }
 		return value;
@@ -139,7 +138,7 @@ var ProductCatalogPage = React.createClass({
 						<Reactman.TableActionButton text="添加模板" icon="plus" onClick={this.onAddTemplate}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={catalogsResource} pagination={true} formatter={this.rowFormatter} expandRow={true} ref="table">
-						<Reactman.TableColumn name="模板名称" field="name" width='150px'/>
+						<Reactman.TableColumn name="模板名称" field="name" width='250px'/>
 						<Reactman.TableColumn name="地区" field="zone_info" />
 						<Reactman.TableColumn name="操作" field="action" width='150px'/>
 					</Reactman.Table>

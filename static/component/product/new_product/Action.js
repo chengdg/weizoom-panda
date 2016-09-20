@@ -31,7 +31,9 @@ var Action = {
 			remark: data['remark'],
 			has_product_model: data['has_product_model'],
 			model_values: model_values,
-			second_level_id: data['second_level_id']
+			second_level_id: data['second_level_id'],
+			limit_zone_type: data['limit_zone_type'],
+			limit_zone_id: data['limit_zone_id'],
 		};
 		if (data.id === -1) {
 			Resource.put({

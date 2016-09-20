@@ -66,9 +66,31 @@ class ProductLimitZone(resource.Resource):
 		post = request.POST
 		name = post.get('name')
 		template_id = post.get('id')
+		selected_data = json.loads(post.get('selected_data', ''))
 
+		provinces = selected_data.get('provinces')
+
+		flag = post.get('flag', 'name')
 		try:
 			models.ProductLimitZoneTemplate.objects.filter(id=template_id).update(name=name)
+			if flag != 'name':
+				# 先删除
+				models.LimitTemplateHasZone.objects.filter(template_id=template_id).delete()
+				# 创建模板的数据
+				bulk_create = []
+				for province in provinces:
+					# 前段传递的数据如果是全选了省，那么cities是空的
+					cities = province.get('cities')
+					if not cities:
+						bulk_create.append(models.LimitTemplateHasZone(template_id=template_id,
+																	   province=province.get('provinceId'),
+																	   ))
+					else:
+						bulk_create += [models.LimitTemplateHasZone(template_id=template_id,
+																	province=province.get('provinceId'),
+																	city=city.get('cityId')) for city in cities]
+				models.LimitTemplateHasZone.objects.bulk_create(bulk_create)
+
 			response = create_response(200)
 		except:
 			msg = unicode_full_stack()

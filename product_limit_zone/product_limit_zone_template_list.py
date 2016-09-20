@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+from collections import defaultdict
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -11,7 +12,6 @@ from eaglet.core import watchdog
 from core import resource
 from core.jsonresponse import create_response
 
-from account import models as account_models
 from product import models as product_models
 from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
 
@@ -44,9 +44,35 @@ class ProductLimitZone(resource.Resource):
 
 		templates = models.ProductLimitZoneTemplate.objects.filter(owner_id=request.user.id,
 																   is_deleted=False)
+		template_ids = [template.id for template in templates]
+
+		all_zone_info = models.LimitTemplateHasZone.objects.filter(template_id__in=template_ids)
+		provinces = product_models.Province.objects.all()
+		provinces = {province.id: province.name for province in provinces}
+		cities = product_models.City.objects.all()
+		cities = {city.id: city.name for city in cities}
 		for template in templates:
+			zone_info = filter(lambda key: key.template_id == template.id, all_zone_info)
+			zone_list = [str(zone.province) if not zone.city else '_'.join([str(zone.province), str(zone.city)])
+						 for zone in zone_info]
+			limit_zone_info = defaultdict(list)
+
+			for z in zone_info:
+				limit_zone_info[z.province].append(z.city)
+			limit_zone_info_text = []
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+			# print type(limit_zone_info)
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+			for k, v in limit_zone_info.items():
+
+				limit_zone_info_text.append({
+					'province': provinces.get(k),
+					'cities': '全选' if len(v) == 1 and v[0] == 0 else ','.join([cities.get(city) for city in v if city])
+				})
+
 			rows.append({"name": template.name,
-						 'zone_info': '',
+						 'limit_zone_info_text': limit_zone_info_text,
+						 'zone_list': zone_list,
 						 'id': template.id})
 		data = {
 			'rows': rows

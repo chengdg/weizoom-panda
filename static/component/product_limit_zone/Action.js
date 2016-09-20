@@ -20,7 +20,7 @@ var Action = {
 		});
 	},
 
-	deleteCatalog: function(id) {
+	deleteLimitZone: function(id) {
 		Resource.delete({
 			resource: 'product_limit_zone.template',
 			data: {

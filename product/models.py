@@ -219,3 +219,22 @@ class ProductHasLabel(models.Model):
 
 	class Meta(object):
 		db_table = 'product_has_label'
+
+
+class City(models.Model):
+	name = models.CharField(max_length=50)
+	zip_code = models.CharField(max_length=50)
+	province_id = models.IntegerField(db_index=True)
+
+	class Meta(object):
+		db_table = 'city'
+		verbose_name = '城市列表'
+		verbose_name_plural = '城市列表'
+
+class Province(models.Model):
+	name = models.CharField(max_length=50)
+
+	class Meta(object):
+		db_table = 'province'
+		verbose_name = '省份列表'
+		verbose_name_plural = '省份列表'

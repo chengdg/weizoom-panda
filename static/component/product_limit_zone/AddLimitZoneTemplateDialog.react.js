@@ -93,6 +93,7 @@ var AddLimitZoneTemplateDialog = Reactman.createDialog({
         }
     },
 	render:function(){
+        var zoneList = [{"provinces":[{"cities":[{"cityId":72,"cityName":"大兴安岭地区"}],"provinceId":8,"provinceName":"黑龙江省"}],"zoneName":"华北-东北"}];
 
 		return (
 		<div className="xui-outlineData-page xui-formPage">
@@ -101,6 +102,7 @@ var AddLimitZoneTemplateDialog = Reactman.createDialog({
                     <Reactman.FormInput label="模板名称:" name="name" validate="require-string" placeholder=""
                         value={this.state.name}
                         onChange={this.onChange} autoFocus={true} />
+
                 </fieldset>
             </form>
 
