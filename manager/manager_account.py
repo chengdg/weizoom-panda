@@ -105,25 +105,25 @@ class ManagerAccount(resource.Resource):
 				elif date_now >= valid_time_to or date_now <= valid_time_from:
 					account.status = 2
 					account.save()
-			if is_for_list:
-				customerFrom = '--' 
-				if account.role == 1 :
-					catalog_names = []
-					if account.company_type != '':
-						#获得经营类目的名称
-						catalog_ids = json.loads(account.company_type)
-						for catalog_id in catalog_ids:
-							catalog_names.append(catalog_id2name.get(catalog_id, ''))
-					catalog_names = ','.join(catalog_names)
 
-					#客户来源
-					if company_name2info.has_key(account.company_name):
-						customerFrom = company_name2info[account.company_name]
-					else:
-						customerFrom = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
+			customerFrom = '--' 
+			if account.role == 1 :
+				catalog_names = []
+				if account.company_type != '':
+					#获得经营类目的名称
+					catalog_ids = json.loads(account.company_type)
+					for catalog_id in catalog_ids:
+						catalog_names.append(catalog_id2name.get(catalog_id, ''))
+				catalog_names = ','.join(catalog_names)
+
+				#客户来源
+				if company_name2info.has_key(account.company_name):
+					customerFrom = company_name2info[account.company_name]
 				else:
-					catalog_names = '--'
-				
+					customerFrom = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
+			else:
+				catalog_names = '--'
+			if is_for_list:
 				rows.append({
 					'id': account.id,
 					'name': account.name,
