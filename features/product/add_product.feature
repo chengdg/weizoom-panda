@@ -14,25 +14,13 @@ Background:
 	Given jobs登录管理系统
 	When jobs添加账号
 	"""
-		[{
-			"account_type":"体验客户",
-			"company_name":"爱昵咖啡有限责任公司",
-			"shop_name":"爱昵咖啡",
-			"manage_type":"休闲食品",
-			"purchase_type":"固定底价",
-			"connect_man":"aini",
-			"mobile_number":"13813985506",
-			"login_account":"aini",
-			"password":"123456",
-			"valid_time":"2016-07-15"至"2017-07-15",
-			"ramarks":"爱昵咖啡客户体验账号"
-		},{
+		{
 			"account_type":"运营",
 			"account_name":"运营部门",
 			"login_account":"yunying",
 			"password":123456,
 			"ramarks":"运营部门"
-		}]
+		}
 	"""
 	Given yunying登录系统
 	When yunying添加分类
@@ -176,23 +164,21 @@ Scenario:2 客户添加商品
 	}
 	}]
 	"""
-	"""
 
 
 	Then aini能获得商品列表
-	|  name   | set_price |sale_price| sales |   creat_time   | status |
-	|武汉鸭脖 |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
-	|耐克男鞋 |   14.90   |   29.00  | 0.00  |2016-07-25 16:30| 未上架 |
-	|  ipad   |  3000.00  |  2500.00 | 0.00  |2016-08-22 11:03| 未上架 |
-
+		|  name   |costumer_name|     classify     | set_price |sale_price| sales |   creat_time   | status |
+		|武汉鸭脖 |  爱伲咖啡   |  生活用品-零食   |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
+		|耐克男鞋 |  爱伲咖啡   |  电子数码-耳机   |   14.90   |   29.00  | 0.00  |2016-07-25 16:30| 未上架 |
+		|  ipad   |  爱伲咖啡   |电子数码——平板电脑|  3000.00  |  2500.00 | 0.00  |2016-08-22 11:03| 未上架 |
 
 @panda @hj
 Scenario:3 客户删除商品
 	When aini使用密码123456登录系统
 	When aini添加商品
 	"""
-		[{
-		"first_classify":"生活用品",
+	[{
+	"first_classify":"生活用品",
 	"second_classify":"零食",
 	"product_name": "武汉鸭脖",
 	"title":"武汉鸭脖",
@@ -246,9 +232,9 @@ Scenario:3 客户删除商品
 	}
 	"""
 	Then aini能获得商品列表
-	|  name   | set_price |sale_price| sales |   creat_time   | status |
-	|武汉鸭脖 |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
-	|  ipad   |  3000.00  |  2500.00 | 0.00  |2016-08-22 11:03| 未上架 |
+		|  name   |costumer_name|     classify     | set_price |sale_price| sales |   creat_time   | status |
+		|武汉鸭脖 |  爱伲咖啡   |  生活用品-零食   |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
+		|  ipad   |  爱伲咖啡   |电子数码——平板电脑|  3000.00  |  2500.00 | 0.00  |2016-08-22 11:03| 未上架 |
 	
 
 	
