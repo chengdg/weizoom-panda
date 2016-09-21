@@ -104,7 +104,7 @@ class ProductLimitZone(resource.Resource):
 				for province in provinces:
 					# 前段传递的数据如果是全选了省，那么cities是空的
 					cities = province.get('cities')
-					weapp_provinces.append(province.get('provinceId'))
+					weapp_provinces.append(str(province.get('provinceId')))
 					if not cities:
 						bulk_create.append(models.LimitTemplateHasZone(template_id=template_id,
 																	   province=province.get('provinceId'),
@@ -113,7 +113,7 @@ class ProductLimitZone(resource.Resource):
 						bulk_create += [models.LimitTemplateHasZone(template_id=template_id,
 																	province=province.get('provinceId'),
 																	city=city.get('cityId')) for city in cities]
-						weapp_cities += [city.get('cityId') for city in cities]
+						weapp_cities += [str(city.get('cityId')) for city in cities]
 				models.LimitTemplateHasZone.objects.bulk_create(bulk_create)
 				# 同步更新到weapp
 			relation = models.ProductLimitZoneTemplateRelation.objects.filter(template_id=template_id).first()
