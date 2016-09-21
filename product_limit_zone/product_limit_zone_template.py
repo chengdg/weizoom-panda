@@ -77,7 +77,7 @@ class ProductLimitZone(resource.Resource):
 			msg = unicode_full_stack()
 			watchdog.error('product_limit_zone.template_PUT{}'.format(msg))
 			if db_model:
-				models.ProductLimitZoneTemplate.objects.filter(id=db_model).delete()
+				models.ProductLimitZoneTemplate.objects.filter(id=db_model.id).delete()
 			response = create_response(500)
 		return response.get_response()
 
