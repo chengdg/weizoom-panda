@@ -48,7 +48,7 @@ class ProductList(resource.Resource):
 		显示商品列表
 		"""
 
-		user_has_products = models.Product.objects.filter(owner_id=request.user.id).count()
+		user_has_products = models.Product.objects.filter(owner_id=request.user.id, is_deleted=False).count()
 
 		user_profile = request.user.get_profile()
 
