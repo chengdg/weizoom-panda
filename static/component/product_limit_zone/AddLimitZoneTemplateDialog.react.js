@@ -4,7 +4,7 @@
 "use strict";
 
 var debug = require('debug')('m:product_limit_zone.product_limit_zone:AddLimitZoneTemplateDialog');
-var ProductModel = require('./ProductModel.react');
+//var ProductModel = require('./ProductModel.react');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Reactman = require('reactman');
@@ -31,22 +31,14 @@ var AddLimitZoneTemplateDialog = Reactman.createDialog({
 		newState[property] = value;
 		this.setState(newState);
 	},
-	onChangeModel: function(value, event) {
-		var model = this.state.models[value.index];
-		model.name = value.name;
-	},
+
 	onChangeStore: function(){
 		this.setState({
 		    name: this.state.name,
 		    id: this.state.id
 		})
 	},
-	onClickAddModel: function(event) {
-		Action.addCatalogQualification(this.state.qualificationInfos);
-	},
-	onDeleteModel: function(index) {
-		Action.deleteCatalogQualification(index,this.state.qualificationInfos);
-	},
+
     onBeforeCloseDialog: function() {
         var name = this.state.name;
         var id = this.state.id;

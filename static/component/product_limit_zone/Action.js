@@ -19,7 +19,39 @@ var Action = {
 			data: {}
 		});
 	},
+    updateLimitZoneTemplateInfo: function(selectedDatas, selectedIds, event){
+        Reactman.Resource.post({
+                resource: 'product_limit_zone.template',
+                data: {
+                    name: event.props['data-name'],
+                    id: event.props['data-id'],
+                    selected_data: JSON.stringify(selectedDatas),
+                    flag: 'provinces'
+                },
+                success: function() {
+//                    _.delay(function(){
+//						Reactman.PageAction.showHint('success', '保存成功');
+//					},500);
+//                    Dispatcher.dispatch({
+//                        actionType: Constant.LIMIT_ZONE_TEMPLATE_UPDATE,
+//                        data: {}
+//                    });
+                    console.log('fucking........................')
+                    Reactman.PageAction.showHint('success', '保存成功');
+                    setTimeout(function(){
+                        Dispatcher.dispatch({
+                            actionType: Constant.LIMIT_ZONE_TEMPLATE_UPDATE,
+                            data: {}
+                        });
+                    },500);
+                },
+                error: function() {
+                    Reactman.PageAction.showHint('error', '保存失败！');
+                },
+                scope: this
+            });
 
+    },
 	deleteLimitZone: function(id) {
 		Resource.delete({
 			resource: 'product_limit_zone.template',
@@ -41,81 +73,6 @@ var Action = {
 		});
 	},
 
-	//更新类目所需特殊资质
-	updateCatalog: function(property, value, models, index) {
-		Dispatcher.dispatch({
-			actionType: Constant.UPDATE_CATALOG,
-			data: {
-				property: property,
-				value: value,
-				models: models,
-				index: index
-			}
-		});
-	},
-
-	deleteCatalogQualification: function(index, models) {
-		Dispatcher.dispatch({
-			actionType: Constant.DELETE_CATALOG,
-			data: {
-				index: index,
-				models: models
-			}
-		});
-	},
-
-	addCatalogQualification: function(models) {
-		var index = models.length;
-		Dispatcher.dispatch({
-			actionType: Constant.ADD_CATALOG_QUALIFICATION,
-			data: {
-				models: models,
-				index: index
-			}
-		});
-	},
-	//分类配置标签
-	getLabels: function(){
-		Resource.get({
-			resource: 'label.catalog_label',
-			data: {},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.PRODUCT_CATALOGS_GET_LABELS
-			}
-		});
-	},
-
-	chooseLabelValue: function(propertyId, valueId) {
-		Dispatcher.dispatch({
-			actionType: Constant.PRODUCT_CATALOGS_CHOOSE_LABEL_VALUE,
-			data: {
-				propertyId: propertyId,
-				valueId: valueId
-			}
-		});
-	},
-
-	getCatalogHasLabel: function(catalogId, productId) {
-		Resource.get({
-			resource: 'product_catalog.catalog_has_labels',
-			data: {
-				catalog_id: catalogId,
-				product_id: productId
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.PRODUCT_CATALOGS_GET_CATALOG_HAS_LABEL
-			}
-		});
-	},
-
-	updateLabels: function(){
-		Dispatcher.dispatch({
-			actionType: Constant.CATALOG_DATAS_FILTER,
-			data: {}
-		});
-	}
 };
 
 module.exports = Action;

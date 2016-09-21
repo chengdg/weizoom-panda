@@ -3,13 +3,12 @@
  */
 "use strict";
 
-var debug = require('debug')('m:product_catalog.product_catalogs:AddLabelDialog');
-var ProductModel = require('./ProductModel.react');
+var debug = require('debug')('m:product_limit_zone.LimitZoneText');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Reactman = require('reactman');
 
-var Store = require('./AddLabelDialogStore');
+var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css')

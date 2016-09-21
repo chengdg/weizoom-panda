@@ -12,10 +12,10 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-var AddCatalogDialog = require('./AddCatalogDialog.react');
-var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
+//var AddCatalogDialog = require('./AddCatalogDialog.react');
+//var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
 var AddLimitZoneTemplateDialog = require('./AddLimitZoneTemplateDialog.react');
-var AddLabelDialog = require('./AddLabelDialog.react');
+//var AddLabelDialog = require('./AddLabelDialog.react');
 var LimitZoneText = require('./LimitZoneText.react');
 require('./style.css')
 
@@ -23,19 +23,15 @@ var ProductCatalogPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
 		return ({
-		    id: '',
-		    name: ''
 		});
 	},
 
 	onChangeStore: function(event) {
 		var filterOptions = Store.getData();
-		this.refs.table.refresh(filterOptions);
+		this.refs.table.refresh();
 	},
 
-	componentDidMount: function(){
-		Action.getLabels();
-	},
+
 
 	onAddTemplate: function(event){
 	    var template_id = event.target.getAttribute('data-id');
@@ -64,29 +60,10 @@ var ProductCatalogPage = React.createClass({
 	},
 
 	onSelectArea:function(selectedIds,selectedDatas, event){
-	    console.log('+++++++++++++++++++++++++++++++')
-        console.log(event.props['data-name'])
+//	    console.log('+++++++++++++++++++++++++++++++')
+//        console.log(event.props['data-name'])
+        Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
 
-        Reactman.Resource.post({
-                resource: 'product_limit_zone.template',
-                data: {
-                    name: event.props['data-name'],
-                    id: event.props['data-id'],
-                    selected_data: JSON.stringify(selectedDatas),
-                    flag: 'provinces'
-                },
-                success: function() {
-                    _.delay(function(){
-						Reactman.PageAction.showHint('success', '保存成功');
-					},500);
-                    Action.updateLimitZoneTemplates();
-
-                },
-                error: function() {
-                    Reactman.PageAction.showHint('error', '保存失败！');
-                },
-                scope: this
-            })
 	},
 	
 	rowFormatter: function(field, value, data) {
