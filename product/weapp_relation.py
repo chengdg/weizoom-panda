@@ -173,7 +173,8 @@ def get_weapp_model_properties(product=None):
 	获取多规格的商品,对应的云上通的规格组合信息
 	"""
 	weapp_models_info = []
-	models_info = models.ProductModel.objects.filter(product_id=product.id)
+	models_info = models.ProductModel.objects.filter(product_id=product.id,
+													 is_deleted=False)
 	# print '=========================================', product
 	for model_info in models_info:
 		name = model_info.name
