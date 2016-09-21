@@ -31,8 +31,6 @@ var ProductCatalogPage = React.createClass({
 		this.refs.table.refresh();
 	},
 
-
-
 	onAddTemplate: function(event){
 	    var template_id = event.target.getAttribute('data-id');
 	    var name = event.target.getAttribute('data-name');
@@ -60,10 +58,7 @@ var ProductCatalogPage = React.createClass({
 	},
 
 	onSelectArea:function(selectedIds,selectedDatas, event){
-//	    console.log('+++++++++++++++++++++++++++++++')
-//        console.log(event.props['data-name'])
         Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
-
 	},
 	
 	rowFormatter: function(field, value, data) {
@@ -79,13 +74,9 @@ var ProductCatalogPage = React.createClass({
             )
         }
         if(field == 'zone_info'){
-
-//            console.log(data)
-//            console.log('+++++++++++++++++++++++++++++++')
             return (
                 <div>
                     <div>
-
                         <LimitZoneText info={data.limit_zone_info_text}/>
                     </div>
                     <div>

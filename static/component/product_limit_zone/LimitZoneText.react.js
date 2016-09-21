@@ -15,40 +15,23 @@ require('./style.css')
 
 var LimitZoneText = Reactman.createDialog({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		var data = this.props.info;
-//		console.log('+++++++++++++++++++++++++++++++=');
-//		console.log(data)
+		
 		return {
             data: data
 		}
 	},
 
-	onChange: function(value, event) {
-
-	},
-
-	onChangeStore: function() {
-		this.setState({
-			selectLabels: Store.getData().selectLabels,
-			selectCatalogLabels: Store.getData().selectCatalogLabels
-		});
-	},
-
 	render: function() {
-          var text = this.state.data.map(function(model, index){
-//            console.log('+++++++++++++++++++++++++++++++=')
-//            console.log(model)
+        var text = this.props.info.map(function(model, index){
             return(
                 <div>{model.province}:{model.cities}</div>
             )
-          });
-//        for(var i=0; i < this.state.data.length; i++){
-//            text += <div>this.state.data[i].province  ':'  this.state.data[i].cities</div>
-//        }
+        });
+
 		return (
 			<div>
-			{text}
+				{text}
 			</div>
 		)
 	}
