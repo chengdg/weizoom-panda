@@ -50,13 +50,30 @@ class ProductLimitZone(resource.Resource):
 		provinces = product_models.Province.objects.all()
 		provinces = {province.id: province.name for province in provinces}
 		cities = product_models.City.objects.all()
+		from itertools import groupby
+		province_id_to_cities = {k: list(v) for k, v in groupby(cities, key=lambda key: key.province_id)}
 		cities = {city.id: city.name for city in cities}
 		for template in templates:
 			zone_info = filter(lambda key: key.template_id == template.id, all_zone_info)
-			zone_list = [str(zone.province) if not zone.city else '_'.join([str(zone.province), str(zone.city)])
-						 for zone in zone_info]
-			limit_zone_info = defaultdict(list)
+			zone_list = []
+			for zone in zone_info:
+				if zone.city:
+					zone_str = '_'.join([str(zone.province), str(zone.city)])
+					zone_list.append(zone_str)
+				else:
+					# 这个省是全部的
 
+					temp_city_ids = [city.id for city in province_id_to_cities.get(zone.province)]
+
+					if zone.province not in [1, 2, 9, 32, 33, 34, 22]:
+						zone_list += ['_'.join([str(zone.province), str(city_id)]) for city_id in temp_city_ids]
+					else:
+						zone_list.append(str(zone.province))
+					print zone.province, temp_city_ids
+			# zone_list = [str(zone.province) if not zone.city else '_'.join([str(zone.province), str(zone.city)])
+			# 			 for zone in zone_info]
+			limit_zone_info = defaultdict(list)
+			# print zone_list
 			for z in zone_info:
 				limit_zone_info[z.province].append(z.city)
 			limit_zone_info_text = []

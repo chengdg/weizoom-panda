@@ -40,7 +40,20 @@ var ProductCatalogPage = React.createClass({
 			}
 		});
 	},
-
+    onUpdateTemplate: function(event){
+	    var template_id = event.target.getAttribute('data-id');
+	    var name = event.target.getAttribute('data-name');
+		Reactman.PageAction.showDialog({
+			title: "禁售/仅售模板",
+			component: AddLimitZoneTemplateDialog,
+			data: {
+                id: template_id,
+                name: name
+			},
+			success: function() {
+			}
+		});
+	},
 	onClickDelete: function(event) {
 		var template_id = parseInt(event.target.getAttribute('data-id'));
 		Reactman.PageAction.showConfirm({
@@ -54,13 +67,14 @@ var ProductCatalogPage = React.createClass({
 
 	onSelectArea:function(selectedIds,selectedDatas, event) {
         Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
+//        console.log('=============================')
 	},
 	
 	rowFormatter: function(field, value, data) {
         if(field == 'action'){
             return (
                 <div className="orders-list-btn-group">
-					<a className="btn btn-primary" onClick={this.onAddTemplate}
+					<a className="btn btn-primary" onClick={this.onUpdateTemplate}
 					    data-id={data.id}
 					    data-name={data.name} >修改</a>
 					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-id={data.id}>删除</a>
