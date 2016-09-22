@@ -19,39 +19,33 @@ var Action = {
 			data: {}
 		});
 	},
-    updateLimitZoneTemplateInfo: function(selectedDatas, selectedIds, event){
-        Reactman.Resource.post({
-                resource: 'product_limit_zone.template',
-                data: {
-                    name: event.props['data-name'],
-                    id: event.props['data-id'],
-                    selected_data: JSON.stringify(selectedDatas),
-                    flag: 'provinces'
-                },
-                success: function() {
-//                    _.delay(function(){
-//						Reactman.PageAction.showHint('success', '保存成功');
-//					},500);
-//                    Dispatcher.dispatch({
-//                        actionType: Constant.LIMIT_ZONE_TEMPLATE_UPDATE,
-//                        data: {}
-//                    });
-                    console.log('fucking........................')
-                    Reactman.PageAction.showHint('success', '保存成功');
-                    setTimeout(function(){
-                        Dispatcher.dispatch({
-                            actionType: Constant.LIMIT_ZONE_TEMPLATE_UPDATE,
-                            data: {}
-                        });
-                    },500);
-                },
-                error: function() {
-                    Reactman.PageAction.showHint('error', '保存失败！');
-                },
-                scope: this
-            });
 
-    },
+	updateLimitZoneTemplateInfo: function(selectedDatas, selectedIds, event){
+		Reactman.Resource.post({
+			resource: 'product_limit_zone.template',
+			data: {
+				name: event.props['data-name'],
+				id: event.props['data-id'],
+				selected_data: JSON.stringify(selectedDatas),
+				flag: 'provinces'
+			},
+			success: function() {
+				Reactman.PageAction.showHint('success', '保存成功');
+				setTimeout(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.LIMIT_ZONE_TEMPLATE_UPDATE,
+						data: {}
+					});
+				},500);
+			},
+			error: function() {
+				Reactman.PageAction.showHint('error', '保存失败！');
+			},
+			scope: this
+		});
+
+	},
+
 	deleteLimitZone: function(id) {
 		Resource.delete({
 			resource: 'product_limit_zone.template',
@@ -68,13 +62,10 @@ var Action = {
 				},500);
 			},
 			error: function(data) {
-//			    console.log('=================================3f')
-//			    console.log(data)
 				Reactman.PageAction.showHint('error', data.errMsg);
 			}
 		});
-	},
-
+	}
 };
 
 module.exports = Action;

@@ -6,6 +6,5 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-
 	LIMIT_ZONE_TEMPLATE_UPDATE: null
 });

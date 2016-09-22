@@ -11,7 +11,6 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-require('./style.css')
 
 var LimitZoneText = Reactman.createDialog({
 	getInitialState: function() {

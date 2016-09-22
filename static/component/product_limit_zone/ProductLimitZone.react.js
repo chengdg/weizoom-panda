@@ -12,12 +12,8 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-//var AddCatalogDialog = require('./AddCatalogDialog.react');
-//var AddCatalogQualificationDialog = require('./AddCatalogQualificationDialog.react');
 var AddLimitZoneTemplateDialog = require('./AddLimitZoneTemplateDialog.react');
-//var AddLabelDialog = require('./AddLabelDialog.react');
 var LimitZoneText = require('./LimitZoneText.react');
-require('./style.css')
 
 var ProductCatalogPage = React.createClass({
 	getInitialState: function() {
@@ -27,7 +23,6 @@ var ProductCatalogPage = React.createClass({
 	},
 
 	onChangeStore: function(event) {
-		var filterOptions = Store.getData();
 		this.refs.table.refresh();
 	},
 
@@ -57,12 +52,11 @@ var ProductCatalogPage = React.createClass({
 		});
 	},
 
-	onSelectArea:function(selectedIds,selectedDatas, event){
+	onSelectArea:function(selectedIds,selectedDatas, event) {
         Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
 	},
 	
 	rowFormatter: function(field, value, data) {
-
         if(field == 'action'){
             return (
                 <div className="orders-list-btn-group">
@@ -72,8 +66,7 @@ var ProductCatalogPage = React.createClass({
 					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-id={data.id}>删除</a>
 				</div>
             )
-        }
-        if(field == 'zone_info'){
+        }else if(field == 'zone_info') {
             return (
                 <div>
                     <div>
@@ -91,14 +84,17 @@ var ProductCatalogPage = React.createClass({
                     </div>
                 </div>
             )
-        }
-		return value;
+        }else {
+			return value;
+		}
 	},
-	render:function(){
+
+	render:function() {
 		var catalogsResource = {
 			resource: 'limit_zone.template_list',
 			data: {}
 		};
+
 		return (
 			<div className="mt15 xui-product-productListPage">
 				<Reactman.TablePanel>
