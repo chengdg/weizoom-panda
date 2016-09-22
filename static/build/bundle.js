@@ -43397,7 +43397,7 @@
 						{ style: { paddingLeft: '180px', marginBottom: '10px' } },
 						React.createElement(
 							'a',
-							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);' },
+							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: '/limit_zone/template_list' },
 							'配置模板'
 						)
 					)
