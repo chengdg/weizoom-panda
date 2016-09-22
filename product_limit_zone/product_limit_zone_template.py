@@ -124,7 +124,8 @@ class ProductLimitZone(resource.Resource):
 					'name': name,
 					'cities': ','.join(weapp_cities),
 					'template_id': relation.weapp_template_id,
-					'provinces': ','.join(weapp_provinces)
+					'provinces': ','.join(weapp_provinces),
+					'flag': flag
 				}
 				sync_util.sync_zeus(params=params, resource='mall.product_limit_zone_template',
 										method='post')
