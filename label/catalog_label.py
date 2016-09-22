@@ -149,15 +149,12 @@ class CataloLabel(resource.Resource):
 					product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
 					product_models.ProductHasLabel.objects.bulk_create(product_label_create)
 		else:
-			if product_id == -1:
-				catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
-			else:
-				product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
-				product_models.ProductHasLabel.objects.create(
-					product_id = product_id,
-					label_ids = '',
-					property_id = -1
-				)
+			product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+			product_models.ProductHasLabel.objects.create(
+				product_id = product_id,
+				label_ids = '',
+				property_id = -1
+			)
 
 		response = create_response(200)
 		return response.get_response()
