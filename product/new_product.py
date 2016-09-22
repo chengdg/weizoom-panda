@@ -79,8 +79,15 @@ class NewProduct(resource.Resource):
 		# 获取所有的限制
 		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
 																				owner_id=request.user.id)
+
+		template_ids = [template.id for template in limit_zones]
+
+		not_null_template = limit_zone_models.LimitTemplateHasZone.objects.filter(template_id__in=template_ids)\
+			.values('template_id').distinct()
+		not_template_ids = [t.get('template_id') for t in not_null_template]
+		limit_zones_not_null = limit_zones.filter(id__in=not_template_ids)
 		limit_zone_info = [dict(text=limit_zone.name,
-								value=limit_zone.id) for limit_zone in limit_zones]
+								value=limit_zone.id) for limit_zone in limit_zones_not_null]
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
