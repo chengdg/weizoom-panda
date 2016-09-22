@@ -66,8 +66,10 @@ class CataloLabel(resource.Resource):
 		response.data = data
 		return response.get_response()
 
-	# 保存分类跟标签的对应关系
 	def api_put(request):
+		"""
+		保存分类跟标签的对应关系
+		"""
 		select_catalog_labels = request.POST.get('select_catalog_labels', '')
 		catalog_id = request.POST.get('catalog_id', -1)
 		product_id = int(request.POST.get('product_id', -1))
@@ -76,8 +78,8 @@ class CataloLabel(resource.Resource):
 		if len(select_catalog_labels)>0:		
 			catalog_label_create = []
 			product_label_create = []
-			property_id_and_value_ids = []
 			label_ids = []
+
 			for select_catalog_label in select_catalog_labels:
 				value_ids = []
 				select_value_ids = select_catalog_label['valueIds']
@@ -87,8 +89,7 @@ class CataloLabel(resource.Resource):
 					value_ids.append(str(value_id))
 
 				str_value_ids = ','.join(value_ids)
-				#商品配置标签
-				property_id_and_value_ids.append(str(property_id) + ',' + '_'.join(value_ids))
+
 				#分类配置标签
 				catalog_label_create.append(catalog_models.ProductCatalogHasLabel(
 					catalog_id = catalog_id,
@@ -96,6 +97,7 @@ class CataloLabel(resource.Resource):
 					property_id = property_id
 				))
 
+				#商品配置标签
 				product_label_create.append(product_models.ProductHasLabel(
 					product_id = product_id,
 					label_ids = str_value_ids,
@@ -103,7 +105,6 @@ class CataloLabel(resource.Resource):
 				))
 
 			if product_id == -1:
-
 				# 类目下的标签
 				catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id).first()
 				# label_ids = []
