@@ -47,7 +47,7 @@ var LimitZoneInfo = React.createClass({
                                 options={this.state.limit_zone_info } validate="require" onChange={this.props.onChange}/>
                     </div>
                     <div style={{paddingLeft:'180px',marginBottom:'10px'}}>
-                        <a  className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" >配置模板</a>
+                        <a  className="btn btn-success mr40 xa-submit xui-fontBold" href="/limit_zone/template_list" >配置模板</a>
                     </div>
                 </div>
 	        )
