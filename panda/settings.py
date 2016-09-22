@@ -243,14 +243,15 @@ if 'develop' == MODE:
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
     DEBUG = True
-    # import MySQLdb
-    # conn = MySQLdb.connect(host='localhost', user='weapp', passwd='weizoom')
-    # conn.select_db('weapp')
-    # cursor = conn.cursor()
-    # cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
-    # result = cursor.fetchone()
+    import MySQLdb
 
-    PRODUCT_POOL_OWNER_ID = 1
+    conn = MySQLdb.connect(host='localhost', user='weapp', passwd='weizoom')
+    conn.select_db('weapp')
+    cursor = conn.cursor()
+    cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
+    result = cursor.fetchone()
+
+    PRODUCT_POOL_OWNER_ID = result[0]
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
