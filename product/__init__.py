@@ -17,3 +17,4 @@ import model_details
 import product_updated
 import sync_product
 import product_contrast
+import provinces_cities

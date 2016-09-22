@@ -14,6 +14,7 @@ import models
 from weapp_relation import get_weapp_model_properties
 from account import models as account_models
 from product_catalog import models as catalog_models
+from weapp_relation import get_products_limit_info
 
 
 class SyncProduct(resource.Resource):
@@ -29,7 +30,7 @@ class SyncProduct(resource.Resource):
 		try:
 			product_ids = product_id.split(',')
 			products = models.Product.objects.filter(id__in=product_ids)
-			
+			limit_zone_infos = get_products_limit_info(products=products)
 			for product in products:
 				# 供货商中间关系
 				account_has_supplier = account_models.AccountHasSupplier.objects.filter(user_id=product.owner_id).first()
@@ -46,7 +47,8 @@ class SyncProduct(resource.Resource):
 					# 多规格,获取规格信息
 					weapp_models_info = get_weapp_model_properties(product=product)
 				params = organize_params(product=product, supplier_id=account_has_supplier.supplier_id, images=images,
-										 model_type=model_type, weapp_models_info=weapp_models_info)
+										 model_type=model_type, weapp_models_info=weapp_models_info,
+										 limit_zone_infos=limit_zone_infos)
 
 				relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).first()
 				if not relation:
@@ -78,8 +80,16 @@ def get_product_images(product=None):
 	return [{'order': 1, 'url': image.path} for image in images]
 
 
-def organize_params(product=None, supplier_id=None, images=None,model_type=None, weapp_models_info=None):
+def organize_params(product=None, supplier_id=None, images=None,model_type=None, weapp_models_info=None,
+					limit_zone_infos=None):
+	if product.limit_zone_type == models.NO_LIMIT:
+		limit_zone_type = 'no_limit'
+	elif product.limit_zone_type == models.FORBIDDEN_SALE_LIMIT:
+		limit_zone_type = 'forbidden'
+	else:
+		limit_zone_type = 'only'
 	# 组织参数
+
 	params = {
 		'supplier': supplier_id,
 		'name': product.product_name,
@@ -93,8 +103,9 @@ def organize_params(product=None, supplier_id=None, images=None,model_type=None,
 		'model_type': model_type,
 		'model_info': json.dumps(weapp_models_info),
 		'stocks': product.product_store if product.product_store > 0 else 0,
-
-		'detail': product.remark
+		'detail': product.remark,
+		'limit_zone_type': limit_zone_type,
+		'limit_zone': limit_zone_infos.get(product.limit_zone)
 	}
 
 	return params
@@ -166,3 +177,5 @@ def sync_update_product(params, product, weapp_catalog_id=None):
 					})
 					if not resp or resp.get('code') != 200:
 						watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product.id})
+
+
