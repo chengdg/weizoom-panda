@@ -309,10 +309,9 @@ class NewProduct(resource.Resource):
 		second_level_id = int(post.get('second_level_id',0))
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
-		print '======================================='
-		print post
-		print limit_zone_id, limit_zone_type
-		print '======================================='
+		if int(limit_zone_type) == 0:
+			limit_zone_id = 0
+
 		# if product_store_type == -1:
 		# 	product_store = -1
 		if not limit_clear_price:
