@@ -39,12 +39,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleProductDataFilter: function(action){
-		this.data.filterOptions = action.data;
+		this.filter = action.data;
 		this.__emitChange();
 	},
 
 	handleProductDataExport: function(action){
-		var filterOptions = this.data.filterOptions;
+		var filterOptions = this.filter;
 		var filter_str = '';
 		for (var key in filterOptions){
 			filter_str = key +'=' + filterOptions[key];
@@ -172,7 +172,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	getFilter: function() {
-		return this.data.filterOptions;
+		return this.filter;
 	}
 });
 
