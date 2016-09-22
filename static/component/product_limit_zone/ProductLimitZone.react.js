@@ -66,6 +66,15 @@ var ProductCatalogPage = React.createClass({
 	},
 
 	onSelectArea:function(selectedIds,selectedDatas, event) {
+//	    if(){
+//
+//	    }
+//        console.log('===============================')
+//        console.log(selectedIds, selectedDatas)
+        if(selectedIds.length == 0){
+            Reactman.PageAction.showHint('error', '您需要选择地区！');
+            return;
+        }
         Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
 //        console.log('=============================')
 	},
