@@ -171,10 +171,10 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-		# limit_zone_info.append(
-		# 	{'text': '请选择区域',
-		# 	 'value': 0}
-		# )
+		limit_zone_info.append(
+			{'text': '请选择区域',
+			 'value': 0}
+		)
 		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
