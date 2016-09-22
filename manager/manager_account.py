@@ -238,8 +238,8 @@ def get_info_from_axe(company_names):
 	params = {
 		'name': company_names
 	}
-	r = requests.post(AXE_HOST + '/api/customers/', data=params)
 	try:
+		r = requests.post(AXE_HOST + '/api/customers/', data=params, timeout=8)
 		res = json.loads(r.text)
 		if res and res['code'] == 200:
 			axe_datas = res['data']
