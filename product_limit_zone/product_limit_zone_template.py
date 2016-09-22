@@ -140,7 +140,30 @@ class ProductLimitZone(resource.Resource):
 		template_id = post.get('id')
 
 		try:
+			# 判断是否有正在使用的
+			use_products = product_models.Product.objects.filter(limit_zone=template_id)\
+				.exclude(limit_zone_type=product_models.NO_LIMIT)
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+			# print use_products.count()
+			# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+			if use_products.count() > 0:
+				# data = {
+				# 	'msg': '还有正在使用该模板的商品，请先处理！'
+				# }
+				response = create_response(500)
+				response.errMsg = '还有正在使用该模板的商品，请先处理！'
+				return response.get_response()
 			models.ProductLimitZoneTemplate.objects.filter(id=template_id).update(is_deleted=True)
+
+			# 同步到weapp
+			relation = models.ProductLimitZoneTemplateRelation.objects.filter(template_id=template_id).first()
+			if relation:
+				params = {
+					'owner_id': PRODUCT_POOL_OWNER_ID,
+					'template_id': relation.weapp_template_id
+				}
+				resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product_limit_zone_template',
+													  method='delete')
 			response = create_response(200)
 		except:
 			msg = unicode_full_stack()

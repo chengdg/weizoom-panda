@@ -25,7 +25,7 @@ var LimitZoneText = Reactman.createDialog({
 	render: function() {
         var text = this.props.info.map(function(model, index){
             return(
-                <div>{model.province}:{model.cities}</div>
+                <div key={index}>{model.province}:{model.cities}</div>
             )
         });
 

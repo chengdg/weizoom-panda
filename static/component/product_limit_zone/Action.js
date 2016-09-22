@@ -68,6 +68,8 @@ var Action = {
 				},500);
 			},
 			error: function(data) {
+//			    console.log('=================================3f')
+//			    console.log(data)
 				Reactman.PageAction.showHint('error', data.errMsg);
 			}
 		});
