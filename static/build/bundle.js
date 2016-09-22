@@ -43679,7 +43679,10 @@
 				Reactman.PageAction.showHint('error', '请选择商品分类！');
 				return;
 			}
-
+			if (product['limit_zone_type'] != 0 && product['limit_zone_id'] == 0) {
+				Reactman.PageAction.showHint('error', '请选择禁售仅售模板！');
+				return;
+			}
 			var reg = /^\d{0,9}\.{0,1}(\d{1,2})?$/;
 			var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 			var has_product_model = this.state.has_product_model;
