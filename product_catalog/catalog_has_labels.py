@@ -57,8 +57,9 @@ class CatalogHasLabels(resource.Resource):
 				value_ids = []
 				label_ids = product_has_label.label_ids.split(',')
 				for label_id in label_ids:
-					product_select_labels.append(int(label_id))
-					value_ids.append(int(label_id))
+					if label_id:
+						product_select_labels.append(int(label_id))
+						value_ids.append(int(label_id))
 
 				product_select_catalog_labels.append({
 					'propertyId': product_has_label.property_id,
@@ -67,7 +68,7 @@ class CatalogHasLabels(resource.Resource):
 	
 		label_group_values = label_models.LabelGroupValue.objects.filter(id__in=select_labels, is_deleted=False)
 		all_label_group_values = label_models.LabelGroupValue.objects.filter(is_deleted=False)
-		if product_has_labels:
+		if product_has_labels and product_has_labels[0].property_id != -1:
 			label_first_id = product_has_labels[0].property_id
 		elif label_group_values:
 			label_first_id = label_group_values[0].property_id

@@ -162,7 +162,7 @@ class ProductRelation(resource.Resource):
 			label_product_id = product_has_label.product_id
 			lanel_names = []
 			for label_id in label_ids:
-				if int(label_id) in value_id2name:
+				if label_id and int(label_id) in value_id2name:
 					lanel_names.append(value_id2name[int(label_id)])
 
 			if label_product_id not in product_id2label_names:

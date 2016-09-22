@@ -71,10 +71,9 @@ class CataloLabel(resource.Resource):
 		select_catalog_labels = request.POST.get('select_catalog_labels', '')
 		catalog_id = request.POST.get('catalog_id', -1)
 		product_id = int(request.POST.get('product_id', -1))
+		select_catalog_labels = json.loads(select_catalog_labels)
 
-		if select_catalog_labels:
-			select_catalog_labels = json.loads(select_catalog_labels)
-			
+		if len(select_catalog_labels)>0:		
 			catalog_label_create = []
 			product_label_create = []
 			property_id_and_value_ids = []
@@ -126,7 +125,6 @@ class CataloLabel(resource.Resource):
 					response = create_response(500)
 					return response.get_response()
 			else:
-
 				product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
 				if product_relation:
 					weapp_product_id = product_relation.weapp_product_id
@@ -150,5 +148,16 @@ class CataloLabel(resource.Resource):
 				else:
 					product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
 					product_models.ProductHasLabel.objects.bulk_create(product_label_create)
+		else:
+			if product_id == -1:
+				catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
+			else:
+				product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+				product_models.ProductHasLabel.objects.create(
+					product_id = product_id,
+					label_ids = '',
+					property_id = -1
+				)
+
 		response = create_response(200)
 		return response.get_response()
