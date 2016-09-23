@@ -152,7 +152,6 @@ var ProductRelationPage = React.createClass({
 				return(
 					<div>
 						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
-						<a className="btn btn-link btn-xs" onClick={this.revokeSyncSelfShop.bind(this,data['id'])}>撤销商品</a>
 					</div>
 				)
 			}else{

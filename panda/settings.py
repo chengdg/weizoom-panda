@@ -165,7 +165,6 @@ INSTALLED_APPS = [
     'manager',
     'customer',
     'product_catalog',
-    'product_limit_zone',
     'self_shop',
     'freight_service',
     'business',
@@ -243,18 +242,18 @@ if 'develop' == MODE:
     # WEBPACK_BUNDLE_JS = 'http://127.0.0.1:4180/static/build/bundle.js'
     ZEUS_HOST = 'http://api.zeus.com'
     PANDA_HOST = 'http://dev.panda.com'
-    AXE_HOST = 'http://192.168.0.105:8033' #FOR TEST
+    # AXE_HOST = 'http://192.168.0.105:8033' #FOR TEST
     AXE_HOST = 'http://axe.weapp.weizzz.com'
     DEBUG = True
-    # import MySQLdb
+    import MySQLdb
 
-    # conn = MySQLdb.connect(host='localhost', user='weapp', passwd='weizoom')
-    # conn.select_db('weapp')
-    # cursor = conn.cursor()
-    # cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
-    # result = cursor.fetchone()
+    conn = MySQLdb.connect(host='localhost', user='weapp', passwd='weizoom')
+    conn.select_db('weapp')
+    cursor = conn.cursor()
+    cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
+    result = cursor.fetchone()
 
-    PRODUCT_POOL_OWNER_ID = 1
+    PRODUCT_POOL_OWNER_ID = result[0]
 elif 'test' == MODE:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]

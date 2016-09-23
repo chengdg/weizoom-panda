@@ -109,6 +109,7 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 
 		return (
 			<div className="xui-formPage">
+				<div>请标记商品停售的原因:</div>
 				<form className="form-horizontal mt15">
 					<fieldset>
 						<ul className='xui-un-pass-reasons'>
