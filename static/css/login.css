@@ -75,8 +75,8 @@ html.login-page {
 	height: 40px;
 	line-height: 40px;
 	position: absolute;
-	left: 20px;
-	top: 10px;
+	left: 10%;
+	top: 20px;
 	font-size: 1.2em;
 	text-shadow: 4px 4px 7px #000;
 }
@@ -164,7 +164,7 @@ html.login-page {
 	position: absolute;
 	top: 0;
 	left: 460px;
-    width: 320px;
+    width: 330px;
 }
 
 #front-signin input[type='text'],
@@ -224,9 +224,7 @@ html.login-page {
 	color: #49C1B3;
 	font-size: 3em;
 }
-.error-info{
-    color: orangered;
-}
+
 
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -267,10 +265,38 @@ input#username,input#password {
     background-color: #112435;
     border: none;
     color: #fff;
-    width: 280px;
+    width: 290px;
     margin-left: 20px;
     height: 38px;
     font-weight: bold;
     font-size: 18px;
     border: 1px solid #71716F;
+}
+/*登录中*/
+.logining-btn{
+    background-color: #FFFFFF;
+    border: none;
+    color: #01508B;
+    width: 290px;
+    margin-left: 20px;
+    height: 38px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    line-height: 38px;
+    display: none;
+}
+
+.error-info{
+	background-color: #FFFFFF;
+    color: #FF3701;
+    width: 290px;
+    height: 38px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 38px;
+    font-weight: bold;
+}
+.errorInfo{
+	display: none;
 }
