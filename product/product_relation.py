@@ -146,7 +146,7 @@ class ProductRelation(resource.Resource):
 			catalog_id = product_catalog_has_label.catalog_id
 			names = []
 			for label_id in label_ids:
-				if int(label_id) in value_id2name:
+				if label_id and int(label_id) in value_id2name:
 					names.append(value_id2name[int(label_id)])
 
 			if catalog_id not in catalog_id2names:

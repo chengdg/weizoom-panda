@@ -78,8 +78,8 @@ class CatalogHasLabels(resource.Resource):
 			label_first_id = -1
 
 		if product_id != -1:
-			select_catalog_labels = select_catalog_labels if not product_select_catalog_labels else product_select_catalog_labels
-			select_labels = select_labels if not product_select_labels else product_select_labels
+			select_catalog_labels = select_catalog_labels if not product_has_labels else product_select_catalog_labels
+			select_labels = select_labels if not product_has_labels else product_select_labels
 
 		data = {
 			'labelFirstId': str(label_first_id),
