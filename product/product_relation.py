@@ -120,8 +120,9 @@ class ProductRelation(resource.Resource):
 		p_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids).exclude(weapp_product_id='')
 
 		sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=p_ids)
+		weapp_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids)
 		has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
-
+		weapp_relation_ids = [p.product_id for p in weapp_relations]
 		#从weapp获取销量sales_from_weapp
 		id2sales = sales_from_weapp(p_has_relations)
 
@@ -192,7 +193,9 @@ class ProductRelation(resource.Resource):
 				if product.id in has_relation_p_ids:
 					product_status_text = u'已同步'
 					product_status_value = 1
-
+				if product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
+					product_status_text = u'已入库，已停售'
+					product_status_value = 2
 				#商品分类
 				first_level_name = ''
 				second_level_name = ''
