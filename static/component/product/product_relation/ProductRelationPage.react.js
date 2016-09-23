@@ -14,6 +14,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
+var RevokeSyncSelfShopDialog = require('./RevokeSyncSelfShopDialog.react');
 var AddLabelDialog = require('../.././product_catalog/product_catalogs/AddLabelDialog.react');
 var ProductCatalogAction = require('../.././product_catalog/product_catalogs/Action');
 require('./ProductRelation.css');
@@ -40,6 +41,23 @@ var ProductRelationPage = React.createClass({
 			Reactman.PageAction.showDialog({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
+				data: {
+					product_id: String(productId),
+					sync_type: 'single'
+				},
+				success: function(inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},100)
+	},
+
+	revokeSyncSelfShop: function(productId){
+		Action.cancleChooseReason();
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "全部停售",
+				component: RevokeSyncSelfShopDialog,
 				data: {
 					product_id: String(productId),
 					sync_type: 'single'
@@ -104,6 +122,15 @@ var ProductRelationPage = React.createClass({
 		},300)
 	},
 
+	onClickProductStatus: function(event){
+		var revokeReasons = event.target.getAttribute('data-product-reasons');
+		console.log(revokeReasons,"=======");
+		Reactman.PageAction.showPopover({
+			target: event.target,
+			content: '<span style="color:red">' + revokeReasons + '</span>'
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if(field === 'product_name'){
 			var colorStyle = data['is_update']? {color: 'red'}: {};
@@ -113,13 +140,23 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			if(data['product_status_value']==0){
+				//未同步
 				return(
 					<div>
 						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
 						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
+			}else if(data['product_status_value']==1){
+				//已入库,已同步
+				return(
+					<div>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.revokeSyncSelfShop.bind(this,data['id'])}>撤销商品</a>
+					</div>
+				)
 			}else{
+				//已入库,已停售
 				return(
 					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
 				)
@@ -158,7 +195,19 @@ var ProductRelationPage = React.createClass({
 		// 		</div>
 		// 	)
 		// }
-		else {
+		else if (field === 'product_status') {
+			var name = data['product_status_value'];
+			if(data['product_status_value'] == 2){
+				return (
+					<a onMouseOver={this.onClickProductStatus} data-product-reasons={data.revoke_reasons}>{data['product_status']}</a>
+				)
+			}else{
+				return (
+					<span>{data['product_status']}</span>
+				)
+			}
+			
+		}else {
 			return value;
 		}
 	},

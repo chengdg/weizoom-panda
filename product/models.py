@@ -238,3 +238,15 @@ class Province(models.Model):
 		db_table = 'province'
 		verbose_name = '省份列表'
 		verbose_name_plural = '省份列表'
+
+
+class ProductRevokeLogs(models.Model):
+	"""
+	商品撤回(下架)日志
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	revoke_reasons = models.CharField(max_length=1024, default='') #撤回原因
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_revoke_logs'
