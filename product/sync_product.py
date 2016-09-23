@@ -144,12 +144,12 @@ def sync_update_product(params, product, weapp_catalog_id=None):
 	})
 	# 同步到商品中间关系表
 	if resp:
-		if resp.get('code') == 200 and resp.get('data').get('product'):
-			weapp_product_id = resp.get('data').get('product').get('id')
-
+		if resp.get('code') == 200:
+			# weapp_product_id = resp.get('data').get('product').get('id')
+			# print '++++++++++++++++++++++++++++++++++++++++++213'
 			# 同步类目
 			if weapp_catalog_id:
-				catalog_params = {'classification_id': weapp_catalog_id, 'product_id': weapp_product_id}
+				catalog_params = {'classification_id': weapp_catalog_id, 'product_id': params.get('product_id')}
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
 					'resource': 'mall.classification_product',
 					'data': catalog_params
