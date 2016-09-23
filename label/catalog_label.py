@@ -143,6 +143,8 @@ class CataloLabel(resource.Resource):
 						# 商品关联标签
 						product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
 						product_models.ProductHasLabel.objects.bulk_create(product_label_create)
+						print product_label_create, select_catalog_labels
+						print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 					else:
 						response = create_response(500)
 						return response.get_response()
@@ -150,12 +152,39 @@ class CataloLabel(resource.Resource):
 					product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
 					product_models.ProductHasLabel.objects.bulk_create(product_label_create)
 		else:
-			product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
-			product_models.ProductHasLabel.objects.create(
-				product_id = product_id,
-				label_ids = '',
-				property_id = -1
-			)
+			if product_id != -1:
+				product_models.ProductHasLabel.objects.filter(product_id=product_id).delete()
+				product_models.ProductHasLabel.objects.create(
+					product_id = product_id,
+					label_ids = '',
+					property_id = -1
+				)
+				# 同步到weapp
+				product_relation = product_models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
+				if product_relation:
+					weapp_product_id = product_relation.weapp_product_id
+					params = {
+						'product_id': weapp_product_id,
+						'owner_id': PRODUCT_POOL_OWNER_ID,
+						'label_ids': '',
+					}
+					resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product_has_label',
+														  method='post')
+
+			else:
+				# 更新类目的标签
+				catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=catalog_id).delete()
+				# 同步到weapp
+				catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=catalog_id).first()
+				if catalog_relation:
+					weapp_classification_id = catalog_relation.weapp_catalog_id
+					params = {
+						'label_ids': '',
+						'classification_id': weapp_classification_id,
+						'owner_id': PRODUCT_POOL_OWNER_ID
+					}
+					resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.classification_has_label',
+														  method='post')
 
 		response = create_response(200)
 		return response.get_response()
