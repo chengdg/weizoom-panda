@@ -1,4 +1,5 @@
-auther:徐梓豪 2016-09-23
+#author:徐梓豪 2016-09-23
+
 Feature:商品撤架
 Background:
 	Given manager登录管理系统
