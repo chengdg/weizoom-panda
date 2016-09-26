@@ -61,6 +61,7 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 		var _this = this;
 		var reasons = this.state.reasons;
 		var customReason = this.state.customReason;//自定义原因
+		var productStatus = this.props.data.productStatus
 
 		if(customReason.length>10){
 			Reactman.PageAction.showHint('error', '自定义原因最多输入10个字,请重新输入!');
@@ -85,7 +86,8 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 		var productData = [{
 			'weizoom_self': '',//选择的商城
 			'product_ids': productId,//商品id
-			'revoke_reasons': reasons
+			'revoke_reasons': reasons,
+			'product_status': productStatus
 		}]
 
 		Action.revokeProduct(JSON.stringify(productData));

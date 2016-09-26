@@ -57,7 +57,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 					component: RevokeSyncSelfShopDialog,
 					data: {
 						product_id: String(product_ids),
-						sync_type: 'single'
+						sync_type: 'single',
+						productStatus: productStatus
 					},
 					success: function(inputData, dialogState) {
 						console.log("success");
@@ -68,7 +69,8 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			var productData = [{
 				'weizoom_self': selectSelfShop.join(','),//选择的商城
 				'product_ids': product_ids,//商品id
-				'revoke_reasons': ''
+				'revoke_reasons': '',
+				'product_status': productStatus
 			}]
 			Action.relationFromWeapp(JSON.stringify(productData));
 			_.delay(function(){

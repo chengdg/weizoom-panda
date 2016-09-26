@@ -87,6 +87,7 @@ class WeappRelation(resource.Resource):
 				product_ids = product_data[0].get('product_ids')
 				product_ids = product_ids.split(',')
 				revoke_reasons = product_data[0].get('revoke_reasons')
+				product_status = product_data[0].get('product_status')
 				# 获取商品要同步到哪个平台
 				weizoom_self = product_data[0].get('weizoom_self').split(',')
 				weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects.filter(self_user_name__in=weizoom_self)]
@@ -144,7 +145,11 @@ class WeappRelation(resource.Resource):
 				#如果没有选择自营平台,删除表中相关数据
 				if not product_data[0].get('weizoom_self'):
 					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
-					models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+
+					#商品未同步
+					if int(product_status) == 0:
+						models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+
 					#撤销商品原因
 					if revoke_reasons:
 						for product_id in product_ids:
