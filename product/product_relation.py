@@ -122,6 +122,7 @@ class ProductRelation(resource.Resource):
 				
 			if int(product_status_value)==2:#未同步
 				products = products.exclude(id__in=has_relation_p_ids)
+				products = products.exclude(id__in=has_sync_p_ids)
 
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		p_ids = [product.id for product in products]
