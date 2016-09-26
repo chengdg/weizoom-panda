@@ -19,6 +19,7 @@ Background:
 		[{
 			"account_type":"体验客户",
 			"company_name":"爱昵咖啡有限责任公司",
+			"manage_type":"休闲食品",
 			"shop_name":"爱昵咖啡",
 			"manage_type":"休闲食品",
 			"purchase_type":"固定底价",

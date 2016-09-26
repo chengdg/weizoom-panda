@@ -11,8 +11,8 @@ Feature:精简版云商通-添加商品、删除商品
 
 """
 Background:
-	Given jobs登录管理系统
-	When jobs添加账号
+	Given manager登录管理系统
+	When manager添加账号
 	"""
 		{
 			"account_type":"运营",
@@ -60,7 +60,7 @@ Background:
 	}
 	"""
 	Given manager登录管理系统
-	When manager为账号'爱伲咖啡'编辑分类权限
+	When manager添加账号
 	"""
 	{
 	"account_type":"体验客户",
