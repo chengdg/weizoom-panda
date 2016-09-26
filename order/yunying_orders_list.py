@@ -323,7 +323,8 @@ class YunyingOrdersList(resource.Resource):
 		supplier_ids = []
 		if customer_name:
 			all_sellers = UserProfile.objects.filter(role=CUSTOMER,
-													 name__icontains=customer_name)
+													 name__icontains=customer_name,
+													 is_active=True)
 			account_ids = [seller.id for seller in all_sellers]
 			# 获取该客户下旧的供货商id获取到
 			account_ids += [-seller.id for seller in all_sellers]

@@ -26,7 +26,7 @@ class LoginedAccount(resource.Resource):
 		user = auth.authenticate(username=username, password=password)
 		if user:
 			auth.login(request, user)
-			user_profile = UserProfile.objects.filter(user_id=user.id, status__in=[1,2])
+			user_profile = UserProfile.objects.filter(user_id=user.id, is_active=True, status__in=[1,2])
 
 			if user_profile:
 				user_profile = user_profile.first()

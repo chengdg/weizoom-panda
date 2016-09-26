@@ -22,7 +22,7 @@ from panda.settings import ZEUS_HOST
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER)
+		all_sellers = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER, is_active=True)
 		#FOR TEST,zhangxue
 		# all_sellers = account_models.UserProfile.objects.filter(id=3,role=account_models.CUSTOMER)
 		user_ids = [seller.user_id for seller in all_sellers]

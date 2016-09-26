@@ -32,7 +32,7 @@ random.seed(time.time())
 #===============================================================================
 @login_required
 def index(request):
-	user_profile = UserProfile.objects.filter(user_id=request.user.id,status=1)
+	user_profile = UserProfile.objects.filter(user_id=request.user.id, is_active=True, status=1)
 	if user_profile:
 		role = user_profile[0].role
 		if role == MANAGER:

@@ -88,7 +88,7 @@ class Fans(resource.Resource):
 				#获得所有绑定过云商通的云商通商品id
 				product_weapp_id2product_id[weapp_product_id] = product_has_relation.product_id
 
-		user_profiles = account_models.UserProfile.objects.filter(user_id__in=user_ids)
+		user_profiles = account_models.UserProfile.objects.filter(user_id__in=user_ids, is_active=True)
 		account_ids = [user_profile.id for user_profile in user_profiles]
 		account_has_suppliers = account_models.AccountHasSupplier.objects.filter(account_id__in=account_ids)
 		supplier_ids = []
