@@ -33,7 +33,7 @@ var ProductRelationPage = React.createClass({
 	// 	ProductCatalogAction.getLabels();
 	// },
 
-	chooseSyncSelfShop: function(productId) {
+	chooseSyncSelfShop: function(productId, productStatus) {
 		Action.getHasSyncShop(productId);
 
 		_.delay(function(){
@@ -42,6 +42,7 @@ var ProductRelationPage = React.createClass({
 				component: ChooseSyncSelfShopDialog,
 				data: {
 					product_id: String(productId),
+					product_status: productStatus,
 					sync_type: 'single'
 				},
 				success: function(inputData, dialogState) {
@@ -124,7 +125,7 @@ var ProductRelationPage = React.createClass({
 				//未同步
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
 						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
@@ -132,13 +133,13 @@ var ProductRelationPage = React.createClass({
 				//已入库,已同步
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
 					</div>
 				)
 			}else{
 				//已入库,已停售
 				return(
-					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'])}>同步商品</a>
+					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
 				)
 			}	
 		}else if (field === 'catalog_name') {

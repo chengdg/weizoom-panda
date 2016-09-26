@@ -46,8 +46,10 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 
 	productRelation: function(product_ids) {
 		var selectSelfShop = this.state.select_self_shop;
+		var productStatus = this.props.data.product_status
 		var _this = this;
-		if(selectSelfShop.length==0){
+		//是否已入库,已同步
+		if(selectSelfShop.length==0 && productStatus == 1) {
 			Action.cancleChooseReason();
 			_.delay(function(){
 				Reactman.PageAction.showDialog({
