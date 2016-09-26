@@ -64,6 +64,13 @@ var Action = {
 				actionType: Constant.PRODUCT_REFUSED
 			}
 		});
+	},
+
+	cancleChecked: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_UNDATE_CANCLE_CHECKED,
+			data: {}
+		});
 	}
 };
 

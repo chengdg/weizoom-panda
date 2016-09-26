@@ -61,6 +61,11 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 		var _this = this;
 		var reasons = this.state.reasons;
 		var customReason = this.state.customReason;//自定义原因
+
+		if(customReason.length>10){
+			Reactman.PageAction.showHint('error', '自定义原因最多输入10个字,请重新输入!');
+			return;
+		}
 		
 		if(customReason.length>0 && reasons.length>0){
 			reasons.push(customReason);
@@ -109,6 +114,7 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 
 		return (
 			<div className="xui-formPage">
+				<div>请标记商品停售的原因:</div>
 				<form className="form-horizontal mt15">
 					<fieldset>
 						<ul className='xui-un-pass-reasons'>
@@ -116,7 +122,7 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 							<li className="xi-un-pass-reason" style={secondReason} data-reason="供应商停止合作" onClick={this.chooseUnpassReason}>供应商停止合作</li>
 							<li className="xi-un-pass-reason" style={thridReason} data-reason="315黑名单商品" onClick={this.chooseUnpassReason}>315黑名单商品</li>
 						</ul>
-						<Reactman.FormText label="" type="text" name="customReason" value={this.state.customReason} onChange={this.onChange} autoFocus={true} inDialog={true} width={380} height={50} />
+						<Reactman.FormText label="" type="text" name="customReason" value={this.state.customReason} onChange={this.onChange} placeholder="自定义,10字以内" autoFocus={true} inDialog={true} width={380} height={50} />
 						<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'190px', managerTop:'20px'}} onClick={this.refused}><span>确定</span></a>
 						<a href="javascript:void(0);" className="btn btn-success" style={{marginLeft:'50px', managerTop:'20px'}} onClick={this.cancleChecked}><span>取消</span></a>
 					</fieldset>
