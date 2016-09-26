@@ -143,8 +143,8 @@ class WeappRelation(resource.Resource):
 						data['error_product_id'].append(str(return_data['error_product_id']))
 				#如果没有选择自营平台,删除表中相关数据
 				if not product_data[0].get('weizoom_self'):
-					print "===3333=2222222222=="
 					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
+					models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
 					for product_id in product_ids:
 						models.ProductRevokeLogs.objects.create(product_id=product_id, revoke_reasons=revoke_reasons)
 		except:
