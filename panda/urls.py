@@ -34,7 +34,9 @@ urlpatterns = patterns('',
 	url(r'^freight_service/', restful_url('freight_service')),
 	url(r'^business/',restful_url('business')),
 	url(r'^message/',restful_url('message')),
-	url(r'^label/',restful_url('label'))
+	url(r'^label/',restful_url('label')),
+	url(r'^limit_zone/', restful_url('limit_zone')),
+	url(r'^product_limit_zone/', restful_url('product_limit_zone')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

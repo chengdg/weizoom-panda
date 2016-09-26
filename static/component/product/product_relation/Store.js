@@ -17,6 +17,7 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductRelationWeapp': Constant.PRODUCT_RELATION_WEAPP,
+		'handleRevokeProduct': Constant.PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT,
 		'handleProductRelationDataFilter': Constant.PRODUCT_RELATION_DATAS_FILTER,
 		'handleDeleteProductRelationWeapp': Constant.DELETE_PRODUCT_RELATION_WEAPP,
 		'handleChooseSelfShop': Constant.CHOOSE_SELF_SHOP,
@@ -54,6 +55,20 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}else{
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('error', action.data.errMsg);
+			}, 10);
+		}
+
+		this.__emitChange();
+	},
+
+	handleRevokeProduct: function(action) {
+		if(action.data['code']==200){
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('success', '撤回成功');
+			}, 10);
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', '撤回失败');
 			}, 10);
 		}
 

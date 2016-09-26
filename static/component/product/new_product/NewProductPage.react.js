@@ -14,6 +14,7 @@ var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
 var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
+var LimitZoneInfo = require('./LimitZoneInfo.react');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -118,7 +119,10 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请选择商品分类！');
 			return;
 		}
-
+        if(product['limit_zone_type'] != 0 && product['limit_zone_id']==0){
+            Reactman.PageAction.showHint('error', '请选择禁售仅售模板！');
+            return
+        }
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
@@ -258,7 +262,17 @@ var NewProductPage = React.createClass({
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
-		
+		var optionsForKind = [{
+            text: '无限制',
+            value: '0'
+        }, {
+            text: '仅发货地区',
+            value: '2'
+        },{
+            text: '不发货地区',
+            value: '1'
+        }];
+        var optionsForLimitInfo = this.state.limit_zone_info;
 		return (
 			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
@@ -276,6 +290,8 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
+                        <Reactman.FormSelect label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
+                        <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>

@@ -1,4 +1,3 @@
-
 'use strict';
 
 var path = require('path');
@@ -33,6 +32,12 @@ module.exports = {
 			loader: 'raw'
 		}]
 	},
+	resolve: {
+        alias: {
+          dynamicRequire: 'dynamic_require'
+        },
+        root: [path.resolve(__dirname, './static/component')]
+      },
 	// plugins: [
 	// 	//使用丑化js插件
 	// 	new UglifyJsPlugin({

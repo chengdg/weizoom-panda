@@ -60,6 +60,19 @@ var Action = {
 		});
 	},
 
+	revokeProduct: function(product_data){
+		Resource.post({
+			resource: 'product.weapp_relation',
+			data: {
+				'product_data': product_data
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT
+			}
+		});
+	},
+
 	getHasSyncShop: function(product_id){
 		Resource.get({
 			resource: 'product.weapp_relation',
@@ -113,6 +126,34 @@ var Action = {
 		Dispatcher.dispatch({
 			actionType: Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
 			data: {}
+		});
+	},
+
+	updateReason: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_UPDATE_REASON,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	chooseUnpassReason: function(reason){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_CHOOSE_UNPASS_REASON,
+			data: {
+				reason: reason
+			}
+		});
+	},
+
+	cancleChooseReason: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_CANCLE_CHOOSE_REASON,
+			data: {
+			
+			}
 		});
 	}
 };

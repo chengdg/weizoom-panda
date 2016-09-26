@@ -32,10 +32,7 @@ cnpm install
 ### 运行起来后，想系统正常使用，请看如下内容 ###
 第一步：
 
-       首先将weapp库的一个账户(account_user_profile表)其中某一条记录的webapp_type字段修改成2，
-       注意这条记录的user_id
+       将init_store_name.sql导入mysql或者直接复制到数据库即可，需要使用数据库的root账户登陆数据库。
+       更新结果，是将guo这个云伤痛账号更新成商品池特殊账号，jobs更新成自营平台。
 
-第二步：
-
-       打开panda的配置文件panda/settings.py找到PRODUCT_POOL_OWNER_ID配置，将'develop' == MODE
-       的配置中这个变量配置成第一步中的user_id
+如果start_service.bat/sh启动不起来，请检查是否安装MySQLdb（pip install MySQLdb)

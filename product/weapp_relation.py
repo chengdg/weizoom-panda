@@ -10,9 +10,9 @@ from account.models import *
 from eaglet.utils.resource_client import Resource
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from resource.models import Image
-from panda.settings import PANDA_HOST
 import models
 from product_catalog.models import ProductCatalogRelation
+from product_limit_zone import models as limit_zone_models
 
 
 SELF_NAMETEXT2VALUE = {
@@ -86,6 +86,8 @@ class WeappRelation(resource.Resource):
 			if product_data:
 				product_ids = product_data[0].get('product_ids')
 				product_ids = product_ids.split(',')
+				revoke_reasons = product_data[0].get('revoke_reasons')
+				product_status = product_data[0].get('product_status')
 				# 获取商品要同步到哪个平台
 				weizoom_self = product_data[0].get('weizoom_self').split(',')
 				weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects.filter(self_user_name__in=weizoom_self)]
@@ -124,6 +126,8 @@ class WeappRelation(resource.Resource):
 				catalog_id_relations = {}
 				[catalog_id_relations.update({relation.catalog_id: relation.weapp_catalog_id})
 										for relation in product_catalog_relations]
+				# 商品的限制区域数据
+				product_limit_zone_info = get_products_limit_info(products=products)
 				for product_id in product_ids:
 					product_id = int(product_id)
 					product = product_id2product[product_id]
@@ -133,13 +137,23 @@ class WeappRelation(resource.Resource):
 					weapp_catalog_id = catalog_id_relations.get(product.catalog_id, None)
 					return_data = sync_products(request,product_id,product,weizoom_self,
 												weapp_user_ids,account_has_supplier,product_id2image_id,
-												image_id2paths,product_id2relation, weapp_catalog_id)
+												image_id2paths,product_id2relation, weapp_catalog_id,
+												product_limit_zone_info=product_limit_zone_info)
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 						data['error_product_id'].append(str(return_data['error_product_id']))
 				#如果没有选择自营平台,删除表中相关数据
 				if not product_data[0].get('weizoom_self'):
 					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
+
+					#商品未同步
+					if int(product_status) == 0:
+						models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
+
+					#撤销商品原因
+					if revoke_reasons:
+						for product_id in product_ids:
+							models.ProductRevokeLogs.objects.create(product_id=product_id, revoke_reasons=revoke_reasons)
 		except:
 			data['is_error'] = True
 			msg = unicode_full_stack()
@@ -173,7 +187,8 @@ def get_weapp_model_properties(product=None):
 	获取多规格的商品,对应的云上通的规格组合信息
 	"""
 	weapp_models_info = []
-	models_info = models.ProductModel.objects.filter(product_id=product.id)
+	models_info = models.ProductModel.objects.filter(product_id=product.id,
+													 is_deleted=False)
 	# print '=========================================', product
 	for model_info in models_info:
 		name = model_info.name
@@ -207,7 +222,7 @@ def get_weapp_model_properties(product=None):
 
 def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				  account_has_supplier,product_id2image_id,image_id2paths,
-				  product_id2relation, weapp_catalog_id):
+				  product_id2relation, weapp_catalog_id, product_limit_zone_info=None):
 	data = {}
 	data['is_error'] = False
 	try:
@@ -229,7 +244,12 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 			if product.has_product_model:
 				# 多规格,获取规格信息
 				weapp_models_info = get_weapp_model_properties(product=product)
-
+			if product.limit_zone_type == models.NO_LIMIT:
+				limit_zone_type = 'no_limit'
+			elif product.limit_zone_type == models.FORBIDDEN_SALE_LIMIT:
+				limit_zone_type = 'forbidden'
+			else:
+				limit_zone_type = 'only'
 			params = {
 				'supplier': weapp_supplier_id,
 				'name': product.product_name,
@@ -243,7 +263,9 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				'model_type': model_type,
 				'model_info': json.dumps(weapp_models_info),
 				'stocks': product.product_store if product.product_store > 0 else 0,
-				'detail': product.remark
+				'detail': product.remark,
+				'limit_zone_type': limit_zone_type,
+				'limit_zone': product_limit_zone_info.get(product.limit_zone)
 			}
 
 			# 判断是更新还是新曾商品同步(只处理添加)
@@ -315,3 +337,10 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 		data['is_error'] = True
 		data['error_product_id'] = product_id
 	return data
+
+
+def get_products_limit_info(products=None):
+	if products:
+		limit_zone_ids = [p.limit_zone for p in products]
+		limit_zone_infos = limit_zone_models.ProductLimitZoneTemplateRelation.objects.filter(template_id__in=limit_zone_ids)
+		return {limit_zone.template_id: limit_zone.weapp_template_id for limit_zone in limit_zone_infos}

@@ -10,38 +10,30 @@
     <body class="loginBg">
         <div id="topbar">
 	        <div id="global-nav">
-		        <div id="weixin-logo">微众云商通体验版系统管理后台</div>
+		        <div id="weixin-logo"><img src="/static/img/logo/logo.png"></div>
 	        </div>
         </div>
 
         <div id="front-card">
 	        <div id="front-welcome">
-	        	<!--
-		        <div id="front-welcome-text">
-			        <h1>用白板记录项目的成长历程</h1>
-			        <h1>每日例会灵活控制项目进度</h1>
-			        <h1>在期限之内交付成功的产品</h1>
-		        </div>
-		    -->
 		        <div id="front-signin">
 			        <form action="/account/logined_account/?_method=put" method="post">
-				        <div>
-					        <h2>登录：</h2>
+				        <div class="form-group ml20 mr20 mt20">
+				    		<label class="login-name">
+				        		<input class="form-control" id="username" name="username" type="text" placeholder="用户名" autocomplete='off'>
+				        	</label>
+				        	<label class="login-pwd">
+				        		<input class="form-control mt10" id="password" name="password" type="text" placeholder="密码" autocomplete='off'>
+				        	</label>  
 				        </div>
-				        <div class="form-group ml20 mr20">
-				            <input class="form-control" id="username" name="username" type="text" placeholder="用户名">
-				            <input class="form-control mt10" id="password" name="password" type="password" placeholder="密码">
+				        <div style="text-align: right;" class="mt20 mb10 mr10">
+				            <input type="submit" class="login-btn" value="登  录"/>
+				            <div class="logining-btn"><img src="/static/img/logo/loading.gif">登录中...</div>
 				        </div>
-                        <div class="ml20 mr20 errorInfo">
+				        <div class="ml20 mr20 errorInfo">
                             {% if errorMsg %}
                             <div class="error-info">{{errorMsg}}</div>{% endif %}
                         </div>
-				        <div style="text-align: right;" class="mt20 mb10 mr10">
-				        	<!--
-				            <a href="/account/register/" class="btn btn-default">注册</a>
-				        	-->
-				            <input type="submit" class="btn btn-success" value="登录" />
-				        </div>
 			        </form>
 		        </div>
 	        </div>
@@ -50,11 +42,31 @@
         <script type="text/javascript" src="/static/lib/jquery/jquery-1.12.2.min.js"></script>
         <script type="text/javascript">
 	        $(document).ready(function() {
-		        $('#username').focus();
-                var $error = $('.errorInfo');
-                $('input').keyup(function() {
+		        //为了兼容含有type=password的input框autocomplete='off'不生效的问题
+		        $('#password').bind('focus', function () {
+					$(this).attr('type', 'password');
+				});
+
+		        //登录中
+		        $('.login-btn').bind('click', function () {
+                	$('.login-btn').css({display:'none'});
+                	$('.logining-btn').css({display:'block'});
+				});
+
+		        //错误提示
+				var $error = $('.errorInfo');
+				if('{{errorMsg}}'){
+					$('.login-btn').css({display:'none'});
+					$error.css({display:'block'});
+				}
+                
+                //重新输入
+                $('#username').keyup(function() {
                     $error.css({display:'none'});
+                    $('.login-btn').css({display:'block'});
                 });
+
+                
 	        });
         </script>
 	</body>

@@ -108,11 +108,12 @@ class ProductRelation(resource.Resource):
 					catalog_ids.extend(father_id2ids[catalog_id])
 			products = products.filter(catalog_id__in=catalog_ids)
 		if int(product_status_value)!=0:
-			sync_weapp_accounts = models.ProductSyncWeappAccount.objects.all()
+			# sync_weapp_accounts = models.ProductSyncWeappAccount.objects.all()
+			sync_weapp_accounts = models.ProductHasRelationWeapp.objects.all()
 			has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
-			if int(product_status_value)==1:
+			if int(product_status_value)==1:#已同步
 				products = products.filter(id__in=has_relation_p_ids)
-			if int(product_status_value)==2:
+			if int(product_status_value)==2:#未同步
 				products = products.exclude(id__in=has_relation_p_ids)
 
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
@@ -120,8 +121,9 @@ class ProductRelation(resource.Resource):
 		p_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids).exclude(weapp_product_id='')
 
 		sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=p_ids)
+		weapp_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids)
 		has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
-
+		weapp_relation_ids = [p.product_id for p in weapp_relations]
 		#从weapp获取销量sales_from_weapp
 		id2sales = sales_from_weapp(p_has_relations)
 
@@ -180,6 +182,11 @@ class ProductRelation(resource.Resource):
 		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
 		user_id2customer_from = {user_profile.user_id:user_profile.customer_from for user_profile in user_profiles}
 
+		#获取下架商品的原因
+		product_revoke_logs = models.ProductRevokeLogs.objects.filter(product_id__in=p_ids)
+		#只取最后一次下架原因
+		product_id2revoke_reasons = {revoke_log.product_id:revoke_log.revoke_reasons for revoke_log in product_revoke_logs}
+
 		#组装数据
 		rows = []
 		for product in products:
@@ -190,9 +197,11 @@ class ProductRelation(resource.Resource):
 				product_status_text = u'未同步'
 				product_status_value = 0
 				if product.id in has_relation_p_ids:
-					product_status_text = u'已同步'
+					product_status_text = u'已入库，已同步'
 					product_status_value = 1
-
+				if product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
+					product_status_text = u'已入库，已停售'
+					product_status_value = 2
 				#商品分类
 				first_level_name = ''
 				second_level_name = ''
@@ -218,6 +227,10 @@ class ProductRelation(resource.Resource):
 
 				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
 				customer_from_text = customer_from2text[customer_from]
+
+				#下架原因
+				revoke_reasons = '' if product.id not in product_id2revoke_reasons else product_id2revoke_reasons[product.id]
+				
 				rows.append({
 					'id': product.id,
 					'role': role,
@@ -233,6 +246,7 @@ class ProductRelation(resource.Resource):
 					'is_update': product.is_update,
 					'customer_from_text': customer_from_text,
 					'cur_page': pageinfo.cur_page,
+					'revoke_reasons': revoke_reasons,
 					'labelNames': [] if not label_names else json.dumps(label_names)
 				})
 		data = {

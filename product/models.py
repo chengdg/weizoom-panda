@@ -4,6 +4,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+# 0不限制 1禁售 2仅售
+NO_LIMIT = 0
+FORBIDDEN_SALE_LIMIT = 1
+ONLY_SALE_LIMIT = 2
+
+
 class Product(models.Model):
 	"""
 	商品信息
@@ -27,7 +33,9 @@ class Product(models.Model):
 	is_update = models.BooleanField(default=False) #是否更新
 	is_refused = models.BooleanField(default=False) #是否驳回
 	refuse_reason = models.TextField(null=True) #驳回原因
-	is_deleted = models.BooleanField(default=False) 
+	is_deleted = models.BooleanField(default=False)
+	limit_zone_type = models.IntegerField(default=NO_LIMIT)
+	limit_zone = models.IntegerField(default=0)  # 限制地区的模板id
 
 	class Meta(object):
 		db_table = 'product_product'
@@ -211,3 +219,34 @@ class ProductHasLabel(models.Model):
 
 	class Meta(object):
 		db_table = 'product_has_label'
+
+
+class City(models.Model):
+	name = models.CharField(max_length=50)
+	zip_code = models.CharField(max_length=50)
+	province_id = models.IntegerField(db_index=True)
+
+	class Meta(object):
+		db_table = 'city'
+		verbose_name = '城市列表'
+		verbose_name_plural = '城市列表'
+
+class Province(models.Model):
+	name = models.CharField(max_length=50)
+
+	class Meta(object):
+		db_table = 'province'
+		verbose_name = '省份列表'
+		verbose_name_plural = '省份列表'
+
+
+class ProductRevokeLogs(models.Model):
+	"""
+	商品撤回(下架)日志
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	revoke_reasons = models.CharField(max_length=1024, default='') #撤回原因
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_revoke_logs'
