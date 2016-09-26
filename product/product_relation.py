@@ -108,13 +108,21 @@ class ProductRelation(resource.Resource):
 					catalog_ids.extend(father_id2ids[catalog_id])
 			products = products.filter(catalog_id__in=catalog_ids)
 		if int(product_status_value)!=0:
-			# sync_weapp_accounts = models.ProductSyncWeappAccount.objects.all()
-			sync_weapp_accounts = models.ProductHasRelationWeapp.objects.all()
-			has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
-			if int(product_status_value)==1:#已同步
+			sync_weapp_accounts = models.ProductSyncWeappAccount.objects.all()
+			has_sync_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
+
+			has_relation_weapps = models.ProductHasRelationWeapp.objects.all()
+			has_relation_p_ids = set([has_relation_weapp.product_id for has_relation_weapp in has_relation_weapps])
+			if int(product_status_value)==1:#已入库,已同步
+				products = products.filter(id__in=has_sync_p_ids)
+
+			if int(product_status_value)==3:#已入库,已停售
 				products = products.filter(id__in=has_relation_p_ids)
+				products = products.exclude(id__in=has_sync_p_ids)
+				
 			if int(product_status_value)==2:#未同步
 				products = products.exclude(id__in=has_relation_p_ids)
+				products = products.exclude(id__in=has_sync_p_ids)
 
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
 		p_ids = [product.id for product in products]

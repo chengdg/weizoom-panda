@@ -75,7 +75,7 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 			Action.relationFromWeapp(JSON.stringify(productData));
 			_.delay(function(){
 				_this.closeDialog();
-			},500)
+			},1500)
 		}
 	},
 

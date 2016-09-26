@@ -93,7 +93,7 @@ var RevokeSyncSelfShopDialog = Reactman.createDialog({
 		Action.revokeProduct(JSON.stringify(productData));
 		_.delay(function(){
 			_this.closeDialog();
-		},500)
+		},1500)
 	},
 
 	render: function(){
