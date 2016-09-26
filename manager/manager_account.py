@@ -186,19 +186,22 @@ class ManagerAccount(resource.Resource):
 	def api_delete(request):
 		account_id = request.POST.get('id','')
 		try:
-			user_profile = UserProfile.objects.get(id=account_id)
-			user_id = user_profile.user_id
-			user_profile.delete()
-			User.objects.filter(id=user_id).delete()
+			user_profile = UserProfile.objects.filter(id=account_id)
+			user_profile.update(is_active=False)
+			user_id = user_profile.first().user_id
+			User.objects.filter(id=user_id).update(
+				is_active=False
+				)
 			products = Product.objects.filter(owner_id=user_id)
 			if products:
+				products.update(is_deleted=True)
 				product_ids = [product.id for product in products]
-				products.delete()
 				ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
 			AccountHasSupplier.objects.filter(account_id=account_id).delete()
 			response = create_response(200)
 			return response.get_response()
-		except:
+		except Exception,e:
+			print e
 			response = create_response(500)
 			response.errMsg = u'该账号不存在，请检查'
 			return response.get_response()
