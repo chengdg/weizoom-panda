@@ -10,18 +10,18 @@ var ReactDOM = require('react-dom');
 var Reactman = require('reactman');
 var _ = require('underscore');
 
-var Store = require('./Store');
+var UnPassDialogStore = require('./UnPassDialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./UnPassDialog.css')
 
 var UnPassDialog = Reactman.createDialog({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
+		UnPassDialogStore.addListener(this.onChangeStore);
 		var productId = this.props.data.product_id;
 		return {
 			product_id: productId,
-			reasons: Store.getData().reasons,
+			reasons: UnPassDialogStore.getData().reasons,
 			custom_reason: ''
 		}
 	},
@@ -32,7 +32,7 @@ var UnPassDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		var infomations = Store.getData();
+		var infomations = UnPassDialogStore.getData();
 		this.setState({
 			reasons: infomations['reasons'],
 			custom_reason: infomations['custom_reason']
@@ -45,10 +45,7 @@ var UnPassDialog = Reactman.createDialog({
 	},
 
 	cancleChecked: function(){
-		this.setState({
-			reasons: [],
-			custom_reason: ''
-		})
+		Action.cancleChecked();
 		this.closeDialog();
 	},
 
@@ -73,23 +70,6 @@ var UnPassDialog = Reactman.createDialog({
 		_.delay(function(){
 			_this.closeDialog();
 		},500)
-		// Reactman.Resource.post({
-		// 	resource: 'product.product_updated',
-		// 	data: {
-		// 		reasons: reasons,
-		// 		product_id: productId
-		// 	},
-		// 	success: function() {
-		// 		this.closeDialog();
-		// 		_.delay(function(){
-		// 			Reactman.PageAction.showHint('success', '驳回成功');
-		// 		},500);
-		// 	},
-		// 	error: function(data) {
-		// 		Reactman.PageAction.showHint('error', data.errMsg);
-		// 	},
-		// 	scope: this
-		// })
 	},
 
 	render:function(){

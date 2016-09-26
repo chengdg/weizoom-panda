@@ -165,7 +165,6 @@ INSTALLED_APPS = [
     'manager',
     'customer',
     'product_catalog',
-    'product_limit_zone',
     'self_shop',
     'freight_service',
     'business',

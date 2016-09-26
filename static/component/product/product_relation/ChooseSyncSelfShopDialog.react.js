@@ -11,6 +11,8 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+
+var RevokeSyncSelfShopDialog = require('./RevokeSyncSelfShopDialog.react');
 require('./style.css');
 
 var ChooseSyncSelfShopDialog = Reactman.createDialog({
@@ -44,11 +46,37 @@ var ChooseSyncSelfShopDialog = Reactman.createDialog({
 
 	productRelation: function(product_ids) {
 		var selectSelfShop = this.state.select_self_shop;
-		var productData = [{
-			'weizoom_self': selectSelfShop.join(','),//选择的商城
-			'product_ids': product_ids//商品id
-		}]
-		Action.relationFromWeapp(JSON.stringify(productData));
+		var productStatus = this.props.data.product_status
+		var _this = this;
+		//是否已入库,已同步
+		if(selectSelfShop.length==0 && productStatus == 1) {
+			Action.cancleChooseReason();
+			_.delay(function(){
+				Reactman.PageAction.showDialog({
+					title: "全部停售",
+					component: RevokeSyncSelfShopDialog,
+					data: {
+						product_id: String(product_ids),
+						sync_type: 'single',
+						productStatus: productStatus
+					},
+					success: function(inputData, dialogState) {
+						console.log("success");
+					}
+				});
+			},100)
+		}else{
+			var productData = [{
+				'weizoom_self': selectSelfShop.join(','),//选择的商城
+				'product_ids': product_ids,//商品id
+				'revoke_reasons': '',
+				'product_status': productStatus
+			}]
+			Action.relationFromWeapp(JSON.stringify(productData));
+			_.delay(function(){
+				_this.closeDialog();
+			},500)
+		}
 	},
 
 	render: function(){

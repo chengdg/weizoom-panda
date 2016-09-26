@@ -18,8 +18,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleProductDataFilter': Constant.PRODUCT_DATAS_FILTER,
 		'handleUpdateSyncProduct': Constant.UPDATE_SYNC_PRODUCT,
-		'handleChooseUnpassReason': Constant.PRODUCT_UNPASS_REASON,
-		'handleUpdateUnpassReason': Constant.UPDATE_UNPASS_REASON,
 		'handleProductRefused': Constant.PRODUCT_REFUSED
 	},
 
@@ -32,11 +30,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	handleProductDataFilter: function(action){
 		this.data.filterOptions = action.data;
-		this.__emitChange();
-	},
-
-	handleUpdateUnpassReason: function(action) {
-		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
@@ -59,26 +52,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			 	Reactman.PageAction.showHint('error', '更新失败');
 			}, 10);
 		}
-		this.__emitChange();
-	},
-
-	handleChooseUnpassReason: function(action){
-		var reasons = this.data.reasons;
-		var reason = action.data.reason;
-		var isChoosed = true;
-
-		for(var index in reasons){
-			if(reasons[index]==reason){
-				isChoosed = false;
-				reasons.splice(index,1);
-			}
-		}
-
-		if(isChoosed){
-			reasons.push(reason);
-		}
-
-		this.data.reasons = reasons;
 		this.__emitChange();
 	},
 
