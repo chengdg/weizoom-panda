@@ -115,10 +115,9 @@ html.login-page {
 */
 
 #front-card {
-	top: 30%;
-	left: 25%;
+	top: 25%;
+	left: 60%;
 	height: 328px;
-	width: 838px;
 	position: absolute;
 	/*border: solid 1px #FFFFFF;*/
 }
@@ -163,7 +162,6 @@ html.login-page {
 	border-radius: 4px;
 	position: absolute;
 	top: 0;
-	left: 460px;
     width: 330px;
 }
 
@@ -172,12 +170,14 @@ html.login-page {
 #front-signin .add-on{
 	height: 35px;
 	line-height: 35px;
-	font-size: 12px;
+	background: none;
+    border: none;
 }
 #front-signin input[type='password'],
 #front-signin input[type='text'] {
 	font-size: 18px;
 	color: #fff !important;
+	width: 220px;
 }
 
 #front-signin .input-prepend {
@@ -225,7 +225,6 @@ html.login-page {
 	font-size: 3em;
 }
 
-
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
@@ -237,29 +236,29 @@ input:-webkit-autofill {
     box-sizing: border-box;
     padding-left: 40px;
     font-weight: normal;
-
 }
 .login-name {
     background: url(/static/img/logo/icon-user.png);
     background-repeat: no-repeat;
-    background-position: 13px 7px;
-    border-bottom: 1px #5f6d7e solid;
+    background-position: 13px 14px;
+    margin-top: 10px;
+}
+input#password {
+    margin-top: 9px !important;
 }
 .login-pwd {
     background: url(/static/img/logo/icon-psw.png);
     background-repeat: no-repeat;
-    background-position: 13px 14px;
+    background-position: 13px 15px;
+    border-top: 1px #5f6d7e solid;
+    margin-bottom: 10px;
 }
-#front-signin .form-group{
+#front-signin .form-group {
     background: rgba(0, 0, 0, 0.5);
-    padding-top: 15px;
+    padding-top: 5px;
     padding-right: 10px;
     padding-left: 10px;
-    padding-bottom: 15px;
-}
-input#username,input#password {
-    background: none;
-    border: none;
+    padding-bottom: 5px;
 }
 .login-btn {
     background-color: #112435;
@@ -299,4 +298,7 @@ input#username,input#password {
 }
 .errorInfo{
 	display: none;
+}
+.logining-btn img {
+    margin-right: 10px;
 }
