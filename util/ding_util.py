@@ -16,5 +16,5 @@ def send_to_ding(text, cid):
 		"uuid": uuid,
 		"content": text
 	}
-	msgutil.send_queue_message('notify', 'ding', data)
+	msgutil.send_message('notify', 'ding', data)
 	

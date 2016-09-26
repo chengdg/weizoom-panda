@@ -50,7 +50,7 @@ def send_phone_captcha(phones, content):
 		"content": content,
 		"phones": phones  
 	}
-	msgutil.send_queue_message('notify', 'phone', data)
+	msgutil.send_message('notify', 'phone', data)
 
 
 def send_captcha(phone_number, company_name=u'微众传媒'):
