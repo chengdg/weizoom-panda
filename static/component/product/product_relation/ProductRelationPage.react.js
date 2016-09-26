@@ -105,12 +105,16 @@ var ProductRelationPage = React.createClass({
 		},300)
 	},
 
-	onClickProductStatus: function(event){
+	showRevokeReason: function(event){
 		var revokeReasons = event.target.getAttribute('data-product-reasons');
 		Reactman.PageAction.showPopover({
 			target: event.target,
 			content: '<span style="color:red">' + revokeReasons + '</span>'
 		});
+	},
+
+	hideRevokeReason: function(event) {
+		Reactman.PageAction.hidePopover();
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -180,7 +184,7 @@ var ProductRelationPage = React.createClass({
 			var name = data['product_status_value'];
 			if(data['product_status_value'] == 2){
 				return (
-					<a onMouseOver={this.onClickProductStatus} data-product-reasons={data.revoke_reasons}>{data['product_status']}</a>
+					<a href="javascript:void(0);" onMouseOut={this.hideRevokeReason} onMouseOver={this.showRevokeReason} data-product-reasons={data.revoke_reasons}>{data['product_status']}</a>
 				)
 			}else{
 				return (
@@ -206,7 +210,7 @@ var ProductRelationPage = React.createClass({
 				second_catalog_id: W.second_catalog_id
 			}
 		};
-		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已同步', value: '1'},{text: '未同步', value: '2'}];
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '未同步', value: '2'}];
 		return (
 			<div className="mt15 xui-product-productRelationPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
