@@ -13,6 +13,9 @@ from resource.models import Image
 from panda.settings import PANDA_HOST
 import models
 from product_catalog.models import ProductCatalogRelation
+from panda.settings import PRODUCT_POOL_OWNER_ID
+from product_catalog import models as catalog_models
+from label import models as label_models
 
 
 SELF_NAMETEXT2VALUE = {
@@ -289,7 +292,8 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 							})
 							if not resp or resp.get('code') != 200:
 								watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
-
+						# 同步标签
+						sync_product_label(product=product, weapp_product_id=weapp_product_id)
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
@@ -312,6 +316,53 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 					) for username in weizoom_self]
 					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
 	except:
+		print unicode_full_stack()
 		data['is_error'] = True
 		data['error_product_id'] = product_id
 	return data
+
+
+def sync_product_label(weapp_product_id=None, product=None):
+	"""
+
+	"""
+
+	# 同步标签
+	product_labels = models.ProductHasLabel.objects.filter(product_id=product.id)
+	label_params = {}
+	if product_labels.count() == 0:
+		# 需要商品的类目下的标签
+		product_catalog_id = product.catalog_id
+		catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=product_catalog_id) \
+			.last()
+		catalog_labels = catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=product_catalog_id)
+		catalog_label_ids = []
+		for catalog_label in catalog_labels:
+			catalog_label_ids += catalog_label.label_ids.split(',')
+		label_relations = label_models.LabelGroupValueRelation.objects.filter(label_value_id__in=catalog_label_ids)
+		# label_params.update({'label_ids': label_ids})
+		label_ids = [relation.weapp_label_value_id for relation in label_relations]
+		label_params.update({'classification_id': catalog_relation.weapp_catalog_id})
+		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>的>>>>>>.'
+		print label_ids
+		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+	else:
+		product_labels = product_labels.exclude(property_id=-1)
+
+		label_ids = []
+		for product_label in product_labels:
+			label_ids += product_label.label_ids.split(',')
+		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		print label_ids
+		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		label_relations = label_models.LabelGroupValueRelation.objects.filter(
+			label_value_id__in=label_ids)
+		label_ids = [relation.weapp_label_value_id for relation in label_relations]
+	label_params.update({'label_ids': json.dumps(label_ids),
+						 'product_id': weapp_product_id,
+						 'owner_id': PRODUCT_POOL_OWNER_ID })
+	# label_params.update({'product_id': weapp_product_id})
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+		'resource': 'mall.product_has_label',
+		'data': label_params
+	})

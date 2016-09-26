@@ -14,6 +14,7 @@ import models
 from weapp_relation import get_weapp_model_properties
 from account import models as account_models
 from product_catalog import models as catalog_models
+from label import models as label_models
 
 
 class SyncProduct(resource.Resource):
@@ -129,6 +130,38 @@ def sync_add_product(params, product, weapp_catalog_id=None, user_id=None):
 				})
 				if not resp or resp.get('code') != 200:
 					watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product.id})
+			# 同步标签
+			product_labels = models.ProductHasLabel.objects.filter(product_id=product.id)
+			label_params = {}
+			if product_labels.count() == 0:
+				# 需要商品的类目下的标签
+				product_catalog_id = product.catalog_id
+				catalog_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=product_catalog_id)\
+					.last()
+				catalog_labels = catalog_models.ProductCatalogHasLabel.objects.filter(catalog_id=product_catalog_id)
+				catalog_label_ids = []
+				for catalog_label in catalog_labels:
+					catalog_label_ids += catalog_label.label_ids.split(',')
+				label_relations = label_models.LabelGroupValueRelation.objects.filter(label_value_id__in=catalog_label_ids)
+				# label_params.update({'label_ids': label_ids})
+				label_ids = [relation.weapp_label_value_id for relation in label_relations]
+				label_params.update({'classification_id': catalog_relation.weapp_catalog_id})
+			else:
+				product_labels = product_labels.exclude(property_id=-1)
+
+				label_ids = []
+				for product_label in product_labels:
+					label_ids += product_label.label_ids.split(',')
+				label_relations = label_models.LabelGroupValueRelation.objects.filter(
+					label_value_id__in=label_ids)
+				label_ids = [relation.weapp_label_value_id for relation in label_relations]
+			label_params.update({'label_ids': label_ids,
+								 'product_id': weapp_product_id})
+			# label_params.update({'product_id': weapp_product_id})
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+				'resource': 'mall.product_has_label',
+				'data': label_params
+			})
 
 
 def sync_update_product(params, product, weapp_catalog_id=None):
