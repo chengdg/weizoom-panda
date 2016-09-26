@@ -14,7 +14,6 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
-var RevokeSyncSelfShopDialog = require('./RevokeSyncSelfShopDialog.react');
 var AddLabelDialog = require('../.././product_catalog/product_catalogs/AddLabelDialog.react');
 var ProductCatalogAction = require('../.././product_catalog/product_catalogs/Action');
 require('./ProductRelation.css');
@@ -41,23 +40,6 @@ var ProductRelationPage = React.createClass({
 			Reactman.PageAction.showDialog({
 				title: "选择平台进行同步商品",
 				component: ChooseSyncSelfShopDialog,
-				data: {
-					product_id: String(productId),
-					sync_type: 'single'
-				},
-				success: function(inputData, dialogState) {
-					console.log("success");
-				}
-			});
-		},100)
-	},
-
-	revokeSyncSelfShop: function(productId){
-		Action.cancleChooseReason();
-		_.delay(function(){
-			Reactman.PageAction.showDialog({
-				title: "全部停售",
-				component: RevokeSyncSelfShopDialog,
 				data: {
 					product_id: String(productId),
 					sync_type: 'single'
@@ -124,7 +106,6 @@ var ProductRelationPage = React.createClass({
 
 	onClickProductStatus: function(event){
 		var revokeReasons = event.target.getAttribute('data-product-reasons');
-		console.log(revokeReasons,"=======");
 		Reactman.PageAction.showPopover({
 			target: event.target,
 			content: '<span style="color:red">' + revokeReasons + '</span>'

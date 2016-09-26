@@ -60,16 +60,19 @@ var ProductUpdatedPage = React.createClass({
 	},
 
 	onClickUnPass: function(product_id, event) {
-		Reactman.PageAction.showDialog({
-			title: "商品驳回",
-			component: UnPassDialog,
-			data: {
-				product_id: product_id
-			},
-			success: function() {
-				console.log('success');
-			}
-		});
+		Action.cancleChecked();
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: UnPassDialog,
+				data: {
+					product_id: product_id
+				},
+				success: function() {
+					console.log('success');
+				}
+			});
+		},100)
 	},
 
 	rowFormatter: function(field, value, data) {
