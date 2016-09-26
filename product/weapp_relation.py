@@ -145,8 +145,10 @@ class WeappRelation(resource.Resource):
 				if not product_data[0].get('weizoom_self'):
 					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
 					models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).delete()
-					for product_id in product_ids:
-						models.ProductRevokeLogs.objects.create(product_id=product_id, revoke_reasons=revoke_reasons)
+					#撤销商品原因
+					if revoke_reasons:
+						for product_id in product_ids:
+							models.ProductRevokeLogs.objects.create(product_id=product_id, revoke_reasons=revoke_reasons)
 		except:
 			data['is_error'] = True
 			msg = unicode_full_stack()
