@@ -52,7 +52,7 @@ class ProductCatalog(resource.Resource):
 			for belong_second_catalog in belong_second_catalogs:
 				qualification_id2name = []
 				index = 0
-				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id).count()
+				products_number = product_models.Product.objects.filter(catalog_id=belong_second_catalog.id, is_deleted=False).count()
 				total_products_number += products_number
 				qualifications = product_catalog_models.ProductCatalogQualification.objects.filter(catalog_id=belong_second_catalog.id)
 				for qualification in qualifications:
@@ -185,7 +185,7 @@ class ProductCatalog(resource.Resource):
 			catalog = product_catalog_models.ProductCatalog.objects.get(id=catalog_id)
 			if catalog.father_id != -1:
 				#二级分类
-				if product_models.Product.objects.filter(catalog_id=catalog_id).count() > 0:
+				if product_models.Product.objects.filter(catalog_id=catalog_id, is_deleted=False).count() > 0:
 					response = create_response(500)
 					response.errMsg = u'该分类正在被使用，请先将商品调整分类后再删除分类'
 					return response.get_response()

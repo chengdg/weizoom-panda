@@ -186,10 +186,11 @@ class ManagerAccount(resource.Resource):
 	def api_delete(request):
 		account_id = request.POST.get('id','')
 		try:
-			user_profile = UserProfile.objects.filter(id=account_id, is_active=True)
+			user_profile = UserProfile.objects.filter(id=account_id)
 			user_profile.update(is_active=False)
 			user_id = user_profile.first().user_id
 			User.objects.filter(id=user_id).update(
+				username= 'del_at_'+datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), #为了删除之后能创建相同username的账号，把用户名改成时间戳
 				is_active=False
 				)
 			products = Product.objects.filter(owner_id=user_id)
