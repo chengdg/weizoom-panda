@@ -151,7 +151,7 @@ var ProductRelationPage = React.createClass({
 			var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-catalog-id={data.catalogId} data-id={data.id}>配置标签</a></li>: '';
 			return (
 				<div>
-					<ul style={{height: '30px'}}>
+					<ul style={{height: 'auto'}}>
 						{labelNameLi}
 						{catalogManager}
 					</ul>
