@@ -343,18 +343,18 @@ def sync_product_label(weapp_product_id=None, product=None, method='PUT'):
 		# label_params.update({'label_ids': label_ids})
 		label_ids = [relation.weapp_label_value_id for relation in label_relations]
 		label_params.update({'classification_id': catalog_relation.weapp_catalog_id})
-		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>的>>>>>>.'
-		print label_ids
-		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>的>>>>>>.'
+		# print label_ids
+		# print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 	else:
 		product_labels = product_labels.exclude(property_id=-1)
 
 		label_ids = []
 		for product_label in product_labels:
 			label_ids += product_label.label_ids.split(',')
-		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-		print label_ids
-		print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print label_ids
+		# print 'fucking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 		label_relations = label_models.LabelGroupValueRelation.objects.filter(
 			label_value_id__in=label_ids)
 		label_ids = [relation.weapp_label_value_id for relation in label_relations]
