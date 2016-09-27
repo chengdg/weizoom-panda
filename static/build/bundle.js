@@ -48375,7 +48375,7 @@
 					null,
 					React.createElement(
 						'ul',
-						{ style: { height: '30px' } },
+						{ style: { height: 'auto' } },
 						labelNameLi,
 						React.createElement(
 							'li',
