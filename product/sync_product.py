@@ -11,10 +11,10 @@ from eaglet.utils.resource_client import Resource
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from resource.models import Image
 import models
-from weapp_relation import get_weapp_model_properties
+from weapp_relation import get_weapp_model_properties, sync_product_label, get_products_limit_info
 from account import models as account_models
 from product_catalog import models as catalog_models
-from weapp_relation import get_products_limit_info
+from label import models as label_models
 
 
 class SyncProduct(resource.Resource):
@@ -140,6 +140,8 @@ def sync_add_product(params, product, weapp_catalog_id=None, user_id=None):
 				})
 				if not resp or resp.get('code') != 200:
 					watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product.id})
+			# 同步标签
+			sync_product_label(weapp_product_id=weapp_product_id, product=product)
 
 
 def sync_update_product(params, product, weapp_catalog_id=None):
@@ -177,5 +179,6 @@ def sync_update_product(params, product, weapp_catalog_id=None):
 					})
 					if not resp or resp.get('code') != 200:
 						watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product.id})
-
-
+			# 更新商品标签
+			# 判断商品需不需要同步标签
+			sync_product_label(weapp_product_id=params.get('product_id'), product=product, method='POST')
