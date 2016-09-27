@@ -29,9 +29,9 @@ var ProductRelationPage = React.createClass({
 		this.refs.table.refresh(filterOptions);  
 	},
 
-	// componentDidMount: function() {
-	// 	ProductCatalogAction.getLabels();
-	// },
+	componentDidMount: function() {
+		ProductCatalogAction.getLabels();
+	},
 
 	chooseSyncSelfShop: function(productId, productStatus) {
 		Action.getHasSyncShop(productId);
@@ -156,31 +156,29 @@ var ProductRelationPage = React.createClass({
 					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
 				</div>
 			);
-		}
-		// else if(field === 'expand-row'){
-		// 	var labelNames = data['labelNames'];
-		// 	var catalogId = data['catalogId'];
-		// 	var labelNameLi = '';
+		}else if(field === 'expand-row'){
+			var labelNames = data['labelNames'];
+			var catalogId = data['catalogId'];
+			var labelNameLi = '';
 
-		// 	if(labelNames.length>0){
-		// 		labelNameLi = JSON.parse(labelNames).map(function(labelName, index){
-		// 			return(
-		// 				<li className='xui-label-name-li' key={index}>{labelName.name} ;</li>
-		// 			)
-		// 		})
-		// 	}
+			if(labelNames.length>0){
+				labelNameLi = JSON.parse(labelNames).map(function(labelName, index){
+					return(
+						<li className='xui-label-name-li' key={index}>{labelName.name} ;</li>
+					)
+				})
+			}
 
-		// 	var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-catalog-id={data.catalogId} data-id={data.id}>配置标签</a></li>: '';
-		// 	return (
-		// 		<div>
-		// 			<ul style={{height: '30px'}}>
-		// 				{labelNameLi}
-		// 				{catalogManager}
-		// 			</ul>
-		// 		</div>
-		// 	)
-		// }
-		else if (field === 'product_status') {
+			var catalogManager = catalogId != 0? <li style={{display:'inline-block'}}><a href='javascript:void(0);' onClick={this.onAddLabel} data-catalog-id={data.catalogId} data-id={data.id}>配置标签</a></li>: '';
+			return (
+				<div>
+					<ul style={{height: '30px'}}>
+						{labelNameLi}
+						{catalogManager}
+					</ul>
+				</div>
+			)
+		}else if (field === 'product_status') {
 			var name = data['product_status_value'];
 			if(data['product_status_value'] == 2){
 				return (
