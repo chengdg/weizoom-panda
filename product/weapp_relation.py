@@ -322,7 +322,7 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 	return data
 
 
-def sync_product_label(weapp_product_id=None, product=None):
+def sync_product_label(weapp_product_id=None, product=None, method='PUT'):
 	"""
 
 	"""
@@ -362,7 +362,13 @@ def sync_product_label(weapp_product_id=None, product=None):
 						 'product_id': weapp_product_id,
 						 'owner_id': PRODUCT_POOL_OWNER_ID })
 	# label_params.update({'product_id': weapp_product_id})
-	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
-		'resource': 'mall.product_has_label',
-		'data': label_params
-	})
+	if method == 'PUT':
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+			'resource': 'mall.product_has_label',
+			'data': label_params
+		})
+	else:
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+			'resource': 'mall.product_has_label',
+			'data': label_params
+		})
