@@ -511,8 +511,8 @@ class NewProduct(resource.Resource):
 									 source_product=source_product,
 									 new_properties=new_properties, old_properties=old_properties, relation=relation)
 
-			sync_product_label(product=product, weapp_product_id=relation.weapp_product_id, method='POST')
-			sync_product_classification(weapp_product_id=relation.weapp_product_id, classification_id=product.catalog_id)
+			# sync_product_label(product=product, weapp_product_id=relation.weapp_product_id, method='POST')
+			# sync_product_classification(weapp_product_id=relation.weapp_product_id, classification_id=product.catalog_id)
 		if product_sync_weapp_accounts and (old_has_product_model == has_product_model ==1):
 			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
 				old_products.update(
@@ -669,20 +669,20 @@ def sync_deleted_product(product):
 			watchdog.watchdog_warning('sync_deleted_product failed! procuct_id: {}'.format(product.id))
 
 
-def sync_product_classification(weapp_product_id=None, classification_id=None):
-	"""
-
-	"""
-	classification_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=classification_id).last()
-	if classification_relation:
-		weapp_classification_id = classification_relation.weapp_catalog_id
-
-		params = {
-			'classification_id': weapp_classification_id,
-			'product_id': weapp_product_id
-
-		}
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-			'resource': 'panda.classification_product',
-			'data': params
-		})
+# def sync_product_classification(weapp_product_id=None, classification_id=None):
+# 	"""
+#
+# 	"""
+# 	classification_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=classification_id).last()
+# 	if classification_relation:
+# 		weapp_classification_id = classification_relation.weapp_catalog_id
+#
+# 		params = {
+# 			'classification_id': weapp_classification_id,
+# 			'product_id': weapp_product_id
+#
+# 		}
+# 		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+# 			'resource': 'panda.classification_product',
+# 			'data': params
+# 		})
