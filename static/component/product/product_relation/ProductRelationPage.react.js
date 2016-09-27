@@ -191,7 +191,7 @@ var ProductRelationPage = React.createClass({
 					<span>{data['product_status']}</span>
 				)
 			}
-			
+
 		}else {
 			return value;
 		}

@@ -263,7 +263,15 @@ elif 'test' == MODE:
     PANDA_HOST = 'http://panda.weapp.weizzz.com'
     AXE_HOST = 'http://axe.weapp.weizzz.com'
     DEBUG = True
-    PRODUCT_POOL_OWNER_ID = 9
+    import MySQLdb
+
+    conn = MySQLdb.connect(host='db.weapp.com', user='weapp', passwd='weizoom')
+    conn.select_db('weapp')
+    cursor = conn.cursor()
+    cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
+    result = cursor.fetchone()
+
+    PRODUCT_POOL_OWNER_ID = result[0]
 else:
     WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]

@@ -29,6 +29,7 @@ from services.panda_send_modify_product_ding_talk_service.tasks import send_modi
 import nav
 import models
 from product_limit_zone import models as limit_zone_models
+from weapp_relation import sync_product_label
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -335,8 +336,9 @@ class NewProduct(resource.Resource):
 		catalog_id = models.Product.objects.get(owner=request.user, id=request.POST['id']).catalog_id
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 		#判断商品是否同步
+		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
 		if product_sync_weapp_accounts:
-			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+
 			old_product_name = product.product_name
 			old_promotion_title = product.promotion_title
 			old_product_price = '%.2f' %product.product_price
@@ -505,10 +507,14 @@ class NewProduct(resource.Resource):
 							property_value_id = property_value['id']
 						))
 					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-		sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
-								 source_product=source_product,
-								 new_properties=new_properties, old_properties=old_properties)
+		relation = models.ProductHasRelationWeapp.objects.filter(product_id=request.POST['id']).first()
+		if relation:
+			sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
+									 source_product=source_product,
+									 new_properties=new_properties, old_properties=old_properties, relation=relation)
 
+			# sync_product_label(product=product, weapp_product_id=relation.weapp_product_id, method='POST')
+			# sync_product_classification(weapp_product_id=relation.weapp_product_id, classification_id=product.catalog_id)
 		if product_sync_weapp_accounts and (old_has_product_model == has_product_model ==1):
 			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
 				old_products.update(
@@ -566,14 +572,14 @@ class NewProduct(resource.Resource):
 
 
 def sync_weapp_product_store(product_id=None, owner_id=None, source_product=None,
-							 new_properties=None, old_properties=None):
+							 new_properties=None, old_properties=None, relation=None):
 	"""
 	判断商品是否需要同步并同步
 	"""
 	# 如果降价（售价，结算价）库存修改自动更新。
 	new_product = models.Product.objects.filter(owner=owner_id, id=product_id).first()
 
-	relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
+	# relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).first()
 	if new_product.has_product_model != source_product.has_product_model:
 		return False
 	#  未同步的不处理
@@ -663,3 +669,22 @@ def sync_deleted_product(product):
 		})
 		if not resp or not resp.get('code') != 200:
 			watchdog.watchdog_warning('sync_deleted_product failed! procuct_id: {}'.format(product.id))
+
+
+# def sync_product_classification(weapp_product_id=None, classification_id=None):
+# 	"""
+#
+# 	"""
+# 	classification_relation = catalog_models.ProductCatalogRelation.objects.filter(catalog_id=classification_id).last()
+# 	if classification_relation:
+# 		weapp_classification_id = classification_relation.weapp_catalog_id
+#
+# 		params = {
+# 			'classification_id': weapp_classification_id,
+# 			'product_id': weapp_product_id
+#
+# 		}
+# 		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+# 			'resource': 'panda.classification_product',
+# 			'data': params
+# 		})
