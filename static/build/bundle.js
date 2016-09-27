@@ -50041,9 +50041,9 @@
 			this.refs.table.refresh(filterOptions);
 		},
 
-		// componentDidMount: function(){
-		// 	Action.getLabels();
-		// },
+		componentDidMount: function () {
+			Action.getLabels();
+		},
 
 		onAddCatalog: function (event) {
 			var catalogId = event.target.getAttribute('data-id');
@@ -50143,7 +50143,7 @@
 						var src = '/product/product_relation/?second_catalog_id=' + catalogId;
 						var hasInfo = catalog['qualificationId2name'];
 						var hasLabel = catalog['has_label'];
-						// {hasLabel? <a className="btn btn-info ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>已配置标签</a>: <a className="btn btn-primary ml10" style={{width:'110px'}} onClick={_this.onAddLabel} data-id={catalog.id}>配置标签</a>}
+
 						return React.createElement(
 							'div',
 							{ style: { backgroundColor: '#EFEFEF', height: '50px', lineHeight: '50px' }, key: index },
@@ -50189,6 +50189,15 @@
 									'a',
 									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
 									'已配置资质'
+								),
+								hasLabel ? React.createElement(
+									'a',
+									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
+									'已配置标签'
+								) : React.createElement(
+									'a',
+									{ className: 'btn btn-primary ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
+									'配置标签'
 								)
 							)
 						);
