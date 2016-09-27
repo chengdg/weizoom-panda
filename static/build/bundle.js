@@ -48370,15 +48370,6 @@
 					});
 				}
 
-				var catalogManager = catalogId != 0 ? React.createElement(
-					'li',
-					{ style: { display: 'inline-block' } },
-					React.createElement(
-						'a',
-						{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-catalog-id': data.catalogId, 'data-id': data.id },
-						'配置标签'
-					)
-				) : '';
 				return React.createElement(
 					'div',
 					null,
@@ -48386,7 +48377,15 @@
 						'ul',
 						{ style: { height: '30px' } },
 						labelNameLi,
-						catalogManager
+						React.createElement(
+							'li',
+							{ style: { display: 'inline-block' } },
+							React.createElement(
+								'a',
+								{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-catalog-id': data.catalogId, 'data-id': data.id },
+								'配置标签'
+							)
+						)
 					)
 				);
 			} else if (field === 'product_status') {
