@@ -248,7 +248,7 @@ if 'develop' == MODE:
     DEBUG = True
     import MySQLdb
 
-    conn = MySQLdb.connect(host='localhost', user='weapp', passwd='weizoom')
+    conn = MySQLdb.connect(host='db.weapp.com', user='weapp', passwd='weizoom')
     conn.select_db('weapp')
     cursor = conn.cursor()
     cursor.execute("""select user_id from account_user_profile where webapp_type = 2""")
