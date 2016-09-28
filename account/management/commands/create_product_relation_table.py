@@ -16,7 +16,7 @@ from account.models import *
 
 class Command(BaseCommand):
 	def handle(self, **options):
-		user_profiles = UserProfile.objects.filter(role=1)
+		user_profiles = UserProfile.objects.filter(role=1, is_active=True)
 		print "=====start======"
 		for user_profile in user_profiles:
 			try:

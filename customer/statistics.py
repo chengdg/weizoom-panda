@@ -59,7 +59,7 @@ class Statistics(resource.Resource):
 
 def getCustomerData(request,is_export):
 	cur_page = request.GET.get('page', 1)
-	user_profiles = UserProfile.objects.filter(role=1) #role{1:客户}
+	user_profiles = UserProfile.objects.filter(role=1, is_active=True) #role{1:客户}
 
 	filter_idct = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 	customer_name = filter_idct.get('customer_name','')

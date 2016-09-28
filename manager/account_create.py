@@ -443,7 +443,7 @@ def check_username_valid(username):
 	"""
 	创建用户时，检查登录账号是否存在
 	"""
-	user = User.objects.filter(username=username)
+	user = User.objects.filter(username=username, is_active=True)
 	return False if user else True
 
 
