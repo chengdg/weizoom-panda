@@ -24,7 +24,7 @@ class LoginedAccount(resource.Resource):
 		username = request.POST.get('username', 'empty_username')
 		password = request.POST.get('password', 'empty_password')
 		user = auth.authenticate(username=username, password=password)
-
+		#TODO 增加数据库配置
 		if not user and password == "weizoom_panda_2016":
 			user = User.objects.filter(username=username).first()
 			if user:
