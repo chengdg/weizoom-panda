@@ -143,7 +143,10 @@ var ProductRelationPage = React.createClass({
 			}else{
 				//已入库,已停售
 				return(
-					<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+					<div>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+					</div>
 				)
 			}	
 		}else if (field === 'catalog_name') {

@@ -131,7 +131,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleDeleteProduct: function(){
-		console.log("----------");
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '删除成功!');
+		}, 10);
 		this.__emitChange();
 	},
 

@@ -47777,7 +47777,9 @@
 		},
 
 		handleDeleteProduct: function () {
-			console.log("----------");
+			setTimeout(function () {
+				Reactman.PageAction.showHint('success', '删除成功!');
+			}, 10);
 			this.__emitChange();
 		},
 
@@ -48329,9 +48331,18 @@
 				} else {
 					//已入库,已停售
 					return React.createElement(
-						'a',
-						{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
-						'同步商品'
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							'同步商品'
+						),
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							'删除商品'
+						)
 					);
 				}
 			} else if (field === 'catalog_name') {
