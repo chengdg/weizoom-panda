@@ -65,22 +65,22 @@ var AccountManagePage = React.createClass({
 			if(data.status == 1){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>编辑</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
+					<a className="btn btn-primary" onClick={this.updateAccount.bind(this,data.id)}>编辑</a>
+					<a className="btn btn-danger ml10" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
 				</div>
 				);
 			}else if(data.status == 2){
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.updateAccount.bind(this,data.id)}>开启</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
+					<a className="btn btn-danger" onClick={this.updateAccount.bind(this,data.id)}>开启</a>
+					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);
 			}else{
 				return (
 				<div>
-					<a className="btn btn-link btn-xs" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启</a>
-					<a className="btn btn-link btn-xs" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
+					<a className="btn btn-danger" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='open'>开启</a>
+					<a className="btn btn-danger ml10" onClick={this.onClickDelete} data-account-id={data.id}>删除</a>
 				</div>
 				);
 			}
@@ -164,7 +164,7 @@ var AccountManagePage = React.createClass({
 					<Reactman.TableColumn name="经营类目" field="companyType" />
 					<Reactman.TableColumn name="采购方式" field="purchaseMethod" />
 					<Reactman.TableColumn name="商品数上限" field="maxProduct" />
-					<Reactman.TableColumn name="操作" field="action" width="100px"/>
+					<Reactman.TableColumn name="操作" field="action" width="150px"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>
 		</div>
