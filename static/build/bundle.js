@@ -38058,7 +38058,7 @@
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-danger ml10', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'close' },
+							{ className: 'btn btn-primary ml10', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'close' },
 							'关闭'
 						)
 					);

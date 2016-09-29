@@ -66,7 +66,7 @@ var AccountManagePage = React.createClass({
 				return (
 				<div>
 					<a className="btn btn-primary" onClick={this.updateAccount.bind(this,data.id)}>编辑</a>
-					<a className="btn btn-danger ml10" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
+					<a className="btn btn-primary ml10" onClick={this.onClickChangeStatus} data-account-id={data.id} data-method='close'>关闭</a>
 				</div>
 				);
 			}else if(data.status == 2){
