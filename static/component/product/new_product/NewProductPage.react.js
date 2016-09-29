@@ -293,7 +293,7 @@ var NewProductPage = React.createClass({
                         <Reactman.FormSelect label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
-						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="800" height="250" onChange={this.onChange} validate="require-notempty"/>
+						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}}>
 						{role == 3? '': <Reactman.FormSubmit onClick={this.onSubmit} />}

@@ -43904,7 +43904,7 @@
 							React.createElement(LimitZoneInfo, { onChange: this.onChange })
 						),
 						React.createElement(Reactman.FormImageUploader, { label: '商品图片:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
-						React.createElement(Reactman.FormRichTextInput, { label: '商品描述:', name: 'remark', value: this.state.remark, width: '800', height: '250', onChange: this.onChange, validate: 'require-notempty' })
+						React.createElement(Reactman.FormRichTextInput, { label: '商品描述:', name: 'remark', value: this.state.remark, width: '1260', height: '600', onChange: this.onChange, validate: 'require-notempty' })
 					),
 					React.createElement(
 						'fieldset',
