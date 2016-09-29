@@ -252,3 +252,7 @@ td div.form-group div .errorHint{
     padding-top: 6px;
     display: inline-block;
 }
+
+.xui-container{
+	overflow-y: hidden; 
+}
