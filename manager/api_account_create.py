@@ -27,6 +27,10 @@ from product_catalog import models as product_catalog_models
 from manager.account_create import check_username_valid, sync_create_rebate_info, sync_add_retail_rebate_info
 from eaglet.decorator import param_required
 
+# ================================================
+# 渠道创建账号使用的接口
+# ================================================
+
 class AccountCreateApi(resource.Resource):
 	app = 'manager'
 	resource = 'account_create_api'
@@ -71,7 +75,7 @@ class AccountCreateApi(resource.Resource):
 			user_profile = UserProfile.objects.filter(user=user)
 			points = 0 if points == '' else points
 
-			# 云上通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
+			# 云商通的账户 fixed: 固定低价, divide: 55分成, 零售扣点:retail
 			weapp_account_type = 'fixed'
 			if purchase_method == 2:
 				weapp_account_type = 'retail'
@@ -110,7 +114,8 @@ class AccountCreateApi(resource.Resource):
 				phone = phone,
 				valid_time_from = valid_time_from,
 				valid_time_to = valid_time_to,
-				customer_from = 1
+				customer_from = 1,
+				status = 0
 			)
 			#请求接口获得数据
 			try:
