@@ -262,6 +262,7 @@ var NewProductPage = React.createClass({
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
+		var style = role == 3 ? {margin: '20px 0px 100px 180px'}: {position:'absolute',top:'40px',left:'270px'};
 		var optionsForKind = [{
             text: '无限制',
             value: '0'
@@ -296,8 +297,8 @@ var NewProductPage = React.createClass({
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}}>
-						{role == 3? '': <Reactman.FormSubmit onClick={this.onSubmit} />}
-						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={{position:'absolute',top:'40px',left:'270px'}} onClick={this.productPreview}>商品预览</a>
+						{role == 3? '' : <Reactman.FormSubmit onClick={this.onSubmit} />}
+						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={style} onClick={this.productPreview}>商品预览</a>
 					</fieldset>
 				</form>
 			</div>

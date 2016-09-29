@@ -43829,6 +43829,7 @@
 			var optionsForCheckbox = [{ text: '', value: '1' }];
 			var role = W.role;
 			var disabled = role == 3 ? 'disabled' : '';
+			var style = role == 3 ? { margin: '20px 0px 100px 180px' } : { position: 'absolute', top: '40px', left: '270px' };
 			var optionsForKind = [{
 				text: '无限制',
 				value: '0'
@@ -43912,7 +43913,7 @@
 						role == 3 ? '' : React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit }),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', style: { position: 'absolute', top: '40px', left: '270px' }, onClick: this.productPreview },
+							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', style: style, onClick: this.productPreview },
 							'商品预览'
 						)
 					)
