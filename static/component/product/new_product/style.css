@@ -255,4 +255,5 @@ td div.form-group div .errorHint{
 
 .xui-container{
 	overflow-y: hidden; 
+	min-height: 1800px;
 }
