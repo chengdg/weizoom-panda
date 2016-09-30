@@ -28,7 +28,7 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from eaglet.utils.resource_client import Resource
 from product_catalog import models as product_catalog_models
 from label import models as label_models
-
+from manager.manager_account import get_info_from_axe 
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-relation-list'
@@ -38,11 +38,6 @@ filter2field ={
 	'customer_name_query': 'customer_name',
 	'product_status_query': 'product_status',
 	'catalog_query': 'catalog_name'
-}
-
-customer_from2text = {
-	0: '--',
-	1: u'渠道'
 }
 
 class ProductRelation(resource.Resource):
@@ -187,13 +182,21 @@ class ProductRelation(resource.Resource):
 		p_owner_ids = [product.owner_id for product in products]
 		user_profiles = user_profiles.filter(user_id__in=p_owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
-		user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
-		user_id2customer_from = {user_profile.user_id:user_profile.customer_from for user_profile in user_profiles}
+		# user_id2account_id = {user_profile.user_id:user_profile.id for user_profile in user_profiles}
 
 		#获取下架商品的原因
 		product_revoke_logs = models.ProductRevokeLogs.objects.filter(product_id__in=p_ids)
 		#只取最后一次下架原因
 		product_id2revoke_reasons = {revoke_log.product_id:revoke_log.revoke_reasons for revoke_log in product_revoke_logs}
+
+		#从渠道接口获得客户来源字段
+		company_name2info = {}
+		company_names = []
+		for user_profile in user_profiles:
+			if user_profile.company_name != '':
+				company_names.append(user_profile.company_name)
+		company_names = '_'.join(company_names)
+		company_name2info = get_info_from_axe(company_names)
 
 		#组装数据
 		rows = []
@@ -233,8 +236,13 @@ class ProductRelation(resource.Resource):
 					})
 
 
-				customer_from = 0 if owner_id not in user_id2customer_from else user_id2customer_from[owner_id]
-				customer_from_text = customer_from2text[customer_from]
+				customer_from_text = '--' 
+				#客户来源
+				account = user_profiles.get(user_id=owner_id)
+				if company_name2info.has_key(account.company_name):
+					customer_from_text = company_name2info[account.company_name]
+				else:
+					customer_from_text = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
 
 				#下架原因
 				revoke_reasons = '' if product.id not in product_id2revoke_reasons else product_id2revoke_reasons[product.id]
