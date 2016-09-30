@@ -58,7 +58,7 @@ class AccountCreateApi(resource.Resource):
 		rebate_proport = args.get('rebate_proport', 0)
 		default_rebate_proport = args.get('default_rebate_proport', 0)
 
-		if company_type == '' or company_type == '[]':
+		if company_type == '' or company_type == '[]' or company_type == '[None]':
 			response = create_response(500)
 			response.errMsg = u'请选择经营类目'
 			return response.get_response()
