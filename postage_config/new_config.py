@@ -32,48 +32,18 @@ SECOND_NAV = 'postage_list'
 COUNT_PER_PAGE = 20
 
 
-class PostageList(resource.Resource):
+class NewConfig(resource.Resource):
 	"""
 	运费模板列表
 	"""
 	app = 'postage_config'
-	resource = 'postage_list'
+	resource = 'new_config'
 
 	@login_required
 	def get(request):
-		postages = [{
-			"postage_name": u"普通快递",
-			"postage_default": u"全国1",
-			"postage_id": "2"
-		},{
-			"postage_name": u"普通快递",
-			"postage_default": u"全国2",
-			"postage_id": "1"
-		}]
-		print json.dumps(postages),"------"
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV,
-			'postages': json.dumps(postages)
+			'second_nav_name': SECOND_NAV
 		})
-		return render_to_response('postage_list/postage_list.html', c)
-
-	@login_required
-	def api_get(request):
-		rows = [{
-			'postage_method': u'普通快递',
-			'postage_destination': u'全国',
-			'postage_weight': '2',
-			'postage_price': '5.00',
-			'over_weight': '1',
-			'over_price': '0.00'
-		}]
-		data = {
-			'rows': rows
-		}	
-
-		# 构造response
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
+		return render_to_response('new_config/new_config.html', c)

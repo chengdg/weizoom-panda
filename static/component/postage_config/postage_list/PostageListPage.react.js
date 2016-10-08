@@ -28,6 +28,10 @@ var PostageListPage = React.createClass({
 		this.refs.table.refresh(filterOptions);
 	},
 
+	addPostageTemplate: function(){
+		W.gotoPage('/postage_config/new_config/');
+	},
+
 	render:function(){
 		var productsResource = {
 			resource: 'postage_config.postage_list',
@@ -47,7 +51,7 @@ var PostageListPage = React.createClass({
 			<div className="mt15 xui-postageConfig-postageListPage">
 				{tableList}
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="添加新模板" icon="plus" onClick={this.onValidateAddProduct}/>
+					<Reactman.TableActionButton text="添加新模板" icon="plus" onClick={this.addPostageTemplate}/>
 				</Reactman.TableActionBar>
 			</div>
 		)

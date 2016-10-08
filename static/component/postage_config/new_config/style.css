@@ -1,0 +1,36 @@
+.model-table-tr td{
+    width: 170px;
+    padding: 8px 0 8px 0px !important;
+}
+
+td div.form-group {
+    margin: 0;
+    width: 100%;
+    margin-left: 0 !important;
+}
+
+td div.form-group div{
+    width: 80%;
+    padding-right: 0px;
+}
+
+td div.form-group div input{
+	width: 100%;
+	padding: 1px !important;
+}
+
+td div.form-group label{
+    display: none;
+}
+
+.pl90{padding-left:90px !important;}
+
+.xui-special-postage div label.control-label{
+	display: none;
+}
+
+.xui-special-postage div{
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+}
+
