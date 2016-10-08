@@ -114,8 +114,7 @@ class AccountCreateApi(resource.Resource):
 				phone = phone,
 				valid_time_from = valid_time_from,
 				valid_time_to = valid_time_to,
-				customer_from = 1,
-				status = 0
+				customer_from = 1
 			)
 			#请求接口获得数据
 			try:
