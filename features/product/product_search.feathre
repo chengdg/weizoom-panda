@@ -242,7 +242,7 @@ Scenario:2 运营过滤商品列表
 	When yunying设置过滤条件
 	"""
 	{
-	"statute":"已同步"
+	"statute":"已同步,已入库"
 	}
 	"""
 	Then yunying获取商品列表
