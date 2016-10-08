@@ -62,6 +62,11 @@ def top_navs(request):
 				'displayName': '禁售仅售模板',
 				'icon': 'glyphicon glyphicon-file',
 				'href': '/limit_zone/template_list'
+			},{
+				'name': 'postage_config',
+				'displayName': '运费模板',
+				'icon': 'glyphicon glyphicon-file',
+				'href': '/postage_config/template'
 			}]
 		elif role == AGENCY:
 			top_navs = [{

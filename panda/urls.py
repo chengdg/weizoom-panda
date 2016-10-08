@@ -37,6 +37,7 @@ urlpatterns = patterns('',
 	url(r'^label/',restful_url('label')),
 	url(r'^limit_zone/', restful_url('limit_zone')),
 	url(r'^product_limit_zone/', restful_url('product_limit_zone')),
+	url(r'^postage_config/', restful_url('postage_config')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
