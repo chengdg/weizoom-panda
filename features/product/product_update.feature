@@ -3,6 +3,8 @@ Feature:客户修改已上架的商品信息，运营进行更新商品
 """
 1.运营更新商品信息
 2.运营驳回商品更新请求
+3.更改商品信息后，自动同步至weapp
+	#修改商品库存以及分类后才会自动更新
 """
 Background:
 Given manager登录管理系统
@@ -324,5 +326,35 @@ Scenario:2 运营驳回商品更新请求
 	"""
 	Then yunying查看商品更新列表
 	| goods_name | product_style | supplier | sale_price | set_price | stocks | statute |operate|
+
+@panda @update
+Scenario:3 更改商品信息后，自动同步至weapp
+	Given aini登录系统:panda
+	When aini编辑商品信息
+		"""
+		[{
+		"first_classify":"生活用品",
+		"second_classify":"肥皂",
+		"product_name": "武汉鸭脖",
+		"title":"武汉鸭脖",
+		"introduction": "这是一种很好吃的鸭脖"
+		"standard_promotion":"否",
+		"price":10.00,
+		"setlement_price":8.00,
+		"weight":0.23,
+		"repertory":"500.00",
+		"picture":"",
+		"description":"周黑鸭 鲜卤鸭脖 230g/袋 办公室休闲零食 肉干小食"
+		}]
+		"""
+	Given yunying登录系统:panda
+	When yunying查看商品更新列表
+		| goods_name | product_style | supplier | sale_price | set_price | stocks | statute |operate|
+
+	Given jobs登录系统:weapp
+	When jobs查看在售商品列表
+	|  information  | supplier   | group | price |     stocks      | sales |  putaway_time  |
+	|    武汉鸭脖   | p-爱伲咖啡 |       | 10.00 |     500.00      |  0.00 |2016-08-23 10:06|              
+	|    耐克男鞋   | p-爱伲咖啡 |       | 29.00 | 1000.00-2500.00 |  0.00 |2016-08-23 10:06|
 
 
