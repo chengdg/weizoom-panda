@@ -160,8 +160,8 @@ Scenario:1 客户过滤商品列表
 	}
 	"""
 	Then aini获取商品列表
-	|  name   | set_price |sale_price| sales |   creat_time   | status |
-	|武汉鸭脖 |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
+	|  name   |classify| set_price |sale_price| sales |   creat_time   | status |
+	|武汉鸭脖 |        |   10.00   |    8.00  | 0.00  |2016-07-25 16:30| 未上架 |
 	Then aini设置过滤条件
 	"""
 	{
