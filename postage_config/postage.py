@@ -28,23 +28,32 @@ import models
 
 
 FIRST_NAV = 'postage_config'
-SECOND_NAV = 'template'
+SECOND_NAV = 'postage_list'
 COUNT_PER_PAGE = 20
 
 
-class PostageConfig(resource.Resource):
+class Postage(resource.Resource):
 	"""
-
+	运费模板列表
 	"""
-
 	app = 'postage_config'
-	resource = 'new_template'
+	resource = 'postage'
 
-	def get(request):
-		c = RequestContext(request, {
-			'first_nav_name': FIRST_NAV,
-			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
-		})
-		return render_to_response('postage_config/new_template.html', c)
+	@login_required
+	def api_get(request):
+		rows = [{
+			'postage_method': u'普通快递',
+			'postage_destination': u'全国',
+			'postage_weight': '2',
+			'postage_price': '5.00',
+			'over_weight': '1',
+			'over_price': '0.00'
+		}]
+		data = {
+			'rows': rows
+		}	
 
+		# 构造response
+		response = create_response(200)
+		response.data = data
+		return response.get_response()

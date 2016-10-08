@@ -1,2 +1,3 @@
 import manage
-import new_postage_template
+import postage_list
+import postage

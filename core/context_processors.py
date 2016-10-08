@@ -66,7 +66,7 @@ def top_navs(request):
 				'name': 'postage_config',
 				'displayName': '运费模板',
 				'icon': 'glyphicon glyphicon-file',
-				'href': '/postage_config/template'
+				'href': '/postage_config/postage_list'
 			}]
 		elif role == AGENCY:
 			top_navs = [{
