@@ -131,7 +131,7 @@ class ManagerAccount(resource.Resource):
 					'username': user_id2username[account.user_id],
 					'companyType': catalog_names,
 					'purchaseMethod': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-					'accountType': ROLE2NAME[account.role],
+					'createdAt': account.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 					'status': account.status,
 					'maxProduct': account.max_product if account.role == CUSTOMER else '--',
 					'customerFrom': customerFrom
@@ -146,6 +146,7 @@ class ManagerAccount(resource.Resource):
 					'purchase_method': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
 					'username': user_id2username[account.user_id],
 					'role': ROLE2NAME[account.role],
+					'createdAt': account.created_at.strftime("%Y-%m-%d %H:%M:%S"),
 					'note': account.note,
 					'company_name': account.company_name,
 					'companyType': catalog_names
@@ -216,7 +217,7 @@ class ExportAccounts(resource.Resource):
 		accounts = ManagerAccount.api_get(request)
 		titles = [
 			u'账号id', u'对应user_id', u'账号类型', u'账号名称', u'登录账号', u'公司名称',
-			u'联系人', u'手机号', u'采购方式', u'备注', u"经营类目"
+			u'联系人', u'手机号', u'采购方式', u'备注', u"经营类目", u"创建时间"
 		]
 		table = []
 		table.append(titles)
@@ -232,7 +233,8 @@ class ExportAccounts(resource.Resource):
 				account['phone'],
 				account['purchase_method'],
 				account['note'],
-				account['companyType']
+				account['companyType'],
+				account['createdAt']
 			])
 		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)
 
