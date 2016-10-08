@@ -6,8 +6,8 @@ from django.conf import settings
 
 from bdem import msgutil
 
-topic_name = "customer-add-product"
-msg_name = "customer_product_info"
+topic_name = "test-topic"
+msg_name = "test-queue"
 
 def send_product_message(data):
 	data = {

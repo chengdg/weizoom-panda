@@ -310,7 +310,12 @@ class NewProduct(resource.Resource):
 				'evaluation': '',
 				'evaluation_list': []
 			}
-			send_customer_product_messages(product_message,product.id)
+			# send_customer_product_messages(product_message,product.id)
+			try:
+				send_customer_product_messages(product_message,product.id)
+			except :
+				message = u"发送商品信息异常：{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
 
 			try:
 				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
