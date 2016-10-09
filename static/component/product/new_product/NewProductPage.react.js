@@ -134,7 +134,12 @@ var NewProductPage = React.createClass({
 		// 	}
 		// }
 		if(has_product_model==='0'){
-			if(W.purchase_method==2){
+			if(W.purchase_method==1){
+				var clear_price = product.clear_price;
+				if(clear_price){
+					product["product_price"] = clear_price;
+				}
+			}else if(W.purchase_method==2){
 				var product_price = product.product_price;
 				if(product_price){
 					var points = 1-(W.points/100);
@@ -198,15 +203,16 @@ var NewProductPage = React.createClass({
 						var product_price = parseFloat(product_price);
 						var clear_price= (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 					}
-				}else if(W.purchase_method==1) {
-					var product_price = product['product_price_'+model.modelId];
-					var clear_price = product['clear_price_'+model.modelId];
-					if(parseFloat(clear_price) > parseFloat(product_price)){
-						is_true = true;
-						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-						return;
-					}
 				}
+				// else if(W.purchase_method==1) {
+				// 	var product_price = product['product_price_'+model.modelId];
+				// 	var clear_price = product['clear_price_'+model.modelId];
+				// 	if(parseFloat(clear_price) > parseFloat(product_price)){
+				// 		is_true = true;
+				// 		Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+				// 		return;
+				// 	}
+				// }
 				// var time_from = product['valid_time_from_'+model.modelId]
 				// var time_to = product['valid_time_to_'+model.modelId]
 				// if(time_from>time_to){
@@ -238,7 +244,12 @@ var NewProductPage = React.createClass({
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
 			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
-			if(W.purchase_method==2){
+			if(W.purchase_method==1){
+				var clear_price = parseFloat(product["clear_price_"+model.modelId]);
+				if(clear_price){
+					model["product_price_"+model.modelId] = clear_price;
+				}
+			}else if(W.purchase_method==2){
 				var points = 1-(W.points/100);
 				var product_price = parseFloat(product["product_price_"+model.modelId]);
 				if(product_price){

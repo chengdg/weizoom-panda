@@ -65,8 +65,6 @@ var Action = {
 				}
 			});
 		}		
-
-		
 	},
 
 	updateProduct: function(property, value) {

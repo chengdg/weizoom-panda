@@ -91,9 +91,6 @@ var ProductModelInfo = React.createClass({
 							<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
 						</td>
 						<td>
-							<Reactman.FormInput label="" type="text" name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-						</td>
-						<td>
 							<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
 						</td>
 						<td>
@@ -137,11 +134,6 @@ var ProductModelInfo = React.createClass({
 			if(W.purchase_method==1){
 				return(
 					<div className="product_info_fieldset">
-						<Reactman.FormInput label="商品售价:" type="text" readonly={disabled} name="product_price" value={this.state.product_price} onChange={this.props.onChange} validate="require-float"/>
-						<span className="money_note">
-							元
-						</span>
-						<div></div>
 						<Reactman.FormInput label="结算价:" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.props.onChange} validate="require-float"/>
 						<span className="money_note">
 							元
@@ -185,7 +177,6 @@ var ProductModelInfo = React.createClass({
 									<tr>
 										{th}
 										<th>结算价格(元)</th>
-										<th>商品售价(元)</th>
 										<th>重量(Kg)</th>
 										<th>库存</th>
 										<th>操作</th>
@@ -226,7 +217,6 @@ var ProductModelInfo = React.createClass({
 					</div>
 				)
 			}
-			
 		}
 	}
 });
