@@ -22,7 +22,7 @@ from account.models import *
 from product import models as product_models
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST, ZEUS_HOST
 from panda.settings import CESHI_USERNAMES
-
+from self_shop.manage import get_all_synced_self_shops
 
 FIRST_NAV = 'order'
 SECOND_NAV = 'order-list'
@@ -51,10 +51,14 @@ class YunyingOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		jsons = {'items' : []}
+		rows = get_all_synced_self_shops(request, is_for_search=True)['rows']
+		jsons['items'].append(('typeOptions', json.dumps(rows)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'jsons': jsons
 		})
 
 		return render_to_response('order/yunying_orders_list.html', c)

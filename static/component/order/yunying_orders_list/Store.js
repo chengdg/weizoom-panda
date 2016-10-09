@@ -17,19 +17,14 @@ var Constant = require('./Constant');
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleFilterOrders': Constant.FILTER_ORDERS,
-		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
-		'initAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
+		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
 	},
 
 	init: function() {
+		var typeOptions = Reactman.loadJSON('typeOptions');
 		this.data = {
-			typeOptions: []
+			typeOptions: typeOptions
 		};
-	},
-
-	initAllSelfShops: function(action) {
-		this.data['typeOptions'] = action.data.rows;
-		this.__emitChange();
 	},
 
 	handleFilterOrders: function(action) {

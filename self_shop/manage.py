@@ -168,42 +168,51 @@ class GetAllSyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		is_for_search = request.GET.get('is_for_search', '')
-		all_self_shop_value = []
-		if is_for_search == 'true':
-			rows = [{
-				'text': u'全部',
-				'value': '-1'
-			}]
-		else:
-			rows = []
-		self_shops = models.SelfShops.objects.filter(is_deleted=False).exclude(self_shop_name__in=['开发测试','财务测试'])
-		for self_shop in self_shops:
-			rows.append({
-				'text': self_shop.self_shop_name,
-				'value': self_shop.weapp_user_id
-			})
-			all_self_shop_value.append(self_shop.weapp_user_id)
-
-		username = account_models.User.objects.get(id=request.user.id).username
-		if username in CESHI_USERNAMES:
-			rows.append({
-				'text': u'开发测试',
-				'value': 'devceshi'
-			})
-			rows.append({
-				'text': u'财务测试',
-				'value': 'caiwuceshi'
-			})
-			all_self_shop_value.append('devceshi')
-			all_self_shop_value.append('caiwuceshi')
-		data = {
-			'rows': rows,
-			'allSelfShopsValue' : all_self_shop_value
-		}
+		is_for_search = False
+		if request.GET.get('is_for_search', '') == 'true':
+			is_for_search = True
+		data = get_all_synced_self_shops(request, is_for_search)
 		response = create_response(200)
 		response.data = data
 		return response.get_response()
+
+def get_all_synced_self_shops(request,is_for_search):
+	"""
+	得到所有已经同步过的自营平台
+	"""
+	all_self_shop_value = []
+	if is_for_search:
+		rows = [{
+			'text': u'全部',
+			'value': '-1'
+		}]
+	else:
+		rows = []
+	self_shops = models.SelfShops.objects.filter(is_deleted=False).exclude(self_shop_name__in=['开发测试','财务测试'])
+	for self_shop in self_shops:
+		rows.append({
+			'text': self_shop.self_shop_name,
+			'value': self_shop.weapp_user_id
+		})
+		all_self_shop_value.append(self_shop.weapp_user_id)
+
+	username = account_models.User.objects.get(id=request.user.id).username
+	if username in CESHI_USERNAMES:
+		rows.append({
+			'text': u'开发测试',
+			'value': 'devceshi'
+		})
+		rows.append({
+			'text': u'财务测试',
+			'value': 'caiwuceshi'
+		})
+		all_self_shop_value.append('devceshi')
+		all_self_shop_value.append('caiwuceshi')
+	data = {
+		'rows': rows,
+		'allSelfShopsValue' : all_self_shop_value
+	}
+	return data
 
 def sync_all_product_2_new_self_shop(self_user_name):
 	"""

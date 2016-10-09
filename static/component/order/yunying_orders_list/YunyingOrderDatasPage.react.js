@@ -21,7 +21,6 @@ var YunyingOrderDatasPage = React.createClass({
 	},
 
 	componentDidMount: function () {
-		Action.getAllSyncedSelfShops();
 	},
 
 	onChangeStore: function(event) {

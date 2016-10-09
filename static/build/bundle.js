@@ -41164,18 +41164,6 @@
 				actionType: Constant.ORDER_DATAS_EXPORT,
 				data: {}
 			});
-		},
-		getAllSyncedSelfShops: function () {
-			Resource.get({
-				resource: 'self_shop.get_all_synced_self_shops',
-				data: {
-					'is_for_search': true
-				},
-				dispatch: {
-					dispatcher: Dispatcher,
-					actionType: Constant.INIT_ALL_SELF_SHOPS
-				}
-			});
 		}
 	};
 
@@ -41194,8 +41182,7 @@
 
 	module.exports = keyMirror({
 	  FILTER_ORDERS: null,
-	  ORDER_DATAS_EXPORT: null,
-	  INIT_ALL_SELF_SHOPS: null
+	  ORDER_DATAS_EXPORT: null
 	});
 
 /***/ },
@@ -41221,19 +41208,14 @@
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
 			'handleFilterOrders': Constant.FILTER_ORDERS,
-			'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
-			'initAllSelfShops': Constant.INIT_ALL_SELF_SHOPS
+			'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT
 		},
 
 		init: function () {
+			var typeOptions = Reactman.loadJSON('typeOptions');
 			this.data = {
-				typeOptions: []
+				typeOptions: typeOptions
 			};
-		},
-
-		initAllSelfShops: function (action) {
-			this.data['typeOptions'] = action.data.rows;
-			this.__emitChange();
 		},
 
 		handleFilterOrders: function (action) {
@@ -41286,9 +41268,7 @@
 			return Store.getData();
 		},
 
-		componentDidMount: function () {
-			Action.getAllSyncedSelfShops();
-		},
+		componentDidMount: function () {},
 
 		onChangeStore: function (event) {
 			this.setState(Store.getData());

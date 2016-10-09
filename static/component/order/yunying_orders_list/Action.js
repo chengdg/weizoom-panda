@@ -24,18 +24,6 @@ var Action = {
 			actionType: Constant.ORDER_DATAS_EXPORT,
 			data: {}
 		});
-	},
-	getAllSyncedSelfShops: function(){
-		Resource.get({
-			resource: 'self_shop.get_all_synced_self_shops',
-			data: {
-				'is_for_search': true
-			},
-			dispatch: {
-				dispatcher: Dispatcher,
-				actionType: Constant.INIT_ALL_SELF_SHOPS
-			}
-		})
 	}
 };
 
