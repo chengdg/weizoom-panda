@@ -289,14 +289,19 @@ class NewProduct(resource.Resource):
 							))
 						models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
 			# 发送mns消息
-			send_product_message.send_add_product_message(product=product,
-														  user_id=request.user.id,
-														  image_paths=image_paths[0])
+			try:
+				send_product_message.send_add_product_message(product=product,
+															  user_id=request.user.id,
+															  image_paths=image_paths[0])
+			except:
+				message = u"send_add_product_message:new_product:{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
 			try:
 				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
 			except :
 				message = u"修改帐号商品数异常：{}".format(unicode_full_stack())
 				watchdog.watchdog_error(message)
+				print message
 			response = create_response(200)
 		except:
 			response = create_response(500)

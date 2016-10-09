@@ -29,6 +29,26 @@ def send_sync_product_message(product=None, user_id=None, image_paths=None):
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
 
 
+def send_sync_weapp_account_change(product_id=None):
+	"""
+	同步不同平台信息(如果取消同步了,也需要同步状态信息)
+	"""
+	data = {
+		'product_id': product_id,
+		'show_list': product_show_list(product_id=product_id),
+		'push_status': get_product_status(product_id=product_id)
+	}
+	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
+def send_sync_update_product_message(product=None, user_id=None, image_paths=None):
+	"""
+	运营同步更新商品信息的时候发送消息
+	"""
+	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
+	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
 def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	"""
 	组织商品信息
@@ -52,20 +72,10 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 			model_name = ' '.join([value.name for value in model_property_value])
 			price_info.append(model_name + ' ' + str(temp_price))
 		price_info = ';'.join(price_info)
-	push_status = '未同步'
-	product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).last()
-	if product_relation:
-		push_status = '已同步'
-	# 在哪个平台显示该商品
-	show_list = ''
-	if product_relation:
-		self_user_names = [t.self_user_name
-						   for t in models.ProductSyncWeappAccount.objects.filter(product_id=product.id)]
-		self_shop_names = [self_shop.self_shop_name
-						   for self_shop in
-						   self_shop_models.SelfShops.objects.filter(weapp_user_id__in=self_user_names)]
-		show_list = '、'.join(self_shop_names)
 
+	push_status = get_product_status(product_id=product.id)
+	# 在哪个平台显示该商品
+	show_list = product_show_list(product.id)
 	# 构造参数
 	product_message = {
 		'product_id': product.id,
@@ -76,13 +86,13 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 		'price': str(product.product_price),
 		'price_info': price_info,  # 规格/价格
 		'push_status': push_status,
-		'first_sale_time': '',  # 首次上架时间
+		# 'first_sale_time': '',  # 首次上架时间
 		'show_list': show_list,
-		'sales_revenue': '0',  # 累计销量
-		'buyer_count': '0',  # 累计购买用户数量
-		'order_area': "0",  # 商品销售区域覆盖数量
-		'evaluation': '',
-		'evaluation_list': []
+		# 'sales_revenue': '0',  # 累计销量
+		# 'buyer_count': '0',  # 累计购买用户数量
+		# 'order_area': "0",  # 商品销售区域覆盖数量
+		# 'evaluation': '',
+		# 'evaluation_list': []
 	}
 	return product_message
 
@@ -91,3 +101,30 @@ def product_show_list(product_id):
 	"""
 	商品在哪个平台显示(返回平台名称列表)
 	"""
+
+	self_user_names = [t.self_user_name
+					   for t in models.ProductSyncWeappAccount.objects.filter(product_id=product_id)]
+	if self_user_names:
+		self_shop_names = [self_shop.self_shop_name
+						   for self_shop in
+						   self_shop_models.SelfShops.objects.filter(weapp_user_id__in=self_user_names)]
+
+		show_list = u'、'.join(self_shop_names)
+		return show_list
+	else:
+		return u''
+
+
+def get_product_status(product_id=None):
+	"""
+	获取商品状态
+	"""
+	push_status = '未同步'
+	product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
+	account_count = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
+	if product_relation:
+		if account_count == 0:
+			push_status = '已入库,已停售'
+		else:
+			push_status = '已入库,已同步'
+	return push_status

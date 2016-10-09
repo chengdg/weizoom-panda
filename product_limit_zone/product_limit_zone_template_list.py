@@ -64,12 +64,12 @@ class ProductLimitZone(resource.Resource):
 					# 这个省是全部的
 
 					temp_city_ids = [city.id for city in province_id_to_cities.get(zone.province)]
-
+					# 如果是省的话,而且省是全选,那么返回的想回显全选必须把这个省的所有组合返回去.
 					if zone.province not in [1, 2, 9, 32, 33, 34, 22]:
 						zone_list += ['_'.join([str(zone.province), str(city_id)]) for city_id in temp_city_ids]
 					else:
 						zone_list.append(str(zone.province))
-					print zone.province, temp_city_ids
+					# print zone.province, temp_city_ids
 			# zone_list = [str(zone.province) if not zone.city else '_'.join([str(zone.province), str(zone.city)])
 			# 			 for zone in zone_info]
 			limit_zone_info = defaultdict(list)
