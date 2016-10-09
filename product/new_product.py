@@ -74,8 +74,6 @@ class NewProduct(resource.Resource):
 		jsons = {'items':[]}
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
 		role = user_profile.role
-		purchase_method = user_profile.purchase_method #采购方式
-		points = user_profile.points #零售价返点
 		product_has_model = 0
 		# 获取所有的限制
 		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
@@ -94,7 +92,13 @@ class NewProduct(resource.Resource):
 				product = models.Product.objects.get(id=product_id)
 				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
+				owner_id = product.owner_id
+				current_owner_info = UserProfile.objects.get(user_id=owner_id)
+				purchase_method = current_owner_info.purchase_method #当前商品所属客户的采购方式
+				points = current_owner_info.points #当前商品所属客户的零售价返点
 			else:
+				purchase_method = user_profile.purchase_method #采购方式
+				points = user_profile.points #零售价返点
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
 				property_ids = [model_propertie.id for model_propertie in model_properties]
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
