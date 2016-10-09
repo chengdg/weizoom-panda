@@ -44,13 +44,15 @@ var SpecialPostagePage = React.createClass({
 		Action.deleteSpecialPostage(index);
 	},
 
-	onSelectArea:function(selectedIds, selectedDatas, event) {
+	onSelectArea:function(index, selectedIds, selectedDatas) {
+		if(selectedIds==undefined){
+			return;
+		}
         if(selectedIds.length == 0){
             Reactman.PageAction.showHint('error', '您需要选择地区！');
             return;
         }
-
-        // Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
+        Action.updateSpecialArea(selectedIds, index);
 	},
 
 	render:function(){
@@ -64,19 +66,19 @@ var SpecialPostagePage = React.createClass({
 			return(
 				<tr key={index}>
 					<td>
-						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea} initSelectedIds={[]} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
+						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="first_weight" value={postages.first_weight} onChange={_this.onChangeValue.bind(_this,index)} />
+						<Reactman.FormInput label="" type="text" name="firstWeight" value={postages.firstWeight} onChange={_this.onChangeValue.bind(_this,index)} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="first_weight_price" value={postages.first_weight_price} onChange={_this.onChangeValue.bind(_this,index)} />
+						<Reactman.FormInput label="" type="text" name="firstWeightPrice" value={postages.firstWeightPrice} onChange={_this.onChangeValue.bind(_this,index)} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="added_weight" value={postages.added_weight} onChange={_this.onChangeValue.bind(_this,index)} />
+						<Reactman.FormInput label="" type="text" name="addedWeight" value={postages.addedWeight} onChange={_this.onChangeValue.bind(_this,index)} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="added_weight_price" value={postages.added_weight_price} onChange={_this.onChangeValue.bind(_this,index)}/>
+						<Reactman.FormInput label="" type="text" name="addedWeightPrice" value={postages.addedWeightPrice} onChange={_this.onChangeValue.bind(_this,index)}/>
 					</td>
 					<td>
 						<a href="javascript:void(0);" onClick={_this.deleteSpecialPostage.bind(_this, index)}>删除</a>

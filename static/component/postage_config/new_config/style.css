@@ -25,12 +25,18 @@ td div.form-group label{
 
 .pl90{padding-left:90px !important;}
 
-.xui-special-postage div label.control-label{
+.xui-special-postage div label.control-label,
+.xui-free-postage div label.control-label{
 	display: none;
 }
 
-.xui-special-postage div{
+.xui-special-postage div, .xui-free-postage div{
 	margin-left: 0px !important;
 	padding-left: 0px !important;
 }
 
+.xui-form-province-city-select-dialog .xui-i-icon-btn{
+    border: 1px solid rgb(191, 169, 169);
+    color: #3C3434;
+    font-size: 14px;
+}

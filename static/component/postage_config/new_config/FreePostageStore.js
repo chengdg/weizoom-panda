@@ -16,56 +16,77 @@ var Constant = require('./Constant');
 
 var FreePostageStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateSpecialPostages': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_POSTAGE,
-		'handleAddSpecialPostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_ADD_SPECIAL_POSTAGE,
-		'handleUpdateSpecialValues': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_VALUES,
-		'handleDeleteSpecialPostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_DELETE_SPECIAL_POSTAGE
+		'handleUpdateFreeValues': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_FREE_VALUES,
+		'handleUpdateCondition': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONDITION,
+		'handleUpdateFreePostages': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_FREE_POSTAGE,
+		'handleUpdateFreeArea': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_FREE_AREA,
+		'handleAddFreePostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_ADD_FREE_POSTAGE,
+		'handleDeleteFreePostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_DELETE_FREE_POSTAGE
 	},
 
 	init: function() {
 		this.data = {
 			'hasFreePostage': [],
 			'freePostages': [{
-				'first_weight': '',
-				'first_weight_price': '',
-				'added_weight': '',
-				'added_weight_price': ''
+				'condition': '',
+				'conditionValue': 'count',
+				'selectedIds': []
 			}]
 		};
 	},
 
-	handleUpdateSpecialPostages: function(action) {
+	handleUpdateFreePostages: function(action){
 		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handleAddSpecialPostage: function() {
-		var specialPostages = this.data.specialPostages;
-		specialPostages.push({
-			'first_weight': '',
-			'first_weight_price': '',
-			'added_weight': '',
-			'added_weight_price': ''
-		})
-		this.data.specialPostages = specialPostages;
-		this.__emitChange();
-	},
-
-	handleUpdateSpecialValues: function(action) {
+	handleUpdateFreeValues: function(action) {
 		var index = action.data.index;
 		var property = action.data.property;
-		var value = action.data.value;
-		var specialPostages = this.data.specialPostages;
-		specialPostages[index][property] = value;
-		this.data.specialPostages = specialPostages;
+		this.data.freePostages[index][property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handleDeleteSpecialPostage: function(action){
+	handleUpdateCondition: function(action) {
 		var index = action.data.index;
-		var specialPostages = this.data.specialPostages;
-		specialPostages.splice(index,1)
-		this.data.specialPostages = specialPostages;
+		var conditionValue = action.data.conditionValue;
+		var freePostages = this.data.freePostages;
+
+		if(conditionValue == 'count'){
+			freePostages[index]['conditionValue'] = 'money';
+		}else{
+			freePostages[index]['conditionValue'] = 'count';
+		}
+
+		freePostages[index]['condition'] = '';
+
+		this.data.freePostages = freePostages;
+		this.__emitChange();
+	},
+
+	handleAddFreePostage: function() {
+		var freePostages = this.data.freePostages;
+		freePostages.push({
+			'condition': '',
+			'conditionValue': 'count',
+			'selectedIds': []
+		})
+		this.data.freePostages = freePostages;
+		this.__emitChange();
+	},
+
+	handleDeleteFreePostage: function(action){
+		var index = action.data.index;
+		var freePostages = this.data.freePostages;
+		freePostages.splice(index,1)
+		this.data.freePostages = freePostages;
+		this.__emitChange();
+	},
+
+	handleUpdateFreeArea: function(action){
+		var index = action.data.index;
+		var selectedIds = action.data.selectedIds;
+		this.data.freePostages[index]['selectedIds'] = selectedIds;
 		this.__emitChange();
 	},
 

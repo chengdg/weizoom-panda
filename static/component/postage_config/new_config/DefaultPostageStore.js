@@ -31,7 +31,7 @@ var DefaultPostageStore = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleUpdateDefaultPostages: function(action) {
-		this.data[action.data.property] = action.data.value;
+		this.data.defaultPostages[0][action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 

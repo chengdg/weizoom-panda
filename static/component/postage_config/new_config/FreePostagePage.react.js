@@ -24,61 +24,84 @@ var FreePostagePage = React.createClass({
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
+		Action.updateFreePostages(property, value);
+	},
+
+	onChangePostage: function(index, event) {
+		var property = event.target.getAttribute('name');
+		var value = event.target.value;
+		Action.updateFreeValues(property, value, index);
 	},
 
 	onChangeStore: function(){
 		this.setState(FreePostageStore.getData());
 	},
 
-	addSpecialPostage: function() {
-		Action.addSpecialPostage();
+	onChangeCondition: function(conditionValue, index){
+		Action.updateCondition(conditionValue, index);
 	},
 
-	deleteSpecialPostage: function(index) {
-		Action.deleteSpecialPostage(index);
+	addFreePostage: function() {
+		Action.addFreePostage();
 	},
 
-	onSelectArea:function(selectedIds, selectedDatas, event) {
+	deleteFreePostage: function(index) {
+		Action.deleteFreePostage(index);
+	},
+
+	onSelectArea:function(index, selectedIds, selectedDatas) {
+       if(selectedIds==undefined){
+			return;
+		}
         if(selectedIds.length == 0){
             Reactman.PageAction.showHint('error', '您需要选择地区！');
             return;
         }
-
-        // Action.updateLimitZoneTemplateInfo(selectedDatas, selectedIds, event);
+        Action.updateFreeArea(selectedIds, index);
 	},
 
 	render:function(){
-		var optionsForPostage = [{
-			text: '特殊包邮条件',
-			value: '1'
-		}];
-
 		var _this = this;
 		var freePostages = this.state.freePostages;
-		console.log(freePostages,"========");
+		var optionsForFreeCondition = [{
+			text: '件数',
+			value: 'count'
+		},{
+			text: '金额',
+			value: 'money'
+		}];
+
 		var postagesTr = freePostages.map(function(postages, index){
+			var conditionValue = postages.conditionValue;
+			var unit = conditionValue == 'count'? '件': '元';
+
 			return(
 				<tr key={index}>
 					<td>
-						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea} initSelectedIds={[]} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
+						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="first_weight_price" value={postages.first_weight_price} onChange={_this.onChange} />
+						<Reactman.FormSelect label="" name="conditionValue" value={postages.conditionValue} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, conditionValue, index)} />
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="added_weight" value={postages.added_weight} onChange={_this.onChange} />
+						<input type="text" className="form-control" id="condition" name="condition" value={postages.condition} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block'}}/>
+						<span>{unit}</span>
 					</td>
 					<td>
-						<a href="javascript:void(0);" onClick={_this.deleteSpecialPostage.bind(_this, index)}>删除</a>
+						<a href="javascript:void(0);" onClick={_this.deleteFreePostage.bind(_this, index)}>删除</a>
 					</td>
 				</tr>
 			)
 		});
 
+		var optionsForPostage = [{
+			text: '特殊包邮条件',
+			value: '1'
+		}];
+
 		return (
 			<div className="form-horizontal mt15 pt20 pl90">
-				<div className="xui-special-postage">
+				<div className="xui-free-postage">
 					<Reactman.FormCheckbox label="" name="hasFreePostage" value={this.state.hasFreePostage} options={optionsForPostage} onChange={this.onChange} />
 				</div>
 				<table className="table table-bordered" style={{width:'60%'}}>
@@ -94,6 +117,9 @@ var FreePostagePage = React.createClass({
 						{postagesTr}
 					</tbody>
 				</table>
+				<div className="xui-free-postage">
+					<a href="javascript:void(0);" onClick={this.addFreePostage}>继续添加</a>
+				</div>
 			</div>
 		)
 	}

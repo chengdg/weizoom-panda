@@ -17,6 +17,7 @@ var Constant = require('./Constant');
 var SpecialPostageStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateSpecialPostages': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_POSTAGE,
+		'handleUpdateSpecialArea': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_AREA,
 		'handleAddSpecialPostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_ADD_SPECIAL_POSTAGE,
 		'handleUpdateSpecialValues': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_VALUES,
 		'handleDeleteSpecialPostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_DELETE_SPECIAL_POSTAGE
@@ -26,10 +27,11 @@ var SpecialPostageStore = StoreUtil.createStore(Dispatcher, {
 		this.data = {
 			'hasSpecialPostage': [],
 			'specialPostages': [{
-				'first_weight': '',
-				'first_weight_price': '',
-				'added_weight': '',
-				'added_weight_price': ''
+				'firstWeight': '',
+				'firstWeightPrice': '',
+				'addedWeight': '',
+				'addedWeightPrice': '',
+				'selectedIds': []
 			}]
 		};
 	},
@@ -42,10 +44,11 @@ var SpecialPostageStore = StoreUtil.createStore(Dispatcher, {
 	handleAddSpecialPostage: function() {
 		var specialPostages = this.data.specialPostages;
 		specialPostages.push({
-			'first_weight': '',
-			'first_weight_price': '',
-			'added_weight': '',
-			'added_weight_price': ''
+			'firstWeight': '',
+			'firstWeightPrice': '',
+			'addedWeight': '',
+			'addedWeightPrice': '',
+			'selectedIds': []
 		})
 		this.data.specialPostages = specialPostages;
 		this.__emitChange();
@@ -66,6 +69,13 @@ var SpecialPostageStore = StoreUtil.createStore(Dispatcher, {
 		var specialPostages = this.data.specialPostages;
 		specialPostages.splice(index,1)
 		this.data.specialPostages = specialPostages;
+		this.__emitChange();
+	},
+
+	handleUpdateSpecialArea: function(action){
+		var index = action.data.index;
+		var selectedIds = action.data.selectedIds;
+		this.data.specialPostages[index]['selectedIds'] = selectedIds;
 		this.__emitChange();
 	},
 
