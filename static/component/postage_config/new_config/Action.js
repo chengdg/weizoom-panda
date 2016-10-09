@@ -13,29 +13,49 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	updateSelfShopDialog: function(property, value) {
+	updateDefaultPostages: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.UPDATE_SELF_SHOPS,
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_DEFAULT_POSTAGE,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	updateSpecialPostages: function(property, value) {
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_POSTAGE,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	updateSpecialValues: function(index, property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_SPECIAL_VALUES,
+			data: {
+				index: index,
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	addSpecialPostage: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_ADD_SPECIAL_POSTAGE,
 			data: {}
 		});
 	},
-	syncSelfShopProduct: function(userName) {
-		Resource.post({
-			resource: 'self_shop.manage',
+
+	deleteSpecialPostage: function(index){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_DELETE_SPECIAL_POSTAGE,
 			data: {
-				self_user_name: userName
-			},
-			success: function() {
-				Reactman.PageAction.showHint('success', '同步成功');
-				setTimeout(function(){
-					Dispatcher.dispatch({
-						actionType: Constant.UPDATE_SELF_SHOPS,
-						data: {}
-					});
-				},500);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
+				index: index
 			}
 		});
 	},
