@@ -16,6 +16,7 @@ from product_limit_zone import models as limit_zone_models
 from panda.settings import PRODUCT_POOL_OWNER_ID
 from product_catalog import models as catalog_models
 from label import models as label_models
+from util import send_product_message
 
 
 SELF_NAMETEXT2VALUE = {
@@ -274,6 +275,9 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 			# 判断是更新还是新曾商品同步(只处理添加)
 			relation = [] if product_id not in product_id2relation else product_id2relation[product_id]
 			if not relation:
+				# 发送同步信息
+				send_product_message.send_sync_product_message(product=product, user_id=request.user.id,
+															  image_paths=json.dumps(images)[0].get('path'))
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 					'resource': 'mall.sync_product',
 					'data': params

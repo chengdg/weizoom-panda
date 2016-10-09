@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
-import json
-import time
+
 import HTMLParser
 
-from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.db.models import F
 from django.contrib.auth.decorators import login_required
 
 from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
-from core import paginator
-from util import db_util
+
 from util import string_util
 from eaglet.utils.resource_client import Resource
 from eaglet.core.exceptionutil import unicode_full_stack
@@ -26,14 +22,15 @@ from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
 from services.panda_send_modify_product_ding_talk_service.tasks import send_modify_product_ding_talk
-from services.panda_send_customer_product_messages_service.tasks import send_customer_product_messages
+
 import nav
 import models
 from product_limit_zone import models as limit_zone_models
-from weapp_relation import sync_product_label
+from util import send_product_message
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
+
 
 SELF_SHOP2TEXT = {
 	'weizoom_jia': u'微众家',
@@ -291,32 +288,10 @@ class NewProduct(resource.Resource):
 								property_value_id = property_value['id']
 							))
 						models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-
-			#构造参数
-			product_message = {
-				'product_id': product.id,
-				'product_name': product_name,
-				'customer_name': UserProfile.objects.filter(user_id=request.user.id)[0].name,
-				'product_image': ','.join(image_paths),
-				'category': catalog_models.ProductCatalog.objects.filter(id=second_level_id)[0].name,
-				'price': product_price,
-				'price_info': '',#规格/价格
-				'push_status': u'未同步',
-				'first_sale_time': '',#首次上架时间
-				'show_list': '',
-				'sales_revenue': '0',#累计销量
-				'buyer_count': '0',#累计购买用户数量
-				'order_area': "0",#商品销售区域覆盖数量
-				'evaluation': '',
-				'evaluation_list': []
-			}
-			# send_customer_product_messages(product_message,product.id)
-			try:
-				send_customer_product_messages(product_message,product.id)
-			except :
-				message = u"发送商品信息异常：{}".format(unicode_full_stack())
-				watchdog.watchdog_error(message)
-
+			# 发送mns消息
+			send_product_message.send_add_product_message(product=product,
+														  user_id=request.user.id,
+														  image_paths=image_paths[0])
 			try:
 				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
 			except :

@@ -1,32 +1,93 @@
-#coding=utf8
-
-# 调用接口发送钉钉消息的工具 duhao
-
-from django.conf import settings
+# -*- coding: utf-8 -*-
 
 from bdem import msgutil
 
-topic_name = "test-topic"
-msg_name = "test-queue"
+from panda.settings import PRODUCT_TOPIC_NAME
+from panda.settings import PRODUCT_MSG_NAME
 
-def send_product_message(data):
-	data = {
-		"product_id": data.product_id,
-		"product_name": data.product_name,
-		"customer_name": data.customer_name,
-		"product_image": data.product_image,
-		"category": data.category,
-		"price": data.price,
-		"price_info": data.price_info,
-		"push_status": data.push_status,
-		"first_sale_time": data.first_sale_time,
-		"show_list": data.show_list,
-		"sales_revenue": data.sales_revenue,
-		"buyer_count": data.buyer_count,
-		"order_area": data.order_area,
-		"evaluation": data.evaluation,
-		"evaluation_list": data.evaluation_list
+from product import models
+from self_shop import models as self_shop_models
+from product_catalog import models as catalog_models
+from account.models import UserProfile
+
+
+def send_add_product_message(product=None, user_id=None, image_paths=None):
+	"""
+	客户添加商品消息
+	"""
+	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
+
+	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
+def send_sync_product_message(product=None, user_id=None, image_paths=None):
+	"""
+	首次同步商品信息
+	"""
+	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
+
+	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
+def organize_product_message_info(product=None, user_id=None, image_paths=None):
+	"""
+	组织商品信息
+	"""
+	second_catagory = catalog_models.ProductCatalog.objects.filter(id=product.catalog_id).last()
+	father_catagory = catalog_models.ProductCatalog.objects.filter(id=second_catagory.father_id).last()
+	# 商品规格信息
+	if not product.has_product_model:
+		price_info = 'standard %s' % str(product.product_price)
+	else:
+		# 多规格
+		price_info = []
+		model_infos = models.ProductModel.objects.filter(product_id=product.id,
+														 is_deleted=False,
+														 )
+		for info in model_infos:
+			temp_price = info.price()
+			names = info.split('_')
+			model_property_value_ids = [name.split(':')[-1] for name in names]
+			model_property_value = models.ProductModelPropertyValue.objects.filter(id__in=model_property_value_ids)
+			model_name = ' '.join([value.name for value in model_property_value])
+			price_info.append(model_name + ' ' + str(temp_price))
+		price_info = ';'.join(price_info)
+	push_status = '未同步'
+	product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product.id).last()
+	if product_relation:
+		push_status = '已同步'
+	# 在哪个平台显示该商品
+	show_list = ''
+	if product_relation:
+		self_user_names = [t.self_user_name
+						   for t in models.ProductSyncWeappAccount.objects.filter(product_id=product.id)]
+		self_shop_names = [self_shop.self_shop_name
+						   for self_shop in
+						   self_shop_models.SelfShops.objects.filter(weapp_user_id__in=self_user_names)]
+		show_list = '、'.join(self_shop_names)
+
+	# 构造参数
+	product_message = {
+		'product_id': product.id,
+		'product_name': product.product_name,
+		'customer_name': UserProfile.objects.filter(user_id=user_id)[0].name,
+		'product_image': image_paths,
+		'category': '' if not second_catagory else '-'.join([father_catagory.name, second_catagory.name]),
+		'price': str(product.product_price),
+		'price_info': price_info,  # 规格/价格
+		'push_status': push_status,
+		'first_sale_time': '',  # 首次上架时间
+		'show_list': show_list,
+		'sales_revenue': '0',  # 累计销量
+		'buyer_count': '0',  # 累计购买用户数量
+		'order_area': "0",  # 商品销售区域覆盖数量
+		'evaluation': '',
+		'evaluation_list': []
 	}
-	
-	msgutil.send_message(topic_name, msg_name, data)
-	
+	return product_message
+
+
+def product_show_list(product_id):
+	"""
+	商品在哪个平台显示(返回平台名称列表)
+	"""
