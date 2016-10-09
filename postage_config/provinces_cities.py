@@ -61,7 +61,7 @@ class ProvincesCities(resource.Resource):
 	resource = 'provinces_cities'
 
 	def api_get(request):
-		all_cities = models.City.objects.all()
+		all_cities = models.City.objects.filter(province_id=-1)
 		all_provinces = models.Province.objects.all()
 		id2province = dict([(p.id, p) for p in all_provinces])
 

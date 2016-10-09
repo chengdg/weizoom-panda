@@ -17,24 +17,23 @@ var Action = require('./Action');
 var DefaultPostagePage = require('./DefaultPostagePage.react');
 var SpecialPostagePage = require('./SpecialPostagePage.react');
 var FreePostagePage = require('./FreePostagePage.react');
+var DefaultPostageStore = require('./DefaultPostageStore');
+var SpecialPostageStore = require('./SpecialPostageStore');
+var FreePostageStore = require('./FreePostageStore');
+
 require('./style.css');
 var W = Reactman.W;
 
 var NewConfigPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		return ({});
 	},
 
-	onChangeStore: function() {
-		this.setState(Store.getData());
-		var filterOptions = Store.getData();
-		this.refs.table.refresh(filterOptions);
-	},
-
-	onChange: function(value, event) {
-		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
+	savePostage: function(){
+		var defaultData = DefaultPostageStore.getData();
+		var specialData = SpecialPostageStore.getData();
+		var freeData = FreePostageStore.getData();
+		console.log(defaultData,specialData,freeData,"++++++++");
 	},
 
 	render:function(){
@@ -50,6 +49,9 @@ var NewConfigPage = React.createClass({
 					<DefaultPostagePage />
 					<SpecialPostagePage />
 					<FreePostagePage />
+				</div>
+				<div className="pl90 mt15">
+					<a className="btn btn-success mr40 xa-submit xui-fontBold" style={{width:'100px'}} href="javascript:void(0);" onClick={this.savePostage}>保存</a>
 				</div>
 			</div>
 		)
