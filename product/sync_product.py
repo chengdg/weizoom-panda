@@ -61,7 +61,7 @@ class SyncProduct(resource.Resource):
 				)
 
 			data['code'] = 200
-			data['count'] = len(product_id)
+			data['count'] = len(product_ids)
 		except:
 			msg = unicode_full_stack()
 			watchdog.error('{}'.format(msg))
