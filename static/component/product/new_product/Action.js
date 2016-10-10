@@ -35,6 +35,7 @@ var Action = {
 			limit_zone_type: data['limit_zone_type'],
 			limit_zone_id: data['limit_zone_id'],
 		};
+		console.log(product);
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'product.new_product',
@@ -64,7 +65,7 @@ var Action = {
 					Reactman.PageAction.showHint('error', data.errMg);
 				}
 			});
-		}		
+		}
 	},
 
 	updateProduct: function(property, value) {
