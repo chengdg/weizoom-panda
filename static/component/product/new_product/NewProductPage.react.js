@@ -37,6 +37,10 @@ var NewProductPage = React.createClass({
 			if(W.role!=3){
 				Action.updateProduct(property, value);
 			}
+		}else if(property == 'images'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
 		}else{
 			Action.updateProduct(property, value);
 		}

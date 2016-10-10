@@ -261,9 +261,16 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		setTimeout(function() {
 		 	Reactman.PageAction.showHint('success', '保存成功!');
 		}, 10);
-		setTimeout(function() {
-		 	W.gotoPage('/product/product_list/');
-		}, 500);
+		if(W.role==1){
+			setTimeout(function() {
+			 	W.gotoPage('/product/product_list/');
+			}, 500);
+		}else{
+			setTimeout(function() {
+			 	W.gotoPage('/product/product_relation/');
+			}, 500);
+		}
+		
 	},
 
 	handleCancleValidataTIME: function(action){
@@ -301,7 +308,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['second_id'] = 0;
 		var second_levels = action.data['second_levels'].length>0?JSON.parse(action.data['second_levels']):''
 		this.data['second_levels'] = second_levels;
-		
 		this.__emitChange();
 	},
 

@@ -320,9 +320,17 @@ class NewProduct(resource.Resource):
 		second_level_id = int(post.get('second_level_id',0))
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		role = user_profile.role
+		modify_contents = []
+		product = models.Product.objects.get(id=request.POST['id'])
+		owner_id = product.owner_id
+		catalog_id = product.catalog_id
+		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
+
 		if int(limit_zone_type) == 0:
 			limit_zone_id = 0
-
 		# if product_store_type == -1:
 		# 	product_store = -1
 		if not limit_clear_price:
@@ -333,15 +341,10 @@ class NewProduct(resource.Resource):
 		images = post.get('images','')
 		parser = HTMLParser.HTMLParser()
 		if remark:
-			remark = parser.unescape(remark)
-
-		modify_contents = []
-		catalog_id = models.Product.objects.get(owner=request.user, id=request.POST['id']).catalog_id
-		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
+			remark = parser.unescape(remark) if role == 1 else product.remark
+		
 		#判断商品是否同步
-		product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
 		if product_sync_weapp_accounts:
-
 			old_product_name = product.product_name
 			old_promotion_title = product.promotion_title
 			old_product_price = '%.2f' %product.product_price
@@ -424,33 +427,39 @@ class NewProduct(resource.Resource):
 				)
 				modify_contents.append(u'商品类目')
 
-		source_product = models.Product.objects.filter(owner=request.user, id=request.POST['id']).first()
+		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
-		models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-			owner = request.user,
-			product_name = product_name,
-			promotion_title = promotion_title,
-			has_limit_time = has_limit_time,
-			limit_clear_price = limit_clear_price,
-			valid_time_from = None,
-			valid_time_to = None,
-			has_product_model= has_product_model,
-			catalog_id = second_level_id,
-			remark = remark,
-			limit_zone=limit_zone_id,
-			limit_zone_type=limit_zone_type
-		)
-
-		if has_product_model == 0:
-			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
-				product_price = product_price,
-				clear_price = clear_price,
-				product_weight = product_weight,
-				product_store = product_store
+		if role == 1:
+			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+				product_name = product_name,
+				promotion_title = promotion_title,
+				has_limit_time = has_limit_time,
+				limit_clear_price = limit_clear_price,
+				valid_time_from = None,
+				valid_time_to = None,
+				has_product_model= has_product_model,
+				catalog_id = second_level_id,
+				remark = remark,
+				limit_zone=limit_zone_id,
+				limit_zone_type=limit_zone_type
 			)
 
+			if has_product_model == 0:
+				models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+					product_price = product_price,
+					clear_price = clear_price,
+					product_weight = product_weight,
+					product_store = product_store
+				)
+		elif role == 3:#运营更新商品
+			if has_product_model == 0:
+				models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+					product_price = product_price,
+					clear_price = clear_price
+				)
+		
 		if product_sync_weapp_accounts:
-			models.Product.objects.filter(owner=request.user, id=request.POST['id']).update(
+			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				is_update = True,
 				is_refused = False
 			)
@@ -459,7 +468,7 @@ class NewProduct(resource.Resource):
 			models.ProductHasLabel.objects.filter(product_id=request.POST['id']).delete()
 		#删除、重建商品图片
 		if images:
-			product = models.Product.objects.get(owner=request.user, id=request.POST['id'])
+			product = models.Product.objects.get(owner_id=owner_id, id=request.POST['id'])
 			models.ProductImage.objects.filter(product_id=product.id).delete()
 			product_images = json.loads(request.POST['images'])
 			for product_image in product_images:
@@ -487,7 +496,7 @@ class NewProduct(resource.Resource):
 				valid_from = model_value.get('valid_time_from_'+model_Id,None)
 				valid_to = model_value.get('valid_time_to_'+model_Id,None)
 				product_model = models.ProductModel.objects.create(
-					owner = request.user,
+					owner_id = owner_id,
 					product_id = int(request.POST['id']),
 					name = model_Id,
 					price = price,
@@ -512,7 +521,7 @@ class NewProduct(resource.Resource):
 					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
 		relation = models.ProductHasRelationWeapp.objects.filter(product_id=request.POST['id']).first()
 		if relation:
-			sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=request.user.id,
+			sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=owner_id,
 									 source_product=source_product,
 									 new_properties=new_properties, old_properties=old_properties, relation=relation)
 
