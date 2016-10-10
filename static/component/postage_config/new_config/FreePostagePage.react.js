@@ -78,13 +78,13 @@ var FreePostagePage = React.createClass({
 			return(
 				<tr key={index}>
 					<td>
-						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
+						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
 						<Reactman.FormSelect label="" name="condition" value={postages.condition} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, condition, index)} />
 					</td>
 					<td>
-						<input type="text" className="form-control" id="conditionValue" name="conditionValue" value={postages.conditionValue} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block'}}/>
+						<input type="text" className="form-control" id="conditionValue" name="conditionValue" value={postages.conditionValue} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block', marginRight:'10px'}}/>
 						<span>{unit}</span>
 					</td>
 					<td>
@@ -104,7 +104,7 @@ var FreePostagePage = React.createClass({
 				<div className="xui-free-postage">
 					<Reactman.FormCheckbox label="" name="hasFreePostage" value={this.state.hasFreePostage} options={optionsForPostage} onChange={this.onChange} />
 				</div>
-				<table className="table table-bordered" style={{width:'60%'}}>
+				<table className="table table-bordered" style={{width:'50%'}}>
 					<thead>
 						<tr>
 							<th>地区</th>

@@ -37,11 +37,14 @@ class PostageList(resource.Resource):
 
 	@login_required
 	def get(request):
-		postage_configs = models.PostageConfig.objects.filter(owner_id=request.user.id)
+		postage_configs = models.PostageConfig.objects.filter(owner_id=request.user.id, is_deleted=False).order_by('-id')
 		postages = []
 		for postage_config in postage_configs:
 			postages.append({
-				"postage_id": postage_config.id
+				"postageId": postage_config.id,
+				"hasSpecialConfig": postage_config.is_enable_special_config,
+				"hasFreeConfig": postage_config.is_enable_free_config,
+				"isUsed": postage_config.is_used
 			})
 
 		c = RequestContext(request, {
@@ -55,7 +58,7 @@ class PostageList(resource.Resource):
 	@login_required
 	def api_get(request):
 		postage_id = request.GET.get('postage_id', -1)
-		postage_configs = models.PostageConfig.objects.filter(id=postage_id)
+		postage_configs = models.PostageConfig.objects.filter(id=postage_id, is_deleted=False)
 		postage_config_specials = models.SpecialPostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
 		free_postage_configs = models.FreePostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
 		
@@ -85,6 +88,29 @@ class PostageList(resource.Resource):
 		}	
 
 		# 构造response
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		postage_id = request.POST.get('postage_id', -1)
+		models.PostageConfig.objects.filter(is_used=True).update(is_used=False)
+		models.PostageConfig.objects.filter(id=postage_id).update(is_used=True)
+		data = {
+			'postageId': postage_id
+		}
+		response = create_response(200)
+		response.data = data
+		return response.get_response()
+
+	@login_required
+	def api_delete(request):
+		postage_id = request.POST.get('postage_id', -1)
+		models.PostageConfig.objects.filter(id=postage_id).update(is_deleted=True)
+		data = {
+			'postageId': postage_id
+		}
 		response = create_response(200)
 		response.data = data
 		return response.get_response()

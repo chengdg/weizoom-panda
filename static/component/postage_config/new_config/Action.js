@@ -28,13 +28,16 @@ var Action = {
 				free_postages: JSON.stringify(freePostages)
 			},
 			success: function() {
-				Dispatcher.dispatch({
-					actionType: Constant.NEW_PRODUCT_CREATE,
-					data: data
-				});
+				Reactman.PageAction.showHint('success', '保存成功！');
+				_.delay(function(){
+					Dispatcher.dispatch({
+						actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_SAVE_POSTAGE,
+						data: data
+					});
+				},500)
 			},
 			error: function(data) {
-				Reactman.PageAction.showHint('error', "======");
+				Reactman.PageAction.showHint('error', "保存失败！");
 			}
 		})
 	},

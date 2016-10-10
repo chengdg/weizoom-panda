@@ -16,23 +16,34 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG,
-		'handelUpdateSelfShops': Constant.UPDATE_SELF_SHOPS
+		'handleSetHasUsed': Constant.POSTAGE_CONFIG_POSTAGE_LIST_SET_HAS_USED,
+		'handleDeletePostage': Constant.POSTAGE_CONFIG_POSTAGE_LIST_DELETE_POSTAGE
 	},
 
 	init: function() {
 		this.data = {
-		    name: ''
+		   'postageId': 0
 		};
 	},
 
-	handleUpdateSelfShopDialog: function(action) {
-		this.data[action.data.property] = action.data.value;
+	handleSetHasUsed: function(action){
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '设置成功!');
+		}, 100);
+
+		this.data.postageId = action.data.postageId;
 		this.__emitChange();
 	},
 
-	handelUpdateSelfShops: function(action){
-		this.data = action.data;
+	handleDeletePostage: function(action){
+		setTimeout(function() {
+		 	Reactman.PageAction.showHint('success', '删除成功!');
+		}, 100);
+
+		// this.data.postageId = action.data.postageId;
+		_.delay(function(){
+			W.gotoPage('/postage_config/postage_list/');
+		},500)
 		this.__emitChange();
 	},
 

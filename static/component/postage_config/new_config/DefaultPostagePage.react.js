@@ -62,7 +62,7 @@ var DefaultPostagePage = React.createClass({
 							<th>首重(kg)</th>
 							<th>运费(元)</th>
 							<th>续重(kg)</th>
-							<th>续费(kg)</th>
+							<th>续费(元)</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -13,32 +13,31 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	updateSelfShopDialog: function(property, value) {
-		Dispatcher.dispatch({
-			actionType: Constant.UPDATE_SELF_SHOPS,
-			data: {}
-		});
-	},
-	syncSelfShopProduct: function(userName) {
+	setHasUsed: function(postageId) {
 		Resource.post({
-			resource: 'self_shop.manage',
+			resource: 'postage_config.postage_list',
 			data: {
-				self_user_name: userName
+				'postage_id': postageId
 			},
-			success: function() {
-				Reactman.PageAction.showHint('success', '同步成功');
-				setTimeout(function(){
-					Dispatcher.dispatch({
-						actionType: Constant.UPDATE_SELF_SHOPS,
-						data: {}
-					});
-				},500);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_POSTAGE_LIST_SET_HAS_USED
 			}
 		});
 	},
+
+	deletePostage: function(postageId){
+		Resource.delete({
+			resource: 'postage_config.postage_list',
+			data: {
+				'postage_id': postageId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_POSTAGE_LIST_DELETE_POSTAGE
+			}
+		});
+	}
 };
 
 module.exports = Action;

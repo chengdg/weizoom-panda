@@ -60,7 +60,8 @@ class NewConfig(resource.Resource):
 			added_weight_price = default_postages[0].get('addedWeightPrice'),
 			is_enable_special_config = True if special_postages else False,
 			is_enable_free_config = True if free_postages else False,
-			is_enable_added_weight = True if default_postages[0].get('addedWeight')>0 else False
+			is_enable_added_weight = True if default_postages[0].get('addedWeight')>0 else False,
+			is_used = False
 		)
 
 		if special_postages:

@@ -19,13 +19,11 @@ var W = Reactman.W;
 var PostageListPage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
-		return ({});
+		return Store.getData();
 	},
 
 	onChangeStore: function() {
 		this.setState(Store.getData());
-		var filterOptions = Store.getData();
-		this.refs.table.refresh(filterOptions);
 	},
 
 	addPostageTemplate: function(){
@@ -33,20 +31,20 @@ var PostageListPage = React.createClass({
 	},
 
 	render:function(){
-		var productsResource = {
-			resource: 'postage_config.postage_list',
-			data: {
-				page: 1
-			}
-		};
 		var postages = W.postages;
-		console.log(JSON.parse(postages),"=========");
+		var postageId = this.state.postageId;
 		var tableList = JSON.parse(postages).map(function(postage, index){
-			console.log(postage,"-------")
+			//判断是否为默认
+			var isUsed = postage.isUsed;
+			if(postageId != 0) {
+				isUsed = postageId==postage.postageId? true: false;
+			}
+
 			return(
-				<div key={index}><TableListPage postageId={postage.postage_id} /></div>
+				<div key={index}><TableListPage postageId={postage.postageId} hasSpecialConfig={postage.hasSpecialConfig} hasFreeConfig={postage.hasFreeConfig} isUsed={isUsed}/></div>
 			)
 		})
+
 		return (
 			<div className="mt15 xui-postageConfig-postageListPage">
 				{tableList}
@@ -60,8 +58,25 @@ var PostageListPage = React.createClass({
 
 var TableListPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
 		return ({});
+	},
+
+	setHasUsed: function(postageId) {
+		Action.setHasUsed(postageId);
+	},
+
+	deletePostage: function(postageId, event) {
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定删除么?',
+			confirm: _.bind(function() {
+				Action.deletePostage(postageId);
+			}, this)
+		});
+	},
+
+	updatePostage: function(postageId){
+		W.gotoPage('/postage_config/new_config/?postage_id='+postageId);
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -78,7 +93,16 @@ var TableListPage = React.createClass({
 	},
 
 	render:function(){
-		var postageId = this.props.postageId
+		var postageId = this.props.postageId;
+		var hasSpecialConfig = this.props.hasSpecialConfig;
+		var hasFreeConfig = this.props.hasFreeConfig;
+
+		var title = '';
+		var isUsed = this.props.isUsed;
+		title = hasSpecialConfig? title+'特殊商品模板': '默认模板';
+		title = hasFreeConfig? title+'(已设置包邮条件)': title;
+		var setBtn = isUsed? <a style={{color:'red', marginLeft:'10px'}}>(默认)</a>: <a href="javascript:void(0);" style={{marginLeft:'10px'}} onClick={this.setHasUsed.bind(this, postageId)}>设为默认</a>;
+
 		var productsResource = {
 			resource: 'postage_config.postage_list',
 			data: {
@@ -86,12 +110,17 @@ var TableListPage = React.createClass({
 				postage_id: postageId
 			}
 		};
-		console.log("--ss------");
+
 		return (
 			<div>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
-						<div>默认模板（已设置包邮条件）</div>
+						<div className="xui-set-title">{title}{setBtn}</div>
+						<div className="xui-modify-delete-btn">
+							<a href="javascript:void(0);" className="ml10 mr10" onClick={this.updatePostage.bind(this, postageId)}>修改</a>
+							<span>|</span>
+							<a href="javascript:void(0);" className="ml10" onClick={this.deletePostage.bind(this, postageId)}>删除</a>
+						</div>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="运送方式" field="postageMethod" />
@@ -99,7 +128,7 @@ var TableListPage = React.createClass({
 						<Reactman.TableColumn name="首重(kg)" field="firstWeight" />
 						<Reactman.TableColumn name="运费(元)" field="firstWeightPrice" />
 						<Reactman.TableColumn name="续重(kg)" field="addedWeight" />
-						<Reactman.TableColumn name="续费(kg)" field="addedWeightPrice" />
+						<Reactman.TableColumn name="续费(元)" field="addedWeightPrice" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
 				</Reactman.TablePanel>

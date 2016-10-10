@@ -16,7 +16,8 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateConfig': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONFIG
+		'handleUpdateConfig': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONFIG,
+		'handleSavePostage': Constant.POSTAGE_CONFIG_NEW_CONFIG_SAVE_POSTAGE
 	},
 
 	init: function() {
@@ -28,6 +29,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handleUpdateConfig: function(action) {
 		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
+	},
+
+	handleSavePostage: function(action){
+		W.gotoPage('/postage_config/postage_list/');
 	},
 
 	getData: function() {

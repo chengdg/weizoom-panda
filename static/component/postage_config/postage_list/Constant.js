@@ -6,6 +6,6 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-	UPDATE_SELF_SHOP_DIALOG: null,
-	UPDATE_SELF_SHOPS: null
+	POSTAGE_CONFIG_POSTAGE_LIST_SET_HAS_USED: null,
+	POSTAGE_CONFIG_POSTAGE_LIST_DELETE_POSTAGE: null
 });
