@@ -291,7 +291,7 @@ if 'deploy' == MODE:
 
     PRODUCT_TOPIC_NAME = 'customer-add-product'
     PRODUCT_MSG_NAME = 'customer_product_info'
-    PRODUCT_MSG_NAME = ''
+    MNS_SECURITY_TOKEN = ''
 elif 'develop' == MODE:
     MNS_ACCESS_KEY_ID = 'LTAI0GgFxEnSn3yP'
     MNS_ACCESS_KEY_SECRET = 'O3OWEDiBhqL4PDd5HCjxQyMM9QLo1G'
