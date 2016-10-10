@@ -122,16 +122,18 @@ Background:
 
 
 	Then aini能获得商品列表
-	|  name   | set_price |sale_price| sales |   creat_time   | status |
-	|武汉鸭脖 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
-	|耐克男鞋 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
-@penda @hj
+		|  name   |	   classify      | set_price |sale_price| sales |   creat_time   | status |
+		|武汉鸭脖 |   生活用品-零食  |    8.00   |   10.00  |  0.00 |2016-07-25 16:30| 未上架 |
+		|耐克男鞋 |   电子数码-耳机  |   14.90   |   29.00  |  0.00 |2016-07-25 16:30| 未上架 |
+		|  ipad   |电子数码——平板电脑|   2500.00 |  3000.00 | 0.00  |2016-07-25 16:30| 未上架 |
+@penda @hj 
 scenario:1 商品列表导出商品
 	When aini登录系统
 	When aini导出商品列表
-	|  name   | set_price |sale_price| sales |   creat_time   | status |
-	|武汉鸭脖 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
-	|耐克男鞋 |   10.00   |   14.90  | 0.00  |2016-07-25 16:30| 未上架 |
+		|  name   |	   classify      | set_price |sale_price| sales |   creat_time   | status |
+		|武汉鸭脖 |   生活用品-零食  |   14.90   |   0.00   |  0.00 |2016-07-25 16:30| 未上架 |
+		|耐克男鞋 |   电子数码-耳机  |   14.90   |   0.00   |  0.00 |2016-07-25 16:30| 未上架 |
+		|  ipad   |电子数码——平板电脑|   2500.00 |  3000.00 | 0.00  |2016-07-25 16:30| 未上架 |
 
 @panda @hj
 Scenario:2 运营端商品列表导出
