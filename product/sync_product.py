@@ -14,7 +14,8 @@ import models
 from weapp_relation import get_weapp_model_properties, sync_product_label, get_products_limit_info
 from account import models as account_models
 from product_catalog import models as catalog_models
-from label import models as label_models
+from util import send_product_message
+
 
 
 class SyncProduct(resource.Resource):
@@ -182,3 +183,12 @@ def sync_update_product(params, product, weapp_catalog_id=None):
 			# 更新商品标签
 			# 判断商品需不需要同步标签
 			sync_product_label(weapp_product_id=params.get('product_id'), product=product, method='POST')
+			# 发送mns消息(更新商品)
+			try:
+				images = json.loads(params.get('swipe_images'))[0].get('url')
+				send_product_message.send_sync_update_product_message(product=product, user_id=product.owner_id,
+																	  image_paths=images)
+			except:
+				msg = unicode_full_stack()
+				watchdog.error('send_sync_update_product_message:sync_product:{}'.format(msg))
+				print msg

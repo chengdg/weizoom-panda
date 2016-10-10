@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
-import json
-import time
+
 import HTMLParser
 
-from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.db.models import F
 from django.contrib.auth.decorators import login_required
 
 from core import resource
 from core.jsonresponse import create_response
 from core.exceptionutil import unicode_full_stack
-from core import paginator
-from util import db_util
+
 from util import string_util
 from eaglet.utils.resource_client import Resource
 from eaglet.core.exceptionutil import unicode_full_stack
@@ -26,13 +22,15 @@ from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
 from services.panda_send_modify_product_ding_talk_service.tasks import send_modify_product_ding_talk
+
 import nav
 import models
 from product_limit_zone import models as limit_zone_models
-from weapp_relation import sync_product_label
+from util import send_product_message
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
+
 
 SELF_SHOP2TEXT = {
 	'weizoom_jia': u'微众家',
@@ -248,10 +246,15 @@ class NewProduct(resource.Resource):
 			)
 
 			#获取商品图片
+			resource_images = resource_models.Image.objects.filter(user_id=request.user.id)
+			id2path = {resource_image.id:resource_image.path for resource_image in resource_images}
+			image_paths = []
 			if images:
 				product_images = json.loads(request.POST['images'])
 				for product_image in product_images:
 					models.ProductImage.objects.create(product=product, image_id=product_image['id'])
+					if product_image['id'] in id2path:
+						image_paths.append(id2path[product_image['id']])
 
 			if model_values:
 				model_values = json.loads(model_values)
@@ -288,12 +291,21 @@ class NewProduct(resource.Resource):
 								property_value_id = property_value['id']
 							))
 						models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-
+			# 发送mns消息
+			try:
+				send_product_message.send_add_product_message(product=product,
+															  user_id=request.user.id,
+															  image_paths=image_paths[0])
+			except:
+				message = u"send_add_product_message:new_product:{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
+				print unicode_full_stack()
 			try:
 				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
 			except :
 				message = u"修改帐号商品数异常：{}".format(unicode_full_stack())
 				watchdog.watchdog_error(message)
+				print message
 			response = create_response(200)
 		except:
 			response = create_response(500)

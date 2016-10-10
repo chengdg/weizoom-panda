@@ -16,6 +16,7 @@ from product_limit_zone import models as limit_zone_models
 from panda.settings import PRODUCT_POOL_OWNER_ID
 from product_catalog import models as catalog_models
 from label import models as label_models
+from util import send_product_message
 
 
 SELF_NAMETEXT2VALUE = {
@@ -274,6 +275,7 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 			# 判断是更新还是新曾商品同步(只处理添加)
 			relation = [] if product_id not in product_id2relation else product_id2relation[product_id]
 			if not relation:
+
 				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
 					'resource': 'mall.sync_product',
 					'data': params
@@ -316,9 +318,17 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 								watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product_id})
 						# 同步标签
 						sync_product_label(product=product, weapp_product_id=weapp_product_id)
+						# 发送同步信息
+						try:
+							send_product_message.send_sync_product_message(product=product, user_id=request.user.id,
+																		   image_paths=images[0].get('path'))
+						except:
+							msg = unicode_full_stack()
+							watchdog.error('send_sync_product_message:weapp_relation{}'.format(msg))
 				else:
 					data['is_error'] = True
 					data['error_product_id'] = product_id
+
 			else:
 				account_params = {
 					'product_id': relation.weapp_product_id,
@@ -337,6 +347,13 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 						self_user_name=username
 					) for username in weizoom_self]
 					models.ProductSyncWeappAccount.objects.bulk_create(sync_models)
+					# 更新商品平台信息
+					try:
+						send_product_message.send_sync_weapp_account_change(product_id=product_id)
+					except:
+						msg = unicode_full_stack()
+						watchdog.error(u'send_sync_weapp_account_change:weapp_relation:{}'.format(msg))
+						print msg
 	except:
 		data['is_error'] = True
 		data['error_product_id'] = product_id
