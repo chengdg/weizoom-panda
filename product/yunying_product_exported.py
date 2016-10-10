@@ -28,7 +28,10 @@ class YunyingProductExported(resource.Resource):
 		product_table = []
 		product_table.append(titles)
 		for product in product_list:
-			product_name = product['product_name']
+			revoke_reasons = ''
+			if product['product_status_value'] == 2:
+				revoke_reasons = product['revoke_reasons']
+
 			info = [
 				'',
 				product['product_name'],
@@ -41,7 +44,7 @@ class YunyingProductExported(resource.Resource):
 				'-',
 				product['customer_from_text'],
 				product['product_status'],
-				product['revoke_reasons']
+				revoke_reasons
 			]
 			product_table.append(info)
 		filename = u'商品统计列表'
