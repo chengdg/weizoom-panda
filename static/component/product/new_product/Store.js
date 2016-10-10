@@ -60,7 +60,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 			this.data['model_values'] = model_values;
 			this.data['model_names'] = organize_data[0];
-			this.data['limit_zone_type'] = this.data['limit_zone_type'];
+			this.data['limit_zone_type'] = this.data['limit_zone_type'].toString();
 			this.data['limit_zone_id'] = this.data['limit_zone_id'].toString();
 			this.data['limit_zone_info'] = limit_zone_info;
 		} else {
@@ -69,7 +69,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'images':[],
 				'remark': '',
 				'product_store_type':'-1',
-				'has_product_model': '0',
+				'has_product_model': '',
 				'has_limit_time': '0',
 				'value_ids': [],
 				'model_values': [],
@@ -77,7 +77,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'model_names': [],
 				'second_id': 0,
 				'catalog_name': '',
-				'limit_zone_type': 0,
+				'limit_zone_type': '-1',
 				'limit_zone_id': '0',
 				'limit_zone_info': limit_zone_info
 			};

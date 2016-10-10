@@ -119,8 +119,12 @@ var NewProductPage = React.createClass({
 			Reactman.PageAction.showHint('error', '请选择商品分类！');
 			return;
 		}
-        if(product['limit_zone_type'] != 0 && product['limit_zone_id']==0){
+        if((product['limit_zone_type'] == '1' || product['limit_zone_type'] == '2') && product['limit_zone_id']=='0'){
             Reactman.PageAction.showHint('error', '请选择禁售仅售模板！');
+            return
+        }
+        if(product['limit_zone_type']=='-1'){
+            Reactman.PageAction.showHint('error', '请设置商品发货地区设置！');
             return
         }
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
@@ -133,6 +137,13 @@ var NewProductPage = React.createClass({
 		// 		return;
 		// 	}
 		// }
+		console.log('==============================')
+		console.log(has_product_model)
+		console.log('==============================')
+		if(has_product_model===''){
+            Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
+            return
+        }
 		if(has_product_model==='0'){
 			if(W.purchase_method==1){
 				var clear_price = product.clear_price;
@@ -275,6 +286,9 @@ var NewProductPage = React.createClass({
 		var disabled = role == 3 ? 'disabled' : '';
 		var style = role == 3 ? {margin: '20px 0px 100px 180px'}: {position:'absolute',top:'40px',left:'270px'};
 		var optionsForKind = [{
+            text: '',
+            value: '-1'
+        },{
             text: '无限制',
             value: '0'
         }, {
@@ -300,9 +314,9 @@ var NewProductPage = React.createClass({
 						</span>
 						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
-						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
+						<Reactman.FormRadio label="多规格商品:" type="text" validate="require-string" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
-                        <Reactman.FormSelect label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
+                        <Reactman.FormSelect validate="require" label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
