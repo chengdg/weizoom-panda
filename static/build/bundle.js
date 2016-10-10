@@ -41311,7 +41311,8 @@
 				resource: 'order.yunying_orders_list',
 				data: {
 					page: 1,
-					is_for_list: true
+					is_for_list: true,
+					is_first: true
 				}
 			};
 			var orderStatusOptions = [{

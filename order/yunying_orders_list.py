@@ -303,6 +303,7 @@ class YunyingOrdersList(resource.Resource):
 
 		"""
 		is_for_list = True if request.GET.get('is_for_list') else False
+		is_first = True if request.GET.get('is_first') else False #是否需要发接口请求
 		cur_page = request.GET.get('page', 1)
 		filter_idct = dict(
 			[(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET
@@ -314,6 +315,8 @@ class YunyingOrdersList(resource.Resource):
 		# 订单号
 		order_id = filter_idct.get('orderId', '')
 		order_create_at_range = filter_idct.get('orderCreateAt__range', '')
+		if filter_idct:
+			is_first = False #含有查找条件，发送接口请求
 		# product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
 		if from_mall == '-1':
 			from_mall = ''
@@ -387,11 +390,13 @@ class YunyingOrdersList(resource.Resource):
 			params.update({'order_create_start': order_create_at_range[0],
 						   'order_create_end': order_create_at_range[1],})
 		# print supplier_ids, '+++++++++++++++++++++++++++'
-
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
-				'resource': 'panda.order_list',
-				'data': params
-			})
+		if not is_first:
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post({
+					'resource': 'panda.order_list',
+					'data': params
+				})
+		else:
+			resp = None
 
 		if resp:
 			if resp.get('code') == 200:
