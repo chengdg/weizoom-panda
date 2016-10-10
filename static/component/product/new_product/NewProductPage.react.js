@@ -28,7 +28,18 @@ var NewProductPage = React.createClass({
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
+		//运营不能编辑
+		if(property == 'has_product_model'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
+		}else if(property == 'limit_zone_type'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
+		}else{
+			Action.updateProduct(property, value);
+		}
 	},
 
 	onChangeStore: function(){
@@ -302,7 +313,7 @@ var NewProductPage = React.createClass({
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
-                        <Reactman.FormSelect label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
+                        <Reactman.FormSelect label="发货地区设置:" name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind} onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
