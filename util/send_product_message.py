@@ -72,9 +72,9 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 			model_name = ' '.join([value.name for value in model_property_value])
 			price_info.append(model_name + ' ' + str(temp_price))
 		price_info = ';'.join(price_info)
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-		print price_info
-		print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+		# print price_info
+		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 	push_status = get_product_status(product_id=product.id)
 	# 在哪个平台显示该商品
 	show_list = product_show_list(product.id)
