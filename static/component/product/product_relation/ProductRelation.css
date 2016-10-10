@@ -1,6 +1,7 @@
 .xui-product-productRelationPage .btn-success{
 	float: left !important;
 	margin-left: 0px !important; 
+	margin-right: 20px;
 }
 
 .xui-filterPanel .control-label{

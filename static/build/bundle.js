@@ -74,7 +74,7 @@
 		var pageNode = $page.get(0);
 
 		ReactDOM.render(React.createElement(Reactman.Page, {
-			sitename: '\u5FAE\u4F17\u5546\u54C1\u7BA1\u7406\u7CFB\u7EDF',
+			sitename: '微众商品管理系统',
 			userName: W.userName,
 			topNavs: W.topNavs,
 			activeTopNav: W.activeTopNav,
@@ -19861,41 +19861,40 @@
 	var Resource = __webpack_require__(249);
 	var Validater = __webpack_require__(260);
 	var W = __webpack_require__(267);
-	var Algorithm = __webpack_require__(543);
-	var User = __webpack_require__(544);
+	var User = __webpack_require__(543);
 
-	var FormInput = __webpack_require__(545);
-	var FormRangeInput = __webpack_require__(546);
-	var FormDateTimeInput = __webpack_require__(547);
-	var FormDateRangeInput = __webpack_require__(550);
-	var FormSelect = __webpack_require__(551);
-	var FormSubmit = __webpack_require__(552);
-	var FormRadio = __webpack_require__(553);
-	var FormCheckbox = __webpack_require__(554);
-	var FormText = __webpack_require__(555);
-	var FormRichTextInput = __webpack_require__(556);
-	var FormImageUploader = __webpack_require__(561);
-	var FormFileUploader = __webpack_require__(564);
-	var Table = __webpack_require__(567);
-	var TablePanel = __webpack_require__(576);
-	var TableActionBar = __webpack_require__(577);
-	var TableActionButton = __webpack_require__(578);
-	var TableColumn = __webpack_require__(579);
-	var TableAction = __webpack_require__(573);
-	var Tabs = __webpack_require__(580);
-	var Tab = __webpack_require__(583);
-	var Pagination = __webpack_require__(568);
-	var FilterPanel = __webpack_require__(584);
-	var FilterRow = __webpack_require__(590);
-	var FilterField = __webpack_require__(591);
+	var FormInput = __webpack_require__(544);
+	var FormRangeInput = __webpack_require__(545);
+	var FormDateTimeInput = __webpack_require__(546);
+	var FormDateRangeInput = __webpack_require__(549);
+	var FormSelect = __webpack_require__(550);
+	var FormSubmit = __webpack_require__(551);
+	var FormRadio = __webpack_require__(552);
+	var FormCheckbox = __webpack_require__(553);
+	var FormText = __webpack_require__(554);
+	var FormRichTextInput = __webpack_require__(555);
+	var FormImageUploader = __webpack_require__(560);
+	var FormFileUploader = __webpack_require__(563);
+	var Table = __webpack_require__(566);
+	var TablePanel = __webpack_require__(575);
+	var TableActionBar = __webpack_require__(576);
+	var TableActionButton = __webpack_require__(577);
+	var TableColumn = __webpack_require__(578);
+	var TableAction = __webpack_require__(572);
+	var Tabs = __webpack_require__(579);
+	var Tab = __webpack_require__(582);
+	var Pagination = __webpack_require__(567);
+	var FilterPanel = __webpack_require__(583);
+	var FilterRow = __webpack_require__(589);
+	var FilterField = __webpack_require__(590);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(592);
-	var Chart = __webpack_require__(595);
-	var ProvinceCitySelect = __webpack_require__(601);
+	var Widget = __webpack_require__(591);
+	var Chart = __webpack_require__(594);
+	var ProvinceCitySelect = __webpack_require__(600);
 
-	var WepageEditor = __webpack_require__(608);
-	var Wepage = __webpack_require__(658);
-	var UEditor = __webpack_require__(660);
+	var WepageEditor = __webpack_require__(607);
+	var Wepage = __webpack_require__(657);
+	var UEditor = __webpack_require__(659);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -19928,7 +19927,6 @@
 
 	module.exports = {
 		W: W,
-		Algorithm: Algorithm,
 		Dispatcher: Dispatcher,
 		StoreUtil: StoreUtil,
 		Resource: Resource,
@@ -22209,7 +22207,7 @@
 										React.createElement(
 											'a',
 											{ href: '/account/logout/' },
-											'\u9000\u51FA'
+											'退出'
 										)
 									)
 								)
@@ -22419,7 +22417,7 @@
 					React.createElement(
 						'li',
 						null,
-						'\u60A8\u5F53\u524D\u6240\u5728\u4F4D\u7F6E'
+						'您当前所在位置'
 					),
 					lis
 				)
@@ -24845,8 +24843,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25250,7 +25248,7 @@
 	      React.createElement(
 	        'div',
 	        { id: 'spin-hint', className: 'ml10' },
-	        '\u64CD\u4F5C\u8FDB\u884C\u4E2D...'
+	        '操作进行中...'
 	      )
 	    );
 	  }
@@ -25273,8 +25271,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25419,7 +25417,7 @@
 									React.createElement(
 										'span',
 										null,
-										'\xD7'
+										'×'
 									)
 								),
 								React.createElement(
@@ -25439,7 +25437,7 @@
 								React.createElement(
 									'button',
 									{ type: 'button', className: 'btn btn-primary', onClick: this.onClickSubmit },
-									' \u786E\u5B9A '
+									' 确定 '
 								)
 							)
 						)
@@ -25855,8 +25853,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25941,12 +25939,12 @@
 						React.createElement(
 							'button',
 							{ className: 'btn btn-primary btn-sm', onClick: this.onConfirm },
-							'\u786E\u5B9A'
+							'确定'
 						),
 						React.createElement(
 							'button',
 							{ className: 'btn btn-default btn-sm ml20', onClick: this.onCancel },
-							'\u53D6\u6D88'
+							'取消'
 						)
 					)
 				);
@@ -26225,8 +26223,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -35288,27 +35286,27 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u57FA\u672C\u4FE1\u606F'
+							'基本信息'
 						),
-						React.createElement(Reactman.FormRadio, { label: '\u4F01\u4E1A\u7C7B\u578B:', name: 'company_type', value: this.state.company_type, options: optionsForAccountType, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', name: 'company_name', validate: 'require-notempty', value: this.state.company_name, onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '企业类型:', name: 'company_type', value: this.state.company_type, options: optionsForAccountType, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '公司名称:', name: 'company_name', validate: 'require-notempty', value: this.state.company_name, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							{ className: 'account-create-purchase-method' },
-							React.createElement(Reactman.FormInput, { label: '\u6CE8\u518C\u8D44\u672C:', name: 'company_money', value: this.state.company_money, onChange: this.onChange }),
+							React.createElement(Reactman.FormInput, { label: '注册资本:', name: 'company_money', value: this.state.company_money, onChange: this.onChange }),
 							React.createElement(
 								'span',
 								{ className: 'money_note' },
-								'\u4E07\u5143'
+								'万元'
 							)
 						),
-						React.createElement(Reactman.FormInput, { label: '\u6CD5\u4EBA\u4EE3\u8868:', name: 'legal_representative', value: this.state.legal_representative, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u8054\u7CFB\u4EBA:', name: 'contacter', validate: 'require-notempty', value: this.state.contacter, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u624B\u673A\u53F7:', name: 'phone', validate: 'require-notempty', value: this.state.phone, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '法人代表:', name: 'legal_representative', value: this.state.legal_representative, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '联系人:', name: 'contacter', validate: 'require-notempty', value: this.state.contacter, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '手机号:', name: 'phone', validate: 'require-notempty', value: this.state.phone, onChange: this.onChange }),
 						React.createElement(Reactman.FormInput, { label: 'E-mail:', name: 'e_mail', value: this.state.e_mail, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u5FAE\u4FE1/QQ:', name: 'we_chat_and_qq', value: this.state.we_chat_and_qq, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u6240\u5728\u5730:', name: 'company_location', validate: 'require-notempty', value: this.state.company_location, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u8BE6\u7EC6\u5730\u5740:', name: 'address', validate: 'require-notempty', value: this.state.address, onChange: this.onChange })
+						React.createElement(Reactman.FormInput, { label: '微信/QQ:', name: 'we_chat_and_qq', value: this.state.we_chat_and_qq, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '公司所在地:', name: 'company_location', validate: 'require-notempty', value: this.state.company_location, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '详细地址:', name: 'address', validate: 'require-notempty', value: this.state.address, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
@@ -35316,16 +35314,16 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u57FA\u672C\u8D44\u8D28'
+							'基本资质'
 						),
-						React.createElement(Reactman.FormImageUploader, { label: '\u8425\u4E1A\u6267\u7167:', name: 'business_license', value: this.state.business_license, onChange: this.onChange, max: 1 }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u8425\u4E1A\u6267\u7167\u6709\u6548\u671F:', validate: 'require-notempty', name: 'business_license_time', value: this.state.business_license_time, onChange: this.onChange }),
-						React.createElement(Reactman.FormImageUploader, { label: '\u7A0E\u52A1\u767B\u8BB0\u8BC1:', name: 'tax_registration_certificate', value: this.state.tax_registration_certificate, onChange: this.onChange, max: 1 }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u7A0E\u52A1\u767B\u8BB0\u8BC1\u6709\u6548\u671F:', validate: 'require-notempty', name: 'tax_registration_certificate_time', value: this.state.tax_registration_certificate_time, onChange: this.onChange }),
-						React.createElement(Reactman.FormImageUploader, { label: '\u7EC4\u7EC7\u673A\u6784\u4EE3\u7801\u8BC1:', name: 'organization_code_certificate', value: this.state.organization_code_certificate, onChange: this.onChange, max: 1 }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u7EC4\u7EC7\u673A\u6784\u4EE3\u7801\u8BC1\u6709\u6548\u671F:', validate: 'require-notempty', name: 'organization_code_certificate_time', value: this.state.organization_code_certificate_time, onChange: this.onChange }),
-						React.createElement(Reactman.FormImageUploader, { label: '\u5F00\u6237\u8BB8\u53EF\u8BC1:', name: 'account_opening_license', value: this.state.account_opening_license, onChange: this.onChange, max: 1 }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u5F00\u6237\u8BB8\u53EF\u8BC1\u6709\u6548\u671F:', validate: 'require-notempty', name: 'account_opening_license_time', value: this.state.account_opening_license_time, onChange: this.onChange })
+						React.createElement(Reactman.FormImageUploader, { label: '营业执照:', name: 'business_license', value: this.state.business_license, onChange: this.onChange, max: 1 }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '营业执照有效期:', validate: 'require-notempty', name: 'business_license_time', value: this.state.business_license_time, onChange: this.onChange }),
+						React.createElement(Reactman.FormImageUploader, { label: '税务登记证:', name: 'tax_registration_certificate', value: this.state.tax_registration_certificate, onChange: this.onChange, max: 1 }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '税务登记证有效期:', validate: 'require-notempty', name: 'tax_registration_certificate_time', value: this.state.tax_registration_certificate_time, onChange: this.onChange }),
+						React.createElement(Reactman.FormImageUploader, { label: '组织机构代码证:', name: 'organization_code_certificate', value: this.state.organization_code_certificate, onChange: this.onChange, max: 1 }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '组织机构代码证有效期:', validate: 'require-notempty', name: 'organization_code_certificate_time', value: this.state.organization_code_certificate_time, onChange: this.onChange }),
+						React.createElement(Reactman.FormImageUploader, { label: '开户许可证:', name: 'account_opening_license', value: this.state.account_opening_license, onChange: this.onChange, max: 1 }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '开户许可证有效期:', validate: 'require-notempty', name: 'account_opening_license_time', value: this.state.account_opening_license_time, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
@@ -35333,15 +35331,15 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u5165\u9A7B\u7C7B\u76EE\u53CA\u7279\u6B8A\u8D44\u8D28'
+							'入驻类目及特殊资质'
 						),
-						React.createElement(Reactman.FormCheckbox, { label: '\u7533\u8BF7\u7C7B\u76EE:', name: 'apply_catalogs', value: this.state.apply_catalogs, options: this.state.options_for_type, onChange: this.onChange }),
+						React.createElement(Reactman.FormCheckbox, { label: '申请类目:', name: 'apply_catalogs', value: this.state.apply_catalogs, options: this.state.options_for_type, onChange: this.onChange }),
 						React.createElement(ProductModelList, { name: 'models', value: this.state.uploadBusinessQualifications, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '\u4FDD \u5B58' })
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '保 存' })
 					)
 				)
 			);
@@ -35432,8 +35430,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -35564,7 +35562,7 @@
 				'div',
 				null,
 				React.createElement(Reactman.FormImageUploader, { label: model.qualification_name, name: 'img', value: model.img, onChange: this.onChange.bind(this, model.qualification_id), max: 1 }),
-				React.createElement(Reactman.FormDateTimeInput, { label: '\u6709\u6548\u671F:', name: 'qualification_time', validate: 'require-notempty', value: model.qualification_time, onChange: this.onChange.bind(this, model.qualification_id) })
+				React.createElement(Reactman.FormDateTimeInput, { label: '有效期:', name: 'qualification_time', validate: 'require-notempty', value: model.qualification_time, onChange: this.onChange.bind(this, model.qualification_id) })
 			);
 		}
 	});
@@ -35736,7 +35734,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormText, { label: '\u9A73\u56DE\u539F\u56E0:', type: 'text', name: 'reason', validate: 'require-string', value: this.state.reason, onChange: this.onChange, autoFocus: true, inDialog: true, width: 300, height: 200 })
+						React.createElement(Reactman.FormText, { label: '驳回原因:', type: 'text', name: 'reason', validate: 'require-string', value: this.state.reason, onChange: this.onChange, autoFocus: true, inDialog: true, width: 300, height: 200 })
 					)
 				)
 			);
@@ -35879,22 +35877,22 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickPass, 'data-id': data.id },
-							'\u901A\u8FC7'
+							'通过'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickUnPass, 'data-id': data.id },
-							'\u9A73\u56DE'
+							'驳回'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', href: '/business/business_detail/?id=' + data.id },
-							'\u4FEE\u6539'
+							'修改'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-id': data.id, 'data-method': 'close' },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				} else {
@@ -35904,12 +35902,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', href: '/business/business_detail/?id=' + data.id },
-							'\u4FEE\u6539'
+							'修改'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-id': data.id, 'data-method': 'close' },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				}
@@ -35964,17 +35962,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5BA2\u6237\u7F16\u53F7:', name: 'customer_number', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户编号:', name: 'customer_number', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', name: 'company_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '公司名称:', name: 'company_name', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u7ECF\u8425\u7C7B\u76EE:', name: 'product_catalog', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '经营类目:', name: 'product_catalog', match: '=' })
 						)
 					),
 					React.createElement(
@@ -35983,17 +35981,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u4F01\u4E1A\u7C7B\u578B:', name: 'company_type', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '企业类型:', name: 'company_type', options: typeOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u624B\u673A\u53F7:', name: 'phone', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '手机号:', name: 'phone', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u5BA2\u6237\u72B6\u6001:', name: 'status', options: statusOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '客户状态:', name: 'status', options: statusOptions, match: '=' })
 						)
 					),
 					React.createElement(
@@ -36002,7 +36000,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u6240\u5728\u5730:', name: 'company_location', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '所在地:', name: 'company_location', match: '=' })
 						)
 					)
 				),
@@ -36013,15 +36011,15 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u7F16\u53F7', field: 'customer_number' }),
-						React.createElement(Reactman.TableColumn, { name: '\u516C\u53F8\u540D\u79F0', field: 'company_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6240\u5728\u5730', field: 'company_location' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4F01\u4E1A\u7C7B\u578B', field: 'company_type' }),
-						React.createElement(Reactman.TableColumn, { name: '\u7C7B\u76EE', field: 'product_catalogs' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8054\u7CFB\u4EBA', field: 'contacter' }),
-						React.createElement(Reactman.TableColumn, { name: '\u624B\u673A\u53F7', field: 'phone' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '客户编号', field: 'customer_number' }),
+						React.createElement(Reactman.TableColumn, { name: '公司名称', field: 'company_name' }),
+						React.createElement(Reactman.TableColumn, { name: '所在地', field: 'company_location' }),
+						React.createElement(Reactman.TableColumn, { name: '企业类型', field: 'company_type' }),
+						React.createElement(Reactman.TableColumn, { name: '类目', field: 'product_catalogs' }),
+						React.createElement(Reactman.TableColumn, { name: '联系人', field: 'contacter' }),
+						React.createElement(Reactman.TableColumn, { name: '手机号', field: 'phone' }),
+						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 					)
 				)
 			);
@@ -36141,13 +36139,13 @@
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', paddingRight: '200px' } },
-								'\u4E0A\u67B6\u65F6\u95F4:',
+								'上架时间:',
 								product.time
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', paddingRight: '100px' } },
-								'\u9500\u91CF:',
+								'销量:',
 								product.sales,
 								' '
 							)
@@ -36165,7 +36163,7 @@
 						React.createElement(
 							'div',
 							{ style: { float: 'left', paddingLeft: '15px' } },
-							'\u6682\u65E0\u5546\u54C1'
+							'暂无商品'
 						)
 					);
 				}
@@ -36215,7 +36213,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5BA2\u6237\u540D\u79F0:', name: 'customer_name_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customer_name_query', match: '=' })
 						)
 					)
 				),
@@ -36225,20 +36223,20 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA', onClick: this.onExport })
+						React.createElement(Reactman.TableActionButton, { text: '导出', onClick: this.onExport })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u540D\u79F0', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5F00\u59CB\u63A8\u5E7F\u65F6\u95F4', field: 'brand_time' }),
-						React.createElement(Reactman.TableColumn, { name: '\u603B\u9500\u91CF', field: 'total_sales' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u6570', field: 'total_order_number' }),
-						React.createElement(Reactman.TableColumn, { name: '\u603B\u91D1\u989D', field: 'total_order_money' }),
-						React.createElement(Reactman.TableColumn, { name: '\u73B0\u91D1', field: 'total_final_price' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5361', field: 'total_weizoom_card_money' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4F18\u60E0\u5238', field: 'total_coupon_money' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4F53\u9A8C\u53CD\u9988', field: 'feedback' })
+						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
+						React.createElement(Reactman.TableColumn, { name: '开始推广时间', field: 'brand_time' }),
+						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
+						React.createElement(Reactman.TableColumn, { name: '订单数', field: 'total_order_number' }),
+						React.createElement(Reactman.TableColumn, { name: '总金额', field: 'total_order_money' }),
+						React.createElement(Reactman.TableColumn, { name: '现金', field: 'total_final_price' }),
+						React.createElement(Reactman.TableColumn, { name: '微众卡', field: 'total_weizoom_card_money' }),
+						React.createElement(Reactman.TableColumn, { name: '优惠券', field: 'total_coupon_money' }),
+						React.createElement(Reactman.TableColumn, { name: '体验反馈', field: 'feedback' })
 					)
 				)
 			);
@@ -36435,78 +36433,78 @@
 				React.createElement(
 					'div',
 					null,
-					'\u4E00\u3001\u591A\u5546\u54C1\u9500\u91CF'
+					'一、多商品销量'
 				),
 				React.createElement(
 					Reactman.Table,
 					{ resource: productsResource, formatter: this.rowFormatter, ref: 'table' },
-					React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'product_name' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u767D\u5BCC\u7F8E', field: 'weizoom_baifumei' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4FF1\u4E50\u90E8', field: 'weizoom_club' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5BB6', field: 'weizoom_jia' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5988\u5988', field: 'weizoom_mama' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5546\u57CE', field: 'weizoom_shop' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5B66\u751F', field: 'weizoom_xuesheng' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17Life', field: 'weizoom_life' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4E00\u5BB6\u4EBA', field: 'weizoom_yjr' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5C45\u59D4\u6C47', field: 'weizoom_juweihui' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4E2D\u6D77', field: 'weizoom_zhonghai' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5C0F\u8BA1', field: 'product_sales' })
+					React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
+					React.createElement(Reactman.TableColumn, { name: '微众白富美', field: 'weizoom_baifumei' }),
+					React.createElement(Reactman.TableColumn, { name: '微众俱乐部', field: 'weizoom_club' }),
+					React.createElement(Reactman.TableColumn, { name: '微众家', field: 'weizoom_jia' }),
+					React.createElement(Reactman.TableColumn, { name: '微众妈妈', field: 'weizoom_mama' }),
+					React.createElement(Reactman.TableColumn, { name: '微众商城', field: 'weizoom_shop' }),
+					React.createElement(Reactman.TableColumn, { name: '微众学生', field: 'weizoom_xuesheng' }),
+					React.createElement(Reactman.TableColumn, { name: '微众Life', field: 'weizoom_life' }),
+					React.createElement(Reactman.TableColumn, { name: '微众一家人', field: 'weizoom_yjr' }),
+					React.createElement(Reactman.TableColumn, { name: '居委汇', field: 'weizoom_juweihui' }),
+					React.createElement(Reactman.TableColumn, { name: '微众中海', field: 'weizoom_zhonghai' }),
+					React.createElement(Reactman.TableColumn, { name: '小计', field: 'product_sales' })
 				),
 				React.createElement(
 					'div',
 					null,
-					'\u4E8C\u3001\u8BA2\u5355\u9500\u552E\u8D8B\u52BF'
+					'二、订单销售趋势'
 				),
 				React.createElement(
 					Reactman.Table,
 					{ resource: datesResource, formatter: this.rowFormatter, ref: 'table' },
-					React.createElement(Reactman.TableColumn, { name: '\u7B2C\u4E00\u5468', field: 'first_week' }),
-					React.createElement(Reactman.TableColumn, { name: '\u7B2C\u4E8C\u5468', field: 'second_week' }),
-					React.createElement(Reactman.TableColumn, { name: '\u7B2C\u4E09\u5468', field: 'third_week' }),
-					React.createElement(Reactman.TableColumn, { name: '\u7B2C\u56DB\u5468', field: 'fourth_week' })
+					React.createElement(Reactman.TableColumn, { name: '第一周', field: 'first_week' }),
+					React.createElement(Reactman.TableColumn, { name: '第二周', field: 'second_week' }),
+					React.createElement(Reactman.TableColumn, { name: '第三周', field: 'third_week' }),
+					React.createElement(Reactman.TableColumn, { name: '第四周', field: 'fourth_week' })
 				),
 				React.createElement(
 					'div',
 					null,
-					'\u4E09\u3001\u8D2D\u4E70\u7528\u6237\u6570\u636E'
+					'三、购买用户数据'
 				),
 				React.createElement(
 					Reactman.Table,
 					{ resource: datesResource, formatter: this.rowFormatter, ref: 'table' },
-					React.createElement(Reactman.TableColumn, { name: '\u603B\u4EBA\u6570', field: 'all_purchase_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u4E00\u6B21\u8D2D\u4E70', field: 'one_time_purchase' }),
-					React.createElement(Reactman.TableColumn, { name: '\u590D\u8D2D\u7528\u6237', field: 're_purchase' })
+					React.createElement(Reactman.TableColumn, { name: '总人数', field: 'all_purchase_number' }),
+					React.createElement(Reactman.TableColumn, { name: '一次购买', field: 'one_time_purchase' }),
+					React.createElement(Reactman.TableColumn, { name: '复购用户', field: 're_purchase' })
 				),
 				React.createElement(
 					'div',
 					null,
-					'\u56DB\u3001\u4F53\u9A8C\u53CD\u9988\u6570\u636E'
+					'四、体验反馈数据'
 				),
 				React.createElement(
 					Reactman.Table,
 					{ resource: datesResource, formatter: this.rowFormatter, ref: 'table' },
-					React.createElement(Reactman.TableColumn, { name: '\u53CD\u9988\u603B\u4EBA\u6570', field: 'feedback_all_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u53CD\u9988\u6761\u6570', field: 'feedback_number' })
+					React.createElement(Reactman.TableColumn, { name: '反馈总人数', field: 'feedback_all_number' }),
+					React.createElement(Reactman.TableColumn, { name: '反馈条数', field: 'feedback_number' })
 				),
 				React.createElement(
 					'div',
 					null,
-					'\u4E94\u3001\u5E73\u53F0\u8BA2\u5355\u6570'
+					'五、平台订单数'
 				),
 				React.createElement(
 					Reactman.Table,
 					{ resource: datesResource, formatter: this.rowFormatter, ref: 'table' },
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u767D\u5BCC\u7F8E', field: 'weizoom_baifumei_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4FF1\u4E50\u90E8', field: 'weizoom_club_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5BB6', field: 'weizoom_jia_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5988\u5988', field: 'weizoom_mama_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5546\u57CE', field: 'weizoom_shop_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u5B66\u751F', field: 'weizoom_xuesheng_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17Life', field: 'weizoom_life_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4E00\u5BB6\u4EBA', field: 'weizoom_yjr_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5C45\u59D4\u6C47', field: 'weizoom_juweihui_orders_number' }),
-					React.createElement(Reactman.TableColumn, { name: '\u5FAE\u4F17\u4E2D\u6D77', field: 'weizoom_zhonghai_orders_number' })
+					React.createElement(Reactman.TableColumn, { name: '微众白富美', field: 'weizoom_baifumei_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众俱乐部', field: 'weizoom_club_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众家', field: 'weizoom_jia_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众妈妈', field: 'weizoom_mama_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众商城', field: 'weizoom_shop_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众学生', field: 'weizoom_xuesheng_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众Life', field: 'weizoom_life_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众一家人', field: 'weizoom_yjr_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '居委汇', field: 'weizoom_juweihui_orders_number' }),
+					React.createElement(Reactman.TableColumn, { name: '微众中海', field: 'weizoom_zhonghai_orders_number' })
 				)
 			);
 		}
@@ -36583,8 +36581,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36723,15 +36721,15 @@
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', width: '150px' } },
 								order.total_order_money,
-								'(\u5143)'
+								'(元)'
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', width: '150px' } },
 								order.purchase_price,
-								'(\u5143)/',
+								'(元)/',
 								order.total_count,
-								'(\u4EF6)'
+								'(件)'
 							),
 							React.createElement(
 								'div',
@@ -36750,31 +36748,31 @@
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'left', width: '190px' } },
-								'\u8BA2\u5355\u53F7',
+								'订单号',
 								React.createElement('br', null)
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', width: '100px' } },
-								'\u72B6\u6001',
+								'状态',
 								React.createElement('br', null)
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', width: '150px' } },
-								'\u603B\u91D1\u989D',
+								'总金额',
 								React.createElement('br', null)
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'right', width: '150px' } },
-								'\u5355\u4EF7/\u4EF6\u6570',
+								'单价/件数',
 								React.createElement('br', null)
 							),
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { float: 'left', paddingLeft: '300px' } },
-								'\u5546\u54C1\u540D\u79F0',
+								'商品名称',
 								React.createElement('br', null)
 							),
 							React.createElement('div', { style: { clear: 'both' } }),
@@ -36877,7 +36875,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u72B6\u6001:', name: 'status', options: optionsForStatus, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '状态:', name: 'status', options: optionsForStatus, match: '=' })
 						),
 						React.createElement(Reactman.FilterField, null)
 					)
@@ -36889,10 +36887,10 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u7C89\u4E1D', field: 'fans' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8D2D\u4E70\u6307\u6570', field: 'purchase_index', width: '150' }),
-						React.createElement(Reactman.TableColumn, { name: '\u63A8\u8350\u4F20\u64AD\u6307\u6570', field: 'diffusion_index', width: '150' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' })
+						React.createElement(Reactman.TableColumn, { name: '粉丝', field: 'fans' }),
+						React.createElement(Reactman.TableColumn, { name: '购买指数', field: 'purchase_index', width: '150' }),
+						React.createElement(Reactman.TableColumn, { name: '推荐传播指数', field: 'diffusion_index', width: '150' }),
+						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' })
 					)
 				)
 			);
@@ -36956,8 +36954,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37115,19 +37113,19 @@
 						React.createElement(
 							'span',
 							{ style: { display: 'inline-block' } },
-							'\u5168\u5E97\u6EE1'
+							'全店满'
 						),
 						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'free_freight_money', value: this.state.free_freight_money, onChange: this.onChange }),
 						React.createElement(
 							'span',
 							{ style: { marginLeft: '20px' } },
-							'\u5143\u5305\u90AE\uFF0C\u5426\u5219\u6536\u53D6\u7EDF\u4E00\u8FD0\u8D39'
+							'元包邮，否则收取统一运费'
 						),
 						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'need_freight_money', value: this.state.need_freight_money, onChange: this.onChange, validate: 'require-int' }),
 						React.createElement(
 							'span',
 							{ style: { display: 'inline-block', marginLeft: '22px' } },
-							'\u5143'
+							'元'
 						)
 					),
 					React.createElement(
@@ -37212,8 +37210,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37368,8 +37366,8 @@
 					React.createElement(
 						'fieldset',
 						{ style: { paddingTop: '20px' } },
-						React.createElement(Reactman.FormInput, { label: '\u552E\u524D\u7535\u8BDD:', type: 'text', name: 'pre_sale_tel', value: this.state.pre_sale_tel, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u552E\u540E\u7535\u8BDD:', type: 'text', name: 'after_sale_tel', value: this.state.after_sale_tel, onChange: this.onChange })
+						React.createElement(Reactman.FormInput, { label: '售前电话:', type: 'text', name: 'pre_sale_tel', value: this.state.pre_sale_tel, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '售后电话:', type: 'text', name: 'after_sale_tel', value: this.state.after_sale_tel, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
@@ -37453,8 +37451,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37667,7 +37665,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormInput, { label: '\u540D\u79F0:', type: 'text', name: 'labelValue', value: this.state.labelValue, onChange: this.onChange, validate: 'require-string' })
+						React.createElement(Reactman.FormInput, { label: '名称:', type: 'text', name: 'labelValue', value: this.state.labelValue, onChange: this.onChange, validate: 'require-string' })
 					)
 				)
 			);
@@ -37747,8 +37745,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37872,7 +37870,7 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', onClick: this.deleteLabelProperty.bind(this, data['id']) },
-						'\u5220\u9664'
+						'删除'
 					)
 				);
 			} else if (field === 'labelValues') {
@@ -37901,7 +37899,7 @@
 								React.createElement(
 									'span',
 									{ onClick: _this.deleteLabelValue.bind(_this, value['label_value_id']) },
-									'\xD7'
+									'×'
 								)
 							)
 						);
@@ -37943,7 +37941,7 @@
 					return React.createElement(
 						'div',
 						{ style: { lineHeight: '30px' } },
-						React.createElement('input', { type: 'text', ref: ref, className: 'product-model-name', name: 'model_name', onBlur: this.editProductModelName.bind(null, data['id'], ref), style: { border: '1px solid #18a689' }, placeholder: '\u8BF7\u8F93\u5165\u5206\u7C7B\u540D' })
+						React.createElement('input', { type: 'text', ref: ref, className: 'product-model-name', name: 'model_name', onBlur: this.editProductModelName.bind(null, data['id'], ref), style: { border: '1px solid #18a689' }, placeholder: '请输入分类名' })
 					);
 				}
 			} else {
@@ -37968,14 +37966,14 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u5206\u7C7B', icon: 'plus', onClick: this.addLabelProperty })
+						React.createElement(Reactman.TableActionButton, { text: '添加分类', icon: 'plus', onClick: this.addLabelProperty })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'labelName', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6807\u7B7E', field: 'labelValues' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
+						React.createElement(Reactman.TableColumn, { name: '分类', field: 'labelName', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '标签', field: 'labelValues' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)
 			);
@@ -38062,12 +38060,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-primary', onClick: this.updateAccount.bind(this, data.id) },
-							'\u7F16\u8F91'
+							'编辑'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-primary ml10', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'close' },
-							'\u5173\u95ED'
+							'关闭'
 						)
 					);
 				} else if (data.status == 2) {
@@ -38077,12 +38075,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-danger', onClick: this.updateAccount.bind(this, data.id) },
-							'\u5F00\u542F'
+							'开启'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-danger ml10', onClick: this.onClickDelete, 'data-account-id': data.id },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				} else {
@@ -38092,12 +38090,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-danger', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'open' },
-							'\u5F00\u542F'
+							'开启'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-danger ml10', onClick: this.onClickDelete, 'data-account-id': data.id },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				}
@@ -38158,17 +38156,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', name: 'companyName', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '公司名称:', name: 'companyName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u767B\u5F55\u540D:', name: 'username', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '登录名:', name: 'username', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u8D26\u53F7\u7C7B\u578B:', name: 'accountType', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '账号类型:', name: 'accountType', options: typeOptions, match: '=' })
 						)
 					),
 					React.createElement(
@@ -38177,7 +38175,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u8D26\u53F7\u72B6\u6001:', name: 'status', options: statusOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '账号状态:', name: 'status', options: statusOptions, match: '=' })
 						)
 					)
 				),
@@ -38187,21 +38185,21 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA', onClick: this.onExport }),
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u8D26\u53F7', icon: 'plus', href: '/manager/account_create/' })
+						React.createElement(Reactman.TableActionButton, { text: '导出', onClick: this.onExport }),
+						React.createElement(Reactman.TableActionButton, { text: '添加账号', icon: 'plus', href: '/manager/account_create/' })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5E97\u94FA\u540D\u79F0', field: 'name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u516C\u53F8\u540D\u79F0', field: 'companyName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u6765\u6E90', field: 'customerFrom' }),
-						React.createElement(Reactman.TableColumn, { name: '\u767B\u5F55\u540D', field: 'username' }),
-						React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'createdAt' }),
-						React.createElement(Reactman.TableColumn, { name: '\u7ECF\u8425\u7C7B\u76EE', field: 'companyType' }),
-						React.createElement(Reactman.TableColumn, { name: '\u91C7\u8D2D\u65B9\u5F0F', field: 'purchaseMethod' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u6570\u4E0A\u9650', field: 'maxProduct' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '150px' })
+						React.createElement(Reactman.TableColumn, { name: '店铺名称', field: 'name' }),
+						React.createElement(Reactman.TableColumn, { name: '公司名称', field: 'companyName' }),
+						React.createElement(Reactman.TableColumn, { name: '客户来源', field: 'customerFrom' }),
+						React.createElement(Reactman.TableColumn, { name: '登录名', field: 'username' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'createdAt' }),
+						React.createElement(Reactman.TableColumn, { name: '经营类目', field: 'companyType' }),
+						React.createElement(Reactman.TableColumn, { name: '采购方式', field: 'purchaseMethod' }),
+						React.createElement(Reactman.TableColumn, { name: '商品数上限', field: 'maxProduct' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '150px' })
 					)
 				)
 			);
@@ -38435,12 +38433,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.updateAccount.bind(this, data.id) },
-							'\u7F16\u8F91'
+							'编辑'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'close' },
-							'\u5173\u95ED'
+							'关闭'
 						)
 					);
 				} else if (data.status == 2) {
@@ -38450,12 +38448,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.updateAccount.bind(this, data.id) },
-							'\u5F00\u542F'
+							'开启'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-account-id': data.id },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				} else {
@@ -38465,12 +38463,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeStatus, 'data-account-id': data.id, 'data-method': 'open' },
-							'\u5F00\u542F'
+							'开启'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-account-id': data.id },
-							'\u5220\u9664'
+							'删除'
 						)
 					);
 				}
@@ -38519,12 +38517,12 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u8D26\u53F7\u540D\u79F0:', name: 'name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '账号名称:', name: 'name', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u767B\u5F55\u540D:', name: 'username', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '登录名:', name: 'username', match: '=' })
 						)
 					)
 				),
@@ -38534,20 +38532,20 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA', onClick: this.onExport }),
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u8D26\u53F7', icon: 'plus', href: '/manager/account_create/' })
+						React.createElement(Reactman.TableActionButton, { text: '导出', onClick: this.onExport }),
+						React.createElement(Reactman.TableActionButton, { text: '添加账号', icon: 'plus', href: '/manager/account_create/' })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u8D26\u53F7\u540D\u79F0', field: 'name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u6765\u6E90', field: 'customerFrom' }),
-						React.createElement(Reactman.TableColumn, { name: '\u767B\u5F55\u540D', field: 'username' }),
-						React.createElement(Reactman.TableColumn, { name: '\u7ECF\u8425\u7C7B\u76EE', field: 'companyType' }),
-						React.createElement(Reactman.TableColumn, { name: '\u91C7\u8D2D\u65B9\u5F0F', field: 'purchaseMethod' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6700\u591A\u4E0A\u4F20\u5546\u54C1\u6570', field: 'maxProduct' }),
-						React.createElement(Reactman.TableColumn, { name: '\u7C7B\u578B', field: 'accountType' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5F53\u524D\u5546\u54C1\u6570\u91CF', field: 'productCount' })
+						React.createElement(Reactman.TableColumn, { name: '账号名称', field: 'name' }),
+						React.createElement(Reactman.TableColumn, { name: '客户来源', field: 'customerFrom' }),
+						React.createElement(Reactman.TableColumn, { name: '登录名', field: 'username' }),
+						React.createElement(Reactman.TableColumn, { name: '经营类目', field: 'companyType' }),
+						React.createElement(Reactman.TableColumn, { name: '采购方式', field: 'purchaseMethod' }),
+						React.createElement(Reactman.TableColumn, { name: '最多上传商品数', field: 'maxProduct' }),
+						React.createElement(Reactman.TableColumn, { name: '类型', field: 'accountType' }),
+						React.createElement(Reactman.TableColumn, { name: '当前商品数量', field: 'productCount' })
 					)
 				)
 			);
@@ -38806,9 +38804,9 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u8D26\u53F7\u4FE1\u606F'
+							'账号信息'
 						),
-						React.createElement(Reactman.FormRadio, { label: '\u8D26\u53F7\u7C7B\u578B:', name: 'accountType', value: this.state.accountType, options: optionsForAccountType, onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '账号类型:', name: 'accountType', value: this.state.accountType, options: optionsForAccountType, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							null,
@@ -38831,14 +38829,14 @@
 								settlementPeriod: this.state.settlementPeriod
 							})
 						),
-						React.createElement(Reactman.FormInput, { label: '\u767B\u5F55\u540D:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '登录名:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
 						React.createElement(Reactman.FormInput, { label: labelName, type: 'password', name: 'password', validate: validate, placeholder: '', value: this.state.password, onChange: this.onChange }),
-						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8:', name: 'note', value: this.state.note, inDialog: true, width: 320, height: 200, onChange: this.onChange })
+						React.createElement(Reactman.FormText, { label: '备注:', name: 'note', value: this.state.note, inDialog: true, width: 320, height: 200, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '\u4FDD \u5B58' })
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '保 存' })
 					)
 				)
 			);
@@ -38875,10 +38873,10 @@
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '公司名称:', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormSelect, { label: '', name: 'companyNameOption', value: this.props.companyNameOption, options: this.props.optionsForCompanyName, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u5E97\u94FA\u540D\u79F0:', type: 'text', name: 'name', validate: 'require-notempty', placeholder: '\u5EFA\u8BAE\u586B\u5199\u4E3A\u5BA2\u6237\u516C\u53F8\u7B80\u79F0\uFF0C\u5C06\u5728\u5FAE\u4F17\u5E73\u53F0\u624B\u673A\u7AEF\u5C55\u793A\u7ED9\u7528\u6237', value: this.props.name, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormRadio, { label: '\u91C7\u8D2D\u65B9\u5F0F:', name: 'purchaseMethod', value: this.props.purchaseMethod, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '店铺名称:', type: 'text', name: 'name', validate: 'require-notempty', placeholder: '建议填写为客户公司简称，将在微众平台手机端展示给用户', value: this.props.name, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormRadio, { label: '采购方式:', name: 'purchaseMethod', value: this.props.purchaseMethod, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
 					React.createElement(
 						'div',
 						null,
@@ -38887,23 +38885,23 @@
 							Type: this.props.purchaseMethod
 						})
 					),
-					React.createElement(Reactman.FormRadio, { label: '\u7ED3\u7B97\u8D26\u671F:', name: 'settlementPeriod', value: this.props.settlementPeriod, options: optionsForSettlementPeriod, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormCheckbox, { label: '\u7ECF\u8425\u7C7B\u76EE:', name: 'companyType', value: this.props.companyType, options: this.props.optionsForType, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u4E2A\u6570\u4E0A\u9650:', type: 'text', validate: 'require-int', name: 'maxProduct', value: this.props.maxProduct, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u8054\u7CFB\u4EBA:', type: 'text', name: 'contacter', value: this.props.contacter, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u624B\u673A\u53F7:', type: 'text', name: 'phone', value: this.props.phone, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormRadio, { label: '结算账期:', name: 'settlementPeriod', value: this.props.settlementPeriod, options: optionsForSettlementPeriod, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormCheckbox, { label: '经营类目:', name: 'companyType', value: this.props.companyType, options: this.props.optionsForType, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品个数上限:', type: 'text', validate: 'require-int', name: 'maxProduct', value: this.props.maxProduct, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '联系人:', type: 'text', name: 'contacter', value: this.props.contacter, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '手机号:', type: 'text', name: 'phone', value: this.props.phone, onChange: this.props.onChange }),
 					React.createElement(
 						'div',
 						{ className: 'account-create-valid-time' },
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u6709\u6548\u671F:', name: 'validTimeFrom', validate: 'require-notempty', value: this.props.validTimeFrom, readOnly: true, onChange: this.props.onChange }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u81F3:', name: 'validTimeTo', value: this.props.validTimeTo, readOnly: true, onChange: this.props.onChange })
+						React.createElement(Reactman.FormDateTimeInput, { label: '有效期:', name: 'validTimeFrom', validate: 'require-notempty', value: this.props.validTimeFrom, readOnly: true, onChange: this.props.onChange }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '至:', name: 'validTimeTo', value: this.props.validTimeTo, readOnly: true, onChange: this.props.onChange })
 					)
 				);
 			} else {
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '\u8D26\u53F7\u540D\u79F0:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: this.props.name, onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '账号名称:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: this.props.name, onChange: this.props.onChange })
 				);
 			}
 		}
@@ -39380,7 +39378,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { label: '\u9009\u62E9\u5E73\u53F0:', name: 'selfUserName', options: typeOptions, value: this.state.selfUserName, onChange: this.onChange })
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'selfUserName', options: typeOptions, value: this.state.selfUserName, onChange: this.onChange })
 					)
 				)
 			);
@@ -39404,8 +39402,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -39512,7 +39510,7 @@
 				return React.createElement(
 					'div',
 					{ className: 'account-create-purchase-method' },
-					React.createElement(Reactman.FormInput, { label: '\u96F6\u552E\u6263\u70B9:', type: 'text', name: 'points', validate: 'require-notempty', value: this.props.points, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '零售扣点:', type: 'text', name: 'points', validate: 'require-notempty', value: this.props.points, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
@@ -39531,41 +39529,41 @@
 							React.createElement(
 								'span',
 								null,
-								'\u5468\u671F'
+								'周期'
 							),
 							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validateFromCondition', value: rebate.validateFromCondition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								{ style: { marginLeft: '70px' } },
-								'\u81F3'
+								'至'
 							),
 							React.createElement(Reactman.FormDateTimeInput, { label: '', name: 'validateToCondition', value: rebate.validateToCondition, readOnly: true, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								{ style: { display: 'inline-block', marginLeft: '70px' } },
-								'\u6216\u91D1\u989D\u4E0D\u5927\u4E8E'
+								'或金额不大于'
 							),
 							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'orderMoneyCondition', value: rebate.orderMoneyCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
-								'\u5143\u524D\u63D0\u4E0B\uFF0C\u8FD4\u70B9\u6BD4\u4F8B\u4E3A'
+								'元前提下，返点比例为'
 							),
 							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebateProportCondition', value: rebate.rebateProportCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
-								'%\uFF0C\u5426\u5219\uFF0C\u5C06\u6309'
+								'%，否则，将按'
 							),
 							React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'defaultRebateProportCondition', value: rebate.defaultRebateProportCondition, onChange: _this.onChangeValue.bind(_this, index) }),
 							React.createElement(
 								'span',
 								null,
-								'%\u57FA\u7840\u6263\u70B9\u7ED3\u7B97\u3002'
+								'%基础扣点结算。'
 							),
 							React.createElement(
 								'a',
-								{ className: 'rebate-close', href: 'javascript:void(0);', onClick: _this.deleteRebateValue.bind(_this, index), title: '\u5220\u9664' },
+								{ className: 'rebate-close', href: 'javascript:void(0);', onClick: _this.deleteRebateValue.bind(_this, index), title: '删除' },
 								'x'
 							)
 						);
@@ -39580,25 +39578,25 @@
 						React.createElement(
 							'span',
 							{ style: { display: 'inline-block' } },
-							'\u9996\u6708(\u5546\u54C1\u4E0A\u67B6\u540E30\u5929\u542B\u5185)\u6216\u91D1\u989D\u4E0D\u5927\u4E8E'
+							'首月(商品上架后30天含内)或金额不大于'
 						),
 						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'orderMoney', validate: 'require-positive-int', value: this.state.orderMoney, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
-							'\u5143\u524D\u63D0\u4E0B\uFF0C\u8FD4\u70B9\u6BD4\u4F8B\u4E3A'
+							'元前提下，返点比例为'
 						),
 						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'rebateProport', validate: 'require-percent', value: this.state.rebateProport, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
-							'%\uFF0C\u5426\u5219\uFF0C\u5C06\u6309'
+							'%，否则，将按'
 						),
 						React.createElement(Reactman.FormInput, { label: '', type: 'text', name: 'defaultRebateProport', validate: 'require-percent', value: this.state.defaultRebateProport, onChange: this.props.onChange }),
 						React.createElement(
 							'span',
 							null,
-							'%\u57FA\u7840\u6263\u70B9\u7ED3\u7B97\u3002'
+							'%基础扣点结算。'
 						)
 					),
 					rebateDialog
@@ -39703,7 +39701,7 @@
 						),
 						React.createElement(
 							'span',
-							{ className: 'xui-close', onClick: _this.deleteSelfShop.bind(_this, index), title: '\u5220\u9664' },
+							{ className: 'xui-close', onClick: _this.deleteSelfShop.bind(_this, index), title: '删除' },
 							'x'
 						)
 					);
@@ -39714,7 +39712,7 @@
 					React.createElement(
 						'span',
 						{ style: { position: 'absolute', left: '75px' } },
-						'\u56E2\u8D2D\u6263\u70B9'
+						'团购扣点'
 					),
 					React.createElement(
 						'ul',
@@ -39855,7 +39853,7 @@
 						product["origin_price"],
 						'/(',
 						product["count"],
-						'\u4EF6)',
+						'件)',
 						React.createElement('br', null)
 					);
 				}
@@ -39883,21 +39881,21 @@
 					'div',
 					{ style: { margin: '20px 0 0 10px' } },
 					value,
-					'(\u4EF6)'
+					'(件)'
 				);
 			} else if (field === 'origin_total_price') {
 				return React.createElement(
 					'div',
 					{ style: { margin: '20px 0 0 10px' } },
 					value,
-					'(\u5143)'
+					'(元)'
 				);
 			} else if (field === 'postage') {
 				return React.createElement(
 					'div',
 					{ style: { margin: '20px 0 0 10px' } },
 					value,
-					'(\u5143)'
+					'(元)'
 				);
 			} else {
 				return value;
@@ -39930,11 +39928,11 @@
 							React.createElement(
 								Reactman.Table,
 								{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-								React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'product_name' }),
-								React.createElement(Reactman.TableColumn, { name: '\u5355\u4EF7/\u6570\u91CF', field: 'unit_price/quantity' }),
-								React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u4EF6\u6570', field: 'total_count', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u91D1\u989D', field: 'origin_total_price', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '\u8FD0\u8D39', field: 'postage', width: '200px' })
+								React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
+								React.createElement(Reactman.TableColumn, { name: '单价/数量', field: 'unit_price/quantity' }),
+								React.createElement(Reactman.TableColumn, { name: '商品件数', field: 'total_count', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'origin_total_price', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage', width: '200px' })
 							)
 						)
 					)
@@ -39953,11 +39951,11 @@
 							React.createElement(
 								Reactman.Table,
 								{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-								React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'product_name' }),
-								React.createElement(Reactman.TableColumn, { name: '\u5355\u4EF7/\u6570\u91CF', field: 'unit_price/quantity' }),
-								React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u4EF6\u6570', field: 'total_count', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u91D1\u989D', field: 'origin_total_price', width: '200px' }),
-								React.createElement(Reactman.TableColumn, { name: '\u8FD0\u8D39', field: 'postage', width: '200px' })
+								React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
+								React.createElement(Reactman.TableColumn, { name: '单价/数量', field: 'unit_price/quantity' }),
+								React.createElement(Reactman.TableColumn, { name: '商品件数', field: 'total_count', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'origin_total_price', width: '200px' }),
+								React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage', width: '200px' })
 							)
 						)
 					)
@@ -39985,7 +39983,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u8BA2\u5355\u7F16\u53F7:',
+							'订单编号:',
 							order_id
 						)
 					),
@@ -39995,7 +39993,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u8BA2\u5355\u72B6\u6001:',
+							'订单状态:',
 							order_status
 						)
 					)
@@ -40134,13 +40132,13 @@
 						React.createElement(
 							'span',
 							{ className: 'inline-block' },
-							'\u6536\u8D27\u4EBA:',
+							'收货人:',
 							ship_name
 						),
 						React.createElement(
 							'span',
 							{ className: 'inline-block', style: { marginLeft: '130px' } },
-							'\u6536\u8D27\u4EBA\u7535\u8BDD:',
+							'收货人电话:',
 							ship_tel
 						)
 					),
@@ -40150,7 +40148,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u6536\u8D27\u5730\u5740:',
+							'收货地址:',
 							ship_area,
 							',',
 							ship_address
@@ -40162,7 +40160,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u4E70\u5BB6\u7559\u8A00:',
+							'买家留言:',
 							customer_message
 						)
 					)
@@ -40176,7 +40174,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u7269\u6D41\u516C\u53F8\u540D\u79F0:',
+							'物流公司名称:',
 							express_company_name
 						)
 					),
@@ -40186,7 +40184,7 @@
 						React.createElement(
 							'span',
 							null,
-							'\u8FD0\u5355\u53F7:',
+							'运单号:',
 							express_number
 						)
 					),
@@ -40217,8 +40215,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40408,8 +40406,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40503,16 +40501,16 @@
 					React.createElement(
 						'p',
 						null,
-						'\u8BF7\u7F16\u8F91\u53D1\u8D27\u8868\u683C\uFF0C\u53EA\u4FDD\u7559\u4E09\u4E2A\u5B57\u6BB5\uFF1A\u8BA2\u5355\u7F16\u53F7\u3001\u7269\u6D41\u516C\u53F8\u3001\u5FEB\u9012\u5355\u53F7\u3002'
+						'请编辑发货表格，只保留三个字段：订单编号、物流公司、快递单号。'
 					),
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormFileUploader, { label: '\u6587\u4EF6:', name: 'documents', value: this.state.documents, onChange: this.onChange, max: 1 }),
+						React.createElement(Reactman.FormFileUploader, { label: '文件:', name: 'documents', value: this.state.documents, onChange: this.onChange, max: 1 }),
 						React.createElement(
 							'p',
 							null,
-							'\u6587\u4EF6\u683C\u5F0F\u89C4\u8303\uFF1A'
+							'文件格式规范：'
 						),
 						React.createElement('img', { src: '/static/img/express_name.jpg' })
 					)
@@ -40726,7 +40724,7 @@
 							null,
 							'(',
 							product['count'],
-							'\u4EF6)'
+							'件)'
 						)
 					);
 				}
@@ -40750,7 +40748,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickShip, 'data-order-id': data.order_id, 'data-order-express_number': data.express_number },
-							'\u53D1\u8D27'
+							'发货'
 						)
 					);
 				} else if (data.status === '已发货') {
@@ -40760,12 +40758,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickComplete, 'data-order-id': data.order_id },
-							'\u6807\u8BB0\u5B8C\u6210'
+							'标记完成'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeShip, 'data-order-id': data.order_id, 'data-order-express_company_name': data.express_company_name, 'data-order-express_number': data.express_number, 'data-order-leader_name': data.leader_name },
-							'\u4FEE\u6539\u7269\u6D41'
+							'修改物流'
 						)
 					);
 				} else {
@@ -40844,17 +40842,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u8BA2\u5355\u7F16\u53F7:', name: 'order_id', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '订单编号:', name: 'order_id', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'product_name', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u8BA2\u5355\u72B6\u6001:', name: 'status', options: typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'status', options: typeOptions, match: '=' })
 						)
 					),
 					React.createElement(
@@ -40863,7 +40861,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormDateRangeInput, { label: '\u4E0B\u5355\u65F6\u95F4:', name: 'order_create_at', match: '[t]' })
+							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'order_create_at', match: '[t]' })
 						)
 					)
 				),
@@ -40873,21 +40871,21 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u53D1\u8D27', onClick: this.onOrderBatchDelivery }),
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA', onClick: this.onExport })
+						React.createElement(Reactman.TableActionButton, { text: '批量发货', onClick: this.onOrderBatchDelivery }),
+						React.createElement(Reactman.TableActionButton, { text: '导出', onClick: this.onExport })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: ordersResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u7F16\u53F7', field: 'order_id' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'product_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5355\u4EF7/\u6570\u91CF', field: 'product_price' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6536\u8D27\u4EBA', field: 'ship_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u91D1\u989D', field: 'total_purchase_price' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8FD0\u8D39', field: 'postage' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u72B6\u6001', field: 'status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4E0B\u5355\u65F6\u95F4', field: 'order_create_at' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '60px' })
+						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'order_id' }),
+						React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name' }),
+						React.createElement(Reactman.TableColumn, { name: '单价/数量', field: 'product_price' }),
+						React.createElement(Reactman.TableColumn, { name: '收货人', field: 'ship_name' }),
+						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'total_purchase_price' }),
+						React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage' }),
+						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'status' }),
+						React.createElement(Reactman.TableColumn, { name: '下单时间', field: 'order_create_at' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '60px' })
 					)
 				)
 			);
@@ -41009,7 +41007,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormRadio, { label: '\u53D1\u8D27\u65B9\u5F0F:', type: 'text', name: 'is_need_ship', value: this.state.is_need_ship, options: optionsForShip, onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '发货方式:', type: 'text', name: 'is_need_ship', value: this.state.is_need_ship, options: optionsForShip, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							null,
@@ -41087,15 +41085,15 @@
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '发货人:', name: 'shiper_name', placeholder: '备注请用竖线隔开', value: this.props.shiperName, onChange: this.props.onChange })
 				);
 			} else {
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormSelect, { label: '\u7269\u6D41\u516C\u53F8:', name: 'ship_company', validate: 'require-notempty', value: this.props.shipCompany, options: options, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u5FEB\u9012\u5355\u53F7:', name: 'ship_number', validate: 'require-string', value: this.props.shipNumber, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
+					React.createElement(Reactman.FormSelect, { label: '物流公司:', name: 'ship_company', validate: 'require-notempty', value: this.props.shipCompany, options: options, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '快递单号:', name: 'ship_number', validate: 'require-string', value: this.props.shipNumber, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '发货人:', name: 'shiper_name', placeholder: '备注请用竖线隔开', value: this.props.shiperName, onChange: this.props.onChange })
 				);
 			}
 		}
@@ -41118,8 +41116,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -41349,17 +41347,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5BA2\u6237\u540D\u79F0:', name: 'customerName', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customerName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'productName', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'productName', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u8BA2\u5355\u53F7:', name: 'orderId', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '订单号:', name: 'orderId', match: '=' })
 						)
 					),
 					React.createElement(
@@ -41368,17 +41366,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormDateRangeInput, { label: '\u4E0B\u5355\u65F6\u95F4:', name: 'orderCreateAt', match: '[t]' })
+							React.createElement(Reactman.FormDateRangeInput, { label: '下单时间:', name: 'orderCreateAt', match: '[t]' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u6765\u6E90\u5546\u57CE:', name: 'fromMall', options: this.state.typeOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '来源商城:', name: 'fromMall', options: this.state.typeOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u8BA2\u5355\u72B6\u6001:', name: 'orderStatus', options: orderStatusOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '订单状态:', name: 'orderStatus', options: orderStatusOptions, match: '=' })
 						)
 					)
 				),
@@ -41388,18 +41386,18 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u53D1\u8D27\u6587\u4EF6', onClick: this.onExport })
+						React.createElement(Reactman.TableActionButton, { text: '导出发货文件', onClick: this.onExport })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: ordersResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u7F16\u53F7', field: 'orderId' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u540D\u79F0', field: 'productName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u91D1\u989D', field: 'totalPurchasePrice' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8FD0\u8D39', field: 'postage' }),
-						React.createElement(Reactman.TableColumn, { name: '\u8BA2\u5355\u72B6\u6001', field: 'orderStatus' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u540D\u79F0', field: 'customerName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6765\u6E90\u5546\u57CE', field: 'fromMall' })
+						React.createElement(Reactman.TableColumn, { name: '订单编号', field: 'orderId' }),
+						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'productName' }),
+						React.createElement(Reactman.TableColumn, { name: '订单金额', field: 'totalPurchasePrice' }),
+						React.createElement(Reactman.TableColumn, { name: '运费', field: 'postage' }),
+						React.createElement(Reactman.TableColumn, { name: '订单状态', field: 'orderStatus' }),
+						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customerName' }),
+						React.createElement(Reactman.TableColumn, { name: '来源商城', field: 'fromMall' })
 					)
 				)
 			);
@@ -41574,16 +41572,16 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u5546\u54C1\u4FE1\u606F'
+							'商品信息'
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D:', name: 'name', validate: 'require-string', placeholder: '', value: this.state.name, onChange: this.onChange, autoFocus: true }),
-						React.createElement(Reactman.FormInput, { label: '\u91CD\u91CF:', name: 'weight', validate: 'require-int', placeholder: '', value: this.state.weight, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u4EF7\u683C:', name: 'price', validate: 'require-price', placeholder: '\u8F93\u5165\u4EF7\u683C', value: this.state.price, onChange: this.onChange }),
-						React.createElement(Reactman.FormRadio, { label: '\u53C2\u4E0E\u53CC11\u4FC3\u9500:', name: 'isJoinPromotion', value: this.state.isJoinPromotion, options: optionsForJoinPromotion, onChange: this.onChange }),
-						React.createElement(Reactman.FormDateTimeInput, { label: '\u4FC3\u9500\u7ED3\u675F\u65F6\u95F4:', name: 'promotionFinishDate', placeholder: '\u4FC3\u9500\u7ED3\u675F\u65E5\u671F', value: this.state.promotionFinishDate, onChange: this.onChange, validate: 'require-string' }),
-						React.createElement(Reactman.FormCheckbox, { label: '\u6E20\u9053:', name: 'channels', value: this.state.channels, options: optionsForChannel, onChange: this.onChange }),
-						React.createElement(Reactman.FormImageUploader, { label: '\u56FE\u7247:', name: 'images', value: this.state.images, onChange: this.onChange, max: 3 }),
-						React.createElement(Reactman.FormFileUploader, { label: '\u6587\u6863:', name: 'documents', value: this.state.documents, onChange: this.onChange, max: 3 })
+						React.createElement(Reactman.FormInput, { label: '商品名:', name: 'name', validate: 'require-string', placeholder: '', value: this.state.name, onChange: this.onChange, autoFocus: true }),
+						React.createElement(Reactman.FormInput, { label: '重量:', name: 'weight', validate: 'require-int', placeholder: '', value: this.state.weight, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '价格:', name: 'price', validate: 'require-price', placeholder: '输入价格', value: this.state.price, onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '参与双11促销:', name: 'isJoinPromotion', value: this.state.isJoinPromotion, options: optionsForJoinPromotion, onChange: this.onChange }),
+						React.createElement(Reactman.FormDateTimeInput, { label: '促销结束时间:', name: 'promotionFinishDate', placeholder: '促销结束日期', value: this.state.promotionFinishDate, onChange: this.onChange, validate: 'require-string' }),
+						React.createElement(Reactman.FormCheckbox, { label: '渠道:', name: 'channels', value: this.state.channels, options: optionsForChannel, onChange: this.onChange }),
+						React.createElement(Reactman.FormImageUploader, { label: '图片:', name: 'images', value: this.state.images, onChange: this.onChange, max: 3 }),
+						React.createElement(Reactman.FormFileUploader, { label: '文档:', name: 'documents', value: this.state.documents, onChange: this.onChange, max: 3 })
 					),
 					React.createElement(
 						'fieldset',
@@ -41591,7 +41589,7 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u5546\u54C1\u89C4\u683C'
+							'商品规格'
 						),
 						React.createElement(ProductModelList, { name: 'models', value: this.state.models, onChange: this.onChange })
 					),
@@ -41601,14 +41599,14 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u5176\u4ED6\u4FE1\u606F'
+							'其他信息'
 						),
-						React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u8BE6\u60C5', name: 'detail', width: 800, validate: 'require-notempty', value: this.state.detail, onChange: this.onChange })
+						React.createElement(Reactman.FormRichTextInput, { label: '商品详情', name: 'detail', width: 800, validate: 'require-notempty', value: this.state.detail, onChange: this.onChange })
 					),
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '\u786E \u5B9A' })
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '确 定' })
 					)
 				)
 			);
@@ -41691,7 +41689,7 @@
 				React.createElement(
 					'a',
 					{ className: 'ml15', onClick: this.onClickAddModel },
-					'+ \u6DFB\u52A0\u89C4\u683C'
+					'+ 添加规格'
 				)
 			);
 		}
@@ -41750,8 +41748,8 @@
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(FormInput, { label: '\u89C4\u683C\u540D:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: model.name, onChange: this.onChange, autoFocus: autoFocus }),
-				React.createElement(FormInput, { label: '\u5E93\u5B58:', type: 'text', name: 'stocks', validate: 'require-int', placeholder: '', value: model.stocks, onChange: this.onChange }),
+				React.createElement(FormInput, { label: '规格名:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: model.name, onChange: this.onChange, autoFocus: autoFocus }),
+				React.createElement(FormInput, { label: '库存:', type: 'text', name: 'stocks', validate: 'require-int', placeholder: '', value: model.stocks, onChange: this.onChange }),
 				React.createElement(
 					'a',
 					{ className: 'btn btn-default ml20', style: { 'verticalAlign': 'top' }, onClick: this.onClickDelete },
@@ -41962,7 +41960,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8:', name: 'comment', validate: 'require-string', placeholder: '\u8F93\u5165\'error\'\u4F53\u9A8C\u8BC4\u8BBA\u5931\u8D25\u573A\u666F\uFF0C\u5176\u4ED6\u5185\u5BB9\u4F53\u9A8C\u8BC4\u8BBA\u6210\u529F\u573A\u666F', value: this.state.comment, onChange: this.onChange, autoFocus: true, inDialog: true, width: 300, height: 200 })
+						React.createElement(Reactman.FormText, { label: '备注:', name: 'comment', validate: 'require-string', placeholder: '输入\'error\'体验评论失败场景，其他内容体验评论成功场景', value: this.state.comment, onChange: this.onChange, autoFocus: true, inDialog: true, width: 300, height: 200 })
 					)
 				)
 			);
@@ -42110,17 +42108,17 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete, 'data-product-id': data.id },
-						'\u5220\u9664'
+						'删除'
 					),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs mt5', href: '/outline/data/?id=' + data.id },
-						'\u7F16\u8F91'
+						'编辑'
 					),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs mt5', onClick: this.onClickComment, 'data-product-id': data.id },
-						'\u5907\u6CE8'
+						'备注'
 					)
 				);
 			} else if (field === 'expand-row') {
@@ -42133,15 +42131,15 @@
 						React.createElement(
 							'div',
 							{ className: 'fl' },
-							'\u4FC3\u9500\u7ED3\u675F\u65E5\uFF1A',
+							'促销结束日：',
 							data.promotion_finish_time
 						),
 						React.createElement(
 							'div',
 							{ className: 'fr' },
-							'\u603B\u91D1\u989D: ',
+							'总金额: ',
 							data.price,
-							'\u5143'
+							'元'
 						)
 					)
 				);
@@ -42205,17 +42203,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D:', name: 'name', match: '~' })
+							React.createElement(Reactman.FormInput, { label: '商品名:', name: 'name', match: '~' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D2:', name: 'name2', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名2:', name: 'name2', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D3:', name: 'name3', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名3:', name: 'name3', match: '=' })
 						)
 					),
 					React.createElement(
@@ -42224,12 +42222,12 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u5730\u533A:', name: 'location', options: locationOptions, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '地区:', name: 'location', options: locationOptions, match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormRangeInput, { label: '\u91CD\u91CF:', name: 'weight', match: '[]' })
+							React.createElement(Reactman.FormRangeInput, { label: '重量:', name: 'weight', match: '[]' })
 						),
 						React.createElement(Reactman.FilterField, null)
 					),
@@ -42239,7 +42237,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormDateRangeInput, { label: '\u4FC3\u9500\u7ED3\u675F:', name: 'promotion_finish_date', match: '[t]' })
+							React.createElement(Reactman.FormDateRangeInput, { label: '促销结束:', name: 'promotion_finish_date', match: '[t]' })
 						)
 					)
 				),
@@ -42249,19 +42247,19 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u5546\u54C1', icon: 'plus', href: '/outline/data/' })
+						React.createElement(Reactman.TableActionButton, { text: '添加商品', icon: 'plus', href: '/outline/data/' })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
 						React.createElement(Reactman.TableColumn, { name: '#', field: 'index', width: '40px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u91CD\u91CF', field: 'weight', width: '60px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5907\u6CE8', field: 'comment', width: '150px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4EF7\u683C', field: 'price', width: '80px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C', field: 'models', width: '100px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65E5', field: 'created_at', width: '160px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '80px' })
+						React.createElement(Reactman.TableColumn, { name: '商品', field: 'name' }),
+						React.createElement(Reactman.TableColumn, { name: '重量', field: 'weight', width: '60px' }),
+						React.createElement(Reactman.TableColumn, { name: '备注', field: 'comment', width: '150px' }),
+						React.createElement(Reactman.TableColumn, { name: '价格', field: 'price', width: '80px' }),
+						React.createElement(Reactman.TableColumn, { name: '规格', field: 'models', width: '100px' }),
+						React.createElement(Reactman.TableColumn, { name: '创建日', field: 'created_at', width: '160px' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '80px' })
 					)
 				)
 			);
@@ -42285,8 +42283,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42344,11 +42342,11 @@
 						React.createElement(
 							Reactman.Widget,
 							{ fa: 'users', theme: 'navy' },
-							'\u7C89\u4E1D\u603B\u6570',
+							'粉丝总数',
 							React.createElement('br', null),
 							'20408',
 							React.createElement('br', null),
-							'\u6628\u65E5\u65B0\u589E',
+							'昨日新增',
 							React.createElement('br', null),
 							'10'
 						)
@@ -42359,11 +42357,11 @@
 						React.createElement(
 							Reactman.Widget,
 							{ fa: 'pencil-square-o', theme: 'lazur' },
-							'\u53CD\u9988\u603B\u6570',
+							'反馈总数',
 							React.createElement('br', null),
 							'16466',
 							React.createElement('br', null),
-							'\u6628\u65E5\u65B0\u589E',
+							'昨日新增',
 							React.createElement('br', null),
 							'123'
 						)
@@ -42374,7 +42372,7 @@
 						React.createElement(
 							Reactman.Widget,
 							{ fa: 'credit-card', theme: 'yellow' },
-							'\u5FAE\u4F17\u5361\u603B\u6570',
+							'微众卡总数',
 							React.createElement('br', null),
 							'2507'
 						)
@@ -42383,13 +42381,13 @@
 				React.createElement(
 					'div',
 					{ className: 'row clearfix' },
-					React.createElement(Reactman.Chart, { id: 'fansIncrementTrend', resource: { resource: "outline.fans_increment_trend", data: {} }, title: '\u7C89\u4E1D\u589E\u91CF\u8D8B\u52BF\u56FE' }),
-					React.createElement(Reactman.Chart, { id: 'fansTrend', resource: { resource: "outline.fans_trend", data: {} }, title: '\u7C89\u4E1D\u603B\u91CF\u8D8B\u52BF\u56FE' })
+					React.createElement(Reactman.Chart, { id: 'fansIncrementTrend', resource: { resource: "outline.fans_increment_trend", data: {} }, title: '粉丝增量趋势图' }),
+					React.createElement(Reactman.Chart, { id: 'fansTrend', resource: { resource: "outline.fans_trend", data: {} }, title: '粉丝总量趋势图' })
 				),
 				React.createElement(
 					'div',
 					{ className: 'row clearfix' },
-					React.createElement(Reactman.Chart, { id: 'taskFinishTime', resource: { resource: "outline.task_finish_time", data: { base: 50 } }, title: '\u4EFB\u52A1\u5B8C\u6210\u65F6\u95F4\u5206\u5E03\u56FE' })
+					React.createElement(Reactman.Chart, { id: 'taskFinishTime', resource: { resource: "outline.task_finish_time", data: { base: 50 } }, title: '任务完成时间分布图' })
 				)
 			);
 		}
@@ -42745,7 +42743,7 @@
 					React.createElement(
 						'span',
 						null,
-						'\u786E\u5B9A'
+						'确定'
 					)
 				),
 				React.createElement(
@@ -42754,7 +42752,7 @@
 					React.createElement(
 						'span',
 						null,
-						'\u53D6\u6D88'
+						'取消'
 					)
 				)
 			);
@@ -43219,13 +43217,13 @@
 						React.createElement(
 							Reactman.Table,
 							{ resource: productsResource, formatter: this.rowFormatter, ref: 'table' },
-							React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u540D', field: 'product_model_name', width: '100px' }),
-							React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u503C', field: 'product_model_value' })
+							React.createElement(Reactman.TableColumn, { name: '规格名', field: 'product_model_name', width: '100px' }),
+							React.createElement(Reactman.TableColumn, { name: '规格值', field: 'product_model_value' })
 						),
 						React.createElement(
 							Reactman.TableActionBar,
 							null,
-							React.createElement(Reactman.TableActionButton, { text: '\u786E\u5B9A', onClick: this.saveModelValue })
+							React.createElement(Reactman.TableActionButton, { text: '确定', onClick: this.saveModelValue })
 						)
 					)
 				);
@@ -43233,13 +43231,13 @@
 				return React.createElement(
 					'div',
 					{ style: { paddingLeft: '40px', fontSize: '18px' } },
-					'\u6682\u65E0\u5546\u54C1\u89C4\u683C,',
+					'暂无商品规格,',
 					React.createElement(
 						'a',
 						{ href: '/product/product_model/' },
-						'\u70B9\u6B64'
+						'点此'
 					),
-					'\u6DFB\u52A0\u89C4\u683C'
+					'添加规格'
 				);
 			}
 		}
@@ -43262,8 +43260,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43302,8 +43300,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43379,7 +43377,7 @@
 						'div',
 						null,
 						React.createElement(Reactman.FormSelect, { name: 'limit_zone_id', value: this.state.limit_zone_id,
-							label: '\u5730\u533A\u9650\u5236:',
+							label: '地区限制:',
 							options: this.state.limit_zone_info, validate: 'require', onChange: this.props.onChange })
 					),
 					React.createElement(
@@ -43388,7 +43386,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: '/limit_zone/template_list' },
-							'\u914D\u7F6E\u6A21\u677F'
+							'配置模板'
 						)
 					)
 				);
@@ -43445,7 +43443,7 @@
 			return React.createElement(
 				'div',
 				{ className: 'valid-time' },
-				React.createElement(Reactman.FormDateTimeInput, { label: '\u6709\u6548\u671F:', name: "valid_time_from_" + modelId, value: this.state["valid_time_from_" + modelId], readOnly: true, onChange: this.onChange }),
+				React.createElement(Reactman.FormDateTimeInput, { label: '有效期:', name: "valid_time_from_" + modelId, value: this.state["valid_time_from_" + modelId], readOnly: true, onChange: this.onChange }),
 				React.createElement(Reactman.FormDateTimeInput, { label: '', name: "valid_time_to_" + modelId, value: this.state["valid_time_to_" + modelId], readOnly: true, onChange: this.onChange }),
 				React.createElement(
 					'a',
@@ -43453,7 +43451,7 @@
 					React.createElement(
 						'span',
 						{ onClick: this.cancleValidTime.bind(this, modelId) },
-						'\u53D6\u6D88'
+						'取消'
 					)
 				)
 			);
@@ -43478,8 +43476,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43518,8 +43516,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43850,7 +43848,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0);', onClick: this.productPreview },
-								'\u5546\u54C1\u9884\u89C8'
+								'商品预览'
 							)
 						)
 					),
@@ -43860,7 +43858,7 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u57FA\u672C\u4FE1\u606F'
+							'基本信息'
 						),
 						React.createElement(
 							'span',
@@ -43868,7 +43866,7 @@
 							React.createElement(
 								'label',
 								{ className: 'col-sm-2 control-label pr0' },
-								'\u5546\u54C1\u7C7B\u76EE:'
+								'商品类目:'
 							),
 							React.createElement(
 								'span',
@@ -43878,12 +43876,12 @@
 							React.createElement(
 								'a',
 								{ className: 'ml10', href: 'javascript:void(0);', onClick: this.updateProductCatalog },
-								'\u4FEE\u6539'
+								'修改'
 							)
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', type: 'text', readonly: disabled, name: 'product_name', value: this.state.product_name, onChange: this.onChange, validate: 'require-string', placeholder: '\u6700\u591A30\u4E2A\u5B57' }),
-						React.createElement(Reactman.FormInput, { label: '\u4FC3\u9500\u6807\u9898:', type: 'text', readonly: disabled, name: 'promotion_title', value: this.state.promotion_title, placeholder: '\u6700\u591A30\u4E2A\u5B57', onChange: this.onChange }),
-						React.createElement(Reactman.FormRadio, { label: '\u591A\u89C4\u683C\u5546\u54C1:', type: 'text', name: 'has_product_model', value: this.state.has_product_model, options: optionsForModel, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '商品名称:', type: 'text', readonly: disabled, name: 'product_name', value: this.state.product_name, onChange: this.onChange, validate: 'require-string', placeholder: '最多30个字' }),
+						React.createElement(Reactman.FormInput, { label: '促销标题:', type: 'text', readonly: disabled, name: 'promotion_title', value: this.state.promotion_title, placeholder: '最多30个字', onChange: this.onChange }),
+						React.createElement(Reactman.FormRadio, { label: '多规格商品:', type: 'text', name: 'has_product_model', value: this.state.has_product_model, options: optionsForModel, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							null,
@@ -43891,15 +43889,15 @@
 							React.createElement(ProductModelInfo, { Disabled: disabled, onChange: this.onChange, Modeltype: this.state.has_product_model }),
 							' '
 						),
-						React.createElement(Reactman.FormSelect, { label: '\u53D1\u8D27\u5730\u533A\u8BBE\u7F6E:', name: 'limit_zone_type', value: this.state.limit_zone_type, options: optionsForKind, onChange: this.onChange }),
+						React.createElement(Reactman.FormSelect, { label: '发货地区设置:', name: 'limit_zone_type', value: this.state.limit_zone_type, options: optionsForKind, onChange: this.onChange }),
 						React.createElement(
 							'div',
 							null,
 							' ',
 							React.createElement(LimitZoneInfo, { onChange: this.onChange })
 						),
-						React.createElement(Reactman.FormImageUploader, { label: '\u5546\u54C1\u56FE\u7247:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
-						React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u63CF\u8FF0:', name: 'remark', value: this.state.remark, width: '1260', height: '600', onChange: this.onChange, validate: 'require-notempty' })
+						React.createElement(Reactman.FormImageUploader, { label: '商品图片:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
+						React.createElement(Reactman.FormRichTextInput, { label: '商品描述:', name: 'remark', value: this.state.remark, width: '1260', height: '600', onChange: this.onChange, validate: 'require-notempty' })
 					),
 					React.createElement(
 						'fieldset',
@@ -43908,7 +43906,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', style: style, onClick: this.productPreview },
-							'\u5546\u54C1\u9884\u89C8'
+							'商品预览'
 						)
 					)
 				)
@@ -43925,7 +43923,7 @@
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', name: 'product_store', value: this.props.product_store, validate: 'require-int', onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', name: 'product_store', value: this.props.product_store, validate: 'require-int', onChange: this.props.onChange })
 				);
 			} else {
 				return React.createElement('div', null);
@@ -44016,7 +44014,7 @@
 							React.createElement(
 								'span',
 								{ className: 'product-collect-title' },
-								'\u6536\u85CF'
+								'收藏'
 							),
 							React.createElement(
 								'span',
@@ -44031,7 +44029,7 @@
 							React.createElement(
 								'span',
 								{ className: 'product-price' },
-								'\uFFE5',
+								'￥',
 								product_prices
 							)
 						),
@@ -44041,7 +44039,7 @@
 							React.createElement(
 								'span',
 								{ className: 'choose-count' },
-								'\u9009\u62E9\u89C4\u683C'
+								'选择规格'
 							),
 							React.createElement(
 								'span',
@@ -44060,7 +44058,7 @@
 							React.createElement(
 								'span',
 								{ className: 'title' },
-								'\u5546\u54C1\u8BE6\u60C5'
+								'商品详情'
 							),
 							React.createElement('div', { className: 'product-content', dangerouslySetInnerHTML: { __html: output } })
 						)
@@ -44090,7 +44088,7 @@
 							React.createElement(
 								'span',
 								{ className: 'product-collect-title' },
-								'\u6536\u85CF'
+								'收藏'
 							),
 							React.createElement(
 								'span',
@@ -44105,7 +44103,7 @@
 							React.createElement(
 								'span',
 								{ className: 'product-price' },
-								'\uFFE5',
+								'￥',
 								this.state.product_price
 							)
 						),
@@ -44115,7 +44113,7 @@
 							React.createElement(
 								'span',
 								{ className: 'title' },
-								'\u5546\u54C1\u8BE6\u60C5'
+								'商品详情'
 							),
 							React.createElement('div', { className: 'product-content', dangerouslySetInnerHTML: { __html: output } })
 						)
@@ -44143,8 +44141,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44286,7 +44284,7 @@
 							React.createElement(
 								'a',
 								{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
-								'\u5220\u9664'
+								'删除'
 							)
 						)
 					);
@@ -44316,7 +44314,7 @@
 							React.createElement(
 								'a',
 								{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
-								'\u5220\u9664'
+								'删除'
 							)
 						)
 					);
@@ -44336,39 +44334,39 @@
 					return React.createElement(
 						'div',
 						{ className: 'product_info_fieldset' },
-						React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(Reactman.FormInput, { label: '结算价:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
 						React.createElement(
 							'span',
 							{ className: 'money_note' },
-							'\u5143'
+							'元'
 						),
 						React.createElement('div', null),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
 						React.createElement(
 							'span',
 							{ className: 'money_note' },
 							'Kg'
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+						React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
 					);
 				} else {
 					return React.createElement(
 						'div',
 						{ className: 'product_info_fieldset' },
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
 						React.createElement(
 							'span',
 							{ className: 'money_note' },
-							'\u5143'
+							'元'
 						),
 						React.createElement('div', null),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+						React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
 						React.createElement(
 							'span',
 							{ className: 'money_note' },
 							'Kg'
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+						React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
 					);
 				}
 			} else {
@@ -44399,22 +44397,22 @@
 										React.createElement(
 											'th',
 											null,
-											'\u7ED3\u7B97\u4EF7\u683C(\u5143)'
+											'结算价格(元)'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u91CD\u91CF(Kg)'
+											'重量(Kg)'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u5E93\u5B58'
+											'库存'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u64CD\u4F5C'
+											'操作'
 										)
 									)
 								),
@@ -44431,7 +44429,7 @@
 							W.role == 1 ? React.createElement(
 								'a',
 								{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-								'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+								'添加商品规格'
 							) : ''
 						)
 					);
@@ -44455,22 +44453,22 @@
 										React.createElement(
 											'th',
 											null,
-											'\u5546\u54C1\u552E\u4EF7(\u5143)'
+											'商品售价(元)'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u91CD\u91CF(Kg)'
+											'重量(Kg)'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u5E93\u5B58'
+											'库存'
 										),
 										React.createElement(
 											'th',
 											null,
-											'\u64CD\u4F5C'
+											'操作'
 										)
 									)
 								),
@@ -44487,7 +44485,7 @@
 							W.role == 1 ? React.createElement(
 								'a',
 								{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-								'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+								'添加商品规格'
 							) : ''
 						)
 					);
@@ -44795,27 +44793,27 @@
 				return React.createElement(
 					'div',
 					{ className: 'product_info_fieldset' },
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'old_product_price', value: oldProductPrice, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'old_product_price', value: oldProductPrice, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
-						'\u5143'
+						'元'
 					),
 					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7:', type: 'text', readonly: disabled, name: 'old_clear_price', value: oldclearPrice, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '结算价:', type: 'text', readonly: disabled, name: 'old_clear_price', value: oldclearPrice, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
-						'\u5143'
+						'元'
 					),
 					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'old_product_weight', value: oldProductWeight, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'old_product_weight', value: oldProductWeight, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
 						'Kg'
 					),
-					React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'old_product_store', value: oldProductStore, onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'old_product_store', value: oldProductStore, onChange: this.props.onChange })
 				);
 			} else {
 				var th = model_names.map(function (name, index) {
@@ -44844,22 +44842,22 @@
 									React.createElement(
 										'th',
 										null,
-										'\u7ED3\u7B97\u4EF7\u683C(\u5143)'
+										'结算价格(元)'
 									),
 									React.createElement(
 										'th',
 										null,
-										'\u5546\u54C1\u552E\u4EF7(\u5143)'
+										'商品售价(元)'
 									),
 									React.createElement(
 										'th',
 										null,
-										'\u91CD\u91CF(Kg)'
+										'重量(Kg)'
 									),
 									React.createElement(
 										'th',
 										null,
-										'\u5E93\u5B58'
+										'库存'
 									)
 								)
 							),
@@ -44876,7 +44874,7 @@
 						W.role == 1 ? React.createElement(
 							'a',
 							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-							'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+							'添加商品规格'
 						) : ''
 					)
 				);
@@ -45099,8 +45097,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45282,7 +45280,7 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u4FEE\u6539\u540E\u4FE1\u606F'
+							'修改后信息'
 						),
 						React.createElement(
 							'span',
@@ -45290,7 +45288,7 @@
 							React.createElement(
 								'label',
 								{ className: 'col-sm-2 control-label pr0', style: oldCatalogNameStyle },
-								'\u5546\u54C1\u7C7B\u76EE:'
+								'商品类目:'
 							),
 							React.createElement(
 								'span',
@@ -45298,9 +45296,9 @@
 								catalogName
 							)
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', type: 'text', readonly: disabled, name: 'product_name', value: this.state.product_name }),
-						React.createElement(Reactman.FormInput, { label: '\u4FC3\u9500\u6807\u9898:', type: 'text', readonly: disabled, name: 'promotion_title', value: this.state.promotion_title }),
-						React.createElement(Reactman.FormRadio, { label: '\u591A\u89C4\u683C\u5546\u54C1:', type: 'text', name: 'has_product_model', value: this.state.has_product_model, options: optionsForModel }),
+						React.createElement(Reactman.FormInput, { label: '商品名称:', type: 'text', readonly: disabled, name: 'product_name', value: this.state.product_name }),
+						React.createElement(Reactman.FormInput, { label: '促销标题:', type: 'text', readonly: disabled, name: 'promotion_title', value: this.state.promotion_title }),
+						React.createElement(Reactman.FormRadio, { label: '多规格商品:', type: 'text', name: 'has_product_model', value: this.state.has_product_model, options: optionsForModel }),
 						React.createElement(
 							'div',
 							null,
@@ -45308,8 +45306,8 @@
 							React.createElement(ProductModelInfo, { Disabled: disabled, onChange: this.onChange, Modeltype: this.state.has_product_model }),
 							' '
 						),
-						React.createElement(Reactman.FormImageUploader, { label: '\u5546\u54C1\u56FE\u7247:', name: 'images', value: this.state.images }),
-						React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u63CF\u8FF0:', name: 'remark', value: this.state.remark, width: '500', height: '250' })
+						React.createElement(Reactman.FormImageUploader, { label: '商品图片:', name: 'images', value: this.state.images }),
+						React.createElement(Reactman.FormRichTextInput, { label: '商品描述:', name: 'remark', value: this.state.remark, width: '500', height: '250' })
 					)
 				)
 			);
@@ -45348,7 +45346,7 @@
 					React.createElement(
 						'legend',
 						{ className: 'pl10 pt10 pb10' },
-						'\u4FEE\u6539\u524D\u4FE1\u606F'
+						'修改前信息'
 					),
 					React.createElement(
 						'span',
@@ -45356,7 +45354,7 @@
 						React.createElement(
 							'label',
 							{ className: 'col-sm-2 control-label pr0' },
-							'\u5546\u54C1\u7C7B\u76EE:'
+							'商品类目:'
 						),
 						React.createElement(
 							'span',
@@ -45364,9 +45362,9 @@
 							oldCatalogName
 						)
 					),
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', type: 'text', readonly: disabled, name: 'old_product_name', value: oldProductName }),
-					React.createElement(Reactman.FormInput, { label: '\u4FC3\u9500\u6807\u9898:', type: 'text', readonly: disabled, name: 'old_promotion_title', value: oldPromotionTitle }),
-					React.createElement(Reactman.FormRadio, { label: '\u591A\u89C4\u683C\u5546\u54C1:', type: 'text', name: 'old_has_product_model', value: hasProductModel, options: optionsForModel }),
+					React.createElement(Reactman.FormInput, { label: '商品名称:', type: 'text', readonly: disabled, name: 'old_product_name', value: oldProductName }),
+					React.createElement(Reactman.FormInput, { label: '促销标题:', type: 'text', readonly: disabled, name: 'old_promotion_title', value: oldPromotionTitle }),
+					React.createElement(Reactman.FormRadio, { label: '多规格商品:', type: 'text', name: 'old_has_product_model', value: hasProductModel, options: optionsForModel }),
 					React.createElement(
 						'div',
 						null,
@@ -45374,8 +45372,8 @@
 						React.createElement(OldProductModelInfo, { Disabled: disabled, Modeltype: hasProductModel }),
 						' '
 					),
-					React.createElement(Reactman.FormImageUploader, { label: '\u5546\u54C1\u56FE\u7247:', name: 'old_images', value: oldImages }),
-					React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u63CF\u8FF0:', name: 'old_remark', value: oldRemark, width: '500', height: '250' })
+					React.createElement(Reactman.FormImageUploader, { label: '商品图片:', name: 'old_images', value: oldImages }),
+					React.createElement(Reactman.FormRichTextInput, { label: '商品描述:', name: 'old_remark', value: oldRemark, width: '500', height: '250' })
 				)
 			);
 		}
@@ -45484,27 +45482,27 @@
 				return React.createElement(
 					'div',
 					{ className: 'product_info_fieldset' },
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品售价:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
-						'\u5143'
+						'元'
 					),
 					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '结算价:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
-						'\u5143'
+						'元'
 					),
 					React.createElement('div', null),
-					React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '商品重量:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
 						'Kg'
 					),
-					React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '库存数量', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, onChange: this.props.onChange })
 				);
 			} else {
 				var th = model_names.map(function (name, index) {
@@ -45533,22 +45531,22 @@
 									React.createElement(
 										'th',
 										{ id: 'model_clear_price' },
-										'\u7ED3\u7B97\u4EF7\u683C(\u5143)'
+										'结算价格(元)'
 									),
 									React.createElement(
 										'th',
 										{ id: 'model_product_price' },
-										'\u5546\u54C1\u552E\u4EF7(\u5143)'
+										'商品售价(元)'
 									),
 									React.createElement(
 										'th',
 										{ id: 'model_product_weight' },
-										'\u91CD\u91CF(Kg)'
+										'重量(Kg)'
 									),
 									React.createElement(
 										'th',
 										{ id: 'model_product_store' },
-										'\u5E93\u5B58'
+										'库存'
 									)
 								)
 							),
@@ -45565,7 +45563,7 @@
 						W.role == 1 ? React.createElement(
 							'a',
 							{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-							'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+							'添加商品规格'
 						) : ''
 					)
 				);
@@ -45590,8 +45588,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45867,7 +45865,7 @@
 				React.createElement(
 					'a',
 					{ href: 'javascript:void(0);', className: 'btn btn-success edit-product', onClick: this.addProduct },
-					'\u4E0B\u4E00\u6B65\uFF0C\u7F16\u8F91\u5546\u54C1'
+					'下一步，编辑商品'
 				)
 			);
 		}
@@ -45974,8 +45972,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46091,17 +46089,17 @@
 								React.createElement(
 									'th',
 									null,
-									'\u5546\u54C1\u4EF7\u683C(\u5143)'
+									'商品价格(元)'
 								),
 								React.createElement(
 									'th',
 									null,
-									'\u91CD\u91CF(Kg)'
+									'重量(Kg)'
 								),
 								React.createElement(
 									'th',
 									null,
-									'\u5E93\u5B58'
+									'库存'
 								)
 							)
 						),
@@ -46319,8 +46317,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46446,7 +46444,7 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
-						'\u7F16\u8F91'
+						'编辑'
 					)
 				);
 			} else if (field === 'product_name') {
@@ -46469,9 +46467,9 @@
 							isModel == true ? React.createElement(
 								'a',
 								{ href: 'javascript:void(0);', className: 'product-model-detail', onClick: _this.lookProductModelDetail.bind(_this, data.id, value) },
-								'\u67E5\u770B',
+								'查看',
 								product_has_model,
-								'\u4E2A\u89C4\u683C\u8BE6\u60C5'
+								'个规格详情'
 							) : ''
 						);
 					} else {
@@ -46500,9 +46498,9 @@
 							isModel == true ? React.createElement(
 								'a',
 								{ href: 'javascript:void(0);', className: 'product-model-detail', onClick: _this.lookProductModelDetail.bind(_this, data.id, value) },
-								'\u67E5\u770B',
+								'查看',
 								product_has_model,
-								'\u4E2A\u89C4\u683C\u8BE6\u60C5'
+								'个规格详情'
 							) : ''
 						);
 					} else {
@@ -46571,12 +46569,12 @@
 							React.createElement(
 								Reactman.FilterField,
 								null,
-								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'product_name_query', match: '=' })
+								React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
 							),
 							React.createElement(
 								Reactman.FilterField,
 								null,
-								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+								React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
 							)
 						)
 					),
@@ -46586,20 +46584,20 @@
 						React.createElement(
 							Reactman.TableActionBar,
 							null,
-							React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport }),
-							React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u65B0\u5546\u54C1', icon: 'plus', onClick: this.onValidateAddProduct })
+							React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport }),
+							React.createElement(Reactman.TableActionButton, { text: '添加新商品', icon: 'plus', onClick: this.onValidateAddProduct })
 						),
 						React.createElement(
 							Reactman.Table,
 							{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-							React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u4FE1\u606F', field: 'product_name', width: '400px' }),
-							React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
-							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
-							React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u4EF7(\u5143)', field: 'clear_price' }),
-							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
-							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
+							React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+							React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
+							React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
+							React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+							React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 						)
 					)
 				);
@@ -46616,12 +46614,12 @@
 							React.createElement(
 								Reactman.FilterField,
 								null,
-								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'product_name_query', match: '=' })
+								React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
 							),
 							React.createElement(
 								Reactman.FilterField,
 								null,
-								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+								React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
 							)
 						)
 					),
@@ -46631,19 +46629,19 @@
 						React.createElement(
 							Reactman.TableActionBar,
 							null,
-							React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport }),
-							React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u65B0\u5546\u54C1', icon: 'plus', onClick: this.onValidateAddProduct })
+							React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport }),
+							React.createElement(Reactman.TableActionButton, { text: '添加新商品', icon: 'plus', onClick: this.onValidateAddProduct })
 						),
 						React.createElement(
 							Reactman.Table,
 							{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-							React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u4FE1\u606F', field: 'product_name', width: '400px' }),
-							React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
-							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
-							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
-							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '商品信息', field: 'product_name', width: '400px' }),
+							React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+							React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
+							React.createElement(Reactman.TableColumn, { name: '销量', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+							React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 						)
 					)
 				);
@@ -46861,12 +46859,12 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormInput, { label: '\u540D\u79F0:', type: 'text', name: 'model_value', value: this.state.model_value, onChange: this.onChange, validate: 'require-string' }),
-						React.createElement(Reactman.FormImageUploader, { label: '\u56FE\u7247:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
+						React.createElement(Reactman.FormInput, { label: '名称:', type: 'text', name: 'model_value', value: this.state.model_value, onChange: this.onChange, validate: 'require-string' }),
+						React.createElement(Reactman.FormImageUploader, { label: '图片:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
 						React.createElement(
 							'span',
 							{ style: { marginLeft: '180px', fontSize: '10px' } },
-							'\u4E0A\u4F20\u56FE\u7247\u5EFA\u8BAE\u5C3A\u5BF860*60'
+							'上传图片建议尺寸60*60'
 						)
 					),
 					React.createElement(
@@ -46987,8 +46985,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -47118,7 +47116,7 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', onClick: this.deleteProductModel.bind(this, data['id'], data['model_ids']), 'data-product-id': data.id },
-						'\u5220\u9664'
+						'删除'
 					)
 				);
 			} else if (field === 'model_type') {
@@ -47141,7 +47139,7 @@
 						React.createElement(
 							'span',
 							{ className: 'model_type_text_value' },
-							'\u6587\u672C'
+							'文本'
 						)
 					),
 					React.createElement(
@@ -47151,7 +47149,7 @@
 						React.createElement(
 							'span',
 							{ className: 'model_type_text_value' },
-							'\u56FE\u7247'
+							'图片'
 						)
 					)
 				);
@@ -47187,7 +47185,7 @@
 								React.createElement(
 									'span',
 									{ onClick: _this.deleteProductModelValue.bind(_this, model['id']) },
-									'\xD7'
+									'×'
 								)
 							)
 						);
@@ -47228,7 +47226,7 @@
 					return React.createElement(
 						'div',
 						{ style: { lineHeight: '30px' } },
-						React.createElement('input', { type: 'text', ref: ref, className: 'product-model-name', name: 'model_name', onBlur: this.editProductModelName.bind(null, data['id'], ref), style: { border: '1px solid #18a689' }, placeholder: '\u8BF7\u8F93\u5165\u89C4\u683C\u540D' })
+						React.createElement('input', { type: 'text', ref: ref, className: 'product-model-name', name: 'model_name', onBlur: this.editProductModelName.bind(null, data['id'], ref), style: { border: '1px solid #18a689' }, placeholder: '请输入规格名' })
 					);
 				}
 			} else {
@@ -47253,15 +47251,15 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u89C4\u683C', icon: 'plus', onClick: this.addProductModel })
+						React.createElement(Reactman.TableActionButton, { text: '添加规格', icon: 'plus', onClick: this.addProductModel })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u540D', field: 'product_model_name', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u663E\u793A\u6837\u5F0F', field: 'model_type', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u503C', field: 'product_model_value' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
+						React.createElement(Reactman.TableColumn, { name: '规格名', field: 'product_model_name', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '显示样式', field: 'model_type', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '规格值', field: 'product_model_value' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)
 			);
@@ -47428,6 +47426,13 @@
 				actionType: Constant.PRODUCT_PRODUCT_RELATION_CANCLE_CHOOSE_REASON,
 				data: {}
 			});
+		},
+
+		exportProducts: function () {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
+				data: {}
+			});
 		}
 	};
 
@@ -47458,7 +47463,8 @@
 		PRODUCT_PRODUCT_RELATION_UPDATE_REASON: null,
 		PRODUCT_PRODUCT_RELATION_CHOOSE_UNPASS_REASON: null,
 		PRODUCT_PRODUCT_RELATION_CANCLE_CHOOSE_REASON: null,
-		PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT: null
+		PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT: null,
+		PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS: null
 	});
 
 /***/ },
@@ -47588,12 +47594,12 @@
 					'span',
 					{ style: { display: 'block', paddingLeft: '40px' } },
 					React.createElement('input', { type: 'checkbox', checked: checked, className: 'checkbox', name: 'select', value: '0', style: { display: 'inline-block' }, onChange: this.chooseAllSelfShop }),
-					'\u5168\u9009'
+					'全选'
 				),
 				React.createElement(
 					'span',
 					{ className: 'cancle-relation-tips', style: { display: 'none' } },
-					'( \u63D0\u793A\uFF1A\u53D6\u6D88\u5E73\u53F0\u52FE\u9009\uFF0C\u5546\u54C1\u5C06\u4ECE\u8BE5\u5E73\u53F0\u7981\u552E\u4E0D\u53EF\u89C1 )'
+					'( 提示：取消平台勾选，商品将从该平台禁售不可见 )'
 				),
 				React.createElement(
 					'a',
@@ -47601,7 +47607,7 @@
 					React.createElement(
 						'span',
 						null,
-						'\u786E\u5B9A'
+						'确定'
 					)
 				),
 				React.createElement(
@@ -47610,7 +47616,7 @@
 					React.createElement(
 						'span',
 						null,
-						'\u53D6\u6D88'
+						'取消'
 					)
 				)
 			);
@@ -47650,7 +47656,8 @@
 			'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
 			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
 			'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
-			'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS
+			'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
+			'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS
 		},
 
 		init: function () {
@@ -47759,6 +47766,18 @@
 				Reactman.PageAction.showHint('success', '删除成功!');
 			}, 10);
 			this.__emitChange();
+		},
+
+		handleExportProducts: function (action) {
+			var filterOptions = this.data.filterOptions;
+			var filter_str = '';
+			if (filterOptions != undefined) {
+				for (var key in filterOptions) {
+					filter_str = key + '=' + filterOptions[key];
+				}
+			}
+
+			window.location.href = '/product/yunying_product_exported/?' + filter_str;
 		},
 
 		getData: function () {
@@ -47898,7 +47917,7 @@
 				React.createElement(
 					'div',
 					null,
-					'\u8BF7\u6807\u8BB0\u5546\u54C1\u505C\u552E\u7684\u539F\u56E0:'
+					'请标记商品停售的原因:'
 				),
 				React.createElement(
 					'form',
@@ -47911,28 +47930,28 @@
 							{ className: 'xui-un-pass-reasons' },
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: firstReason, 'data-reason': '\u5DF2\u8FC7\u5B63', onClick: this.chooseUnpassReason },
-								'\u5DF2\u8FC7\u5B63'
+								{ className: 'xi-un-pass-reason', style: firstReason, 'data-reason': '已过季', onClick: this.chooseUnpassReason },
+								'已过季'
 							),
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: secondReason, 'data-reason': '\u4F9B\u5E94\u5546\u505C\u6B62\u5408\u4F5C', onClick: this.chooseUnpassReason },
-								'\u4F9B\u5E94\u5546\u505C\u6B62\u5408\u4F5C'
+								{ className: 'xi-un-pass-reason', style: secondReason, 'data-reason': '供应商停止合作', onClick: this.chooseUnpassReason },
+								'供应商停止合作'
 							),
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: thridReason, 'data-reason': '315\u9ED1\u540D\u5355\u5546\u54C1', onClick: this.chooseUnpassReason },
-								'315\u9ED1\u540D\u5355\u5546\u54C1'
+								{ className: 'xi-un-pass-reason', style: thridReason, 'data-reason': '315黑名单商品', onClick: this.chooseUnpassReason },
+								'315黑名单商品'
 							)
 						),
-						React.createElement(Reactman.FormText, { label: '', type: 'text', name: 'customReason', value: this.state.customReason, onChange: this.onChange, placeholder: '\u81EA\u5B9A\u4E49,10\u5B57\u4EE5\u5185', autoFocus: true, inDialog: true, width: 380, height: 50 }),
+						React.createElement(Reactman.FormText, { label: '', type: 'text', name: 'customReason', value: this.state.customReason, onChange: this.onChange, placeholder: '自定义,10字以内', autoFocus: true, inDialog: true, width: 380, height: 50 }),
 						React.createElement(
 							'a',
 							{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px', managerTop: '20px' }, onClick: this.refused },
 							React.createElement(
 								'span',
 								null,
-								'\u786E\u5B9A'
+								'确定'
 							)
 						),
 						React.createElement(
@@ -47941,7 +47960,7 @@
 							React.createElement(
 								'span',
 								null,
-								'\u53D6\u6D88'
+								'取消'
 							)
 						)
 					)
@@ -48040,8 +48059,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48080,8 +48099,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48120,8 +48139,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48139,7 +48158,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}\r\n\r\n.xui-label-name-li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 5px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.xui-i-expandRow{\r\n\tbackground: #EFEFEF;\r\n}\r\n\r\n.label-value-li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 10px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 90px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n\toverflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tmin-height: 140px;\r\n\tdisplay: block;\r\n}\r\n\r\n.xui-label-dialog-ul{\r\n\tmargin-top: 20px;\r\n\tpadding-left: 110px;\r\n}", ""]);
+	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n\tmargin-right: 20px;\r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}\r\n\r\n.xui-label-name-li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 5px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.xui-i-expandRow{\r\n\tbackground: #EFEFEF;\r\n}\r\n\r\n.label-value-li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 10px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 90px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n\toverflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tmin-height: 140px;\r\n\tdisplay: block;\r\n}\r\n\r\n.xui-label-dialog-ul{\r\n\tmargin-top: 20px;\r\n\tpadding-left: 110px;\r\n}", ""]);
 
 	// exports
 
@@ -48287,12 +48306,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
-							'\u540C\u6B65\u5546\u54C1'
+							'同步商品'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
-							'\u5220\u9664\u5546\u54C1'
+							'删除商品'
 						)
 					);
 				} else if (data['product_status_value'] == 1) {
@@ -48303,7 +48322,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
-							'\u540C\u6B65\u5546\u54C1'
+							'同步商品'
 						)
 					);
 				} else {
@@ -48314,12 +48333,12 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
-							'\u540C\u6B65\u5546\u54C1'
+							'同步商品'
 						),
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
-							'\u5220\u9664\u5546\u54C1'
+							'删除商品'
 						)
 					);
 				}
@@ -48372,7 +48391,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0);', onClick: this.onAddLabel, 'data-catalog-id': data.catalogId, 'data-id': data.id },
-								'\u914D\u7F6E\u6807\u7B7E'
+								'配置标签'
 							)
 						)
 					)
@@ -48401,6 +48420,10 @@
 			Action.filterDatas(data);
 		},
 
+		onExport: function () {
+			Action.exportProducts();
+		},
+
 		render: function () {
 			var productsResource = {
 				resource: 'product.product_relation',
@@ -48423,17 +48446,17 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5BA2\u6237\u540D\u79F0:', name: 'customer_name_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '客户名称:', name: 'customer_name_query', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'product_name_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u72B6\u6001:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '状态:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
 						)
 					),
 					React.createElement(
@@ -48442,7 +48465,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
 						)
 					)
 				),
@@ -48452,18 +48475,19 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u540C\u6B65', onClick: this.batchSyncProduct })
+						React.createElement(Reactman.TableActionButton, { text: '批量同步', onClick: this.batchSyncProduct }),
+						React.createElement(Reactman.TableActionButton, { text: '导出商品', onClick: this.onExport })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, enableSelector: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u540D\u79F0', field: 'product_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5BA2\u6237\u540D\u79F0', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u6765\u6E90', field: 'customer_from_text' }),
-						React.createElement(Reactman.TableColumn, { name: '\u603B\u9500\u91CF', field: 'total_sales' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'product_status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '商品名称', field: 'product_name' }),
+						React.createElement(Reactman.TableColumn, { name: '客户名称', field: 'customer_name' }),
+						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+						React.createElement(Reactman.TableColumn, { name: '来源', field: 'customer_from_text' }),
+						React.createElement(Reactman.TableColumn, { name: '总销量', field: 'total_sales' }),
+						React.createElement(Reactman.TableColumn, { name: '状态', field: 'product_status' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 					)
 				)
 			);
@@ -48635,12 +48659,12 @@
 			var titleTips = selectCatalogLabels.length > 0 ? labelValues.length > 0 ? React.createElement(
 				'li',
 				null,
-				'\u5DF2\u9009\u62E9:'
+				'已选择:'
 			) : '' : '';
 			return React.createElement(
 				'div',
 				{ className: 'xui-formPage xui-add-label-dialog', id: 'xui-add-label-dialog' },
-				React.createElement(Reactman.FormSelect, { label: '\u6807\u7B7E\u5206\u7C7B:', name: 'catalogs', value: this.state.catalogs, options: labelCatalogs, onChange: this.onChange }),
+				React.createElement(Reactman.FormSelect, { label: '标签分类:', name: 'catalogs', value: this.state.catalogs, options: labelCatalogs, onChange: this.onChange }),
 				React.createElement('div', { style: { clear: 'both' } }),
 				React.createElement(
 					'ul',
@@ -48705,7 +48729,7 @@
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(FormInput, { label: '\u8D44\u8D28\u540D\u79F0:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: model.name, onChange: this.onChange.bind(this, model.id) }),
+				React.createElement(FormInput, { label: '资质名称:', type: 'text', name: 'name', validate: 'require-string', placeholder: '', value: model.name, onChange: this.onChange.bind(this, model.id) }),
 				React.createElement(
 					'a',
 					{ className: 'btn btn-default ml20', style: { 'verticalAlign': 'top' }, onClick: this.onClickDelete },
@@ -48992,8 +49016,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49209,13 +49233,13 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', onClick: this.updateSyncProduct.bind(this, data['id']) },
-						'\u5546\u54C1\u66F4\u65B0'
+						'商品更新'
 					),
 					React.createElement('br', null),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', onClick: this.onClickUnPass.bind(this, data['id']) },
-						'\u9A73\u56DE\u4FEE\u6539'
+						'驳回修改'
 					)
 				);
 			} else if (field === 'product_name') {
@@ -49277,12 +49301,12 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', name: 'product_name_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品名称:', name: 'product_name_query', match: '=' })
 						),
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+							React.createElement(Reactman.FormInput, { label: '商品分类:', name: 'catalog_query', match: '=' })
 						)
 					)
 				),
@@ -49292,19 +49316,19 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u66F4\u65B0', onClick: this.batchUpdateSyncProduct })
+						React.createElement(Reactman.TableActionButton, { text: '批量更新', onClick: this.batchUpdateSyncProduct })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, enableSelector: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1', field: 'product_name', width: '400px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u4F9B\u8D27\u5546', field: 'customer_name' }),
-						React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u4EF7(\u5143)', field: 'clear_price' }),
-						React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5E93\u5B58', field: 'product_store' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '商品', field: 'product_name', width: '400px' }),
+						React.createElement(Reactman.TableColumn, { name: '分类', field: 'catalog_name' }),
+						React.createElement(Reactman.TableColumn, { name: '供货商', field: 'customer_name' }),
+						React.createElement(Reactman.TableColumn, { name: '结算价(元)', field: 'clear_price' }),
+						React.createElement(Reactman.TableColumn, { name: '售价(元)', field: 'product_price' }),
+						React.createElement(Reactman.TableColumn, { name: '库存', field: 'product_store' }),
+						React.createElement(Reactman.TableColumn, { name: '状态', field: 'status' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 					)
 				)
 			);
@@ -49509,18 +49533,18 @@
 							{ className: 'xui-un-pass-reasons' },
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: firstReason, 'data-reason': '\u8D44\u8D28\u4E0D\u5168', onClick: this.chooseUnpassReason },
-								'\u8D44\u8D28\u4E0D\u5168'
+								{ className: 'xi-un-pass-reason', style: firstReason, 'data-reason': '资质不全', onClick: this.chooseUnpassReason },
+								'资质不全'
 							),
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: secondReason, 'data-reason': '\u6295\u8BC9\u7387\u8F83\u9AD8', onClick: this.chooseUnpassReason },
-								'\u6295\u8BC9\u7387\u8F83\u9AD8'
+								{ className: 'xi-un-pass-reason', style: secondReason, 'data-reason': '投诉率较高', onClick: this.chooseUnpassReason },
+								'投诉率较高'
 							),
 							React.createElement(
 								'li',
-								{ className: 'xi-un-pass-reason', style: thridReason, 'data-reason': '\u5546\u54C1\u4FE1\u606F\u4E0D\u6E05\u6670', onClick: this.chooseUnpassReason },
-								'\u5546\u54C1\u4FE1\u606F\u4E0D\u6E05\u6670'
+								{ className: 'xi-un-pass-reason', style: thridReason, 'data-reason': '商品信息不清晰', onClick: this.chooseUnpassReason },
+								'商品信息不清晰'
 							)
 						),
 						React.createElement(Reactman.FormText, { label: '', type: 'text', name: 'custom_reason', value: this.state.custom_reason, onChange: this.onChange, autoFocus: true, inDialog: true, width: 380, height: 200 }),
@@ -49530,7 +49554,7 @@
 							React.createElement(
 								'span',
 								null,
-								'\u786E\u5B9A'
+								'确定'
 							)
 						),
 						React.createElement(
@@ -49539,7 +49563,7 @@
 							React.createElement(
 								'span',
 								null,
-								'\u53D6\u6D88'
+								'取消'
 							)
 						)
 					)
@@ -49637,8 +49661,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49677,8 +49701,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49820,9 +49844,9 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { disabled: 'true', label: '\u4E0A\u7EA7\u5206\u7C7B:', name: 'fatherCatalog', value: this.state.fatherCatalog, options: this.state.options, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u5206\u7C7B\u540D\u79F0:', name: 'catalogName', validate: 'require-notempty', value: this.state.catalogName, onChange: this.onChange }),
-						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8:', type: 'text', name: 'note', value: this.state.note, onChange: this.onChange, inDialog: true, width: 300, height: 200 })
+						React.createElement(Reactman.FormSelect, { disabled: 'true', label: '上级分类:', name: 'fatherCatalog', value: this.state.fatherCatalog, options: this.state.options, onChange: this.onChange }),
+						React.createElement(Reactman.FormInput, { label: '分类名称:', name: 'catalogName', validate: 'require-notempty', value: this.state.catalogName, onChange: this.onChange }),
+						React.createElement(Reactman.FormText, { label: '备注:', type: 'text', name: 'note', value: this.state.note, onChange: this.onChange, inDialog: true, width: 300, height: 200 })
 					)
 				)
 			);
@@ -49997,7 +50021,7 @@
 				React.createElement(
 					'a',
 					{ className: 'ml15', onClick: this.onClickAddModel },
-					'+ \u6DFB\u52A0\u8D44\u8D28'
+					'+ 添加资质'
 				)
 			);
 		}
@@ -50160,7 +50184,7 @@
 							React.createElement(
 								'div',
 								{ className: 'xui-expand-row-info', style: { marginLeft: '5%', display: 'inline' } },
-								'\u5546\u54C1\u6570\uFF1A',
+								'商品数：',
 								React.createElement(
 									'a',
 									{ href: src, target: '_blank' },
@@ -50173,30 +50197,30 @@
 								React.createElement(
 									'a',
 									{ className: 'btn btn-primary', onClick: _this.onAddCatalog, 'data-id': catalog.id, 'data-father-catalog': catalog.fatherCatalog, 'data-catalog-name': catalog.catalogName, 'data-note': catalog.note },
-									'\u4FEE\u6539'
+									'修改'
 								),
 								React.createElement(
 									'a',
 									{ className: 'btn btn-danger ml10', onClick: _this.onClickDelete, 'data-id': catalog.id },
-									'\u5220\u9664'
+									'删除'
 								),
 								hasInfo == '[]' ? React.createElement(
 									'a',
 									{ className: 'btn btn-primary ml10', onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
-									'\u914D\u7F6E\u7279\u6B8A\u8D44\u8D28'
+									'配置特殊资质'
 								) : React.createElement(
 									'a',
 									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddQualification, 'data-id': catalog.id, 'data-qualification-info': catalog.qualificationId2name },
-									'\u5DF2\u914D\u7F6E\u8D44\u8D28'
+									'已配置资质'
 								),
 								hasLabel ? React.createElement(
 									'a',
 									{ className: 'btn btn-info ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
-									'\u5DF2\u914D\u7F6E\u6807\u7B7E'
+									'已配置标签'
 								) : React.createElement(
 									'a',
 									{ className: 'btn btn-primary ml10', style: { width: '110px' }, onClick: _this.onAddLabel, 'data-id': catalog.id },
-									'\u914D\u7F6E\u6807\u7B7E'
+									'配置标签'
 								)
 							)
 						);
@@ -50214,7 +50238,7 @@
 						React.createElement(
 							'div',
 							{ style: { float: 'left', paddingLeft: '15px' } },
-							'\u6682\u65E0\u4E8C\u7EA7\u5206\u7C7B'
+							'暂无二级分类'
 						)
 					);
 				}
@@ -50233,12 +50257,12 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-primary', onClick: this.onAddCatalog, 'data-id': data.id, 'data-father-catalog': data.fatherCatalog, 'data-catalog-name': data.catalogName, 'data-note': data.note },
-						'\u4FEE\u6539'
+						'修改'
 					),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-danger ml10', onClick: this.onClickDelete, 'data-id': data.id },
-						'\u5220\u9664'
+						'删除'
 					)
 				);
 			} else if (field === 'catalogName') {
@@ -50266,15 +50290,15 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u5206\u7C7B', icon: 'plus', onClick: this.onAddCatalog })
+						React.createElement(Reactman.TableActionButton, { text: '添加分类', icon: 'plus', onClick: this.onAddCatalog })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: catalogsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B\u540D\u79F0', field: 'catalogName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'createdAt', width: '200px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5546\u54C1\u6570', field: 'productsNumber' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '150px' })
+						React.createElement(Reactman.TableColumn, { name: '分类名称', field: 'catalogName' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'createdAt', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '商品数', field: 'productsNumber' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '150px' })
 					)
 				)
 			);
@@ -50472,7 +50496,7 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormInput, { label: '\u6A21\u677F\u540D\u79F0:', name: 'name', validate: 'require-string', placeholder: '',
+						React.createElement(Reactman.FormInput, { label: '模板名称:', name: 'name', validate: 'require-string', placeholder: '',
 							value: this.state.name,
 							onChange: this.onChange,
 							autoFocus: true
@@ -50665,12 +50689,12 @@
 						{ className: 'btn btn-primary', onClick: this.onUpdateTemplate,
 							'data-id': data.id,
 							'data-name': data.name },
-						'\u4FEE\u6539'
+						'修改'
 					),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-danger ml10', onClick: this.onClickDelete, 'data-id': data.id },
-						'\u5220\u9664'
+						'删除'
 					)
 				);
 			} else if (field == 'zone_info') {
@@ -50693,7 +50717,7 @@
 								initSelectedIds: data.zone_list,
 								onSelect: this.onSelectArea,
 								resource: 'product.provinces_cities' },
-							'\u9009\u62E9\u533A\u57DF'
+							'选择区域'
 						)
 					)
 				);
@@ -50717,14 +50741,14 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u6A21\u677F', icon: 'plus', onClick: this.onAddTemplate })
+						React.createElement(Reactman.TableActionButton, { text: '添加模板', icon: 'plus', onClick: this.onAddTemplate })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: catalogsResource, pagination: true, formatter: this.rowFormatter, expandRow: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u6A21\u677F\u540D\u79F0', field: 'name', width: '250px' }),
-						React.createElement(Reactman.TableColumn, { name: '\u5730\u533A', field: 'zone_info' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '150px' })
+						React.createElement(Reactman.TableColumn, { name: '模板名称', field: 'name', width: '250px' }),
+						React.createElement(Reactman.TableColumn, { name: '地区', field: 'zone_info' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '150px' })
 					)
 				)
 			);
@@ -50748,8 +50772,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50927,8 +50951,8 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { label: '\u9009\u62E9\u5E73\u53F0:', name: 'selfUserName', value: this.state.selfUserName, options: this.state.options, onChange: this.onChange }),
-						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8\u8BF4\u660E:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 }),
+						React.createElement(Reactman.FormSelect, { label: '选择平台:', name: 'selfUserName', value: this.state.selfUserName, options: this.state.options, onChange: this.onChange }),
+						React.createElement(Reactman.FormText, { label: '备注说明:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 }),
 						React.createElement(Reactman.FormCheckbox, { label: '', name: 'isSync', value: this.state.isSync, options: optionsForSync, onChange: this.onChange })
 					)
 				)
@@ -51000,8 +51024,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51096,7 +51120,7 @@
 					return React.createElement(
 						'div',
 						null,
-						'\u5DF2\u540C\u6B65'
+						'已同步'
 					);
 				} else {
 					return React.createElement(
@@ -51105,7 +51129,7 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShopProduct.bind(this, data['userName']) },
-							'\u6279\u91CF\u540C\u6B65\u73B0\u6709\u5546\u54C1'
+							'批量同步现有商品'
 						)
 					);
 				}
@@ -51129,14 +51153,14 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u81EA\u8425\u5E73\u53F0', icon: 'plus', onClick: this.addSelfShop })
+						React.createElement(Reactman.TableActionButton, { text: '添加自营平台', icon: 'plus', onClick: this.addSelfShop })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u5E73\u53F0\u540D\u79F0', field: 'selfShopName', width: '200px' }),
+						React.createElement(Reactman.TableColumn, { name: '平台名称', field: 'selfShopName', width: '200px' }),
 						React.createElement(Reactman.TableColumn, { name: 'user_name', field: 'userName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action', width: '100px' })
 					)
 				)
 			);
@@ -51251,8 +51275,8 @@
 					React.createElement(
 						Reactman.Table,
 						{ resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u6807\u9898', field: 'title' }),
-						React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' })
+						React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' })
 					)
 				)
 			);
@@ -51312,8 +51336,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51440,8 +51464,8 @@
 	        React.createElement(
 	          Reactman.Table,
 	          { resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-	          React.createElement(Reactman.TableColumn, { name: '\u6807\u9898', field: 'title' }),
-	          React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' })
+	          React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+	          React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' })
 	        )
 	      )
 	    );
@@ -51624,7 +51648,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'attachment' },
-	          '\u9644\u4EF6\uFF1A',
+	          '附件：',
 	          at_url
 	        )
 	      )
@@ -51707,8 +51731,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51786,12 +51810,12 @@
 						React.createElement(
 							'legend',
 							{ className: 'pl10 pt10 pb10' },
-							'\u7AD9\u5185\u4FE1'
+							'站内信'
 						),
-						React.createElement(Reactman.FormInput, { label: '\u6807\u9898:', name: 'title', validate: 'require-string', placeholder: '', value: this.state.title, onChange: this.onChange }),
-						React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u8BE6\u60C5', name: 'text', width: 800, validate: 'require-notempty', value: this.state.text, onChange: this.onChange }),
-						React.createElement(Reactman.FormFileUploader, { label: '\u9644\u4EF6:', name: 'attachment', value: this.state.attachment, onChange: this.onChange, max: 3 }),
-						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '\u4FDD \u5B58' })
+						React.createElement(Reactman.FormInput, { label: '标题:', name: 'title', validate: 'require-string', placeholder: '', value: this.state.title, onChange: this.onChange }),
+						React.createElement(Reactman.FormRichTextInput, { label: '商品详情', name: 'text', width: 800, validate: 'require-notempty', value: this.state.text, onChange: this.onChange }),
+						React.createElement(Reactman.FormFileUploader, { label: '附件:', name: 'attachment', value: this.state.attachment, onChange: this.onChange, max: 3 }),
+						React.createElement(Reactman.FormSubmit, { onClick: this.onSubmit, text: '保 存' })
 					)
 				)
 			);
@@ -51915,12 +51939,12 @@
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/message/message/?id=' + data.id },
-						'\u4FEE\u6539'
+						'修改'
 					),
 					React.createElement(
 						'a',
 						{ className: 'btn btn-link btn-xs', 'data-id': data.id, onClick: this.onClickDelete },
-						'\u5220\u9664'
+						'删除'
 					)
 				);
 			} else {
@@ -51946,14 +51970,14 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u7AD9\u5185\u4FE1', icon: 'plus', onClick: this.onAddMessage })
+						React.createElement(Reactman.TableActionButton, { text: '添加站内信', icon: 'plus', onClick: this.onAddMessage })
 					),
 					React.createElement(
 						Reactman.Table,
 						{ resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-						React.createElement(Reactman.TableColumn, { name: '\u6807\u9898', field: 'title' }),
-						React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '标题', field: 'title' }),
+						React.createElement(Reactman.TableColumn, { name: '创建时间', field: 'created_at' }),
+						React.createElement(Reactman.TableColumn, { name: '操作', field: 'action' })
 					)
 				)
 			);
@@ -52021,8 +52045,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52047,79 +52071,6 @@
 
 /***/ },
 /* 543 */
-/***/ function(module, exports) {
-
-	/*
-	Copyright (c) 2011-2012 Weizoom Inc
-	*/
-	"use strict";
-
-	/**
-	 * 组合算法
-	 * 应用示例：
-	 * 输入商品规格 尺寸:[S,M]，颜色：[红,黄]
-	 * 输出组合  [S,红],[S,黄],[M,红],[M,黄]
-	 * README https://git2.weizzz.com:84/zhangxiangjiang/combinations/blob/master/README.md
-	 * @author lchysh
-	 * @param allInputList
-	 * @returns Array
-	 */
-
-	function getCombinations(allInputList, currentListIndex, combinations) {
-	    if (currentListIndex === undefined) {
-	        // 非数组或空数组 输入check
-	        if (!(allInputList instanceof Array) || !allInputList.length) {
-	            return [];
-	        }
-
-	        // 非法数组check
-	        if (!(allInputList[0] instanceof Array)) {
-	            throw new Error('参数必须为纬度不小于2的数组');
-	        }
-	        currentListIndex = 0;
-	        combinations = [];
-	    }
-
-	    // 罗列组合完毕
-	    if (allInputList.length == currentListIndex) {
-	        return combinations;
-	    }
-
-	    // 当前数组元素个数
-	    var currentList = allInputList[currentListIndex];
-	    // 旧有组合数量
-	    var combinationLength = combinations.length;
-	    // 新组合数组
-	    var newCombinations = [];
-
-	    if (!combinationLength) {
-	        // 旧有的组合不存在初始化组合
-	        newCombinations = currentList.map(function (item) {
-	            return [item];
-	        });
-	    } else {
-	        // 产生新的组合
-	        currentList.forEach(function (item) {
-	            combinations.forEach(function (combination) {
-	                var newCombination = combination.concat(item);
-	                newCombinations.push(newCombination);
-	            });
-	        });
-	    }
-	    currentListIndex += 1;
-	    combinations = newCombinations;
-	    // 内部递归调用该函数
-	    return getCombinations(allInputList, currentListIndex, combinations);
-	}
-
-	var Algorithm = {
-	    combinations: getCombinations
-	};
-
-	module.exports = Algorithm;
-
-/***/ },
-/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -52148,7 +52099,7 @@
 	module.exports = new User();
 
 /***/ },
-/* 545 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52232,7 +52183,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 546 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52336,7 +52287,7 @@
 	module.exports = FormRangeInput;
 
 /***/ },
-/* 547 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52349,7 +52300,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(548);
+	__webpack_require__(547);
 
 	var FormDateTimeInput = React.createClass({
 		displayName: 'FormDateTimeInput',
@@ -52466,13 +52417,13 @@
 	module.exports = FormDateTimeInput;
 
 /***/ },
-/* 548 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(549);
+	var content = __webpack_require__(548);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -52481,8 +52432,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52492,7 +52443,7 @@
 	}
 
 /***/ },
-/* 549 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -52506,7 +52457,7 @@
 
 
 /***/ },
-/* 550 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52666,7 +52617,7 @@
 	module.exports = FormDateRangeInput;
 
 /***/ },
-/* 551 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52761,7 +52712,7 @@
 	module.exports = FormSelect;
 
 /***/ },
-/* 552 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52796,7 +52747,7 @@
 				React.createElement(
 					'label',
 					{ className: 'col-sm-2 control-label' },
-					'\xA0'
+					' '
 				),
 				React.createElement(
 					'div',
@@ -52813,7 +52764,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 553 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52887,7 +52838,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 554 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52998,7 +52949,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 555 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53092,7 +53043,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 556 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53105,7 +53056,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(557);
+	var RawUEditor = __webpack_require__(556);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -53217,7 +53168,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 557 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53225,7 +53176,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(558).inherits;
+	var inherits = __webpack_require__(557).inherits;
 	var EventEmitter = __webpack_require__(303).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -53505,7 +53456,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 558 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -53998,7 +53949,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(559);
+	exports.isBuffer = __webpack_require__(558);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -54035,7 +53986,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(560);
+	exports.inherits = __webpack_require__(559);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -54055,7 +54006,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 559 */
+/* 558 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -54063,7 +54014,7 @@
 	};
 
 /***/ },
-/* 560 */
+/* 559 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -54091,7 +54042,7 @@
 	}
 
 /***/ },
-/* 561 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54105,7 +54056,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(562);
+	__webpack_require__(561);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -54193,7 +54144,7 @@
 							React.createElement(
 								'span',
 								null,
-								'\xD7'
+								'×'
 							)
 						)
 					);
@@ -54227,7 +54178,7 @@
 							React.createElement(
 								'span',
 								null,
-								' \u4E0A\u4F20\u56FE\u7247'
+								' 上传图片'
 							),
 							React.createElement('input', { id: 'fileupload', type: 'file', name: 'image', className: 'xa-uploader' })
 						),
@@ -54245,13 +54196,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 562 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(563);
+	var content = __webpack_require__(562);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54260,8 +54211,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54271,7 +54222,7 @@
 	}
 
 /***/ },
-/* 563 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54285,7 +54236,7 @@
 
 
 /***/ },
-/* 564 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54299,7 +54250,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(565);
+	__webpack_require__(564);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -54394,7 +54345,7 @@
 							React.createElement(
 								'span',
 								null,
-								'\xD7'
+								'×'
 							)
 						)
 					);
@@ -54428,7 +54379,7 @@
 							React.createElement(
 								'span',
 								null,
-								' \u4E0A\u4F20\u6587\u4EF6'
+								' 上传文件'
 							),
 							React.createElement('input', { id: 'fileupload', type: 'file', name: 'file', className: 'xa-uploader' })
 						),
@@ -54446,13 +54397,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 565 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(566);
+	var content = __webpack_require__(565);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54461,8 +54412,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54472,7 +54423,7 @@
 	}
 
 /***/ },
-/* 566 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54486,7 +54437,7 @@
 
 
 /***/ },
-/* 567 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54500,15 +54451,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(568);
+	var Pagination = __webpack_require__(567);
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(571);
-	var Action = __webpack_require__(573);
-	var Constant = __webpack_require__(572);
+	var Store = __webpack_require__(570);
+	var Action = __webpack_require__(572);
+	var Constant = __webpack_require__(571);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(574);
+	__webpack_require__(573);
 
 	var Old = null;
 
@@ -54860,7 +54811,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 568 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54873,7 +54824,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(569);
+	__webpack_require__(568);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -54944,16 +54895,16 @@
 						React.createElement(
 							'span',
 							{ className: 'mr20' },
-							'\u5171',
+							'共',
 							paginationInfo.total_count,
-							'\u6761\u8BB0\u5F55'
+							'条记录'
 						),
 						React.createElement(
 							'span',
 							{ className: 'mr15' },
-							'\u5171',
+							'共',
 							paginationInfo.max_page,
-							'\u9875'
+							'页'
 						)
 					),
 					React.createElement(
@@ -54965,7 +54916,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0)', 'data-page': '1', onClick: paginationInfo.has_head ? this.onClickPage : '' },
-								'\u9996\u9875'
+								'首页'
 							)
 						),
 						React.createElement(
@@ -54974,7 +54925,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0)', 'data-page': paginationInfo.prev, onClick: paginationInfo.has_prev ? this.onClickPage : '' },
-								'\u4E0A\u4E00\u9875'
+								'上一页'
 							)
 						),
 						cPages,
@@ -54984,7 +54935,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0)', 'data-page': paginationInfo.next, onClick: paginationInfo.has_next ? this.onClickPage : '' },
-								'\u4E0B\u4E00\u9875'
+								'下一页'
 							)
 						),
 						React.createElement(
@@ -54993,7 +54944,7 @@
 							React.createElement(
 								'a',
 								{ href: 'javascript:void(0)', 'data-page': paginationInfo.max_page, onClick: paginationInfo.has_tail ? this.onClickPage : '' },
-								'\u5C3E\u9875'
+								'尾页'
 							)
 						)
 					),
@@ -55003,9 +54954,9 @@
 						React.createElement(
 							'span',
 							{ className: 'ml40' },
-							'\u8DF3\u8F6C\u5230',
+							'跳转到',
 							React.createElement('input', { className: 'form-control xa-jumpPage', type: 'text', style: inputStyle }),
-							'\u9875 ',
+							'页 ',
 							React.createElement('input', { className: 'form-control btn btn-link xa-jump', type: 'button', value: 'Go', style: inputStyle })
 						)
 					)
@@ -55018,13 +54969,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 569 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(570);
+	var content = __webpack_require__(569);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -55033,8 +54984,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55044,7 +54995,7 @@
 	}
 
 /***/ },
-/* 570 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -55058,7 +55009,7 @@
 
 
 /***/ },
-/* 571 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -55072,7 +55023,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(572);
+	var Constant = __webpack_require__(571);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -55175,7 +55126,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 572 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -55190,7 +55141,7 @@
 	});
 
 /***/ },
-/* 573 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -55199,7 +55150,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(572);
+	var Constant = __webpack_require__(571);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -55266,13 +55217,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 574 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(575);
+	var content = __webpack_require__(574);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -55281,8 +55232,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55292,7 +55243,7 @@
 	}
 
 /***/ },
-/* 575 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -55306,7 +55257,7 @@
 
 
 /***/ },
-/* 576 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55350,7 +55301,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 577 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55376,7 +55327,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 578 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55415,7 +55366,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 579 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55437,7 +55388,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 580 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55450,7 +55401,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(581);
+	__webpack_require__(580);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -55513,13 +55464,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 581 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(582);
+	var content = __webpack_require__(581);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -55528,8 +55479,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55539,7 +55490,7 @@
 	}
 
 /***/ },
-/* 582 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -55553,7 +55504,7 @@
 
 
 /***/ },
-/* 583 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55592,7 +55543,7 @@
 						React.createElement(
 							'a',
 							{ href: '#logs', role: 'tab', 'data-toggle': 'tab' },
-							'\u65E5\u5FD7'
+							'日志'
 						)
 					),
 					React.createElement(
@@ -55601,7 +55552,7 @@
 						React.createElement(
 							'a',
 							{ href: '#finances', role: 'tab', 'data-toggle': 'tab' },
-							'\u8D22\u52A1'
+							'财务'
 						)
 					),
 					React.createElement(
@@ -55610,7 +55561,7 @@
 						React.createElement(
 							'a',
 							{ href: '#requirements', role: 'tab', 'data-toggle': 'tab' },
-							'\u9700\u6C42'
+							'需求'
 						)
 					)
 				),
@@ -55629,12 +55580,12 @@
 								React.createElement(
 									Reactman.TableActionBar,
 									null,
-									React.createElement(Reactman.TableActionButton, { text: '\u6DFB\u52A0\u65E5\u5FD7', icon: 'plus', href: "/company/log/?company_id=" + this.state.id })
+									React.createElement(Reactman.TableActionButton, { text: '添加日志', icon: 'plus', href: "/company/log/?company_id=" + this.state.id })
 								),
 								React.createElement(
 									Reactman.Table,
 									{ resource: logsResource, formatter: this.rowFormatter, pagination: true, expandRow: true, ref: 'table' },
-									React.createElement(Reactman.TableColumn, { name: '\u65E5\u5FD7', field: 'content', rawHtml: true })
+									React.createElement(Reactman.TableColumn, { name: '日志', field: 'content', rawHtml: true })
 								)
 							)
 						)
@@ -55657,7 +55608,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 584 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55672,12 +55623,12 @@
 
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(585);
-	var Action = __webpack_require__(587);
-	var Constant = __webpack_require__(586);
+	var Store = __webpack_require__(584);
+	var Action = __webpack_require__(586);
+	var Constant = __webpack_require__(585);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(588);
+	__webpack_require__(587);
 
 	var matchMap = {
 		'=': 'equal',
@@ -55857,12 +55808,12 @@
 					React.createElement(
 						'a',
 						{ href: 'javascript:void(0)', className: 'btn btn-primary', onClick: this.onClickConfirm },
-						'\u67E5\u8BE2'
+						'查询'
 					),
 					React.createElement(
 						'a',
 						{ href: 'javascript:void(0)', className: 'btn btn-default ml10', onClick: this.onClickReset },
-						'\u91CD\u7F6E'
+						'重置'
 					)
 				)
 			);
@@ -55871,7 +55822,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 585 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -55884,7 +55835,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(305);
-	var Constant = __webpack_require__(586);
+	var Constant = __webpack_require__(585);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -55938,7 +55889,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 586 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -55952,14 +55903,14 @@
 	});
 
 /***/ },
-/* 587 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(586);
+	var Constant = __webpack_require__(585);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -55985,13 +55936,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 588 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(589);
+	var content = __webpack_require__(588);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56000,8 +55951,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56011,7 +55962,7 @@
 	}
 
 /***/ },
-/* 589 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56025,7 +55976,7 @@
 
 
 /***/ },
-/* 590 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56069,7 +56020,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 591 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56081,9 +56032,9 @@
 	var debug = __webpack_require__(235)('reactman:FilterField');
 	var classNames = __webpack_require__(239);
 
-	var FormInput = __webpack_require__(545);
+	var FormInput = __webpack_require__(544);
 
-	__webpack_require__(588);
+	__webpack_require__(587);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -56114,7 +56065,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 592 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56127,7 +56078,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(593);
+	__webpack_require__(592);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -56158,13 +56109,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 593 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(594);
+	var content = __webpack_require__(593);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56173,8 +56124,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56184,7 +56135,7 @@
 	}
 
 /***/ },
-/* 594 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56198,7 +56149,7 @@
 
 
 /***/ },
-/* 595 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56212,12 +56163,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(596);
-	var Action = __webpack_require__(598);
-	var Constant = __webpack_require__(597);
+	var Store = __webpack_require__(595);
+	var Action = __webpack_require__(597);
+	var Constant = __webpack_require__(596);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(599);
+	__webpack_require__(598);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -56295,7 +56246,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 596 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -56311,7 +56262,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(597);
+	var Constant = __webpack_require__(596);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -56337,7 +56288,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 597 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -56350,7 +56301,7 @@
 	});
 
 /***/ },
-/* 598 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -56361,7 +56312,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(597);
+	var Constant = __webpack_require__(596);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -56383,13 +56334,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 599 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(600);
+	var content = __webpack_require__(599);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56398,8 +56349,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56409,7 +56360,7 @@
 	}
 
 /***/ },
-/* 600 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56423,7 +56374,7 @@
 
 
 /***/ },
-/* 601 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56435,10 +56386,10 @@
 	var debug = __webpack_require__(235)('m:reactman.province_city_select.ProvinceCity');
 	var classNames = __webpack_require__(239);
 
-	var ProvinceCityDialog = __webpack_require__(602);
+	var ProvinceCityDialog = __webpack_require__(601);
 	var PageAction = __webpack_require__(244);
 
-	__webpack_require__(606);
+	__webpack_require__(605);
 
 	var ProvinceCitySelect = React.createClass({
 		displayName: 'ProvinceCitySelect',
@@ -56489,7 +56440,7 @@
 	module.exports = ProvinceCitySelect;
 
 /***/ },
-/* 602 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56501,9 +56452,9 @@
 
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(603);
-	var Action = __webpack_require__(605);
-	var Constant = __webpack_require__(604);
+	var Store = __webpack_require__(602);
+	var Action = __webpack_require__(604);
+	var Constant = __webpack_require__(603);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 	debug(__webpack_require__(161));
 
@@ -56672,7 +56623,7 @@
 	module.exports = ProvinceCityDialog;
 
 /***/ },
-/* 603 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56687,7 +56638,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(604);
+	var Constant = __webpack_require__(603);
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
 			actions: {
@@ -56857,7 +56808,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 604 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56873,7 +56824,7 @@
 	});
 
 /***/ },
-/* 605 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56881,7 +56832,7 @@
 	 */
 	var debug = __webpack_require__(235)('m:reactman:ProvinceCitySelect:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(604);
+	var Constant = __webpack_require__(603);
 	var _ = __webpack_require__(243);
 	var createAction = function (Dispatcher) {
 		return {
@@ -56935,13 +56886,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 606 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(607);
+	var content = __webpack_require__(606);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56950,8 +56901,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56961,7 +56912,7 @@
 	}
 
 /***/ },
-/* 607 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56975,7 +56926,7 @@
 
 
 /***/ },
-/* 608 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56991,14 +56942,14 @@
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
 	var ComponentFactory = __webpack_require__(268);
-	__webpack_require__(609);
-	var WepageSimulator = __webpack_require__(622); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
+	__webpack_require__(608);
+	var WepageSimulator = __webpack_require__(621); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
 	var Render = __webpack_require__(300);
 	var PageManager = __webpack_require__(301);
-	var PropertyEditor = __webpack_require__(624);
-	var SubmitPanel = __webpack_require__(655);
+	var PropertyEditor = __webpack_require__(623);
+	var SubmitPanel = __webpack_require__(654);
 
-	__webpack_require__(656);
+	__webpack_require__(655);
 
 	var WepageEditor = React.createClass({
 		displayName: 'WepageEditor',
@@ -57076,13 +57027,28 @@
 					React.createElement(
 						'button',
 						{ className: 'btn btn-primary', onClick: this.onClickSubmit },
-						'\u4FDD \u5B58'
+						'保 存'
 					)
 				)
 			);
 		}
 	});
 	module.exports = WepageEditor;
+
+/***/ },
+/* 608 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * reactman
+	 *
+	 */
+	'use strict';
+
+	__webpack_require__(609);
+	__webpack_require__(613);
+	__webpack_require__(615);
+	//require('./component/wepage/title/Title');
 
 /***/ },
 /* 609 */
@@ -57092,28 +57058,13 @@
 	 * reactman
 	 *
 	 */
-	'use strict';
-
-	__webpack_require__(610);
-	__webpack_require__(614);
-	__webpack_require__(616);
-	//require('./component/wepage/title/Title');
-
-/***/ },
-/* 610 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * reactman
-	 *
-	 */
 	"use strict";
 
-	var template = __webpack_require__(611);
+	var template = __webpack_require__(610);
 
 	var ComponentFactory = __webpack_require__(268);
 
-	__webpack_require__(612);
+	__webpack_require__(611);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.runtime_component_container'
@@ -57124,19 +57075,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 611 */
+/* 610 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type == 'wepage.runtime_component_container' %}\r\n    {% for sub_component in component.components %}\r\n    <div \r\n        class=\"xa-componentContainer xa-selectable xui-componentContainer xui-componentContainer-{{sub_component.displayIndex}}\" \r\n        data-contained-cid=\"{{sub_component.cid}}\" \r\n        data-cid=\"{{sub_component.cid}}\" \r\n        data-type=\"{{sub_component.type}}\" \r\n        data-widget-sortable=\"true\" \r\n        data-ui-behavior=\"xub-selectable\" \r\n        data-auto-select=\"{%if sub_component.model.auto_select %}true{% else %}false{% endif %}\"\r\n        style=\"\"\r\n    >\r\n        {{ sub_component.html|safe }}\r\n        <div class=\"xui-componentContainer-actionPanel xa-actionPanel\" style=\"display:none;\">\r\n            <span class=\"xui-i-action xui-i-addAction xa-add xa-action\">添加模块</span>\r\n            <span class=\"xui-i-action xui-i-editAction xa-edit xa-action\">编辑</span>\r\n            {% if sub_component.canDelete %}\r\n            <span class=\"xui-i-action xui-i-deleteAction xa-delete xa-action\">删除</span>\r\n            {% endif %}\r\n        </div>\r\n        <div class=\"xui-componentContainer-selectIndicator xa-selectIndicator\" style=\"display:none;\">\r\n        </div>\r\n    </div>\r\n    {% endfor %}\r\n{% endif %}\r\n"
 
 /***/ },
-/* 612 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(613);
+	var content = __webpack_require__(612);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57145,8 +57096,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57156,7 +57107,7 @@
 	}
 
 /***/ },
-/* 613 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57170,7 +57121,7 @@
 
 
 /***/ },
-/* 614 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57183,7 +57134,7 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(615);
+	var template = __webpack_require__(614);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.page',
@@ -57238,13 +57189,13 @@
 	module.exports = Component;
 
 /***/ },
-/* 615 */
+/* 614 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.page' %}\r\n\r\n{% if in_production_mode %}\r\n\t{% for sub_component in component.components %}\r\n\t{{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n{% else %}\r\n<div \r\n\tdata-type=\"wepage.page\"\r\n\tclass=\"xa-component xa-component-page xui-component xui-component-page\" \r\n\tdata-component-cid=\"{{component.cid}}\"\r\n\tdata-cid=\"{{component.cid}}\"\r\n\t{% if component.model.site_title === '微页面标题' %}\r\n\tdata-auto-select=\"true\"\r\n\t{% endif %}\r\n\t{% if component.model.background %}style=\"background-image: url({{component.model.background}})\"{% endif %}\r\n>\r\n    {% for sub_component in component.components %}\r\n    {{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 616 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57258,10 +57209,10 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(617);
+	var template = __webpack_require__(616);
 
-	__webpack_require__(618);
-	__webpack_require__(620);
+	__webpack_require__(617);
+	__webpack_require__(619);
 
 	var Component = ComponentFactory.define({
 		type: 'wepage.componentadder',
@@ -57289,19 +57240,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 617 */
+/* 616 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.componentadder' %}\r\n\r\n{% if in_production_mode %}\r\n{% else %}\r\n\t<div \r\n\t\thref=\"javascript:void(0);\" \r\n\t\tdata-component-cid=\"{{component.cid}}\" \r\n\t\tdata-index=\"{{component.model.index}}\" \r\n\t\tid=\"{{component.model.id}}\" \r\n\t\tclass=\"\r\n\t\t\t{{component.model.class}} \r\n\t\t\twui-componentadder \r\n\t\t\twa-componentadder \r\n\t\t\t{% if component.parent_component.components.length > 1 %}xui-hide{% endif %}\r\n\t\t\" \r\n\t>\r\n\t\t+添加模块\r\n\t</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 618 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(619);
+	var content = __webpack_require__(618);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57310,8 +57261,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57321,7 +57272,7 @@
 	}
 
 /***/ },
-/* 619 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57335,13 +57286,13 @@
 
 
 /***/ },
-/* 620 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(621);
+	var content = __webpack_require__(620);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57350,8 +57301,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57361,7 +57312,7 @@
 	}
 
 /***/ },
-/* 621 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57375,7 +57326,7 @@
 
 
 /***/ },
-/* 622 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57390,7 +57341,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(623);
+	var CoverManager = __webpack_require__(622);
 
 	var WepageSimulator = React.createClass({
 		displayName: 'WepageSimulator',
@@ -57615,7 +57566,7 @@
 							React.createElement(
 								'span',
 								{ className: 'xa-title' },
-								'\u5FAE\u9875\u9762\u6807\u9898'
+								'微页面标题'
 							)
 						),
 						React.createElement('div', { className: 'xa-phoneContent' }),
@@ -57628,7 +57579,7 @@
 	module.exports = WepageSimulator;
 
 /***/ },
-/* 623 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57853,7 +57804,7 @@
 	module.exports = CoverManagerClass;
 
 /***/ },
-/* 624 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57867,12 +57818,12 @@
 
 	var Backbone = __webpack_require__(269);
 	var Broadcaster = __webpack_require__(299);
-	var PropertyPanelRender = __webpack_require__(625);
+	var PropertyPanelRender = __webpack_require__(624);
 	var Component = __webpack_require__(270);
 	var Validater = __webpack_require__(260);
-	__webpack_require__(626);
+	__webpack_require__(625);
 
-	__webpack_require__(653);
+	__webpack_require__(652);
 
 	var PropertyEditorClass = Backbone.View.extend({
 	    events: {
@@ -58277,7 +58228,7 @@
 	module.exports = PropertyEditorClass;
 
 /***/ },
-/* 625 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58385,7 +58336,7 @@
 	module.exports = render;
 
 /***/ },
-/* 626 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58394,19 +58345,19 @@
 	 */
 	'use strict';
 
-	__webpack_require__(627);
-	__webpack_require__(629);
-	__webpack_require__(631);
-	__webpack_require__(633);
-	__webpack_require__(636);
-	__webpack_require__(638);
-	__webpack_require__(640);
-	__webpack_require__(643);
-	__webpack_require__(647);
-	__webpack_require__(650);
+	__webpack_require__(626);
+	__webpack_require__(628);
+	__webpack_require__(630);
+	__webpack_require__(632);
+	__webpack_require__(635);
+	__webpack_require__(637);
+	__webpack_require__(639);
+	__webpack_require__(642);
+	__webpack_require__(646);
+	__webpack_require__(649);
 
 /***/ },
-/* 627 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58419,20 +58370,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(628);
+	var template = __webpack_require__(627);
 
 	Component.definePropertyField('component', {
 	  template: template
 	});
 
 /***/ },
-/* 628 */
+/* 627 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"propertyView\" class=\"xa-propertyView-actionTarget\">\r\n\t{% if component.shouldShowPropertyViewTitle %}\r\n\t<div class=\"xui-i-header\">\r\n\t\t{{title}}\r\n\t</div>\r\n\t{% endif %}\r\n\r\n\t<div id=\"propertyEditor\" class=\"xa-propertyView-actionTarget\">\r\n\t\t{% for property_group in propertyGroups %}\r\n\t\t{% if !onlyShowUserProperty || property_group.isUserProperty %}\r\n\t\t<div class=\"{{property_group.groupClass}}-topGap xui-i-propertyGroup-topGap\"></div>\r\n\r\n\t\t<div \r\n\t\t\tclass=\"\r\n\t\t\t\txui-i-propertyGroup \r\n\t\t\t\t{% if property_group.groupConfig && property_group.groupConfig.enableBounder %}\r\n\t\t\t\txui-i-propertyGroup-visibleBounder\r\n\t\t\t\t{% endif %}\r\n\t\t\t\t{{property_group.groupClass}}\" \r\n\t\t>\r\n\t\t\t{% if loop.index > 1 %}\r\n\t\t\t<div class=\"ml5 fb\">{{property_group.group}}\r\n                {% if property_group.groupHelp %}\r\n                    <span \r\n                    \tid=\"{{property_group.groupHelp.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.className}}\"\r\n                    >\r\n                    {% if property_group.groupHelp.link %}\r\n                    <a \r\n                    \tid=\"{{property_group.groupHelp.link.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.link.className}}\" \r\n                    \tdata-func=\"{{property_group.groupHelp.link.handler}}\" \r\n                    >{{property_group.groupHelp.link.text}}</a>\r\n                    {% endif %}\r\n\r\n                    {% if property_group.groupHelp.tip %}\r\n                        <a \r\n                        \tclass=\"xui-i-propertyGroup-helpTip\" \r\n                        \tdata-container=\"body\" \r\n                        \tdata-trigger=\"focus\" \r\n                        \tdata-toggle=\"popover\" \r\n                        \tdata-placement=\"bottom\" \r\n                        \tdata-content=\"{{property_group.groupHelp.tip.text}}\">&#63;</a>\r\n                    {% endif %} <!-- end of \"if property_group.groupHelp.tip\" -->\r\n                    </span>\r\n                {% endif %} <!-- end of \"if property_group.groupHelp\" -->\r\n\t\t\t</div>\r\n\t\t\t{% endif %} <!-- end of \"if loop.index > 0\" -->\r\n\r\n\t\t\t{% for field in property_group.fields %}\r\n\t\t\t{% if !onlyShowUserProperty || field.isUserProperty %}\r\n\t\t\t<div class=\"xui-i-field xa-field xui-i-field-{{field.className}}\" data-component-cid=\"{{component.cid}}\" data-component-field=\"{{component.cid}}-{{field.name}}\" >\r\n\t\t\t\t{{field|render_field(component, model, onlyShowUserProperty)|safe}}\r\n\t\t\t</div>\r\n\t\t\t{% endif %}\r\n\t\t\t{% endfor %}\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 629 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58445,20 +58396,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(630);
+	var template = __webpack_require__(629);
 
 	Component.definePropertyField('text', {
 	  template: template
 	});
 
 /***/ },
-/* 630 */
+/* 629 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<input \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-textInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tvalue=\"{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 631 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58471,20 +58422,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(632);
+	var template = __webpack_require__(631);
 
 	Component.definePropertyField('multiline_text', {
 	  template: template
 	});
 
 /***/ },
-/* 632 */
+/* 631 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<textarea \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-multilineTextInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}</textarea>\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 633 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58497,9 +58448,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(634);
+	var template = __webpack_require__(633);
 
-	var plugin = __webpack_require__(635);
+	var plugin = __webpack_require__(634);
 
 	Component.definePropertyField('rich_text', {
 	  template: template,
@@ -58507,13 +58458,13 @@
 	});
 
 /***/ },
-/* 634 */
+/* 633 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- rich_text field -->\r\n<div class=\"xui-i-richTextField xui-i-horizontalField\">\r\n\t{% if field.displayName %}\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t{% endif %}\r\n\t<div \r\n\t\tclass=\"xui-i-inputContainer xa-inputContainer\" \r\n\t\tstyle=\"{% if field.displayName %}width:80%{%else%}width:100%{% endif %}; margin: 5px auto;\"\r\n\t>\r\n\t\t<textarea \r\n\t\t\tclass=\"xui-i-textarea xa-valueInput\" \r\n\t\t\tdata-plugin=\"rich_text\" \r\n\t\t\tstyle=\"height: 100px; width: 100%;\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-force-validate=\"true\"\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{{model.get(field.name)}}</textarea>\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n\r\n</div>"
 
 /***/ },
-/* 635 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58524,7 +58475,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:rich_text');
 
-	var RawUEditor = __webpack_require__(557);
+	var RawUEditor = __webpack_require__(556);
 
 	var plugin = {
 	    type: 'rich_text',
@@ -58553,7 +58504,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 636 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58566,20 +58517,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(637);
+	var template = __webpack_require__(636);
 
 	Component.definePropertyField('radio', {
 	  template: template
 	});
 
 /***/ },
-/* 637 */
+/* 636 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- radio field -->\r\n<div class=\"xui-i-radioField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for radio in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"xui-i-selectBtn {% if model.get(field.name) == radio.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"margin-top:-3px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"radio\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) == radio.value %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{radio.value}}\" />{{radio.name}}\r\n\t\t<i class=\"xui-i-selectedIcon xui-i-spriteBackground\" {% if model.get(field.name) != radio.value %}style=\"display:none;\"{% endif %}></i>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 638 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58592,20 +58543,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(639);
+	var template = __webpack_require__(638);
 
 	Component.definePropertyField('checkbox_group', {
 	  template: template
 	});
 
 /***/ },
-/* 639 */
+/* 638 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- checkbox group field -->\r\n<div class=\"xui-i-checkboxGroupField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for checkbox in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"{% if model.get(field.name) == checkbox.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"vertical-align:middle; margin-top:0px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"checkbox\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) === true %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{checkbox.value}}\" /><span class=\"xui-i-checkboxText\">{{checkbox.name}}</span>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 640 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58618,9 +58569,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(641);
+	var template = __webpack_require__(640);
 
-	var plugin = __webpack_require__(642);
+	var plugin = __webpack_require__(641);
 
 	Component.definePropertyField('color_picker', {
 	  template: template,
@@ -58628,13 +58579,13 @@
 	});
 
 /***/ },
-/* 641 */
+/* 640 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-colorPickerField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<div class=\"\" style=\"padding:3px; background-color:#FFF; border: solid 1px #E6E6E6;\">\r\n\t\t\t<button class=\"btn btn-small xui-i-triggerButton xa-colorPickerTrigger\"></button>\r\n\t\t\t<input \r\n\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\tdata-plugin=\"colorpicker\" \r\n\t\t\t\tstyle=\"border: solid 1px #E6E6E6; margin-left:-4px; width:100px;\" \r\n\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\ttype=\"text\" \r\n\t\t\t\tvalue=\"{{model.get(field.name)}}\" />\r\n\t\t\t<a \r\n\t\t\t\thref='javascript:void(0);' \r\n\t\t\t\tclass=\"ml5 mr5 xa-protocol-deleteData\" \r\n\t\t\t\tdata-protocol-deleted-value=\"{{field.default}}\"\r\n\t\t\t>重置</a>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 642 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58681,7 +58632,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 643 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58694,9 +58645,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(644);
+	var template = __webpack_require__(643);
 
-	var plugin = __webpack_require__(645);
+	var plugin = __webpack_require__(644);
 
 	Component.definePropertyField('time', {
 	  template: template,
@@ -58704,13 +58655,13 @@
 	});
 
 /***/ },
-/* 644 */
+/* 643 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- time field -->\r\n<div class=\"xui-i-timeField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label mr5 {%if field.validate%}star_show{%endif%}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer pl5\" data-plugin=\"time\">\r\n\t\t<input \r\n\t\t\ttype=\"hidden\" \r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\" \r\n\t\t\tname=\"{{field.name}}\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t{%if field.validate%}data-validate=\"{{field.validate}}\"{%endif%} />\r\n\r\n\t\t<input\r\n\t\t\ttype=\"text\"\r\n\t\t\tclass=\"form-control xui-i-datePicker xui-inline xa-picker xa-datePicker\"\r\n\t\t\tid=\"time\"\r\n\t\t\tname=\"time\"\r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\"\r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-enable-select-time=\"true\"\r\n\t\t\tdata-validate=\"require-notempty\"\r\n\t\t\tdata-format=\"yy-mm-dd HH:MM\"\r\n            data-min=\"now\"/>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 645 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58721,7 +58672,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:time');
 
-	var DatePicker = __webpack_require__(646);
+	var DatePicker = __webpack_require__(645);
 
 	var plugin = {
 	    type: 'time',
@@ -58753,7 +58704,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 646 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58860,7 +58811,7 @@
 	module.exports = DatePicker;
 
 /***/ },
-/* 647 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58873,9 +58824,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(648);
+	var template = __webpack_require__(647);
 
-	var plugin = __webpack_require__(649);
+	var plugin = __webpack_require__(648);
 
 	Component.definePropertyField('image_selector', {
 	  template: template,
@@ -58883,13 +58834,13 @@
 	});
 
 /***/ },
-/* 648 */
+/* 647 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-imageSelectorField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\" data-plugin=\"image_selector\">\r\n\t\t<div class=\"xui-i-selectorZone\">\r\n\t\t\t<div class=\"xui-i-imageZone {% if not model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<div class=\"pr xui-i-image\">\r\n\t\t\t\t\t<img src=\"{{ model.get(field.name) }}\" width=\"100\" height=\"100\" />\r\n\t\t\t\t\t<button type=\"button\" class=\"close xa-close xa-protocol-deleteData\" data-protocol-deleted-value=\"{{field.default}}\"><span>&times;</span></button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"xui-i-uploaderZone {% if model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<input \r\n\t\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\t\ttype=\"hidden\" \r\n\t\t\t\t\tvalue=\"{{model.get(field.name)}}\"\r\n\t\t\t\t\tdata-force-validate=\"true\"\r\n\t\t\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\r\n\t\t\t\t<span class=\"btn btn-default fileinput-button\">\r\n    \t\t\t\t<span> 上传图片</span>\r\n\t\t\t\t\t<input id=\"fileupload\" type=\"file\" name=\"image\" class=\"xa-uploader\" />\r\n\t\t\t\t</span>\r\n\t\t\t\t<div id=\"progress\" class=\"progress mt5 xa-progress xui-hide\" style=\"width:100px\">\r\n\t\t\t\t\t<div class=\"progress-bar progress-bar-success xa-bar\" style=\"width:0%\"></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"errorHint\"></div>\r\n\t\t\t</div>\r\n\t\t</div>\t\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 649 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58947,7 +58898,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 650 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58960,9 +58911,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(651);
+	var template = __webpack_require__(650);
 
-	var plugin = __webpack_require__(652);
+	var plugin = __webpack_require__(651);
 
 	Component.definePropertyField('component_list', {
 	  template: template,
@@ -58970,13 +58921,13 @@
 	});
 
 /***/ },
-/* 651 */
+/* 650 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- component_list field -->\r\n<div class=\"xui-i-componentListField xui-i-horizontalField\" data-plugin=\"componentadder\">\r\n\t<ul class=\"xui-i-componentList clearfix xui-i-inputContainer xa-inputContainer\">\r\n\t\t{% for component in field.components %}\r\n\t\t{% if component.indicator %}\r\n\t\t<li class=\"xui-i-component xa-addComponent\" data-component-type=\"{{component.type}}\">\r\n\t\t\t<div class=\"xui-i-img xui-i-spriteBackground {{component.indicator.imgClass}}\"></div>\r\n\t\t</li>\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</ul>\r\n</div>"
 
 /***/ },
-/* 652 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59010,13 +58961,13 @@
 	module.exports = plugin;
 
 /***/ },
-/* 653 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(654);
+	var content = __webpack_require__(653);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59025,8 +58976,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59036,7 +58987,7 @@
 	}
 
 /***/ },
-/* 654 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59050,7 +59001,7 @@
 
 
 /***/ },
-/* 655 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59065,7 +59016,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(623);
+	var CoverManager = __webpack_require__(622);
 
 	var SubmitPanel = React.createClass({
 		displayName: 'SubmitPanel',
@@ -59083,13 +59034,13 @@
 	module.exports = SubmitPanel;
 
 /***/ },
-/* 656 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(657);
+	var content = __webpack_require__(656);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59098,8 +59049,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59109,7 +59060,7 @@
 	}
 
 /***/ },
-/* 657 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59123,7 +59074,7 @@
 
 
 /***/ },
-/* 658 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59136,7 +59087,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(659);
+	__webpack_require__(658);
 
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
@@ -59168,7 +59119,7 @@
 	module.exports = Wepage;
 
 /***/ },
-/* 659 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59212,7 +59163,7 @@
 	});
 
 /***/ },
-/* 660 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59226,9 +59177,9 @@
 	var _ = __webpack_require__(243);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(557);
+	var RawUEditor = __webpack_require__(556);
 
-	__webpack_require__(661);
+	__webpack_require__(660);
 
 	var UEditor = React.createClass({
 		displayName: 'UEditor',
@@ -59282,13 +59233,13 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 661 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(662);
+	var content = __webpack_require__(661);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59297,8 +59248,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59308,7 +59259,7 @@
 	}
 
 /***/ },
-/* 662 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();

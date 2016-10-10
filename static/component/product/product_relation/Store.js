@@ -26,7 +26,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleCancleSelectSyncProduct': Constant.CANCLE_SELECT_SYNC_PRODUCT,
 		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
 		'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
-		'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS
+		'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
+		'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS
 	},
 
 	init: function() {
@@ -135,6 +136,18 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		 	Reactman.PageAction.showHint('success', '删除成功!');
 		}, 10);
 		this.__emitChange();
+	},
+
+	handleExportProducts: function(action){
+		var filterOptions = this.data.filterOptions;
+		var filter_str = '';
+		if (filterOptions!=undefined){
+			for (var key in filterOptions){
+				filter_str = key +'=' + filterOptions[key];
+			}
+		}
+		
+		window.location.href = '/product/yunying_product_exported/?'+filter_str;
 	},
 
 	getData: function() {

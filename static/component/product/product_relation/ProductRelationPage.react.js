@@ -201,6 +201,10 @@ var ProductRelationPage = React.createClass({
 		Action.filterDatas(data);
 	},
 
+	onExport: function(){
+		Action.exportProducts();
+	},
+
 	render:function(){
 		var productsResource = {
 			resource: 'product.product_relation',
@@ -234,6 +238,7 @@ var ProductRelationPage = React.createClass({
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
+						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />

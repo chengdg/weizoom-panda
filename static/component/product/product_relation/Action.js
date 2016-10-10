@@ -155,7 +155,14 @@ var Action = {
 			
 			}
 		});
-	}
+	},
+
+	exportProducts: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
+			data: {}
+		});
+	},
 };
 
 module.exports = Action;
