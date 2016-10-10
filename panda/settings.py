@@ -289,8 +289,8 @@ if 'deploy' == MODE:
     MNS_ACCESS_KEY_SECRET = 'xxPrfGcUlnsL7IPweJRqVekHTCu6Ad'
     MNS_ENDPOINT = 'http://1615750970594173.mns.cn-hangzhou-internal.aliyuncs.com/'
 
-    MNS_SECURITY_TOKEN = ''
-    PRODUCT_TOPIC_NAME = ''
+    PRODUCT_TOPIC_NAME = 'customer-add-product'
+    PRODUCT_MSG_NAME = 'customer_product_info'
     PRODUCT_MSG_NAME = ''
 elif 'develop' == MODE:
     MNS_ACCESS_KEY_ID = 'LTAI0GgFxEnSn3yP'
