@@ -26,14 +26,34 @@ var W = Reactman.W;
 
 var NewConfigPage = React.createClass({
 	getInitialState: function() {
-		return ({});
+		Store.addListener(this.onChangeStore);
+		return Store.getData();
+	},
+
+	onChangeStore: function(){
+		this.setState(Store.getData());
+	},
+
+	onChange: function(value, event) {
+		var property = event.target.getAttribute('name');
+		Action.updateConfig(property, value);
 	},
 
 	savePostage: function(){
+		var data = {}
+		var configData = Store.getData();
 		var defaultData = DefaultPostageStore.getData();
 		var specialData = SpecialPostageStore.getData();
 		var freeData = FreePostageStore.getData();
-		console.log(defaultData,specialData,freeData,"++++++++");
+		data = _.extend(configData, defaultData);
+		if(specialData.hasSpecialPostage[0] == '1'){
+			data = _.extend(data, specialData);
+		}
+		if(freeData.hasFreePostage[0] == '1'){
+			data = _.extend(data, freeData);
+		}
+		console.log(data,"==========");
+		Action.savePostage(data);
 	},
 
 	render:function(){
@@ -41,7 +61,7 @@ var NewConfigPage = React.createClass({
 			<div>
 				<div className="xui-formPage">
 					<form className="form-horizontal mt15 pt30">
-						<Reactman.FormInput label="模板名称:" type="text" name="product_name" value={this.state.product_name} onChange={this.onChange} placeholder="最多30个字" />
+						<Reactman.FormInput label="模板名称:" type="text" name="postageName" value={this.state.postageName} onChange={this.onChange} validate="require-string" />
 						<div className="pl90">运送方式：除特殊地区外，其余地区的运费采用“默认运费”</div>
 					</form>
 				</div>

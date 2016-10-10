@@ -78,10 +78,12 @@ var TableListPage = React.createClass({
 	},
 
 	render:function(){
+		var postageId = this.props.postageId
 		var productsResource = {
 			resource: 'postage_config.postage_list',
 			data: {
 				page: 1,
+				postage_id: postageId
 			}
 		};
 		console.log("--ss------");
@@ -92,12 +94,12 @@ var TableListPage = React.createClass({
 						<div>默认模板（已设置包邮条件）</div>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
-						<Reactman.TableColumn name="运送方式" field="postage_method" />
-						<Reactman.TableColumn name="运送到" field="postage_destination" />
-						<Reactman.TableColumn name="首重(kg)" field="postage_weight" />
-						<Reactman.TableColumn name="运费(元)" field="postage_price" />
-						<Reactman.TableColumn name="续重(kg)" field="over_weight" />
-						<Reactman.TableColumn name="续费(kg)" field="over_price" />
+						<Reactman.TableColumn name="运送方式" field="postageMethod" />
+						<Reactman.TableColumn name="运送到" field="postageDestination" />
+						<Reactman.TableColumn name="首重(kg)" field="firstWeight" />
+						<Reactman.TableColumn name="运费(元)" field="firstWeightPrice" />
+						<Reactman.TableColumn name="续重(kg)" field="addedWeight" />
+						<Reactman.TableColumn name="续费(kg)" field="addedWeightPrice" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
 				</Reactman.TablePanel>

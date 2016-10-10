@@ -28,8 +28,8 @@ var FreePostageStore = StoreUtil.createStore(Dispatcher, {
 		this.data = {
 			'hasFreePostage': [],
 			'freePostages': [{
-				'condition': '',
-				'conditionValue': 'count',
+				'conditionValue': '',
+				'condition': 'count',
 				'selectedIds': []
 			}]
 		};
@@ -49,16 +49,16 @@ var FreePostageStore = StoreUtil.createStore(Dispatcher, {
 
 	handleUpdateCondition: function(action) {
 		var index = action.data.index;
-		var conditionValue = action.data.conditionValue;
+		var condition = action.data.condition;
 		var freePostages = this.data.freePostages;
 
-		if(conditionValue == 'count'){
-			freePostages[index]['conditionValue'] = 'money';
+		if(condition == 'count'){
+			freePostages[index]['condition'] = 'money';
 		}else{
-			freePostages[index]['conditionValue'] = 'count';
+			freePostages[index]['condition'] = 'count';
 		}
 
-		freePostages[index]['condition'] = '';
+		freePostages[index]['conditionValue'] = '';
 
 		this.data.freePostages = freePostages;
 		this.__emitChange();
@@ -67,8 +67,8 @@ var FreePostageStore = StoreUtil.createStore(Dispatcher, {
 	handleAddFreePostage: function() {
 		var freePostages = this.data.freePostages;
 		freePostages.push({
-			'condition': '',
-			'conditionValue': 'count',
+			'conditionValue': '',
+			'condition': 'count',
 			'selectedIds': []
 		})
 		this.data.freePostages = freePostages;

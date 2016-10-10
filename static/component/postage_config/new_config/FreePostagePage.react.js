@@ -37,8 +37,8 @@ var FreePostagePage = React.createClass({
 		this.setState(FreePostageStore.getData());
 	},
 
-	onChangeCondition: function(conditionValue, index){
-		Action.updateCondition(conditionValue, index);
+	onChangeCondition: function(condition, index){
+		Action.updateCondition(condition, index);
 	},
 
 	addFreePostage: function() {
@@ -72,8 +72,8 @@ var FreePostagePage = React.createClass({
 		}];
 
 		var postagesTr = freePostages.map(function(postages, index){
-			var conditionValue = postages.conditionValue;
-			var unit = conditionValue == 'count'? '件': '元';
+			var condition = postages.condition;
+			var unit = condition == 'count'? '件': '元';
 
 			return(
 				<tr key={index}>
@@ -81,10 +81,10 @@ var FreePostagePage = React.createClass({
 						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
-						<Reactman.FormSelect label="" name="conditionValue" value={postages.conditionValue} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, conditionValue, index)} />
+						<Reactman.FormSelect label="" name="condition" value={postages.condition} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, condition, index)} />
 					</td>
 					<td>
-						<input type="text" className="form-control" id="condition" name="condition" value={postages.condition} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block'}}/>
+						<input type="text" className="form-control" id="conditionValue" name="conditionValue" value={postages.conditionValue} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block'}}/>
 						<span>{unit}</span>
 					</td>
 					<td>

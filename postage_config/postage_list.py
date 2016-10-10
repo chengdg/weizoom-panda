@@ -5,7 +5,6 @@ import time
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.db.models import F
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
@@ -17,20 +16,17 @@ from eaglet.utils.resource_client import Resource
 from eaglet.core import watchdog
 
 from util import string_util
+from util import db_util
+from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from account import models as account_models
 from product import models as product_models
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from util import db_util
-from panda.settings import CESHI_USERNAMES
 
 import nav
 import models
 
-
 FIRST_NAV = 'postage_config'
 SECOND_NAV = 'postage_list'
 COUNT_PER_PAGE = 20
-
 
 class PostageList(resource.Resource):
 	"""
@@ -41,16 +37,13 @@ class PostageList(resource.Resource):
 
 	@login_required
 	def get(request):
-		postages = [{
-			"postage_name": u"普通快递",
-			"postage_default": u"全国1",
-			"postage_id": "2"
-		},{
-			"postage_name": u"普通快递",
-			"postage_default": u"全国2",
-			"postage_id": "1"
-		}]
-		print json.dumps(postages),"------"
+		postage_configs = models.PostageConfig.objects.filter(owner_id=request.user.id)
+		postages = []
+		for postage_config in postage_configs:
+			postages.append({
+				"postage_id": postage_config.id
+			})
+
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
@@ -61,16 +54,34 @@ class PostageList(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		rows = [{
-			'postage_method': u'普通快递',
-			'postage_destination': u'全国',
-			'postage_weight': '2',
-			'postage_price': '5.00',
-			'over_weight': '1',
-			'over_price': '0.00'
-		}]
+		postage_id = request.GET.get('postage_id', -1)
+		postage_configs = models.PostageConfig.objects.filter(id=postage_id)
+		postage_config_specials = models.SpecialPostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
+		free_postage_configs = models.FreePostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
+		
+		postages = []
+		for postage_config in postage_configs:
+			postages.append({
+				'postageMethod': u'普通快递',
+				'postageDestination': u'其他地区',
+				'firstWeight': postage_config.first_weight,
+				'firstWeightPrice': postage_config.first_weight_price,
+				'addedWeight': postage_config.added_weight,
+				'addedWeightPrice': postage_config.added_weight_price
+			})
+
+		for postage_config_special in postage_config_specials:
+			postages.append({
+				'postageMethod': u'普通快递',
+				'postageDestination': u'全国',
+				'firstWeight': postage_config_special.first_weight,
+				'firstWeightPrice': postage_config_special.first_weight_price,
+				'addedWeight': postage_config_special.added_weight,
+				'addedWeightPrice': postage_config_special.added_weight_price
+			})
+
 		data = {
-			'rows': rows
+			'rows': postages
 		}	
 
 		# 构造response

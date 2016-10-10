@@ -38,16 +38,16 @@ var DefaultPostagePage = React.createClass({
 			return(
 				<tr key={index}>
 					<td>
-						<Reactman.FormInput label="" type="text" name="first_weight" value={postages.first_weight} onChange={_this.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name="firstWeight" value={postages.firstWeight} onChange={_this.onChange} validate="require-float"/>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="first_weight_price" value={postages.first_weight_price} onChange={_this.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name="firstWeightPrice" value={postages.firstWeightPrice} onChange={_this.onChange} validate="require-float"/>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="added_weight" value={postages.added_weight} onChange={_this.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name="addedWeight" value={postages.addedWeight} onChange={_this.onChange} validate="require-float"/>
 					</td>
 					<td>
-						<Reactman.FormInput label="" type="text" name="added_weight_price" value={postages.added_weight_price} onChange={_this.onChange} validate="require-float"/>
+						<Reactman.FormInput label="" type="text" name="addedWeightPrice" value={postages.addedWeightPrice} onChange={_this.onChange} validate="require-float"/>
 					</td>
 				</tr>
 			)

@@ -22,10 +22,10 @@ var DefaultPostageStore = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.data = {
 		    'defaultPostages': [{
-		    	'first_weight': '',
-		    	'first_weight_price': '',
-		    	'added_weight': '',
-		    	'added_weight_price': ''
+		    	'firstWeight': '',
+		    	'firstWeightPrice': '',
+		    	'addedWeight': '',
+		    	'addedWeightPrice': ''
 		    }]
 		};
 	},

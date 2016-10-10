@@ -13,6 +13,42 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
+	savePostage: function(data){
+		var postageName = data['postageName'] || '';
+		var defaultPostages = data['defaultPostages'] || [];
+		var specialPostages = data['specialPostages'] || [];
+		var freePostages = data['freePostages'] || [];
+
+		Resource.put({
+			resource: 'postage_config.new_config',
+			data: {
+				postage_name: postageName,
+				default_postages: JSON.stringify(defaultPostages),
+				special_postages: JSON.stringify(specialPostages),
+				free_postages: JSON.stringify(freePostages)
+			},
+			success: function() {
+				Dispatcher.dispatch({
+					actionType: Constant.NEW_PRODUCT_CREATE,
+					data: data
+				});
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', "======");
+			}
+		})
+	},
+
+	updateConfig: function(property, value) {
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONFIG,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
 	updateDefaultPostages: function(property, value) {
 		Dispatcher.dispatch({
 			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_DEFAULT_POSTAGE,
@@ -65,11 +101,11 @@ var Action = {
 		});
 	},
 
-	updateCondition: function(conditionValue, index){
+	updateCondition: function(condition, index){
 		Dispatcher.dispatch({
 			actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONDITION,
 			data: {
-				conditionValue: conditionValue,
+				condition: condition,
 				index: index
 			}
 		});
@@ -125,7 +161,7 @@ var Action = {
 				index: index
 			}
 		});
-	},
+	}
 };
 
 module.exports = Action;

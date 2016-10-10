@@ -16,24 +16,17 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG,
-		'handelUpdateSelfShops': Constant.UPDATE_SELF_SHOPS
+		'handleUpdateConfig': Constant.POSTAGE_CONFIG_NEW_CONFIG_UPDATE_CONFIG
 	},
 
 	init: function() {
 		this.data = {
-		    'hasSpecialPostage': [],
-		    'hasFreePostage': []
+		    'postageName': ''
 		};
 	},
 
-	handleUpdateSelfShopDialog: function(action) {
+	handleUpdateConfig: function(action) {
 		this.data[action.data.property] = action.data.value;
-		this.__emitChange();
-	},
-
-	handelUpdateSelfShops: function(action){
-		this.data = action.data;
 		this.__emitChange();
 	},
 

@@ -66,7 +66,7 @@ var SpecialPostagePage = React.createClass({
 			return(
 				<tr key={index}>
 					<td>
-						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
+						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="product.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
 						<Reactman.FormInput label="" type="text" name="firstWeight" value={postages.firstWeight} onChange={_this.onChangeValue.bind(_this,index)} />
