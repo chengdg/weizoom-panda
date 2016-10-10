@@ -296,6 +296,7 @@ class NewProduct(resource.Resource):
 			except:
 				message = u"send_add_product_message:new_product:{}".format(unicode_full_stack())
 				watchdog.watchdog_error(message)
+				print unicode_full_stack()
 			try:
 				UserProfile.objects.filter(user=request.user).update(product_count=F('product_count') + 1)
 			except :
