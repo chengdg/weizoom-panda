@@ -121,7 +121,7 @@ var ProductModelInfo = React.createClass({
 				)
 			}
 		})
-		if (model_type == '0'){
+		if (model_type == '0' || model_type==''){
 			if(W.purchase_method==2){
 				var product_price = this.state["product_price"];
 				if(product_price){
@@ -139,7 +139,7 @@ var ProductModelInfo = React.createClass({
 							元
 						</span>
 						<div></div>
-						<Reactman.FormInput label="商品重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
+						<Reactman.FormInput label="物流重量:" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
 						<span className="money_note">
 							Kg
 						</span>
