@@ -35,16 +35,18 @@ var Action = {
 			limit_zone_type: data['limit_zone_type'],
 			limit_zone_id: data['limit_zone_id'],
 		};
-		console.log(product);
 		if (data.id === -1) {
 			Resource.put({
 				resource: 'product.new_product',
 				data: product,
 				success: function() {
-					Dispatcher.dispatch({
-						actionType: Constant.NEW_PRODUCT_CREATE,
-						data: data
-					});
+					Reactman.PageAction.showHint('success', '新建成功');
+					setTimeout(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.NEW_PRODUCT_CREATE,
+							data: data
+						});
+					},1000);
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMg);
@@ -56,10 +58,13 @@ var Action = {
 				resource: 'product.new_product',
 				data: product,
 				success: function() {
-					Dispatcher.dispatch({
-						actionType: Constant.NEW_PRODUCT_CREATE,
-						data: data
-					});
+					Reactman.PageAction.showHint('success', '编辑成功');
+					setTimeout(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.NEW_PRODUCT_CREATE,
+							data: data
+						});
+					},1000);
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMg);

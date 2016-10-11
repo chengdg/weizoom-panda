@@ -150,7 +150,7 @@ var NewProductPage = React.createClass({
 		// }
 		if(has_product_model==='0'){	//不是多规格商品
 			if(W.purchase_method==1){
-				if(W.role==1){	//固定底价用户默认售价==结算价
+				if(W.role==1 && product.id==-1){	//固定底价用户新建商品时默认售价==结算价
 					var clear_price = product.clear_price;
 					if(clear_price){
 						product["product_price"] = clear_price;

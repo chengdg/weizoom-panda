@@ -258,17 +258,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleCreateNewProduct: function(action) {
-		setTimeout(function() {
-		 	Reactman.PageAction.showHint('success', '保存成功!');
-		}, 10);
 		if(W.role==1){
-			setTimeout(function() {
-			 	W.gotoPage('/product/product_list/');
-			}, 500);
+			W.gotoPage('/product/product_list/');
 		}else{
-			setTimeout(function() {
-			 	W.gotoPage('/product/product_relation/');
-			}, 500);
+			W.gotoPage('/product/product_relation/');
 		}
 		
 	},

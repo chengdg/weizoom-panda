@@ -426,7 +426,11 @@ class NewProduct(resource.Resource):
 					catalog_id = old_catalog_id
 				)
 				modify_contents.append(u'商品类目')
-
+		if not len(modify_contents)>0:
+			#如果保存时候什么字段都没改变
+			print models.OldProduct.objects.filter(product_id = product.id).last()
+			print '==============='
+			models.OldProduct.objects.filter(product_id = product.id).last().delete()
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
 		if role == 1:
@@ -458,7 +462,7 @@ class NewProduct(resource.Resource):
 					clear_price = clear_price
 				)
 		
-		if product_sync_weapp_accounts:
+		if product_sync_weapp_accounts and len(modify_contents)>0:
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				is_update = True,
 				is_refused = False
@@ -539,7 +543,6 @@ class NewProduct(resource.Resource):
 
 		#发送钉钉消息
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
-		
 		if product_sync_weapp_accounts and len(modify_contents)>0:
 			product_status = u'待同步更新'
 			#获取已同步自营平台	
