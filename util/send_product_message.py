@@ -54,6 +54,7 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	组织商品信息
 	"""
 	second_catagory = catalog_models.ProductCatalog.objects.filter(id=product.catalog_id).last()
+	father_catagory = None
 	if second_catagory:
 		father_catagory = catalog_models.ProductCatalog.objects.filter(id=second_catagory.father_id).last()
 	# 商品规格信息
@@ -85,7 +86,8 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 		'product_name': product.product_name,
 		'customer_name': UserProfile.objects.filter(user_id=user_id)[0].name,
 		'product_image': image_paths,
-		'category': '' if not second_catagory else '-'.join([father_catagory.name, second_catagory.name]),
+		'category': '' if not second_catagory and father_catagory
+						else '-'.join([father_catagory.name, second_catagory.name]),
 		'price': str(product.product_price),
 		'price_info': price_info,  # 规格/价格
 		'push_status': push_status,
