@@ -84,7 +84,7 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	product_message = {
 		'product_id': product.id,
 		'product_name': product.product_name,
-		'customer_name': UserProfile.objects.filter(user_id=user_id)[0].name,
+		'customer_name': UserProfile.objects.filter(user_id=user_id)[0].company_name,
 		'product_image': image_paths,
 		'category': '' if not second_catagory or not father_catagory
 						else '-'.join([father_catagory.name, second_catagory.name]),
