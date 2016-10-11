@@ -75,3 +75,15 @@ class FreePostageConfig(models.Model):
 		db_table = 'free_postage_config'
 		verbose_name = '特殊地区包邮配置'
 		verbose_name_plural = '特殊地区包邮配置'
+
+
+class PostageConfigRelation(models.Model):
+	"""
+
+	"""
+	config_relation_id = models.IntegerField()
+	weapp_config_relation_id = models.IntegerField()
+
+	class Meta(object):
+		db_table = 'postage_config_relation'
+
