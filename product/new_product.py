@@ -169,9 +169,13 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-		# 获取所有的限制
-		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
-																				owner_id=product.owner_id)
+		if product_id:
+			# 获取所有的限制
+			limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
+																					owner_id=product.owner_id)
+		else:
+			limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
+																					owner_id=request.user.id)
 
 		template_ids = [template.id for template in limit_zones]
 
