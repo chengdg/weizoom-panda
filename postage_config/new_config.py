@@ -1,28 +1,19 @@
 # -*- coding: utf-8 -*-
 import json
-import time
 
-from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
 
 from core import resource
 from core.jsonresponse import create_response
-from core.exceptionutil import unicode_full_stack
-from core import paginator
-from eaglet.utils.resource_client import Resource
-from eaglet.core import watchdog
 
-from util import string_util
-from util import db_util
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from account import models as account_models
 from product import models as product_models
-
+from account import models as account_models
+from util import sync_util
 import nav
 import models
+from panda.settings import PRODUCT_POOL_OWNER_ID
 
 FIRST_NAV = 'postage_config'
 SECOND_NAV = 'postage_list'
@@ -150,6 +141,54 @@ class NewConfig(resource.Resource):
 					destination = ','.join(selected_ids)
 				))
 			models.FreePostageConfig.objects.bulk_create(free_postage_create)
+		# 同步
+		if postage_config:
+			user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
+			if user_relation:
+				params = {
+					'name': postage_config.name,
+					'owner_id': PRODUCT_POOL_OWNER_ID,
+					'supplier_id': user_relation.supplier_id,
+					'first_weight': postage_config.first_weight,
+					'first_weight_price': postage_config.first_weight_price,
+					'is_enable_added_weight': 'true' if postage_config.is_enable_added_weight else 'false',
+					'added_weight': postage_config.added_weight,
+					'added_weight_price': postage_config.added_weight_price,
+					'is_used': 'true' if postage_config.is_used else 'false',
+					'is_enable_special_config': 'true' if postage_config.is_enable_special_config else 'false',
+					'is_enable_free_config': 'true' if postage_config.is_enable_free_config else 'false',
+				}
+				resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.postage_config', method='put')
+				if not resp:
+					models.PostageConfig.objects.filter(id=postage_config.id).delete()
+				else:
+					# 存储模板的中间关系
+					weapp_postage_config = resp_data.get('postage_config')
+					models.PostageConfigRelation.objects.create(postage_config_id=postage_config.id,
+																weapp_postage_config_id=weapp_postage_config.get('id'))
+					# 同步特殊运费和普通运费
+					if special_postages:
+						for special_postage in special_postage_create:
+							params = {
+								'owner_id': PRODUCT_POOL_OWNER_ID,
+								'postage_config_id': weapp_postage_config.get('id'),
+								'destination': special_postage.destination,
+								'first_weight_price': special_postage.first_weight_price,
+								'first_weight': special_postage.first_weight,
+								'added_weight': special_postage.added_weight,
+								'added_weight_price': special_postage.added_weight_price,
+							}
+							sync_util.sync_zeus(params=params, resource='mall.special_postage_config', method='put')
+					if free_postages:
+						for free_postage in free_postage_create:
+							params = {
+								'owner_id': PRODUCT_POOL_OWNER_ID,
+								'postage_config_id': weapp_postage_config.get('id'),
+								'destination': free_postage.destination,
+								'condition': free_postage.condition,
+								'condition_value': free_postage.condition_value,
+							}
+							sync_util.sync_zeus(params=params, resource='mall.free_postage_config', method='put')
 
 		response = create_response(200)
 		return response.get_response()
