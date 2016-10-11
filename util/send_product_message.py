@@ -60,6 +60,7 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	# 商品规格信息
 	if not product.has_product_model:
 		price_info = 'standard %s' % str(product.product_price)
+		product_price = str(product.product_price)
 	else:
 		# 多规格
 		price_info = []
@@ -74,6 +75,14 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 			model_name = ' '.join([value.name for value in model_property_value])
 			price_info.append(model_name + ' ' + str(temp_price))
 		price_info = ';'.join(price_info)
+
+		model_prices = sorted([model_info.price for model_info in model_infos])
+		product_price = '0'
+		if model_prices:
+			if len(model_prices) > 1:
+				product_price = str(model_prices[0]) + '~' + str(model_prices[-1])
+			else:
+				product_price = str(model_prices[0])
 		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 		# print price_info
 		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
@@ -88,7 +97,7 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 		'product_image': image_paths,
 		'category': '' if not second_catagory or not father_catagory
 						else '-'.join([father_catagory.name, second_catagory.name]),
-		'price': str(product.product_price),
+		'price': product_price,
 		'price_info': price_info,  # 规格/价格
 		'push_status': push_status,
 		# 'first_sale_time': '',  # 首次上架时间
