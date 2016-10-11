@@ -54,7 +54,8 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	组织商品信息
 	"""
 	second_catagory = catalog_models.ProductCatalog.objects.filter(id=product.catalog_id).last()
-	father_catagory = catalog_models.ProductCatalog.objects.filter(id=second_catagory.father_id).last()
+	if second_catagory:
+		father_catagory = catalog_models.ProductCatalog.objects.filter(id=second_catagory.father_id).last()
 	# 商品规格信息
 	if not product.has_product_model:
 		price_info = 'standard %s' % str(product.product_price)
