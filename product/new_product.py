@@ -426,11 +426,13 @@ class NewProduct(resource.Resource):
 					catalog_id = old_catalog_id
 				)
 				modify_contents.append(u'商品类目')
-		if not len(modify_contents)>0:
-			#如果保存时候什么字段都没改变
-			print models.OldProduct.objects.filter(product_id = product.id).last()
-			print '==============='
-			models.OldProduct.objects.filter(product_id = product.id).last().delete()
+			print modify_contents
+			print 'modify_contents'
+			if not len(modify_contents)>0:
+				print 'modify_contents--------------'
+				#如果保存时候什么字段都没改变
+				models.OldProduct.objects.filter(product_id = product.id).last().delete()
+		
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
 		if role == 1:
@@ -703,3 +705,9 @@ def sync_deleted_product(product):
 # 			'resource': 'panda.classification_product',
 # 			'data': params
 # 		})
+
+# def check_product_name_unique(name):
+# 	"""
+# 	检查当前用户下是否有同名商品
+# 	"""
+# 	
