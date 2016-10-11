@@ -49,7 +49,7 @@ var Action = {
 					},1000);
 				},
 				error: function(data) {
-					Reactman.PageAction.showHint('error', data.errMg);
+					Reactman.PageAction.showHint('error', data.errMsg);
 				}
 			});
 		} else {
@@ -67,7 +67,7 @@ var Action = {
 					},1000);
 				},
 				error: function(data) {
-					Reactman.PageAction.showHint('error', data.errMg);
+					Reactman.PageAction.showHint('error', data.errMsg);
 				}
 			});
 		}

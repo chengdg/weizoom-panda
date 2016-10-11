@@ -220,6 +220,11 @@ class NewProduct(resource.Resource):
 		model_values = post.get('model_values','')
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+		
+		if not check_product_name_unique(request, product_name):
+			response = create_response(500)
+			response.errMsg = u'商品名已存在，请重新输入'
+			return response.get_response()
 
 		parser = HTMLParser.HTMLParser()
 		if remark:
@@ -229,7 +234,6 @@ class NewProduct(resource.Resource):
 		if not limit_clear_price:
 			limit_clear_price = -1
 		try:
-
 			product = models.Product.objects.create(
 				owner = request.user,
 				product_name = product_name,
@@ -320,6 +324,11 @@ class NewProduct(resource.Resource):
 		second_level_id = int(post.get('second_level_id',0))
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+
+		if not check_product_name_unique(request, product_name):
+			response = create_response(500)
+			response.errMsg = u'商品名已存在，请重新输入'
+			return response.get_response()
 
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
 		role = user_profile.role
@@ -426,10 +435,7 @@ class NewProduct(resource.Resource):
 					catalog_id = old_catalog_id
 				)
 				modify_contents.append(u'商品类目')
-			print modify_contents
-			print 'modify_contents'
 			if not len(modify_contents)>0:
-				print 'modify_contents--------------'
 				#如果保存时候什么字段都没改变
 				models.OldProduct.objects.filter(product_id = product.id).last().delete()
 		
@@ -706,8 +712,9 @@ def sync_deleted_product(product):
 # 			'data': params
 # 		})
 
-# def check_product_name_unique(name):
-# 	"""
-# 	检查当前用户下是否有同名商品
-# 	"""
-# 	
+def check_product_name_unique(request, name):
+	"""
+	检查当前用户下是否有同名商品
+	"""
+	product = models.Product.objects.filter(owner=request.user.id, product_name=name, is_deleted=False)
+	return False if product else True
