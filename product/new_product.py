@@ -18,6 +18,7 @@ from util import watchdog
 from account.models import *
 from resource import models as resource_models
 from product_catalog import models as catalog_models
+from postage_config import models as postage_models
 from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
@@ -71,6 +72,7 @@ class NewProduct(resource.Resource):
 		second_level_id = request.GET.get('second_level_id', 0)
 		jsons = {'items':[]}
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		postage_configs = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True)
 		role = user_profile.role
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
@@ -134,6 +136,8 @@ class NewProduct(resource.Resource):
 				'value_ids': ','.join(value_ids),
 				'limit_zone_type': product.limit_zone_type,
 				'limit_zone_id': product.limit_zone,
+				'has_same_postage': '1' if product.has_same_postage else '0',
+				'postage_money': '%s' %('%.2f'%product.postage_money)
 
 			}
 			#组织多规格数据
@@ -189,7 +193,13 @@ class NewProduct(resource.Resource):
 			{'text': '请选择区域',
 			 'value': 0}
 		)
+
+		has_postage_config = {
+			'has_postage_config':True if postage_configs else False
+		}
+
 		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))
+		jsons['items'].append(('has_postage_config', json.dumps(has_postage_config)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(request),
@@ -223,6 +233,9 @@ class NewProduct(resource.Resource):
 		model_values = post.get('model_values','')
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+		has_same_postage = int(post.get('has_same_postage', 0))
+		postage_money = post.get('postage_money', 0)
+		postage_id = 0
 
 		parser = HTMLParser.HTMLParser()
 		if remark:
@@ -231,6 +244,9 @@ class NewProduct(resource.Resource):
 			product_price = -1
 		if not limit_clear_price:
 			limit_clear_price = -1
+		if has_same_postage == 1:#默认模板运费
+			postage_id = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True).id
+
 		try:
 
 			product = models.Product.objects.create(
@@ -248,6 +264,9 @@ class NewProduct(resource.Resource):
 				remark = remark,
 				limit_zone_type=limit_zone_type,
 				limit_zone=limit_zone_id,
+				has_same_postage = has_same_postage,
+				postage_money = postage_money,
+				postage_id = postage_id
 			)
 
 			#获取商品图片
@@ -337,6 +356,13 @@ class NewProduct(resource.Resource):
 		second_level_id = int(post.get('second_level_id',0))
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+		has_same_postage = int(post.get('has_same_postage', 0))
+		postage_money = post.get('postage_money', 0)
+		postage_id = 0
+
+		if has_same_postage == 1:#默认模板运费
+			postage_id = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True).id
+
 		if int(limit_zone_type) == 0:
 			limit_zone_id = 0
 
@@ -455,7 +481,10 @@ class NewProduct(resource.Resource):
 			catalog_id = second_level_id,
 			remark = remark,
 			limit_zone=limit_zone_id,
-			limit_zone_type=limit_zone_type
+			limit_zone_type=limit_zone_type,
+			has_same_postage = has_same_postage,
+			postage_money = postage_money,
+			postage_id = postage_id
 		)
 
 		if has_product_model == 0:

@@ -34,6 +34,8 @@ var Action = {
 			second_level_id: data['second_level_id'],
 			limit_zone_type: data['limit_zone_type'],
 			limit_zone_id: data['limit_zone_id'],
+			has_same_postage: data['has_same_postage'],
+			postage_money: data['postage_money']
 		};
 		if (data.id === -1) {
 			Resource.put({

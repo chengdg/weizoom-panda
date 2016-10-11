@@ -36,6 +36,9 @@ class Product(models.Model):
 	is_deleted = models.BooleanField(default=False)
 	limit_zone_type = models.IntegerField(default=NO_LIMIT)
 	limit_zone = models.IntegerField(default=0)  # 限制地区的模板id
+	has_same_postage = models.BooleanField(default=True) #是否是统一运费{0:统一运费,1:默认模板运费}
+	postage_money = models.DecimalField(max_digits=65, decimal_places=2, null=True) #统一运费金额
+	postage_id = models.IntegerField(default=0)# 默认模板运费id
 
 	class Meta(object):
 		db_table = 'product_product'

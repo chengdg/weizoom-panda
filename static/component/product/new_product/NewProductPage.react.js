@@ -137,13 +137,11 @@ var NewProductPage = React.createClass({
 		// 		return;
 		// 	}
 		// }
-		console.log('==============================')
-		console.log(has_product_model)
-		console.log('==============================')
 		if(has_product_model===''){
             Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
             return
         }
+        
 		if(has_product_model==='0'){
 			if(W.purchase_method==1){
 				var clear_price = product.clear_price;
@@ -298,6 +296,14 @@ var NewProductPage = React.createClass({
             text: '不发货地区',
             value: '1'
         }];
+
+        var optionsForPostage = [{
+        	text: '统一运费',
+            value: '0'
+        },{
+        	text: '使用默认运费模板',
+            value: '1'
+        }]
         var optionsForLimitInfo = this.state.limit_zone_info;
 		return (
 			<div className="xui-newProduct-page xui-formPage">
@@ -318,6 +324,8 @@ var NewProductPage = React.createClass({
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
                         <Reactman.FormSelect validate="require" label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
+						<Reactman.FormRadio label="运费:" type="text" name="has_same_postage" value={this.state.has_same_postage} options={optionsForPostage} onChange={this.onChange} />
+						<div> <PostageTemplate onChange={this.onChange} hasSamePostage={this.state.has_same_postage} postageMoney={this.state.postage_money} hasPostageConfig={this.state.has_postage_config}/></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
@@ -331,19 +339,32 @@ var NewProductPage = React.createClass({
 	}
 })
 
-var StoreInfo = React.createClass({
+var PostageTemplate = React.createClass({
 	render: function() {
-		var store_type = this.props.Type;
-		if (store_type == '0'){
+		var hasSamePostage = this.props.hasSamePostage;
+		var hasPostageConfig = this.props.hasPostageConfig;
+
+		if (hasSamePostage == '0'){
 			return(
 				<div>
-					<Reactman.FormInput label="库存数量" type="text" name="product_store" value={this.props.product_store} validate="require-int" onChange={this.props.onChange} />
+					<Reactman.FormInput label="运费金额(元)" type="text" name="postage_money" value={this.props.postageMoney} validate="require-float" onChange={this.props.onChange} />
 				</div>
 			)
 		}else {
-			return(
-				<div></div>
-			)
+			if(hasPostageConfig){
+				return(
+					<div className="mb10" style={{paddingLeft:'180px'}}>
+						<span>提示：需要更换模板，请前往运费 <a href="/postage_config/postage_list/">模板设置</a> 列表中将需要的模板设置为默认模板即可。</span>
+					</div>
+				)
+			}else{
+				return(
+					<div className="mb10" style={{paddingLeft:'180px'}}>
+						<span>暂未添加任何默认运费模板,请前往运费<a href="/postage_config/postage_list/">模板设置</a>添加模板。</span>
+					</div>
+				)
+			}
+			
 		}
 	}
 });
