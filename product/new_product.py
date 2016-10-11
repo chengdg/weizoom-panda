@@ -75,18 +75,7 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
-		# 获取所有的限制
-		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
-																				owner_id=request.user.id)
 
-		template_ids = [template.id for template in limit_zones]
-
-		not_null_template = limit_zone_models.LimitTemplateHasZone.objects.filter(template_id__in=template_ids)\
-			.values('template_id').distinct()
-		not_template_ids = [t.get('template_id') for t in not_null_template]
-		limit_zones_not_null = limit_zones.filter(id__in=not_template_ids)
-		limit_zone_info = [dict(text=limit_zone.name,
-								value=limit_zone.id) for limit_zone in limit_zones_not_null]
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
@@ -180,6 +169,18 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
+		# 获取所有的限制
+		limit_zones = limit_zone_models.ProductLimitZoneTemplate.objects.filter(is_deleted=False,
+																				owner_id=product.owner_id)
+
+		template_ids = [template.id for template in limit_zones]
+
+		not_null_template = limit_zone_models.LimitTemplateHasZone.objects.filter(template_id__in=template_ids) \
+			.values('template_id').distinct()
+		not_template_ids = [t.get('template_id') for t in not_null_template]
+		limit_zones_not_null = limit_zones.filter(id__in=not_template_ids)
+		limit_zone_info = [dict(text=limit_zone.name,
+								value=limit_zone.id) for limit_zone in limit_zones_not_null]
 		limit_zone_info.append(
 			{'text': '请选择区域',
 			 'value': 0}
