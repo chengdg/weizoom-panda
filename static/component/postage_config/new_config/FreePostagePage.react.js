@@ -63,6 +63,8 @@ var FreePostagePage = React.createClass({
 	render:function(){
 		var _this = this;
 		var freePostages = this.state.freePostages;
+		var provinceId2name = this.state.provinceId2name;
+		
 		var optionsForFreeCondition = [{
 			text: '件数',
 			value: 'count'
@@ -75,15 +77,24 @@ var FreePostagePage = React.createClass({
 			var condition = postages.condition;
 			var unit = condition == 'count'? '件': '元';
 
+			var destinationText = []
+			var selectedIds = postages.selectedIds;
+			for(var i in selectedIds){
+				var id = parseInt(selectedIds[i]);
+				destinationText.push(provinceId2name[id])
+			}
+			destinationText = destinationText.join('；');
+
 			return(
 				<tr key={index}>
-					<td>
+					<td className="xui-destination">
+						<span className="mr10" style={{color:'#000'}}>{destinationText}</span>
 						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>
 						<Reactman.FormSelect label="" name="condition" value={postages.condition} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, condition, index)} />
 					</td>
-					<td>
+					<td style={{width: '250px'}}>
 						<input type="text" className="form-control" id="conditionValue" name="conditionValue" value={postages.conditionValue} onChange={_this.onChangePostage.bind(_this, index)} style={{width:'80%', display:'inline-block', marginRight:'10px'}}/>
 						<span>{unit}</span>
 					</td>
@@ -104,7 +115,7 @@ var FreePostagePage = React.createClass({
 				<div className="xui-free-postage">
 					<Reactman.FormCheckbox label="" name="hasFreePostage" value={this.state.hasFreePostage} options={optionsForPostage} onChange={this.onChange} />
 				</div>
-				<table className="table table-bordered" style={{width:'50%'}}>
+				<table className="table table-bordered" style={{width:'60%'}}>
 					<thead>
 						<tr>
 							<th>地区</th>

@@ -34,6 +34,20 @@ var SpecialPostageStore = StoreUtil.createStore(Dispatcher, {
 				'selectedIds': []
 			}]
 		};
+
+		var postages = Reactman.loadJSON('postages');
+		var provinceId2name = Reactman.loadJSON('provinceId2name');
+		if(postages){
+			var specialPostages = postages['special_postages'];
+			this.data['specialPostages'] = specialPostages.length>0? specialPostages: this.data['specialPostages'];
+			this.data['hasSpecialPostage'] = specialPostages.length>0? ['1']: [];
+		}
+
+		if(provinceId2name){
+			this.data['provinceId2name'] = provinceId2name['province_id2name'];
+		}
+
+		console.log(Reactman.loadJSON('provinceId2name'),"==rr===");
 	},
 
 	handleUpdateSpecialPostages: function(action) {

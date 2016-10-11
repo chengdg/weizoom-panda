@@ -28,6 +28,12 @@ var DefaultPostageStore = StoreUtil.createStore(Dispatcher, {
 		    	'addedWeightPrice': ''
 		    }]
 		};
+
+		var postages = Reactman.loadJSON('postages');
+		if(postages){
+			var defaultPostages = postages['default_postages'];
+			this.data['defaultPostages'] = defaultPostages;
+		}
 	},
 
 	handleUpdateDefaultPostages: function(action) {

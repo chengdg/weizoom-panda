@@ -11,3 +11,14 @@
 	float: right;
     margin-right: 1%;
 }
+
+.xui-destination{
+	max-width: 300px;
+	white-space:nowrap;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+}
+
+.xui-destination:hover{
+	cursor: default;
+}

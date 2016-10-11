@@ -14,32 +14,62 @@ var Constant = require('./Constant');
 
 var Action = {
 	savePostage: function(data){
+		var postageId = data['postageId'];
 		var postageName = data['postageName'] || '';
 		var defaultPostages = data['defaultPostages'] || [];
 		var specialPostages = data['specialPostages'] || [];
 		var freePostages = data['freePostages'] || [];
-
-		Resource.put({
-			resource: 'postage_config.new_config',
-			data: {
-				postage_name: postageName,
-				default_postages: JSON.stringify(defaultPostages),
-				special_postages: JSON.stringify(specialPostages),
-				free_postages: JSON.stringify(freePostages)
-			},
-			success: function() {
-				Reactman.PageAction.showHint('success', '保存成功！');
-				_.delay(function(){
-					Dispatcher.dispatch({
-						actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_SAVE_POSTAGE,
-						data: data
-					});
-				},500)
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', "保存失败！");
-			}
-		})
+		console.log(data['hasSpecialPostage'],"--------");
+		specialPostages = data['hasSpecialPostage'] == false? []: specialPostages;
+		freePostages = data['hasFreePostage'] == false? []: freePostages;
+		
+		if(postageId == -1) {
+			Resource.put({
+				resource: 'postage_config.new_config',
+				data: {
+					postage_name: postageName,
+					postage_id: postageId,
+					default_postages: JSON.stringify(defaultPostages),
+					special_postages: JSON.stringify(specialPostages),
+					free_postages: JSON.stringify(freePostages)
+				},
+				success: function() {
+					Reactman.PageAction.showHint('success', '保存成功！');
+					_.delay(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_SAVE_POSTAGE,
+							data: data
+						});
+					},500)
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', "保存失败！");
+				}
+			})
+		}else{
+			Resource.post({
+				resource: 'postage_config.new_config',
+				data: {
+					postage_name: postageName,
+					postage_id: postageId,
+					default_postages: JSON.stringify(defaultPostages),
+					special_postages: JSON.stringify(specialPostages),
+					free_postages: JSON.stringify(freePostages)
+				},
+				success: function() {
+					Reactman.PageAction.showHint('success', '保存成功！');
+					_.delay(function(){
+						Dispatcher.dispatch({
+							actionType: Constant.POSTAGE_CONFIG_NEW_CONFIG_SAVE_POSTAGE,
+							data: data
+						});
+					},500)
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', "保存失败！");
+				}
+			})
+		}
 	},
 
 	updateConfig: function(property, value) {

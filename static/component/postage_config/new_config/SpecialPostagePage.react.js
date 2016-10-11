@@ -56,16 +56,29 @@ var SpecialPostagePage = React.createClass({
 	},
 
 	render:function(){
+		var _this = this;
+		var specialPostages = this.state.specialPostages;
+		var provinceId2name = this.state.provinceId2name;
+
 		var optionsForPostage = [{
 			text: '特殊地区运费设置',
 			value: '1'
 		}];
-		var _this = this;
-		var specialPostages = this.state.specialPostages;
+
 		var postagesTr = specialPostages.map(function(postages, index){
+			var destinationText = []
+			var selectedIds = postages.selectedIds;
+
+			for(var i in selectedIds){
+				var id = parseInt(selectedIds[i]);
+				destinationText.push(provinceId2name[id])
+			}
+			destinationText = destinationText.join('；');
+
 			return(
 				<tr key={index}>
-					<td>
+					<td className="xui-destination">
+						<span className="mr10" style={{color:'#000'}}>{destinationText}</span>
 						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td>

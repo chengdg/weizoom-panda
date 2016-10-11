@@ -62,11 +62,19 @@ class PostageList(resource.Resource):
 		postage_config_specials = models.SpecialPostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
 		free_postage_configs = models.FreePostageConfig.objects.filter(postage_config_id=postage_id, owner_id=request.user.id)
 		
+		#获取省份
+		provinces = product_models.Province.objects.all()
+		province_id2name = {province.id:province.name for province in provinces}
+
 		postages = []
+		destination = u'全国'
+		if len(postage_config_specials)>0 or len(free_postage_configs)>0:
+			destination = u'其他地区'
+
 		for postage_config in postage_configs:
 			postages.append({
 				'postageMethod': u'普通快递',
-				'postageDestination': u'其他地区',
+				'postageDestination':  destination,
 				'firstWeight': postage_config.first_weight,
 				'firstWeightPrice': postage_config.first_weight_price,
 				'addedWeight': postage_config.added_weight,
@@ -74,9 +82,15 @@ class PostageList(resource.Resource):
 			})
 
 		for postage_config_special in postage_config_specials:
+			destinations = postage_config_special.destination.split(',')
+			destination_text = []
+			for destination_id in destinations:
+				if int(destination_id) in province_id2name:
+					destination_text.append(province_id2name[int(destination_id)])
+			
 			postages.append({
 				'postageMethod': u'普通快递',
-				'postageDestination': u'全国',
+				'postageDestination': u'；'.join(destination_text),
 				'firstWeight': postage_config_special.first_weight,
 				'firstWeightPrice': postage_config_special.first_weight_price,
 				'addedWeight': postage_config_special.added_weight,

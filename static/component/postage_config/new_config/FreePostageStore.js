@@ -33,6 +33,18 @@ var FreePostageStore = StoreUtil.createStore(Dispatcher, {
 				'selectedIds': []
 			}]
 		};
+
+		var postages = Reactman.loadJSON('postages');
+		var provinceId2name = Reactman.loadJSON('provinceId2name');
+		if(postages){
+			var freePostages = postages['free_postages'];
+			this.data['freePostages'] = freePostages.length>0? freePostages: this.data['freePostages'];
+			this.data['hasFreePostage'] = freePostages.length>0? ['1']: [];
+		}
+
+		if(provinceId2name){
+			this.data['provinceId2name'] = provinceId2name['province_id2name'];
+		}
 	},
 
 	handleUpdateFreePostages: function(action){

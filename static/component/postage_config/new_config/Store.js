@@ -22,8 +22,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {
-		    'postageName': ''
+		    'postageName': '',
+		    'postageId': -1
 		};
+
+		var postages = Reactman.loadJSON('postages');
+		if(postages){
+			this.data['postageName'] = postages['postage_name'];
+			this.data['postageId'] = postages['postage_id'];
+		}
 	},
 
 	handleUpdateConfig: function(action) {
