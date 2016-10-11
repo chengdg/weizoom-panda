@@ -30,7 +30,7 @@ var NewConfigPage = React.createClass({
 		return Store.getData();
 	},
 
-	onChangeStore: function(){
+	onChangeStore: function() {
 		this.setState(Store.getData());
 	},
 
@@ -39,44 +39,67 @@ var NewConfigPage = React.createClass({
 		Action.updateConfig(property, value);
 	},
 
-	savePostage: function(){
+	savePostage: function() {
 		var data = {};
-		var is_upass = true;
+		var isUpass = true;//是否为空
+		var isValidate = true;//是否是两位小数
+		var isDestination = true;//地区是否为空
+		var input_reg = /^(0|([1-9]\d*))(\.\d{1,2})?$/;
 		var configData = Store.getData();
 		var defaultData = DefaultPostageStore.getData();
 		var specialData = SpecialPostageStore.getData();
 		var freeData = FreePostageStore.getData();
 		data = _.extend(configData, defaultData);
 		
-		if(specialData.hasSpecialPostage[0] == '1'){
-			_.each(specialData.specialPostages, function(postages){
-				is_upass = postages['addedWeight'] == ''? false : is_upass;
-				is_upass = postages['addedWeightPrice'] == ''? false : is_upass;
-				is_upass = postages['firstWeight'] == ''? false : is_upass;
-				is_upass = postages['firstWeightPrice'] == ''? false : is_upass;
+		if(specialData.hasSpecialPostage[0] == '1') {
+			_.each(specialData.specialPostages, function(postages) {
+				isUpass = postages['addedWeight'] == ''? false : isUpass;
+				isUpass = postages['addedWeightPrice'] == ''? false : isUpass;
+				isUpass = postages['firstWeight'] == ''? false : isUpass;
+				isUpass = postages['firstWeightPrice'] == ''? false : isUpass;
+
+				isValidate = input_reg.test(postages['addedWeight']) == false? false: isValidate;
+				isValidate = input_reg.test(postages['addedWeightPrice']) == false? false: isValidate;
+				isValidate = input_reg.test(postages['firstWeight']) == false? false: isValidate;
+				isValidate = input_reg.test(postages['firstWeightPrice']) == false? false: isValidate;
+
+				isDestination = postages['selectedIds'].length == 0? false : isDestination;
 			});
 			data = _.extend(data, specialData);
 		}else{
 			data['hasSpecialPostage'] = false;
 		}
 
-		if(freeData.hasFreePostage[0] == '1'){
-			_.each(freeData.freePostages, function(postages){
-				is_upass = postages['conditionValue'] == ''? false : true;
-				is_upass = postages['conditionValue'] == ''? false : true;
+		if(freeData.hasFreePostage[0] == '1') {
+			_.each(freeData.freePostages, function(postages) {
+				isUpass = postages['conditionValue'] == ''? false : true;
+				isValidate = input_reg.test(postages['conditionValue']) == false? false: isValidate;
+				isDestination = postages['selectedIds'].length == 0? false : isDestination;
 			});
 			data = _.extend(data, freeData);
-		}else{
+		}else {
 			data['hasFreePostage'] = false;
 		}
-		console.log(is_upass,"==========");
-		if(!is_upass){
-			Reactman.PageAction.showHint('error', '请填写输入框！');
+
+		if(!isUpass) {
+			Reactman.PageAction.showHint('error', '请填写输入框 !');
+			return;
 		}
+
+		if(!isValidate) {
+			Reactman.PageAction.showHint('error', '格式不正确，请输入3.14或5这样的数字 !');
+			return;
+		}
+
+		if(!isDestination) {
+			Reactman.PageAction.showHint('error', '请选择区域 !');
+			return;
+		}
+
 		Action.savePostage(data);
 	},
 
-	render:function(){
+	render:function() {
 		return (
 			<div>
 				<div className="xui-formPage">
