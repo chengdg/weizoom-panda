@@ -73,7 +73,7 @@ var SpecialPostagePage = React.createClass({
 				var id = parseInt(selectedIds[i]);
 				destinationText.push(provinceId2name[id])
 			}
-			destinationText = destinationText.join('；');
+			destinationText = selectedIds.length==34? '全国': destinationText.join('；');
 
 			return(
 				<tr key={index}>

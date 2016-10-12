@@ -61,7 +61,7 @@ class PostageList(resource.Resource):
 
 		postages = []
 		destination = u'全国'
-		if len(postage_config_specials)>0 or len(free_postage_configs)>0:
+		if len(postage_config_specials)>0:
 			destination = u'其他地区'
 
 		for postage_config in postage_configs:
@@ -77,13 +77,17 @@ class PostageList(resource.Resource):
 		for postage_config_special in postage_config_specials:
 			destinations = postage_config_special.destination.split(',')
 			destination_text = []
-			for destination_id in destinations:
-				if int(destination_id) in province_id2name:
-					destination_text.append(province_id2name[int(destination_id)])
+			if len(destinations) == 34:
+				destination_text = u'全国'
+			else:
+				for destination_id in destinations:
+					if int(destination_id) in province_id2name:
+						destination_text.append(province_id2name[int(destination_id)])
+				destination_text = u'；'.join(destination_text)
 			
 			postages.append({
 				'postageMethod': u'普通快递',
-				'postageDestination': u'；'.join(destination_text),
+				'postageDestination': destination_text,
 				'firstWeight': postage_config_special.first_weight,
 				'firstWeightPrice': postage_config_special.first_weight_price,
 				'addedWeight': postage_config_special.added_weight,
