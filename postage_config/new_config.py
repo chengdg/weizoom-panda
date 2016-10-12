@@ -145,49 +145,30 @@ class NewConfig(resource.Resource):
 		if postage_config:
 			user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
 			if user_relation:
-				params = {
-					'name': postage_config.name,
-					'owner_id': PRODUCT_POOL_OWNER_ID,
-					'supplier_id': user_relation.supplier_id,
-					'first_weight': postage_config.first_weight,
-					'first_weight_price': postage_config.first_weight_price,
-					'is_enable_added_weight': 'true' if postage_config.is_enable_added_weight else 'false',
-					'added_weight': postage_config.added_weight,
-					'added_weight_price': postage_config.added_weight_price,
-					'is_used': 'true' if postage_config.is_used else 'false',
-					'is_enable_special_config': 'true' if postage_config.is_enable_special_config else 'false',
-					'is_enable_free_config': 'true' if postage_config.is_enable_free_config else 'false',
-				}
+				params = organize_postage_config_params(postage_config=postage_config,
+														user_relation=user_relation)
+
 				resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.postage_config', method='put')
 				if not resp:
 					models.PostageConfig.objects.filter(id=postage_config.id).delete()
 				else:
 					# 存储模板的中间关系
 					weapp_postage_config = resp_data.get('postage_config')
+
 					models.PostageConfigRelation.objects.create(postage_config_id=postage_config.id,
-																weapp_postage_config_id=weapp_postage_config.get('id'))
+																weapp_config_relation_id=weapp_postage_config.get('id'))
 					# 同步特殊运费和普通运费
 					if special_postages:
 						for special_postage in special_postage_create:
-							params = {
-								'owner_id': PRODUCT_POOL_OWNER_ID,
-								'postage_config_id': weapp_postage_config.get('id'),
-								'destination': special_postage.destination,
-								'first_weight_price': special_postage.first_weight_price,
-								'first_weight': special_postage.first_weight,
-								'added_weight': special_postage.added_weight,
-								'added_weight_price': special_postage.added_weight_price,
-							}
+							params = organize_special_postage_config(weapp_postage_config_id=weapp_postage_config.get('id'),
+																	 special_postage=special_postage)
+
 							sync_util.sync_zeus(params=params, resource='mall.special_postage_config', method='put')
 					if free_postages:
 						for free_postage in free_postage_create:
-							params = {
-								'owner_id': PRODUCT_POOL_OWNER_ID,
-								'postage_config_id': weapp_postage_config.get('id'),
-								'destination': free_postage.destination,
-								'condition': free_postage.condition,
-								'condition_value': free_postage.condition_value,
-							}
+							params = organize_free_postage_config(weapp_postage_config_id=weapp_postage_config.get('id'),
+																  free_postage=free_postage)
+
 							sync_util.sync_zeus(params=params, resource='mall.free_postage_config', method='put')
 
 		response = create_response(200)
@@ -243,6 +224,84 @@ class NewConfig(resource.Resource):
 					destination = ','.join(selected_ids)
 				))
 			models.FreePostageConfig.objects.bulk_create(free_postage_create)
+		# 同步
+		postage_config = models.PostageConfig.objects.filter(id=postage_id).first()
+		user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
+		if postage_config and user_relation:
 
+			params = organize_postage_config_params(postage_config=postage_config, user_relation=user_relation)
+			postage_config_relation = models.PostageConfigRelation.objects\
+				.filter(postage_config_id=postage_config.id,).last()
+			params.update(postage_config_id=postage_config_relation.weapp_config_relation_id)
+			resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.postage_config', method='post')
+			weapp_config_relation_id = postage_config_relation.weapp_config_relation_id
+			if resp:
+				special_params = {
+					'owner_id': PRODUCT_POOL_OWNER_ID,
+					'postage_config_id': weapp_config_relation_id
+				}
+				sync_util.sync_zeus(params=special_params, resource='mall.special_postage_config', method='delete')
+				if special_postages:
+					for special_postage in special_postage_create:
+						params = organize_special_postage_config(weapp_postage_config_id=weapp_config_relation_id,
+																 special_postage=special_postage)
+
+						sync_util.sync_zeus(params=params, resource='mall.special_postage_config', method='put')
+				if free_postages:
+					for free_postage in free_postage_create:
+						params = organize_free_postage_config(weapp_postage_config_id=weapp_config_relation_id,
+															  free_postage=free_postage)
+
+						sync_util.sync_zeus(params=params, resource='mall.free_postage_config', method='put')
 		response = create_response(200)
 		return response.get_response()
+
+
+def organize_postage_config_params(postage_config=None, user_relation=None):
+	"""
+	组织运费模板参数
+	"""
+	params = {
+		'name': postage_config.name,
+		'owner_id': PRODUCT_POOL_OWNER_ID,
+		'supplier_id': user_relation.supplier_id,
+		'first_weight': postage_config.first_weight,
+		'first_weight_price': postage_config.first_weight_price,
+		'is_enable_added_weight': 'true' if postage_config.is_enable_added_weight else 'false',
+		'added_weight': postage_config.added_weight,
+		'added_weight_price': postage_config.added_weight_price,
+		'is_used': 'true' if postage_config.is_used else 'false',
+		'is_enable_special_config': 'true' if postage_config.is_enable_special_config else 'false',
+		'is_enable_free_config': 'true' if postage_config.is_enable_free_config else 'false',
+	}
+	return params
+
+
+def organize_special_postage_config(weapp_postage_config_id=None, special_postage=None):
+	"""
+	组织运费模板中的特殊设置参数
+	"""
+	params = {
+		'owner_id': PRODUCT_POOL_OWNER_ID,
+		'postage_config_id': weapp_postage_config_id,
+		'destination': special_postage.destination,
+		'first_weight_price': special_postage.first_weight_price,
+		'first_weight': special_postage.first_weight,
+		'added_weight': special_postage.added_weight,
+		'added_weight_price': special_postage.added_weight_price,
+	}
+	return params
+
+
+def organize_free_postage_config(weapp_postage_config_id=None, free_postage=None):
+	"""
+
+	"""
+	params = {
+		'owner_id': PRODUCT_POOL_OWNER_ID,
+		'postage_config_id': weapp_postage_config_id,
+		'destination': free_postage.destination,
+		'condition': free_postage.condition,
+		'condition_value': free_postage.condition_value,
+	}
+	return params

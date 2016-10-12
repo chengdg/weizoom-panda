@@ -81,7 +81,7 @@ class PostageConfigRelation(models.Model):
 	"""
 
 	"""
-	config_relation_id = models.IntegerField()
+	postage_config_id = models.IntegerField()
 	weapp_config_relation_id = models.IntegerField()
 
 	class Meta(object):
