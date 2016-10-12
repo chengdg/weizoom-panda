@@ -137,6 +137,7 @@ class NewProduct(resource.Resource):
 
 			}
 			#组织多规格数据
+			max_product_price = 0 #多规格商品的最高售价
 			for product_model in product_models:
 				model_Id = product_model.name
 				product_data['product_price_'+model_Id] = '%s' %('%.2f'%product_model.price)
@@ -147,7 +148,10 @@ class NewProduct(resource.Resource):
 				product_data['product_code_'+model_Id] = '%s' %product_model.user_code
 				product_data['valid_time_from_'+model_Id] = '%s' %product_model.valid_time_from.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_from else ''
 				product_data['valid_time_to_'+model_Id] = '%s' %product_model.valid_time_to.strftime("%Y-%m-%d %H:%M") if product_model.valid_time_to else ''
-
+				if product_model.price >= max_product_price:
+					max_product_price = product_model.price
+			product_data['max_product_price'] = max_product_price
+			
 			#获取商品图片
 			product_image_ids = [product_image.image_id for product_image in models.ProductImage.objects.filter(product_id=product_id)]
 			for image in resource_models.Image.objects.filter(id__in=product_image_ids):

@@ -43720,6 +43720,9 @@
 						if (clear_price) {
 							product["product_price"] = clear_price;
 						}
+					} else if (W.role == 1 && product.id != -1 && product['old_has_product_model'] === '1') {
+						//固定底价用户编辑商品时，如果从多规格切换成单规格，默认单规格售价==最大的多规格售价
+						product["product_price"] = product['max_product_price'];
 					}
 				} else if (W.purchase_method == 2) {
 					var product_price = product.product_price;
