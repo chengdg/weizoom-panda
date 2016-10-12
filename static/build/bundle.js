@@ -42837,6 +42837,7 @@
 				this.data['limit_zone_type'] = this.data['limit_zone_type'].toString();
 				this.data['limit_zone_id'] = this.data['limit_zone_id'].toString();
 				this.data['limit_zone_info'] = limit_zone_info;
+				this.data['old_has_product_model'] = this.data['has_product_model']; //用来判断之前是否是多规格商品
 			} else {
 				this.data = {
 					'id': -1,
@@ -43834,6 +43835,12 @@
 						var clear_price = parseFloat(product["clear_price_" + model.modelId]);
 						if (clear_price) {
 							model["product_price_" + model.modelId] = clear_price;
+						}
+					} else if (W.role == 1 && product.id != -1 && product['old_has_product_model'] === '0') {
+						//固定底价用户编辑商品时，如果从单规格切换成多规格，默认各个规格售价==单规格售价
+						var product_price = parseFloat(product['product_price']);
+						if (product_price) {
+							model["product_price_" + model.modelId] = product_price;
 						}
 					}
 				} else if (W.purchase_method == 2) {
