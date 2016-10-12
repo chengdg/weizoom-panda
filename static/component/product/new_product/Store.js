@@ -63,7 +63,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			this.data['limit_zone_type'] = this.data['limit_zone_type'].toString();
 			this.data['limit_zone_id'] = this.data['limit_zone_id'].toString();
 			this.data['limit_zone_info'] = limit_zone_info;
-			this.data['old_has_product_model'] = this.data['has_product_model']; //用来判断之前是否是多规格商品
 		} else {
 			this.data = {
 				'id':-1,

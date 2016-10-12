@@ -158,13 +158,11 @@ var NewProductPage = React.createClass({
         }
 		if(has_product_model==='0'){	//不是多规格商品
 			if(W.purchase_method==1){
-				if(W.role==1 && product.id==-1){	//固定底价用户新建商品时默认售价==结算价
+				if(W.role==1){	//固定底价用户默认售价==结算价
 					var clear_price = product.clear_price;
 					if(clear_price){
 						product["product_price"] = clear_price;
 					}
-				}else if(W.role==1 && product.id!=-1 && product['old_has_product_model']==='1'){ //固定底价用户编辑商品时，如果从多规格切换成单规格，默认单规格售价==最大的多规格售价
-					product["product_price"] = product['max_product_price'];
 				}
 			}else if(W.purchase_method==2){
 				var product_price = product.product_price;
@@ -275,15 +273,10 @@ var NewProductPage = React.createClass({
 			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==1){
-				if(W.role==1 && product.id==-1){ //固定底价用户新建商品时默认售价==结算价
+				if(W.role==1){ //固定底价用户默认售价==结算价
 					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
 					if(clear_price){
 						model["product_price_"+model.modelId] = clear_price;
-					}
-				}else if(W.role==1 && product.id!=-1 && product['old_has_product_model']==='0'){ //固定底价用户编辑商品时，如果从单规格切换成多规格，默认各个规格售价==单规格售价
-					var product_price = parseFloat(product['product_price']);
-					if(product_price){
-						model["product_price_"+model.modelId] = product_price;
 					}
 				}
 			}else if(W.purchase_method==2){
