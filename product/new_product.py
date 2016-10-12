@@ -195,7 +195,8 @@ class NewProduct(resource.Resource):
 		)
 
 		has_postage_config = {
-			'has_postage_config':True if postage_configs else False
+			'has_postage_config':True if postage_configs else False,
+			'postage_name':postage_configs[0].name if postage_configs else '',
 		}
 
 		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))

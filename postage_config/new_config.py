@@ -48,10 +48,10 @@ class NewConfig(resource.Resource):
 			for postage_config in postage_configs:
 				postages['postage_name'] = postage_config.name
 				postages['default_postages'].append({
-					'firstWeight': postage_config.first_weight,
-					'firstWeightPrice': postage_config.first_weight_price,
-					'addedWeight': postage_config.added_weight,
-					'addedWeightPrice': postage_config.added_weight_price,
+					'firstWeight': '%s' %postage_config.first_weight,
+					'firstWeightPrice': '%s' %postage_config.first_weight_price,
+					'addedWeight': '%s' %postage_config.added_weight,
+					'addedWeightPrice': '%s' %postage_config.added_weight_price,
 				})
 
 			#特殊地区运费配置
@@ -59,10 +59,10 @@ class NewConfig(resource.Resource):
 			for postage_config_special in postage_config_specials:
 				destinations = postage_config_special.destination.split(',')
 				postages['special_postages'].append({
-					'firstWeight': postage_config_special.first_weight,
-					'firstWeightPrice': postage_config_special.first_weight_price,
-					'addedWeight': postage_config_special.added_weight,
-					'addedWeightPrice': postage_config_special.added_weight_price,
+					'firstWeight': '%s' %postage_config_special.first_weight,
+					'firstWeightPrice': '%s' %postage_config_special.first_weight_price,
+					'addedWeight': '%s' %postage_config_special.added_weight,
+					'addedWeightPrice': '%s' %postage_config_special.added_weight_price,
 					'selectedIds': destinations
 				})
 
@@ -72,7 +72,7 @@ class NewConfig(resource.Resource):
 				destinations = free_postage_config.destination.split(',')
 				postages['free_postages'].append({
 					'condition': free_postage_config.condition,
-					'conditionValue': free_postage_config.condition_value,
+					'conditionValue': '%s' %free_postage_config.condition_value,
 					'selectedIds': destinations
 				})
 			jsons['items'].append(('postages', json.dumps(postages)))
