@@ -451,10 +451,7 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					catalog_id = old_catalog_id
 				)
-				modify_contents.append(u'商品类目')
-			if not len(modify_contents)>0:
-				#如果保存时候什么字段都没改变
-				models.OldProduct.objects.filter(product_id = product.id).last().delete()
+				modify_contents.append(u'商品类目')	
 		
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
@@ -486,12 +483,6 @@ class NewProduct(resource.Resource):
 					product_price = product_price,
 					clear_price = clear_price
 				)
-		
-		if product_sync_weapp_accounts and len(modify_contents)>0:
-			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
-				is_update = True,
-				is_refused = False
-			)
 
 		if int(catalog_id) != second_level_id:
 			models.ProductHasLabel.objects.filter(product_id=request.POST['id']).delete()
@@ -565,6 +556,16 @@ class NewProduct(resource.Resource):
 		if product_sync_weapp_accounts:
 			if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
 				modify_contents.append(u'商品规格')
+
+		#有更新内容
+		if product_sync_weapp_accounts and len(modify_contents)>0: 
+			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+				is_update = True,
+				is_refused = False
+			)
+		# elif product_sync_weapp_accounts and len(modify_contents)==0:
+		# 	#TODO 如果保存时候什么字段都没改变
+		# 	models.OldProduct.objects.filter(product_id = product.id).last().delete()
 
 		#发送钉钉消息
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
