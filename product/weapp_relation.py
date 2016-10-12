@@ -17,6 +17,7 @@ from panda.settings import PRODUCT_POOL_OWNER_ID
 from product_catalog import models as catalog_models
 from label import models as label_models
 from util import send_product_message
+from postage_config import models as postage_models
 
 
 SELF_NAMETEXT2VALUE = {
@@ -254,6 +255,20 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				limit_zone_type = 'forbidden'
 			else:
 				limit_zone_type = 'only'
+
+			if product.has_same_postage:
+				#{0:统一运费,1:默认模板运费}
+				postage_money = product.postage_money
+
+				relation = postage_models.PostageConfigRelation.objects.filter(postage_config_id=product.postage_id)\
+					.first()
+				if relation:
+					postage_id = relation.weapp_config_relation_id
+				else:
+					postage_id = 0
+			else:
+				postage_id = -1
+				postage_money = product.postage_money
 			params = {
 				'supplier': weapp_supplier_id,
 				'name': product.product_name,
@@ -269,7 +284,9 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				'stocks': product.product_store if product.product_store > 0 else 0,
 				'detail': product.remark,
 				'limit_zone_type': limit_zone_type,
-				'limit_zone': product_limit_zone_info.get(product.limit_zone)
+				'limit_zone': product_limit_zone_info.get(product.limit_zone),
+				'postage_id': postage_id,
+				'postage_money': str(postage_money)
 			}
 
 			# 判断是更新还是新曾商品同步(只处理添加)
