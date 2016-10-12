@@ -28,7 +28,22 @@ var NewProductPage = React.createClass({
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateProduct(property, value);
+		//运营不能编辑
+		if(property == 'has_product_model'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
+		}else if(property == 'limit_zone_type'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
+		}else if(property == 'images'){
+			if(W.role!=3){
+				Action.updateProduct(property, value);
+			}
+		}else{
+			Action.updateProduct(property, value);
+		}
 	},
 
 	onChangeStore: function(){
@@ -137,18 +152,17 @@ var NewProductPage = React.createClass({
 		// 		return;
 		// 	}
 		// }
-		console.log('==============================')
-		console.log(has_product_model)
-		console.log('==============================')
 		if(has_product_model===''){
             Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
             return
         }
-		if(has_product_model==='0'){
+		if(has_product_model==='0'){	//不是多规格商品
 			if(W.purchase_method==1){
-				var clear_price = product.clear_price;
-				if(clear_price){
-					product["product_price"] = clear_price;
+				if(W.role==1 && product.id==-1){	//固定底价用户新建商品时默认售价==结算价
+					var clear_price = product.clear_price;
+					if(clear_price){
+						product["product_price"] = clear_price;
+					}
 				}
 			}else if(W.purchase_method==2){
 				var product_price = product.product_price;
@@ -164,6 +178,10 @@ var NewProductPage = React.createClass({
 					Reactman.PageAction.showHint('error', '商品售价是数字且保留两位小数,请重新输入!');
 					return;
 				}
+			}
+			if(product.hasOwnProperty('product_price') && parseFloat(product.clear_price)>parseFloat(product.product_price)){
+				Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+				return;
 			}
 		}
 		
@@ -214,16 +232,15 @@ var NewProductPage = React.createClass({
 						var product_price = parseFloat(product_price);
 						var clear_price= (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 					}
+				}else if(W.purchase_method==1) {
+					var product_price = product['product_price_'+model.modelId];
+					var clear_price = product['clear_price_'+model.modelId];
+					if(parseFloat(clear_price) > parseFloat(product_price)){
+						is_true = true;
+						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+						return;
+					}
 				}
-				// else if(W.purchase_method==1) {
-				// 	var product_price = product['product_price_'+model.modelId];
-				// 	var clear_price = product['clear_price_'+model.modelId];
-				// 	if(parseFloat(clear_price) > parseFloat(product_price)){
-				// 		is_true = true;
-				// 		Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-				// 		return;
-				// 	}
-				// }
 				// var time_from = product['valid_time_from_'+model.modelId]
 				// var time_to = product['valid_time_to_'+model.modelId]
 				// if(time_from>time_to){
@@ -256,9 +273,11 @@ var NewProductPage = React.createClass({
 			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==1){
-				var clear_price = parseFloat(product["clear_price_"+model.modelId]);
-				if(clear_price){
-					model["product_price_"+model.modelId] = clear_price;
+				if(W.role==1){ //固定底价用户默认售价==结算价
+					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
+					if(clear_price){
+						model["product_price_"+model.modelId] = clear_price;
+					}
 				}
 			}else if(W.purchase_method==2){
 				var points = 1-(W.points/100);
@@ -284,7 +303,7 @@ var NewProductPage = React.createClass({
 		var optionsForCheckbox = [{text: '', value: '1'}]
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
-		var style = role == 3 ? {margin: '20px 0px 100px 180px'}: {position:'absolute',top:'40px',left:'270px'};
+		var style = (role == 3 && W.purchase_method != 1) ? {margin: '20px 0px 100px 180px'}: {position:'absolute',top:'40px',left:'270px'};
 		var optionsForKind = [{
             text: '',
             value: '-1'
@@ -322,7 +341,8 @@ var NewProductPage = React.createClass({
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}}>
-						{role == 3? '' : <Reactman.FormSubmit onClick={this.onSubmit} />}
+						{role == 3 ? '' : <Reactman.FormSubmit onClick={this.onSubmit} />}
+						{role == 3 && W.purchase_method ==1 ? <Reactman.FormSubmit onClick={this.onSubmit} /> : ''}
 						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={style} onClick={this.productPreview}>商品预览</a>
 					</fieldset>
 				</form>

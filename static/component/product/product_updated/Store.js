@@ -59,6 +59,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		if(action.data['code']==200){
 			this.data.reasons = [];
 			this.data.custom_reason = '';
+			//更新二级导航栏的数字
+			var str = '\\((.| )+?\\)';
+			var afterSyncCount = parseInt($('.xui-secondNav >ul >li:nth-child(2) span').text().match(str)[1])-1;
+			if(afterSyncCount > 0){
+				$('.xui-secondNav >ul >li:nth-child(2) span').text('商品更新('+afterSyncCount+')')
+			}else{
+				$('.xui-secondNav >ul >li:nth-child(2) span').text('商品更新')
+			}
 			setTimeout(function() {
 			 	Reactman.PageAction.showHint('success', '驳回成功');
 			}, 10);

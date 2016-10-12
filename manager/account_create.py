@@ -263,7 +263,6 @@ class AccountCreate(resource.Resource):
 				except:
 					msg = unicode_full_stack()
 					watchdog.error('{}'.format(msg))
-					print msg
 					User.objects.filter(id=user_id).delete()
 					UserProfile.objects.filter(user_id=user_id).delete()
 					response = create_response(500)
@@ -273,7 +272,6 @@ class AccountCreate(resource.Resource):
 		except:
 			msg = unicode_full_stack()
 			watchdog.error('{}'.format(msg))
-			print msg
 			response = create_response(500)
 			response.errMsg = u'创建账号失败'
 			response.innerErrMsg = unicode_full_stack()
