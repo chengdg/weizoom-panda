@@ -54,9 +54,9 @@ var TableListPage = React.createClass({
 		var hasSpecialConfig = this.props.hasSpecialConfig;
 		var hasFreeConfig = this.props.hasFreeConfig;
 
-		var title = '';
+		var title = this.props.postageName;
 		var isUsed = this.props.isUsed;
-		title = hasSpecialConfig? title+'特殊商品模板': '默认模板';
+		// title = hasSpecialConfig? title+'特殊商品模板': '默认模板';
 		title = hasFreeConfig? title+'(已设置包邮条件)': title;
 		var setBtn = isUsed? <a style={{color:'red', marginLeft:'10px'}}>(默认)</a>: <a href="javascript:void(0);" style={{marginLeft:'10px'}} onClick={this.setHasUsed.bind(this, postageId)}>设为默认</a>;
 

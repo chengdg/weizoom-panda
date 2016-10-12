@@ -44,7 +44,14 @@ var PostageListPage = React.createClass({
 			}
 
 			return(
-				<div key={index}><TableListPage postageId={postage.postageId} hasSpecialConfig={postage.hasSpecialConfig} hasFreeConfig={postage.hasFreeConfig} isUsed={isUsed}/></div>
+				<div key={index}>
+					<TableListPage 
+						postageId={postage.postageId} 
+						postageName={postage.postageName} 
+						hasSpecialConfig={postage.hasSpecialConfig} 
+						hasFreeConfig={postage.hasFreeConfig} 
+						isUsed={isUsed} />
+				</div>
 			)
 		})
 

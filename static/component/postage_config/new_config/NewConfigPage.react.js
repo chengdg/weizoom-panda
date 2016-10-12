@@ -91,6 +91,11 @@ var NewConfigPage = React.createClass({
 			return;
 		}
 
+		if(this.state.postageName.length > 20) {
+			Reactman.PageAction.showHint('error', '格式不正确，模板名称不能超过20个字符 !');
+			return;
+		}
+
 		if(!isDestination) {
 			Reactman.PageAction.showHint('error', '请选择区域 !');
 			return;
@@ -104,7 +109,7 @@ var NewConfigPage = React.createClass({
 			<div>
 				<div className="xui-formPage">
 					<form className="form-horizontal mt15 pt30">
-						<Reactman.FormInput label="模板名称:" type="text" name="postageName" value={this.state.postageName} onChange={this.onChange} validate="require-string" />
+						<Reactman.FormInput label="模板名称:" type="text" name="postageName" placeholder="20个以内字符" value={this.state.postageName} onChange={this.onChange} validate="require-string" />
 						<div className="pl90">运送方式：除特殊地区外，其余地区的运费采用“默认运费”</div>
 					</form>
 				</div>

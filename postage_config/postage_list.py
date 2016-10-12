@@ -42,6 +42,7 @@ class PostageList(resource.Resource):
 		for postage_config in postage_configs:
 			postages.append({
 				"postageId": postage_config.id,
+				"postageName": postage_config.name,
 				"hasSpecialConfig": postage_config.is_enable_special_config,
 				"hasFreeConfig": postage_config.is_enable_free_config,
 				"isUsed": postage_config.is_used
