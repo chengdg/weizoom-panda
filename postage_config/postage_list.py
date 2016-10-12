@@ -1,28 +1,20 @@
 # -*- coding: utf-8 -*-
 import json
-import time
 
-from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
 
 from core import resource
 from core.jsonresponse import create_response
-from core.exceptionutil import unicode_full_stack
-from core import paginator
-from eaglet.utils.resource_client import Resource
-from eaglet.core import watchdog
 
-from util import string_util
-from util import db_util
-from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
-from account import models as account_models
 from product import models as product_models
-
+from account import models as account_models
+from util import sync_util
 import nav
 import models
+from panda.settings import PRODUCT_POOL_OWNER_ID
+from new_config import organize_postage_config_params
 
 FIRST_NAV = 'postage_config'
 SECOND_NAV = 'postage_list'
@@ -110,8 +102,34 @@ class PostageList(resource.Resource):
 	@login_required
 	def api_post(request):
 		postage_id = request.POST.get('postage_id', -1)
-		models.PostageConfig.objects.filter(is_used=True).update(is_used=False)
+		# 必须在这里查,查之前用的模板
+		old_used_config = models.PostageConfig.objects.filter(owner_id=request.user.id,
+															  is_used=True).last()
+		models.PostageConfig.objects.filter(is_used=True,
+											owner_id=request.user.id).update(is_used=False)
+
 		models.PostageConfig.objects.filter(id=postage_id).update(is_used=True)
+		new_use_config = models.PostageConfig.objects.filter(id=postage_id).last()
+		user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
+		# 同步
+		if old_used_config and user_relation:
+			params = organize_postage_config_params(postage_config=old_used_config, user_relation=user_relation)
+			postage_config_relation = models.PostageConfigRelation.objects \
+				.filter(postage_config_id=old_used_config.id, ).last()
+			params.update({'postage_config_id': postage_config_relation.weapp_config_relation_id,
+						   'is_used': 'false'})
+
+			if postage_config_relation:
+				sync_util.sync_zeus(params=params, resource='mall.postage_config', method='post')
+		if new_use_config and user_relation:
+
+			params = organize_postage_config_params(postage_config=new_use_config, user_relation=user_relation)
+			postage_config_relation = models.PostageConfigRelation.objects \
+				.filter(postage_config_id=new_use_config.id, ).last()
+			params.update({'postage_config_id': postage_config_relation.weapp_config_relation_id})
+
+			if postage_config_relation:
+				sync_util.sync_zeus(params=params, resource='mall.postage_config', method='post')
 		data = {
 			'postageId': postage_id
 		}
@@ -126,6 +144,18 @@ class PostageList(resource.Resource):
 		data = {
 			'postageId': postage_id
 		}
+		# 同步
+
+		user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
+		relation = models.PostageConfigRelation.objects.filter(postage_config_id=postage_id).last()
+
+		if relation and user_relation:
+			params = {
+				'owner_id': PRODUCT_POOL_OWNER_ID,
+				'postage_config_id': relation.weapp_config_relation_id,
+				'supplier_id': user_relation.supplier_id
+			}
+			sync_util.sync_zeus(params=params, resource='mall.postage_config', method='delete')
 		response = create_response(200)
 		response.data = data
 		return response.get_response()
