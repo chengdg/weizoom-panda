@@ -1,16 +1,16 @@
 #author:徐梓豪 2016-10-10
 Feature:运营在商品详情页修改商品价格
 Background:
-		Given manager登录管理系统
+	Given manager登录管理系统
 	When manager添加账号
 		"""
-			{
-				"account_type":"运营",
-				"account_name":"运营部门",
-				"login_account":"yunying",
-				"password":123456,
-				"ramarks":"运营部门"
-			}
+		{
+			"account_type":"运营",
+			"account_name":"运营部门",
+			"login_account":"yunying",
+			"password":123456,
+			"ramarks":"运营部门"
+		}
 		"""
 	Given yunying登录系统
 	When yunying添加分类
