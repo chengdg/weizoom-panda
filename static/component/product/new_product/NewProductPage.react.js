@@ -127,6 +127,11 @@ var NewProductPage = React.createClass({
             Reactman.PageAction.showHint('error', '请设置商品发货地区设置！');
             return
         }
+
+        if(!this.state.has_postage_config){
+        	Reactman.PageAction.showHint('error', '请先前往设置默认运费模板!');
+            return;
+        }
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
@@ -141,7 +146,7 @@ var NewProductPage = React.createClass({
             Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
             return
         }
-        
+
 		if(has_product_model==='0'){
 			if(W.purchase_method==1){
 				var clear_price = product.clear_price;
