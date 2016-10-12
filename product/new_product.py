@@ -224,7 +224,7 @@ class NewProduct(resource.Resource):
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
 		
-		if not check_product_name_unique(request, product_name):
+		if not check_product_name_unique(request, product_name , product_id=-1):
 			response = create_response(500)
 			response.errMsg = u'商品名已存在，请重新输入'
 			return response.get_response()
@@ -342,7 +342,7 @@ class NewProduct(resource.Resource):
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
 
-		if not check_product_name_unique(request, product_name):
+		if not check_product_name_unique(request, product_name ,request.POST['id']):
 			response = create_response(500)
 			response.errMsg = u'商品名已存在，请重新输入'
 			return response.get_response()
@@ -729,9 +729,11 @@ def sync_deleted_product(product):
 # 			'data': params
 # 		})
 
-def check_product_name_unique(request, name):
+def check_product_name_unique(request, name, product_id):
 	"""
 	检查当前用户下是否有同名商品
 	"""
 	product = models.Product.objects.filter(owner=request.user.id, product_name=name, is_deleted=False)
+	if product_id != -1:
+		product = product.exclude(id=product_id)
 	return False if product else True

@@ -273,7 +273,7 @@ var NewProductPage = React.createClass({
 			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
 			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==1){
-				if(W.role==1){ //固定底价用户默认售价==结算价
+				if(W.role==1 && product.id==-1){ //固定底价用户新建商品时默认售价==结算价
 					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
 					if(clear_price){
 						model["product_price_"+model.modelId] = clear_price;
