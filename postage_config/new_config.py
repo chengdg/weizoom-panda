@@ -303,9 +303,10 @@ def organize_free_postage_config(weapp_postage_config_id=None, free_postage=None
 
 	"""
 	if free_postage.condition == 'count':
-		condition_value = int(free_postage.condition_value)
+
+		condition_value = format(float(free_postage.condition_value), '.0f')
 	else:
-		condition_value = float(free_postage.condition_value)
+		condition_value = free_postage.condition_value
 	params = {
 		'owner_id': PRODUCT_POOL_OWNER_ID,
 		'postage_config_id': weapp_postage_config_id,
