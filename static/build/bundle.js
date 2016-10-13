@@ -43212,7 +43212,7 @@
 
 
 	// module
-	exports.push([module.id, ".model-table-tr td{\r\n    width: 170px;\r\n    padding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n    margin: 0;\r\n    width: 100%;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n    width: 80%;\r\n    padding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}\r\n\r\ntd div.form-group label{\r\n    display: none;\r\n}\r\n\r\n.pl90{padding-left:90px !important;}\r\n\r\n.xui-special-postage div label.control-label,\r\n.xui-free-postage div label.control-label{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-special-postage div, .xui-free-postage div{\r\n\tmargin-left: 0px !important;\r\n\tpadding-left: 0px !important;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn{\r\n    border: 1px solid rgb(191, 169, 169);\r\n    color: #3C3434;\r\n    font-size: 14px;\r\n}\r\n\r\n.xui-submit-btn a{\r\n    width: 100px;\r\n}\r\n\r\n.xui-submit-btn label{\r\n    display: none;\r\n}\r\n\r\n.xui-submit-btn div{\r\n    padding-left: 0px !important;\r\n    margin-left: 0px !important;\r\n}\r\n\r\n.xui-submit-btn div div{\r\n    padding-left: 0px;\r\n}\r\n\r\n.xui-destination{\r\n    width: 350px;\r\n}\r\n", ""]);
+	exports.push([module.id, ".model-table-tr td{\r\n    width: 170px;\r\n    padding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n    margin: 0;\r\n    width: 100%;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n    width: 80%;\r\n    padding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}\r\n\r\ntd div.form-group label{\r\n    display: none;\r\n}\r\n\r\n.pl90{padding-left:90px !important;}\r\n\r\n.xui-special-postage div label.control-label,\r\n.xui-free-postage div label.control-label{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-special-postage div, .xui-free-postage div{\r\n\tmargin-left: 0px !important;\r\n\tpadding-left: 0px !important;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn{\r\n    border: 1px solid rgb(191, 169, 169);\r\n    color: #3C3434;\r\n    font-size: 14px;\r\n}\r\n\r\n.xui-submit-btn a{\r\n    width: 100px;\r\n}\r\n\r\n.xui-submit-btn label{\r\n    display: none;\r\n}\r\n\r\n.xui-submit-btn div{\r\n    padding-left: 0px !important;\r\n    margin-left: 0px !important;\r\n}\r\n\r\n.xui-submit-btn div div{\r\n    padding-left: 0px;\r\n}\r\n\r\n.xui-destination{\r\n    width: 350px;\r\n}\r\n\r\n.xui-select-condition select{\r\n    width: 100px !important;\r\n    margin-right: 15px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -43329,7 +43329,7 @@
 					),
 					React.createElement(
 						'td',
-						null,
+						{ className: 'xui-select-condition', style: { width: '150px' } },
 						React.createElement(Reactman.FormSelect, { label: '', name: 'condition', value: postages.condition, options: optionsForFreeCondition, onChange: _this.onChangeCondition.bind(_this, condition, index) })
 					),
 					React.createElement(
