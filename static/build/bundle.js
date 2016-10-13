@@ -44153,6 +44153,7 @@
 		render: function () {
 			var postages = W.postages;
 			var postageId = this.state.postageId;
+			var postageTemplateCount = JSON.parse(postages).length;
 			var tableList = JSON.parse(postages).map(function (postage, index) {
 				//判断是否为默认
 				var isUsed = postage.isUsed;
@@ -44168,6 +44169,7 @@
 						postageName: postage.postageName,
 						hasSpecialConfig: postage.hasSpecialConfig,
 						hasFreeConfig: postage.hasFreeConfig,
+						postageTemplateCount: postageTemplateCount,
 						isUsed: isUsed })
 				);
 			});
@@ -44281,6 +44283,12 @@
 		},
 
 		deletePostage: function (postageId, event) {
+			var postageTemplateCount = this.props.postageTemplateCount;
+			if (postageTemplateCount == 1) {
+				Reactman.PageAction.showHint('error', '操作失败,模板至少保留一个 !');
+				return;
+			}
+
 			Reactman.PageAction.showConfirm({
 				target: event.target,
 				title: '确定删除么?',

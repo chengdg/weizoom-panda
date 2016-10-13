@@ -36,6 +36,7 @@ var PostageListPage = React.createClass({
 	render:function(){
 		var postages = W.postages;
 		var postageId = this.state.postageId;
+		var postageTemplateCount = JSON.parse(postages).length;
 		var tableList = JSON.parse(postages).map(function(postage, index){
 			//判断是否为默认
 			var isUsed = postage.isUsed;
@@ -50,6 +51,7 @@ var PostageListPage = React.createClass({
 						postageName={postage.postageName} 
 						hasSpecialConfig={postage.hasSpecialConfig} 
 						hasFreeConfig={postage.hasFreeConfig} 
+						postageTemplateCount={postageTemplateCount}
 						isUsed={isUsed} />
 				</div>
 			)

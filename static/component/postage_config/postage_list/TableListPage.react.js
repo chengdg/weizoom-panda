@@ -26,6 +26,12 @@ var TableListPage = React.createClass({
 	},
 
 	deletePostage: function(postageId, event) {
+		var postageTemplateCount = this.props.postageTemplateCount;
+		if(postageTemplateCount == 1){
+			Reactman.PageAction.showHint('error', '操作失败,模板至少保留一个 !');
+			return;
+		}
+		
 		Reactman.PageAction.showConfirm({
 			target: event.target, 
 			title: '确定删除么?',
