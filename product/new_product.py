@@ -72,7 +72,6 @@ class NewProduct(resource.Resource):
 		second_level_id = request.GET.get('second_level_id', 0)
 		jsons = {'items':[]}
 		user_profile = UserProfile.objects.get(user_id=request.user.id)
-		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 		role = user_profile.role
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
@@ -84,10 +83,12 @@ class NewProduct(resource.Resource):
 				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
 				owner_id = product.owner_id
+				postage_configs = postage_models.PostageConfig.objects.filter(owner_id=owner_id, is_deleted=False, is_used=True)
 				current_owner_info = UserProfile.objects.get(user_id=owner_id)
 				purchase_method = current_owner_info.purchase_method #当前商品所属客户的采购方式
 				points = current_owner_info.points #当前商品所属客户的零售价返点
 			else:
+				postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
 				property_ids = [model_propertie.id for model_propertie in model_properties]
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
