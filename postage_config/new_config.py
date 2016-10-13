@@ -248,6 +248,11 @@ class NewConfig(resource.Resource):
 
 						sync_util.sync_zeus(params=params, resource='mall.special_postage_config', method='put')
 				if free_postages:
+					free_params = {
+						'owner_id': PRODUCT_POOL_OWNER_ID,
+						'postage_config_id': weapp_config_relation_id
+					}
+					sync_util.sync_zeus(params=free_params, resource='mall.free_postage_config', method='delete')
 					for free_postage in free_postage_create:
 						params = organize_free_postage_config(weapp_postage_config_id=weapp_config_relation_id,
 															  free_postage=free_postage)
@@ -297,11 +302,15 @@ def organize_free_postage_config(weapp_postage_config_id=None, free_postage=None
 	"""
 
 	"""
+	if free_postage.condition == 'count':
+		condition_value = int(free_postage.condition_value)
+	else:
+		condition_value = float(free_postage.condition_value)
 	params = {
 		'owner_id': PRODUCT_POOL_OWNER_ID,
 		'postage_config_id': weapp_postage_config_id,
 		'destination': free_postage.destination,
 		'condition': free_postage.condition,
-		'condition_value': free_postage.condition_value,
+		'condition_value': condition_value,
 	}
 	return params
