@@ -87,6 +87,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}
 
 		this.data['has_postage_config'] = has_postage_config.has_postage_config;
+		this.data['postage_name'] = has_postage_config.postage_name;
 	},
 
 	organizeData: function(rows){

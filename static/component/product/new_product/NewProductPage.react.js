@@ -302,14 +302,19 @@ var NewProductPage = React.createClass({
             value: '1'
         }];
 
+        var postageName = this.state.postage_name;
+       	var hasPostageConfig = this.state.has_postage_config;
+       	var textPostage = hasPostageConfig? '使用默认运费模板：'+ postageName: '使用默认运费模板'
+
         var optionsForPostage = [{
         	text: '统一运费',
             value: '0'
         },{
-        	text: '使用默认运费模板',
+        	text: textPostage,
             value: '1'
         }]
         var optionsForLimitInfo = this.state.limit_zone_info;
+       	
 		return (
 			<div className="xui-newProduct-page xui-formPage">
 				<form className="form-horizontal mt15">
@@ -330,7 +335,7 @@ var NewProductPage = React.createClass({
                         <Reactman.FormSelect validate="require" label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormRadio label="运费:" type="text" name="has_same_postage" value={this.state.has_same_postage} options={optionsForPostage} onChange={this.onChange} />
-						<div> <PostageTemplate onChange={this.onChange} hasSamePostage={this.state.has_same_postage} postageMoney={this.state.postage_money} hasPostageConfig={this.state.has_postage_config}/></div>
+						<div> <PostageTemplate onChange={this.onChange} hasSamePostage={this.state.has_same_postage} postageMoney={this.state.postage_money} hasPostageConfig={this.state.has_postage_config} /></div>
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
@@ -359,13 +364,13 @@ var PostageTemplate = React.createClass({
 			if(hasPostageConfig){
 				return(
 					<div className="mb10" style={{paddingLeft:'180px'}}>
-						<span>提示：需要更换模板，请前往运费 <a href="/postage_config/postage_list/">模板设置</a> 列表中将需要的模板设置为默认模板即可。</span>
+						<span>提示：需要更换模板，请前往 <a href="/postage_config/postage_list/">运费模板</a> 列表中将需要的模板设置为默认模板即可。</span>
 					</div>
 				)
 			}else{
 				return(
 					<div className="mb10" style={{paddingLeft:'180px'}}>
-						<span>暂未添加任何默认运费模板,请前往运费<a href="/postage_config/postage_list/">模板设置</a>添加模板。</span>
+						<span>暂未添加任何默认运费模板,请前往<a href="/postage_config/postage_list/">运费模板</a> 列表中添加默认模板。</span>
 					</div>
 				)
 			}
