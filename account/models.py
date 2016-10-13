@@ -66,7 +66,7 @@ class UserProfile(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 	pre_sale_tel = models.CharField(max_length=32, default='') #售前电话
 	after_sale_tel = models.CharField(max_length=32, default='') #售后电话
-	max_product = models.IntegerField(default=3) #最多可创建商品
+	max_product = models.IntegerField(default=10) #最多可创建商品
 	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
 	product_count = models.IntegerField(default=0) #客户商品数量
 	settlement_period = models.IntegerField(default=SETTLEMENT_PERIOD_MONTH) #结算账期  1【自然月】   2【15天】   3【自然周】
