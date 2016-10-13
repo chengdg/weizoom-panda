@@ -31,6 +31,7 @@ class Command(BaseCommand):
 				if user_id in user_id2free_money:
 					free_money = user_id2free_money[user_id]
 					if postage_configs:
+						postage_models.PostageConfig.objects.filter(owner_id=user_id, is_used=True).update(is_used=False)
 						postage_models.PostageConfig.objects.filter(owner_id=user_id, id=postage_configs[0].id).update(
 							name = u'系统默认',
 							first_weight = 1,
@@ -70,6 +71,7 @@ class Command(BaseCommand):
 						)
 				else:
 					if postage_configs:
+						postage_models.PostageConfig.objects.filter(owner_id=user_id, is_used=True).update(is_used=False)
 						postage_models.PostageConfig.objects.filter(owner_id=user_id, id=postage_configs[0].id).update(
 							name = u'系统默认',
 							first_weight = 1,
