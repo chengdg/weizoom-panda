@@ -12,7 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-
+var UnPassDialog = require('./UnPassDialog.react');
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 var AddLabelDialog = require('../.././product_catalog/product_catalogs/AddLabelDialog.react');
 var ProductCatalogAction = require('../.././product_catalog/product_catalogs/Action');
@@ -84,7 +84,21 @@ var ProductRelationPage = React.createClass({
 			}, this)
 		});
 	},
-
+	onClickUnPass: function(product_id, event) {
+		Action.cancleChecked();
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: UnPassDialog,
+				data: {
+					product_id: product_id
+				},
+				success: function() {
+					console.log('success');
+				}
+			});
+		},100)
+	},
 	onAddLabel: function(event) {
 		var catalogId = event.target.getAttribute('data-catalog-id');
 		var productId = event.target.getAttribute('data-id');
@@ -130,7 +144,7 @@ var ProductRelationPage = React.createClass({
 				return(
 					<div>
 						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
-						<a className="btn btn-primary ml10" onClick={this.onClickDelete.bind(this,data['id'])}>驳回修改</a>
+						<a className="btn btn-primary ml10" onClick={this.onClickUnPass.bind(this,data['id'])}>驳回修改</a>
 						<a className="btn btn-danger mt5" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
