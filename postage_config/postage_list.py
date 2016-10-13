@@ -113,6 +113,7 @@ class PostageList(resource.Resource):
 											owner_id=request.user.id).update(is_used=False)
 
 		models.PostageConfig.objects.filter(id=postage_id).update(is_used=True)
+		product_models.Product.objects.filter(owner_id=request.user.id, has_same_postage=True).update(postage_id=postage_id)
 		new_use_config = models.PostageConfig.objects.filter(id=postage_id).last()
 		user_relation = account_models.AccountHasSupplier.objects.filter(user_id=request.user.id).last()
 		# 同步
