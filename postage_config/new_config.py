@@ -151,6 +151,8 @@ class NewConfig(resource.Resource):
 				resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.postage_config', method='put')
 				if not resp:
 					models.PostageConfig.objects.filter(id=postage_config.id).delete()
+					response = create_response(500)
+					return response.get_response()
 				else:
 					# 存储模板的中间关系
 					weapp_postage_config = resp_data.get('postage_config')
