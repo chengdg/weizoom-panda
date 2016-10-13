@@ -259,7 +259,7 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 			if product.has_same_postage:
 				#{0:统一运费,1:默认模板运费}
 				postage_money = product.postage_money
-
+				postage_type = 'custom_postage_type'
 				relation = postage_models.PostageConfigRelation.objects.filter(postage_config_id=product.postage_id)\
 					.first()
 				if relation:
@@ -267,6 +267,7 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				else:
 					postage_id = 0
 			else:
+				postage_type = 'unified_postage_type'
 				postage_id = -1
 				postage_money = product.postage_money
 			params = {
@@ -286,6 +287,7 @@ def sync_products(request,product_id,product,weizoom_self,weapp_user_ids,
 				'limit_zone_type': limit_zone_type,
 				'limit_zone': product_limit_zone_info.get(product.limit_zone),
 				'postage_id': postage_id,
+				'postage_type': postage_type,
 				'postage_money': str(postage_money)
 			}
 
