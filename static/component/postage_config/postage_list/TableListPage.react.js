@@ -26,12 +26,18 @@ var TableListPage = React.createClass({
 	},
 
 	deletePostage: function(postageId, event) {
+		var isUsed = this.props.isUsed;
 		var postageTemplateCount = this.props.postageTemplateCount;
 		if(postageTemplateCount == 1){
-			Reactman.PageAction.showHint('error', '操作失败,模板至少保留一个 !');
+			Reactman.PageAction.showHint('error', '操作失败，模板至少保留一个 !');
 			return;
 		}
-		
+
+		if(isUsed){
+			Reactman.PageAction.showHint('error', '操作失败，默认模板无法删除，请先将其他模板设为默认 !');
+			return;
+		}
+
 		Reactman.PageAction.showConfirm({
 			target: event.target, 
 			title: '确定删除么?',

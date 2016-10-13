@@ -76,6 +76,7 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
+		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 
 		if product_id:
 			if role == YUN_YING:
@@ -88,7 +89,6 @@ class NewProduct(resource.Resource):
 				purchase_method = current_owner_info.purchase_method #当前商品所属客户的采购方式
 				points = current_owner_info.points #当前商品所属客户的零售价返点
 			else:
-				postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
 				property_ids = [model_propertie.id for model_propertie in model_properties]
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
