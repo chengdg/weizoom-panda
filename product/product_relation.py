@@ -142,6 +142,8 @@ def getProductRelationData(request, is_export):
 	weapp_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids)
 	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
 	weapp_relation_ids = [p.product_id for p in weapp_relations]
+	has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=p_ids)]
+
 	#从weapp获取销量sales_from_weapp
 	id2sales = sales_from_weapp(p_has_relations)
 
@@ -220,14 +222,17 @@ def getProductRelationData(request, is_export):
 		catalog_id = product.catalog_id
 		if owner_id in user_id2name:
 			sales = 0 if product.id not in id2sales else id2sales[product.id]
-			product_status_text = u'未同步'
+			product_status_text = u'待入库'
 			product_status_value = 0
 			if product.id in has_relation_p_ids:
 				product_status_text = u'已入库，已同步'
 				product_status_value = 1
-			if product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
+			elif product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
 				product_status_text = u'已入库，已停售'
 				product_status_value = 2
+			elif product.id in has_reject_p_ids and product_status_value == 0:
+				product_status_text = u'已驳回'
+				product_status_value = 3
 			#商品分类
 			first_level_name = ''
 			second_level_name = ''

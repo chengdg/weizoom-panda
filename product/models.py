@@ -250,3 +250,15 @@ class ProductRevokeLogs(models.Model):
 
 	class Meta(object):
 		db_table = 'product_revoke_logs'
+
+
+class ProductRejectLogs(models.Model):
+	"""
+	商品驳回日志（待上架状态被驳回）
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	reject_reasons = models.CharField(max_length=1024, default='') #驳回原因
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_reject_logs'

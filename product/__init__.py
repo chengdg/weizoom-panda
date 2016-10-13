@@ -19,3 +19,4 @@ import sync_product
 import product_contrast
 import provinces_cities
 import yunying_product_exported
+import product_reject
