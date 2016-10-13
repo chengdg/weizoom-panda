@@ -129,23 +129,24 @@ var ProductRelationPage = React.createClass({
 				//未同步
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-primary ml10" onClick={this.onClickDelete.bind(this,data['id'])}>驳回修改</a>
+						<a className="btn btn-danger mt5" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
 			}else if(data['product_status_value']==1){
 				//已入库,已同步
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
 					</div>
 				)
 			}else{
 				//已入库,已停售
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-danger ml10" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
 			}	
@@ -226,7 +227,7 @@ var ProductRelationPage = React.createClass({
 							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormSelect label="状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
+							<Reactman.FormSelect label="入库状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 					<Reactman.FilterRow>
@@ -246,8 +247,8 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="来源" field="customer_from_text" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="状态" field="product_status" />
-						<Reactman.TableColumn name="操作" field="action" />
+						<Reactman.TableColumn name="入库状态" field="product_status" />
+						<Reactman.TableColumn name="操作" field="action" width='200px' />
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
