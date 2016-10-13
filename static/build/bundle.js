@@ -44361,35 +44361,72 @@
 						);
 					}
 				} else {
-					return React.createElement(
-						'tr',
-						{ key: index, ref: model.modelId, className: 'model-table-tr' },
-						td,
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-						),
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-						),
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
-						),
-						React.createElement(
-							'td',
-							{ className: 'show-active', style: { width: '80px' } },
+					if (W.role == 1) {
+						return React.createElement(
+							'tr',
+							{ key: index, ref: model.modelId, className: 'model-table-tr' },
+							td,
 							React.createElement(
-								'a',
-								{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
-								'\u5220\u9664'
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+							),
+							React.createElement(
+								'td',
+								{ className: 'show-active', style: { width: '80px' } },
+								React.createElement(
+									'a',
+									{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
+									'\u5220\u9664'
+								)
 							)
-						)
-					);
+						);
+					} else {
+						return React.createElement(
+							'tr',
+							{ key: index, ref: model.modelId, className: 'model-table-tr' },
+							td,
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+							),
+							React.createElement(
+								'td',
+								{ className: 'show-active', style: { width: '80px' } },
+								React.createElement(
+									'a',
+									{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
+									'\u5220\u9664'
+								)
+							)
+						);
+					}
 				}
 			});
 			if (model_type == '0' || model_type == '') {
@@ -44450,24 +44487,52 @@
 						);
 					}
 				} else {
-					return React.createElement(
-						'div',
-						{ className: 'product_info_fieldset' },
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
-						React.createElement(
-							'span',
-							{ className: 'money_note' },
-							'\u5143'
-						),
-						React.createElement('div', null),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
-						React.createElement(
-							'span',
-							{ className: 'money_note' },
-							'Kg'
-						),
-						React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
-					);
+					if (W.role == 1) {
+						return React.createElement(
+							'div',
+							{ className: 'product_info_fieldset' },
+							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(
+								'span',
+								{ className: 'money_note' },
+								'\u5143'
+							),
+							React.createElement('div', null),
+							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(
+								'span',
+								{ className: 'money_note' },
+								'Kg'
+							),
+							React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+						);
+					} else {
+						return React.createElement(
+							'div',
+							{ className: 'product_info_fieldset' },
+							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u552E\u4EF7:', type: 'text', readonly: disabled, name: 'product_price', value: this.state.product_price, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(
+								'span',
+								{ className: 'money_note' },
+								'\u5143'
+							),
+							React.createElement('div', null),
+							React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(
+								'span',
+								{ className: 'money_note' },
+								'\u5143'
+							),
+							React.createElement('div', null),
+							React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(
+								'span',
+								{ className: 'money_note' },
+								'Kg'
+							),
+							React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
+						);
+					}
 				}
 			} else {
 				var th = model_names.map(function (name, index) {
@@ -44597,61 +44662,124 @@
 						);
 					}
 				} else {
-					return React.createElement(
-						'div',
-						null,
-						React.createElement(
+					if (W.role == 1) {
+						return React.createElement(
 							'div',
 							null,
 							React.createElement(
-								'table',
-								{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
+								'div',
+								null,
 								React.createElement(
-									'thead',
-									null,
+									'table',
+									{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
 									React.createElement(
-										'tr',
+										'thead',
 										null,
-										th,
 										React.createElement(
-											'th',
+											'tr',
 											null,
-											'\u5546\u54C1\u552E\u4EF7(\u5143)'
-										),
-										React.createElement(
-											'th',
-											null,
-											'\u91CD\u91CF(Kg)'
-										),
-										React.createElement(
-											'th',
-											null,
-											'\u5E93\u5B58'
-										),
-										React.createElement(
-											'th',
-											null,
-											'\u64CD\u4F5C'
+											th,
+											React.createElement(
+												'th',
+												null,
+												'\u5546\u54C1\u552E\u4EF7(\u5143)'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u91CD\u91CF(Kg)'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u5E93\u5B58'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u64CD\u4F5C'
+											)
 										)
+									),
+									React.createElement(
+										'tbody',
+										{ id: '' },
+										model_value_tr
 									)
-								),
-								React.createElement(
-									'tbody',
-									{ id: '' },
-									model_value_tr
 								)
+							),
+							React.createElement(
+								'div',
+								{ style: { paddingLeft: '180px', marginBottom: '10px' } },
+								W.role == 1 ? React.createElement(
+									'a',
+									{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
+									'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+								) : ''
 							)
-						),
-						React.createElement(
+						);
+					} else {
+						return React.createElement(
 							'div',
-							{ style: { paddingLeft: '180px', marginBottom: '10px' } },
-							W.role == 1 ? React.createElement(
-								'a',
-								{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
-								'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
-							) : ''
-						)
-					);
+							null,
+							React.createElement(
+								'div',
+								null,
+								React.createElement(
+									'table',
+									{ className: 'table table-bordered', style: { margin: '0 auto', width: '80%', marginLeft: '180px', marginBottom: '10px' } },
+									React.createElement(
+										'thead',
+										null,
+										React.createElement(
+											'tr',
+											null,
+											th,
+											React.createElement(
+												'th',
+												null,
+												'\u5546\u54C1\u552E\u4EF7(\u5143)'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u7ED3\u7B97\u4EF7\u683C(\u5143)'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u91CD\u91CF(Kg)'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u5E93\u5B58'
+											),
+											React.createElement(
+												'th',
+												null,
+												'\u64CD\u4F5C'
+											)
+										)
+									),
+									React.createElement(
+										'tbody',
+										{ id: '' },
+										model_value_tr
+									)
+								)
+							),
+							React.createElement(
+								'div',
+								{ style: { paddingLeft: '180px', marginBottom: '10px' } },
+								W.role == 1 ? React.createElement(
+									'a',
+									{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.addProductModel },
+									'\u6DFB\u52A0\u5546\u54C1\u89C4\u683C'
+								) : ''
+							)
+						);
+					}
 				}
 			}
 		}
