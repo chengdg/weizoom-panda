@@ -61,3 +61,8 @@ td div.form-group label{
 .xui-destination{
     width: 350px;
 }
+
+.xui-select-condition select{
+    width: 100px !important;
+    margin-right: 15px;
+}
