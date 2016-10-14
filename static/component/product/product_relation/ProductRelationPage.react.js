@@ -74,6 +74,28 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
+	batchRejectProduct: function() {
+		//取消选中的商品
+		// Action.cancleCheckedUnpassReason();
+		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		if (productIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要驳回的商品!');
+			return false;
+		}
+
+		Reactman.PageAction.showDialog({
+			title: "商品驳回",
+			component: ProductRelationUnPassDialog,
+			data: {
+				product_id: productIds.join(","),
+				sync_type: 'batch'
+			},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	onClickDelete: function(productId, event) {
 		var title = '确定删除么?';
 		Reactman.PageAction.showConfirm({
@@ -261,6 +283,7 @@ var ProductRelationPage = React.createClass({
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
 						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
+						<Reactman.TableActionButton text="批量驳回" onClick={this.batchRejectProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />
