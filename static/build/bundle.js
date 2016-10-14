@@ -42794,7 +42794,6 @@
 			var defaultPostages = data['defaultPostages'] || [];
 			var specialPostages = data['specialPostages'] || [];
 			var freePostages = data['freePostages'] || [];
-			console.log(data['hasSpecialPostage'], "--------");
 			specialPostages = data['hasSpecialPostage'] == false ? [] : specialPostages;
 			freePostages = data['hasFreePostage'] == false ? [] : freePostages;
 
@@ -43991,8 +43990,6 @@
 			if (provinceId2name) {
 				this.data['provinceId2name'] = provinceId2name['province_id2name'];
 			}
-
-			console.log(Reactman.loadJSON('provinceId2name'), "==rr===");
 		},
 
 		handleUpdateSpecialPostages: function (action) {

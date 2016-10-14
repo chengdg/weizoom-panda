@@ -19,7 +19,6 @@ var Action = {
 		var defaultPostages = data['defaultPostages'] || [];
 		var specialPostages = data['specialPostages'] || [];
 		var freePostages = data['freePostages'] || [];
-		console.log(data['hasSpecialPostage'],"--------");
 		specialPostages = data['hasSpecialPostage'] == false? []: specialPostages;
 		freePostages = data['hasFreePostage'] == false? []: freePostages;
 		

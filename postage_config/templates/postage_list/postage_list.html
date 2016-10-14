@@ -3,12 +3,11 @@
 {% block js %}
 <script type="text/javascript">
 	W.breadcrumb = [{
-		name: '添加运费模板',
+		name: '运费模板',
 		href: '/postage_config/postage_list/'
 	}];
 
 	W.pageContentComponent = './postage_config/postage_list/PostageListPage.react';
 	W.postages = '{{postages|safe}}';
-	console.log(W.postages,"+++++++")
 </script>
 {% endblock %}

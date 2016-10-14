@@ -47,11 +47,18 @@ def top_navs(request):
 				'displayName': '对账结算',
 				'icon': 'list-alt',
 				'href': 'http://finance.weizoom.com/balance_account/account_profile/?token=' + user_token(request) #登录财务系统
-			},{
-				'name': 'freight_service',
-				'displayName': '商家设置',
-				'icon': 'list-alt',
-				'href': '/freight_service/freight/'
+			},
+			# {
+			# 	'name': 'freight_service',
+			# 	'displayName': '商家设置',
+			# 	'icon': 'list-alt',
+			# 	'href': '/freight_service/freight/'
+			# },
+			{
+				'name': 'postage_config',
+				'displayName': '运费模板',
+				'icon': 'glyphicon glyphicon-file',
+				'href': '/postage_config/postage_list'
 			},{
 				'name': 'message',
 				'displayName': message_title,
@@ -62,11 +69,6 @@ def top_navs(request):
 				'displayName': '禁售仅售模板',
 				'icon': 'glyphicon glyphicon-file',
 				'href': '/limit_zone/template_list'
-			},{
-				'name': 'postage_config',
-				'displayName': '运费模板',
-				'icon': 'glyphicon glyphicon-file',
-				'href': '/postage_config/postage_list'
 			}]
 		elif role == AGENCY:
 			top_navs = [{
