@@ -19,7 +19,7 @@ class Command(BaseCommand):
 		"""
 		更新客户运费模板
 		"""
-		account_user_profiles = account_models.UserProfile.objects.filter(is_active=True)
+		account_user_profiles = account_models.UserProfile.objects.filter(is_active=True, role=1)
 		user_has_freights = freight_models.UserHasFreight.objects.filter(is_deleted=False)
 		user_id2free_money = {user_has_freight.user_id:user_has_freight.free_freight_money for user_has_freight in user_has_freights}
 		user_id2need_money = {user_has_freight.user_id:user_has_freight.need_freight_money for user_has_freight in user_has_freights}
