@@ -74,12 +74,13 @@ class Command(BaseCommand):
 						)
 				else:
 					#没有设置包邮条件的
+					need_money = user_id2need_money[user_id] if user_id in user_id2need_money else 0
 					if postage_configs:
 						postage_models.PostageConfig.objects.filter(owner_id=user_id, is_used=True).update(is_used=False)
 						postage_models.PostageConfig.objects.filter(owner_id=user_id, id=postage_configs[0].id).update(
 							name = u'系统默认',
 							first_weight = 1,
-							first_weight_price = 0,
+							first_weight_price = need_money,
 							added_weight = 1,
 							added_weight_price = 0,
 							is_enable_special_config = False,
@@ -92,7 +93,7 @@ class Command(BaseCommand):
 							owner_id = user_id,
 							name = u'系统默认',
 							first_weight = 1,
-							first_weight_price = 0,
+							first_weight_price = need_money,
 							added_weight = 1,
 							added_weight_price = 0,
 							is_enable_special_config = False,
