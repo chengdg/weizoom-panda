@@ -482,7 +482,7 @@ class NewProduct(resource.Resource):
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
 		models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
-			owner = request.user,
+			owner_id = owner_id,
 			product_name = product_name,
 			promotion_title = promotion_title,
 			has_limit_time = has_limit_time,
