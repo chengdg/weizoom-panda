@@ -380,7 +380,7 @@ class NewProduct(resource.Resource):
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 
 		if has_same_postage == 1:#默认模板运费
-			postage_id = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True).id
+			postage_id = postage_models.PostageConfig.objects.get(owner_id=owner_id, is_deleted=False, is_used=True).id
 		if int(limit_zone_type) == 0:
 			limit_zone_id = 0
 		# if product_store_type == -1:
