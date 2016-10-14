@@ -45646,6 +45646,10 @@
 				if (W.role != 3) {
 					Action.updateProduct(property, value);
 				}
+			} else if (property == 'has_same_postage') {
+				if (W.role != 3) {
+					Action.updateProduct(property, value);
+				}
 			} else {
 				Action.updateProduct(property, value);
 			}
