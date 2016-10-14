@@ -481,24 +481,6 @@ class NewProduct(resource.Resource):
 
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
-		models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
-			owner_id = owner_id,
-			product_name = product_name,
-			promotion_title = promotion_title,
-			has_limit_time = has_limit_time,
-			limit_clear_price = limit_clear_price,
-			valid_time_from = None,
-			valid_time_to = None,
-			has_product_model= has_product_model,
-			catalog_id = second_level_id,
-			remark = remark,
-			limit_zone=limit_zone_id,
-			limit_zone_type=limit_zone_type,
-			has_same_postage = has_same_postage,
-			postage_money = postage_money,
-			postage_id = postage_id
-		)
-
 		if role == 1:
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				product_name = product_name,
@@ -511,7 +493,10 @@ class NewProduct(resource.Resource):
 				catalog_id = second_level_id,
 				remark = remark,
 				limit_zone=limit_zone_id,
-				limit_zone_type=limit_zone_type
+				limit_zone_type=limit_zone_type,
+				has_same_postage = has_same_postage,
+				postage_money = postage_money,
+				postage_id = postage_id
 			)
 
 			if has_product_model == 0:
