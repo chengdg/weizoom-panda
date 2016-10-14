@@ -70,7 +70,7 @@ var ProductCatalogPage = React.createClass({
 //
 //	    }
 //        console.log('===============================')
-//        console.log(selectedIds, selectedDatas)
+       console.log(selectedIds, selectedDatas)
         if(selectedIds.length == 0){
             Reactman.PageAction.showHint('error', '您需要选择地区！');
             return;

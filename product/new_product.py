@@ -18,6 +18,7 @@ from util import watchdog
 from account.models import *
 from resource import models as resource_models
 from product_catalog import models as catalog_models
+from postage_config import models as postage_models
 from product.product_has_model import get_product_model_property_values
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from weapp_relation import get_weapp_model_properties
@@ -75,6 +76,7 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
+		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 
 		if product_id:
 			if role == YUN_YING:
@@ -82,6 +84,7 @@ class NewProduct(resource.Resource):
 				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
 				owner_id = product.owner_id
+				postage_configs = postage_models.PostageConfig.objects.filter(owner_id=owner_id, is_deleted=False, is_used=True)
 				current_owner_info = UserProfile.objects.get(user_id=owner_id)
 				purchase_method = current_owner_info.purchase_method #当前商品所属客户的采购方式
 				points = current_owner_info.points #当前商品所属客户的零售价返点
@@ -134,6 +137,8 @@ class NewProduct(resource.Resource):
 				'value_ids': ','.join(value_ids),
 				'limit_zone_type': product.limit_zone_type,
 				'limit_zone_id': product.limit_zone,
+				'has_same_postage': '1' if product.has_same_postage else '0',
+				'postage_money': '%s' %('%.2f'%product.postage_money)
 
 			}
 			#组织多规格数据
@@ -189,7 +194,14 @@ class NewProduct(resource.Resource):
 			{'text': '请选择区域',
 			 'value': 0}
 		)
+
+		has_postage_config = {
+			'has_postage_config':True if postage_configs else False,
+			'postage_name':postage_configs[0].name if postage_configs else '',
+		}
+
 		jsons['items'].append(('limit_zone_info', json.dumps(limit_zone_info)))
+		jsons['items'].append(('has_postage_config', json.dumps(has_postage_config)))
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(request),
@@ -223,7 +235,10 @@ class NewProduct(resource.Resource):
 		model_values = post.get('model_values','')
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
-		
+		has_same_postage = int(post.get('has_same_postage', 0))
+		postage_money = post.get('postage_money', 0)
+		postage_id = 0
+
 		if not check_product_name_unique(request, product_name , product_id=-1):
 			response = create_response(500)
 			response.errMsg = u'商品名已存在，请重新输入'
@@ -236,6 +251,9 @@ class NewProduct(resource.Resource):
 			product_price = -1
 		if not limit_clear_price:
 			limit_clear_price = -1
+		if has_same_postage == 1:#默认模板运费
+			postage_id = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True).id
+
 		try:
 			product = models.Product.objects.create(
 				owner = request.user,
@@ -252,6 +270,9 @@ class NewProduct(resource.Resource):
 				remark = remark,
 				limit_zone_type=limit_zone_type,
 				limit_zone=limit_zone_id,
+				has_same_postage = has_same_postage,
+				postage_money = postage_money,
+				postage_id = postage_id
 			)
 
 			#获取商品图片
@@ -341,6 +362,9 @@ class NewProduct(resource.Resource):
 		second_level_id = int(post.get('second_level_id',0))
 		limit_zone_type = post.get('limit_zone_type', 0)
 		limit_zone_id = post.get('limit_zone_id', 0)
+		has_same_postage = int(post.get('has_same_postage', 0))
+		postage_money = post.get('postage_money', 0)
+		postage_id = 0
 
 		if not check_product_name_unique(request, product_name ,request.POST['id']):
 			response = create_response(500)
@@ -355,6 +379,8 @@ class NewProduct(resource.Resource):
 		catalog_id = product.catalog_id
 		product_sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id=request.POST['id'])
 
+		if has_same_postage == 1:#默认模板运费
+			postage_id = postage_models.PostageConfig.objects.get(owner=request.user, is_deleted=False, is_used=True).id
 		if int(limit_zone_type) == 0:
 			limit_zone_id = 0
 		# if product_store_type == -1:
@@ -451,9 +477,27 @@ class NewProduct(resource.Resource):
 				old_products.update(
 					catalog_id = old_catalog_id
 				)
-				modify_contents.append(u'商品类目')	
-		
+				modify_contents.append(u'商品类目')
+
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
+
+		models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+			owner = request.user,
+			product_name = product_name,
+			promotion_title = promotion_title,
+			has_limit_time = has_limit_time,
+			limit_clear_price = limit_clear_price,
+			valid_time_from = None,
+			valid_time_to = None,
+			has_product_model= has_product_model,
+			catalog_id = second_level_id,
+			remark = remark,
+			limit_zone=limit_zone_id,
+			limit_zone_type=limit_zone_type,
+			has_same_postage = has_same_postage,
+			postage_money = postage_money,
+			postage_id = postage_id
+		)
 
 		if role == 1:
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(

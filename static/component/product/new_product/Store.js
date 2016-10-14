@@ -34,6 +34,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		var _this = this;
 		var limit_zone_info = Reactman.loadJSON('limit_zone_info');
+		var has_postage_config = Reactman.loadJSON('has_postage_config');
+		
 		try{
 			this.data = Reactman.loadJSON('product');
 		}catch(e){
@@ -71,6 +73,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'product_store_type':'-1',
 				'has_product_model': '',
 				'has_limit_time': '0',
+				'has_same_postage': '1',
 				'value_ids': [],
 				'model_values': [],
 				'name2model': {},
@@ -82,6 +85,9 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'limit_zone_info': limit_zone_info
 			};
 		}
+
+		this.data['has_postage_config'] = has_postage_config.has_postage_config;
+		this.data['postage_name'] = has_postage_config.postage_name;
 	},
 
 	organizeData: function(rows){
