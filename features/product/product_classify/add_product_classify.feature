@@ -1,5 +1,5 @@
-auther:徐梓豪 2016-07-21
-feature:运营新增产品类目
+#author:徐梓豪 2016-07-21
+Feature:运营新增产品类目
 """
 	1.运营新增一级类目
 	2.运营编辑一级类目
@@ -13,8 +13,8 @@ feature:运营新增产品类目
 
 
 Background:
-Given manager登录管理系统
-	Then manager添加账号
+	Given manager登录管理系统
+	When manager添加账号
 	"""
 		[{
 			"account_type":"体验客户",
