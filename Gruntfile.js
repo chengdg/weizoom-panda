@@ -167,7 +167,7 @@ module.exports = function(grunt) {
 	            	beauty: false
 	            },
 	            files: {
-	            	'build/cdn/vessels_static/js/vessels_lib.min.js': ['build/cdn/vessels_static/js/vessels_lib.js']
+	            	'build/cdn/panda_static/js/vessels_lib.min.js': ['build/cdn/panda_static/js/vessels_lib.js']
 	            }
             }
 		},
@@ -182,14 +182,14 @@ module.exports = function(grunt) {
 					roundingPrecision: -1
 				},
 				files: {
-					'build/cdn/vessels_static/css/vessels_all.min.css': ['build/cdn/vessels_static/css/vessels_all.css']
+					'build/cdn/panda_static/css/vessels_all.min.css': ['build/cdn/panda_static/css/vessels_all.css']
 				}
 			}
 		},
 		md5: {
 		    digest_css: {
 		    	files: {
-		    		'build/cdn/vessels_static/css/': 'build/cdn/vessels_static/css/vessels_all.min.css'
+		    		'build/cdn/panda_static/css/': 'build/cdn/panda_static/css/vessels_all.min.css'
 		    	},
 		    	options: {
 		    		keepBasename: true,
@@ -201,7 +201,7 @@ module.exports = function(grunt) {
 		    },
 		    digest_js: {
 		    	files: {
-		    		'build/cdn/vessels_static/js/': 'build/cdn/vessels_static/js/vessels_lib.min.js'
+		    		'build/cdn/panda_static/js/': 'build/cdn/panda_static/js/vessels_lib.min.js'
 		    	},
 		    	options: {
 		    		keepBasename: true,
@@ -226,9 +226,9 @@ module.exports = function(grunt) {
         			{expand: true, src:getCopyFiles(), dest:'./dist/'},
         			{expand: false, src:['manage.py', 'rebuild.sh', 'rebuild_database.sql', 'start_service.sh', 'start_service.bat'], dest:'dist/'},
         			{expand: false, src:['dist/templates/base.html.merged.html'], dest:'dist/templates/base.html'},
-        			{expand: true, cwd:'build/cdn', src:['vessels_static/**'], dest:'dist/static'},
-        			{expand: true, cwd:'static/lib/font-awesome-4.5.0', src:['fonts/**'], dest:'dist/static/vessels_static'},
-        			{expand: true, cwd:'static/lib/bootstrap-3.3.6', src:['fonts/**'], dest:'dist/static/vessels_static'},
+        			{expand: true, cwd:'build/cdn', src:['panda_static/**'], dest:'dist/static'},
+        			{expand: true, cwd:'static/lib/font-awesome-4.5.0', src:['fonts/**'], dest:'dist/static/panda_static'},
+        			{expand: true, cwd:'static/lib/bootstrap-3.3.6', src:['fonts/**'], dest:'dist/static/panda_static'},
         			{expand: false, src:['build/dist.bundle.js'], dest:'dist/static/bundle.js'}
         		]
         	}
