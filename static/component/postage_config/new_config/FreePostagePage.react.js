@@ -89,7 +89,7 @@ var FreePostagePage = React.createClass({
 				<tr key={index}>
 					<td className="xui-destination">
 						<span className="mr10" style={{color:'#000'}}>{destinationText}</span>
-						<Reactman.ProvinceCitySelect onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
+						<Reactman.ProvinceCitySelect isSelectZone={true} onSelect={_this.onSelectArea.bind(_this, index)} initSelectedIds={postages.selectedIds} resource="postage_config.provinces_cities" >设置区域</Reactman.ProvinceCitySelect>
 					</td>
 					<td className="xui-select-condition" style={{width: '150px'}}>
 						<Reactman.FormSelect label="" name="condition" value={postages.condition} options={optionsForFreeCondition} onChange={_this.onChangeCondition.bind(_this, condition, index)} />
