@@ -167,7 +167,7 @@ module.exports = function(grunt) {
 	            	beauty: false
 	            },
 	            files: {
-	            	'build/cdn/panda_static/js/vessels_lib.min.js': ['build/cdn/panda_static/js/vessels_lib.js']
+	            	'build/cdn/panda_static/js/panda_lib.min.js': ['build/cdn/panda_static/js/panda_lib.js']
 	            }
             }
 		},
@@ -182,14 +182,14 @@ module.exports = function(grunt) {
 					roundingPrecision: -1
 				},
 				files: {
-					'build/cdn/panda_static/css/vessels_all.min.css': ['build/cdn/panda_static/css/vessels_all.css']
+					'build/cdn/panda_static/css/panda_all.min.css': ['build/cdn/panda_static/css/panda_all.css']
 				}
 			}
 		},
 		md5: {
 		    digest_css: {
 		    	files: {
-		    		'build/cdn/panda_static/css/': 'build/cdn/panda_static/css/vessels_all.min.css'
+		    		'build/cdn/panda_static/css/': 'build/cdn/panda_static/css/panda_all.min.css'
 		    	},
 		    	options: {
 		    		keepBasename: true,
@@ -201,7 +201,7 @@ module.exports = function(grunt) {
 		    },
 		    digest_js: {
 		    	files: {
-		    		'build/cdn/panda_static/js/': 'build/cdn/panda_static/js/vessels_lib.min.js'
+		    		'build/cdn/panda_static/js/': 'build/cdn/panda_static/js/panda_lib.min.js'
 		    	},
 		    	options: {
 		    		keepBasename: true,
