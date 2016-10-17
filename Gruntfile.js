@@ -421,5 +421,5 @@ module.exports = function(grunt) {
 		grunt.task.run('shell:compileReactComponent');
     });
 
-	grunt.registerTask('build', ['clean', 'jshint', 'compile', 'run_prunt_task']);
+	grunt.registerTask('build', ['clean', /*'jshint',*/ 'compile', 'run_prunt_task']);
 };
