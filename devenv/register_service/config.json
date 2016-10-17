@@ -1,0 +1,8 @@
+{
+	"server_name": "dev.panda.com",
+	"hosts": [],
+	"locations": [{
+		"path": "/static",
+		"root": "."
+	}]
+}
