@@ -201,6 +201,8 @@ var ProductDataListPage = React.createClass({
 				page: 1
 			}
 		};
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库', value: '1'},{text: '入库驳回', value: '4'}];
+		
 		//返点用户
 		if(W.purchaseMethod == '1') {
 			return (
@@ -212,6 +214,9 @@ var ProductDataListPage = React.createClass({
 							</Reactman.FilterField>
 							<Reactman.FilterField>
 								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
+							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormSelect label="入库状态:" name="product_status" options={optionsForProductStatus} match="=" />
 							</Reactman.FilterField>
 						</Reactman.FilterRow>
 					</Reactman.FilterPanel>
