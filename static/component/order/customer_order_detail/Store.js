@@ -21,6 +21,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	init: function() {
 		this.data = {};
+
+		var orderDatas = Reactman.loadJSON('orderDatas');
+		if(orderDatas){
+			this.data = orderDatas['orders'][0];
+		}
 	},
 
 	handleSaveProduct: function(action) {
