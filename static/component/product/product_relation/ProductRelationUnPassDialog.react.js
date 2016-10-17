@@ -19,6 +19,8 @@ var ProductRelationUnPassDialog = Reactman.createDialog({
 	getInitialState: function() {
 		ProductRelationUnPassDialogStore.addListener(this.onChangeStore);
 		var productId = this.props.data.product_id;
+		console.log('productId');
+		console.log(productId);
 		return {
 			product_id: productId,
 			reasons: ProductRelationUnPassDialogStore.getData().reasons,
@@ -75,7 +77,6 @@ var ProductRelationUnPassDialog = Reactman.createDialog({
 	render:function(){
 		var reasons = this.state.reasons;
 		var firstReason = {};
-		console.log(reasons);
 		for (var i = 0; i < reasons.length; i++) {
 			if (reasons[i] === '商品名称不规范，标准格式：品牌名+商品名+包装规格') {
 				firstReason = {background: '#009DD9', color:'#FFF'};

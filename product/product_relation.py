@@ -129,9 +129,15 @@ def getProductRelationData(request, is_export):
 			products = products.filter(id__in=has_relation_p_ids)
 			products = products.exclude(id__in=has_sync_p_ids)
 			
-		if int(product_status_value)==2:#未同步
+		if int(product_status_value)==2:#待入库
 			products = products.exclude(id__in=has_relation_p_ids)
 			products = products.exclude(id__in=has_sync_p_ids)
+			products = products.exclude(is_refused=True)
+
+		if int(product_status_value)==4:#已驳回
+			all_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
+			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
+			products = products.filter(id__in=all_has_reject_p_ids)
 
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])

@@ -29,16 +29,18 @@ class ProductReject(resource.Resource):
 	@login_required
 	def api_post(request):
 		#运营查看商品列表，入库驳回
-		product_id = int(request.POST.get('product_id',-1))
+		product_ids = request.POST.get('product_id',-1)
 		reasons = request.POST.get('reasons','')
 		data = {}
-		
+		product_ids = product_ids.split(',')
 		try:
-			models.ProductRejectLogs.objects.create(
-				product_id = product_id,
-				reject_reasons = reasons
-			)		
-			print 'aaaaaaaaaaaaaaaaaa'
+			for product_id in product_ids:
+				product_id = int(product_id)
+				models.Product.objects.filter(id=product_id).update(is_refused=True)
+				models.ProductRejectLogs.objects.create(
+					product_id = product_id,
+					reject_reasons = reasons
+				)		
 			data['code'] = 200
 			response = create_response(200)
 		except:

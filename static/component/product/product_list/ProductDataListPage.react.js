@@ -90,11 +90,31 @@ var ProductDataListPage = React.createClass({
 
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
-			return (
-				<div>
-					<a className="btn btn-primary" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
-				</div>
-			);
+			var productStatusValue = data['product_status_value'];
+			if(productStatusValue === 3){
+				return (
+					<div>
+						<a className="btn btn-primary" target="_blank" href={'/product/new_product/?id='+data.id}>重新修改提交</a>
+					</div>
+				)
+			}else{
+				return (
+					<div>
+						<a className="btn btn-primary" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
+					</div>
+				)
+			}
+			
+		}else if (field === 'product_status') {
+			var productStatusValue = data['product_status_value'];
+			if(productStatusValue === 3){
+				return (
+					<p style={{color:'red',marginBottom:'0px'}}>{value}</p>
+				)
+			}else{
+				return value;
+			}
+			
 		}else if(field === 'product_name'){
 			var _this = this;
 			var role = data['role'];
@@ -193,8 +213,9 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
-							<Reactman.TableColumn name="状态" field="status" />
-							<Reactman.TableColumn name="操作" field="action" />
+							<Reactman.TableColumn name="入库状态" field="product_status" />
+							<Reactman.TableColumn name="销售状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" width='100px'/>
 						</Reactman.Table>
 					</Reactman.TablePanel>
 				</div>
@@ -223,8 +244,9 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="售价(元)" field="product_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
-							<Reactman.TableColumn name="状态" field="status" />
-							<Reactman.TableColumn name="操作" field="action" />
+							<Reactman.TableColumn name="入库状态" field="product_status" />
+							<Reactman.TableColumn name="销售状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" width='100px'/>
 						</Reactman.Table>
 					</Reactman.TablePanel>
 				</div>

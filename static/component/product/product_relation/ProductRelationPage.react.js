@@ -76,8 +76,15 @@ var ProductRelationPage = React.createClass({
 
 	batchRejectProduct: function() {
 		//取消选中的商品
-		// Action.cancleCheckedUnpassReason();
+		Action.cancleSelectSyncProduct();
 		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		var status = _.pluck(this.refs.table.getSelectedDatas(), 'product_status_value');
+		for(var i in status){
+			if(status[i] != 0){
+				Reactman.PageAction.showHint('error', '请选择待入库状态的商品!');
+				return false;
+			}
+		}
 		if (productIds.length == 0){
 			Reactman.PageAction.showHint('error', '请先选择要驳回的商品!');
 			return false;
@@ -87,8 +94,7 @@ var ProductRelationPage = React.createClass({
 			title: "商品驳回",
 			component: ProductRelationUnPassDialog,
 			data: {
-				product_id: productIds.join(","),
-				sync_type: 'batch'
+				product_id: productIds.join(",")
 			},
 			success: function(inputData, dialogState) {
 				console.log("success");
@@ -162,7 +168,7 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			if(data['product_status_value']==0){
-				//未同步
+				//待入库
 				return(
 					<div>
 						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
@@ -258,7 +264,7 @@ var ProductRelationPage = React.createClass({
 				second_catalog_id: W.second_catalog_id
 			}
 		};
-		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '未同步', value: '2'}];
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '已驳回', value: '4'}];
 		return (
 			<div className="mt15 xui-product-productRelationPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>

@@ -33,7 +33,7 @@ filter2field = {
 	'catalog_query': 'catalog_name'
 }
 
-product_status2text = {
+sales_status2text = {
 	0: u'未上架',
 	1: u'已上架'
 }
@@ -226,6 +226,10 @@ def getProductData(request, is_export):
 							 for product_statu in product_status
 							 if product_statu.get('status') == 'on']
 
+	#入库状态数据
+	sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
+	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
+	has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=product_ids)]
 
 	for product in products:
 		owner_id = product.owner_id
@@ -284,6 +288,16 @@ def getProductData(request, is_export):
 			second_level_name = product_catalog.name
 			first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
+		#入库状态
+		product_status_text = u'待入库'
+		product_status_value = 0
+		if product.id in has_relation_p_ids:
+			product_status_text = u'已入库'
+			product_status_value = 1
+		elif product.id in has_reject_p_ids and product_status_value == 0:
+			product_status_text = u'已驳回'
+			product_status_value = 3
+
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -298,7 +312,9 @@ def getProductData(request, is_export):
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,
-			'status': product_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
+			'product_status': product_status_text,
+			'product_status_value': product_status_value,
+			'status': sales_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
 			'sales': '%s' % sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
