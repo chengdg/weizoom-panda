@@ -3,6 +3,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>微众商品管理系统</title>
+			<!-- *start_prunt_task* -->
+			<!-- [prunt_task] 
+				{
+					"task": "weizoom-merge",
+					"args": {
+						"dest":"cdn/panda_static/css/all.css"
+					}
+				}
+			-->
 			<link rel="shortcut icon" href="/static/favicon.ico"/>
 			<link type="text/css" rel="stylesheet" media="all" href="/static/lib/bootstrap-3.3.6/css/bootstrap.min.css">
 			<link type="text/css" rel="stylesheet" media="all" href="/static/lib/jquery/jquery-ui-1.10.3/css/redmond/jquery-ui-1.10.3.custom.css">
@@ -12,11 +21,22 @@
 			<link type="text/css" rel="stylesheet" media="all" href="/static/css/panda.css">
 			<link type="text/css" rel="stylesheet" media="all" href="/static/css/animate.css">
 			<link type="text/css" rel="stylesheet" href="/static/lib/font-awesome-4.5.0/css/font-awesome.min.css">
+			<!-- *end_prunt_task* -->
+
 		{% block css %}{% endblock %}
 
 	</head>
 	<body>
 		{% block content %} {% endblock %}
+		<!-- *start_prunt_task* -->
+		<!-- [prunt_task] 
+			{
+				"task": "weizoom-merge",
+				"args": {
+					"dest":"cdn/panda_static/js/lib.js"
+				}
+			}
+		-->
 		<script type="text/javascript" src="/static/lib/jquery/jquery-1.12.2.min.js"></script>
 		<script type="text/javascript" src="/static/lib/jquery/jquery-ui-1.10.3/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="/static/lib/jquery/jquery-ui-timepicker-addon.js"></script>
@@ -25,6 +45,7 @@
 
 		<script type="text/javascript" src="/static/lib/underscore-1.7.0.min.js"></script>
 		<script type="text/javascript" src="/static/lib/spin-1.3.js"></script>
+		<!-- *end_prunt_task* -->
 
 		<!-- start of ueditor -->
 		<script type="text/javascript">
