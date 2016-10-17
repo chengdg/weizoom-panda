@@ -254,7 +254,7 @@ class ProductRevokeLogs(models.Model):
 
 class ProductRejectLogs(models.Model):
 	"""
-	商品驳回日志（待上架状态被驳回）
+	商品驳回日志（待入库状态被驳回）
 	"""
 	product_id = models.IntegerField(default=-1) # 商品id
 	reject_reasons = models.CharField(max_length=1024, default='') #驳回原因

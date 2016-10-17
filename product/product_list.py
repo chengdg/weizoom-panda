@@ -229,8 +229,21 @@ def getProductData(request, is_export):
 	#入库状态数据
 	sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
 	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
-	has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=product_ids)]
-
+	reject_logs = models.ProductRejectLogs.objects.filter(product_id__in=product_ids)
+	has_reject_p_ids = [reject_log.product_id for reject_log in reject_logs]
+	product_id2reject_reasons = {}
+	for reject_log in reject_logs:
+		if product_id2reject_reasons.has_key(reject_log.product_id):
+			product_id2reject_reasons[reject_log.product_id].append({
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			})
+		else:
+			product_id2reject_reasons[reject_log.product_id] = [{
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			}]
+	
 	for product in products:
 		owner_id = product.owner_id
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
@@ -294,10 +307,12 @@ def getProductData(request, is_export):
 		if product.id in has_relation_p_ids:
 			product_status_text = u'已入库'
 			product_status_value = 1
-		elif product.id in has_reject_p_ids and product_status_value == 0:
+		elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
 			product_status_text = u'已驳回'
 			product_status_value = 3
 
+		#入库驳回原因
+		reject_reasons = '' if product_status_value != 3 else json.dumps(product_id2reject_reasons[product.id])
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -322,7 +337,8 @@ def getProductData(request, is_export):
 			'second_level_name': second_level_name,
 			'is_model': product.has_product_model,
 			'is_update': product.is_update,
-			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M')
+			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M'),
+			'reject_reasons': reject_reasons
 		})
 	if is_export:
 		return rows

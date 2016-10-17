@@ -73,8 +73,6 @@ var ProductDataListPage = React.createClass({
 				}
 			});
 		}
-
-		
 		// W.gotoPage('/product/new_product/?second_level_id='+0);
 	},
 
@@ -86,6 +84,22 @@ var ProductDataListPage = React.createClass({
 				Action.plusProductStore(product_id);
 			}, this)
 		});
+	},
+
+	showRejectReason: function(event){
+		var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reasons'));
+		var content = '';
+		var Li = rejectReasons.map(function(rejectReason,index){
+			content += rejectReason.created_at +'</br>'+rejectReason.reject_reasons +'</br>';
+		});
+		Reactman.PageAction.showPopover({
+			target: event.target,
+			content: '<span style="color:red">' + content + '</span>'
+		});
+	},
+
+	hideRejectReason: function(event) {
+		Reactman.PageAction.hidePopover();
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -104,12 +118,12 @@ var ProductDataListPage = React.createClass({
 					</div>
 				)
 			}
-			
 		}else if (field === 'product_status') {
+			//入库状态
 			var productStatusValue = data['product_status_value'];
-			if(productStatusValue === 3){
+			if(productStatusValue === 3){//入库驳回
 				return (
-					<p style={{color:'red',marginBottom:'0px'}}>{value}</p>
+					<a style={{color:'red',marginBottom:'0px'}} href="javascript:void(0);" onMouseOut={this.hideRejectReason} onMouseOver={this.showRejectReason} data-product-reasons={data.reject_reasons}>{value}</a>
 				)
 			}else{
 				return value;

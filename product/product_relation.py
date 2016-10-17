@@ -236,7 +236,7 @@ def getProductRelationData(request, is_export):
 			elif product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
 				product_status_text = u'已入库，已停售'
 				product_status_value = 2
-			elif product.id in has_reject_p_ids and product_status_value == 0:
+			elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
 				product_status_text = u'已驳回'
 				product_status_value = 3
 			#商品分类
