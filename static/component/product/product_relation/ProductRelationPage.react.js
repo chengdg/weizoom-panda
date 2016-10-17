@@ -81,7 +81,7 @@ var ProductRelationPage = React.createClass({
 		var status = _.pluck(this.refs.table.getSelectedDatas(), 'product_status_value');
 		for(var i in status){
 			if(status[i] != 0){
-				Reactman.PageAction.showHint('error', '请选择待入库状态的商品!');
+				Reactman.PageAction.showHint('error', '操作失败，仅待入库的商品可进行驳回操作!');
 				return false;
 			}
 		}
@@ -198,6 +198,13 @@ var ProductRelationPage = React.createClass({
 						<a className="btn btn-danger" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
+			}else if(data['product_status_value']==4){
+				//修改驳回
+				return(
+					<div>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+					</div>
+				)
 			}	
 		}else if (field === 'catalog_name') {
 			var name = data['second_level_name'];
@@ -264,7 +271,7 @@ var ProductRelationPage = React.createClass({
 				second_catalog_id: W.second_catalog_id
 			}
 		};
-		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '已驳回', value: '4'}];
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '入库驳回', value: '4'},{text: '修改驳回', value: '5'}];
 		return (
 			<div className="mt15 xui-product-productRelationPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
