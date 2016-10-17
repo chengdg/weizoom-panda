@@ -79,7 +79,6 @@ class CustomerOrderDetail(resource.Resource):
 
 
 def getOrderDetail(order_id, request):
-	order_id = request.GET.get('order_id', 0)
 	products = product_models.Product.objects.filter(owner_id=request.user.id)
 	product_images = product_models.ProductImage.objects.all().order_by('-id')
 	user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id).first()
