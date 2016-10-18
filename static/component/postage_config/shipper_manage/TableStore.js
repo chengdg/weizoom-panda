@@ -3,7 +3,6 @@
  */
 "use strict";
 
-var debug = require('debug')('m:self_shop.manage:Store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('underscore');
@@ -14,23 +13,26 @@ var StoreUtil = Reactman.StoreUtil;
 
 var Constant = require('./Constant');
 
-var Store = StoreUtil.createStore(Dispatcher, {
+var TableStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateSelfShopDialog': Constant.UPDATE_SELF_SHOP_DIALOG,
-		'handelUpdateSelfShops': Constant.UPDATE_SELF_SHOPS
+		'handleUpdateShipperMessages': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_MESSAGES,
+		'handleUpdateArea': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_AREA
 	},
 
 	init: function() {
-		this.data = {};
+		this.data = {
+			'accountOrShipper': 'shipper',
+			'selectedIds': []
+		};
 	},
 
-	handleUpdateSelfShopDialog: function(action) {
+	handleUpdateShipperMessages: function(action) {
 		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handelUpdateSelfShops: function(action){
-		this.data = action.data;
+	handleUpdateArea: function(action){
+		this.data.selectedIds = action.data.selectedIds;
 		this.__emitChange();
 	},
 
@@ -39,4 +41,4 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	}
 });
 
-module.exports = Store;
+module.exports = TableStore;

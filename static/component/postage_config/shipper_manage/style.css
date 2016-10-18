@@ -1,0 +1,27 @@
+.xui-shipperManage-button{
+	display: inline-block;
+    padding: 0 5px;
+    height: 30px;
+    line-height: 30px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #FFF;
+    color: #333131;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.xui-shipperManage-button:hover{
+    background-color: rgba(25, 158, 216, 1);
+    border-color: rgba(22, 155, 213, 1);
+    color: #FFFFFF;
+    text-decoration: none !important;
+}
+
+.xui-active-btn{
+	background-color: rgba(25, 158, 216, 1);
+    border-color: rgba(22, 155, 213, 1);
+    color: #FFF !important;
+    text-decoration: none !important;
+}

@@ -87,3 +87,34 @@ class PostageConfigRelation(models.Model):
 	class Meta(object):
 		db_table = 'postage_config_relation'
 
+
+class ShipperMessage(models.Model):
+	"""	
+	发货人信息
+	"""
+	owner = models.ForeignKey(User)
+	shipper_name = models.CharField(max_length=50) #发货人
+	tel_number = models.CharField(max_length=15) #手机号
+	destination = models.CharField(max_length=512)  #发货地区 (目的省份的id集合 )
+	address = models.CharField(max_length=256) #详细地址
+	postcode = models.CharField(max_length=50) #邮政编码
+	company_name = models.CharField(max_length=50) #单位名称
+	remark = models.TextField(null=True) #备注
+
+	class Meta(object):
+		db_table = 'shipper_message'
+
+
+class ExpressBillAccount(models.Model):
+	"""	
+	电子面单账号
+	"""
+	owner = models.ForeignKey(User)
+	express_name = models.CharField(max_length=50) #快递公司
+	customer_name = models.CharField(max_length=256) #CustomerName
+	customer_pwd = models.CharField(max_length=256)  #CustomerPwd
+	logistics_number = models.CharField(max_length=256) #物流月结号
+	remark = models.TextField(null=True) #备注
+
+	class Meta(object):
+		db_table = 'express_bill_account'
