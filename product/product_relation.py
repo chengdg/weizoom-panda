@@ -136,9 +136,14 @@ def getProductRelationData(request, is_export):
 
 		if int(product_status_value)==4:#入库驳回
 			all_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
+			print 'all_reject_p_ids'
+			print all_reject_p_ids
 			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
+			print 'all_has_reject_p_ids'
+			print all_has_reject_p_ids
 			products = products.filter(id__in=all_has_reject_p_ids)
-
+			print 'products--------------------------'
+			print products
 		if int(product_status_value)==5:#修改驳回
 			products = products.filter(id__in=has_sync_p_ids)
 			sync_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id

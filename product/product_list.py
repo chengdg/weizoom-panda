@@ -329,7 +329,7 @@ def getProductData(request, is_export):
 			product_status_text = u'已入库'
 			product_status_value = 1
 		elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
-			product_status_text = u'已驳回'
+			product_status_text = u'入库驳回'
 			product_status_value = 3
 
 		#入库驳回原因
