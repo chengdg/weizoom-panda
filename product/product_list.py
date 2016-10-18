@@ -102,16 +102,20 @@ def getProductData(request, is_export):
 	catalog_name = filter_dict.get('catalog_name','')
 	product_status_value = filter_dict.get('product_status','0')
 
-	role = UserProfile.objects.get(user_id=request.user.id).role
-	if role == YUN_YING:
-		# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
-		# sync_product_ids = []
-		# for product_sync_weapp in product_sync_weapps:
-		# 	if product_sync_weapp.product_id not in sync_product_ids:
-		# 		sync_product_ids.append(product_sync_weapp.product_id)
-		products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
+	user_info = UserProfile.objects.filter(user_id=request.user.id)
+	if user_info:
+		role = user_info[0].role
+		if role == YUN_YING:
+			# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
+			# sync_product_ids = []
+			# for product_sync_weapp in product_sync_weapps:
+			# 	if product_sync_weapp.product_id not in sync_product_ids:
+			# 		sync_product_ids.append(product_sync_weapp.product_id)
+			products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
+		else:
+			products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 	else:
-		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
+		products = []
 
 	# 查询
 	if product_name:

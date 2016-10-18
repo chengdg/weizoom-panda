@@ -77,7 +77,11 @@ def getProductRelationData(request, is_export):
 	cur_page = request.GET.get('page', 1)
 	first_catalog_id = request.GET.get('first_catalog_id', '')
 	second_catalog_id = request.GET.get('second_catalog_id', '')
-	role = UserProfile.objects.get(user_id=request.user.id).role
+	user_info = UserProfile.objects.filter(user_id=request.user.id)
+	if user_info:
+		role = user_info[0].role
+	else:
+		role = 1
 	user_profiles = UserProfile.objects.filter(role=1, is_active=True)#role{1:客户}
 	if first_catalog_id != '':
 		catalog_ids = [catalog.id for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=int(first_catalog_id))]
@@ -139,7 +143,7 @@ def getProductRelationData(request, is_export):
 			all_reject_p_ids = [product.id for product in products] #所有驳回状态的id
 			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
 			products = products.filter(id__in=all_has_reject_p_ids)
-			
+
 		if int(product_status_value)==5:#修改驳回
 			products = products.filter(id__in=has_sync_p_ids)
 			sync_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
