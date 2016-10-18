@@ -140,6 +140,7 @@ def getProductData(request, is_export):
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
 
 	product_ids = ['%s' % product.id for product in products]
+	owner_ids = set([product.owner_id for product in products])
 	product_has_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(
 		weapp_product_id='')
 	product_images = models.ProductImage.objects.filter(product_id__in=product_ids)
@@ -147,7 +148,7 @@ def getProductData(request, is_export):
 	# 从weapp获取商品销量
 	if role == YUN_YING:
 		id2sales = {}
-		resource_images = resource_models.Image.objects.all()
+		resource_images = resource_models.Image.objects.filter(user_id__in=owner_ids)
 	else:
 		id2sales = sales_from_weapp(product_has_relations)
 		resource_images = resource_models.Image.objects.filter(user_id=request.user.id)
@@ -174,9 +175,9 @@ def getProductData(request, is_export):
 	# 获取多规格商品id和结算价,售价的对应数据
 	user_id2name = {}
 	if role == YUN_YING:
-		model_properties = models.ProductModel.objects.filter(is_deleted=False)
-		p_owner_ids = [product.owner_id for product in products]
-		user_profiles = UserProfile.objects.filter(user_id__in=p_owner_ids)
+		model_properties = models.ProductModel.objects.filter(owner_id__in=owner_ids, is_deleted=False)
+		# p_owner_ids = [product.owner_id for product in products]
+		user_profiles = UserProfile.objects.filter(user_id__in=owner_ids)
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 	else:
 		model_properties = models.ProductModel.objects.filter(owner=request.user, product_id__in=product_ids, is_deleted=False)
