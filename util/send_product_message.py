@@ -140,6 +140,8 @@ def get_product_status(product_id=None):
 	if product_relation:
 		if account_count == 0:
 			push_status = '已入库,已停售'
+		elif product_info.is_refused: #同步状态下的驳回算作修改驳回
+			push_status = '修改驳回'
 		else:
 			push_status = '已入库,已同步'
 	else:
