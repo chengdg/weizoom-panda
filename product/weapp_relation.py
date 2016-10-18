@@ -217,6 +217,7 @@ def get_weapp_model_properties(product=None):
 								'purchase_price': model_info.market_price,
 								'price': model_info.price,
 								'stock_type': 'limit',
+								'panda_model_info_id': model_info.id,
 								'stocks': model_info.stocks,
 								'weight': model_info.weight,
 								'is_deleted': model_info.is_deleted,

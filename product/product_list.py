@@ -25,6 +25,7 @@ from product.sales_from_weapp import sales_from_weapp
 import nav
 import models
 import requests
+from util import sync_util
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -205,7 +206,8 @@ def getProductData(request, is_export):
 	product_2_weapp_product = {}
 	for relation in relations:
 		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
-	
+	if role != YUN_YING:
+		update_product_store(product_2_weapp_product=product_2_weapp_product, products=products)
 	weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
 	resp = {}
 	if weapp_product_ids:
@@ -312,3 +314,42 @@ def getProductData(request, is_export):
 		return rows
 	else:
 		return rows, pageinfo
+
+from weapp_relation import get_weapp_model_properties
+def update_product_store(product_2_weapp_product=None, products=None):
+	"""
+	从weapp拿到库存后更新panda库存
+	"""
+	weapp_product_ids = product_2_weapp_product.keys()
+	params = {
+		'product_ids': json.dumps(weapp_product_ids)
+	}
+	resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product', method='get')
+
+	resp_products = resp_data.get('products')
+	# 组装(panda商品idweapp规格名: 库存)
+	panda_product_id_to_socks = {}
+	for resp_product in resp_products:
+		temp_models = resp_product.get('models')
+		for temp_model in temp_models:
+			panda_product_id = product_2_weapp_product.get(temp_model.get('product_id'))
+			temp_model_name = temp_model.get('name')
+			panda_product_id_to_socks.update({str(panda_product_id)+'#'+ temp_model_name: temp_model.get('stocks')})
+
+	# panda_product_model_name_to_stocks = {}
+	for product in products:
+		model_properties = get_weapp_model_properties(product=product)
+		if len(model_properties) == 0:
+			# 单规格
+			key = str(product.id) + '#standard'
+			product_store = panda_product_id_to_socks.get(key)
+
+			if product_store and int(product_store) != product.product_store:
+				models.Product.objects.filter(id=product.id).update(product_store=panda_product_id_to_socks.get(key))
+			continue
+		for _property in model_properties:
+			key = str(product.id) + '#' + _property.get('name')
+			stocks = panda_product_id_to_socks.get(key)
+			if stocks and stocks != product.product_store:
+				models.ProductModel.objects.filter(id=_property.get('panda_model_info_id'))\
+					.update(stocks=panda_product_id_to_socks.get(key))
