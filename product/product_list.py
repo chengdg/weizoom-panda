@@ -26,6 +26,7 @@ import nav
 import models
 import requests
 from util import sync_util
+from weapp_relation import get_weapp_model_properties
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -171,6 +172,9 @@ def getProductData(request, is_export):
 	for image in resource_images:
 		image_id2images[image.id] = image.path
 
+	# 获取商品是否上线
+	product_shelve_on = get_shelve_on_product(role=role, product_ids=product_ids, products=products)
+
 	# 组装数据
 	# 获取多规格商品id和结算价,售价的对应数据
 	user_id2name = {}
@@ -181,6 +185,7 @@ def getProductData(request, is_export):
 		user_id2name = {user_profile.user_id:user_profile.name for user_profile in user_profiles}
 	else:
 		model_properties = models.ProductModel.objects.filter(owner=request.user, product_id__in=product_ids, is_deleted=False)
+
 	product_id2market_price = {}
 	product_id2product_price = {}
 	product_id2product_store = {}
@@ -201,33 +206,6 @@ def getProductData(request, is_export):
 			product_id2product_store[model_property.product_id].append(model_property.stocks)
 
 	rows = []
-	# 获取商品是否上线
-	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
-	product_2_weapp_product = {}
-	for relation in relations:
-		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
-	if role != YUN_YING:
-		update_product_store(product_2_weapp_product=product_2_weapp_product, products=products)
-	weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
-	resp = {}
-	if weapp_product_ids:
-		params = {
-			'product_ids': weapp_product_ids
-		}
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-			{
-				'resource': 'mall.product_status',
-				'data': params
-			}
-		)
-	# 已上架商品列表
-	product_shelve_on = []
-	if resp and resp.get('code') == 200:
-		product_status = resp.get('data').get('product_status')
-		product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
-							 for product_statu in product_status
-							 if product_statu.get('status') == 'on']
-
 
 	for product in products:
 		owner_id = product.owner_id
@@ -315,7 +293,7 @@ def getProductData(request, is_export):
 	else:
 		return rows, pageinfo
 
-from weapp_relation import get_weapp_model_properties
+
 def update_product_store(product_2_weapp_product=None, products=None):
 	"""
 	从weapp拿到库存后更新panda库存
@@ -353,3 +331,36 @@ def update_product_store(product_2_weapp_product=None, products=None):
 			if stocks and stocks != product.product_store:
 				models.ProductModel.objects.filter(id=_property.get('panda_model_info_id'))\
 					.update(stocks=panda_product_id_to_socks.get(key))
+
+
+def get_shelve_on_product(role=None, product_ids=None, products=None):
+    """
+    获取上架的商品
+    """
+    # 获取商品是否上线
+    relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
+    product_2_weapp_product = {}
+    for relation in relations:
+        product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
+    if role != YUN_YING:
+        update_product_store(product_2_weapp_product=product_2_weapp_product, products=products)
+    weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
+    resp = {}
+    if weapp_product_ids:
+        params = {
+            'product_ids': weapp_product_ids
+        }
+        resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+            {
+                'resource': 'mall.product_status',
+                'data': params
+            }
+        )
+    # 已上架商品列表
+    product_shelve_on = []
+    if resp and resp.get('code') == 200:
+        product_status = resp.get('data').get('product_status')
+        product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
+                             for product_statu in product_status
+                             if product_statu.get('status') == 'on']
+    return product_shelve_on

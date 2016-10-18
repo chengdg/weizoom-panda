@@ -49028,6 +49028,7 @@
 							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u4EF7(\u5143)', field: 'clear_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '\u5E93\u5B58', field: 'product_store' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
 							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
 							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
@@ -49072,6 +49073,7 @@
 							React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
 							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
+							React.createElement(Reactman.TableColumn, { name: '\u5E93\u5B58', field: 'product_store' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
 							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
 							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
