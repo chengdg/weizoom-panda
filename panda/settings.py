@@ -257,7 +257,7 @@ if 'develop' == MODE:
 
     PRODUCT_POOL_OWNER_ID = result[0]
 elif 'test' == MODE:
-    WEBPACK_BUNDLE_JS = '/static/bundle.js'
+    WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
@@ -274,7 +274,7 @@ elif 'test' == MODE:
 
     PRODUCT_POOL_OWNER_ID = result[0]
 else:
-    WEBPACK_BUNDLE_JS = '/static/bundle.js'
+    WEBPACK_BUNDLE_JS = '/static/build/bundle.js'
     ALLOWED_HOSTS = ['*', ]
     #TODO 修改测试环境与线上环境zeus域名
     ZEUS_HOST = 'http://api.zeus.com'
