@@ -91,6 +91,8 @@ def getProductRelationData(request, is_export):
 	customer_name = filter_dict.get('customer_name','')
 	product_status_value = filter_dict.get('product_status','0')
 	catalog_name = filter_dict.get('catalog_name','')
+	print 'product_status_value'
+	print product_status_value
 	#查询
 	if product_name:
 		products = products.filter(product_name__icontains=product_name)
