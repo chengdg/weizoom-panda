@@ -77,7 +77,11 @@ def getProductRelationData(request, is_export):
 	cur_page = request.GET.get('page', 1)
 	first_catalog_id = request.GET.get('first_catalog_id', '')
 	second_catalog_id = request.GET.get('second_catalog_id', '')
-	role = UserProfile.objects.get(user_id=request.user.id).role
+	user_info = UserProfile.objects.filter(user_id=request.user.id)
+	if user_info:
+		role = user_info[0].role
+	else:
+		role = 1
 	user_profiles = UserProfile.objects.filter(role=1, is_active=True)#role{1:客户}
 	if first_catalog_id != '':
 		catalog_ids = [catalog.id for catalog in product_catalog_models.ProductCatalog.objects.filter(father_id=int(first_catalog_id))]
@@ -129,9 +133,21 @@ def getProductRelationData(request, is_export):
 			products = products.filter(id__in=has_relation_p_ids)
 			products = products.exclude(id__in=has_sync_p_ids)
 			
-		if int(product_status_value)==2:#未同步
+		if int(product_status_value)==2:#待入库
 			products = products.exclude(id__in=has_relation_p_ids)
 			products = products.exclude(id__in=has_sync_p_ids)
+			products = products.exclude(is_refused=True)
+
+		if int(product_status_value)==4:#入库驳回
+			products = products.filter(is_refused=True)
+			all_reject_p_ids = [product.id for product in products] #所有驳回状态的id
+			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
+			products = products.filter(id__in=all_has_reject_p_ids)
+
+		if int(product_status_value)==5:#修改驳回
+			products = products.filter(id__in=has_sync_p_ids)
+			sync_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
+			products = products.filter(id__in=sync_reject_p_ids)
 
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 10, query_string=request.META['QUERY_STRING'])
@@ -142,6 +158,8 @@ def getProductRelationData(request, is_export):
 	weapp_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=p_ids)
 	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
 	weapp_relation_ids = [p.product_id for p in weapp_relations]
+	has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=p_ids)]
+
 	#从weapp获取销量sales_from_weapp
 	id2sales = sales_from_weapp(p_has_relations)
 
@@ -220,14 +238,20 @@ def getProductRelationData(request, is_export):
 		catalog_id = product.catalog_id
 		if owner_id in user_id2name:
 			sales = 0 if product.id not in id2sales else id2sales[product.id]
-			product_status_text = u'未同步'
+			product_status_text = u'待入库'
 			product_status_value = 0
 			if product.id in has_relation_p_ids:
 				product_status_text = u'已入库，已同步'
 				product_status_value = 1
-			if product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
+				if product.is_refused:
+					product_status_text = u'修改驳回'
+					product_status_value = 4
+			elif product.id not in has_relation_p_ids and product.id in weapp_relation_ids:
 				product_status_text = u'已入库，已停售'
 				product_status_value = 2
+			elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
+				product_status_text = u'入库驳回'
+				product_status_value = 3
 			#商品分类
 			first_level_name = ''
 			second_level_name = ''

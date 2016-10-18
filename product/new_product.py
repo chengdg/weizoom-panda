@@ -622,6 +622,14 @@ class NewProduct(resource.Resource):
 			message = ('%s%s%s%s%s')%(show_product_name,show_customer_name,show_modify_contents,show_shop_names,show_product_status)
 			send_modify_product_ding_talk(message,request.POST['id'])
 
+		#判断商品是否是入库驳回状态,且有更新内容
+		is_refused = models.Product.objects.get(id=request.POST['id']).is_refused
+		is_synced = True if product_sync_weapp_accounts else False
+		if not is_synced and is_refused:
+			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
+				is_refused = False
+			)
+
 		response = create_response(200)
 		return response.get_response()
 

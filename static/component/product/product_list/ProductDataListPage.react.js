@@ -73,8 +73,6 @@ var ProductDataListPage = React.createClass({
 				}
 			});
 		}
-
-		
 		// W.gotoPage('/product/new_product/?second_level_id='+0);
 	},
 
@@ -88,13 +86,49 @@ var ProductDataListPage = React.createClass({
 		});
 	},
 
+	showRejectReason: function(event){
+		var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reasons'));
+		var content = '';
+		var Li = rejectReasons.map(function(rejectReason,index){
+			content += rejectReason.created_at +'</br>'+rejectReason.reject_reasons +'</br>';
+		});
+		Reactman.PageAction.showPopover({
+			target: event.target,
+			content: '<span style="color:red">' + content + '</span>'
+		});
+	},
+
+	hideRejectReason: function(event) {
+		Reactman.PageAction.hidePopover();
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
-			return (
-				<div>
-					<a className="btn btn-link btn-xs" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
-				</div>
-			);
+			var productStatusValue = data['product_status_value'];
+			if(productStatusValue === 3){
+				return (
+					<div>
+						<a className="btn btn-primary" target="_blank" href={'/product/new_product/?id='+data.id}>重新修改提交</a>
+					</div>
+				)
+			}else{
+				return (
+					<div>
+						<a className="btn btn-primary" target="_blank" href={'/product/new_product/?id='+data.id}>编辑</a>
+					</div>
+				)
+			}
+		}else if (field === 'product_status') {
+			//入库状态
+			var productStatusValue = data['product_status_value'];
+			if(productStatusValue === 3){//入库驳回
+				return (
+					<a style={{color:'red',marginBottom:'0px'}} href="javascript:void(0);" onMouseOut={this.hideRejectReason} onMouseOver={this.showRejectReason} data-product-reasons={data.reject_reasons}>{value}</a>
+				)
+			}else{
+				return value;
+			}
+			
 		}else if(field === 'product_name'){
 			var _this = this;
 			var role = data['role'];
@@ -167,6 +201,8 @@ var ProductDataListPage = React.createClass({
 				page: 1
 			}
 		};
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库', value: '1'},{text: '入库驳回', value: '4'}];
+		
 		//返点用户
 		if(W.purchaseMethod == '1') {
 			return (
@@ -178,6 +214,9 @@ var ProductDataListPage = React.createClass({
 							</Reactman.FilterField>
 							<Reactman.FilterField>
 								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
+							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormSelect label="入库状态:" name="product_status" options={optionsForProductStatus} match="=" />
 							</Reactman.FilterField>
 						</Reactman.FilterRow>
 					</Reactman.FilterPanel>
@@ -193,8 +232,9 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
-							<Reactman.TableColumn name="状态" field="status" />
-							<Reactman.TableColumn name="操作" field="action" />
+							<Reactman.TableColumn name="入库状态" field="product_status" />
+							<Reactman.TableColumn name="销售状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" width='100px'/>
 						</Reactman.Table>
 					</Reactman.TablePanel>
 				</div>
@@ -223,8 +263,9 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="售价(元)" field="product_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
-							<Reactman.TableColumn name="状态" field="status" />
-							<Reactman.TableColumn name="操作" field="action" />
+							<Reactman.TableColumn name="入库状态" field="product_status" />
+							<Reactman.TableColumn name="销售状态" field="status" />
+							<Reactman.TableColumn name="操作" field="action" width='100px'/>
 						</Reactman.Table>
 					</Reactman.TablePanel>
 				</div>

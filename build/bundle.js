@@ -19861,44 +19861,44 @@
 	var Resource = __webpack_require__(249);
 	var Validater = __webpack_require__(260);
 	var W = __webpack_require__(267);
-	var Algorithm = __webpack_require__(570);
-	var User = __webpack_require__(571);
+	var Algorithm = __webpack_require__(574);
+	var User = __webpack_require__(575);
 
-	var FormInput = __webpack_require__(572);
-	var FormStaticText = __webpack_require__(573);
-	var FormRangeInput = __webpack_require__(574);
-	var FormDateTimeInput = __webpack_require__(575);
-	var FormDateRangeInput = __webpack_require__(578);
-	var FormSelect = __webpack_require__(579);
-	var FormSubmit = __webpack_require__(580);
-	var FormRadio = __webpack_require__(581);
-	var FormCheckbox = __webpack_require__(582);
-	var BooleanCheckbox = __webpack_require__(583);
-	var FormText = __webpack_require__(584);
-	var FormRichTextInput = __webpack_require__(585);
-	var FormImageUploader = __webpack_require__(590);
-	var FormFileUploader = __webpack_require__(593);
-	var Table = __webpack_require__(596);
-	var TablePanel = __webpack_require__(605);
-	var TableActionBar = __webpack_require__(606);
-	var TableActionButton = __webpack_require__(607);
-	var TableColumn = __webpack_require__(608);
-	var TableAction = __webpack_require__(602);
-	var Tabs = __webpack_require__(609);
-	var Tab = __webpack_require__(612);
-	var Pagination = __webpack_require__(597);
-	var FilterPanel = __webpack_require__(613);
-	var FilterRow = __webpack_require__(619);
-	var FilterField = __webpack_require__(620);
+	var FormInput = __webpack_require__(576);
+	var FormStaticText = __webpack_require__(577);
+	var FormRangeInput = __webpack_require__(578);
+	var FormDateTimeInput = __webpack_require__(579);
+	var FormDateRangeInput = __webpack_require__(582);
+	var FormSelect = __webpack_require__(583);
+	var FormSubmit = __webpack_require__(584);
+	var FormRadio = __webpack_require__(585);
+	var FormCheckbox = __webpack_require__(586);
+	var BooleanCheckbox = __webpack_require__(587);
+	var FormText = __webpack_require__(588);
+	var FormRichTextInput = __webpack_require__(589);
+	var FormImageUploader = __webpack_require__(594);
+	var FormFileUploader = __webpack_require__(597);
+	var Table = __webpack_require__(600);
+	var TablePanel = __webpack_require__(609);
+	var TableActionBar = __webpack_require__(610);
+	var TableActionButton = __webpack_require__(611);
+	var TableColumn = __webpack_require__(612);
+	var TableAction = __webpack_require__(606);
+	var Tabs = __webpack_require__(613);
+	var Tab = __webpack_require__(616);
+	var Pagination = __webpack_require__(601);
+	var FilterPanel = __webpack_require__(617);
+	var FilterRow = __webpack_require__(623);
+	var FilterField = __webpack_require__(624);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(621);
-	var Chart = __webpack_require__(624);
-	var ChartActionBar = __webpack_require__(630);
-	var ProvinceCitySelect = __webpack_require__(631);
+	var Widget = __webpack_require__(625);
+	var Chart = __webpack_require__(628);
+	var ChartActionBar = __webpack_require__(634);
+	var ProvinceCitySelect = __webpack_require__(635);
 
-	var WepageEditor = __webpack_require__(639);
-	var Wepage = __webpack_require__(689);
-	var UEditor = __webpack_require__(691);
+	var WepageEditor = __webpack_require__(643);
+	var Wepage = __webpack_require__(693);
+	var UEditor = __webpack_require__(695);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -24851,8 +24851,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25279,8 +25279,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25861,8 +25861,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -26231,8 +26231,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -34981,6 +34981,11 @@
 		"./product/product_relation/ProductRelation.css": 511,
 		"./product/product_relation/ProductRelationPage.react": 513,
 		"./product/product_relation/ProductRelationPage.react.js": 513,
+		"./product/product_relation/ProductRelationUnPassDialog.css": 516,
+		"./product/product_relation/ProductRelationUnPassDialog.react": 514,
+		"./product/product_relation/ProductRelationUnPassDialog.react.js": 514,
+		"./product/product_relation/ProductRelationUnPassDialogStore": 515,
+		"./product/product_relation/ProductRelationUnPassDialogStore.js": 515,
 		"./product/product_relation/RevokeSelfShop.css": 507,
 		"./product/product_relation/RevokeSelfShopStore": 506,
 		"./product/product_relation/RevokeSelfShopStore.js": 506,
@@ -34989,94 +34994,94 @@
 		"./product/product_relation/Store": 504,
 		"./product/product_relation/Store.js": 504,
 		"./product/product_relation/style.css": 509,
-		"./product/product_updated/Action": 521,
-		"./product/product_updated/Action.js": 521,
-		"./product/product_updated/Constant": 522,
-		"./product/product_updated/Constant.js": 522,
-		"./product/product_updated/ProductUpdatedPage.react": 523,
-		"./product/product_updated/ProductUpdatedPage.react.js": 523,
-		"./product/product_updated/Store": 524,
-		"./product/product_updated/Store.js": 524,
-		"./product/product_updated/UnPassDialog.css": 527,
-		"./product/product_updated/UnPassDialog.react": 525,
-		"./product/product_updated/UnPassDialog.react.js": 525,
-		"./product/product_updated/UnPassDialogStore": 526,
-		"./product/product_updated/UnPassDialogStore.js": 526,
-		"./product/product_updated/style.css": 529,
-		"./product_catalog/product_catalogs/Action": 516,
-		"./product_catalog/product_catalogs/Action.js": 516,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react": 531,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 531,
-		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react": 533,
-		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react.js": 533,
-		"./product_catalog/product_catalogs/AddLabelDialog.react": 514,
-		"./product_catalog/product_catalogs/AddLabelDialog.react.js": 514,
-		"./product_catalog/product_catalogs/AddLabelDialogStore": 518,
-		"./product_catalog/product_catalogs/AddLabelDialogStore.js": 518,
-		"./product_catalog/product_catalogs/Constant": 517,
-		"./product_catalog/product_catalogs/Constant.js": 517,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react": 534,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 534,
-		"./product_catalog/product_catalogs/ProductModel.react": 515,
-		"./product_catalog/product_catalogs/ProductModel.react.js": 515,
-		"./product_catalog/product_catalogs/Store": 532,
-		"./product_catalog/product_catalogs/Store.js": 532,
-		"./product_catalog/product_catalogs/style.css": 519,
-		"./product_limit_zone/Action": 535,
-		"./product_limit_zone/Action.js": 535,
-		"./product_limit_zone/AddLimitZoneTemplateDialog.react": 537,
-		"./product_limit_zone/AddLimitZoneTemplateDialog.react.js": 537,
-		"./product_limit_zone/Constant": 536,
-		"./product_limit_zone/Constant.js": 536,
-		"./product_limit_zone/LimitZoneText.react": 539,
-		"./product_limit_zone/LimitZoneText.react.js": 539,
-		"./product_limit_zone/ProductLimitZone.react": 540,
-		"./product_limit_zone/ProductLimitZone.react.js": 540,
-		"./product_limit_zone/Store": 538,
-		"./product_limit_zone/Store.js": 538,
-		"./product_limit_zone/style.css": 541,
-		"./self_shop/manage/Action": 543,
-		"./self_shop/manage/Action.js": 543,
-		"./self_shop/manage/AddSelfShopDialog.react": 545,
-		"./self_shop/manage/AddSelfShopDialog.react.js": 545,
-		"./self_shop/manage/Constant": 544,
-		"./self_shop/manage/Constant.js": 544,
-		"./self_shop/manage/SelfShopManagePage.react": 549,
-		"./self_shop/manage/SelfShopManagePage.react.js": 549,
-		"./self_shop/manage/Store": 546,
-		"./self_shop/manage/Store.js": 546,
-		"./self_shop/manage/style.css": 547,
-		"./station_message/customer_messages/Action": 550,
-		"./station_message/customer_messages/Action.js": 550,
-		"./station_message/customer_messages/Attachments.react": 552,
-		"./station_message/customer_messages/Attachments.react.js": 552,
-		"./station_message/customer_messages/Constant": 551,
-		"./station_message/customer_messages/Constant.js": 551,
-		"./station_message/customer_messages/StationMessages.react": 556,
-		"./station_message/customer_messages/StationMessages.react.js": 556,
-		"./station_message/customer_messages/Store": 553,
-		"./station_message/customer_messages/Store.js": 553,
-		"./station_message/customer_messages/style.css": 554,
-		"./station_message/message/Action": 557,
-		"./station_message/message/Action.js": 557,
-		"./station_message/message/Constant": 558,
-		"./station_message/message/Constant.js": 558,
-		"./station_message/message/StationCustomerMessage.react": 559,
-		"./station_message/message/StationCustomerMessage.react.js": 559,
-		"./station_message/message/StationMessage.react": 563,
-		"./station_message/message/StationMessage.react.js": 563,
-		"./station_message/message/Store": 560,
-		"./station_message/message/Store.js": 560,
-		"./station_message/message/style.css": 561,
-		"./station_message/message_list/Action": 564,
-		"./station_message/message_list/Action.js": 564,
-		"./station_message/message_list/Constant": 565,
-		"./station_message/message_list/Constant.js": 565,
-		"./station_message/message_list/StationMessageList.react": 566,
-		"./station_message/message_list/StationMessageList.react.js": 566,
-		"./station_message/message_list/Store": 567,
-		"./station_message/message_list/Store.js": 567,
-		"./station_message/message_list/style.css": 568
+		"./product/product_updated/Action": 525,
+		"./product/product_updated/Action.js": 525,
+		"./product/product_updated/Constant": 526,
+		"./product/product_updated/Constant.js": 526,
+		"./product/product_updated/ProductUpdatedPage.react": 527,
+		"./product/product_updated/ProductUpdatedPage.react.js": 527,
+		"./product/product_updated/Store": 528,
+		"./product/product_updated/Store.js": 528,
+		"./product/product_updated/UnPassDialog.css": 531,
+		"./product/product_updated/UnPassDialog.react": 529,
+		"./product/product_updated/UnPassDialog.react.js": 529,
+		"./product/product_updated/UnPassDialogStore": 530,
+		"./product/product_updated/UnPassDialogStore.js": 530,
+		"./product/product_updated/style.css": 533,
+		"./product_catalog/product_catalogs/Action": 520,
+		"./product_catalog/product_catalogs/Action.js": 520,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react": 535,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 535,
+		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react": 537,
+		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react.js": 537,
+		"./product_catalog/product_catalogs/AddLabelDialog.react": 518,
+		"./product_catalog/product_catalogs/AddLabelDialog.react.js": 518,
+		"./product_catalog/product_catalogs/AddLabelDialogStore": 522,
+		"./product_catalog/product_catalogs/AddLabelDialogStore.js": 522,
+		"./product_catalog/product_catalogs/Constant": 521,
+		"./product_catalog/product_catalogs/Constant.js": 521,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react": 538,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 538,
+		"./product_catalog/product_catalogs/ProductModel.react": 519,
+		"./product_catalog/product_catalogs/ProductModel.react.js": 519,
+		"./product_catalog/product_catalogs/Store": 536,
+		"./product_catalog/product_catalogs/Store.js": 536,
+		"./product_catalog/product_catalogs/style.css": 523,
+		"./product_limit_zone/Action": 539,
+		"./product_limit_zone/Action.js": 539,
+		"./product_limit_zone/AddLimitZoneTemplateDialog.react": 541,
+		"./product_limit_zone/AddLimitZoneTemplateDialog.react.js": 541,
+		"./product_limit_zone/Constant": 540,
+		"./product_limit_zone/Constant.js": 540,
+		"./product_limit_zone/LimitZoneText.react": 543,
+		"./product_limit_zone/LimitZoneText.react.js": 543,
+		"./product_limit_zone/ProductLimitZone.react": 544,
+		"./product_limit_zone/ProductLimitZone.react.js": 544,
+		"./product_limit_zone/Store": 542,
+		"./product_limit_zone/Store.js": 542,
+		"./product_limit_zone/style.css": 545,
+		"./self_shop/manage/Action": 547,
+		"./self_shop/manage/Action.js": 547,
+		"./self_shop/manage/AddSelfShopDialog.react": 549,
+		"./self_shop/manage/AddSelfShopDialog.react.js": 549,
+		"./self_shop/manage/Constant": 548,
+		"./self_shop/manage/Constant.js": 548,
+		"./self_shop/manage/SelfShopManagePage.react": 553,
+		"./self_shop/manage/SelfShopManagePage.react.js": 553,
+		"./self_shop/manage/Store": 550,
+		"./self_shop/manage/Store.js": 550,
+		"./self_shop/manage/style.css": 551,
+		"./station_message/customer_messages/Action": 554,
+		"./station_message/customer_messages/Action.js": 554,
+		"./station_message/customer_messages/Attachments.react": 556,
+		"./station_message/customer_messages/Attachments.react.js": 556,
+		"./station_message/customer_messages/Constant": 555,
+		"./station_message/customer_messages/Constant.js": 555,
+		"./station_message/customer_messages/StationMessages.react": 560,
+		"./station_message/customer_messages/StationMessages.react.js": 560,
+		"./station_message/customer_messages/Store": 557,
+		"./station_message/customer_messages/Store.js": 557,
+		"./station_message/customer_messages/style.css": 558,
+		"./station_message/message/Action": 561,
+		"./station_message/message/Action.js": 561,
+		"./station_message/message/Constant": 562,
+		"./station_message/message/Constant.js": 562,
+		"./station_message/message/StationCustomerMessage.react": 563,
+		"./station_message/message/StationCustomerMessage.react.js": 563,
+		"./station_message/message/StationMessage.react": 567,
+		"./station_message/message/StationMessage.react.js": 567,
+		"./station_message/message/Store": 564,
+		"./station_message/message/Store.js": 564,
+		"./station_message/message/style.css": 565,
+		"./station_message/message_list/Action": 568,
+		"./station_message/message_list/Action.js": 568,
+		"./station_message/message_list/Constant": 569,
+		"./station_message/message_list/Constant.js": 569,
+		"./station_message/message_list/StationMessageList.react": 570,
+		"./station_message/message_list/StationMessageList.react.js": 570,
+		"./station_message/message_list/Store": 571,
+		"./station_message/message_list/Store.js": 571,
+		"./station_message/message_list/style.css": 572
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -35483,8 +35488,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36634,8 +36639,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37007,8 +37012,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37263,8 +37268,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37504,8 +37509,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37798,8 +37803,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -39455,8 +39460,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40130,8 +40135,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40482,8 +40487,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -41192,8 +41197,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42359,8 +42364,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42698,8 +42703,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43223,8 +43228,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44443,8 +44448,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45345,8 +45350,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45385,8 +45390,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45561,8 +45566,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -45601,8 +45606,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46326,8 +46331,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -47530,8 +47535,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48021,8 +48026,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48405,8 +48410,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48750,8 +48755,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -48855,7 +48860,6 @@
 					}
 				});
 			}
-
 			// W.gotoPage('/product/new_product/?second_level_id='+0);
 		},
 
@@ -48869,17 +48873,59 @@
 			});
 		},
 
+		showRejectReason: function (event) {
+			var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reasons'));
+			var content = '';
+			var Li = rejectReasons.map(function (rejectReason, index) {
+				content += rejectReason.created_at + '</br>' + rejectReason.reject_reasons + '</br>';
+			});
+			Reactman.PageAction.showPopover({
+				target: event.target,
+				content: '<span style="color:red">' + content + '</span>'
+			});
+		},
+
+		hideRejectReason: function (event) {
+			Reactman.PageAction.hidePopover();
+		},
+
 		rowFormatter: function (field, value, data) {
 			if (field === 'action') {
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
+				var productStatusValue = data['product_status_value'];
+				if (productStatusValue === 3) {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', target: '_blank', href: '/product/new_product/?id=' + data.id },
+							'\u91CD\u65B0\u4FEE\u6539\u63D0\u4EA4'
+						)
+					);
+				} else {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', target: '_blank', href: '/product/new_product/?id=' + data.id },
+							'\u7F16\u8F91'
+						)
+					);
+				}
+			} else if (field === 'product_status') {
+				//入库状态
+				var productStatusValue = data['product_status_value'];
+				if (productStatusValue === 3) {
+					//入库驳回
+					return React.createElement(
 						'a',
-						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
-						'\u7F16\u8F91'
-					)
-				);
+						{ style: { color: 'red', marginBottom: '0px' }, href: 'javascript:void(0);', onMouseOut: this.hideRejectReason, onMouseOver: this.showRejectReason, 'data-product-reasons': data.reject_reasons },
+						value
+					);
+				} else {
+					return value;
+				}
 			} else if (field === 'product_name') {
 				var _this = this;
 				var role = data['role'];
@@ -48988,6 +49034,8 @@
 					page: 1
 				}
 			};
+			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '待入库', value: '2' }, { text: '已入库', value: '1' }, { text: '入库驳回', value: '4' }];
+
 			//返点用户
 			if (W.purchaseMethod == '1') {
 				return React.createElement(
@@ -49008,6 +49056,11 @@
 								Reactman.FilterField,
 								null,
 								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+							),
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormSelect, { label: '\u5165\u5E93\u72B6\u6001:', name: 'product_status', options: optionsForProductStatus, match: '=' })
 							)
 						)
 					),
@@ -49029,8 +49082,9 @@
 							React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u4EF7(\u5143)', field: 'clear_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u9500\u552E\u72B6\u6001', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
 						)
 					)
 				);
@@ -49073,8 +49127,9 @@
 							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u9500\u552E\u72B6\u6001', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
 						)
 					)
 				);
@@ -49418,8 +49473,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49866,6 +49921,46 @@
 				actionType: Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
 				data: {}
 			});
+		},
+
+		updateRejectReason: function (property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UPDATE_UNPASS_REASON,
+				data: {
+					property: property,
+					value: value
+				}
+			});
+		},
+
+		chooseRejectUnpassReason: function (reason) {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UNPASS_REASON,
+				data: {
+					reason: reason
+				}
+			});
+		},
+		cancleCheckedUnpassReason: function () {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UNDATE_CANCLE_CHECKED,
+				data: {}
+			});
+		},
+		refused: function (productId, reasons) {
+			console.log('reasons');
+			console.log(reasons);
+			Resource.post({
+				resource: 'product.product_reject',
+				data: {
+					reasons: reasons,
+					product_id: productId
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.PRODUCT_REJECT_REFUSED
+				}
+			});
 		}
 	};
 
@@ -49897,7 +49992,11 @@
 		PRODUCT_PRODUCT_RELATION_CHOOSE_UNPASS_REASON: null,
 		PRODUCT_PRODUCT_RELATION_CANCLE_CHOOSE_REASON: null,
 		PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT: null,
-		PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS: null
+		PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS: null,
+		PRODUCT_REJECT_UNPASS_REASON: null,
+		PRODUCT_REJECT_UPDATE_UNPASS_REASON: null,
+		PRODUCT_REJECT_UNDATE_CANCLE_CHECKED: null,
+		PRODUCT_REJECT_REFUSED: null
 	});
 
 /***/ },
@@ -50090,7 +50189,8 @@
 			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
 			'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
 			'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
-			'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS
+			'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
+			'handleProductRefused': Constant.PRODUCT_REJECT_REFUSED
 		},
 
 		init: function () {
@@ -50219,6 +50319,21 @@
 
 		getFilter: function () {
 			return this.data.filterOptions;
+		},
+
+		handleProductRefused: function (action) {
+			if (action.data['code'] == 200) {
+				this.data.reasons = [];
+				this.data.custom_reason = '';
+				setTimeout(function () {
+					Reactman.PageAction.showHint('success', '驳回成功');
+				}, 10);
+			} else {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('error', '驳回失败');
+				}, 10);
+			}
+			this.__emitChange();
 		}
 	});
 
@@ -50492,8 +50607,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50532,8 +50647,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50572,8 +50687,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50614,10 +50729,10 @@
 	var Store = __webpack_require__(504);
 	var Constant = __webpack_require__(502);
 	var Action = __webpack_require__(501);
-
+	var ProductRelationUnPassDialog = __webpack_require__(514);
 	var ChooseSyncSelfShopDialog = __webpack_require__(503);
-	var AddLabelDialog = __webpack_require__(514);
-	var ProductCatalogAction = __webpack_require__(516);
+	var AddLabelDialog = __webpack_require__(518);
+	var ProductCatalogAction = __webpack_require__(520);
 	__webpack_require__(511);
 
 	var ProductRelationPage = React.createClass({
@@ -50678,6 +50793,34 @@
 			});
 		},
 
+		batchRejectProduct: function () {
+			//取消选中的商品
+			Action.cancleSelectSyncProduct();
+			var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+			var status = _.pluck(this.refs.table.getSelectedDatas(), 'product_status_value');
+			for (var i in status) {
+				if (status[i] != 0) {
+					Reactman.PageAction.showHint('error', '操作失败，仅待入库的商品可进行驳回操作!');
+					return false;
+				}
+			}
+			if (productIds.length == 0) {
+				Reactman.PageAction.showHint('error', '请先选择要驳回的商品!');
+				return false;
+			}
+
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: ProductRelationUnPassDialog,
+				data: {
+					product_id: productIds.join(",")
+				},
+				success: function (inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},
+
 		onClickDelete: function (productId, event) {
 			var title = '确定删除么?';
 			Reactman.PageAction.showConfirm({
@@ -50688,7 +50831,21 @@
 				}, this)
 			});
 		},
-
+		onClickUnPass: function (product_id, event) {
+			Action.cancleCheckedUnpassReason();
+			_.delay(function () {
+				Reactman.PageAction.showDialog({
+					title: "商品驳回",
+					component: ProductRelationUnPassDialog,
+					data: {
+						product_id: product_id
+					},
+					success: function () {
+						console.log('success');
+					}
+				});
+			}, 100);
+		},
 		onAddLabel: function (event) {
 			var catalogId = event.target.getAttribute('data-catalog-id');
 			var productId = event.target.getAttribute('data-id');
@@ -50732,18 +50889,23 @@
 				);
 			} else if (field === 'action') {
 				if (data['product_status_value'] == 0) {
-					//未同步
+					//待入库
 					return React.createElement(
 						'div',
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							{ className: 'btn btn-primary ml10', onClick: this.onClickUnPass.bind(this, data['id']) },
+							'\u9A73\u56DE\u4FEE\u6539'
+						),
+						React.createElement(
+							'a',
+							{ className: 'btn btn-danger mt5', onClick: this.onClickDelete.bind(this, data['id']) },
 							'\u5220\u9664\u5546\u54C1'
 						)
 					);
@@ -50754,24 +50916,46 @@
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						)
 					);
-				} else {
+				} else if (data['product_status_value'] == 2) {
 					//已入库,已停售
 					return React.createElement(
 						'div',
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							{ className: 'btn btn-danger ml10', onClick: this.onClickDelete.bind(this, data['id']) },
 							'\u5220\u9664\u5546\u54C1'
+						)
+					);
+				} else if (data['product_status_value'] == 3) {
+					//入库驳回
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-danger', onClick: this.onClickDelete.bind(this, data['id']) },
+							'\u5220\u9664\u5546\u54C1'
+						)
+					);
+				} else if (data['product_status_value'] == 4) {
+					//修改驳回
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							'\u540C\u6B65\u5546\u54C1'
 						)
 					);
 				}
@@ -50866,7 +51050,7 @@
 					second_catalog_id: W.second_catalog_id
 				}
 			};
-			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '已入库,已同步', value: '1' }, { text: '已入库,已停售', value: '3' }, { text: '未同步', value: '2' }];
+			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '待入库', value: '2' }, { text: '已入库,已同步', value: '1' }, { text: '已入库,已停售', value: '3' }, { text: '入库驳回', value: '4' }, { text: '修改驳回', value: '5' }];
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-product-productRelationPage' },
@@ -50889,7 +51073,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u72B6\u6001:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '\u5165\u5E93\u72B6\u6001:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
 						)
 					),
 					React.createElement(
@@ -50909,7 +51093,8 @@
 						Reactman.TableActionBar,
 						null,
 						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u540C\u6B65', onClick: this.batchSyncProduct }),
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport })
+						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport }),
+						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u9A73\u56DE', onClick: this.batchRejectProduct })
 					),
 					React.createElement(
 						Reactman.Table,
@@ -50919,8 +51104,8 @@
 						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
 						React.createElement(Reactman.TableColumn, { name: '\u6765\u6E90', field: 'customer_from_text' }),
 						React.createElement(Reactman.TableColumn, { name: '\u603B\u9500\u91CF', field: 'total_sales' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'product_status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '200px' })
 					)
 				)
 			);
@@ -50937,16 +51122,260 @@
 	 */
 	"use strict";
 
+	var debug = __webpack_require__(235)('m:product.product_updated:UnPassDialog');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var _ = __webpack_require__(243);
+
+	var ProductRelationUnPassDialogStore = __webpack_require__(515);
+	var Constant = __webpack_require__(502);
+	var Action = __webpack_require__(501);
+	__webpack_require__(516);
+
+	var ProductRelationUnPassDialog = Reactman.createDialog({
+		getInitialState: function () {
+			ProductRelationUnPassDialogStore.addListener(this.onChangeStore);
+			var productId = this.props.data.product_id;
+			console.log('productId');
+			console.log(productId);
+			return {
+				product_id: productId,
+				reasons: ProductRelationUnPassDialogStore.getData().reasons,
+				custom_reason: ''
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.updateRejectReason(property, value);
+		},
+
+		onChangeStore: function () {
+			var infomations = ProductRelationUnPassDialogStore.getData();
+			this.setState({
+				reasons: infomations['reasons'],
+				custom_reason: infomations['custom_reason']
+			});
+		},
+
+		chooseRejectUnpassReason: function (event) {
+			var reason = event.target.getAttribute('data-reason');
+			Action.chooseRejectUnpassReason(reason);
+		},
+
+		cancleChecked: function () {
+			Action.cancleCheckedUnpassReason();
+			this.closeDialog();
+		},
+
+		refused: function () {
+			var _this = this;
+			var reasons = this.state.reasons;
+			var productId = this.state.product_id;
+			var custom_reason = this.state.custom_reason; //自定义原因
+			if (custom_reason.length > 0 && reasons.length > 0) {
+				reasons.push(custom_reason);
+				reasons = reasons.join(',');
+			} else if (custom_reason.length > 0) {
+				reasons = custom_reason;
+			} else {
+				reasons = reasons.join(',');
+			}
+			if (reasons.length == 0) {
+				Reactman.PageAction.showHint('error', '请添加驳回原因!');
+				return;
+			}
+			Action.refused(productId, reasons);
+			_.delay(function () {
+				_this.closeDialog();
+			}, 500);
+		},
+
+		render: function () {
+			var reasons = this.state.reasons;
+			var firstReason = {};
+			for (var i = 0; i < reasons.length; i++) {
+				if (reasons[i] === '商品名称不规范，标准格式：品牌名+商品名+包装规格') {
+					firstReason = { background: '#009DD9', color: '#FFF' };
+				}
+			}
+
+			return React.createElement(
+				'div',
+				{ className: 'xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(
+							'ul',
+							{ className: 'xui-unpass-reasons' },
+							React.createElement(
+								'li',
+								{ className: 'xi-unpass-reason', style: firstReason, 'data-reason': '\u5546\u54C1\u540D\u79F0\u4E0D\u89C4\u8303\uFF0C\u6807\u51C6\u683C\u5F0F\uFF1A\u54C1\u724C\u540D+\u5546\u54C1\u540D+\u5305\u88C5\u89C4\u683C', onClick: this.chooseRejectUnpassReason },
+								'\u5546\u54C1\u540D\u79F0\u4E0D\u89C4\u8303\uFF0C\u6807\u51C6\u683C\u5F0F\uFF1A\u54C1\u724C\u540D+\u5546\u54C1\u540D+\u5305\u88C5\u89C4\u683C'
+							)
+						),
+						React.createElement(Reactman.FormText, { label: '', type: 'text', name: 'custom_reason', value: this.state.custom_reason, onChange: this.onChange, autoFocus: true, inDialog: true, width: 380, height: 200 }),
+						React.createElement(
+							'a',
+							{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px', managerTop: '20px' }, onClick: this.refused },
+							React.createElement(
+								'span',
+								null,
+								'\u786E\u5B9A'
+							)
+						),
+						React.createElement(
+							'a',
+							{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', managerTop: '20px' }, onClick: this.cancleChecked },
+							React.createElement(
+								'span',
+								null,
+								'\u53D6\u6D88'
+							)
+						)
+					)
+				)
+			);
+		}
+	});
+	module.exports = ProductRelationUnPassDialog;
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var EventEmitter = __webpack_require__(303).EventEmitter;
+	var assign = __webpack_require__(304);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(502);
+
+	var ProductRelationUnPassDialogStore = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleChooseUnpassReason': Constant.PRODUCT_REJECT_UNPASS_REASON,
+			'handleUpdateUnpassReason': Constant.PRODUCT_REJECT_UPDATE_UNPASS_REASON,
+			'handleCancleCheckedReason': Constant.PRODUCT_REJECT_UNDATE_CANCLE_CHECKED
+		},
+
+		init: function () {
+			this.data = {
+				'reasons': [],
+				'custom_reason': ''
+			};
+		},
+
+		handleUpdateUnpassReason: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		handleChooseUnpassReason: function (action) {
+			var reasons = this.data.reasons;
+			var reason = action.data.reason;
+			var isChoosed = true;
+
+			for (var index in reasons) {
+				if (reasons[index] == reason) {
+					isChoosed = false;
+					reasons.splice(index, 1);
+				}
+			}
+
+			if (isChoosed) {
+				reasons.push(reason);
+			}
+			this.data.reasons = reasons;
+			this.__emitChange();
+		},
+
+		handleCancleCheckedReason: function () {
+			this.data = {
+				'reasons': [],
+				'custom_reason': ''
+			};
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = ProductRelationUnPassDialogStore;
+
+/***/ },
+/* 516 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(517);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 517 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\r\n\twidth: 60px !important;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-unpass-reasons{\r\n    padding-left: 50px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.xi-unpass-reason{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 40px;\r\n\tborder: 1px solid #CCC;\r\n\tmargin-bottom: 10px;\r\n\tpadding: 3px 18px 0 18px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n}\r\n.xi-unpass-reason:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-product-productUpdatedPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
 	var debug = __webpack_require__(235)('m:product_catalog.product_catalogs:AddLabelDialog');
-	var ProductModel = __webpack_require__(515);
+	var ProductModel = __webpack_require__(519);
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(518);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
-	__webpack_require__(519);
+	var Store = __webpack_require__(522);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
+	__webpack_require__(523);
 
 	var AddLabelDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -51116,7 +51545,7 @@
 	module.exports = AddLabelDialog;
 
 /***/ },
-/* 515 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51131,8 +51560,8 @@
 	var Reactman = __webpack_require__(161);
 	var FormInput = Reactman.FormInput;
 
-	var Action = __webpack_require__(516);
-	var Constant = __webpack_require__(517);
+	var Action = __webpack_require__(520);
+	var Constant = __webpack_require__(521);
 
 	var ProductModel = React.createClass({
 		displayName: 'ProductModel',
@@ -51174,7 +51603,7 @@
 	module.exports = ProductModel;
 
 /***/ },
-/* 516 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51189,7 +51618,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var Action = {
 		updateCatalogs: function (filterOptions) {
@@ -51300,7 +51729,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 517 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51321,7 +51750,7 @@
 	});
 
 /***/ },
-/* 518 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51337,7 +51766,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var AddLabelDialogStore = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -51434,13 +51863,13 @@
 	module.exports = AddLabelDialogStore;
 
 /***/ },
-/* 519 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(520);
+	var content = __webpack_require__(524);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -51449,8 +51878,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -51460,7 +51889,7 @@
 	}
 
 /***/ },
-/* 520 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -51474,7 +51903,7 @@
 
 
 /***/ },
-/* 521 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51489,7 +51918,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var Action = {
 		filterDatas: function (filterOptions) {
@@ -51556,7 +51985,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 522 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51576,7 +52005,7 @@
 	});
 
 /***/ },
-/* 523 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51590,11 +52019,11 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var Store = __webpack_require__(524);
-	var Constant = __webpack_require__(522);
-	var Action = __webpack_require__(521);
-	var UnPassDialog = __webpack_require__(525);
-	__webpack_require__(529);
+	var Store = __webpack_require__(528);
+	var Constant = __webpack_require__(526);
+	var Action = __webpack_require__(525);
+	var UnPassDialog = __webpack_require__(529);
+	__webpack_require__(533);
 	var W = Reactman.W;
 
 	var ProductUpdatedPage = React.createClass({
@@ -51770,7 +52199,7 @@
 	module.exports = ProductUpdatedPage;
 
 /***/ },
-/* 524 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51787,7 +52216,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -51865,7 +52294,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 525 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51880,10 +52309,10 @@
 	var Reactman = __webpack_require__(161);
 	var _ = __webpack_require__(243);
 
-	var UnPassDialogStore = __webpack_require__(526);
-	var Constant = __webpack_require__(522);
-	var Action = __webpack_require__(521);
-	__webpack_require__(527);
+	var UnPassDialogStore = __webpack_require__(530);
+	var Constant = __webpack_require__(526);
+	var Action = __webpack_require__(525);
+	__webpack_require__(531);
 
 	var UnPassDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52015,7 +52444,7 @@
 	module.exports = UnPassDialog;
 
 /***/ },
-/* 526 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52031,7 +52460,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var UnPassDialogStore = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -52087,13 +52516,13 @@
 	module.exports = UnPassDialogStore;
 
 /***/ },
-/* 527 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(528);
+	var content = __webpack_require__(532);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -52102,8 +52531,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52113,7 +52542,7 @@
 	}
 
 /***/ },
-/* 528 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -52127,13 +52556,13 @@
 
 
 /***/ },
-/* 529 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(530);
+	var content = __webpack_require__(534);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -52142,8 +52571,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52153,7 +52582,7 @@
 	}
 
 /***/ },
-/* 530 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -52167,7 +52596,7 @@
 
 
 /***/ },
-/* 531 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52181,9 +52610,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
 
 	var AddCatalogDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52296,7 +52725,7 @@
 	module.exports = AddCatalogDialog;
 
 /***/ },
-/* 532 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52312,7 +52741,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -52375,7 +52804,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 533 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52384,14 +52813,14 @@
 	"use strict";
 
 	var debug = __webpack_require__(235)('m:product_catalog.product_catalogs:AddCatalogQualificationDialog');
-	var ProductModel = __webpack_require__(515);
+	var ProductModel = __webpack_require__(519);
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
 
 	var AddCatalogQualificationDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52470,7 +52899,7 @@
 	module.exports = AddCatalogQualificationDialog;
 
 /***/ },
-/* 534 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52484,13 +52913,13 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
-	var AddCatalogDialog = __webpack_require__(531);
-	var AddCatalogQualificationDialog = __webpack_require__(533);
-	var AddLabelDialog = __webpack_require__(514);
-	__webpack_require__(519);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
+	var AddCatalogDialog = __webpack_require__(535);
+	var AddCatalogQualificationDialog = __webpack_require__(537);
+	var AddLabelDialog = __webpack_require__(518);
+	__webpack_require__(523);
 
 	var ProductCatalogPage = React.createClass({
 		displayName: 'ProductCatalogPage',
@@ -52748,7 +53177,7 @@
 	module.exports = ProductCatalogPage;
 
 /***/ },
-/* 535 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52763,7 +53192,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(536);
+	var Constant = __webpack_require__(540);
 
 	var Action = {
 		updateLimitZoneTemplates: function (filterOptions) {
@@ -52825,7 +53254,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 536 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52840,7 +53269,7 @@
 	});
 
 /***/ },
-/* 537 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52854,9 +53283,9 @@
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
 
 	var AddLimitZoneTemplateDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52951,7 +53380,7 @@
 	module.exports = AddLimitZoneTemplateDialog;
 
 /***/ },
-/* 538 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52967,7 +53396,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(536);
+	var Constant = __webpack_require__(540);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -52990,7 +53419,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 539 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53003,9 +53432,9 @@
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
 
 	var LimitZoneText = Reactman.createDialog({
 		getInitialState: function () {
@@ -53037,7 +53466,7 @@
 	module.exports = LimitZoneText;
 
 /***/ },
-/* 540 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53051,11 +53480,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
-	var AddLimitZoneTemplateDialog = __webpack_require__(537);
-	var LimitZoneText = __webpack_require__(539);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
+	var AddLimitZoneTemplateDialog = __webpack_require__(541);
+	var LimitZoneText = __webpack_require__(543);
 
 	var ProductCatalogPage = React.createClass({
 		displayName: 'ProductCatalogPage',
@@ -53198,13 +53627,13 @@
 	module.exports = ProductCatalogPage;
 
 /***/ },
-/* 541 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(542);
+	var content = __webpack_require__(546);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53213,8 +53642,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53224,7 +53653,7 @@
 	}
 
 /***/ },
-/* 542 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53238,7 +53667,7 @@
 
 
 /***/ },
-/* 543 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53253,7 +53682,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(544);
+	var Constant = __webpack_require__(548);
 
 	var Action = {
 		updateSelfShopDialog: function (property, value) {
@@ -53287,7 +53716,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 544 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53303,7 +53732,7 @@
 	});
 
 /***/ },
-/* 545 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53317,10 +53746,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(546);
-	var Constant = __webpack_require__(544);
-	var Action = __webpack_require__(543);
-	__webpack_require__(547);
+	var Store = __webpack_require__(550);
+	var Constant = __webpack_require__(548);
+	var Action = __webpack_require__(547);
+	__webpack_require__(551);
 
 	var AddSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -53403,7 +53832,7 @@
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 546 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53420,7 +53849,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(544);
+	var Constant = __webpack_require__(548);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -53450,13 +53879,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 547 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(548);
+	var content = __webpack_require__(552);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53465,8 +53894,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53476,7 +53905,7 @@
 	}
 
 /***/ },
-/* 548 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53490,7 +53919,7 @@
 
 
 /***/ },
-/* 549 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53505,11 +53934,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(546);
-	var Constant = __webpack_require__(544);
-	var Action = __webpack_require__(543);
-	var AddSelfShopDialog = __webpack_require__(545);
-	__webpack_require__(547);
+	var Store = __webpack_require__(550);
+	var Constant = __webpack_require__(548);
+	var Action = __webpack_require__(547);
+	var AddSelfShopDialog = __webpack_require__(549);
+	__webpack_require__(551);
 	var W = Reactman.W;
 
 	var SelfShopManagePage = React.createClass({
@@ -53610,7 +54039,7 @@
 	module.exports = SelfShopManagePage;
 
 /***/ },
-/* 550 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53625,7 +54054,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(551);
+	var Constant = __webpack_require__(555);
 
 	var Action = {
 
@@ -53653,7 +54082,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 551 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53669,7 +54098,7 @@
 	});
 
 /***/ },
-/* 552 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53683,10 +54112,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(553);
-	var Constant = __webpack_require__(551);
-	var Action = __webpack_require__(550);
-	__webpack_require__(554);
+	var Store = __webpack_require__(557);
+	var Constant = __webpack_require__(555);
+	var Action = __webpack_require__(554);
+	__webpack_require__(558);
 
 	var Attachments = React.createClass({
 		displayName: 'Attachments',
@@ -53726,7 +54155,7 @@
 	module.exports = Attachments;
 
 /***/ },
-/* 553 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53743,7 +54172,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(551);
+	var Constant = __webpack_require__(555);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -53762,13 +54191,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 554 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(555);
+	var content = __webpack_require__(559);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53777,8 +54206,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53788,7 +54217,7 @@
 	}
 
 /***/ },
-/* 555 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53802,7 +54231,7 @@
 
 
 /***/ },
-/* 556 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53816,10 +54245,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(553);
-	var Constant = __webpack_require__(551);
-	var Action = __webpack_require__(550);
-	__webpack_require__(554);
+	var Store = __webpack_require__(557);
+	var Constant = __webpack_require__(555);
+	var Action = __webpack_require__(554);
+	__webpack_require__(558);
 
 	var StationMessageList = React.createClass({
 	  displayName: 'StationMessageList',
@@ -53915,7 +54344,7 @@
 	module.exports = StationMessageList;
 
 /***/ },
-/* 557 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53930,7 +54359,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(558);
+	var Constant = __webpack_require__(562);
 
 	var Action = {
 
@@ -53993,7 +54422,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 558 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54008,7 +54437,7 @@
 	});
 
 /***/ },
-/* 559 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54022,10 +54451,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(560);
-	var Constant = __webpack_require__(558);
-	var Action = __webpack_require__(557);
-	__webpack_require__(561);
+	var Store = __webpack_require__(564);
+	var Constant = __webpack_require__(562);
+	var Action = __webpack_require__(561);
+	__webpack_require__(565);
 
 	var AddSelfShopDialog = React.createClass({
 	  displayName: 'AddSelfShopDialog',
@@ -54099,7 +54528,7 @@
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 560 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54116,7 +54545,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(558);
+	var Constant = __webpack_require__(562);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -54157,13 +54586,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 561 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(562);
+	var content = __webpack_require__(566);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54172,8 +54601,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54183,7 +54612,7 @@
 	}
 
 /***/ },
-/* 562 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54197,7 +54626,7 @@
 
 
 /***/ },
-/* 563 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54211,10 +54640,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(560);
-	var Constant = __webpack_require__(558);
-	var Action = __webpack_require__(557);
-	__webpack_require__(561);
+	var Store = __webpack_require__(564);
+	var Constant = __webpack_require__(562);
+	var Action = __webpack_require__(561);
+	__webpack_require__(565);
 
 	var AddSelfShopDialog = React.createClass({
 		displayName: 'AddSelfShopDialog',
@@ -54265,7 +54694,7 @@
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 564 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54280,7 +54709,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(565);
+	var Constant = __webpack_require__(569);
 
 	var Action = {
 	    deleteMessage: function (message_id) {
@@ -54308,7 +54737,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 565 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54324,7 +54753,7 @@
 	});
 
 /***/ },
-/* 566 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54338,10 +54767,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(567);
-	var Constant = __webpack_require__(565);
-	var Action = __webpack_require__(564);
-	__webpack_require__(568);
+	var Store = __webpack_require__(571);
+	var Constant = __webpack_require__(569);
+	var Action = __webpack_require__(568);
+	__webpack_require__(572);
 
 	var StationMessageList = React.createClass({
 		displayName: 'StationMessageList',
@@ -54427,7 +54856,7 @@
 	module.exports = StationMessageList;
 
 /***/ },
-/* 567 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54444,7 +54873,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(565);
+	var Constant = __webpack_require__(569);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -54471,13 +54900,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 568 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(569);
+	var content = __webpack_require__(573);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54486,8 +54915,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54497,7 +54926,7 @@
 	}
 
 /***/ },
-/* 569 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54511,7 +54940,7 @@
 
 
 /***/ },
-/* 570 */
+/* 574 */
 /***/ function(module, exports) {
 
 	/*
@@ -54584,7 +55013,7 @@
 	module.exports = Algorithm;
 
 /***/ },
-/* 571 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -54613,7 +55042,7 @@
 	module.exports = new User();
 
 /***/ },
-/* 572 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54697,7 +55126,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 573 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54746,7 +55175,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 574 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54850,7 +55279,7 @@
 	module.exports = FormRangeInput;
 
 /***/ },
-/* 575 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54863,7 +55292,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(576);
+	__webpack_require__(580);
 
 	var FormDateTimeInput = React.createClass({
 		displayName: 'FormDateTimeInput',
@@ -54980,13 +55409,13 @@
 	module.exports = FormDateTimeInput;
 
 /***/ },
-/* 576 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(577);
+	var content = __webpack_require__(581);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54995,8 +55424,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55006,7 +55435,7 @@
 	}
 
 /***/ },
-/* 577 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -55020,7 +55449,7 @@
 
 
 /***/ },
-/* 578 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55180,7 +55609,7 @@
 	module.exports = FormDateRangeInput;
 
 /***/ },
-/* 579 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55275,7 +55704,7 @@
 	module.exports = FormSelect;
 
 /***/ },
-/* 580 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55327,7 +55756,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 581 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55401,7 +55830,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 582 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55512,7 +55941,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 583 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55622,7 +56051,7 @@
 	module.exports = BooleanCheckbox;
 
 /***/ },
-/* 584 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55716,7 +56145,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 585 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55729,7 +56158,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -55841,7 +56270,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 586 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55849,7 +56278,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(587).inherits;
+	var inherits = __webpack_require__(591).inherits;
 	var EventEmitter = __webpack_require__(303).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -56129,7 +56558,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 587 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -56622,7 +57051,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(588);
+	exports.isBuffer = __webpack_require__(592);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -56659,7 +57088,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(589);
+	exports.inherits = __webpack_require__(593);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -56679,7 +57108,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 588 */
+/* 592 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -56687,7 +57116,7 @@
 	};
 
 /***/ },
-/* 589 */
+/* 593 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -56715,7 +57144,7 @@
 	}
 
 /***/ },
-/* 590 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56729,7 +57158,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(591);
+	__webpack_require__(595);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -56869,13 +57298,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 591 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(592);
+	var content = __webpack_require__(596);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56884,8 +57313,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56895,7 +57324,7 @@
 	}
 
 /***/ },
-/* 592 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56909,7 +57338,7 @@
 
 
 /***/ },
-/* 593 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56923,7 +57352,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(594);
+	__webpack_require__(598);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -57070,13 +57499,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 594 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(595);
+	var content = __webpack_require__(599);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57085,8 +57514,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57096,7 +57525,7 @@
 	}
 
 /***/ },
-/* 595 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57110,7 +57539,7 @@
 
 
 /***/ },
-/* 596 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57124,15 +57553,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(597);
+	var Pagination = __webpack_require__(601);
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(600);
-	var Action = __webpack_require__(602);
-	var Constant = __webpack_require__(601);
+	var Store = __webpack_require__(604);
+	var Action = __webpack_require__(606);
+	var Constant = __webpack_require__(605);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(603);
+	__webpack_require__(607);
 
 	var Old = null;
 
@@ -57304,16 +57733,35 @@
 		},
 
 		createHeadAndRow: function () {
+			var cHeadBar = void 0;
 			if (_.isArray(this.props.children)) {
-				var heads = this.props.children.map(function (tableColumn) {
+				var heads = _.filter(this.props.children, function (head) {
+					if (!head) {
+						return false;
+					}
+
+					var visible = head.props.visible;
+					visible = visible !== false;
+					return visible;
+				});
+				var heads = heads.map(function (tableColumn) {
+					if (tableColumn.type.displayName === 'TableHeadBar') {
+						cHeadBar = tableColumn;
+						return null;
+					}
 					var width = tableColumn.props.width;
 					var name = tableColumn.props.name;
 					var field = tableColumn.props.field;
+					var align = tableColumn.props.align || 'center';
 					return {
 						name: name,
 						field: field,
-						width: width
+						width: width,
+						align: align
 					};
+				});
+				heads = _.filter(heads, function (head) {
+					return head !== null;
 				});
 			} else {
 				var tableColumn = this.props.children;
@@ -57484,7 +57932,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 597 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57497,7 +57945,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(598);
+	__webpack_require__(602);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -57642,13 +58090,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 598 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(599);
+	var content = __webpack_require__(603);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57657,8 +58105,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57668,7 +58116,7 @@
 	}
 
 /***/ },
-/* 599 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57682,7 +58130,7 @@
 
 
 /***/ },
-/* 600 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57696,7 +58144,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(601);
+	var Constant = __webpack_require__(605);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -57799,7 +58247,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 601 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57814,7 +58262,7 @@
 	});
 
 /***/ },
-/* 602 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57823,7 +58271,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(601);
+	var Constant = __webpack_require__(605);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -57890,13 +58338,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 603 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(604);
+	var content = __webpack_require__(608);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57905,8 +58353,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57916,7 +58364,7 @@
 	}
 
 /***/ },
-/* 604 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57930,7 +58378,7 @@
 
 
 /***/ },
-/* 605 */
+/* 609 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57974,7 +58422,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 606 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58000,7 +58448,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 607 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58039,7 +58487,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 608 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58061,7 +58509,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 609 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58074,7 +58522,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(610);
+	__webpack_require__(614);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -58137,13 +58585,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 610 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(611);
+	var content = __webpack_require__(615);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58152,8 +58600,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -58163,7 +58611,7 @@
 	}
 
 /***/ },
-/* 611 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58177,7 +58625,7 @@
 
 
 /***/ },
-/* 612 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58281,7 +58729,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 613 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58296,12 +58744,12 @@
 
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(614);
-	var Action = __webpack_require__(616);
-	var Constant = __webpack_require__(615);
+	var Store = __webpack_require__(618);
+	var Action = __webpack_require__(620);
+	var Constant = __webpack_require__(619);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(617);
+	__webpack_require__(621);
 
 	var matchMap = {
 		'=': 'equal',
@@ -58468,10 +58916,21 @@
 		},
 
 		render: function () {
-			var newChildren = React.Children.map(this.props.children, function (child, index) {
+			var cChildren = this.props.children;
+			if (cChildren instanceof Array) {
+				cChildren = cChildren.filter(function (child) {
+					return child != null && (child.props || {}).visible !== false;
+				});
+			} else if (cChildren && cChildren.props && cChildren.props.visible === false) {
+				cChildren = null;
+			}
+
+			var newChildren = React.Children.map(cChildren, function (child, index) {
+				rowIndex = index + 1;
 				return React.cloneElement(child, {
 					onChange: this.onChangeField,
-					field2value: this.state
+					field2value: this.state,
+					index: rowIndex
 				});
 			}, this);
 
@@ -58499,7 +58958,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 614 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58512,7 +58971,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(305);
-	var Constant = __webpack_require__(615);
+	var Constant = __webpack_require__(619);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -58566,7 +59025,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 615 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58580,14 +59039,14 @@
 	});
 
 /***/ },
-/* 616 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(615);
+	var Constant = __webpack_require__(619);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -58613,13 +59072,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 617 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(618);
+	var content = __webpack_require__(622);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58628,8 +59087,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -58639,7 +59098,7 @@
 	}
 
 /***/ },
-/* 618 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58653,7 +59112,7 @@
 
 
 /***/ },
-/* 619 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58673,20 +59132,31 @@
 			if (!this.props.children) {
 				return React.createElement('span', { className: 'xui-hide' });
 			}
+			var cFields = this.props.children;
+			if (cFields instanceof Array) {
+				cFields = cFields.filter(function (field) {
+					return field != null && (field.props || {}).visible !== false;
+				});
+			} else if (cFields) {
+				if (cFields && cFields.props && cFields.props.visible === false) {
+					cFields = null;
+				}
+			}
 
-			var mFields = React.Children.map(this.props.children, function (field, index) {
+			var mFields = React.Children.map(cFields, function (field, index) {
 				var newField = React.cloneElement(field, {
 					onChange: this.props.onChange,
 					field2value: this.props.field2value
 				});
+				var fieldClasses = classNames("xui-i-field", (field.props || {}).extraClass, "xui-i-field-nth-" + (index + 1));
 				return React.createElement(
 					'div',
-					{ className: 'xui-i-field', key: index },
+					{ className: fieldClasses, key: index },
 					newField
 				);
 			}, this);
 
-			var classes = classNames("xui-i-row", "form-inline", "xui-i-row-" + this.props.children.length);
+			var classes = classNames("xui-i-row", this.props.extraClass, "form-inline", "xui-i-row-" + this.props.children.length, "xui-i-row-nth-" + this.props.index);
 			return React.createElement(
 				'div',
 				{ className: classes },
@@ -58697,7 +59167,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 620 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58709,9 +59179,9 @@
 	var debug = __webpack_require__(235)('reactman:FilterField');
 	var classNames = __webpack_require__(239);
 
-	var FormInput = __webpack_require__(572);
+	var FormInput = __webpack_require__(576);
 
-	__webpack_require__(617);
+	__webpack_require__(621);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -58742,7 +59212,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 621 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58755,7 +59225,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(622);
+	__webpack_require__(626);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -58786,13 +59256,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 622 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(623);
+	var content = __webpack_require__(627);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58801,8 +59271,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -58812,7 +59282,7 @@
 	}
 
 /***/ },
-/* 623 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58826,7 +59296,7 @@
 
 
 /***/ },
-/* 624 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58840,12 +59310,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(625);
-	var Action = __webpack_require__(627);
-	var Constant = __webpack_require__(626);
+	var Store = __webpack_require__(629);
+	var Action = __webpack_require__(631);
+	var Constant = __webpack_require__(630);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(628);
+	__webpack_require__(632);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -58945,7 +59415,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 625 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58961,7 +59431,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(626);
+	var Constant = __webpack_require__(630);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -58987,7 +59457,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 626 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59000,7 +59470,7 @@
 	});
 
 /***/ },
-/* 627 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59011,7 +59481,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(626);
+	var Constant = __webpack_require__(630);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -59033,13 +59503,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 628 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(629);
+	var content = __webpack_require__(633);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59048,8 +59518,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59059,7 +59529,7 @@
 	}
 
 /***/ },
-/* 629 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59073,7 +59543,7 @@
 
 
 /***/ },
-/* 630 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59099,7 +59569,7 @@
 	module.exports = ChartActionBar;
 
 /***/ },
-/* 631 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59111,10 +59581,10 @@
 	var debug = __webpack_require__(235)('m:reactman.province_city_select.ProvinceCity');
 	var classNames = __webpack_require__(239);
 
-	var ProvinceCityDialog = __webpack_require__(632);
+	var ProvinceCityDialog = __webpack_require__(636);
 	var PageAction = __webpack_require__(244);
 
-	__webpack_require__(637);
+	__webpack_require__(641);
 
 	var ProvinceCitySelect = React.createClass({
 	    displayName: 'ProvinceCitySelect',
@@ -59166,7 +59636,7 @@
 	module.exports = ProvinceCitySelect;
 
 /***/ },
-/* 632 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59178,13 +59648,13 @@
 
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(633);
-	var Action = __webpack_require__(635);
-	var Constant = __webpack_require__(634);
+	var Store = __webpack_require__(637);
+	var Action = __webpack_require__(639);
+	var Constant = __webpack_require__(638);
 
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	var IconLabel = __webpack_require__(636);
+	var IconLabel = __webpack_require__(640);
 
 	var ProvinceCityDialog = React.createClass({
 	    displayName: 'ProvinceCityDialog',
@@ -59365,7 +59835,7 @@
 	module.exports = ProvinceCityDialog;
 
 /***/ },
-/* 633 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59380,7 +59850,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(634);
+	var Constant = __webpack_require__(638);
 	var createStore = function (Dispatcher) {
 	    return StoreUtil.createStore(Dispatcher, {
 	        actions: {
@@ -59584,7 +60054,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 634 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59601,7 +60071,7 @@
 	});
 
 /***/ },
-/* 635 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59609,7 +60079,7 @@
 	 */
 	var debug = __webpack_require__(235)('m:reactman:ProvinceCitySelect:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(634);
+	var Constant = __webpack_require__(638);
 	var _ = __webpack_require__(243);
 	var createAction = function (Dispatcher) {
 	    return {
@@ -59670,7 +60140,7 @@
 	module.exports = createAction;
 
 /***/ },
-/* 636 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59704,13 +60174,13 @@
 	module.exports = IconLabel;
 
 /***/ },
-/* 637 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(638);
+	var content = __webpack_require__(642);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59719,8 +60189,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59730,7 +60200,7 @@
 	}
 
 /***/ },
-/* 638 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59744,7 +60214,7 @@
 
 
 /***/ },
-/* 639 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59760,14 +60230,14 @@
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
 	var ComponentFactory = __webpack_require__(268);
-	__webpack_require__(640);
-	var WepageSimulator = __webpack_require__(653); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
+	__webpack_require__(644);
+	var WepageSimulator = __webpack_require__(657); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
 	var Render = __webpack_require__(300);
 	var PageManager = __webpack_require__(301);
-	var PropertyEditor = __webpack_require__(655);
-	var SubmitPanel = __webpack_require__(686);
+	var PropertyEditor = __webpack_require__(659);
+	var SubmitPanel = __webpack_require__(690);
 
-	__webpack_require__(687);
+	__webpack_require__(691);
 
 	var WepageEditor = React.createClass({
 		displayName: 'WepageEditor',
@@ -59854,7 +60324,7 @@
 	module.exports = WepageEditor;
 
 /***/ },
-/* 640 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59863,13 +60333,13 @@
 	 */
 	'use strict';
 
-	__webpack_require__(641);
 	__webpack_require__(645);
-	__webpack_require__(647);
+	__webpack_require__(649);
+	__webpack_require__(651);
 	//require('./component/wepage/title/Title');
 
 /***/ },
-/* 641 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59878,11 +60348,11 @@
 	 */
 	"use strict";
 
-	var template = __webpack_require__(642);
+	var template = __webpack_require__(646);
 
 	var ComponentFactory = __webpack_require__(268);
 
-	__webpack_require__(643);
+	__webpack_require__(647);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.runtime_component_container'
@@ -59893,19 +60363,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 642 */
+/* 646 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type == 'wepage.runtime_component_container' %}\r\n    {% for sub_component in component.components %}\r\n    <div \r\n        class=\"xa-componentContainer xa-selectable xui-componentContainer xui-componentContainer-{{sub_component.displayIndex}}\" \r\n        data-contained-cid=\"{{sub_component.cid}}\" \r\n        data-cid=\"{{sub_component.cid}}\" \r\n        data-type=\"{{sub_component.type}}\" \r\n        data-widget-sortable=\"true\" \r\n        data-ui-behavior=\"xub-selectable\" \r\n        data-auto-select=\"{%if sub_component.model.auto_select %}true{% else %}false{% endif %}\"\r\n        style=\"\"\r\n    >\r\n        {{ sub_component.html|safe }}\r\n        <div class=\"xui-componentContainer-actionPanel xa-actionPanel\" style=\"display:none;\">\r\n            <span class=\"xui-i-action xui-i-addAction xa-add xa-action\">添加模块</span>\r\n            <span class=\"xui-i-action xui-i-editAction xa-edit xa-action\">编辑</span>\r\n            {% if sub_component.canDelete %}\r\n            <span class=\"xui-i-action xui-i-deleteAction xa-delete xa-action\">删除</span>\r\n            {% endif %}\r\n        </div>\r\n        <div class=\"xui-componentContainer-selectIndicator xa-selectIndicator\" style=\"display:none;\">\r\n        </div>\r\n    </div>\r\n    {% endfor %}\r\n{% endif %}\r\n"
 
 /***/ },
-/* 643 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(644);
+	var content = __webpack_require__(648);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59914,8 +60384,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59925,7 +60395,7 @@
 	}
 
 /***/ },
-/* 644 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59939,7 +60409,7 @@
 
 
 /***/ },
-/* 645 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59952,7 +60422,7 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(646);
+	var template = __webpack_require__(650);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.page',
@@ -60007,13 +60477,13 @@
 	module.exports = Component;
 
 /***/ },
-/* 646 */
+/* 650 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.page' %}\r\n\r\n{% if in_production_mode %}\r\n\t{% for sub_component in component.components %}\r\n\t{{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n{% else %}\r\n<div \r\n\tdata-type=\"wepage.page\"\r\n\tclass=\"xa-component xa-component-page xui-component xui-component-page\" \r\n\tdata-component-cid=\"{{component.cid}}\"\r\n\tdata-cid=\"{{component.cid}}\"\r\n\t{% if component.model.site_title === '微页面标题' %}\r\n\tdata-auto-select=\"true\"\r\n\t{% endif %}\r\n\t{% if component.model.background %}style=\"background-image: url({{component.model.background}})\"{% endif %}\r\n>\r\n    {% for sub_component in component.components %}\r\n    {{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 647 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60027,10 +60497,10 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(648);
+	var template = __webpack_require__(652);
 
-	__webpack_require__(649);
-	__webpack_require__(651);
+	__webpack_require__(653);
+	__webpack_require__(655);
 
 	var Component = ComponentFactory.define({
 		type: 'wepage.componentadder',
@@ -60058,19 +60528,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 648 */
+/* 652 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.componentadder' %}\r\n\r\n{% if in_production_mode %}\r\n{% else %}\r\n\t<div \r\n\t\thref=\"javascript:void(0);\" \r\n\t\tdata-component-cid=\"{{component.cid}}\" \r\n\t\tdata-index=\"{{component.model.index}}\" \r\n\t\tid=\"{{component.model.id}}\" \r\n\t\tclass=\"\r\n\t\t\t{{component.model.class}} \r\n\t\t\twui-componentadder \r\n\t\t\twa-componentadder \r\n\t\t\t{% if component.parent_component.components.length > 1 %}xui-hide{% endif %}\r\n\t\t\" \r\n\t>\r\n\t\t+添加模块\r\n\t</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 649 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(650);
+	var content = __webpack_require__(654);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60079,8 +60549,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -60090,7 +60560,7 @@
 	}
 
 /***/ },
-/* 650 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60104,13 +60574,13 @@
 
 
 /***/ },
-/* 651 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(652);
+	var content = __webpack_require__(656);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60119,8 +60589,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -60130,7 +60600,7 @@
 	}
 
 /***/ },
-/* 652 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60144,7 +60614,7 @@
 
 
 /***/ },
-/* 653 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60159,7 +60629,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(654);
+	var CoverManager = __webpack_require__(658);
 
 	var WepageSimulator = React.createClass({
 		displayName: 'WepageSimulator',
@@ -60397,7 +60867,7 @@
 	module.exports = WepageSimulator;
 
 /***/ },
-/* 654 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60622,7 +61092,7 @@
 	module.exports = CoverManagerClass;
 
 /***/ },
-/* 655 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60636,12 +61106,12 @@
 
 	var Backbone = __webpack_require__(269);
 	var Broadcaster = __webpack_require__(299);
-	var PropertyPanelRender = __webpack_require__(656);
+	var PropertyPanelRender = __webpack_require__(660);
 	var Component = __webpack_require__(270);
 	var Validater = __webpack_require__(260);
-	__webpack_require__(657);
+	__webpack_require__(661);
 
-	__webpack_require__(684);
+	__webpack_require__(688);
 
 	var PropertyEditorClass = Backbone.View.extend({
 	    events: {
@@ -61046,7 +61516,7 @@
 	module.exports = PropertyEditorClass;
 
 /***/ },
-/* 656 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61154,7 +61624,7 @@
 	module.exports = render;
 
 /***/ },
-/* 657 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61163,19 +61633,19 @@
 	 */
 	'use strict';
 
-	__webpack_require__(658);
-	__webpack_require__(660);
 	__webpack_require__(662);
 	__webpack_require__(664);
-	__webpack_require__(667);
-	__webpack_require__(669);
+	__webpack_require__(666);
+	__webpack_require__(668);
 	__webpack_require__(671);
-	__webpack_require__(674);
+	__webpack_require__(673);
+	__webpack_require__(675);
 	__webpack_require__(678);
-	__webpack_require__(681);
+	__webpack_require__(682);
+	__webpack_require__(685);
 
 /***/ },
-/* 658 */
+/* 662 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61188,20 +61658,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(659);
+	var template = __webpack_require__(663);
 
 	Component.definePropertyField('component', {
 	  template: template
 	});
 
 /***/ },
-/* 659 */
+/* 663 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"propertyView\" class=\"xa-propertyView-actionTarget\">\r\n\t{% if component.shouldShowPropertyViewTitle %}\r\n\t<div class=\"xui-i-header\">\r\n\t\t{{title}}\r\n\t</div>\r\n\t{% endif %}\r\n\r\n\t<div id=\"propertyEditor\" class=\"xa-propertyView-actionTarget\">\r\n\t\t{% for property_group in propertyGroups %}\r\n\t\t{% if !onlyShowUserProperty || property_group.isUserProperty %}\r\n\t\t<div class=\"{{property_group.groupClass}}-topGap xui-i-propertyGroup-topGap\"></div>\r\n\r\n\t\t<div \r\n\t\t\tclass=\"\r\n\t\t\t\txui-i-propertyGroup \r\n\t\t\t\t{% if property_group.groupConfig && property_group.groupConfig.enableBounder %}\r\n\t\t\t\txui-i-propertyGroup-visibleBounder\r\n\t\t\t\t{% endif %}\r\n\t\t\t\t{{property_group.groupClass}}\" \r\n\t\t>\r\n\t\t\t{% if loop.index > 1 %}\r\n\t\t\t<div class=\"ml5 fb\">{{property_group.group}}\r\n                {% if property_group.groupHelp %}\r\n                    <span \r\n                    \tid=\"{{property_group.groupHelp.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.className}}\"\r\n                    >\r\n                    {% if property_group.groupHelp.link %}\r\n                    <a \r\n                    \tid=\"{{property_group.groupHelp.link.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.link.className}}\" \r\n                    \tdata-func=\"{{property_group.groupHelp.link.handler}}\" \r\n                    >{{property_group.groupHelp.link.text}}</a>\r\n                    {% endif %}\r\n\r\n                    {% if property_group.groupHelp.tip %}\r\n                        <a \r\n                        \tclass=\"xui-i-propertyGroup-helpTip\" \r\n                        \tdata-container=\"body\" \r\n                        \tdata-trigger=\"focus\" \r\n                        \tdata-toggle=\"popover\" \r\n                        \tdata-placement=\"bottom\" \r\n                        \tdata-content=\"{{property_group.groupHelp.tip.text}}\">&#63;</a>\r\n                    {% endif %} <!-- end of \"if property_group.groupHelp.tip\" -->\r\n                    </span>\r\n                {% endif %} <!-- end of \"if property_group.groupHelp\" -->\r\n\t\t\t</div>\r\n\t\t\t{% endif %} <!-- end of \"if loop.index > 0\" -->\r\n\r\n\t\t\t{% for field in property_group.fields %}\r\n\t\t\t{% if !onlyShowUserProperty || field.isUserProperty %}\r\n\t\t\t<div class=\"xui-i-field xa-field xui-i-field-{{field.className}}\" data-component-cid=\"{{component.cid}}\" data-component-field=\"{{component.cid}}-{{field.name}}\" >\r\n\t\t\t\t{{field|render_field(component, model, onlyShowUserProperty)|safe}}\r\n\t\t\t</div>\r\n\t\t\t{% endif %}\r\n\t\t\t{% endfor %}\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 660 */
+/* 664 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61214,20 +61684,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(661);
+	var template = __webpack_require__(665);
 
 	Component.definePropertyField('text', {
 	  template: template
 	});
 
 /***/ },
-/* 661 */
+/* 665 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<input \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-textInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tvalue=\"{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 662 */
+/* 666 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61240,20 +61710,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(663);
+	var template = __webpack_require__(667);
 
 	Component.definePropertyField('multiline_text', {
 	  template: template
 	});
 
 /***/ },
-/* 663 */
+/* 667 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<textarea \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-multilineTextInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}</textarea>\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 664 */
+/* 668 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61266,9 +61736,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(665);
+	var template = __webpack_require__(669);
 
-	var plugin = __webpack_require__(666);
+	var plugin = __webpack_require__(670);
 
 	Component.definePropertyField('rich_text', {
 	  template: template,
@@ -61276,13 +61746,13 @@
 	});
 
 /***/ },
-/* 665 */
+/* 669 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- rich_text field -->\r\n<div class=\"xui-i-richTextField xui-i-horizontalField\">\r\n\t{% if field.displayName %}\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t{% endif %}\r\n\t<div \r\n\t\tclass=\"xui-i-inputContainer xa-inputContainer\" \r\n\t\tstyle=\"{% if field.displayName %}width:80%{%else%}width:100%{% endif %}; margin: 5px auto;\"\r\n\t>\r\n\t\t<textarea \r\n\t\t\tclass=\"xui-i-textarea xa-valueInput\" \r\n\t\t\tdata-plugin=\"rich_text\" \r\n\t\t\tstyle=\"height: 100px; width: 100%;\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-force-validate=\"true\"\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{{model.get(field.name)}}</textarea>\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n\r\n</div>"
 
 /***/ },
-/* 666 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61293,7 +61763,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:rich_text');
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
 	var plugin = {
 	    type: 'rich_text',
@@ -61322,7 +61792,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 667 */
+/* 671 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61335,20 +61805,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(668);
+	var template = __webpack_require__(672);
 
 	Component.definePropertyField('radio', {
 	  template: template
 	});
 
 /***/ },
-/* 668 */
+/* 672 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- radio field -->\r\n<div class=\"xui-i-radioField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for radio in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"xui-i-selectBtn {% if model.get(field.name) == radio.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"margin-top:-3px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"radio\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) == radio.value %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{radio.value}}\" />{{radio.name}}\r\n\t\t<i class=\"xui-i-selectedIcon xui-i-spriteBackground\" {% if model.get(field.name) != radio.value %}style=\"display:none;\"{% endif %}></i>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 669 */
+/* 673 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61361,20 +61831,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(670);
+	var template = __webpack_require__(674);
 
 	Component.definePropertyField('checkbox_group', {
 	  template: template
 	});
 
 /***/ },
-/* 670 */
+/* 674 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- checkbox group field -->\r\n<div class=\"xui-i-checkboxGroupField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for checkbox in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"{% if model.get(field.name) == checkbox.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"vertical-align:middle; margin-top:0px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"checkbox\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) === true %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{checkbox.value}}\" /><span class=\"xui-i-checkboxText\">{{checkbox.name}}</span>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 671 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61387,9 +61857,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(672);
+	var template = __webpack_require__(676);
 
-	var plugin = __webpack_require__(673);
+	var plugin = __webpack_require__(677);
 
 	Component.definePropertyField('color_picker', {
 	  template: template,
@@ -61397,13 +61867,13 @@
 	});
 
 /***/ },
-/* 672 */
+/* 676 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-colorPickerField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<div class=\"\" style=\"padding:3px; background-color:#FFF; border: solid 1px #E6E6E6;\">\r\n\t\t\t<button class=\"btn btn-small xui-i-triggerButton xa-colorPickerTrigger\"></button>\r\n\t\t\t<input \r\n\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\tdata-plugin=\"colorpicker\" \r\n\t\t\t\tstyle=\"border: solid 1px #E6E6E6; margin-left:-4px; width:100px;\" \r\n\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\ttype=\"text\" \r\n\t\t\t\tvalue=\"{{model.get(field.name)}}\" />\r\n\t\t\t<a \r\n\t\t\t\thref='javascript:void(0);' \r\n\t\t\t\tclass=\"ml5 mr5 xa-protocol-deleteData\" \r\n\t\t\t\tdata-protocol-deleted-value=\"{{field.default}}\"\r\n\t\t\t>重置</a>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 673 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61450,7 +61920,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 674 */
+/* 678 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61463,9 +61933,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(675);
+	var template = __webpack_require__(679);
 
-	var plugin = __webpack_require__(676);
+	var plugin = __webpack_require__(680);
 
 	Component.definePropertyField('time', {
 	  template: template,
@@ -61473,13 +61943,13 @@
 	});
 
 /***/ },
-/* 675 */
+/* 679 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- time field -->\r\n<div class=\"xui-i-timeField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label mr5 {%if field.validate%}star_show{%endif%}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer pl5\" data-plugin=\"time\">\r\n\t\t<input \r\n\t\t\ttype=\"hidden\" \r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\" \r\n\t\t\tname=\"{{field.name}}\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t{%if field.validate%}data-validate=\"{{field.validate}}\"{%endif%} />\r\n\r\n\t\t<input\r\n\t\t\ttype=\"text\"\r\n\t\t\tclass=\"form-control xui-i-datePicker xui-inline xa-picker xa-datePicker\"\r\n\t\t\tid=\"time\"\r\n\t\t\tname=\"time\"\r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\"\r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-enable-select-time=\"true\"\r\n\t\t\tdata-validate=\"require-notempty\"\r\n\t\t\tdata-format=\"yy-mm-dd HH:MM\"\r\n            data-min=\"now\"/>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 676 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61490,7 +61960,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:time');
 
-	var DatePicker = __webpack_require__(677);
+	var DatePicker = __webpack_require__(681);
 
 	var plugin = {
 	    type: 'time',
@@ -61522,7 +61992,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 677 */
+/* 681 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61629,7 +62099,7 @@
 	module.exports = DatePicker;
 
 /***/ },
-/* 678 */
+/* 682 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61642,9 +62112,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(679);
+	var template = __webpack_require__(683);
 
-	var plugin = __webpack_require__(680);
+	var plugin = __webpack_require__(684);
 
 	Component.definePropertyField('image_selector', {
 	  template: template,
@@ -61652,13 +62122,13 @@
 	});
 
 /***/ },
-/* 679 */
+/* 683 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-imageSelectorField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\" data-plugin=\"image_selector\">\r\n\t\t<div class=\"xui-i-selectorZone\">\r\n\t\t\t<div class=\"xui-i-imageZone {% if not model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<div class=\"pr xui-i-image\">\r\n\t\t\t\t\t<img src=\"{{ model.get(field.name) }}\" width=\"100\" height=\"100\" />\r\n\t\t\t\t\t<button type=\"button\" class=\"close xa-close xa-protocol-deleteData\" data-protocol-deleted-value=\"{{field.default}}\"><span>&times;</span></button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"xui-i-uploaderZone {% if model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<input \r\n\t\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\t\ttype=\"hidden\" \r\n\t\t\t\t\tvalue=\"{{model.get(field.name)}}\"\r\n\t\t\t\t\tdata-force-validate=\"true\"\r\n\t\t\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\r\n\t\t\t\t<span class=\"btn btn-default fileinput-button\">\r\n    \t\t\t\t<span> 上传图片</span>\r\n\t\t\t\t\t<input id=\"fileupload\" type=\"file\" name=\"image\" class=\"xa-uploader\" />\r\n\t\t\t\t</span>\r\n\t\t\t\t<div id=\"progress\" class=\"progress mt5 xa-progress xui-hide\" style=\"width:100px\">\r\n\t\t\t\t\t<div class=\"progress-bar progress-bar-success xa-bar\" style=\"width:0%\"></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"errorHint\"></div>\r\n\t\t\t</div>\r\n\t\t</div>\t\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 680 */
+/* 684 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61716,7 +62186,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 681 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61729,9 +62199,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(682);
+	var template = __webpack_require__(686);
 
-	var plugin = __webpack_require__(683);
+	var plugin = __webpack_require__(687);
 
 	Component.definePropertyField('component_list', {
 	  template: template,
@@ -61739,13 +62209,13 @@
 	});
 
 /***/ },
-/* 682 */
+/* 686 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- component_list field -->\r\n<div class=\"xui-i-componentListField xui-i-horizontalField\" data-plugin=\"componentadder\">\r\n\t<ul class=\"xui-i-componentList clearfix xui-i-inputContainer xa-inputContainer\">\r\n\t\t{% for component in field.components %}\r\n\t\t{% if component.indicator %}\r\n\t\t<li class=\"xui-i-component xa-addComponent\" data-component-type=\"{{component.type}}\">\r\n\t\t\t<div class=\"xui-i-img xui-i-spriteBackground {{component.indicator.imgClass}}\"></div>\r\n\t\t</li>\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</ul>\r\n</div>"
 
 /***/ },
-/* 683 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61779,13 +62249,13 @@
 	module.exports = plugin;
 
 /***/ },
-/* 684 */
+/* 688 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(685);
+	var content = __webpack_require__(689);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61794,8 +62264,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61805,7 +62275,7 @@
 	}
 
 /***/ },
-/* 685 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61819,7 +62289,7 @@
 
 
 /***/ },
-/* 686 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61834,7 +62304,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(654);
+	var CoverManager = __webpack_require__(658);
 
 	var SubmitPanel = React.createClass({
 		displayName: 'SubmitPanel',
@@ -61852,13 +62322,13 @@
 	module.exports = SubmitPanel;
 
 /***/ },
-/* 687 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(688);
+	var content = __webpack_require__(692);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61867,8 +62337,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61878,7 +62348,7 @@
 	}
 
 /***/ },
-/* 688 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61892,7 +62362,7 @@
 
 
 /***/ },
-/* 689 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61905,7 +62375,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(690);
+	__webpack_require__(694);
 
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
@@ -61937,7 +62407,7 @@
 	module.exports = Wepage;
 
 /***/ },
-/* 690 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61981,7 +62451,7 @@
 	});
 
 /***/ },
-/* 691 */
+/* 695 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61995,9 +62465,9 @@
 	var _ = __webpack_require__(243);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
-	__webpack_require__(692);
+	__webpack_require__(696);
 
 	var UEditor = React.createClass({
 		displayName: 'UEditor',
@@ -62051,13 +62521,13 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 692 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(693);
+	var content = __webpack_require__(697);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -62066,8 +62536,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -62077,7 +62547,7 @@
 	}
 
 /***/ },
-/* 693 */
+/* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();

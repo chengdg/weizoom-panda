@@ -33,7 +33,7 @@ filter2field = {
 	'catalog_query': 'catalog_name'
 }
 
-product_status2text = {
+sales_status2text = {
 	0: u'未上架',
 	1: u'已上架'
 }
@@ -100,17 +100,22 @@ def getProductData(request, is_export):
 		 key.startswith('__f-')])
 	product_name = filter_dict.get('product_name', '')
 	catalog_name = filter_dict.get('catalog_name','')
+	product_status_value = filter_dict.get('product_status','0')
 
-	role = UserProfile.objects.get(user_id=request.user.id).role
-	if role == YUN_YING:
-		# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
-		# sync_product_ids = []
-		# for product_sync_weapp in product_sync_weapps:
-		# 	if product_sync_weapp.product_id not in sync_product_ids:
-		# 		sync_product_ids.append(product_sync_weapp.product_id)
-		products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
+	user_info = UserProfile.objects.filter(user_id=request.user.id)
+	if user_info:
+		role = user_info[0].role
+		if role == YUN_YING:
+			# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
+			# sync_product_ids = []
+			# for product_sync_weapp in product_sync_weapps:
+			# 	if product_sync_weapp.product_id not in sync_product_ids:
+			# 		sync_product_ids.append(product_sync_weapp.product_id)
+			products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
+		else:
+			products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 	else:
-		products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
+		products = []
 
 	# 查询
 	if product_name:
@@ -135,6 +140,26 @@ def getProductData(request, is_export):
 			if catalog_id in father_id2ids:
 				catalog_ids.extend(father_id2ids[catalog_id])
 		products = products.filter(catalog_id__in=catalog_ids)
+	if int(product_status_value)!=0:
+		product_ids = [product.id for product in products]
+		sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
+		has_sync_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
+
+		has_relation_weapps = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
+		has_relation_p_ids = set([has_relation_weapp.product_id for has_relation_weapp in has_relation_weapps])
+		if int(product_status_value)==1:#已入库
+			products = products.filter(id__in=has_sync_p_ids)
+	
+		if int(product_status_value)==2:#待入库
+			products = products.exclude(id__in=has_relation_p_ids)
+			products = products.exclude(id__in=has_sync_p_ids)
+			products = products.exclude(is_refused=True)
+
+		if int(product_status_value)==4:#入库驳回
+			all_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
+			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
+			products = products.filter(id__in=all_has_reject_p_ids)
+
 
 	if not is_export:
 		pageinfo, products = paginator.paginate(products, cur_page, 20, query_string=request.META['QUERY_STRING'])
@@ -227,7 +252,24 @@ def getProductData(request, is_export):
 							 for product_statu in product_status
 							 if product_statu.get('status') == 'on']
 
-
+	#入库状态数据
+	sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
+	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
+	reject_logs = models.ProductRejectLogs.objects.filter(product_id__in=product_ids)
+	has_reject_p_ids = [reject_log.product_id for reject_log in reject_logs]
+	product_id2reject_reasons = {}
+	for reject_log in reject_logs:
+		if product_id2reject_reasons.has_key(reject_log.product_id):
+			product_id2reject_reasons[reject_log.product_id].append({
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			})
+		else:
+			product_id2reject_reasons[reject_log.product_id] = [{
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			}]
+	
 	for product in products:
 		owner_id = product.owner_id
 		image_id = -1 if product.id not in product_id2image_id else product_id2image_id[product.id][0]
@@ -285,6 +327,18 @@ def getProductData(request, is_export):
 			second_level_name = product_catalog.name
 			first_level_name = '' if father_id not in id2product_catalog else id2product_catalog[father_id].name
 
+		#入库状态
+		product_status_text = u'待入库'
+		product_status_value = 0
+		if product.id in has_relation_p_ids:
+			product_status_text = u'已入库'
+			product_status_value = 1
+		elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
+			product_status_text = u'入库驳回'
+			product_status_value = 3
+
+		#入库驳回原因
+		reject_reasons = '' if product_status_value != 3 else json.dumps(product_id2reject_reasons[product.id])
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -299,7 +353,9 @@ def getProductData(request, is_export):
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,
-			'status': product_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
+			'product_status': product_status_text,
+			'product_status_value': product_status_value,
+			'status': sales_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
 			'sales': '%s' % sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
@@ -307,7 +363,8 @@ def getProductData(request, is_export):
 			'second_level_name': second_level_name,
 			'is_model': product.has_product_model,
 			'is_update': product.is_update,
-			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M')
+			'created_at': product.created_at.strftime('%Y-%m-%d %H:%M'),
+			'reject_reasons': reject_reasons
 		})
 	if is_export:
 		return rows
