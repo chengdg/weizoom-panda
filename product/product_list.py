@@ -233,31 +233,6 @@ def getProductData(request, is_export):
 			product_id2product_store[model_property.product_id].append(model_property.stocks)
 
 	rows = []
-	# 获取商品是否上线
-	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
-	product_2_weapp_product = {}
-	for relation in relations:
-		product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
-	
-	weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
-	resp = {}
-	if weapp_product_ids:
-		params = {
-			'product_ids': weapp_product_ids
-		}
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-			{
-				'resource': 'mall.product_status',
-				'data': params
-			}
-		)
-	# 已上架商品列表
-	product_shelve_on = []
-	if resp and resp.get('code') == 200:
-		product_status = resp.get('data').get('product_status')
-		product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
-							 for product_statu in product_status
-							 if product_statu.get('status') == 'on']
 
 	#入库状态数据
 	sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
