@@ -10,8 +10,7 @@ var _ = require('underscore');
 var Reactman = require('reactman');
 var W = Reactman.W;
 
-var TableStore = require('./TableStore');
-var Store = require('./Store');
+var ShipperTableStore = require('./ShipperTableStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
@@ -20,11 +19,13 @@ var AddShipperDialog = require('./AddShipperDialog.react');
 
 var ShipperTable = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return Store.getData();
+		ShipperTableStore.addListener(this.onChangeStore);
+		return ShipperTableStore.getData();
 	},
 
-	onChangeStore: function() {
+	onChangeStore: function(event) {
+		console.log("sssssssssssssssssss");
+		console.log(this.refs.table,"-------");
 		this.refs.table.refresh();
 	},
 
@@ -34,18 +35,37 @@ var ShipperTable = React.createClass({
 			component: AddShipperDialog,
 			data: {},
 			success: function() {
-				Action.updateTable();
+				Action.updateShipperTable();
 			}
 		});
 	},
 
+	deleteShipper: function(shipperId){
+		Action.deleteShipper(shipperId);
+	},
+
+	editShipper: function(shipperId){
+		Action.getShipperData(shipperId);
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "快递发货人",
+				component: AddShipperDialog,
+				data: {},
+				success: function() {
+					Action.updateShipperTable();
+				}
+			});
+		},100)
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
+			var shipperId = data['shipperId'];
 			return (
 				<div>
-					<a href="javascript:void(0);">编辑</a>
+					<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
 					<span>|</span>
-					<a href="javascript:void(0);">删除</a>
+					<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
 				</div>
 			);
 		}else {
@@ -62,7 +82,7 @@ var ShipperTable = React.createClass({
 		};
 
 		return (
-			<div className="xui-shipperManage-AccountManagerTable">
+			<div className="xui-shipperManageTable">
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar></Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="table">

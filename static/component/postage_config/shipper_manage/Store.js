@@ -16,8 +16,7 @@ var Constant = require('./Constant');
 
 var Store = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleChangeTable': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CHANGE_TABLE,
-		'handleUpdateTable': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_TABLE
+		'handleChangeTable': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CHANGE_TABLE
 	},
 
 	init: function() {
@@ -33,10 +32,6 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		}else{
 			this.data['accountOrShipper'] = 'account';
 		}
-		this.__emitChange();
-	},
-
-	handleUpdateTable: function(){
 		this.__emitChange();
 	},
 

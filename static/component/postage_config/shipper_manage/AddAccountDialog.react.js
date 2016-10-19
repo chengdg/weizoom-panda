@@ -9,48 +9,72 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var TableStore = require('./TableStore');
+var AccountTableStore = require('./AccountTableStore');
+// var DialogStore = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
 var AddCatalogDialog = Reactman.createDialog({
 	getInitialState: function() {
-		TableStore.addListener(this.onChangeStore);
-		return TableStore.getData();
+		AccountTableStore.addListener(this.onChangeStore);
+		return AccountTableStore.getData();
 	},
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateShipperMessages(property, value);
+		Action.updateAccountMessages(property, value);
 	},
 
 	onChangeStore: function(){
-		this.setState(TableStore.getData());
+		this.setState(AccountTableStore.getData());
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log("=========");
-
-		Reactman.Resource.put({
-			resource: 'postage_config.express_bill',
-			data: {
-				express_name: this.state.expressName,
-				customer_name: this.state.customerName,
-				customer_pwd: this.state.customerPwd,
-				logistics_number: this.state.logisticsNumber,
-				remark: this.state.remark,
-			},
-			success: function() {
-				this.closeDialog();
-				_.delay(function(){
-					Reactman.PageAction.showHint('success', '添加成功!');
-				},500);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
-			},
-			scope: this
-		})
+		var expressId = this.state.expressId;
+		if(expressId!=-1){
+			Reactman.Resource.post({
+				resource: 'postage_config.express_bill',
+				data: {
+					express_id: expressId,
+					express_name: this.state.expressName,
+					customer_name: this.state.customerName,
+					customer_pwd: this.state.customerPwd,
+					logistics_number: this.state.logisticsNumber,
+					remark: this.state.remark,
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '修改成功!');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}else{
+			Reactman.Resource.put({
+				resource: 'postage_config.express_bill',
+				data: {
+					express_name: this.state.expressName,
+					customer_name: this.state.customerName,
+					customer_pwd: this.state.customerPwd,
+					logistics_number: this.state.logisticsNumber,
+					remark: this.state.remark,
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '添加成功!');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}
 	},
 
 	render:function(){

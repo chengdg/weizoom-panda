@@ -9,14 +9,15 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var TableStore = require('./TableStore');
+var ShipperTableStore = require('./ShipperTableStore');
+// var DialogStore = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
 var AddCatalogDialog = Reactman.createDialog({
 	getInitialState: function() {
-		TableStore.addListener(this.onChangeStore);
-		return TableStore.getData();
+		ShipperTableStore.addListener(this.onChangeStore);
+		return ShipperTableStore.getData();
 	},
 
 	onChange: function(value, event) {
@@ -25,7 +26,7 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	onChangeStore: function(){
-		this.setState(TableStore.getData());
+		this.setState(ShipperTableStore.getData());
 	},
 
 	onSelectArea: function(selectedIds, selectedDatas) {
@@ -40,29 +41,54 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
-		console.log("=========");
-
-		Reactman.Resource.put({
-			resource: 'postage_config.shipper',
-			data: {
-				shipper_name: this.state.shipperName,
-				address: this.state.address,
-				postcode: this.state.postcode,
-				tel_number: this.state.telNumber,
-				company_name: this.state.companyName,
-				remark: this.state.remark,
-			},
-			success: function() {
-				this.closeDialog();
-				_.delay(function(){
-					Reactman.PageAction.showHint('success', '添加成功!');
-				},500);
-			},
-			error: function(data) {
-				Reactman.PageAction.showHint('error', data.errMsg);
-			},
-			scope: this
-		})
+		console.log(this.state.shipperId);
+		var shipperId = this.state.shipperId;
+		if(shipperId!=-1){
+			Reactman.Resource.post({
+				resource: 'postage_config.shipper',
+				data: {
+					shipper_id: shipperId,
+					shipper_name: this.state.shipperName,
+					address: this.state.address,
+					postcode: this.state.postcode,
+					tel_number: this.state.telNumber,
+					company_name: this.state.companyName,
+					remark: this.state.remark,
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '修改成功!');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}else{
+			Reactman.Resource.put({
+				resource: 'postage_config.shipper',
+				data: {
+					shipper_name: this.state.shipperName,
+					address: this.state.address,
+					postcode: this.state.postcode,
+					tel_number: this.state.telNumber,
+					company_name: this.state.companyName,
+					remark: this.state.remark,
+				},
+				success: function() {
+					this.closeDialog();
+					_.delay(function(){
+						Reactman.PageAction.showHint('success', '添加成功!');
+					},500);
+				},
+				error: function(data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			})
+		}
 	},
 
 	render:function(){

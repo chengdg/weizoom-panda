@@ -15,7 +15,17 @@ var Constant = require('./Constant');
 var Action = {
 	updateShipperMessages: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_MESSAGES,
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_SHIPPER_MESSAGES,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	updateAccountMessages: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_MESSAGES,
 			data: {
 				property: property,
 				value: value
@@ -32,9 +42,16 @@ var Action = {
 		});
 	},
 
-	updateTable: function(){
+	updateAccountTable: function(){
 		Dispatcher.dispatch({
-			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_TABLE,
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_TABLE,
+			data: {}
+		});
+	},
+
+	updateShipperTable: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_SHIPPER_TABLE,
 			data: {}
 		});
 	},
@@ -44,6 +61,58 @@ var Action = {
 			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CHANGE_TABLE,
 			data: {
 				status: status
+			}
+		});
+	},
+
+	getShipperData: function(shipperId){
+		Resource.get({
+			resource: 'postage_config.shipper',
+			data: {
+				'shipper_id': shipperId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_SHIPPER_DATA
+			}
+		});
+	},
+
+	deleteShipper: function(shipperId){
+		Resource.delete({
+			resource: 'postage_config.shipper',
+			data: {
+				'shipper_id': shipperId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_SHIPPER
+			}
+		});
+	},
+
+	getExpressBillAccount: function(expressId){
+		Resource.get({
+			resource: 'postage_config.express_bill',
+			data: {
+				'express_id': expressId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_EXPREEE_ACCOUNT
+			}
+		});
+	},
+
+	deleteExpressBillAccount: function(expressId){
+		Resource.delete({
+			resource: 'postage_config.express_bill',
+			data: {
+				'express_id': expressId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_EXPRESS_ACCOUNT
 			}
 		});
 	}

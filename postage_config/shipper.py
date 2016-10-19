@@ -27,15 +27,22 @@ class Shipper(resource.Resource):
 
 	@login_required
 	def api_get(request):
+		shipper_id = request.GET.get('shipper_id', None)
 		shipper_messages = models.ShipperMessage.objects.filter(owner = request.user)
+		if shipper_id:
+			shipper_messages = shipper_messages.filter(id=shipper_id)
+		
 		messages = []
 		for shipper_message in shipper_messages:
 			messages.append({
+				'shipperId': shipper_message.id,
 				'shipperName': shipper_message.shipper_name,
 				'telNumber': shipper_message.tel_number,
 				'destination': shipper_message.destination,
 				'address': shipper_message.address,
-				'postcode': shipper_message.postcode
+				'postcode': shipper_message.postcode,
+				'companyName': shipper_message.company_name,
+				'remark': shipper_message.remark
 			})
 
 		data = {
@@ -55,6 +62,7 @@ class Shipper(resource.Resource):
 		tel_number = request.POST.get('tel_number','')
 		company_name = request.POST.get('company_name','')
 		remark = request.POST.get('remark','')
+
 		models.ShipperMessage.objects.create(
 			owner = request.user,
 			shipper_name = shipper_name,
@@ -65,5 +73,34 @@ class Shipper(resource.Resource):
 			company_name= company_name,
 			remark = remark
 		)
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		shipper_id = request.POST.get('shipper_id',-1)
+		shipper_name = request.POST.get('shipper_name','')
+		address = request.POST.get('address','')
+		postcode = request.POST.get('postcode','')
+		tel_number = request.POST.get('tel_number','')
+		company_name = request.POST.get('company_name','')
+		remark = request.POST.get('remark','')
+
+		models.ShipperMessage.objects.filter(id=shipper_id).update(
+			shipper_name = shipper_name,
+			tel_number = tel_number,
+			destination = '',
+			address = address,
+			postcode = postcode,
+			company_name= company_name,
+			remark = remark
+		)
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_delete(request):
+		shipper_id = request.POST.get('shipper_id',-1)
+		models.ShipperMessage.objects.filter(id=shipper_id).delete()
 		response = create_response(200)
 		return response.get_response()

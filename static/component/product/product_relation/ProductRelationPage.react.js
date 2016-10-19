@@ -26,7 +26,7 @@ var ProductRelationPage = React.createClass({
 
 	onChangeStore: function(event) {
 		var filterOptions = Store.getFilter();
-		this.refs.table.refresh(filterOptions);  
+		this.refs.table.refresh(filterOptions);
 	},
 
 	componentDidMount: function() {

@@ -10,8 +10,7 @@ var _ = require('underscore');
 var Reactman = require('reactman');
 var W = Reactman.W;
 
-var TableStore = require('./TableStore');
-var Store = require('./Store');
+var AccountTableStore = require('./AccountTableStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 require('./style.css');
@@ -20,12 +19,13 @@ var AddAccountDialog = require('./AddAccountDialog.react');
 
 var AccountTable = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return Store.getData();
+		AccountTableStore.addListener(this.onChangeStore);
+		return AccountTableStore.getData();
 	},
 
 	onChangeStore: function() {
-		this.refs.table.refresh();
+		console.log(this.refs.accountTable,"ppppppppppppppp");
+		this.refs.accountTable.refresh();
 	},
 
 	addExpressBillAccount: function() {
@@ -34,18 +34,37 @@ var AccountTable = React.createClass({
 			component: AddAccountDialog,
 			data: {},
 			success: function() {
-				Action.updateTable();
+				Action.updateAccountTable();
 			}
 		});
 	},
 
+	editExpressBill: function(expressId){
+		Action.getExpressBillAccount(expressId);
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "电子面单账号",
+				component: AddAccountDialog,
+				data: {},
+				success: function() {
+					Action.updateAccountTable();
+				}
+			});
+		},100)
+	},
+
+	deleteExpressBill: function(expressId){
+		Action.deleteExpressBillAccount(expressId);
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
+			var expressId = data['expressId'];
 			return (
 				<div>
-					<a href="javascript:void(0);">编辑</a>
+					<a href="javascript:void(0);" onClick={this.editExpressBill.bind(this, expressId)}>编辑</a>
 					<span>|</span>
-					<a href="javascript:void(0);">删除</a>
+					<a href="javascript:void(0);" onClick={this.deleteExpressBill.bind(this, expressId)}>删除</a>
 				</div>
 			);
 		}else {
@@ -62,10 +81,12 @@ var AccountTable = React.createClass({
 		};
 
 		return (
-			<div className="xui-shipperManage-AccountManagerTable">
+			<div className="xui-AccountManagerTable">
 				<Reactman.TablePanel>
-					<Reactman.TableActionBar></Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="table">
+					<Reactman.TableActionBar>
+						
+					</Reactman.TableActionBar>
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="accountTable">
 						<Reactman.TableColumn name="快递公司" field="expressName" />
 						<Reactman.TableColumn name="商家号/ID(CustomerName)" field="customerName" width="300"/>
 						<Reactman.TableColumn name="商家密码(CustomerPwd)" field="customerPwd" />

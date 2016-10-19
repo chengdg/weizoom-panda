@@ -34,27 +34,34 @@ var ShipperManagePage = React.createClass({
 
 	render:function(){
 		var accountOrShipper = this.state.accountOrShipper;
-		if(accountOrShipper=='account'){
-			return (
-				<div className="mt15 xui-shipperManage-productListPage">
-					<div>
-						<a className="xui-shipperManage-button xui-active-btn" href="javascript:void(0);">电子免单账号配置</a>
-						<a className="xui-shipperManage-button" href="javascript:void(0);" onClick={this.changeTable.bind(this, 'account')}>发货人</a>
-					</div>
-					<AccountTable />
-				</div>
-			)
-		}else{
-			return (
-				<div className="mt15 xui-shipperManage-productListPage">
-					<div>
-						<a className="xui-shipperManage-button" href="javascript:void(0);" onClick={this.changeTable.bind(this, 'shipper')}>电子免单账号配置</a>
-						<a className="xui-shipperManage-button xui-active-btn" href="javascript:void(0);">发货人</a>
-					</div>
-					<ShipperTable />
-				</div>
-			)
-		}
+		// if(accountOrShipper=='account'){
+		// 	return (
+		// 		<div className="mt15 xui-shipperManage-productListPage">
+		// 			<div>
+		// 				<a className="xui-shipperManage-button xui-active-btn" href="javascript:void(0);">电子免单账号配置</a>
+		// 				<a className="xui-shipperManage-button" href="javascript:void(0);" onClick={this.changeTable.bind(this, 'account')}>发货人</a>
+		// 			</div>
+		// 			<AccountTable />
+		// 		</div>
+		// 	)
+		// }else{
+		// 	return (
+		// 		<div className="mt15 xui-shipperManage-productListPage">
+		// 			<div>
+		// 				<a className="xui-shipperManage-button" href="javascript:void(0);" onClick={this.changeTable.bind(this, 'shipper')}>电子免单账号配置</a>
+		// 				<a className="xui-shipperManage-button xui-active-btn" href="javascript:void(0);">发货人</a>
+		// 			</div>
+		// 			<ShipperTable />
+		// 		</div>
+		// 	)
+		// }
+
+		return (
+			<div className="mt15 xui-shipperManage-productListPage">
+				<AccountTable />
+				<ShipperTable />
+			</div>
+		)
 	}
 })
 module.exports = ShipperManagePage;

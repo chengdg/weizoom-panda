@@ -31,10 +31,12 @@ class ExpressBill(resource.Resource):
 		messages = []
 		for express_bill_account in express_bill_accounts:
 			messages.append({
+				'expressId': express_bill_account.id,
 				'expressName': express_bill_account.express_name,
 				'customerName': express_bill_account.customer_name,
 				'customerPwd': express_bill_account.customer_pwd,
-				'logisticsNumber': express_bill_account.logistics_number
+				'logisticsNumber': express_bill_account.logistics_number,
+				'remark': express_bill_account.remark
 			})
 
 		data = {
@@ -53,6 +55,7 @@ class ExpressBill(resource.Resource):
 		customer_pwd = request.POST.get('customer_pwd','')
 		logistics_number = request.POST.get('logistics_number','')
 		remark = request.POST.get('remark','')
+
 		models.ExpressBillAccount.objects.create(
 			owner = request.user,
 			express_name = express_name,
@@ -63,3 +66,30 @@ class ExpressBill(resource.Resource):
 		)
 		response = create_response(200)
 		return response.get_response()
+
+	@login_required
+	def api_post(request):
+		express_id = request.POST.get('express_id',-1)
+		express_name = request.POST.get('express_name','')
+		customer_name = request.POST.get('customer_name','')
+		customer_pwd = request.POST.get('customer_pwd','')
+		logistics_number = request.POST.get('logistics_number','')
+		remark = request.POST.get('remark','')
+
+		models.ExpressBillAccount.objects.filter(id=express_id).update(
+			express_name = express_name,
+			customer_name = customer_name,
+			customer_pwd = customer_pwd,
+			logistics_number = logistics_number,
+			remark = remark
+		)
+		response = create_response(200)
+		return response.get_response()
+
+	@login_required
+	def api_delete(request):
+		express_id = request.POST.get('express_id',-1)
+		models.ExpressBillAccount.objects.filter(id=express_id).delete()
+		response = create_response(200)
+		return response.get_response()
+
