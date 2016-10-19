@@ -156,8 +156,9 @@ def getProductData(request, is_export):
 			products = products.exclude(is_refused=True)
 
 		if int(product_status_value)==4:#入库驳回
+			products = products.exclude(id__in=has_sync_p_ids)
 			all_reject_p_ids = [product.id for product in products.filter(is_refused=True)] #所有驳回状态的id
-			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(id__in=all_reject_p_ids)] #是入库驳回的商品id
+			all_has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=all_reject_p_ids)] #是入库驳回的商品id
 			products = products.filter(id__in=all_has_reject_p_ids)
 
 
