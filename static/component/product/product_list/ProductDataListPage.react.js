@@ -181,6 +181,23 @@ var ProductDataListPage = React.createClass({
 					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
 				</div>
 			);
+		} else if (field === 'product_store') {
+			var store_short = data['store_short'];
+			if (store_short){
+			    return (
+                    <div>
+                        <span style={{color: 'red'}}>{data['product_store']}</span><br></br>
+
+                    </div>
+                );
+			}else{
+			    return (
+                    <div>
+                        <span>{data['product_store']}</span><br></br>
+                    </div>
+                );
+			}
+
 		} else {
 			return value;
 		}
@@ -231,6 +248,7 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="售价(元)" field="product_price" />
 							<Reactman.TableColumn name="结算价(元)" field="clear_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
+							<Reactman.TableColumn name="库存" field="product_store" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
 							<Reactman.TableColumn name="入库状态" field="product_status" />
 							<Reactman.TableColumn name="销售状态" field="status" />
@@ -262,6 +280,7 @@ var ProductDataListPage = React.createClass({
 							<Reactman.TableColumn name="分类" field="catalog_name" />
 							<Reactman.TableColumn name="售价(元)" field="product_price" />
 							<Reactman.TableColumn name="销量" field="sales" />
+							<Reactman.TableColumn name="库存" field="product_store" />
 							<Reactman.TableColumn name="创建时间" field="created_at" />
 							<Reactman.TableColumn name="入库状态" field="product_status" />
 							<Reactman.TableColumn name="销售状态" field="status" />

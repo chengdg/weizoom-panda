@@ -353,7 +353,7 @@ var NewProductPage = React.createClass({
 							<span className="xui-catalog-name">{catalogName}</span>
 							<a className="ml10" href="javascript:void(0);" onClick={this.updateProductCatalog}>修改</a>
 						</span>
-						<Reactman.FormInput label="商品名称:" type="text" readonly={disabled} name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
+						<Reactman.FormInput label="商品名称:" type="text"  name="product_name" value={this.state.product_name} onChange={this.onChange} validate="require-string" placeholder="最多30个字" />
 						<Reactman.FormInput label="促销标题:" type="text" readonly={disabled} name="promotion_title" value={this.state.promotion_title} placeholder="最多30个字" onChange={this.onChange} />
 						<Reactman.FormRadio label="多规格商品:" type="text" validate="require-string" name="has_product_model" value={this.state.has_product_model} options={optionsForModel} onChange={this.onChange} />
 						<div> <ProductModelInfo Disabled={disabled} onChange={this.onChange} Modeltype={this.state.has_product_model}/> </div>	
