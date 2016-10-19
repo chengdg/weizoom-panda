@@ -172,5 +172,5 @@ def get_product_status(product_id=None):
 
 def get_product_reject_reason(product=None):
 	logs = models.ProductRejectLogs.objects.filter(product_id=product.id)
-	return [{'comment_at': log.created_at,
+	return [{'comment_at': log.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 			 'reject_info': log.reject_reasons} for log in logs if logs]
