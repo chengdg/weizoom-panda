@@ -80,7 +80,8 @@ class CustomerOrderDetail(resource.Resource):
 
 def getOrderDetail(order_id, request):
 	products = product_models.Product.objects.filter(owner_id=request.user.id)
-	product_images = product_models.ProductImage.objects.all().order_by('-id')
+	product_ids = [product.id for product in products]
+	product_images = product_models.ProductImage.objects.filter(product_id__in=product_ids).order_by('-id')
 	user_profile = account_models.UserProfile.objects.filter(user_id=request.user.id).first()
 
 	purchase_method = user_profile.purchase_method #采购方式
@@ -121,7 +122,7 @@ def getOrderDetail(order_id, request):
 		print(e)
 
 	#构造panda数据库内商品id，与云商通内商品id的关系
-	product_has_relations = product_models.ProductHasRelationWeapp.objects.exclude(weapp_product_id='')
+	product_has_relations = product_models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids).exclude(weapp_product_id='')
 	product_weapp_id2product_id = {}
 	for product_has_relation in product_has_relations:
 		weapp_product_ids = product_has_relation.weapp_product_id.split(';')
