@@ -133,12 +133,18 @@ def get_product_status(product_id=None):
 	"""
 	获取商品状态
 	"""
-	push_status = '未同步'
+	push_status = '待入库'
 	product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
 	account_count = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
+	product_info = models.Product.objects.get(id=product_id)
 	if product_relation:
 		if account_count == 0:
 			push_status = '已入库,已停售'
+		elif product_info.is_refused: #同步状态下的驳回算作修改驳回
+			push_status = '修改驳回'
 		else:
 			push_status = '已入库,已同步'
+	else:
+		if product_info.is_refused: #未同步状态下的驳回算作入库驳回
+			push_status = '入库驳回'
 	return push_status

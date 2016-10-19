@@ -27,7 +27,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
 		'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
 		'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
-		'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS
+		'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
+		'handleProductRefused': Constant.PRODUCT_REJECT_REFUSED
 	},
 
 	init: function() {
@@ -156,7 +157,22 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	getFilter: function() {
 		return this.data.filterOptions;
-	}
+	},
+
+	handleProductRefused: function(action){
+		if(action.data['code']==200){
+			this.data.reasons = [];
+			this.data.custom_reason = '';
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('success', '驳回成功');
+			}, 10);
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', '驳回失败');
+			}, 10);
+		}
+		this.__emitChange();
+	},
 });
 
 module.exports = Store;

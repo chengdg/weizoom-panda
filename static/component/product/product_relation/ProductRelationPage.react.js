@@ -12,7 +12,7 @@ var Reactman = require('reactman');
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
-
+var ProductRelationUnPassDialog = require('./ProductRelationUnPassDialog.react');
 var ChooseSyncSelfShopDialog = require('./ChooseSyncSelfShopDialog.react');
 var AddLabelDialog = require('../.././product_catalog/product_catalogs/AddLabelDialog.react');
 var ProductCatalogAction = require('../.././product_catalog/product_catalogs/Action');
@@ -74,6 +74,34 @@ var ProductRelationPage = React.createClass({
 		});
 	},
 
+	batchRejectProduct: function() {
+		//取消选中的商品
+		Action.cancleSelectSyncProduct();
+		var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+		var status = _.pluck(this.refs.table.getSelectedDatas(), 'product_status_value');
+		for(var i in status){
+			if(status[i] != 0){
+				Reactman.PageAction.showHint('error', '操作失败，仅待入库的商品可进行驳回操作!');
+				return false;
+			}
+		}
+		if (productIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要驳回的商品!');
+			return false;
+		}
+
+		Reactman.PageAction.showDialog({
+			title: "商品驳回",
+			component: ProductRelationUnPassDialog,
+			data: {
+				product_id: productIds.join(",")
+			},
+			success: function(inputData, dialogState) {
+				console.log("success");
+			}
+		});
+	},
+
 	onClickDelete: function(productId, event) {
 		var title = '确定删除么?';
 		Reactman.PageAction.showConfirm({
@@ -84,7 +112,21 @@ var ProductRelationPage = React.createClass({
 			}, this)
 		});
 	},
-
+	onClickUnPass: function(product_id, event) {
+		Action.cancleCheckedUnpassReason();
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: ProductRelationUnPassDialog,
+				data: {
+					product_id: product_id
+				},
+				success: function() {
+					console.log('success');
+				}
+			});
+		},100)
+	},
 	onAddLabel: function(event) {
 		var catalogId = event.target.getAttribute('data-catalog-id');
 		var productId = event.target.getAttribute('data-id');
@@ -126,26 +168,41 @@ var ProductRelationPage = React.createClass({
 			)
 		} else if(field === 'action'){
 			if(data['product_status_value']==0){
-				//未同步
+				//待入库
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-primary ml10" onClick={this.onClickUnPass.bind(this,data['id'])}>驳回修改</a>
+						<a className="btn btn-danger mt5" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
 					</div>
 				)
 			}else if(data['product_status_value']==1){
 				//已入库,已同步
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
 					</div>
 				)
-			}else{
+			}else if(data['product_status_value']==2){
 				//已入库,已停售
 				return(
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
+						<a className="btn btn-danger ml10" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+					</div>
+				)
+			}else if(data['product_status_value']==3){
+				//入库驳回
+				return(
+					<div>
+						<a className="btn btn-danger" onClick={this.onClickDelete.bind(this,data['id'])}>删除商品</a>
+					</div>
+				)
+			}else if(data['product_status_value']==4){
+				//修改驳回
+				return(
+					<div>
+						<a className="btn btn-primary" onClick={this.chooseSyncSelfShop.bind(this,data['id'], data['product_status_value'])}>同步商品</a>
 					</div>
 				)
 			}	
@@ -214,7 +271,7 @@ var ProductRelationPage = React.createClass({
 				second_catalog_id: W.second_catalog_id
 			}
 		};
-		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '未同步', value: '2'}];
+		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库,已同步', value: '1'},{text: '已入库,已停售', value: '3'},{text: '入库驳回', value: '4'},{text: '修改驳回', value: '5'}];
 		return (
 			<div className="mt15 xui-product-productRelationPage">
 				<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
@@ -226,7 +283,7 @@ var ProductRelationPage = React.createClass({
 							<Reactman.FormInput label="商品名称:" name="product_name_query" match="=" />
 						</Reactman.FilterField>
 						<Reactman.FilterField>
-							<Reactman.FormSelect label="状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
+							<Reactman.FormSelect label="入库状态:" name="product_status_query" options={optionsForProductStatus} match="=" />
 						</Reactman.FilterField>
 					</Reactman.FilterRow>
 					<Reactman.FilterRow>
@@ -239,6 +296,7 @@ var ProductRelationPage = React.createClass({
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="批量同步" onClick={this.batchSyncProduct}/>
 						<Reactman.TableActionButton text="导出商品" onClick={this.onExport}/>
+						<Reactman.TableActionButton text="批量驳回" onClick={this.batchRejectProduct}/>
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 						<Reactman.TableColumn name="商品名称" field="product_name" />
@@ -246,8 +304,8 @@ var ProductRelationPage = React.createClass({
 						<Reactman.TableColumn name="分类" field="catalog_name" />
 						<Reactman.TableColumn name="来源" field="customer_from_text" />
 						<Reactman.TableColumn name="总销量" field="total_sales" />
-						<Reactman.TableColumn name="状态" field="product_status" />
-						<Reactman.TableColumn name="操作" field="action" />
+						<Reactman.TableColumn name="入库状态" field="product_status" />
+						<Reactman.TableColumn name="操作" field="action" width='200px' />
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>

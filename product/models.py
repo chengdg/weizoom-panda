@@ -31,7 +31,7 @@ class Product(models.Model):
 	has_product_model = models.BooleanField(default=False) #是否是多规格商品
 	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
 	is_update = models.BooleanField(default=False) #是否更新
-	is_refused = models.BooleanField(default=False) #是否驳回
+	is_refused = models.BooleanField(default=False) #是否驳回(入库驳回或修改驳回)
 	refuse_reason = models.TextField(null=True) #驳回原因
 	is_deleted = models.BooleanField(default=False)
 	limit_zone_type = models.IntegerField(default=NO_LIMIT)
@@ -253,3 +253,15 @@ class ProductRevokeLogs(models.Model):
 
 	class Meta(object):
 		db_table = 'product_revoke_logs'
+
+
+class ProductRejectLogs(models.Model):
+	"""
+	商品驳回日志（待入库状态被驳回）
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	reject_reasons = models.CharField(max_length=1024, default='') #驳回原因
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta(object):
+		db_table = 'product_reject_logs'

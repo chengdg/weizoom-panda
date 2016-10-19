@@ -19861,44 +19861,44 @@
 	var Resource = __webpack_require__(249);
 	var Validater = __webpack_require__(260);
 	var W = __webpack_require__(267);
-	var Algorithm = __webpack_require__(570);
-	var User = __webpack_require__(571);
+	var Algorithm = __webpack_require__(574);
+	var User = __webpack_require__(575);
 
-	var FormInput = __webpack_require__(572);
-	var FormStaticText = __webpack_require__(573);
-	var FormRangeInput = __webpack_require__(574);
-	var FormDateTimeInput = __webpack_require__(575);
-	var FormDateRangeInput = __webpack_require__(578);
-	var FormSelect = __webpack_require__(579);
-	var FormSubmit = __webpack_require__(580);
-	var FormRadio = __webpack_require__(581);
-	var FormCheckbox = __webpack_require__(582);
-	var BooleanCheckbox = __webpack_require__(583);
-	var FormText = __webpack_require__(584);
-	var FormRichTextInput = __webpack_require__(585);
-	var FormImageUploader = __webpack_require__(590);
-	var FormFileUploader = __webpack_require__(593);
-	var Table = __webpack_require__(596);
-	var TablePanel = __webpack_require__(605);
-	var TableActionBar = __webpack_require__(606);
-	var TableActionButton = __webpack_require__(607);
-	var TableColumn = __webpack_require__(608);
-	var TableAction = __webpack_require__(602);
-	var Tabs = __webpack_require__(609);
-	var Tab = __webpack_require__(612);
-	var Pagination = __webpack_require__(597);
-	var FilterPanel = __webpack_require__(613);
-	var FilterRow = __webpack_require__(619);
-	var FilterField = __webpack_require__(620);
+	var FormInput = __webpack_require__(576);
+	var FormStaticText = __webpack_require__(577);
+	var FormRangeInput = __webpack_require__(578);
+	var FormDateTimeInput = __webpack_require__(579);
+	var FormDateRangeInput = __webpack_require__(582);
+	var FormSelect = __webpack_require__(583);
+	var FormSubmit = __webpack_require__(584);
+	var FormRadio = __webpack_require__(585);
+	var FormCheckbox = __webpack_require__(586);
+	var BooleanCheckbox = __webpack_require__(587);
+	var FormText = __webpack_require__(588);
+	var FormRichTextInput = __webpack_require__(589);
+	var FormImageUploader = __webpack_require__(594);
+	var FormFileUploader = __webpack_require__(597);
+	var Table = __webpack_require__(600);
+	var TablePanel = __webpack_require__(609);
+	var TableActionBar = __webpack_require__(610);
+	var TableActionButton = __webpack_require__(611);
+	var TableColumn = __webpack_require__(612);
+	var TableAction = __webpack_require__(606);
+	var Tabs = __webpack_require__(613);
+	var Tab = __webpack_require__(616);
+	var Pagination = __webpack_require__(601);
+	var FilterPanel = __webpack_require__(617);
+	var FilterRow = __webpack_require__(623);
+	var FilterField = __webpack_require__(624);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(621);
-	var Chart = __webpack_require__(624);
-	var ChartActionBar = __webpack_require__(630);
-	var ProvinceCitySelect = __webpack_require__(631);
+	var Widget = __webpack_require__(625);
+	var Chart = __webpack_require__(628);
+	var ChartActionBar = __webpack_require__(634);
+	var ProvinceCitySelect = __webpack_require__(635);
 
-	var WepageEditor = __webpack_require__(639);
-	var Wepage = __webpack_require__(689);
-	var UEditor = __webpack_require__(691);
+	var WepageEditor = __webpack_require__(643);
+	var Wepage = __webpack_require__(693);
+	var UEditor = __webpack_require__(695);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -24870,7 +24870,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.wui-globalErrorPanel {\n    position: fixed;\n    top: -100px;\n    left: 50%;\n    margin-left: -225px;\n    width: 450px;\n    height: 40px;\n    z-index: 1100;\n    opacity: 0.9;\n    padding: 10px 20px;\n    color: #FFF;\n    font-size: 14px;\n    border-radius: 4px;\n    font-family: \"\\5B8B\\4F53\";\n    opacity: 0;\n    border:0;\n}\n.wui-globalErrorPanel.alert-success {\n    background-color: #82d588;\n}\n.wui-globalErrorPanel.alert-danger {\n    background-color: #FD7171;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.wui-globalErrorPanel {\r\n    position: fixed;\r\n    top: -100px;\r\n    left: 50%;\r\n    margin-left: -225px;\r\n    width: 450px;\r\n    height: 40px;\r\n    z-index: 1100;\r\n    opacity: 0.9;\r\n    padding: 10px 20px;\r\n    color: #FFF;\r\n    font-size: 14px;\r\n    border-radius: 4px;\r\n    font-family: \"\\5B8B\\4F53\";\r\n    opacity: 0;\r\n    border:0;\r\n}\r\n.wui-globalErrorPanel.alert-success {\r\n    background-color: #82d588;\r\n}\r\n.wui-globalErrorPanel.alert-danger {\r\n    background-color: #FD7171;\r\n}", ""]);
 
 	// exports
 
@@ -25298,7 +25298,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n#spin {\n    float: left;\n    height: 80px;\n    width: 100px;\n}\n#spin-wrapper {\n    background-color: #888;\n    opacity: 0.8;\n    -webkit-border-radius: 8px;\n    -moz-border-radius: 8px;\n    border-radius: 8px;\n    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);\n    -moz-box-shadow:    2px 2px 5px rgba(0, 0, 0, 0.75);\n    box-shadow:         2px 2px 5px rgba(0, 0, 0, 0.75);\n    color: #FFF;\n    display: none;\n    font-size: 14px;\n    height: 120px;\n    left: 50%;\n    position: fixed;\n    margin-left: -60px;\n    top: 200px;\n    width: 120px;\n    z-index: 10000;\n    padding: 10px;\n}\n#spin .spinner {\n    left: 50% !important;\n    top: 50% !important;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n#spin {\r\n    float: left;\r\n    height: 80px;\r\n    width: 100px;\r\n}\r\n#spin-wrapper {\r\n    background-color: #888;\r\n    opacity: 0.8;\r\n    -webkit-border-radius: 8px;\r\n    -moz-border-radius: 8px;\r\n    border-radius: 8px;\r\n    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    -moz-box-shadow:    2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    box-shadow:         2px 2px 5px rgba(0, 0, 0, 0.75);\r\n    color: #FFF;\r\n    display: none;\r\n    font-size: 14px;\r\n    height: 120px;\r\n    left: 50%;\r\n    position: fixed;\r\n    margin-left: -60px;\r\n    top: 200px;\r\n    width: 120px;\r\n    z-index: 10000;\r\n    padding: 10px;\r\n}\r\n#spin .spinner {\r\n    left: 50% !important;\r\n    top: 50% !important;\r\n}", ""]);
 
 	// exports
 
@@ -25880,7 +25880,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-dialog {\n}\n", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-dialog {\r\n}\r\n", ""]);
 
 	// exports
 
@@ -26250,7 +26250,7 @@
 
 
 	// module
-	exports.push([module.id, ".popover-footer {\n  background: #eaeef7;\n}\n.popover {\n  max-width: 99999px;\n}\n", ""]);
+	exports.push([module.id, ".popover-footer {\r\n  background: #eaeef7;\r\n}\r\n.popover {\r\n  max-width: 99999px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -34981,6 +34981,11 @@
 		"./product/product_relation/ProductRelation.css": 511,
 		"./product/product_relation/ProductRelationPage.react": 513,
 		"./product/product_relation/ProductRelationPage.react.js": 513,
+		"./product/product_relation/ProductRelationUnPassDialog.css": 516,
+		"./product/product_relation/ProductRelationUnPassDialog.react": 514,
+		"./product/product_relation/ProductRelationUnPassDialog.react.js": 514,
+		"./product/product_relation/ProductRelationUnPassDialogStore": 515,
+		"./product/product_relation/ProductRelationUnPassDialogStore.js": 515,
 		"./product/product_relation/RevokeSelfShop.css": 507,
 		"./product/product_relation/RevokeSelfShopStore": 506,
 		"./product/product_relation/RevokeSelfShopStore.js": 506,
@@ -34989,94 +34994,94 @@
 		"./product/product_relation/Store": 504,
 		"./product/product_relation/Store.js": 504,
 		"./product/product_relation/style.css": 509,
-		"./product/product_updated/Action": 521,
-		"./product/product_updated/Action.js": 521,
-		"./product/product_updated/Constant": 522,
-		"./product/product_updated/Constant.js": 522,
-		"./product/product_updated/ProductUpdatedPage.react": 523,
-		"./product/product_updated/ProductUpdatedPage.react.js": 523,
-		"./product/product_updated/Store": 524,
-		"./product/product_updated/Store.js": 524,
-		"./product/product_updated/UnPassDialog.css": 527,
-		"./product/product_updated/UnPassDialog.react": 525,
-		"./product/product_updated/UnPassDialog.react.js": 525,
-		"./product/product_updated/UnPassDialogStore": 526,
-		"./product/product_updated/UnPassDialogStore.js": 526,
-		"./product/product_updated/style.css": 529,
-		"./product_catalog/product_catalogs/Action": 516,
-		"./product_catalog/product_catalogs/Action.js": 516,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react": 531,
-		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 531,
-		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react": 533,
-		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react.js": 533,
-		"./product_catalog/product_catalogs/AddLabelDialog.react": 514,
-		"./product_catalog/product_catalogs/AddLabelDialog.react.js": 514,
-		"./product_catalog/product_catalogs/AddLabelDialogStore": 518,
-		"./product_catalog/product_catalogs/AddLabelDialogStore.js": 518,
-		"./product_catalog/product_catalogs/Constant": 517,
-		"./product_catalog/product_catalogs/Constant.js": 517,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react": 534,
-		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 534,
-		"./product_catalog/product_catalogs/ProductModel.react": 515,
-		"./product_catalog/product_catalogs/ProductModel.react.js": 515,
-		"./product_catalog/product_catalogs/Store": 532,
-		"./product_catalog/product_catalogs/Store.js": 532,
-		"./product_catalog/product_catalogs/style.css": 519,
-		"./product_limit_zone/Action": 535,
-		"./product_limit_zone/Action.js": 535,
-		"./product_limit_zone/AddLimitZoneTemplateDialog.react": 537,
-		"./product_limit_zone/AddLimitZoneTemplateDialog.react.js": 537,
-		"./product_limit_zone/Constant": 536,
-		"./product_limit_zone/Constant.js": 536,
-		"./product_limit_zone/LimitZoneText.react": 539,
-		"./product_limit_zone/LimitZoneText.react.js": 539,
-		"./product_limit_zone/ProductLimitZone.react": 540,
-		"./product_limit_zone/ProductLimitZone.react.js": 540,
-		"./product_limit_zone/Store": 538,
-		"./product_limit_zone/Store.js": 538,
-		"./product_limit_zone/style.css": 541,
-		"./self_shop/manage/Action": 543,
-		"./self_shop/manage/Action.js": 543,
-		"./self_shop/manage/AddSelfShopDialog.react": 545,
-		"./self_shop/manage/AddSelfShopDialog.react.js": 545,
-		"./self_shop/manage/Constant": 544,
-		"./self_shop/manage/Constant.js": 544,
-		"./self_shop/manage/SelfShopManagePage.react": 549,
-		"./self_shop/manage/SelfShopManagePage.react.js": 549,
-		"./self_shop/manage/Store": 546,
-		"./self_shop/manage/Store.js": 546,
-		"./self_shop/manage/style.css": 547,
-		"./station_message/customer_messages/Action": 550,
-		"./station_message/customer_messages/Action.js": 550,
-		"./station_message/customer_messages/Attachments.react": 552,
-		"./station_message/customer_messages/Attachments.react.js": 552,
-		"./station_message/customer_messages/Constant": 551,
-		"./station_message/customer_messages/Constant.js": 551,
-		"./station_message/customer_messages/StationMessages.react": 556,
-		"./station_message/customer_messages/StationMessages.react.js": 556,
-		"./station_message/customer_messages/Store": 553,
-		"./station_message/customer_messages/Store.js": 553,
-		"./station_message/customer_messages/style.css": 554,
-		"./station_message/message/Action": 557,
-		"./station_message/message/Action.js": 557,
-		"./station_message/message/Constant": 558,
-		"./station_message/message/Constant.js": 558,
-		"./station_message/message/StationCustomerMessage.react": 559,
-		"./station_message/message/StationCustomerMessage.react.js": 559,
-		"./station_message/message/StationMessage.react": 563,
-		"./station_message/message/StationMessage.react.js": 563,
-		"./station_message/message/Store": 560,
-		"./station_message/message/Store.js": 560,
-		"./station_message/message/style.css": 561,
-		"./station_message/message_list/Action": 564,
-		"./station_message/message_list/Action.js": 564,
-		"./station_message/message_list/Constant": 565,
-		"./station_message/message_list/Constant.js": 565,
-		"./station_message/message_list/StationMessageList.react": 566,
-		"./station_message/message_list/StationMessageList.react.js": 566,
-		"./station_message/message_list/Store": 567,
-		"./station_message/message_list/Store.js": 567,
-		"./station_message/message_list/style.css": 568
+		"./product/product_updated/Action": 525,
+		"./product/product_updated/Action.js": 525,
+		"./product/product_updated/Constant": 526,
+		"./product/product_updated/Constant.js": 526,
+		"./product/product_updated/ProductUpdatedPage.react": 527,
+		"./product/product_updated/ProductUpdatedPage.react.js": 527,
+		"./product/product_updated/Store": 528,
+		"./product/product_updated/Store.js": 528,
+		"./product/product_updated/UnPassDialog.css": 531,
+		"./product/product_updated/UnPassDialog.react": 529,
+		"./product/product_updated/UnPassDialog.react.js": 529,
+		"./product/product_updated/UnPassDialogStore": 530,
+		"./product/product_updated/UnPassDialogStore.js": 530,
+		"./product/product_updated/style.css": 533,
+		"./product_catalog/product_catalogs/Action": 520,
+		"./product_catalog/product_catalogs/Action.js": 520,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react": 535,
+		"./product_catalog/product_catalogs/AddCatalogDialog.react.js": 535,
+		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react": 537,
+		"./product_catalog/product_catalogs/AddCatalogQualificationDialog.react.js": 537,
+		"./product_catalog/product_catalogs/AddLabelDialog.react": 518,
+		"./product_catalog/product_catalogs/AddLabelDialog.react.js": 518,
+		"./product_catalog/product_catalogs/AddLabelDialogStore": 522,
+		"./product_catalog/product_catalogs/AddLabelDialogStore.js": 522,
+		"./product_catalog/product_catalogs/Constant": 521,
+		"./product_catalog/product_catalogs/Constant.js": 521,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react": 538,
+		"./product_catalog/product_catalogs/ProductCatalogPage.react.js": 538,
+		"./product_catalog/product_catalogs/ProductModel.react": 519,
+		"./product_catalog/product_catalogs/ProductModel.react.js": 519,
+		"./product_catalog/product_catalogs/Store": 536,
+		"./product_catalog/product_catalogs/Store.js": 536,
+		"./product_catalog/product_catalogs/style.css": 523,
+		"./product_limit_zone/Action": 539,
+		"./product_limit_zone/Action.js": 539,
+		"./product_limit_zone/AddLimitZoneTemplateDialog.react": 541,
+		"./product_limit_zone/AddLimitZoneTemplateDialog.react.js": 541,
+		"./product_limit_zone/Constant": 540,
+		"./product_limit_zone/Constant.js": 540,
+		"./product_limit_zone/LimitZoneText.react": 543,
+		"./product_limit_zone/LimitZoneText.react.js": 543,
+		"./product_limit_zone/ProductLimitZone.react": 544,
+		"./product_limit_zone/ProductLimitZone.react.js": 544,
+		"./product_limit_zone/Store": 542,
+		"./product_limit_zone/Store.js": 542,
+		"./product_limit_zone/style.css": 545,
+		"./self_shop/manage/Action": 547,
+		"./self_shop/manage/Action.js": 547,
+		"./self_shop/manage/AddSelfShopDialog.react": 549,
+		"./self_shop/manage/AddSelfShopDialog.react.js": 549,
+		"./self_shop/manage/Constant": 548,
+		"./self_shop/manage/Constant.js": 548,
+		"./self_shop/manage/SelfShopManagePage.react": 553,
+		"./self_shop/manage/SelfShopManagePage.react.js": 553,
+		"./self_shop/manage/Store": 550,
+		"./self_shop/manage/Store.js": 550,
+		"./self_shop/manage/style.css": 551,
+		"./station_message/customer_messages/Action": 554,
+		"./station_message/customer_messages/Action.js": 554,
+		"./station_message/customer_messages/Attachments.react": 556,
+		"./station_message/customer_messages/Attachments.react.js": 556,
+		"./station_message/customer_messages/Constant": 555,
+		"./station_message/customer_messages/Constant.js": 555,
+		"./station_message/customer_messages/StationMessages.react": 560,
+		"./station_message/customer_messages/StationMessages.react.js": 560,
+		"./station_message/customer_messages/Store": 557,
+		"./station_message/customer_messages/Store.js": 557,
+		"./station_message/customer_messages/style.css": 558,
+		"./station_message/message/Action": 561,
+		"./station_message/message/Action.js": 561,
+		"./station_message/message/Constant": 562,
+		"./station_message/message/Constant.js": 562,
+		"./station_message/message/StationCustomerMessage.react": 563,
+		"./station_message/message/StationCustomerMessage.react.js": 563,
+		"./station_message/message/StationMessage.react": 567,
+		"./station_message/message/StationMessage.react.js": 567,
+		"./station_message/message/Store": 564,
+		"./station_message/message/Store.js": 564,
+		"./station_message/message/style.css": 565,
+		"./station_message/message_list/Action": 568,
+		"./station_message/message_list/Action.js": 568,
+		"./station_message/message_list/Constant": 569,
+		"./station_message/message_list/Constant.js": 569,
+		"./station_message/message_list/StationMessageList.react": 570,
+		"./station_message/message_list/StationMessageList.react.js": 570,
+		"./station_message/message_list/Store": 571,
+		"./station_message/message_list/Store.js": 571,
+		"./station_message/message_list/style.css": 572
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -35502,7 +35507,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\n    background: #fff;\n}\n.money_note {\n    position: absolute;\n    display: inline-block;\n    height: 34px;\n    line-height: 34px;\n    margin-bottom: 15px;\n    margin-left: 15px;\n}\n.account-create-purchase-method div:nth-child(1) {\n    display: inline-block;\n}\ninput[name=company_money] {\n    width: 200px;\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.money_note {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=company_money] {\r\n    width: 200px;\r\n}", ""]);
 
 	// exports
 
@@ -36653,7 +36658,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\n    background: #fff;\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -37026,7 +37031,7 @@
 
 
 	// module
-	exports.push([module.id, ".xa-scales-div{\n\tmin-height:5px;\n\twidth:100px;\n\tmargin:auto;\n\tmargin-top:8px;\n    margin-left: 0;\n\tborder:2px solid #0099ff;\n\tcursor: pointer;\n\toverflow: hidden;\n}\n.xa-scale-div{\n\tmin-height:5px;\n\tbackground-color:#0099ff;\n}", ""]);
+	exports.push([module.id, ".xa-scales-div{\r\n\tmin-height:5px;\r\n\twidth:100px;\r\n\tmargin:auto;\r\n\tmargin-top:8px;\r\n    margin-left: 0;\r\n\tborder:2px solid #0099ff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n}\r\n.xa-scale-div{\r\n\tmin-height:5px;\r\n\tbackground-color:#0099ff;\r\n}", ""]);
 
 	// exports
 
@@ -37282,7 +37287,7 @@
 
 
 	// module
-	exports.push([module.id, "fieldset div:nth-child(2), \nfieldset div:nth-child(4){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n}\n\nfieldset div:nth-child(2) label,\nfieldset div:nth-child(4) label{\n\tdisplay: none;\n\tvertical-align: top;\n}\n\nfieldset div:nth-child(2) div,\nfieldset div:nth-child(4) div{\n\twidth: 100% !important;\n}\n\nfieldset{\n    margin-left: 90px;\n}\n\n.save-btn div{\n\tmargin-left: 0px !important;\n}\n\n.save-btn div label{\n\tdisplay: none;\n}", ""]);
+	exports.push([module.id, "fieldset div:nth-child(2), \r\nfieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n}\r\n\r\nfieldset div:nth-child(2) label,\r\nfieldset div:nth-child(4) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\nfieldset div:nth-child(2) div,\r\nfieldset div:nth-child(4) div{\r\n\twidth: 100% !important;\r\n}\r\n\r\nfieldset{\r\n    margin-left: 90px;\r\n}\r\n\r\n.save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}", ""]);
 
 	// exports
 
@@ -37523,7 +37528,7 @@
 
 
 	// module
-	exports.push([module.id, ".save-btn div{\n\tmargin-left: 0px !important;\n}\n\n.save-btn div label{\n\tdisplay: none;\n}\n\n.save-btn{\n    padding-left: 76px;\n}", ""]);
+	exports.push([module.id, ".save-btn div{\r\n\tmargin-left: 0px !important;\r\n}\r\n\r\n.save-btn div label{\r\n\tdisplay: none;\r\n}\r\n\r\n.save-btn{\r\n    padding-left: 76px;\r\n}", ""]);
 
 	// exports
 
@@ -37817,7 +37822,7 @@
 
 
 	// module
-	exports.push([module.id, ".radio_model_type{\n    width: 80px;\n    height: 21px;\n    position: relative;\n    display: block;\n}\n\n.model_type_text, .model_type_img{\n    position: absolute;\n    width: auto;\n}\n\n.model_type_text_value{\n\tposition: absolute;\n\tleft: 15px;\n}\n\n.xa-editLabelValues{\n    overflow: hidden;\n    border: solid 1px #BFBFBF;\n    position: relative;\n    width: auto;\n    height: 37px;\n    padding: 0 5px;\n}\n\nli.model-li{\n    display: inline-block;\n    box-sizing: border-box;\n    margin: 8px 10px 5px 0px;\n    min-width: 35px;\n    height: 35px;\n    line-height: 35px;\n    text-align: center;\n    position: relative;\n    vertical-align: middle;\n    background: #fff;\n}\n\nbutton.xui-close{\n\tline-height: 16px;\n}\n\n.product-model-name{\n    margin-top: 8px;\n}\n\n.xui-form-imageUploader{\n\twidth: 260px;\n}", ""]);
+	exports.push([module.id, ".radio_model_type{\r\n    width: 80px;\r\n    height: 21px;\r\n    position: relative;\r\n    display: block;\r\n}\r\n\r\n.model_type_text, .model_type_img{\r\n    position: absolute;\r\n    width: auto;\r\n}\r\n\r\n.model_type_text_value{\r\n\tposition: absolute;\r\n\tleft: 15px;\r\n}\r\n\r\n.xa-editLabelValues{\r\n    overflow: hidden;\r\n    border: solid 1px #BFBFBF;\r\n    position: relative;\r\n    width: auto;\r\n    height: 37px;\r\n    padding: 0 5px;\r\n}\r\n\r\nli.model-li{\r\n    display: inline-block;\r\n    box-sizing: border-box;\r\n    margin: 8px 10px 5px 0px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    line-height: 35px;\r\n    text-align: center;\r\n    position: relative;\r\n    vertical-align: middle;\r\n    background: #fff;\r\n}\r\n\r\nbutton.xui-close{\r\n\tline-height: 16px;\r\n}\r\n\r\n.product-model-name{\r\n    margin-top: 8px;\r\n}\r\n\r\n.xui-form-imageUploader{\r\n\twidth: 260px;\r\n}", ""]);
 
 	// exports
 
@@ -39474,7 +39479,7 @@
 
 
 	// module
-	exports.push([module.id, ".account-create-valid-time{\n\tdisplay: flex;\n}\n.account-create-valid-time div:nth-child(2) label {\n    width: 18px !important;\n    padding: 7px 0 0 0;\n}\n.account-create-valid-time .col-sm-5{\n     width: 190px;\n}\ninput[name=points] {\n    width: 200px;\n}\n.errorHint {\n    width: 200px;\n}\n.money_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n.account-create-purchase-method div:nth-child(1){\n    display: inline-block;\n}\n.add-grounp-points{\n\tposition: absolute;\n\tdisplay: inline-block;\n\tmargin-left: 50px;\n\tmargin-top: 5px;\n}\n\n.rebate-per{\n    position: absolute;\n    top: 8px;\n    right: 35px;\n}\n\n.xui-close{\n    border: 1px solid #ADA2A2;\n    position: absolute;\n    width: 20px;\n    height: 20px;\n    border-radius: 20px;\n    padding-left: 5px;\n    font-size: 17px;\n    top: -8px;\n    line-height: 15px;\n    right: 54px;\n}\n\n.xui-close:hover{\n\tcursor: pointer;\n}\n\n.self-user-shop-ul{\n    border: 1px solid #C2D1E4;\n    padding-top: 15px;\n    margin-left: 70px;\n    max-width: 70%;\n    margin-bottom: 15px\n}\n\n.profilts-dialog, .rebates-dialog{\n\tborder: 1px solid #C2D1E4;\n    padding-top: 15px;\n    max-width: 65%;\n    margin-bottom: 15px;\n    padding-left: 15px;\n    margin-left: 86px;\n    padding-bottom: 15px;\n    line-height: 34px;\n}\n\n.rebate-input{\n\twidth: 100px !important;\n}\n\n.profilts-dialog div:nth-child(2), \n.profilts-dialog div:nth-child(4), \n.profilts-dialog div:nth-child(6){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n    margin-right: 15px;\n}\n\n.profilts-dialog div:nth-child(2) label, \n.profilts-dialog div:nth-child(4) label, \n.profilts-dialog div:nth-child(6) label,\n\n.rebates-dialog div:nth-child(2) label,\n.rebates-dialog div:nth-child(4) label,\n.rebates-dialog div:nth-child(6) label,\n.rebates-dialog div:nth-child(8) label,\n.rebates-dialog div:nth-child(10) label{\n\tdisplay: none;\n\tvertical-align: top;\n}\n\n/*.profilts-dialog div:nth-child(2) div, \n.profilts-dialog div:nth-child(4) div, \n.profilts-dialog div:nth-child(6) div,\n\n.rebates-dialog div:nth-child(2) div,\n.rebates-dialog div:nth-child(4) div,\n.rebates-dialog div:nth-child(6) div,\n.rebates-dialog div:nth-child(8) div,\n.rebates-dialog div:nth-child(10) div{\n\twidth: 100% !important;\n}*/\n\n.rebates-dialog{\n    position: relative;\n    padding-top: 0px;\n}\n\n.rebates-dialog div:nth-child(2),\n.rebates-dialog div:nth-child(4),\n.rebates-dialog div:nth-child(6),\n.rebates-dialog div:nth-child(8),\n.rebates-dialog div:nth-child(10){\n\tdisplay: inline-block;\n\tpadding: 0;\n\tmargin: 0;\n\theight: 22px;\n\twidth: 100px;\n\tmargin-top: 10px;\n\tmargin-bottom: 8px;\n}\n\n/*.rebates-dialog div:nth-child(2) label,\n.rebates-dialog div:nth-child(4) label,\n.rebates-dialog div:nth-child(6) label,\n.rebates-dialog div:nth-child(8) label,\n.rebates-dialog div:nth-child(10) label{\n\tdisplay: none;\n\tvertical-align: top;\n}*/\n\n/*.rebates-dialog div:nth-child(2) div,\n.rebates-dialog div:nth-child(4) div,\n.rebates-dialog div:nth-child(6) div,\n.rebates-dialog div:nth-child(8) div,\n.rebates-dialog div:nth-child(10) div{\n\twidth: 100% !important;\n}*/\n\n.rebates-dialog div:nth-child(2) div input,\n.rebates-dialog div:nth-child(4) div input,\n.rebates-dialog div:nth-child(6) div input,\n.rebates-dialog div:nth-child(8) div input,\n.rebates-dialog div:nth-child(10) div input{\n\tmargin-bottom: 8px;\n}\n\n.rebate-close{\n    position: absolute;\n    right: 0;\n    width: 20px;\n    top: 0;\n    font-size: 18px;\n    padding-left: 5px;\n    display: inline-block;\n    border-bottom: 1px solid #C2D1E4;\n    border-left: 1px solid #C2D1E4;\n}\n\n.profilts-dialog .errorHint {\n    width: 190px !important;\n}\n\nselect#companyNameOption {\n    margin-top: -16px;\n}", ""]);
+	exports.push([module.id, ".account-create-valid-time{\r\n\tdisplay: flex;\r\n}\r\n.account-create-valid-time div:nth-child(2) label {\r\n    width: 18px !important;\r\n    padding: 7px 0 0 0;\r\n}\r\n.account-create-valid-time .col-sm-5{\r\n     width: 190px;\r\n}\r\ninput[name=points] {\r\n    width: 200px;\r\n}\r\n.errorHint {\r\n    width: 200px;\r\n}\r\n.money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1){\r\n    display: inline-block;\r\n}\r\n.add-grounp-points{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 50px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.rebate-per{\r\n    position: absolute;\r\n    top: 8px;\r\n    right: 35px;\r\n}\r\n\r\n.xui-close{\r\n    border: 1px solid #ADA2A2;\r\n    position: absolute;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 20px;\r\n    padding-left: 5px;\r\n    font-size: 17px;\r\n    top: -8px;\r\n    line-height: 15px;\r\n    right: 54px;\r\n}\r\n\r\n.xui-close:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.self-user-shop-ul{\r\n    border: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    margin-left: 70px;\r\n    max-width: 70%;\r\n    margin-bottom: 15px\r\n}\r\n\r\n.profilts-dialog, .rebates-dialog{\r\n\tborder: 1px solid #C2D1E4;\r\n    padding-top: 15px;\r\n    max-width: 65%;\r\n    margin-bottom: 15px;\r\n    padding-left: 15px;\r\n    margin-left: 86px;\r\n    padding-bottom: 15px;\r\n    line-height: 34px;\r\n}\r\n\r\n.rebate-input{\r\n\twidth: 100px !important;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2), \r\n.profilts-dialog div:nth-child(4), \r\n.profilts-dialog div:nth-child(6){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n    margin-right: 15px;\r\n}\r\n\r\n.profilts-dialog div:nth-child(2) label, \r\n.profilts-dialog div:nth-child(4) label, \r\n.profilts-dialog div:nth-child(6) label,\r\n\r\n.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}\r\n\r\n/*.profilts-dialog div:nth-child(2) div, \r\n.profilts-dialog div:nth-child(4) div, \r\n.profilts-dialog div:nth-child(6) div,\r\n\r\n.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog{\r\n    position: relative;\r\n    padding-top: 0px;\r\n}\r\n\r\n.rebates-dialog div:nth-child(2),\r\n.rebates-dialog div:nth-child(4),\r\n.rebates-dialog div:nth-child(6),\r\n.rebates-dialog div:nth-child(8),\r\n.rebates-dialog div:nth-child(10){\r\n\tdisplay: inline-block;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\theight: 22px;\r\n\twidth: 100px;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n/*.rebates-dialog div:nth-child(2) label,\r\n.rebates-dialog div:nth-child(4) label,\r\n.rebates-dialog div:nth-child(6) label,\r\n.rebates-dialog div:nth-child(8) label,\r\n.rebates-dialog div:nth-child(10) label{\r\n\tdisplay: none;\r\n\tvertical-align: top;\r\n}*/\r\n\r\n/*.rebates-dialog div:nth-child(2) div,\r\n.rebates-dialog div:nth-child(4) div,\r\n.rebates-dialog div:nth-child(6) div,\r\n.rebates-dialog div:nth-child(8) div,\r\n.rebates-dialog div:nth-child(10) div{\r\n\twidth: 100% !important;\r\n}*/\r\n\r\n.rebates-dialog div:nth-child(2) div input,\r\n.rebates-dialog div:nth-child(4) div input,\r\n.rebates-dialog div:nth-child(6) div input,\r\n.rebates-dialog div:nth-child(8) div input,\r\n.rebates-dialog div:nth-child(10) div input{\r\n\tmargin-bottom: 8px;\r\n}\r\n\r\n.rebate-close{\r\n    position: absolute;\r\n    right: 0;\r\n    width: 20px;\r\n    top: 0;\r\n    font-size: 18px;\r\n    padding-left: 5px;\r\n    display: inline-block;\r\n    border-bottom: 1px solid #C2D1E4;\r\n    border-left: 1px solid #C2D1E4;\r\n}\r\n\r\n.profilts-dialog .errorHint {\r\n    width: 190px !important;\r\n}\r\n\r\nselect#companyNameOption {\r\n    margin-top: -16px;\r\n}", ""]);
 
 	// exports
 
@@ -40149,7 +40154,7 @@
 
 
 	// module
-	exports.push([module.id, ".inline-block{\n\tdisplay: inline-block;\n}\n\ntr td{\n    padding: 0 !important;\n}\n\n.product-item-info{\n    display: block;\n    padding: 5px 0px 5px 5px;\n    border-bottom: 1px solid #CCC;\n    height: 71px;\n    padding-top: 20px;\n    position: relative;\n}\n\n.product-item-info:last-child{\n\tborder-bottom: none;\n}\n\n.product-img{\n\twidth: 60px;\n\theight: 60px;\n\tmargin-right: 10px;\n}\n\n.product-name, .product-model-name{\n\tdisplay: inline-block;\n\tposition: absolute;\n}\n\n.product-name{\n\ttop: 15px;\n}\n\n.product-model-name{\n\ttop: 35px;\n}", ""]);
+	exports.push([module.id, ".inline-block{\r\n\tdisplay: inline-block;\r\n}\r\n\r\ntr td{\r\n    padding: 0 !important;\r\n}\r\n\r\n.product-item-info{\r\n    display: block;\r\n    padding: 5px 0px 5px 5px;\r\n    border-bottom: 1px solid #CCC;\r\n    height: 71px;\r\n    padding-top: 20px;\r\n    position: relative;\r\n}\r\n\r\n.product-item-info:last-child{\r\n\tborder-bottom: none;\r\n}\r\n\r\n.product-img{\r\n\twidth: 60px;\r\n\theight: 60px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.product-name, .product-model-name{\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n}\r\n\r\n.product-name{\r\n\ttop: 15px;\r\n}\r\n\r\n.product-model-name{\r\n\ttop: 35px;\r\n}", ""]);
 
 	// exports
 
@@ -40501,7 +40506,7 @@
 
 
 	// module
-	exports.push([module.id, ".wui-globalErrorPanel.alert-danger{\n\theight: auto !important;\n}\n\n.alert-danger center{\n    word-break: break-all;\n    text-align: left;\n}", ""]);
+	exports.push([module.id, ".wui-globalErrorPanel.alert-danger{\r\n\theight: auto !important;\r\n}\r\n\r\n.alert-danger center{\r\n    word-break: break-all;\r\n    text-align: left;\r\n}", ""]);
 
 	// exports
 
@@ -41211,7 +41216,7 @@
 
 
 	// module
-	exports.push([module.id, ".orders-list-btn-group a{\n\tdisplay: block;\n}\n.modal-content{\n\twidth: 720px;\n}\n.orders-list-product-name{\n\tmargin-left: 5px;\n\tdisplay: inline;\n\tvertical-align: top;\n}\n.orders-list-model-names{\n\tmargin-left: 5px;\n\tdisplay: block;\n\tvertical-align: bottom;\n}\nimg {\n    vertical-align: bottom !important;\n}\n.col-sm-7.xa-inputs {\n    width: auto;\n}", ""]);
+	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}\r\n.col-sm-7.xa-inputs {\r\n    width: auto;\r\n}", ""]);
 
 	// exports
 
@@ -42378,7 +42383,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-outline-datasPage .xui-i-expandRow {\n\tmargin-bottom: 10px;\n}\n", ""]);
+	exports.push([module.id, ".xui-outline-datasPage .xui-i-expandRow {\r\n\tmargin-bottom: 10px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -43242,7 +43247,7 @@
 
 
 	// module
-	exports.push([module.id, ".model-table-tr td{\n    width: 170px;\n    padding: 8px 0 8px 0px !important;\n}\n\ntd div.form-group {\n    margin: 0;\n    width: 100%;\n    margin-left: 0 !important;\n}\n\ntd div.form-group div{\n    width: 80%;\n    padding-right: 0px;\n}\n\ntd div.form-group div input{\n\twidth: 100%;\n\tpadding: 1px !important;\n}\n\ntd div.form-group label{\n    display: none;\n}\n\n.pl90{padding-left:90px !important;}\n\n.xui-special-postage div label.control-label,\n.xui-free-postage div label.control-label{\n\tdisplay: none;\n}\n\n.xui-special-postage div, .xui-free-postage div{\n\tmargin-left: 0px !important;\n\tpadding-left: 0px !important;\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn{\n    border: 1px solid rgb(191, 169, 169);\n    color: #3C3434;\n    font-size: 14px;\n}\n\n.xui-submit-btn a{\n    width: 100px;\n}\n\n.xui-submit-btn label{\n    display: none;\n}\n\n.xui-submit-btn div{\n    padding-left: 0px !important;\n    margin-left: 0px !important;\n}\n\n.xui-submit-btn div div{\n    padding-left: 0px;\n}\n\n.xui-destination{\n    width: 350px;\n}\n\n.xui-select-condition select{\n    width: 100px !important;\n    margin-right: 15px;\n}\n", ""]);
+	exports.push([module.id, ".model-table-tr td{\r\n    width: 170px;\r\n    padding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n    margin: 0;\r\n    width: 100%;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n    width: 80%;\r\n    padding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}\r\n\r\ntd div.form-group label{\r\n    display: none;\r\n}\r\n\r\n.pl90{padding-left:90px !important;}\r\n\r\n.xui-special-postage div label.control-label,\r\n.xui-free-postage div label.control-label{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-special-postage div, .xui-free-postage div{\r\n\tmargin-left: 0px !important;\r\n\tpadding-left: 0px !important;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn{\r\n    border: 1px solid rgb(191, 169, 169);\r\n    color: #3C3434;\r\n    font-size: 14px;\r\n}\r\n\r\n.xui-submit-btn a{\r\n    width: 100px;\r\n}\r\n\r\n.xui-submit-btn label{\r\n    display: none;\r\n}\r\n\r\n.xui-submit-btn div{\r\n    padding-left: 0px !important;\r\n    margin-left: 0px !important;\r\n}\r\n\r\n.xui-submit-btn div div{\r\n    padding-left: 0px;\r\n}\r\n\r\n.xui-destination{\r\n    width: 350px;\r\n}\r\n\r\n.xui-select-condition select{\r\n    width: 100px !important;\r\n    margin-right: 15px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -44462,7 +44467,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-postageConfig-postageListPage .btn-success{\n\tfloat: left !important;\n\tmargin-left: 0px !important; \n}\n\n.xui-set-title, .xui-modify-delete-btn{\n\tdisplay: inline-block;\n}\n\n.xui-modify-delete-btn{\n\tfloat: right;\n    margin-right: 1%;\n}\n\n.xui-destination{\n\tmax-width: 300px;\n\twhite-space:nowrap;\n\toverflow:hidden; \n\ttext-overflow:ellipsis;\n}\n\n.xui-destination:hover{\n\tcursor: default;\n}", ""]);
+	exports.push([module.id, ".xui-postageConfig-postageListPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}\r\n\r\n.xui-set-title, .xui-modify-delete-btn{\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.xui-modify-delete-btn{\r\n\tfloat: right;\r\n    margin-right: 1%;\r\n}\r\n\r\n.xui-destination{\r\n\tmax-width: 300px;\r\n\twhite-space:nowrap;\r\n\toverflow:hidden; \r\n\ttext-overflow:ellipsis;\r\n}\r\n\r\n.xui-destination:hover{\r\n\tcursor: default;\r\n}", ""]);
 
 	// exports
 
@@ -45364,7 +45369,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n    min-height: 200px;\n}\n\n.modal-content{\n\tbackground: #FFF !important;\n}\n\n.model_li{\n\tdisplay: inline-block;\n\tmargin-right: 20px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n    min-height: 200px;\r\n}\r\n\r\n.modal-content{\r\n\tbackground: #FFF !important;\r\n}\r\n\r\n.model_li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}", ""]);
 
 	// exports
 
@@ -45404,7 +45409,7 @@
 
 
 	// module
-	exports.push([module.id, ".category-ul{\n\twidth: 200px;\n\theight: 200px;\n\tdisplay: inline-block;\n\tborder: 1px solid #D4D3D3;\n\tbox-shadow: 1px 1px #D4D3D3;\n\tmargin-left: 40px;\n\toverflow-y:auto;\n}\n.category-ul li{\n\tmargin-top: 5px;\n    padding-left: 5px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.edit-product{\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-bottom: 20px;\n\twidth: 245px;\n\tmargin-left: 150px\n}\n#demo {\n\twidth: 44px;\n    display: inline-block;\n    height: 20px;\n    background-color: #CCC;\n    position: relative;\n    top: 42px;\n    left: 18px;\n    border: 1px solid #ccc;\n}\n\n#demo:after, #demo:before {\n\tborder: solid transparent;\n\tcontent: ' ';\n\theight: 0;\n\tleft: 100%;\n\tposition: absolute;\n\twidth: 0;\n}\n\n#demo:after {\n \tborder-width: 9px;\n}\n\n#demo:before {\n\tborder-width: 14px;\n\tborder-left-color: #CCC;\n\ttop: -5px\n}\n\n.erow{\n\tposition: relative;\n\tdisplay: inline-block;\n\ttop: -137px;\n\twidth: 90px\n}", ""]);
+	exports.push([module.id, ".category-ul{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tdisplay: inline-block;\r\n\tborder: 1px solid #D4D3D3;\r\n\tbox-shadow: 1px 1px #D4D3D3;\r\n\tmargin-left: 40px;\r\n\toverflow-y:auto;\r\n}\r\n.category-ul li{\r\n\tmargin-top: 5px;\r\n    padding-left: 5px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.edit-product{\r\n\tdisplay: block;\r\n\tmargin-top: 20px;\r\n\tmargin-bottom: 20px;\r\n\twidth: 245px;\r\n\tmargin-left: 150px\r\n}\r\n#demo {\r\n\twidth: 44px;\r\n    display: inline-block;\r\n    height: 20px;\r\n    background-color: #CCC;\r\n    position: relative;\r\n    top: 42px;\r\n    left: 18px;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n#demo:after, #demo:before {\r\n\tborder: solid transparent;\r\n\tcontent: ' ';\r\n\theight: 0;\r\n\tleft: 100%;\r\n\tposition: absolute;\r\n\twidth: 0;\r\n}\r\n\r\n#demo:after {\r\n \tborder-width: 9px;\r\n}\r\n\r\n#demo:before {\r\n\tborder-width: 14px;\r\n\tborder-left-color: #CCC;\r\n\ttop: -5px\r\n}\r\n\r\n.erow{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\ttop: -137px;\r\n\twidth: 90px\r\n}", ""]);
 
 	// exports
 
@@ -45580,7 +45585,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n    min-height: 200px;\n}\n\n.modal-body .valid-time{\n\theight: 160px;\n}\n\n.modal-body div.form-group div{\n\twidth: 150px;\n}\n\n.ui-corner-all{\n\tz-index: 2000 !important;\n}\n\n.modal-body div.valid-time a.btn-success{\n    position: absolute;\n    bottom: 45px;\n    width: 100px;\n    letter-spacing: 12px;\n    text-indent: 10px;\n    left: 180px;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n    min-height: 200px;\r\n}\r\n\r\n.modal-body .valid-time{\r\n\theight: 160px;\r\n}\r\n\r\n.modal-body div.form-group div{\r\n\twidth: 150px;\r\n}\r\n\r\n.ui-corner-all{\r\n\tz-index: 2000 !important;\r\n}\r\n\r\n.modal-body div.valid-time a.btn-success{\r\n    position: absolute;\r\n    bottom: 45px;\r\n    width: 100px;\r\n    letter-spacing: 12px;\r\n    text-indent: 10px;\r\n    left: 180px;\r\n}", ""]);
 
 	// exports
 
@@ -45620,7 +45625,7 @@
 
 
 	// module
-	exports.push([module.id, ".model-table-tr td{\n    width: 170px;\n    padding: 8px 0 8px 0px !important;\n}\n\ntd div.form-group {\n    margin: 0;\n    width: 100%;\n    margin-left: 0 !important;\n}\n\ntd div.form-group div{\n    width: 80%;\n    padding-right: 0px;\n}\n\ntd div.form-group div input{\n\twidth: 100%;\n\tpadding: 1px !important;\n}", ""]);
+	exports.push([module.id, ".model-table-tr td{\r\n    width: 170px;\r\n    padding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n    margin: 0;\r\n    width: 100%;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n    width: 80%;\r\n    padding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}", ""]);
 
 	// exports
 
@@ -46022,7 +46027,7 @@
 								'\u4FEE\u6539'
 							)
 						),
-						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', type: 'text', name: 'product_name', value: this.state.product_name, onChange: this.onChange, validate: 'require-string', placeholder: '\u6700\u591A30\u4E2A\u5B57' }),
+						React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u540D\u79F0:', type: 'text', readonly: disabled, name: 'product_name', value: this.state.product_name, onChange: this.onChange, validate: 'require-string', placeholder: '\u6700\u591A30\u4E2A\u5B57' }),
 						React.createElement(Reactman.FormInput, { label: '\u4FC3\u9500\u6807\u9898:', type: 'text', readonly: disabled, name: 'promotion_title', value: this.state.promotion_title, placeholder: '\u6700\u591A30\u4E2A\u5B57', onChange: this.onChange }),
 						React.createElement(Reactman.FormRadio, { label: '\u591A\u89C4\u683C\u5546\u54C1:', type: 'text', validate: 'require-string', name: 'has_product_model', value: this.state.has_product_model, options: optionsForModel, onChange: this.onChange }),
 						React.createElement(
@@ -46345,7 +46350,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n}\n\n.modal-content{\n\tbackground: rgb(224, 222, 222) !important;\n}\n\n.product-detail{\n    width: 640px;\n    margin: 0 auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.product-image{\n    width: 400px;\n    height: 350px;\n    display: block;\n    margin: 0 auto;\n}\n\n.product-image-count{\n\tposition: absolute;\n\tbottom: 0px;\n\tcolor: #000;\n\tleft: 300px;\n}\n\n.product-name-price{\n\tpadding-bottom: 8px;\n\tmargin: 0 auto;\n\tmargin-top: 10px;\n\tpadding-top: 8px;\n    border-top: 1px solid #CCC;\n}\n\n.product-choose, .product-name-price, .product-introduce{\n\tpadding-left: 8px;\n\tbackground: #FFF;\n}\n\n.product-choose{\n    margin-top: 10px;\n\tpadding-top: 5px;\n    height: 40px;\n    border-top: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    padding-right: 40px;\n}\n\n.product-introduce{\n\tmargin-top: 10px;\n    min-height: 200px;\n\t/*height: 250px;\n\toverflow: hidden;*/\n}\n\n.product-introduce .title{\n    display: inline-block;\n    width: 600px;\n    /*border-bottom: 1px solid #CCC;*/\n\tpadding-top: 8px;\n\tfont-size: 16px;\n}\n\n.product-introduce .product-content{\n\tpadding-top: 5px;\n}\n\n.product-name, .product-price, .product-promotion-title{\n\tdisplay: block;\n\tfont-size: 16px;\n}\n\n.product-price, .product-promotion-title{\n\tcolor: red;\n\tfont-size: 14px;\n}\n\n.product-count, .choose-count{\n\tdisplay: inline-block;\n}\n\n.product-content img{\n    max-width: 640px;\n    /*width: 100%;*/\n}\n\n.choose-count{\n\tpadding-right: 5px;\n}\n\n.product-count li{\n\tlist-style: none;\n\tdisplay: inline-block;\n\twidth: 30px;\n\theight: 30px;\n\ttext-align: center;\n\tborder: 1px solid #CCC;\n\tpadding-top: 2px;\n\tfont-size: 16px;\n}\n\n.xui-newProduct-page{\n\tposition: relative;\n}\n\n.preview-btn{\n\tposition: absolute;\n    left: 110px;\n    top: 13px;\n    font-size: 18px;\n}\n\n.product-collect-title{\n    display: inline-block;\n    float: right;\n    width: 40px;\n    padding-left: 10px;\n    right: 27px;\n    border-left: 1px solid #CCC;\n    color: #CCC;\n    margin-right: 10px;\n    line-height: 40px;\n}\n\ninput[name=\"product_price\"],\ninput[name=\"clear_price\"],\ninput[name=\"product_weight\"]{\n\twidth: 200px;\n}\n\ninput[name=\"limit_clear_price\"]{\n\twidth: 100px;\n}\n\n#limit_zone_type{\n  width: 200px;\n}\n#limit_zone_info{\n  width: 200px;\n}\n.button{\n    margin-left: 180px;\n    margin-buttom: 10px;\n}\n.product_info_fieldset div:nth-child(1){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(4){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(7){\n\tdisplay: inline-block;\n}\n\n/*.product_info_fieldset div:nth-child(9){\n\tdisplay: inline-block;\n\twidth: 60px;\n\tmargin-left: 80px !important;\n\tposition: relative;\n}\n\n.product_info_fieldset div:nth-child(9) div{\n\tposition: absolute;\n    left: 24px;\n    top: -19px;\n}\n\n.product_info_fieldset div:nth-child(9) label{\n\twidth: 10px;\n\theight: 0px !important;\n}*/\n\n.product_info_fieldset div:nth-child(10){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(10) label{\n\twidth: 80px !important;\n}\n\n.product_info_fieldset div:nth-child(11){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(11) label{\n\twidth: 40px !important;\n\tpadding-left: 0px;\n}\n\n.product_info_fieldset div:nth-child(14){\n\tdisplay: inline-block;\n}\n\n.money_note, .count_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note_tips{\n\tdisplay: block;\n\theight: 34px;\n\tmargin-left: 178px;\n}\n\n.errorHint{\n\twidth: 200px;\n}\n\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\n\tz-index: 1000 !important;\n}\n\ntd div.form-group{\n    margin: 0;\n    width: 60px;\n    margin-left: 0 !important;\n}\n\ntd div.form-group label{\n\tdisplay: none;\n}\n\ntd div.form-group div input{\n    width: 100px;\n}\n\ntd div.form-group div .errorHint{\n\twidth: 100px;\n}\n\n.xui-catalog-name{\n    padding-left: 34px;\n    padding-top: 6px;\n    display: inline-block;\n}\n\n.xui-container{\n\toverflow-y: hidden; \n\tmin-height: 1800px;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n}\r\n\r\n.modal-content{\r\n\tbackground: rgb(224, 222, 222) !important;\r\n}\r\n\r\n.product-detail{\r\n    width: 640px;\r\n    margin: 0 auto;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    height: 730px;\r\n}\r\n\r\n.product-image{\r\n    width: 400px;\r\n    height: 350px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.product-image-count{\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tcolor: #000;\r\n\tleft: 300px;\r\n}\r\n\r\n.product-name-price{\r\n\tpadding-bottom: 8px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 10px;\r\n\tpadding-top: 8px;\r\n    border-top: 1px solid #CCC;\r\n}\r\n\r\n.product-choose, .product-name-price, .product-introduce{\r\n\tpadding-left: 8px;\r\n\tbackground: #FFF;\r\n}\r\n\r\n.product-choose{\r\n    margin-top: 10px;\r\n\tpadding-top: 5px;\r\n    height: 40px;\r\n    border-top: 1px solid #CCC;\r\n    border-bottom: 1px solid #CCC;\r\n    padding-right: 40px;\r\n}\r\n\r\n.product-introduce{\r\n\tmargin-top: 10px;\r\n    min-height: 200px;\r\n\t/*height: 250px;\r\n\toverflow: hidden;*/\r\n}\r\n\r\n.product-introduce .title{\r\n    display: inline-block;\r\n    width: 600px;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tpadding-top: 8px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-introduce .product-content{\r\n\tpadding-top: 5px;\r\n}\r\n\r\n.product-name, .product-price, .product-promotion-title{\r\n\tdisplay: block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-price, .product-promotion-title{\r\n\tcolor: red;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.product-count, .choose-count{\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product-content img{\r\n    max-width: 640px;\r\n    /*width: 100%;*/\r\n}\r\n\r\n.choose-count{\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.product-count li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\tborder: 1px solid #CCC;\r\n\tpadding-top: 2px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.xui-newProduct-page{\r\n\tposition: relative;\r\n}\r\n\r\n.preview-btn{\r\n\tposition: absolute;\r\n    left: 110px;\r\n    top: 13px;\r\n    font-size: 18px;\r\n}\r\n\r\n.product-collect-title{\r\n    display: inline-block;\r\n    float: right;\r\n    width: 40px;\r\n    padding-left: 10px;\r\n    right: 27px;\r\n    border-left: 1px solid #CCC;\r\n    color: #CCC;\r\n    margin-right: 10px;\r\n    line-height: 40px;\r\n}\r\n\r\ninput[name=\"product_price\"],\r\ninput[name=\"clear_price\"],\r\ninput[name=\"product_weight\"]{\r\n\twidth: 200px;\r\n}\r\n\r\ninput[name=\"limit_clear_price\"]{\r\n\twidth: 100px;\r\n}\r\n\r\n#limit_zone_type{\r\n  width: 200px;\r\n}\r\n#limit_zone_info{\r\n  width: 200px;\r\n}\r\n.button{\r\n    margin-left: 180px;\r\n    margin-buttom: 10px;\r\n}\r\n.product_info_fieldset div:nth-child(1){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(7){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*.product_info_fieldset div:nth-child(9){\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\tmargin-left: 80px !important;\r\n\tposition: relative;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) div{\r\n\tposition: absolute;\r\n    left: 24px;\r\n    top: -19px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) label{\r\n\twidth: 10px;\r\n\theight: 0px !important;\r\n}*/\r\n\r\n.product_info_fieldset div:nth-child(10){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(10) label{\r\n\twidth: 80px !important;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11) label{\r\n\twidth: 40px !important;\r\n\tpadding-left: 0px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(14){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.money_note, .count_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note_tips{\r\n\tdisplay: block;\r\n\theight: 34px;\r\n\tmargin-left: 178px;\r\n}\r\n\r\n.errorHint{\r\n\twidth: 200px;\r\n}\r\n\r\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\r\n\tz-index: 1000 !important;\r\n}\r\n\r\ntd div.form-group{\r\n    margin: 0;\r\n    width: 60px;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group label{\r\n\tdisplay: none;\r\n}\r\n\r\ntd div.form-group div input{\r\n    width: 100px;\r\n}\r\n\r\ntd div.form-group div .errorHint{\r\n\twidth: 100px;\r\n}\r\n\r\n.xui-catalog-name{\r\n    padding-left: 34px;\r\n    padding-top: 6px;\r\n    display: inline-block;\r\n}\r\n\r\n.xui-container{\r\n\toverflow-y: hidden; \r\n\tmin-height: 1800px;\r\n}", ""]);
 
 	// exports
 
@@ -47549,7 +47554,7 @@
 
 
 	// module
-	exports.push([module.id, ".model-table-tr td{\n\twidth: 170px;\n\tpadding: 8px 0 8px 0px !important;\n}\n\ntd div.form-group {\n\tmargin: 0;\n\twidth: 100%;\n\tmargin-left: 0 !important;\n}\n\ntd div.form-group div{\n\twidth: 80%;\n\tpadding-right: 0px;\n}\n\ntd div.form-group div input{\n\twidth: 100%;\n\tpadding: 1px !important;\n}\n\n.edui-default .edui-editor{\n\twidth: 419px !important;\n}\n\n.form-horizontal{\n\tdisplay: inline-block;\n\twidth: 44%;\n\tmargin-left: 4%;\n    float: left;\n}\n\n.model-table-tr td{\n    padding-left: 8px !important;\n}", ""]);
+	exports.push([module.id, ".model-table-tr td{\r\n\twidth: 170px;\r\n\tpadding: 8px 0 8px 0px !important;\r\n}\r\n\r\ntd div.form-group {\r\n\tmargin: 0;\r\n\twidth: 100%;\r\n\tmargin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group div{\r\n\twidth: 80%;\r\n\tpadding-right: 0px;\r\n}\r\n\r\ntd div.form-group div input{\r\n\twidth: 100%;\r\n\tpadding: 1px !important;\r\n}\r\n\r\n.edui-default .edui-editor{\r\n\twidth: 419px !important;\r\n}\r\n\r\n.form-horizontal{\r\n\tdisplay: inline-block;\r\n\twidth: 44%;\r\n\tmargin-left: 4%;\r\n    float: left;\r\n}\r\n\r\n.model-table-tr td{\r\n    padding-left: 8px !important;\r\n}", ""]);
 
 	// exports
 
@@ -48040,7 +48045,7 @@
 
 
 	// module
-	exports.push([module.id, ".modal-content{\n    width: 700px;\n}\n\n.modal-content{\n\tbackground: rgb(224, 222, 222) !important;\n}\n\n.product-detail{\n    width: 640px;\n    margin: 0 auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.product-image{\n    width: 400px;\n    height: 350px;\n    display: block;\n    margin: 0 auto;\n}\n\n.product-image-count{\n\tposition: absolute;\n\tbottom: 0px;\n\tcolor: #000;\n\tleft: 300px;\n}\n\n.product-name-price{\n\tpadding-bottom: 8px;\n\tmargin: 0 auto;\n\tmargin-top: 10px;\n\tpadding-top: 8px;\n    border-top: 1px solid #CCC;\n}\n\n.product-choose, .product-name-price, .product-introduce{\n\tpadding-left: 8px;\n\tbackground: #FFF;\n}\n\n.product-choose{\n    margin-top: 10px;\n\tpadding-top: 5px;\n    height: 40px;\n    border-top: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    padding-right: 40px;\n}\n\n.product-introduce{\n\tmargin-top: 10px;\n    min-height: 200px;\n\t/*height: 250px;\n\toverflow: hidden;*/\n}\n\n.product-introduce .title{\n    display: inline-block;\n    width: 600px;\n    /*border-bottom: 1px solid #CCC;*/\n\tpadding-top: 8px;\n\tfont-size: 16px;\n}\n\n.product-introduce .product-content{\n\tpadding-top: 5px;\n}\n\n.product-name, .product-price, .product-promotion-title{\n\tdisplay: block;\n\tfont-size: 16px;\n}\n\n.product-price, .product-promotion-title{\n\tcolor: red;\n\tfont-size: 14px;\n}\n\n.product-count, .choose-count{\n\tdisplay: inline-block;\n}\n\n.product-content img{\n    max-width: 640px;\n    /*width: 100%;*/\n}\n\n.choose-count{\n\tpadding-right: 5px;\n}\n\n.product-count li{\n\tlist-style: none;\n\tdisplay: inline-block;\n\twidth: 30px;\n\theight: 30px;\n\ttext-align: center;\n\tborder: 1px solid #CCC;\n\tpadding-top: 2px;\n\tfont-size: 16px;\n}\n\n.xui-newProduct-page{\n\tposition: relative;\n}\n\n.preview-btn{\n\tposition: absolute;\n    left: 110px;\n    top: 13px;\n    font-size: 18px;\n}\n\n.product-collect-title{\n    display: inline-block;\n    float: right;\n    width: 40px;\n    padding-left: 10px;\n    right: 27px;\n    border-left: 1px solid #CCC;\n    color: #CCC;\n    margin-right: 10px;\n    line-height: 40px;\n}\n\ninput[name=\"product_price\"],\ninput[name=\"clear_price\"],\ninput[name=\"product_weight\"]{\n\twidth: 200px;\n}\n\ninput[name=\"limit_clear_price\"]{\n\twidth: 100px;\n}\n\n.product_info_fieldset div:nth-child(1){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(4){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(7){\n\tdisplay: inline-block;\n}\n\n/*.product_info_fieldset div:nth-child(9){\n\tdisplay: inline-block;\n\twidth: 60px;\n\tmargin-left: 80px !important;\n\tposition: relative;\n}\n\n.product_info_fieldset div:nth-child(9) div{\n\tposition: absolute;\n    left: 24px;\n    top: -19px;\n}\n\n.product_info_fieldset div:nth-child(9) label{\n\twidth: 10px;\n\theight: 0px !important;\n}*/\n\n.product_info_fieldset div:nth-child(10){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(10) label{\n\twidth: 80px !important;\n}\n\n.product_info_fieldset div:nth-child(11){\n\tdisplay: inline-block;\n}\n\n.product_info_fieldset div:nth-child(11) label{\n\twidth: 40px !important;\n\tpadding-left: 0px;\n}\n\n.product_info_fieldset div:nth-child(14){\n\tdisplay: inline-block;\n}\n\n.money_note, .count_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note{\n\tposition: absolute;\n\tdisplay: inline-block;\n\theight: 34px;\n\tline-height: 34px;\n\tmargin-bottom: 15px;\n\tmargin-left: 15px;\n}\n\n.limit_money_note_tips{\n\tdisplay: block;\n\theight: 34px;\n\tmargin-left: 178px;\n}\n\n.errorHint{\n\twidth: 200px;\n}\n\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\n\tz-index: 1000 !important;\n}\n\ntd div.form-group{\n    margin: 0;\n    width: 60px;\n    margin-left: 0 !important;\n}\n\ntd div.form-group label{\n\tdisplay: none;\n}\n\ntd div.form-group div input{\n    width: 100px;\n}\n\ntd div.form-group div .errorHint{\n\twidth: 100px;\n}\n\n.xui-catalog-name{\n    padding-left: 34px;\n    padding-top: 6px;\n    display: inline-block;\n}", ""]);
+	exports.push([module.id, ".modal-content{\r\n    width: 700px;\r\n}\r\n\r\n.modal-content{\r\n\tbackground: rgb(224, 222, 222) !important;\r\n}\r\n\r\n.product-detail{\r\n    width: 640px;\r\n    margin: 0 auto;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    height: 730px;\r\n}\r\n\r\n.product-image{\r\n    width: 400px;\r\n    height: 350px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.product-image-count{\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tcolor: #000;\r\n\tleft: 300px;\r\n}\r\n\r\n.product-name-price{\r\n\tpadding-bottom: 8px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 10px;\r\n\tpadding-top: 8px;\r\n    border-top: 1px solid #CCC;\r\n}\r\n\r\n.product-choose, .product-name-price, .product-introduce{\r\n\tpadding-left: 8px;\r\n\tbackground: #FFF;\r\n}\r\n\r\n.product-choose{\r\n    margin-top: 10px;\r\n\tpadding-top: 5px;\r\n    height: 40px;\r\n    border-top: 1px solid #CCC;\r\n    border-bottom: 1px solid #CCC;\r\n    padding-right: 40px;\r\n}\r\n\r\n.product-introduce{\r\n\tmargin-top: 10px;\r\n    min-height: 200px;\r\n\t/*height: 250px;\r\n\toverflow: hidden;*/\r\n}\r\n\r\n.product-introduce .title{\r\n    display: inline-block;\r\n    width: 600px;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tpadding-top: 8px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-introduce .product-content{\r\n\tpadding-top: 5px;\r\n}\r\n\r\n.product-name, .product-price, .product-promotion-title{\r\n\tdisplay: block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.product-price, .product-promotion-title{\r\n\tcolor: red;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.product-count, .choose-count{\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product-content img{\r\n    max-width: 640px;\r\n    /*width: 100%;*/\r\n}\r\n\r\n.choose-count{\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.product-count li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\tborder: 1px solid #CCC;\r\n\tpadding-top: 2px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.xui-newProduct-page{\r\n\tposition: relative;\r\n}\r\n\r\n.preview-btn{\r\n\tposition: absolute;\r\n    left: 110px;\r\n    top: 13px;\r\n    font-size: 18px;\r\n}\r\n\r\n.product-collect-title{\r\n    display: inline-block;\r\n    float: right;\r\n    width: 40px;\r\n    padding-left: 10px;\r\n    right: 27px;\r\n    border-left: 1px solid #CCC;\r\n    color: #CCC;\r\n    margin-right: 10px;\r\n    line-height: 40px;\r\n}\r\n\r\ninput[name=\"product_price\"],\r\ninput[name=\"clear_price\"],\r\ninput[name=\"product_weight\"]{\r\n\twidth: 200px;\r\n}\r\n\r\ninput[name=\"limit_clear_price\"]{\r\n\twidth: 100px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(1){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(4){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(7){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*.product_info_fieldset div:nth-child(9){\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\tmargin-left: 80px !important;\r\n\tposition: relative;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) div{\r\n\tposition: absolute;\r\n    left: 24px;\r\n    top: -19px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(9) label{\r\n\twidth: 10px;\r\n\theight: 0px !important;\r\n}*/\r\n\r\n.product_info_fieldset div:nth-child(10){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(10) label{\r\n\twidth: 80px !important;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(11) label{\r\n\twidth: 40px !important;\r\n\tpadding-left: 0px;\r\n}\r\n\r\n.product_info_fieldset div:nth-child(14){\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.money_note, .count_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note{\r\n\tposition: absolute;\r\n\tdisplay: inline-block;\r\n\theight: 34px;\r\n\tline-height: 34px;\r\n\tmargin-bottom: 15px;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.limit_money_note_tips{\r\n\tdisplay: block;\r\n\theight: 34px;\r\n\tmargin-left: 178px;\r\n}\r\n\r\n.errorHint{\r\n\twidth: 200px;\r\n}\r\n\r\n.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{\r\n\tz-index: 1000 !important;\r\n}\r\n\r\ntd div.form-group{\r\n    margin: 0;\r\n    width: 60px;\r\n    margin-left: 0 !important;\r\n}\r\n\r\ntd div.form-group label{\r\n\tdisplay: none;\r\n}\r\n\r\ntd div.form-group div input{\r\n    width: 100px;\r\n}\r\n\r\ntd div.form-group div .errorHint{\r\n\twidth: 100px;\r\n}\r\n\r\n.xui-catalog-name{\r\n    padding-left: 34px;\r\n    padding-top: 6px;\r\n    display: inline-block;\r\n}", ""]);
 
 	// exports
 
@@ -48424,7 +48429,7 @@
 
 
 	// module
-	exports.push([module.id, ".category-ul{\n\twidth: 200px;\n\theight: 200px;\n\tdisplay: inline-block;\n\tborder: 1px solid #D4D3D3;\n\tbox-shadow: 1px 1px #D4D3D3;\n\tmargin-left: 40px;\n\toverflow-y:auto;\n}\n.category-ul li{\n\tmargin-top: 5px;\n    padding-left: 5px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.edit-product{\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-bottom: 20px;\n\twidth: 245px;\n\tmargin-left: 150px\n}\n#demo {\n\twidth: 44px;\n    display: inline-block;\n    height: 20px;\n    background-color: #CCC;\n    position: relative;\n    top: 42px;\n    left: 18px;\n    border: 1px solid #ccc;\n}\n\n#demo:after, #demo:before {\n\tborder: solid transparent;\n\tcontent: ' ';\n\theight: 0;\n\tleft: 100%;\n\tposition: absolute;\n\twidth: 0;\n}\n\n#demo:after {\n \tborder-width: 9px;\n}\n\n#demo:before {\n\tborder-width: 14px;\n\tborder-left-color: #CCC;\n\ttop: -5px\n}\n\n.erow{\n\tposition: relative;\n\tdisplay: inline-block;\n\ttop: -137px;\n\twidth: 90px\n}", ""]);
+	exports.push([module.id, ".category-ul{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tdisplay: inline-block;\r\n\tborder: 1px solid #D4D3D3;\r\n\tbox-shadow: 1px 1px #D4D3D3;\r\n\tmargin-left: 40px;\r\n\toverflow-y:auto;\r\n}\r\n.category-ul li{\r\n\tmargin-top: 5px;\r\n    padding-left: 5px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.edit-product{\r\n\tdisplay: block;\r\n\tmargin-top: 20px;\r\n\tmargin-bottom: 20px;\r\n\twidth: 245px;\r\n\tmargin-left: 150px\r\n}\r\n#demo {\r\n\twidth: 44px;\r\n    display: inline-block;\r\n    height: 20px;\r\n    background-color: #CCC;\r\n    position: relative;\r\n    top: 42px;\r\n    left: 18px;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n#demo:after, #demo:before {\r\n\tborder: solid transparent;\r\n\tcontent: ' ';\r\n\theight: 0;\r\n\tleft: 100%;\r\n\tposition: absolute;\r\n\twidth: 0;\r\n}\r\n\r\n#demo:after {\r\n \tborder-width: 9px;\r\n}\r\n\r\n#demo:before {\r\n\tborder-width: 14px;\r\n\tborder-left-color: #CCC;\r\n\ttop: -5px\r\n}\r\n\r\n.erow{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\ttop: -137px;\r\n\twidth: 90px\r\n}", ""]);
 
 	// exports
 
@@ -48769,7 +48774,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-img{\n\twidth: 60px;\n\theight: 60px;\n\tmargin-right: 10px;\n}\n\n.product-name{\n\toverflow: hidden;\n\twhite-space: nowrap;\n\ttext-overflow: ellipsis;\n\tdisplay: inline-block;\n\twidth: 400px;\n\tposition: relative;\n}\n\n.product-model-detail{\n\tposition: absolute;\n\theight: 30px;\n\ttop: 35px;\n\tleft: 70px;\n\tline-height: 30px;\n}\n\ntr > td{\n\tvertical-align: middle !important;\n}\n\ntr.model-detail-tr > td{\n\theight: 40px;\n\tline-height: 30px!important;\n}\n\n.xui-filterPanel .control-label{\n\twidth: 90px;\n}", ""]);
+	exports.push([module.id, ".product-img{\r\n\twidth: 60px;\r\n\theight: 60px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.product-name{\r\n\toverflow: hidden;\r\n\twhite-space: nowrap;\r\n\ttext-overflow: ellipsis;\r\n\tdisplay: inline-block;\r\n\twidth: 400px;\r\n\tposition: relative;\r\n}\r\n\r\n.product-model-detail{\r\n\tposition: absolute;\r\n\theight: 30px;\r\n\ttop: 35px;\r\n\tleft: 70px;\r\n\tline-height: 30px;\r\n}\r\n\r\ntr > td{\r\n\tvertical-align: middle !important;\r\n}\r\n\r\ntr.model-detail-tr > td{\r\n\theight: 40px;\r\n\tline-height: 30px!important;\r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}", ""]);
 
 	// exports
 
@@ -48855,7 +48860,6 @@
 					}
 				});
 			}
-
 			// W.gotoPage('/product/new_product/?second_level_id='+0);
 		},
 
@@ -48869,17 +48873,59 @@
 			});
 		},
 
+		showRejectReason: function (event) {
+			var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reasons'));
+			var content = '';
+			var Li = rejectReasons.map(function (rejectReason, index) {
+				content += rejectReason.created_at + '</br>' + rejectReason.reject_reasons + '</br>';
+			});
+			Reactman.PageAction.showPopover({
+				target: event.target,
+				content: '<span style="color:red">' + content + '</span>'
+			});
+		},
+
+		hideRejectReason: function (event) {
+			Reactman.PageAction.hidePopover();
+		},
+
 		rowFormatter: function (field, value, data) {
 			if (field === 'action') {
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
+				var productStatusValue = data['product_status_value'];
+				if (productStatusValue === 3) {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', target: '_blank', href: '/product/new_product/?id=' + data.id },
+							'\u91CD\u65B0\u4FEE\u6539\u63D0\u4EA4'
+						)
+					);
+				} else {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', target: '_blank', href: '/product/new_product/?id=' + data.id },
+							'\u7F16\u8F91'
+						)
+					);
+				}
+			} else if (field === 'product_status') {
+				//入库状态
+				var productStatusValue = data['product_status_value'];
+				if (productStatusValue === 3) {
+					//入库驳回
+					return React.createElement(
 						'a',
-						{ className: 'btn btn-link btn-xs', target: '_blank', href: '/product/new_product/?id=' + data.id },
-						'\u7F16\u8F91'
-					)
-				);
+						{ style: { color: 'red', marginBottom: '0px' }, href: 'javascript:void(0);', onMouseOut: this.hideRejectReason, onMouseOver: this.showRejectReason, 'data-product-reasons': data.reject_reasons },
+						value
+					);
+				} else {
+					return value;
+				}
 			} else if (field === 'product_name') {
 				var _this = this;
 				var role = data['role'];
@@ -48968,31 +49014,6 @@
 						data['second_level_name']
 					)
 				);
-			} else if (field === 'product_store') {
-				var store_short = data['store_short'];
-				if (store_short) {
-					return React.createElement(
-						'div',
-						null,
-						React.createElement(
-							'span',
-							{ style: { color: 'red' } },
-							data['product_store']
-						),
-						React.createElement('br', null)
-					);
-				} else {
-					return React.createElement(
-						'div',
-						null,
-						React.createElement(
-							'span',
-							null,
-							data['product_store']
-						),
-						React.createElement('br', null)
-					);
-				}
 			} else {
 				return value;
 			}
@@ -49013,6 +49034,8 @@
 					page: 1
 				}
 			};
+			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '待入库', value: '2' }, { text: '已入库', value: '1' }, { text: '入库驳回', value: '4' }];
+
 			//返点用户
 			if (W.purchaseMethod == '1') {
 				return React.createElement(
@@ -49033,6 +49056,11 @@
 								Reactman.FilterField,
 								null,
 								React.createElement(Reactman.FormInput, { label: '\u5546\u54C1\u5206\u7C7B:', name: 'catalog_query', match: '=' })
+							),
+							React.createElement(
+								Reactman.FilterField,
+								null,
+								React.createElement(Reactman.FormSelect, { label: '\u5165\u5E93\u72B6\u6001:', name: 'product_status', options: optionsForProductStatus, match: '=' })
 							)
 						)
 					),
@@ -49053,10 +49081,10 @@
 							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u4EF7(\u5143)', field: 'clear_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
-							React.createElement(Reactman.TableColumn, { name: '\u5E93\u5B58', field: 'product_store' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u9500\u552E\u72B6\u6001', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
 						)
 					)
 				);
@@ -49098,10 +49126,10 @@
 							React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
 							React.createElement(Reactman.TableColumn, { name: '\u552E\u4EF7(\u5143)', field: 'product_price' }),
 							React.createElement(Reactman.TableColumn, { name: '\u9500\u91CF', field: 'sales' }),
-							React.createElement(Reactman.TableColumn, { name: '\u5E93\u5B58', field: 'product_store' }),
 							React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' }),
-							React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'status' }),
-							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+							React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u9500\u552E\u72B6\u6001', field: 'status' }),
+							React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
 						)
 					)
 				);
@@ -49464,7 +49492,7 @@
 
 
 	// module
-	exports.push([module.id, ".radio_model_type{\n    width: 80px;\n    height: 21px;\n    position: relative;\n    display: block;\n}\n\n.model_type_text, .model_type_img{\n    position: absolute;\n    width: auto;\n}\n\n.model_type_text_value{\n\tposition: absolute;\n\tleft: 15px;\n}\n\n.xa-editModelPropertyValue{\n    overflow: hidden;\n    border: solid 1px #BFBFBF;\n    position: relative;\n    width: auto;\n    height: 37px;\n}\n\nli.model_li{\n    display: inline-block;\n    box-sizing: border-box;\n    margin: 8px 10px 5px 0px;\n    min-width: 35px;\n    height: 35px;\n    line-height: 35px;\n    text-align: center;\n    position: relative;\n    vertical-align: middle;\n    background: #fff;\n}\n\nbutton.xui-close{\n\tline-height: 16px;\n}\n\n.modal-footer{\n\tdisplay: none;\n}\n\n.xui-form-imageUploader{\n\twidth: 260px;\n}", ""]);
+	exports.push([module.id, ".radio_model_type{\r\n    width: 80px;\r\n    height: 21px;\r\n    position: relative;\r\n    display: block;\r\n}\r\n\r\n.model_type_text, .model_type_img{\r\n    position: absolute;\r\n    width: auto;\r\n}\r\n\r\n.model_type_text_value{\r\n\tposition: absolute;\r\n\tleft: 15px;\r\n}\r\n\r\n.xa-editModelPropertyValue{\r\n    overflow: hidden;\r\n    border: solid 1px #BFBFBF;\r\n    position: relative;\r\n    width: auto;\r\n    height: 37px;\r\n}\r\n\r\nli.model_li{\r\n    display: inline-block;\r\n    box-sizing: border-box;\r\n    margin: 8px 10px 5px 0px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    line-height: 35px;\r\n    text-align: center;\r\n    position: relative;\r\n    vertical-align: middle;\r\n    background: #fff;\r\n}\r\n\r\nbutton.xui-close{\r\n\tline-height: 16px;\r\n}\r\n\r\n.modal-footer{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-form-imageUploader{\r\n\twidth: 260px;\r\n}", ""]);
 
 	// exports
 
@@ -49893,6 +49921,46 @@
 				actionType: Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
 				data: {}
 			});
+		},
+
+		updateRejectReason: function (property, value) {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UPDATE_UNPASS_REASON,
+				data: {
+					property: property,
+					value: value
+				}
+			});
+		},
+
+		chooseRejectUnpassReason: function (reason) {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UNPASS_REASON,
+				data: {
+					reason: reason
+				}
+			});
+		},
+		cancleCheckedUnpassReason: function () {
+			Dispatcher.dispatch({
+				actionType: Constant.PRODUCT_REJECT_UNDATE_CANCLE_CHECKED,
+				data: {}
+			});
+		},
+		refused: function (productId, reasons) {
+			console.log('reasons');
+			console.log(reasons);
+			Resource.post({
+				resource: 'product.product_reject',
+				data: {
+					reasons: reasons,
+					product_id: productId
+				},
+				dispatch: {
+					dispatcher: Dispatcher,
+					actionType: Constant.PRODUCT_REJECT_REFUSED
+				}
+			});
 		}
 	};
 
@@ -49924,7 +49992,11 @@
 		PRODUCT_PRODUCT_RELATION_CHOOSE_UNPASS_REASON: null,
 		PRODUCT_PRODUCT_RELATION_CANCLE_CHOOSE_REASON: null,
 		PRODUCT_PRODUCT_RELATION_REVOKE_PRODUCT: null,
-		PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS: null
+		PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS: null,
+		PRODUCT_REJECT_UNPASS_REASON: null,
+		PRODUCT_REJECT_UPDATE_UNPASS_REASON: null,
+		PRODUCT_REJECT_UNDATE_CANCLE_CHECKED: null,
+		PRODUCT_REJECT_REFUSED: null
 	});
 
 /***/ },
@@ -50117,7 +50189,8 @@
 			'handleDeleteProduct': Constant.PRODUCT_LIST_DELETE_PRODUCT,
 			'handleInitAllSelfShops': Constant.INIT_ALL_SELF_SHOPS,
 			'handleUpdateDatas': Constant.PRODUCT_PRODUCT_RELATION_UPDATE_DATAS,
-			'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS
+			'handleExportProducts': Constant.PRODUCT_PRODUCT_RELATION_EXPORT_PRODUCTS,
+			'handleProductRefused': Constant.PRODUCT_REJECT_REFUSED
 		},
 
 		init: function () {
@@ -50246,6 +50319,21 @@
 
 		getFilter: function () {
 			return this.data.filterOptions;
+		},
+
+		handleProductRefused: function (action) {
+			if (action.data['code'] == 200) {
+				this.data.reasons = [];
+				this.data.custom_reason = '';
+				setTimeout(function () {
+					Reactman.PageAction.showHint('success', '驳回成功');
+				}, 10);
+			} else {
+				setTimeout(function () {
+					Reactman.PageAction.showHint('error', '驳回失败');
+				}, 10);
+			}
+			this.__emitChange();
 		}
 	});
 
@@ -50538,7 +50626,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\n\twidth: 60px !important;\n}\n\n.modal-footer .btn-primary{\n\tdisplay: none;\n}\n\n.xui-un-pass-reasons{\n\tpadding-left: 50px;\n\tmargin-bottom: 20px;\n}\n\n.xi-un-pass-reason{\n\tlist-style: none;\n\tdisplay: inline-block;\n\tpadding: 3px;\n\tmargin-left: 34px;\n\tborder: 1px solid #CCC;\n\twidth: 108px;\n\tmargin-bottom: 10px;\n\theight: 28px;\n\ttext-align: center;\n}\n.xi-un-pass-reason:hover{\n\tcursor: pointer;\n}\n\n.xui-product-productUpdatedPage .btn-success{\n\tfloat: left !important;\n\tmargin-left: 0px !important; \n}", ""]);
+	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\r\n\twidth: 60px !important;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-un-pass-reasons{\r\n\tpadding-left: 50px;\r\n\tmargin-bottom: 20px;\r\n}\r\n\r\n.xi-un-pass-reason{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tpadding: 3px;\r\n\tmargin-left: 34px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 108px;\r\n\tmargin-bottom: 10px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n}\r\n.xi-un-pass-reason:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-product-productUpdatedPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}", ""]);
 
 	// exports
 
@@ -50578,7 +50666,7 @@
 
 
 	// module
-	exports.push([module.id, ".product-relation-title{\n\twidth: 75%;\n\tbackground: #CCC;\n\tposition: relative;\n\tmargin: 0 auto;\n    line-height: 35px;\n    height: 35px;\n    margin-bottom: 10px;\n}\n\n.product-relation-title span{\n\tdisplay: inline-block;\n\tfont-size: 16px;\n}\n\n.self-shop-div{\n\theight: 40px;\n\twidth: 75%;\n\tmargin: 0 auto;\n}\n\n.self-shop-name{\n\tline-height: 30px;\n\twidth: 130px;\n\ttext-align: center;\n}\n\n.relation-btn-div{\n    width: 75%;\n    margin: 0 auto;\n    margin-top: 20px;\n}\n\n.relation-btn-div button{\n\twidth: 100px;\n}\n\n.relation-btn-div .relation-btn{\n    margin-right: 68px;\n    margin-left: 74px;\n}\n\n.modal-footer .btn-primary{\n\tdisplay: none;\n}\n\n.self-shop-li{\n    list-style: none;\n    display: inline-block;\n    margin-left: 40px;\n    border: 1px solid #CCC;\n    width: 90px;\n    margin-bottom: 10px;\n    padding-top: 3px;\n    height: 28px;\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    text-align: center;\n}\n.self-shop-li:hover{\n\tcursor: pointer;\n}\n\n.cancle-relation-tips{\n    display: block;\n    margin-left: 50px;\n    margin-top: 20px;\n    margin-bottom: 15px;\n    font-size: 14px;\n}", ""]);
+	exports.push([module.id, ".product-relation-title{\r\n\twidth: 75%;\r\n\tbackground: #CCC;\r\n\tposition: relative;\r\n\tmargin: 0 auto;\r\n    line-height: 35px;\r\n    height: 35px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.product-relation-title span{\r\n\tdisplay: inline-block;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.self-shop-div{\r\n\theight: 40px;\r\n\twidth: 75%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.self-shop-name{\r\n\tline-height: 30px;\r\n\twidth: 130px;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-btn-div{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n    margin-top: 20px;\r\n}\r\n\r\n.relation-btn-div button{\r\n\twidth: 100px;\r\n}\r\n\r\n.relation-btn-div .relation-btn{\r\n    margin-right: 68px;\r\n    margin-left: 74px;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.self-shop-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 40px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n.self-shop-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.cancle-relation-tips{\r\n    display: block;\r\n    margin-left: 50px;\r\n    margin-top: 20px;\r\n    margin-bottom: 15px;\r\n    font-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -50618,7 +50706,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\n\tfloat: left !important;\n\tmargin-left: 0px !important; \n\tmargin-right: 20px;\n}\n\n.xui-filterPanel .control-label{\n\twidth: 90px;\n}\n\n.xui-label-name-li{\n\tdisplay: inline-block;\n\tmargin-right: 10px;\n\tmargin-top: 5px;\n\tfont-weight: bold;\n}\n\n.xui-i-expandRow{\n\tbackground: #EFEFEF;\n}\n\n.label-value-li{\n\tlist-style: none;\n\tdisplay: inline-block;\n\tmargin-left: 10px;\n\tborder: 1px solid #CCC;\n\twidth: 90px;\n\tmargin-bottom: 10px;\n\tpadding-top: 3px;\n\theight: 28px;\n\ttext-align: center;\n\toverflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    text-align: center;\n}\n\n.label-value-li:hover{\n\tcursor: pointer;\n}\n\n.xui-add-label-dialog{\n\tmin-height: 140px;\n\tdisplay: block;\n}\n\n.xui-label-dialog-ul{\n\tmargin-top: 20px;\n\tpadding-left: 110px;\n}", ""]);
+	exports.push([module.id, ".xui-product-productRelationPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n\tmargin-right: 20px;\r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n\twidth: 90px;\r\n}\r\n\r\n.xui-label-name-li{\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 5px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.xui-i-expandRow{\r\n\tbackground: #EFEFEF;\r\n}\r\n\r\n.label-value-li{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 10px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 90px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n\toverflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-add-label-dialog{\r\n\tmin-height: 140px;\r\n\tdisplay: block;\r\n}\r\n\r\n.xui-label-dialog-ul{\r\n\tmargin-top: 20px;\r\n\tpadding-left: 110px;\r\n}", ""]);
 
 	// exports
 
@@ -50641,10 +50729,10 @@
 	var Store = __webpack_require__(504);
 	var Constant = __webpack_require__(502);
 	var Action = __webpack_require__(501);
-
+	var ProductRelationUnPassDialog = __webpack_require__(514);
 	var ChooseSyncSelfShopDialog = __webpack_require__(503);
-	var AddLabelDialog = __webpack_require__(514);
-	var ProductCatalogAction = __webpack_require__(516);
+	var AddLabelDialog = __webpack_require__(518);
+	var ProductCatalogAction = __webpack_require__(520);
 	__webpack_require__(511);
 
 	var ProductRelationPage = React.createClass({
@@ -50705,6 +50793,34 @@
 			});
 		},
 
+		batchRejectProduct: function () {
+			//取消选中的商品
+			Action.cancleSelectSyncProduct();
+			var productIds = _.pluck(this.refs.table.getSelectedDatas(), 'id');
+			var status = _.pluck(this.refs.table.getSelectedDatas(), 'product_status_value');
+			for (var i in status) {
+				if (status[i] != 0) {
+					Reactman.PageAction.showHint('error', '操作失败，仅待入库的商品可进行驳回操作!');
+					return false;
+				}
+			}
+			if (productIds.length == 0) {
+				Reactman.PageAction.showHint('error', '请先选择要驳回的商品!');
+				return false;
+			}
+
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: ProductRelationUnPassDialog,
+				data: {
+					product_id: productIds.join(",")
+				},
+				success: function (inputData, dialogState) {
+					console.log("success");
+				}
+			});
+		},
+
 		onClickDelete: function (productId, event) {
 			var title = '确定删除么?';
 			Reactman.PageAction.showConfirm({
@@ -50715,7 +50831,21 @@
 				}, this)
 			});
 		},
-
+		onClickUnPass: function (product_id, event) {
+			Action.cancleCheckedUnpassReason();
+			_.delay(function () {
+				Reactman.PageAction.showDialog({
+					title: "商品驳回",
+					component: ProductRelationUnPassDialog,
+					data: {
+						product_id: product_id
+					},
+					success: function () {
+						console.log('success');
+					}
+				});
+			}, 100);
+		},
 		onAddLabel: function (event) {
 			var catalogId = event.target.getAttribute('data-catalog-id');
 			var productId = event.target.getAttribute('data-id');
@@ -50759,18 +50889,23 @@
 				);
 			} else if (field === 'action') {
 				if (data['product_status_value'] == 0) {
-					//未同步
+					//待入库
 					return React.createElement(
 						'div',
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							{ className: 'btn btn-primary ml10', onClick: this.onClickUnPass.bind(this, data['id']) },
+							'\u9A73\u56DE\u4FEE\u6539'
+						),
+						React.createElement(
+							'a',
+							{ className: 'btn btn-danger mt5', onClick: this.onClickDelete.bind(this, data['id']) },
 							'\u5220\u9664\u5546\u54C1'
 						)
 					);
@@ -50781,24 +50916,46 @@
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						)
 					);
-				} else {
+				} else if (data['product_status_value'] == 2) {
 					//已入库,已停售
 					return React.createElement(
 						'div',
 						null,
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
 							'\u540C\u6B65\u5546\u54C1'
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.onClickDelete.bind(this, data['id']) },
+							{ className: 'btn btn-danger ml10', onClick: this.onClickDelete.bind(this, data['id']) },
 							'\u5220\u9664\u5546\u54C1'
+						)
+					);
+				} else if (data['product_status_value'] == 3) {
+					//入库驳回
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-danger', onClick: this.onClickDelete.bind(this, data['id']) },
+							'\u5220\u9664\u5546\u54C1'
+						)
+					);
+				} else if (data['product_status_value'] == 4) {
+					//修改驳回
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'btn btn-primary', onClick: this.chooseSyncSelfShop.bind(this, data['id'], data['product_status_value']) },
+							'\u540C\u6B65\u5546\u54C1'
 						)
 					);
 				}
@@ -50893,7 +51050,7 @@
 					second_catalog_id: W.second_catalog_id
 				}
 			};
-			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '已入库,已同步', value: '1' }, { text: '已入库,已停售', value: '3' }, { text: '未同步', value: '2' }];
+			var optionsForProductStatus = [{ text: '全部', value: '0' }, { text: '待入库', value: '2' }, { text: '已入库,已同步', value: '1' }, { text: '已入库,已停售', value: '3' }, { text: '入库驳回', value: '4' }, { text: '修改驳回', value: '5' }];
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-product-productRelationPage' },
@@ -50916,7 +51073,7 @@
 						React.createElement(
 							Reactman.FilterField,
 							null,
-							React.createElement(Reactman.FormSelect, { label: '\u72B6\u6001:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
+							React.createElement(Reactman.FormSelect, { label: '\u5165\u5E93\u72B6\u6001:', name: 'product_status_query', options: optionsForProductStatus, match: '=' })
 						)
 					),
 					React.createElement(
@@ -50936,7 +51093,8 @@
 						Reactman.TableActionBar,
 						null,
 						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u540C\u6B65', onClick: this.batchSyncProduct }),
-						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport })
+						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA\u5546\u54C1', onClick: this.onExport }),
+						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u9A73\u56DE', onClick: this.batchRejectProduct })
 					),
 					React.createElement(
 						Reactman.Table,
@@ -50946,8 +51104,8 @@
 						React.createElement(Reactman.TableColumn, { name: '\u5206\u7C7B', field: 'catalog_name' }),
 						React.createElement(Reactman.TableColumn, { name: '\u6765\u6E90', field: 'customer_from_text' }),
 						React.createElement(Reactman.TableColumn, { name: '\u603B\u9500\u91CF', field: 'total_sales' }),
-						React.createElement(Reactman.TableColumn, { name: '\u72B6\u6001', field: 'product_status' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action' })
+						React.createElement(Reactman.TableColumn, { name: '\u5165\u5E93\u72B6\u6001', field: 'product_status' }),
+						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '200px' })
 					)
 				)
 			);
@@ -50964,16 +51122,260 @@
 	 */
 	"use strict";
 
+	var debug = __webpack_require__(235)('m:product.product_updated:UnPassDialog');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+
+	var Reactman = __webpack_require__(161);
+	var _ = __webpack_require__(243);
+
+	var ProductRelationUnPassDialogStore = __webpack_require__(515);
+	var Constant = __webpack_require__(502);
+	var Action = __webpack_require__(501);
+	__webpack_require__(516);
+
+	var ProductRelationUnPassDialog = Reactman.createDialog({
+		getInitialState: function () {
+			ProductRelationUnPassDialogStore.addListener(this.onChangeStore);
+			var productId = this.props.data.product_id;
+			console.log('productId');
+			console.log(productId);
+			return {
+				product_id: productId,
+				reasons: ProductRelationUnPassDialogStore.getData().reasons,
+				custom_reason: ''
+			};
+		},
+
+		onChange: function (value, event) {
+			var property = event.target.getAttribute('name');
+			Action.updateRejectReason(property, value);
+		},
+
+		onChangeStore: function () {
+			var infomations = ProductRelationUnPassDialogStore.getData();
+			this.setState({
+				reasons: infomations['reasons'],
+				custom_reason: infomations['custom_reason']
+			});
+		},
+
+		chooseRejectUnpassReason: function (event) {
+			var reason = event.target.getAttribute('data-reason');
+			Action.chooseRejectUnpassReason(reason);
+		},
+
+		cancleChecked: function () {
+			Action.cancleCheckedUnpassReason();
+			this.closeDialog();
+		},
+
+		refused: function () {
+			var _this = this;
+			var reasons = this.state.reasons;
+			var productId = this.state.product_id;
+			var custom_reason = this.state.custom_reason; //自定义原因
+			if (custom_reason.length > 0 && reasons.length > 0) {
+				reasons.push(custom_reason);
+				reasons = reasons.join(',');
+			} else if (custom_reason.length > 0) {
+				reasons = custom_reason;
+			} else {
+				reasons = reasons.join(',');
+			}
+			if (reasons.length == 0) {
+				Reactman.PageAction.showHint('error', '请添加驳回原因!');
+				return;
+			}
+			Action.refused(productId, reasons);
+			_.delay(function () {
+				_this.closeDialog();
+			}, 500);
+		},
+
+		render: function () {
+			var reasons = this.state.reasons;
+			var firstReason = {};
+			for (var i = 0; i < reasons.length; i++) {
+				if (reasons[i] === '商品名称不规范，标准格式：品牌名+商品名+包装规格') {
+					firstReason = { background: '#009DD9', color: '#FFF' };
+				}
+			}
+
+			return React.createElement(
+				'div',
+				{ className: 'xui-formPage' },
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(
+							'ul',
+							{ className: 'xui-unpass-reasons' },
+							React.createElement(
+								'li',
+								{ className: 'xi-unpass-reason', style: firstReason, 'data-reason': '\u5546\u54C1\u540D\u79F0\u4E0D\u89C4\u8303\uFF0C\u6807\u51C6\u683C\u5F0F\uFF1A\u54C1\u724C\u540D+\u5546\u54C1\u540D+\u5305\u88C5\u89C4\u683C', onClick: this.chooseRejectUnpassReason },
+								'\u5546\u54C1\u540D\u79F0\u4E0D\u89C4\u8303\uFF0C\u6807\u51C6\u683C\u5F0F\uFF1A\u54C1\u724C\u540D+\u5546\u54C1\u540D+\u5305\u88C5\u89C4\u683C'
+							)
+						),
+						React.createElement(Reactman.FormText, { label: '', type: 'text', name: 'custom_reason', value: this.state.custom_reason, onChange: this.onChange, autoFocus: true, inDialog: true, width: 380, height: 200 }),
+						React.createElement(
+							'a',
+							{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '190px', managerTop: '20px' }, onClick: this.refused },
+							React.createElement(
+								'span',
+								null,
+								'\u786E\u5B9A'
+							)
+						),
+						React.createElement(
+							'a',
+							{ href: 'javascript:void(0);', className: 'btn btn-success', style: { marginLeft: '50px', managerTop: '20px' }, onClick: this.cancleChecked },
+							React.createElement(
+								'span',
+								null,
+								'\u53D6\u6D88'
+							)
+						)
+					)
+				)
+			);
+		}
+	});
+	module.exports = ProductRelationUnPassDialog;
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
+	var EventEmitter = __webpack_require__(303).EventEmitter;
+	var assign = __webpack_require__(304);
+	var _ = __webpack_require__(243);
+
+	var Reactman = __webpack_require__(161);
+	var Dispatcher = Reactman.Dispatcher;
+	var StoreUtil = Reactman.StoreUtil;
+
+	var Constant = __webpack_require__(502);
+
+	var ProductRelationUnPassDialogStore = StoreUtil.createStore(Dispatcher, {
+		actions: {
+			'handleChooseUnpassReason': Constant.PRODUCT_REJECT_UNPASS_REASON,
+			'handleUpdateUnpassReason': Constant.PRODUCT_REJECT_UPDATE_UNPASS_REASON,
+			'handleCancleCheckedReason': Constant.PRODUCT_REJECT_UNDATE_CANCLE_CHECKED
+		},
+
+		init: function () {
+			this.data = {
+				'reasons': [],
+				'custom_reason': ''
+			};
+		},
+
+		handleUpdateUnpassReason: function (action) {
+			this.data[action.data.property] = action.data.value;
+			this.__emitChange();
+		},
+
+		handleChooseUnpassReason: function (action) {
+			var reasons = this.data.reasons;
+			var reason = action.data.reason;
+			var isChoosed = true;
+
+			for (var index in reasons) {
+				if (reasons[index] == reason) {
+					isChoosed = false;
+					reasons.splice(index, 1);
+				}
+			}
+
+			if (isChoosed) {
+				reasons.push(reason);
+			}
+			this.data.reasons = reasons;
+			this.__emitChange();
+		},
+
+		handleCancleCheckedReason: function () {
+			this.data = {
+				'reasons': [],
+				'custom_reason': ''
+			};
+		},
+
+		getData: function () {
+			return this.data;
+		}
+	});
+
+	module.exports = ProductRelationUnPassDialogStore;
+
+/***/ },
+/* 516 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(517);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 517 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\r\n\twidth: 60px !important;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-unpass-reasons{\r\n    padding-left: 50px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.xi-unpass-reason{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 40px;\r\n\tborder: 1px solid #CCC;\r\n\tmargin-bottom: 10px;\r\n\tpadding: 3px 18px 0 18px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n}\r\n.xi-unpass-reason:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-product-productUpdatedPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+	"use strict";
+
 	var debug = __webpack_require__(235)('m:product_catalog.product_catalogs:AddLabelDialog');
-	var ProductModel = __webpack_require__(515);
+	var ProductModel = __webpack_require__(519);
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(518);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
-	__webpack_require__(519);
+	var Store = __webpack_require__(522);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
+	__webpack_require__(523);
 
 	var AddLabelDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -51143,7 +51545,7 @@
 	module.exports = AddLabelDialog;
 
 /***/ },
-/* 515 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51158,8 +51560,8 @@
 	var Reactman = __webpack_require__(161);
 	var FormInput = Reactman.FormInput;
 
-	var Action = __webpack_require__(516);
-	var Constant = __webpack_require__(517);
+	var Action = __webpack_require__(520);
+	var Constant = __webpack_require__(521);
 
 	var ProductModel = React.createClass({
 		displayName: 'ProductModel',
@@ -51201,7 +51603,7 @@
 	module.exports = ProductModel;
 
 /***/ },
-/* 516 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51216,7 +51618,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var Action = {
 		updateCatalogs: function (filterOptions) {
@@ -51327,7 +51729,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 517 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51348,7 +51750,7 @@
 	});
 
 /***/ },
-/* 518 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51364,7 +51766,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var AddLabelDialogStore = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -51461,13 +51863,13 @@
 	module.exports = AddLabelDialogStore;
 
 /***/ },
-/* 519 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(520);
+	var content = __webpack_require__(524);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -51487,7 +51889,7 @@
 	}
 
 /***/ },
-/* 520 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -51495,13 +51897,13 @@
 
 
 	// module
-	exports.push([module.id, "td {\n    line-height: 30px !important;\n}\n.add_model .add_model-btn{\n    display: -webkit-box;\n}\ninput#qualification_name {\n    width: 180px;\n}\n.form-group label {\n    width: 20%;\n}\n.label-value-li{\n    list-style: none;\n    display: inline-block;\n    margin-left: 10px;\n    border: 1px solid #CCC;\n    width: 90px;\n    margin-bottom: 10px;\n    padding-top: 3px;\n    height: 28px;\n    text-align: center;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    text-align: center;\n}\n.label-value-li:hover{\n\tcursor: pointer;\n}\n.xui-add-label-dialog{\n    min-height: 140px;\n}\n.xui-label-dialog-ul{\n    margin-top: 20px;\n    padding-left: 130px;\n}", ""]);
+	exports.push([module.id, "td {\r\n    line-height: 30px !important;\r\n}\r\n.add_model .add_model-btn{\r\n    display: -webkit-box;\r\n}\r\ninput#qualification_name {\r\n    width: 180px;\r\n}\r\n.form-group label {\r\n    width: 20%;\r\n}\r\n.label-value-li{\r\n    list-style: none;\r\n    display: inline-block;\r\n    margin-left: 10px;\r\n    border: 1px solid #CCC;\r\n    width: 90px;\r\n    margin-bottom: 10px;\r\n    padding-top: 3px;\r\n    height: 28px;\r\n    text-align: center;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    text-align: center;\r\n}\r\n.label-value-li:hover{\r\n\tcursor: pointer;\r\n}\r\n.xui-add-label-dialog{\r\n    min-height: 140px;\r\n}\r\n.xui-label-dialog-ul{\r\n    margin-top: 20px;\r\n    padding-left: 130px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 521 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51516,7 +51918,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var Action = {
 		filterDatas: function (filterOptions) {
@@ -51583,7 +51985,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 522 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51603,7 +52005,7 @@
 	});
 
 /***/ },
-/* 523 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51617,11 +52019,11 @@
 	var _ = __webpack_require__(243);
 
 	var Reactman = __webpack_require__(161);
-	var Store = __webpack_require__(524);
-	var Constant = __webpack_require__(522);
-	var Action = __webpack_require__(521);
-	var UnPassDialog = __webpack_require__(525);
-	__webpack_require__(529);
+	var Store = __webpack_require__(528);
+	var Constant = __webpack_require__(526);
+	var Action = __webpack_require__(525);
+	var UnPassDialog = __webpack_require__(529);
+	__webpack_require__(533);
 	var W = Reactman.W;
 
 	var ProductUpdatedPage = React.createClass({
@@ -51797,7 +52199,7 @@
 	module.exports = ProductUpdatedPage;
 
 /***/ },
-/* 524 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51814,7 +52216,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -51892,7 +52294,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 525 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51907,10 +52309,10 @@
 	var Reactman = __webpack_require__(161);
 	var _ = __webpack_require__(243);
 
-	var UnPassDialogStore = __webpack_require__(526);
-	var Constant = __webpack_require__(522);
-	var Action = __webpack_require__(521);
-	__webpack_require__(527);
+	var UnPassDialogStore = __webpack_require__(530);
+	var Constant = __webpack_require__(526);
+	var Action = __webpack_require__(525);
+	__webpack_require__(531);
 
 	var UnPassDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52042,7 +52444,7 @@
 	module.exports = UnPassDialog;
 
 /***/ },
-/* 526 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52058,7 +52460,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(522);
+	var Constant = __webpack_require__(526);
 
 	var UnPassDialogStore = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -52114,13 +52516,13 @@
 	module.exports = UnPassDialogStore;
 
 /***/ },
-/* 527 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(528);
+	var content = __webpack_require__(532);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -52140,7 +52542,7 @@
 	}
 
 /***/ },
-/* 528 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -52148,19 +52550,19 @@
 
 
 	// module
-	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\n\twidth: 60px !important;\n}\n\n.modal-footer .btn-primary{\n\tdisplay: none;\n}\n\n.xui-un-pass-reasons{\n    padding-left: 50px;\n    margin-bottom: 20px;\n}\n\n.xi-un-pass-reason{\n\tlist-style: none;\n\tdisplay: inline-block;\n\tmargin-left: 40px;\n\tborder: 1px solid #CCC;\n\twidth: 100px;\n\tmargin-bottom: 10px;\n\tpadding-top: 3px;\n\theight: 28px;\n\ttext-align: center;\n}\n.xi-un-pass-reason:hover{\n\tcursor: pointer;\n}\n\n.xui-product-productUpdatedPage .btn-success{\n\tfloat: left !important;\n\tmargin-left: 0px !important; \n}", ""]);
+	exports.push([module.id, ".xui-formPage .form-horizontal .control-label{\r\n\twidth: 60px !important;\r\n}\r\n\r\n.modal-footer .btn-primary{\r\n\tdisplay: none;\r\n}\r\n\r\n.xui-un-pass-reasons{\r\n    padding-left: 50px;\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.xi-un-pass-reason{\r\n\tlist-style: none;\r\n\tdisplay: inline-block;\r\n\tmargin-left: 40px;\r\n\tborder: 1px solid #CCC;\r\n\twidth: 100px;\r\n\tmargin-bottom: 10px;\r\n\tpadding-top: 3px;\r\n\theight: 28px;\r\n\ttext-align: center;\r\n}\r\n.xi-un-pass-reason:hover{\r\n\tcursor: pointer;\r\n}\r\n\r\n.xui-product-productUpdatedPage .btn-success{\r\n\tfloat: left !important;\r\n\tmargin-left: 0px !important; \r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 529 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(530);
+	var content = __webpack_require__(534);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -52180,7 +52582,7 @@
 	}
 
 /***/ },
-/* 530 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -52188,13 +52590,13 @@
 
 
 	// module
-	exports.push([module.id, ".product-img{\n    width: 60px;\n    height: 60px;\n    margin-right: 10px;\n}\n\n.product-name{\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    display: inline-block;\n    width: 400px;\n    position: relative;\n}\n\n.product-model-detail{\n    position: absolute;\n    height: 30px;\n    top: 35px;\n    left: 70px;\n    line-height: 30px;\n}\n\ntr > td{\n    vertical-align: middle !important;\n}\n\ntr.model-detail-tr > td{\n    height: 40px;\n    line-height: 30px!important;\n}\n\n.xui-filterPanel .control-label{\n    width: 90px;\n}", ""]);
+	exports.push([module.id, ".product-img{\r\n    width: 60px;\r\n    height: 60px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.product-name{\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n    display: inline-block;\r\n    width: 400px;\r\n    position: relative;\r\n}\r\n\r\n.product-model-detail{\r\n    position: absolute;\r\n    height: 30px;\r\n    top: 35px;\r\n    left: 70px;\r\n    line-height: 30px;\r\n}\r\n\r\ntr > td{\r\n    vertical-align: middle !important;\r\n}\r\n\r\ntr.model-detail-tr > td{\r\n    height: 40px;\r\n    line-height: 30px!important;\r\n}\r\n\r\n.xui-filterPanel .control-label{\r\n    width: 90px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 531 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52208,9 +52610,9 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
 
 	var AddCatalogDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52323,7 +52725,7 @@
 	module.exports = AddCatalogDialog;
 
 /***/ },
-/* 532 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52339,7 +52741,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(517);
+	var Constant = __webpack_require__(521);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -52402,7 +52804,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 533 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52411,14 +52813,14 @@
 	"use strict";
 
 	var debug = __webpack_require__(235)('m:product_catalog.product_catalogs:AddCatalogQualificationDialog');
-	var ProductModel = __webpack_require__(515);
+	var ProductModel = __webpack_require__(519);
 	var React = __webpack_require__(3);
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
 
 	var AddCatalogQualificationDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52497,7 +52899,7 @@
 	module.exports = AddCatalogQualificationDialog;
 
 /***/ },
-/* 534 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52511,13 +52913,13 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(532);
-	var Constant = __webpack_require__(517);
-	var Action = __webpack_require__(516);
-	var AddCatalogDialog = __webpack_require__(531);
-	var AddCatalogQualificationDialog = __webpack_require__(533);
-	var AddLabelDialog = __webpack_require__(514);
-	__webpack_require__(519);
+	var Store = __webpack_require__(536);
+	var Constant = __webpack_require__(521);
+	var Action = __webpack_require__(520);
+	var AddCatalogDialog = __webpack_require__(535);
+	var AddCatalogQualificationDialog = __webpack_require__(537);
+	var AddLabelDialog = __webpack_require__(518);
+	__webpack_require__(523);
 
 	var ProductCatalogPage = React.createClass({
 		displayName: 'ProductCatalogPage',
@@ -52775,7 +53177,7 @@
 	module.exports = ProductCatalogPage;
 
 /***/ },
-/* 535 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52790,7 +53192,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(536);
+	var Constant = __webpack_require__(540);
 
 	var Action = {
 		updateLimitZoneTemplates: function (filterOptions) {
@@ -52852,7 +53254,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 536 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52867,7 +53269,7 @@
 	});
 
 /***/ },
-/* 537 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52881,9 +53283,9 @@
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
 
 	var AddLimitZoneTemplateDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -52978,7 +53380,7 @@
 	module.exports = AddLimitZoneTemplateDialog;
 
 /***/ },
-/* 538 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52994,7 +53396,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(536);
+	var Constant = __webpack_require__(540);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -53017,7 +53419,7 @@
 	module.exports = Store;
 
 /***/ },
-/* 539 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53030,9 +53432,9 @@
 	var ReactDOM = __webpack_require__(160);
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
 
 	var LimitZoneText = Reactman.createDialog({
 		getInitialState: function () {
@@ -53064,7 +53466,7 @@
 	module.exports = LimitZoneText;
 
 /***/ },
-/* 540 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53078,11 +53480,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(538);
-	var Constant = __webpack_require__(536);
-	var Action = __webpack_require__(535);
-	var AddLimitZoneTemplateDialog = __webpack_require__(537);
-	var LimitZoneText = __webpack_require__(539);
+	var Store = __webpack_require__(542);
+	var Constant = __webpack_require__(540);
+	var Action = __webpack_require__(539);
+	var AddLimitZoneTemplateDialog = __webpack_require__(541);
+	var LimitZoneText = __webpack_require__(543);
 
 	var ProductCatalogPage = React.createClass({
 		displayName: 'ProductCatalogPage',
@@ -53225,13 +53627,13 @@
 	module.exports = ProductCatalogPage;
 
 /***/ },
-/* 541 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(542);
+	var content = __webpack_require__(546);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53251,7 +53653,7 @@
 	}
 
 /***/ },
-/* 542 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53265,7 +53667,7 @@
 
 
 /***/ },
-/* 543 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53280,7 +53682,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(544);
+	var Constant = __webpack_require__(548);
 
 	var Action = {
 		updateSelfShopDialog: function (property, value) {
@@ -53314,7 +53716,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 544 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53330,7 +53732,7 @@
 	});
 
 /***/ },
-/* 545 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53344,10 +53746,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(546);
-	var Constant = __webpack_require__(544);
-	var Action = __webpack_require__(543);
-	__webpack_require__(547);
+	var Store = __webpack_require__(550);
+	var Constant = __webpack_require__(548);
+	var Action = __webpack_require__(547);
+	__webpack_require__(551);
 
 	var AddSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
@@ -53430,7 +53832,7 @@
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 546 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53447,7 +53849,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(544);
+	var Constant = __webpack_require__(548);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -53477,13 +53879,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 547 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(548);
+	var content = __webpack_require__(552);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53503,7 +53905,7 @@
 	}
 
 /***/ },
-/* 548 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53517,7 +53919,7 @@
 
 
 /***/ },
-/* 549 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53532,11 +53934,11 @@
 
 	var Reactman = __webpack_require__(161);
 
-	var Store = __webpack_require__(546);
-	var Constant = __webpack_require__(544);
-	var Action = __webpack_require__(543);
-	var AddSelfShopDialog = __webpack_require__(545);
-	__webpack_require__(547);
+	var Store = __webpack_require__(550);
+	var Constant = __webpack_require__(548);
+	var Action = __webpack_require__(547);
+	var AddSelfShopDialog = __webpack_require__(549);
+	__webpack_require__(551);
 	var W = Reactman.W;
 
 	var SelfShopManagePage = React.createClass({
@@ -53637,7 +54039,7 @@
 	module.exports = SelfShopManagePage;
 
 /***/ },
-/* 550 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53652,7 +54054,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(551);
+	var Constant = __webpack_require__(555);
 
 	var Action = {
 
@@ -53680,7 +54082,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 551 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53696,7 +54098,7 @@
 	});
 
 /***/ },
-/* 552 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53710,10 +54112,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(553);
-	var Constant = __webpack_require__(551);
-	var Action = __webpack_require__(550);
-	__webpack_require__(554);
+	var Store = __webpack_require__(557);
+	var Constant = __webpack_require__(555);
+	var Action = __webpack_require__(554);
+	__webpack_require__(558);
 
 	var Attachments = React.createClass({
 		displayName: 'Attachments',
@@ -53753,7 +54155,7 @@
 	module.exports = Attachments;
 
 /***/ },
-/* 553 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53770,7 +54172,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(551);
+	var Constant = __webpack_require__(555);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -53789,13 +54191,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 554 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(555);
+	var content = __webpack_require__(559);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -53815,7 +54217,7 @@
 	}
 
 /***/ },
-/* 555 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -53823,13 +54225,13 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.bold_text{\n    font-weight:bold;\n    text-decoration: none;\n}\n.red_color{\n    color:red;\n}\n.grey_text {\n    color:#747474;\n}\n.href_color {\n    color:#404040;\n}\n\n.href_color_gray {\n    color:#747474;\n}\n", ""]);
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.bold_text{\r\n    font-weight:bold;\r\n    text-decoration: none;\r\n}\r\n.red_color{\r\n    color:red;\r\n}\r\n.grey_text {\r\n    color:#747474;\r\n}\r\n.href_color {\r\n    color:#404040;\r\n}\r\n\r\n.href_color_gray {\r\n    color:#747474;\r\n}\r\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 556 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53843,106 +54245,106 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(553);
-	var Constant = __webpack_require__(551);
-	var Action = __webpack_require__(550);
-	__webpack_require__(554);
+	var Store = __webpack_require__(557);
+	var Constant = __webpack_require__(555);
+	var Action = __webpack_require__(554);
+	__webpack_require__(558);
 
 	var StationMessageList = React.createClass({
-	    displayName: 'StationMessageList',
+	  displayName: 'StationMessageList',
 
-	    getInitialState: function () {
-	        Store.addListener(this.onChangeStore);
-	        return Store.getData();
-	    },
+	  getInitialState: function () {
+	    Store.addListener(this.onChangeStore);
+	    return Store.getData();
+	  },
 
-	    onChange: function (value, event) {
-	        var property = event.target.getAttribute('name');
-	    },
+	  onChange: function (value, event) {
+	    var property = event.target.getAttribute('name');
+	  },
 
-	    onChangeStore: function () {
-	        this.setState(Store.getData());
-	    },
+	  onChangeStore: function () {
+	    this.setState(Store.getData());
+	  },
 
-	    rowFormatter: function (field, value, data) {
-	        if (data.status == 0) {
-	            var status = '(未读)';
-	        } else {
-	            var status = '';
-	        }
-	        if (data.status == 0) {
-	            if (field === 'title') {
-	                var href = '/message/read_message?message_id=' + data.id;
-	                return React.createElement(
-	                    'div',
-	                    { className: 'bold_text' },
-	                    React.createElement(
-	                        'a',
-	                        { href: href, className: 'href_color' },
-	                        React.createElement(
-	                            'span',
-	                            { className: 'red_color' },
-	                            status
-	                        ),
-	                        value
-	                    )
-	                );
-	            } else {
-	                return React.createElement(
-	                    'div',
-	                    { className: 'bold_text' },
-	                    value
-	                );
-	            }
-	        } else {
-	            if (field === 'title') {
-	                var href = '/message/read_message?message_id=' + data.id;
-	                return React.createElement(
-	                    'div',
-	                    { className: 'grey_text' },
-	                    React.createElement(
-	                        'a',
-	                        { href: href, className: 'href_color_gray' },
-	                        value
-	                    )
-	                );
-	            } else {
-	                return React.createElement(
-	                    'div',
-	                    { className: 'grey_text' },
-	                    value
-	                );
-	            }
-	        }
-	    },
-	    render: function () {
-	        var messagesResource = {
-	            resource: 'message.customer_messages',
-	            data: {
-	                page: 1
-	            }
-	        };
-	        return React.createElement(
-	            'div',
-	            { className: 'mt15 xui-product-productListPage' },
-	            React.createElement(
-	                Reactman.TablePanel,
-	                null,
-	                React.createElement(Reactman.TableActionBar, null),
-	                React.createElement(
-	                    Reactman.Table,
-	                    { resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
-	                    React.createElement(Reactman.TableColumn, { name: '\u6807\u9898', field: 'title' }),
-	                    React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' })
-	                )
-	            )
-	        );
+	  rowFormatter: function (field, value, data) {
+	    if (data.status == 0) {
+	      var status = '(未读)';
+	    } else {
+	      var status = '';
 	    }
+	    if (data.status == 0) {
+	      if (field === 'title') {
+	        var href = '/message/read_message?message_id=' + data.id;
+	        return React.createElement(
+	          'div',
+	          { className: 'bold_text' },
+	          React.createElement(
+	            'a',
+	            { href: href, className: 'href_color' },
+	            React.createElement(
+	              'span',
+	              { className: 'red_color' },
+	              status
+	            ),
+	            value
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'bold_text' },
+	          value
+	        );
+	      }
+	    } else {
+	      if (field === 'title') {
+	        var href = '/message/read_message?message_id=' + data.id;
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          React.createElement(
+	            'a',
+	            { href: href, className: 'href_color_gray' },
+	            value
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          value
+	        );
+	      }
+	    }
+	  },
+	  render: function () {
+	    var messagesResource = {
+	      resource: 'message.customer_messages',
+	      data: {
+	        page: 1
+	      }
+	    };
+	    return React.createElement(
+	      'div',
+	      { className: 'mt15 xui-product-productListPage' },
+	      React.createElement(
+	        Reactman.TablePanel,
+	        null,
+	        React.createElement(Reactman.TableActionBar, null),
+	        React.createElement(
+	          Reactman.Table,
+	          { resource: messagesResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
+	          React.createElement(Reactman.TableColumn, { name: '\u6807\u9898', field: 'title' }),
+	          React.createElement(Reactman.TableColumn, { name: '\u521B\u5EFA\u65F6\u95F4', field: 'created_at' })
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = StationMessageList;
 
 /***/ },
-/* 557 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -53957,7 +54359,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(558);
+	var Constant = __webpack_require__(562);
 
 	var Action = {
 
@@ -54020,7 +54422,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 558 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54035,7 +54437,7 @@
 	});
 
 /***/ },
-/* 559 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54049,84 +54451,84 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(560);
-	var Constant = __webpack_require__(558);
-	var Action = __webpack_require__(557);
-	__webpack_require__(561);
+	var Store = __webpack_require__(564);
+	var Constant = __webpack_require__(562);
+	var Action = __webpack_require__(561);
+	__webpack_require__(565);
 
 	var AddSelfShopDialog = React.createClass({
-	    displayName: 'AddSelfShopDialog',
+	  displayName: 'AddSelfShopDialog',
 
-	    getInitialState: function () {
-	        Store.addListener(this.onChangeStore);
-	        return Store.getData();
-	    },
+	  getInitialState: function () {
+	    Store.addListener(this.onChangeStore);
+	    return Store.getData();
+	  },
 
-	    onChange: function (value, event) {
-	        var property = event.target.getAttribute('name');
-	        Action.updateMessage(property, value);
-	    },
+	  onChange: function (value, event) {
+	    var property = event.target.getAttribute('name');
+	    Action.updateMessage(property, value);
+	  },
 
-	    onChangeStore: function () {
-	        this.setState(Store.getData());
-	    },
+	  onChangeStore: function () {
+	    this.setState(Store.getData());
+	  },
 
-	    render: function () {
-	        var remark = this.state.text;
-	        var converter = document.createElement("DIV");
-	        converter.innerHTML = remark;
-	        var output = converter.innerText;
-	        var attachments = this.state.attachments;
-	        var at_url = attachments.map(function (attachment, index) {
-	            return React.createElement(
-	                'a',
-	                { href: attachment.path, download: true },
-	                attachment.filename
-	            );
-	        });
-	        return React.createElement(
-	            'div',
+	  render: function () {
+	    var remark = this.state.text;
+	    var converter = document.createElement("DIV");
+	    converter.innerHTML = remark;
+	    var output = converter.innerText;
+	    var attachments = this.state.attachments;
+	    var at_url = attachments.map(function (attachment, index) {
+	      return React.createElement(
+	        'a',
+	        { href: attachment.path, download: true },
+	        attachment.filename
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'xui-message ' },
+	        React.createElement(
+	          'div',
+	          { className: 'title' },
+	          React.createElement(
+	            'span',
 	            null,
-	            React.createElement(
-	                'div',
-	                { className: 'xui-message ' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'title' },
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        this.state.title
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'time' },
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        this.state.created_at
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'text' },
-	                    React.createElement('div', { className: '', dangerouslySetInnerHTML: { __html: output } })
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'attachment' },
-	                    '\u9644\u4EF6\uFF1A',
-	                    at_url
-	                )
-	            )
-	        );
-	    }
+	            this.state.title
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'time' },
+	          React.createElement(
+	            'span',
+	            null,
+	            this.state.created_at
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'text' },
+	          React.createElement('div', { className: '', dangerouslySetInnerHTML: { __html: output } })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'attachment' },
+	          '\u9644\u4EF6\uFF1A',
+	          at_url
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 560 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54143,7 +54545,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(558);
+	var Constant = __webpack_require__(562);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -54184,13 +54586,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 561 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(562);
+	var content = __webpack_require__(566);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54210,7 +54612,7 @@
 	}
 
 /***/ },
-/* 562 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54218,13 +54620,13 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}\n.product-detail{\n    width: 640px;\n\n    margin: auto auto;\n    overflow-y: auto;\n    overflow-x: hidden;\n    height: 730px;\n}\n\n.title{\n    font-weight:bold;\n    display: block;\n    margin: auto auto;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 16px;\n\twidth: 1200px;\n    margin-top:15px;\n}\n\n.time{\n    display: block;\n    width: 1200px;\n    margin: auto;\n    margin-top: 10px;\n    /*border-bottom: 1px solid #CCC;*/\n\tfont-size: 12px;\n\tcolor:#747474;\n\tborder-bottom: 1px solid rgba(204, 204, 204, 0.25);\n\tpadding-bottom: 5px;\n}\n.text{\n    display: block;\n    width: 1200px;\n    margin: auto auto;\n    margin-top:20px;\n}\n.script{\n    display: block;\n    width: 1200px;\n    margin-left:150px;\n    margin-top:30px;\n}\n.attachment{\n    display: block;\n    width: 1200px;\n\n    margin: auto ;\n    margin-top:20px;\n    margin-bottom:20px;\n}\n.xui-message{\n\n    margin: auto auto;\n    margin-top:50px;\n    width: 1300px;\n    border: 1px solid rgba(204, 204, 204, 0.25);\n}", ""]);
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.product-detail{\r\n    width: 640px;\r\n\r\n    margin: auto auto;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    height: 730px;\r\n}\r\n\r\n.title{\r\n    font-weight:bold;\r\n    display: block;\r\n    margin: auto auto;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tfont-size: 16px;\r\n\twidth: 1200px;\r\n    margin-top:15px;\r\n}\r\n\r\n.time{\r\n    display: block;\r\n    width: 1200px;\r\n    margin: auto;\r\n    margin-top: 10px;\r\n    /*border-bottom: 1px solid #CCC;*/\r\n\tfont-size: 12px;\r\n\tcolor:#747474;\r\n\tborder-bottom: 1px solid rgba(204, 204, 204, 0.25);\r\n\tpadding-bottom: 5px;\r\n}\r\n.text{\r\n    display: block;\r\n    width: 1200px;\r\n    margin: auto auto;\r\n    margin-top:20px;\r\n}\r\n.script{\r\n    display: block;\r\n    width: 1200px;\r\n    margin-left:150px;\r\n    margin-top:30px;\r\n}\r\n.attachment{\r\n    display: block;\r\n    width: 1200px;\r\n\r\n    margin: auto ;\r\n    margin-top:20px;\r\n    margin-bottom:20px;\r\n}\r\n.xui-message{\r\n\r\n    margin: auto auto;\r\n    margin-top:50px;\r\n    width: 1300px;\r\n    border: 1px solid rgba(204, 204, 204, 0.25);\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 563 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54238,10 +54640,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(560);
-	var Constant = __webpack_require__(558);
-	var Action = __webpack_require__(557);
-	__webpack_require__(561);
+	var Store = __webpack_require__(564);
+	var Constant = __webpack_require__(562);
+	var Action = __webpack_require__(561);
+	__webpack_require__(565);
 
 	var AddSelfShopDialog = React.createClass({
 		displayName: 'AddSelfShopDialog',
@@ -54292,7 +54694,7 @@
 	module.exports = AddSelfShopDialog;
 
 /***/ },
-/* 564 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54307,7 +54709,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var Resource = Reactman.Resource;
 
-	var Constant = __webpack_require__(565);
+	var Constant = __webpack_require__(569);
 
 	var Action = {
 	    deleteMessage: function (message_id) {
@@ -54335,7 +54737,7 @@
 	module.exports = Action;
 
 /***/ },
-/* 565 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54351,7 +54753,7 @@
 	});
 
 /***/ },
-/* 566 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54365,10 +54767,10 @@
 	var Reactman = __webpack_require__(161);
 	var W = Reactman.W;
 
-	var Store = __webpack_require__(567);
-	var Constant = __webpack_require__(565);
-	var Action = __webpack_require__(564);
-	__webpack_require__(568);
+	var Store = __webpack_require__(571);
+	var Constant = __webpack_require__(569);
+	var Action = __webpack_require__(568);
+	__webpack_require__(572);
 
 	var StationMessageList = React.createClass({
 		displayName: 'StationMessageList',
@@ -54454,7 +54856,7 @@
 	module.exports = StationMessageList;
 
 /***/ },
-/* 567 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54471,7 +54873,7 @@
 	var Dispatcher = Reactman.Dispatcher;
 	var StoreUtil = Reactman.StoreUtil;
 
-	var Constant = __webpack_require__(565);
+	var Constant = __webpack_require__(569);
 
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
@@ -54498,13 +54900,13 @@
 	module.exports = Store;
 
 /***/ },
-/* 568 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(569);
+	var content = __webpack_require__(573);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -54524,7 +54926,7 @@
 	}
 
 /***/ },
-/* 569 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -54532,13 +54934,13 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\n    width: 78%;\n    margin: 0 auto;\n    margin-left: 90px;\n    margin-bottom: 15px;\n}", ""]);
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 570 */
+/* 574 */
 /***/ function(module, exports) {
 
 	/*
@@ -54611,7 +55013,7 @@
 	module.exports = Algorithm;
 
 /***/ },
-/* 571 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -54640,7 +55042,7 @@
 	module.exports = new User();
 
 /***/ },
-/* 572 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54724,7 +55126,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 573 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54773,7 +55175,7 @@
 	module.exports = FormInput;
 
 /***/ },
-/* 574 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54877,7 +55279,7 @@
 	module.exports = FormRangeInput;
 
 /***/ },
-/* 575 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54890,7 +55292,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(576);
+	__webpack_require__(580);
 
 	var FormDateTimeInput = React.createClass({
 		displayName: 'FormDateTimeInput',
@@ -55007,13 +55409,13 @@
 	module.exports = FormDateTimeInput;
 
 /***/ },
-/* 576 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(577);
+	var content = __webpack_require__(581);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -55033,7 +55435,7 @@
 	}
 
 /***/ },
-/* 577 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -55041,13 +55443,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-datePicker {\n\tline-height: 24px;\n    width: 160px !important;\n    background: url(/static/img/calendar.jpg) no-repeat !important;\n    background-position: right !important;\n    background-color: #f2f2f2 !important;\n}\n.ui-timepicker-div{\n    width:100%;\n    height:30px;\n}\n.ui-timepicker-div dl dt,\n.ui-timepicker-div dl dd{\n    width:50px;\n    height:15px;\n    float:left;\n    line-height:2;\n    text-align: center;\n}\n.ui_tpicker_time{\n    display:none;\n}\n.ui-timepicker-div dl dt:first-child{\n   display:none;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-datePicker {\r\n\tline-height: 24px;\r\n    width: 160px !important;\r\n    background: url(/static/img/calendar.jpg) no-repeat !important;\r\n    background-position: right !important;\r\n    background-color: #f2f2f2 !important;\r\n}\r\n.ui-timepicker-div{\r\n    width:100%;\r\n    height:30px;\r\n}\r\n.ui-timepicker-div dl dt,\r\n.ui-timepicker-div dl dd{\r\n    width:50px;\r\n    height:15px;\r\n    float:left;\r\n    line-height:2;\r\n    text-align: center;\r\n}\r\n.ui_tpicker_time{\r\n    display:none;\r\n}\r\n.ui-timepicker-div dl dt:first-child{\r\n   display:none;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 578 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55207,7 +55609,7 @@
 	module.exports = FormDateRangeInput;
 
 /***/ },
-/* 579 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55302,7 +55704,7 @@
 	module.exports = FormSelect;
 
 /***/ },
-/* 580 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55354,7 +55756,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 581 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55428,7 +55830,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 582 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55539,7 +55941,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 583 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55649,7 +56051,7 @@
 	module.exports = BooleanCheckbox;
 
 /***/ },
-/* 584 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55743,7 +56145,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 585 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55756,7 +56158,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -55868,7 +56270,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 586 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55876,7 +56278,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(587).inherits;
+	var inherits = __webpack_require__(591).inherits;
 	var EventEmitter = __webpack_require__(303).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -56105,7 +56507,7 @@
 	            if (pos == -1) {
 	                break;
 	            }
-	             var end = hSource.indexOf('/>', pos);
+	              var end = hSource.indexOf('/>', pos);
 	            var img = hSource.substring(pos, end+2);
 	            
 	            //获得图片名
@@ -56113,7 +56515,7 @@
 	            var nameEnd = img.indexOf('"', nameBeg);
 	            var imgName = img.substring(nameBeg, nameEnd);
 	            var title = W.EMOTIONNAME2TITLE[imgName];
-	             //替换
+	              //替换
 	            hSource = hSource.replace(img, title);
 	        }
 	        */
@@ -56156,7 +56558,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 587 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -56649,7 +57051,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(588);
+	exports.isBuffer = __webpack_require__(592);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -56686,7 +57088,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(589);
+	exports.inherits = __webpack_require__(593);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -56706,7 +57108,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 588 */
+/* 592 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -56714,7 +57116,7 @@
 	};
 
 /***/ },
-/* 589 */
+/* 593 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -56742,7 +57144,7 @@
 	}
 
 /***/ },
-/* 590 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56756,7 +57158,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(591);
+	__webpack_require__(595);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -56896,13 +57298,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 591 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(592);
+	var content = __webpack_require__(596);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -56922,7 +57324,7 @@
 	}
 
 /***/ },
-/* 592 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -56930,13 +57332,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*\n * jQuery File Upload Plugin CSS\n * https://github.com/blueimp/jQuery-File-Upload\n *\n * Copyright 2013, Sebastian Tschan\n * https://blueimp.net\n *\n * Licensed under the MIT license:\n * http://www.opensource.org/licenses/MIT\n */\n\n.fileinput-button {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n}\n.fileinput-button input {\n  position: absolute;\n  top: 0;\n  right: 0;\n  margin: 0;\n  opacity: 0;\n  -ms-filter: 'alpha(opacity=0)';\n  font-size: 200px !important;\n  direction: ltr;\n  cursor: pointer;\n}\n\n/* Fixes for IE < 8 */\n@media screen\\9 {\n  .fileinput-button input {\n    filter: alpha(opacity=0);\n    font-size: 100%;\n    height: 100%;\n  }\n}\n\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\n  height: 5px;\n}\n.xui-form-imageUploader .xui-i-image {\n  padding: 5px;\n  border: solid 1px #EFEFEF;\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\n}\n.xui-form-imageUploader .xui-i-image .close {\n  position: absolute;\n  top: -6px;\n  right: -1px;\n}", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\r\n/*\r\n * jQuery File Upload Plugin CSS\r\n * https://github.com/blueimp/jQuery-File-Upload\r\n *\r\n * Copyright 2013, Sebastian Tschan\r\n * https://blueimp.net\r\n *\r\n * Licensed under the MIT license:\r\n * http://www.opensource.org/licenses/MIT\r\n */\r\n\r\n.fileinput-button {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n}\r\n.fileinput-button input {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  margin: 0;\r\n  opacity: 0;\r\n  -ms-filter: 'alpha(opacity=0)';\r\n  font-size: 200px !important;\r\n  direction: ltr;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Fixes for IE < 8 */\r\n@media screen\\9 {\r\n  .fileinput-button input {\r\n    filter: alpha(opacity=0);\r\n    font-size: 100%;\r\n    height: 100%;\r\n  }\r\n}\r\n\r\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\r\n  height: 5px;\r\n}\r\n.xui-form-imageUploader .xui-i-image {\r\n  padding: 5px;\r\n  border: solid 1px #EFEFEF;\r\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n.xui-form-imageUploader .xui-i-image .close {\r\n  position: absolute;\r\n  top: -6px;\r\n  right: -1px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 593 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56950,7 +57352,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(594);
+	__webpack_require__(598);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -57097,13 +57499,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 594 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(595);
+	var content = __webpack_require__(599);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57123,7 +57525,7 @@
 	}
 
 /***/ },
-/* 595 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57131,13 +57533,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*\n * jQuery File Upload Plugin CSS\n * https://github.com/blueimp/jQuery-File-Upload\n *\n * Copyright 2013, Sebastian Tschan\n * https://blueimp.net\n *\n * Licensed under the MIT license:\n * http://www.opensource.org/licenses/MIT\n */\n\n.fileinput-button {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n}\n.fileinput-button input {\n  position: absolute;\n  top: 0;\n  right: 0;\n  margin: 0;\n  opacity: 0;\n  -ms-filter: 'alpha(opacity=0)';\n  font-size: 200px !important;\n  direction: ltr;\n  cursor: pointer;\n}\n\n/* Fixes for IE < 8 */\n@media screen\\9 {\n  .fileinput-button input {\n    filter: alpha(opacity=0);\n    font-size: 100%;\n    height: 100%;\n  }\n}\n\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\n  height: 5px;\n}", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\r\n/*\r\n * jQuery File Upload Plugin CSS\r\n * https://github.com/blueimp/jQuery-File-Upload\r\n *\r\n * Copyright 2013, Sebastian Tschan\r\n * https://blueimp.net\r\n *\r\n * Licensed under the MIT license:\r\n * http://www.opensource.org/licenses/MIT\r\n */\r\n\r\n.fileinput-button {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n}\r\n.fileinput-button input {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  margin: 0;\r\n  opacity: 0;\r\n  -ms-filter: 'alpha(opacity=0)';\r\n  font-size: 200px !important;\r\n  direction: ltr;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Fixes for IE < 8 */\r\n@media screen\\9 {\r\n  .fileinput-button input {\r\n    filter: alpha(opacity=0);\r\n    font-size: 100%;\r\n    height: 100%;\r\n  }\r\n}\r\n\r\n.xui-form-imageUploader .progress, .xui-form-imageUploader .progress-bar {\r\n  height: 5px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 596 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57151,15 +57553,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(597);
+	var Pagination = __webpack_require__(601);
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(600);
-	var Action = __webpack_require__(602);
-	var Constant = __webpack_require__(601);
+	var Store = __webpack_require__(604);
+	var Action = __webpack_require__(606);
+	var Constant = __webpack_require__(605);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(603);
+	__webpack_require__(607);
 
 	var Old = null;
 
@@ -57331,16 +57733,35 @@
 		},
 
 		createHeadAndRow: function () {
+			var cHeadBar = void 0;
 			if (_.isArray(this.props.children)) {
-				var heads = this.props.children.map(function (tableColumn) {
+				var heads = _.filter(this.props.children, function (head) {
+					if (!head) {
+						return false;
+					}
+
+					var visible = head.props.visible;
+					visible = visible !== false;
+					return visible;
+				});
+				var heads = heads.map(function (tableColumn) {
+					if (tableColumn.type.displayName === 'TableHeadBar') {
+						cHeadBar = tableColumn;
+						return null;
+					}
 					var width = tableColumn.props.width;
 					var name = tableColumn.props.name;
 					var field = tableColumn.props.field;
+					var align = tableColumn.props.align || 'center';
 					return {
 						name: name,
 						field: field,
-						width: width
+						width: width,
+						align: align
 					};
+				});
+				heads = _.filter(heads, function (head) {
+					return head !== null;
 				});
 			} else {
 				var tableColumn = this.props.children;
@@ -57511,7 +57932,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 597 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57524,7 +57945,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(598);
+	__webpack_require__(602);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -57669,13 +58090,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 598 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(599);
+	var content = __webpack_require__(603);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57695,7 +58116,7 @@
 	}
 
 /***/ },
-/* 599 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57703,13 +58124,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.pagination input {\n\theight: 20px;\n\twidth: 30px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.pagination input {\r\n\theight: 20px;\r\n\twidth: 30px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 600 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57723,7 +58144,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(601);
+	var Constant = __webpack_require__(605);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -57826,7 +58247,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 601 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57841,7 +58262,7 @@
 	});
 
 /***/ },
-/* 602 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -57850,7 +58271,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(601);
+	var Constant = __webpack_require__(605);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -57917,13 +58338,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 603 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(604);
+	var content = __webpack_require__(608);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -57943,7 +58364,7 @@
 	}
 
 /***/ },
-/* 604 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -57951,13 +58372,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-panel-table {\n    border: none;\n    box-shadow: none;\n}\n.xui-panel-table table {\n    margin-bottom: 5px;\n    padding-bottom: 0px;\n}\n.xui-panel-table table .btn-link {\n\tcolor: #1262b7;\n}\n.xui-panel-table table .btn-link:hover {\n\tcolor: #1262b7;\n\ttext-decoration: underline;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-panel-table {\r\n    border: none;\r\n    box-shadow: none;\r\n}\r\n.xui-panel-table table {\r\n    margin-bottom: 5px;\r\n    padding-bottom: 0px;\r\n}\r\n.xui-panel-table table .btn-link {\r\n\tcolor: #1262b7;\r\n}\r\n.xui-panel-table table .btn-link:hover {\r\n\tcolor: #1262b7;\r\n\ttext-decoration: underline;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 605 */
+/* 609 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58001,7 +58422,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 606 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58027,7 +58448,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 607 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58066,7 +58487,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 608 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58088,7 +58509,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 609 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58101,7 +58522,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(610);
+	__webpack_require__(614);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -58164,13 +58585,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 610 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(611);
+	var content = __webpack_require__(615);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58190,7 +58611,7 @@
 	}
 
 /***/ },
-/* 611 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58198,13 +58619,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-panel-table {\n    border: none;\n    box-shadow: none;\n}\n.xui-panel-table table {\n    margin-bottom: 5px;\n    padding-bottom: 0px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-panel-table {\r\n    border: none;\r\n    box-shadow: none;\r\n}\r\n.xui-panel-table table {\r\n    margin-bottom: 5px;\r\n    padding-bottom: 0px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 612 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58308,7 +58729,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 613 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58323,12 +58744,12 @@
 
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(614);
-	var Action = __webpack_require__(616);
-	var Constant = __webpack_require__(615);
+	var Store = __webpack_require__(618);
+	var Action = __webpack_require__(620);
+	var Constant = __webpack_require__(619);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(617);
+	__webpack_require__(621);
 
 	var matchMap = {
 		'=': 'equal',
@@ -58495,10 +58916,21 @@
 		},
 
 		render: function () {
-			var newChildren = React.Children.map(this.props.children, function (child, index) {
+			var cChildren = this.props.children;
+			if (cChildren instanceof Array) {
+				cChildren = cChildren.filter(function (child) {
+					return child != null && (child.props || {}).visible !== false;
+				});
+			} else if (cChildren && cChildren.props && cChildren.props.visible === false) {
+				cChildren = null;
+			}
+
+			var newChildren = React.Children.map(cChildren, function (child, index) {
+				rowIndex = index + 1;
 				return React.cloneElement(child, {
 					onChange: this.onChangeField,
-					field2value: this.state
+					field2value: this.state,
+					index: rowIndex
 				});
 			}, this);
 
@@ -58526,7 +58958,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 614 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58539,7 +58971,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(305);
-	var Constant = __webpack_require__(615);
+	var Constant = __webpack_require__(619);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -58593,7 +59025,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 615 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58607,14 +59039,14 @@
 	});
 
 /***/ },
-/* 616 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(615);
+	var Constant = __webpack_require__(619);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -58640,13 +59072,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 617 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(618);
+	var content = __webpack_require__(622);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58666,7 +59098,7 @@
 	}
 
 /***/ },
-/* 618 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58674,13 +59106,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-filterPanel {\n\tbackground-color: #FFF;\n    padding: 20px 10px;\n}\n.xui-filterPanel .xui-i-row {\n\tdisplay: table;\n\twidth: 100%;\n}\n.xui-filterPanel .xui-i-field {\n\tdisplay: table-cell;\n}\n.xui-filterPanel .xui-i-row-3 .xui-i-field {\n\twidth: 33.333%;\n}\n.xui-filterPanel .xui-i-row-2 .xui-i-field {\n\twidth: 50%;\n}\n.xui-filterPanel .xui-i-row-4 .xui-i-field {\n\twidth: 25%;\n}\n.xui-filterPanel .form-inline .form-group {\n\theight: 45px;\n}\n.xui-filterPanel .form-control {\n\tpadding: 3px 5px;\n\theight: 28px;\n\tmax-width: 150px;\n}\n.xui-filterPanel .control-label {\n\tpadding-top: 4px;\n\twidth: 70px;\n\ttext-align: right;\n}\n.xui-filterPanel .col-sm-5, .xui-filterPanel .col-sm-2, .xui-filterPanel .col-sm-3, , .xui-filterPanel .col-sm-7 {\n\tpadding-left: 5px;\n}\n.xui-filterPanel select.form-control {\n\twidth: 150px;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-filterPanel {\r\n\tbackground-color: #FFF;\r\n    padding: 20px 10px;\r\n}\r\n.xui-filterPanel .xui-i-row {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n}\r\n.xui-filterPanel .xui-i-field {\r\n\tdisplay: table-cell;\r\n}\r\n.xui-filterPanel .xui-i-row-3 .xui-i-field {\r\n\twidth: 33.333%;\r\n}\r\n.xui-filterPanel .xui-i-row-2 .xui-i-field {\r\n\twidth: 50%;\r\n}\r\n.xui-filterPanel .xui-i-row-4 .xui-i-field {\r\n\twidth: 25%;\r\n}\r\n.xui-filterPanel .form-inline .form-group {\r\n\theight: 45px;\r\n}\r\n.xui-filterPanel .form-control {\r\n\tpadding: 3px 5px;\r\n\theight: 28px;\r\n\tmax-width: 150px;\r\n}\r\n.xui-filterPanel .control-label {\r\n\tpadding-top: 4px;\r\n\twidth: 70px;\r\n\ttext-align: right;\r\n}\r\n.xui-filterPanel .col-sm-5, .xui-filterPanel .col-sm-2, .xui-filterPanel .col-sm-3, , .xui-filterPanel .col-sm-7 {\r\n\tpadding-left: 5px;\r\n}\r\n.xui-filterPanel select.form-control {\r\n\twidth: 150px;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 619 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58700,20 +59132,31 @@
 			if (!this.props.children) {
 				return React.createElement('span', { className: 'xui-hide' });
 			}
+			var cFields = this.props.children;
+			if (cFields instanceof Array) {
+				cFields = cFields.filter(function (field) {
+					return field != null && (field.props || {}).visible !== false;
+				});
+			} else if (cFields) {
+				if (cFields && cFields.props && cFields.props.visible === false) {
+					cFields = null;
+				}
+			}
 
-			var mFields = React.Children.map(this.props.children, function (field, index) {
+			var mFields = React.Children.map(cFields, function (field, index) {
 				var newField = React.cloneElement(field, {
 					onChange: this.props.onChange,
 					field2value: this.props.field2value
 				});
+				var fieldClasses = classNames("xui-i-field", (field.props || {}).extraClass, "xui-i-field-nth-" + (index + 1));
 				return React.createElement(
 					'div',
-					{ className: 'xui-i-field', key: index },
+					{ className: fieldClasses, key: index },
 					newField
 				);
 			}, this);
 
-			var classes = classNames("xui-i-row", "form-inline", "xui-i-row-" + this.props.children.length);
+			var classes = classNames("xui-i-row", this.props.extraClass, "form-inline", "xui-i-row-" + this.props.children.length, "xui-i-row-nth-" + this.props.index);
 			return React.createElement(
 				'div',
 				{ className: classes },
@@ -58724,7 +59167,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 620 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58736,9 +59179,9 @@
 	var debug = __webpack_require__(235)('reactman:FilterField');
 	var classNames = __webpack_require__(239);
 
-	var FormInput = __webpack_require__(572);
+	var FormInput = __webpack_require__(576);
 
-	__webpack_require__(617);
+	__webpack_require__(621);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -58769,7 +59212,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 621 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58782,7 +59225,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(622);
+	__webpack_require__(626);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -58813,13 +59256,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 622 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(623);
+	var content = __webpack_require__(627);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58839,7 +59282,7 @@
 	}
 
 /***/ },
-/* 623 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58847,13 +59290,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-widget {\n\tborder-radius: 5px;\n\tpadding: 15px 20px;\n\tmargin-bottom: 10px;\n\tmargin-top: 10px;\n}\n.xui-widget-navy {\n\tbackground-color: #1ab394;\n\tcolor: #ffffff;\n}\n.xui-widget-lazur {\n\tbackground-color: #23c6c8;\n\tcolor: #ffffff;\n}\n.xui-widget-yellow {\n\tbackground-color: #f8ac59;\n\tcolor: #ffffff;\n}\n.xui-widget .xui-i-content {\n\tfont-size: 20px;\n\tfont-weight: 600;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-widget {\r\n\tborder-radius: 5px;\r\n\tpadding: 15px 20px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.xui-widget-navy {\r\n\tbackground-color: #1ab394;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget-lazur {\r\n\tbackground-color: #23c6c8;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget-yellow {\r\n\tbackground-color: #f8ac59;\r\n\tcolor: #ffffff;\r\n}\r\n.xui-widget .xui-i-content {\r\n\tfont-size: 20px;\r\n\tfont-weight: 600;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 624 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58867,12 +59310,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(625);
-	var Action = __webpack_require__(627);
-	var Constant = __webpack_require__(626);
+	var Store = __webpack_require__(629);
+	var Action = __webpack_require__(631);
+	var Constant = __webpack_require__(630);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(628);
+	__webpack_require__(632);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -58972,7 +59415,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 625 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -58988,7 +59431,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(626);
+	var Constant = __webpack_require__(630);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -59014,7 +59457,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 626 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59027,7 +59470,7 @@
 	});
 
 /***/ },
-/* 627 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59038,7 +59481,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(626);
+	var Constant = __webpack_require__(630);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -59060,13 +59503,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 628 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(629);
+	var content = __webpack_require__(633);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59086,7 +59529,7 @@
 	}
 
 /***/ },
-/* 629 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59094,13 +59537,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-rm-chart {\n\tbackground-color: #FFF;\n}\n.xui-rm-chart .xui-i-title {\n\tborder-top: solid 3px #e7eaec;\n\tcolor: #676a6c;\n\theight: 40px;\n\tline-height: 40px;\n\tpadding-left: 10px;\n\tfont-size: 14px;\n\tfont-weight: 600;\n}\n.xui-rm-chart .xui-i-content {\n\tborder-top: solid 1px #e7eaec;\n\tbackground-color: #FFF;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-rm-chart {\r\n\tbackground-color: #FFF;\r\n}\r\n.xui-rm-chart .xui-i-title {\r\n\tborder-top: solid 3px #e7eaec;\r\n\tcolor: #676a6c;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding-left: 10px;\r\n\tfont-size: 14px;\r\n\tfont-weight: 600;\r\n}\r\n.xui-rm-chart .xui-i-content {\r\n\tborder-top: solid 1px #e7eaec;\r\n\tbackground-color: #FFF;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 630 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59126,7 +59569,7 @@
 	module.exports = ChartActionBar;
 
 /***/ },
-/* 631 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59138,10 +59581,10 @@
 	var debug = __webpack_require__(235)('m:reactman.province_city_select.ProvinceCity');
 	var classNames = __webpack_require__(239);
 
-	var ProvinceCityDialog = __webpack_require__(632);
+	var ProvinceCityDialog = __webpack_require__(636);
 	var PageAction = __webpack_require__(244);
 
-	__webpack_require__(637);
+	__webpack_require__(641);
 
 	var ProvinceCitySelect = React.createClass({
 	    displayName: 'ProvinceCitySelect',
@@ -59156,6 +59599,7 @@
 	            title: this.props.dialogTitle || "选择区域",
 	            component: ProvinceCityDialog,
 	            data: {
+	                isSelectZone: this.props.isSelectZone,
 	                zoneList: this.props.zoneList,
 	                resource: this.props.resource,
 	                initSelectedIds: this.props.initSelectedIds
@@ -59192,7 +59636,7 @@
 	module.exports = ProvinceCitySelect;
 
 /***/ },
-/* 632 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59204,13 +59648,13 @@
 
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(633);
-	var Action = __webpack_require__(635);
-	var Constant = __webpack_require__(634);
+	var Store = __webpack_require__(637);
+	var Action = __webpack_require__(639);
+	var Constant = __webpack_require__(638);
 
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	var IconLabel = __webpack_require__(636);
+	var IconLabel = __webpack_require__(640);
 
 	var ProvinceCityDialog = React.createClass({
 	    displayName: 'ProvinceCityDialog',
@@ -59278,8 +59722,12 @@
 	        this.Action.select(data);
 	    },
 
+	    onSelectZone: function (data) {
+	        this.Action.selectZone(data);
+	    },
+
 	    onSelectAll: function (data) {
-	        this.Action.selectAll(data);
+	        this.Action.selectAllCities(data);
 	    },
 
 	    render: function () {
@@ -59290,21 +59738,29 @@
 	        if (!zoneList) {
 	            return React.createElement('div', null);
 	        }
+	        var isSelectZone = this.props.data.isSelectZone;
+	        var zoneListCls = classNames('xui-i-zone-list', { 'xui-i-not-select-zone': !isSelectZone });
+	        var onSelectZone = function () {};
+
+	        if (isSelectZone) {
+	            onSelectZone = this.onSelectZone;
+	        }
 	        return React.createElement(
 	            'div',
 	            { className: 'xui-form-province-city-select-dialog xui-i-dialog-content' },
 	            React.createElement(
 	                'div',
-	                { className: 'xui-i-zone-list' },
+	                { className: zoneListCls },
 	                zoneList.map(function (item, i) {
+	                    var isZoneSelected = _this.Store.isZoneSelectAll(item);
+	                    var zoneIconCls = classNames({ 'xui-i-checked': isZoneSelected, hide: !isSelectZone });
 	                    return React.createElement(
 	                        'div',
 	                        { className: 'xui-i-zone ', key: i },
-	                        React.createElement(
-	                            'span',
-	                            { className: 'xui-i-zone-name xui-bold ' },
-	                            item.zoneName
-	                        ),
+	                        React.createElement(IconLabel, { extraClass: 'xui-i-zone-icon',
+	                            iconCls: zoneIconCls,
+	                            onClick: onSelectZone.bind(_this, item),
+	                            text: item.zoneName }),
 	                        item.provinces.map(function (province, j) {
 	                            var cities = province.cities || [];
 	                            var count = cities.length;
@@ -59318,7 +59774,7 @@
 	                                    onClick: _this.onSelect.bind(_this, provinceData),
 	                                    text: province.provinceName });
 	                            }
-	                            var CCities = void 0;
+	                            var cCities = void 0;
 
 	                            var isExpand = openProvinceId !== undefined && openProvinceId == province.provinceId;
 
@@ -59332,7 +59788,7 @@
 	                            if (isExpand) {
 
 	                                var checkAllCls = classNames('xui-i-icon-btn', { 'xui-i-checked': isSelectedAll });
-	                                CCities = React.createElement(
+	                                cCities = React.createElement(
 	                                    'div',
 	                                    { className: 'xui-i-cities' },
 	                                    React.createElement(
@@ -59366,7 +59822,7 @@
 	                                    iconCls: iconCls,
 	                                    onClick: _this.onToggleExpand.bind(_this, provinceData),
 	                                    text: province.provinceName },
-	                                CCities
+	                                cCities
 	                            );
 	                        })
 	                    );
@@ -59379,7 +59835,7 @@
 	module.exports = ProvinceCityDialog;
 
 /***/ },
-/* 633 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59394,14 +59850,15 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(634);
+	var Constant = __webpack_require__(638);
 	var createStore = function (Dispatcher) {
 	    return StoreUtil.createStore(Dispatcher, {
 	        actions: {
 	            'handleLoad': Constant.PROVINCE_CITY_LOAD,
 	            'handleToggleProvince': Constant.PROVINCE_CITY_TOGGLE_PROVINCE,
 	            'handleSelect': Constant.PROVINCE_CITY_SELECT,
-	            'handleSelectAll': Constant.PROVINCE_CITY_SELECT_ALL
+	            'handleSelectZone': Constant.PROVINCE_CITY_SELECT_ZONE,
+	            'handleSelectAllCities': Constant.PROVINCE_CITY_SELECT_ALL_CITIES
 	        },
 
 	        init: function () {
@@ -59440,7 +59897,28 @@
 	            item.isSelected = !item.isSelected;
 	            this.__emitChange();
 	        },
-	        handleSelectAll: function (action) {
+
+	        handleSelectZone: function (action) {
+	            var zone = action.data;
+
+	            var isSelectedAll = this.isZoneSelectAll(zone);
+
+	            var isSelected = !isSelectedAll;
+	            zone.provinces.forEach(function (province) {
+	                var cities = province.cities || [];
+	                if (cities.length < 2) {
+	                    province.isSelected = isSelected;
+	                } else {
+	                    cities.forEach(function (city) {
+	                        city.isSelected = isSelected;
+	                    });
+	                }
+	            });
+
+	            this.__emitChange();
+	        },
+
+	        handleSelectAllCities: function (action) {
 	            var data = action.data;
 	            var province = data.province;
 	            var cities = province.cities || [];
@@ -59466,6 +59944,39 @@
 	            debug([openProvinceId, province]);
 	            this.data.openProvinceId = openProvinceId;
 	            this.__emitChange();
+	        },
+
+	        isProvinceSelectAll: function (province) {
+	            var cities = province.cities || [];
+	            if (cities.length < 2) {
+	                return province.isSelected;
+	            }
+
+	            var isSelected = !cities.some(function (city) {
+	                return !city.isSelected;
+	            });
+	            return isSelected;
+	        },
+
+	        isProvinceHasSelected: function (province) {
+	            var cities = province.cities || [];
+	            if (cities.length < 2) {
+	                return province.isSelected;
+	            }
+
+	            var isSelected = cities.some(function (city) {
+	                return city.isSelected;
+	            });
+	            return isSelected;
+	        },
+
+	        isZoneSelectAll: function (zone) {
+	            var _this = this;
+	            var provinces = zone.provinces || [];
+	            var isSelectedAll = !provinces.some(function (province) {
+	                return !_this.isProvinceHasSelected(province);
+	            });
+	            return isSelectedAll;
 	        },
 
 	        getData: function () {
@@ -59543,7 +60054,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 634 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59554,12 +60065,13 @@
 	module.exports = keyMirror({
 	    PROVINCE_CITY_LOAD: null,
 	    PROVINCE_CITY_SELECT: null,
-	    PROVINCE_CITY_SELECT_ALL: null,
+	    PROVINCE_CITY_SELECT_ZONE: null,
+	    PROVINCE_CITY_SELECT_ALL_CITIES: null,
 	    PROVINCE_CITY_TOGGLE_PROVINCE: null
 	});
 
 /***/ },
-/* 635 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59567,7 +60079,7 @@
 	 */
 	var debug = __webpack_require__(235)('m:reactman:ProvinceCitySelect:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(634);
+	var Constant = __webpack_require__(638);
 	var _ = __webpack_require__(243);
 	var createAction = function (Dispatcher) {
 	    return {
@@ -59603,9 +60115,16 @@
 	            });
 	        },
 
-	        selectAll: function (data) {
+	        selectZone: function (data) {
 	            Dispatcher.dispatch({
-	                actionType: Constant.PROVINCE_CITY_SELECT_ALL,
+	                actionType: Constant.PROVINCE_CITY_SELECT_ZONE,
+	                data: data
+	            });
+	        },
+
+	        selectAllCities: function (data) {
+	            Dispatcher.dispatch({
+	                actionType: Constant.PROVINCE_CITY_SELECT_ALL_CITIES,
 	                data: data
 	            });
 	        },
@@ -59621,7 +60140,7 @@
 	module.exports = createAction;
 
 /***/ },
-/* 636 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59642,8 +60161,12 @@
 	        return React.createElement(
 	            'div',
 	            { className: cls },
-	            React.createElement('i', { className: iconCls, onClick: this.props.onClick }),
-	            this.props.text,
+	            React.createElement(
+	                'span',
+	                null,
+	                React.createElement('i', { className: iconCls, onClick: this.props.onClick }),
+	                this.props.text
+	            ),
 	            this.props.children
 	        );
 	    }
@@ -59651,13 +60174,13 @@
 	module.exports = IconLabel;
 
 /***/ },
-/* 637 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(638);
+	var content = __webpack_require__(642);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59677,7 +60200,7 @@
 	}
 
 /***/ },
-/* 638 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59685,13 +60208,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n.xui-form-province-city-select-dialog .xui-i-zone-name {\n  display: inline-block;\n  width: 75px;\n  position: absolute;\n  left: 10px;\n}\n\n.xui-form-province-city-select-dialog .xui-i-zone {\n  padding-left: 85px;\n}\n\n.xui-form-province-city-select-dialog .xui-i-label {\n  width: 78px;\n  display: inline-block;\n  height: 30px;\n  position: relative;\n}\n\n.xui-form-province-city-select-dialog .xui-i-cities {\n  position: absolute;\n  background-color: #f7f7f7;\n  border: 1px solid #d2d2d2;\n  margin-top: -16px;\n  padding: 10px;\n  z-index: 2;\n  width: 300px;\n}\n\n.xui-form-province-city-select-dialog .xui-i-cities .xui-i-label {\n  width: 50%;\n}\n\n.xui-form-province-city-select-dialog .xui-i-cities .xui-i-label.xui-i-inner-province {\n  display: block;\n  width: 100%;\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 1px solid #ddd;\n  box-sizing: border-box;\n  vertical-align: text-bottom;\n  margin-right: 5px;\n  color: #a0a0a0;\n  font-size: 12px;\n  cursor: pointer;\n  -webkit-transform: scale(0.8);\n  -moz-transform: scale(0.8);\n  -ms-transform: scale(0.8);\n  -o-transform: scale(0.8);\n  transform: scale(0.8);\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-activated {\n  border-color: #1262b7;\n  color: #1262b7;\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn:before {\n  width: 13px;\n  height: 13px;\n  position: absolute;\n  line-height: 13px;\n  text-align: center;\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-plus:before {\n  content: '+';\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-minus:before {\n  content: '-';\n}\n\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-checked:before {\n  content: '\\221A';\n}\n", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\r\n.xui-form-province-city-select-dialog .xui-i-label.xui-i-zone-icon {\r\n  display: inline-block;\r\n  width: 90px;\r\n  position: absolute;\r\n  left: 10px;\r\n  font-weight: bold;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-not-select-zone .xui-i-label.xui-i-zone-icon {\r\n  width: 75px;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-not-select-zone .xui-i-zone {\r\n  padding-left: 85px;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-zone {\r\n  padding-left: 100px;\r\n}\r\n\r\n/*.xui-form-province-city-select-dialog .xui-i-label:first-child {*/\r\n/*width: 90px;*/\r\n/*}*/\r\n\r\n.xui-form-province-city-select-dialog .xui-i-label {\r\n  width: 78px;\r\n  display: inline-block;\r\n  height: 30px;\r\n  position: relative;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-cities {\r\n  position: absolute;\r\n  background-color: #f7f7f7;\r\n  border: 1px solid #d2d2d2;\r\n  margin-top: -16px;\r\n  padding: 10px;\r\n  z-index: 2;\r\n  width: 300px;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-cities .xui-i-label {\r\n  width: 50%;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-cities .xui-i-label.xui-i-inner-province {\r\n  display: block;\r\n  width: 100%;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn {\r\n  display: inline-block;\r\n  width: 15px;\r\n  height: 15px;\r\n  border: 1px solid #ddd;\r\n  box-sizing: border-box;\r\n  vertical-align: text-bottom;\r\n  margin-right: 5px;\r\n  color: #a0a0a0;\r\n  font-size: 12px;\r\n  cursor: pointer;\r\n  -webkit-transform: scale(0.8);\r\n  -moz-transform: scale(0.8);\r\n  -ms-transform: scale(0.8);\r\n  -o-transform: scale(0.8);\r\n  transform: scale(0.8);\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-activated {\r\n  border-color: #1262b7;\r\n  color: #1262b7;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn:before {\r\n  width: 13px;\r\n  height: 13px;\r\n  position: absolute;\r\n  line-height: 13px;\r\n  text-align: center;\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-plus:before {\r\n  content: '+';\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-minus:before {\r\n  content: '-';\r\n}\r\n\r\n.xui-form-province-city-select-dialog .xui-i-icon-btn.xui-i-checked:before {\r\n  content: '\\221A';\r\n}\r\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 639 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59707,14 +60230,14 @@
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
 	var ComponentFactory = __webpack_require__(268);
-	__webpack_require__(640);
-	var WepageSimulator = __webpack_require__(653); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
+	__webpack_require__(644);
+	var WepageSimulator = __webpack_require__(657); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
 	var Render = __webpack_require__(300);
 	var PageManager = __webpack_require__(301);
-	var PropertyEditor = __webpack_require__(655);
-	var SubmitPanel = __webpack_require__(686);
+	var PropertyEditor = __webpack_require__(659);
+	var SubmitPanel = __webpack_require__(690);
 
-	__webpack_require__(687);
+	__webpack_require__(691);
 
 	var WepageEditor = React.createClass({
 		displayName: 'WepageEditor',
@@ -59801,7 +60324,7 @@
 	module.exports = WepageEditor;
 
 /***/ },
-/* 640 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59810,13 +60333,13 @@
 	 */
 	'use strict';
 
-	__webpack_require__(641);
 	__webpack_require__(645);
-	__webpack_require__(647);
+	__webpack_require__(649);
+	__webpack_require__(651);
 	//require('./component/wepage/title/Title');
 
 /***/ },
-/* 641 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59825,11 +60348,11 @@
 	 */
 	"use strict";
 
-	var template = __webpack_require__(642);
+	var template = __webpack_require__(646);
 
 	var ComponentFactory = __webpack_require__(268);
 
-	__webpack_require__(643);
+	__webpack_require__(647);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.runtime_component_container'
@@ -59840,19 +60363,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 642 */
+/* 646 */
 /***/ function(module, exports) {
 
-	module.exports = "{% if component.type == 'wepage.runtime_component_container' %}\n    {% for sub_component in component.components %}\n    <div \n        class=\"xa-componentContainer xa-selectable xui-componentContainer xui-componentContainer-{{sub_component.displayIndex}}\" \n        data-contained-cid=\"{{sub_component.cid}}\" \n        data-cid=\"{{sub_component.cid}}\" \n        data-type=\"{{sub_component.type}}\" \n        data-widget-sortable=\"true\" \n        data-ui-behavior=\"xub-selectable\" \n        data-auto-select=\"{%if sub_component.model.auto_select %}true{% else %}false{% endif %}\"\n        style=\"\"\n    >\n        {{ sub_component.html|safe }}\n        <div class=\"xui-componentContainer-actionPanel xa-actionPanel\" style=\"display:none;\">\n            <span class=\"xui-i-action xui-i-addAction xa-add xa-action\">添加模块</span>\n            <span class=\"xui-i-action xui-i-editAction xa-edit xa-action\">编辑</span>\n            {% if sub_component.canDelete %}\n            <span class=\"xui-i-action xui-i-deleteAction xa-delete xa-action\">删除</span>\n            {% endif %}\n        </div>\n        <div class=\"xui-componentContainer-selectIndicator xa-selectIndicator\" style=\"display:none;\">\n        </div>\n    </div>\n    {% endfor %}\n{% endif %}\n"
+	module.exports = "{% if component.type == 'wepage.runtime_component_container' %}\r\n    {% for sub_component in component.components %}\r\n    <div \r\n        class=\"xa-componentContainer xa-selectable xui-componentContainer xui-componentContainer-{{sub_component.displayIndex}}\" \r\n        data-contained-cid=\"{{sub_component.cid}}\" \r\n        data-cid=\"{{sub_component.cid}}\" \r\n        data-type=\"{{sub_component.type}}\" \r\n        data-widget-sortable=\"true\" \r\n        data-ui-behavior=\"xub-selectable\" \r\n        data-auto-select=\"{%if sub_component.model.auto_select %}true{% else %}false{% endif %}\"\r\n        style=\"\"\r\n    >\r\n        {{ sub_component.html|safe }}\r\n        <div class=\"xui-componentContainer-actionPanel xa-actionPanel\" style=\"display:none;\">\r\n            <span class=\"xui-i-action xui-i-addAction xa-add xa-action\">添加模块</span>\r\n            <span class=\"xui-i-action xui-i-editAction xa-edit xa-action\">编辑</span>\r\n            {% if sub_component.canDelete %}\r\n            <span class=\"xui-i-action xui-i-deleteAction xa-delete xa-action\">删除</span>\r\n            {% endif %}\r\n        </div>\r\n        <div class=\"xui-componentContainer-selectIndicator xa-selectIndicator\" style=\"display:none;\">\r\n        </div>\r\n    </div>\r\n    {% endfor %}\r\n{% endif %}\r\n"
 
 /***/ },
-/* 643 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(644);
+	var content = __webpack_require__(648);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59872,7 +60395,7 @@
 	}
 
 /***/ },
-/* 644 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59880,13 +60403,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-componentContainer {\n\tposition: relative;\n}\n\n.xui-componentContainer-selectIndicator {\n    background: transparent;\n    border: solid 2px #1262B7;\n    border-radius: 3px 3px 3px 3px;\n    position: absolute;\n    /*\n    margin-left: -1px;\n    */\n    top: 0px;\n    left: 0px;\n    width: 100%;\n    height: 100%;\n    z-index: 9000;\n    pointer-events: none;\n    -webkit-box-sizing:border-box;\n    -moz-box-sizing:border-box;\n    box-sizing:border-box;\n}\n\n.xui-componentContainer-actionPanel {\n    z-index: 9001;\n    position: absolute;\n    font-size: 12px;\n    right: 2px;\n    bottom: 2px;\n    height: 20px;\n    line-height: 20px;\n}\n.xui-componentContainer-actionPanel .xui-i-action {\n    pointer-events: auto;\n    background-color: rgba(0,0,0,0.3);\n    display: inline-block;\n    padding: 0px 3px;\n    height: 20px;\n    line-height: 20px;\n    color: #FFF;\n    cursor: pointer;\n}\n.xui-componentContainer-actionPanel .xui-i-editAction {\n    pointer-events: none;\n}\n\n#selectedWidgetCover {\n\t/*background-color: rgba(73, 164, 230, 0.1);*/\n    background: transparent;\n    border: 2px solid #1262B7;\n    border-radius: 3px 3px 3px 3px;\n\tposition: absolute;\n\t/*padding: 1px;*/\n\ttop: -1000px;\n\tleft: 10px;\n    /*margin-left: -2px;*/\n    cursor: move;\n    pointer-events: none;\n    z-index: 9999;\n    -webkit-box-sizing:border-box;\n    -moz-box-sizing:border-box;\n    box-sizing:border-box;\n}\n\n#selectedWidgetCover_actionPanel {\n\tbackground-color: #EEEEEE;\n    border: 1px solid #999999;\n    border-radius: 5px 5px 5px 5px;\n    bottom: -14px;\n    height: 14px;\n    padding: 5px 0 5px 5px;\n    position: absolute;\n    right: 10px;\n    z-index: 101;\n    pointer-events: auto;\n}\n\n.actionIcon {\n\tdisplay: block;\n    float: left;\n    margin-right: 5px;\n    background: url(\"/termite_static/termite_img/icons_sprite.png\") no-repeat scroll 0 0 transparent;\n}\n\n.actionIconDelete {\n\tbackground-position: -70px -15px;\n    height: 15px;\n    width: 14px;\n}\n.actionIconPlus {\n    background-position: -84px 0px;\n    height: 15px;\n    width: 14px;\n}\n\n.x-circumInsertablePlaceholder {\n\theight: 1px;\n\tbackground-color: transparent;\n}\n\n.xui-state-highlight {\n    height: 30px;\n    background: none;\n    display: block;\n    border: solid 3px rgba(111, 167, 210, 0.8);\n    /*background-color: rgba(111, 167, 210, 0.8) !important;*/\n}\n\n/*wepage组件样式*/\n.componentList_component_qa,.componentList_component_selection,.componentList_component_textlist,.componentList_component_shortcuts{\n    background: url(/static/img/wepage/appKitSeprites.png) no-repeat;\n    -webkit-background-size: 137px 42px;\n    background-size: 137px 42px;\n}\n.componentList_component_dropdownbox{\n    background: url(/static/img/wepage/termiteSeprites.png) no-repeat;\n    background-position: -90px 0;\n    width: 50px !important;\n}\n.xui-component .componentList_component_qa{\n    background-position:3px 3px;\n}\n.xui-component .componentList_component_selection{\n    background-position:-44px 3px;\n}\n.xui-component .componentList_component_textlist{\n    background-position: -89px 3px;\n    width: 50px;\n}\n.xui-component .componentList_component_shortcuts{\n    background-position: -89px 3px;\n    width: 50px;\n}\n.componentList_component_textselection, .componentList_component_imageselection, .componentList_component_memberinfo{\n    background: url(/static/img/wepage/appKit_vote_sprite.png) no-repeat;\n    -webkit-background-size: 180px 45px;\n    background-size: 180px 45px;\n}\n.componentList_component_textselection{\n    background-position: -133px 0;\n    width: 50px !important;\n    height: 50px !important;\n}\n.componentList_component_imageselection{\n    background-position:0 0;\n    width: 50px !important;\n    height: 50px !important;\n}\n.componentList_component_memberinfo{\n    background-position: -60px 0;\n    width: 65px !important;\n    height: 50px !important;\n}\n.xui-component .componentList_component_uploadimg {\n  background: url(/static/img/wepage/appKit_uploadimg.png) no-repeat;\n  -webkit-background-size: 47px 41px;\n  background-size: 47px 41px;\n  width: 47px;\n  background-position: 0 3px;\n}\n\n/*wepage组件样式  end*/\n", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-componentContainer {\r\n\tposition: relative;\r\n}\r\n\r\n.xui-componentContainer-selectIndicator {\r\n    background: transparent;\r\n    border: solid 2px #1262B7;\r\n    border-radius: 3px 3px 3px 3px;\r\n    position: absolute;\r\n    /*\r\n    margin-left: -1px;\r\n    */\r\n    top: 0px;\r\n    left: 0px;\r\n    width: 100%;\r\n    height: 100%;\r\n    z-index: 9000;\r\n    pointer-events: none;\r\n    -webkit-box-sizing:border-box;\r\n    -moz-box-sizing:border-box;\r\n    box-sizing:border-box;\r\n}\r\n\r\n.xui-componentContainer-actionPanel {\r\n    z-index: 9001;\r\n    position: absolute;\r\n    font-size: 12px;\r\n    right: 2px;\r\n    bottom: 2px;\r\n    height: 20px;\r\n    line-height: 20px;\r\n}\r\n.xui-componentContainer-actionPanel .xui-i-action {\r\n    pointer-events: auto;\r\n    background-color: rgba(0,0,0,0.3);\r\n    display: inline-block;\r\n    padding: 0px 3px;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    color: #FFF;\r\n    cursor: pointer;\r\n}\r\n.xui-componentContainer-actionPanel .xui-i-editAction {\r\n    pointer-events: none;\r\n}\r\n\r\n#selectedWidgetCover {\r\n\t/*background-color: rgba(73, 164, 230, 0.1);*/\r\n    background: transparent;\r\n    border: 2px solid #1262B7;\r\n    border-radius: 3px 3px 3px 3px;\r\n\tposition: absolute;\r\n\t/*padding: 1px;*/\r\n\ttop: -1000px;\r\n\tleft: 10px;\r\n    /*margin-left: -2px;*/\r\n    cursor: move;\r\n    pointer-events: none;\r\n    z-index: 9999;\r\n    -webkit-box-sizing:border-box;\r\n    -moz-box-sizing:border-box;\r\n    box-sizing:border-box;\r\n}\r\n\r\n#selectedWidgetCover_actionPanel {\r\n\tbackground-color: #EEEEEE;\r\n    border: 1px solid #999999;\r\n    border-radius: 5px 5px 5px 5px;\r\n    bottom: -14px;\r\n    height: 14px;\r\n    padding: 5px 0 5px 5px;\r\n    position: absolute;\r\n    right: 10px;\r\n    z-index: 101;\r\n    pointer-events: auto;\r\n}\r\n\r\n.actionIcon {\r\n\tdisplay: block;\r\n    float: left;\r\n    margin-right: 5px;\r\n    background: url(\"/termite_static/termite_img/icons_sprite.png\") no-repeat scroll 0 0 transparent;\r\n}\r\n\r\n.actionIconDelete {\r\n\tbackground-position: -70px -15px;\r\n    height: 15px;\r\n    width: 14px;\r\n}\r\n.actionIconPlus {\r\n    background-position: -84px 0px;\r\n    height: 15px;\r\n    width: 14px;\r\n}\r\n\r\n.x-circumInsertablePlaceholder {\r\n\theight: 1px;\r\n\tbackground-color: transparent;\r\n}\r\n\r\n.xui-state-highlight {\r\n    height: 30px;\r\n    background: none;\r\n    display: block;\r\n    border: solid 3px rgba(111, 167, 210, 0.8);\r\n    /*background-color: rgba(111, 167, 210, 0.8) !important;*/\r\n}\r\n\r\n/*wepage组件样式*/\r\n.componentList_component_qa,.componentList_component_selection,.componentList_component_textlist,.componentList_component_shortcuts{\r\n    background: url(/static/img/wepage/appKitSeprites.png) no-repeat;\r\n    -webkit-background-size: 137px 42px;\r\n    background-size: 137px 42px;\r\n}\r\n.componentList_component_dropdownbox{\r\n    background: url(/static/img/wepage/termiteSeprites.png) no-repeat;\r\n    background-position: -90px 0;\r\n    width: 50px !important;\r\n}\r\n.xui-component .componentList_component_qa{\r\n    background-position:3px 3px;\r\n}\r\n.xui-component .componentList_component_selection{\r\n    background-position:-44px 3px;\r\n}\r\n.xui-component .componentList_component_textlist{\r\n    background-position: -89px 3px;\r\n    width: 50px;\r\n}\r\n.xui-component .componentList_component_shortcuts{\r\n    background-position: -89px 3px;\r\n    width: 50px;\r\n}\r\n.componentList_component_textselection, .componentList_component_imageselection, .componentList_component_memberinfo{\r\n    background: url(/static/img/wepage/appKit_vote_sprite.png) no-repeat;\r\n    -webkit-background-size: 180px 45px;\r\n    background-size: 180px 45px;\r\n}\r\n.componentList_component_textselection{\r\n    background-position: -133px 0;\r\n    width: 50px !important;\r\n    height: 50px !important;\r\n}\r\n.componentList_component_imageselection{\r\n    background-position:0 0;\r\n    width: 50px !important;\r\n    height: 50px !important;\r\n}\r\n.componentList_component_memberinfo{\r\n    background-position: -60px 0;\r\n    width: 65px !important;\r\n    height: 50px !important;\r\n}\r\n.xui-component .componentList_component_uploadimg {\r\n  background: url(/static/img/wepage/appKit_uploadimg.png) no-repeat;\r\n  -webkit-background-size: 47px 41px;\r\n  background-size: 47px 41px;\r\n  width: 47px;\r\n  background-position: 0 3px;\r\n}\r\n\r\n/*wepage组件样式  end*/\r\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 645 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59899,7 +60422,7 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(646);
+	var template = __webpack_require__(650);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.page',
@@ -59954,13 +60477,13 @@
 	module.exports = Component;
 
 /***/ },
-/* 646 */
+/* 650 */
 /***/ function(module, exports) {
 
-	module.exports = "{% if component.type === 'wepage.page' %}\n\n{% if in_production_mode %}\n\t{% for sub_component in component.components %}\n\t{{ sub_component.html|safe }}\n\t{% endfor %}\n{% else %}\n<div \n\tdata-type=\"wepage.page\"\n\tclass=\"xa-component xa-component-page xui-component xui-component-page\" \n\tdata-component-cid=\"{{component.cid}}\"\n\tdata-cid=\"{{component.cid}}\"\n\t{% if component.model.site_title === '微页面标题' %}\n\tdata-auto-select=\"true\"\n\t{% endif %}\n\t{% if component.model.background %}style=\"background-image: url({{component.model.background}})\"{% endif %}\n>\n    {% for sub_component in component.components %}\n    {{ sub_component.html|safe }}\n\t{% endfor %}\n</div>\n{% endif %}\n\n{% endif %}\n"
+	module.exports = "{% if component.type === 'wepage.page' %}\r\n\r\n{% if in_production_mode %}\r\n\t{% for sub_component in component.components %}\r\n\t{{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n{% else %}\r\n<div \r\n\tdata-type=\"wepage.page\"\r\n\tclass=\"xa-component xa-component-page xui-component xui-component-page\" \r\n\tdata-component-cid=\"{{component.cid}}\"\r\n\tdata-cid=\"{{component.cid}}\"\r\n\t{% if component.model.site_title === '微页面标题' %}\r\n\tdata-auto-select=\"true\"\r\n\t{% endif %}\r\n\t{% if component.model.background %}style=\"background-image: url({{component.model.background}})\"{% endif %}\r\n>\r\n    {% for sub_component in component.components %}\r\n    {{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 647 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59974,10 +60497,10 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(648);
+	var template = __webpack_require__(652);
 
-	__webpack_require__(649);
-	__webpack_require__(651);
+	__webpack_require__(653);
+	__webpack_require__(655);
 
 	var Component = ComponentFactory.define({
 		type: 'wepage.componentadder',
@@ -60005,19 +60528,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 648 */
+/* 652 */
 /***/ function(module, exports) {
 
-	module.exports = "{% if component.type === 'wepage.componentadder' %}\n\n{% if in_production_mode %}\n{% else %}\n\t<div \n\t\thref=\"javascript:void(0);\" \n\t\tdata-component-cid=\"{{component.cid}}\" \n\t\tdata-index=\"{{component.model.index}}\" \n\t\tid=\"{{component.model.id}}\" \n\t\tclass=\"\n\t\t\t{{component.model.class}} \n\t\t\twui-componentadder \n\t\t\twa-componentadder \n\t\t\t{% if component.parent_component.components.length > 1 %}xui-hide{% endif %}\n\t\t\" \n\t>\n\t\t+添加模块\n\t</div>\n{% endif %}\n\n{% endif %}\n"
+	module.exports = "{% if component.type === 'wepage.componentadder' %}\r\n\r\n{% if in_production_mode %}\r\n{% else %}\r\n\t<div \r\n\t\thref=\"javascript:void(0);\" \r\n\t\tdata-component-cid=\"{{component.cid}}\" \r\n\t\tdata-index=\"{{component.model.index}}\" \r\n\t\tid=\"{{component.model.id}}\" \r\n\t\tclass=\"\r\n\t\t\t{{component.model.class}} \r\n\t\t\twui-componentadder \r\n\t\t\twa-componentadder \r\n\t\t\t{% if component.parent_component.components.length > 1 %}xui-hide{% endif %}\r\n\t\t\" \r\n\t>\r\n\t\t+添加模块\r\n\t</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 649 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(650);
+	var content = __webpack_require__(654);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60037,7 +60560,7 @@
 	}
 
 /***/ },
-/* 650 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60045,19 +60568,19 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 651 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(652);
+	var content = __webpack_require__(656);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60077,7 +60600,7 @@
 	}
 
 /***/ },
-/* 652 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60085,13 +60608,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.wui-componentadder {\n    cursor: pointer;\n    padding: 10px;\n    margin: 0px 2px;\n    border: dashed 1px #CFCFCF;\n}\n\n[data-type=\"wepage.componentadder\"] .xui-componentContainer-actionPanel {\n    display: none !important;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.wui-componentadder {\r\n    cursor: pointer;\r\n    padding: 10px;\r\n    margin: 0px 2px;\r\n    border: dashed 1px #CFCFCF;\r\n}\r\n\r\n[data-type=\"wepage.componentadder\"] .xui-componentContainer-actionPanel {\r\n    display: none !important;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 653 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60106,7 +60629,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(654);
+	var CoverManager = __webpack_require__(658);
 
 	var WepageSimulator = React.createClass({
 		displayName: 'WepageSimulator',
@@ -60344,7 +60867,7 @@
 	module.exports = WepageSimulator;
 
 /***/ },
-/* 654 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60569,7 +61092,7 @@
 	module.exports = CoverManagerClass;
 
 /***/ },
-/* 655 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60583,12 +61106,12 @@
 
 	var Backbone = __webpack_require__(269);
 	var Broadcaster = __webpack_require__(299);
-	var PropertyPanelRender = __webpack_require__(656);
+	var PropertyPanelRender = __webpack_require__(660);
 	var Component = __webpack_require__(270);
 	var Validater = __webpack_require__(260);
-	__webpack_require__(657);
+	__webpack_require__(661);
 
-	__webpack_require__(684);
+	__webpack_require__(688);
 
 	var PropertyEditorClass = Backbone.View.extend({
 	    events: {
@@ -60993,7 +61516,7 @@
 	module.exports = PropertyEditorClass;
 
 /***/ },
-/* 656 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61101,7 +61624,7 @@
 	module.exports = render;
 
 /***/ },
-/* 657 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61110,19 +61633,19 @@
 	 */
 	'use strict';
 
-	__webpack_require__(658);
-	__webpack_require__(660);
 	__webpack_require__(662);
 	__webpack_require__(664);
-	__webpack_require__(667);
-	__webpack_require__(669);
+	__webpack_require__(666);
+	__webpack_require__(668);
 	__webpack_require__(671);
-	__webpack_require__(674);
+	__webpack_require__(673);
+	__webpack_require__(675);
 	__webpack_require__(678);
-	__webpack_require__(681);
+	__webpack_require__(682);
+	__webpack_require__(685);
 
 /***/ },
-/* 658 */
+/* 662 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61135,20 +61658,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(659);
+	var template = __webpack_require__(663);
 
 	Component.definePropertyField('component', {
 	  template: template
 	});
 
 /***/ },
-/* 659 */
+/* 663 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"propertyView\" class=\"xa-propertyView-actionTarget\">\n\t{% if component.shouldShowPropertyViewTitle %}\n\t<div class=\"xui-i-header\">\n\t\t{{title}}\n\t</div>\n\t{% endif %}\n\n\t<div id=\"propertyEditor\" class=\"xa-propertyView-actionTarget\">\n\t\t{% for property_group in propertyGroups %}\n\t\t{% if !onlyShowUserProperty || property_group.isUserProperty %}\n\t\t<div class=\"{{property_group.groupClass}}-topGap xui-i-propertyGroup-topGap\"></div>\n\n\t\t<div \n\t\t\tclass=\"\n\t\t\t\txui-i-propertyGroup \n\t\t\t\t{% if property_group.groupConfig && property_group.groupConfig.enableBounder %}\n\t\t\t\txui-i-propertyGroup-visibleBounder\n\t\t\t\t{% endif %}\n\t\t\t\t{{property_group.groupClass}}\" \n\t\t>\n\t\t\t{% if loop.index > 1 %}\n\t\t\t<div class=\"ml5 fb\">{{property_group.group}}\n                {% if property_group.groupHelp %}\n                    <span \n                    \tid=\"{{property_group.groupHelp.id}}\" \n                    \tclass=\"{{property_group.groupHelp.className}}\"\n                    >\n                    {% if property_group.groupHelp.link %}\n                    <a \n                    \tid=\"{{property_group.groupHelp.link.id}}\" \n                    \tclass=\"{{property_group.groupHelp.link.className}}\" \n                    \tdata-func=\"{{property_group.groupHelp.link.handler}}\" \n                    >{{property_group.groupHelp.link.text}}</a>\n                    {% endif %}\n\n                    {% if property_group.groupHelp.tip %}\n                        <a \n                        \tclass=\"xui-i-propertyGroup-helpTip\" \n                        \tdata-container=\"body\" \n                        \tdata-trigger=\"focus\" \n                        \tdata-toggle=\"popover\" \n                        \tdata-placement=\"bottom\" \n                        \tdata-content=\"{{property_group.groupHelp.tip.text}}\">&#63;</a>\n                    {% endif %} <!-- end of \"if property_group.groupHelp.tip\" -->\n                    </span>\n                {% endif %} <!-- end of \"if property_group.groupHelp\" -->\n\t\t\t</div>\n\t\t\t{% endif %} <!-- end of \"if loop.index > 0\" -->\n\n\t\t\t{% for field in property_group.fields %}\n\t\t\t{% if !onlyShowUserProperty || field.isUserProperty %}\n\t\t\t<div class=\"xui-i-field xa-field xui-i-field-{{field.className}}\" data-component-cid=\"{{component.cid}}\" data-component-field=\"{{component.cid}}-{{field.name}}\" >\n\t\t\t\t{{field|render_field(component, model, onlyShowUserProperty)|safe}}\n\t\t\t</div>\n\t\t\t{% endif %}\n\t\t\t{% endfor %}\n\t\t{% endif %}\n\t\t{% endfor %}\n\t</div>\n</div>"
+	module.exports = "<div id=\"propertyView\" class=\"xa-propertyView-actionTarget\">\r\n\t{% if component.shouldShowPropertyViewTitle %}\r\n\t<div class=\"xui-i-header\">\r\n\t\t{{title}}\r\n\t</div>\r\n\t{% endif %}\r\n\r\n\t<div id=\"propertyEditor\" class=\"xa-propertyView-actionTarget\">\r\n\t\t{% for property_group in propertyGroups %}\r\n\t\t{% if !onlyShowUserProperty || property_group.isUserProperty %}\r\n\t\t<div class=\"{{property_group.groupClass}}-topGap xui-i-propertyGroup-topGap\"></div>\r\n\r\n\t\t<div \r\n\t\t\tclass=\"\r\n\t\t\t\txui-i-propertyGroup \r\n\t\t\t\t{% if property_group.groupConfig && property_group.groupConfig.enableBounder %}\r\n\t\t\t\txui-i-propertyGroup-visibleBounder\r\n\t\t\t\t{% endif %}\r\n\t\t\t\t{{property_group.groupClass}}\" \r\n\t\t>\r\n\t\t\t{% if loop.index > 1 %}\r\n\t\t\t<div class=\"ml5 fb\">{{property_group.group}}\r\n                {% if property_group.groupHelp %}\r\n                    <span \r\n                    \tid=\"{{property_group.groupHelp.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.className}}\"\r\n                    >\r\n                    {% if property_group.groupHelp.link %}\r\n                    <a \r\n                    \tid=\"{{property_group.groupHelp.link.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.link.className}}\" \r\n                    \tdata-func=\"{{property_group.groupHelp.link.handler}}\" \r\n                    >{{property_group.groupHelp.link.text}}</a>\r\n                    {% endif %}\r\n\r\n                    {% if property_group.groupHelp.tip %}\r\n                        <a \r\n                        \tclass=\"xui-i-propertyGroup-helpTip\" \r\n                        \tdata-container=\"body\" \r\n                        \tdata-trigger=\"focus\" \r\n                        \tdata-toggle=\"popover\" \r\n                        \tdata-placement=\"bottom\" \r\n                        \tdata-content=\"{{property_group.groupHelp.tip.text}}\">&#63;</a>\r\n                    {% endif %} <!-- end of \"if property_group.groupHelp.tip\" -->\r\n                    </span>\r\n                {% endif %} <!-- end of \"if property_group.groupHelp\" -->\r\n\t\t\t</div>\r\n\t\t\t{% endif %} <!-- end of \"if loop.index > 0\" -->\r\n\r\n\t\t\t{% for field in property_group.fields %}\r\n\t\t\t{% if !onlyShowUserProperty || field.isUserProperty %}\r\n\t\t\t<div class=\"xui-i-field xa-field xui-i-field-{{field.className}}\" data-component-cid=\"{{component.cid}}\" data-component-field=\"{{component.cid}}-{{field.name}}\" >\r\n\t\t\t\t{{field|render_field(component, model, onlyShowUserProperty)|safe}}\r\n\t\t\t</div>\r\n\t\t\t{% endif %}\r\n\t\t\t{% endfor %}\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 660 */
+/* 664 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61161,20 +61684,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(661);
+	var template = __webpack_require__(665);
 
 	Component.definePropertyField('text', {
 	  template: template
 	});
 
 /***/ },
-/* 661 */
+/* 665 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- text field -->\n<div class=\"xui-i-textField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\n\t\t<input \n\t\t\ttype=\"text\" \n\t\t\tclass=\"xui-i-textInput xui-i-input xa-valueInput\" \n\t\t\tdata-field=\"{{field.name}}\" \n\t\t\tvalue=\"{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}\" \n\t\t\tplaceholder=\"{{field.placeholder}}\"\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\n\t\t{{field|generate_field_help|safe}}\n\t\t<div class=\"errorHint\"></div>\n\t</div>\n</div>"
+	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<input \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-textInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tvalue=\"{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 662 */
+/* 666 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61187,20 +61710,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(663);
+	var template = __webpack_require__(667);
 
 	Component.definePropertyField('multiline_text', {
 	  template: template
 	});
 
 /***/ },
-/* 663 */
+/* 667 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- text field -->\n<div class=\"xui-i-textField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\n\t\t<textarea \n\t\t\ttype=\"text\" \n\t\t\tclass=\"xui-i-multilineTextInput xui-i-input xa-valueInput\" \n\t\t\tdata-field=\"{{field.name}}\" \n\t\t\tplaceholder=\"{{field.placeholder}}\"\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}</textarea>\n\t\t{{field|generate_field_help|safe}}\n\t\t<div class=\"errorHint\"></div>\n\t</div>\n</div>"
+	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<textarea \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-multilineTextInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}</textarea>\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 664 */
+/* 668 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61213,9 +61736,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(665);
+	var template = __webpack_require__(669);
 
-	var plugin = __webpack_require__(666);
+	var plugin = __webpack_require__(670);
 
 	Component.definePropertyField('rich_text', {
 	  template: template,
@@ -61223,13 +61746,13 @@
 	});
 
 /***/ },
-/* 665 */
+/* 669 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- rich_text field -->\n<div class=\"xui-i-richTextField xui-i-horizontalField\">\n\t{% if field.displayName %}\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t{% endif %}\n\t<div \n\t\tclass=\"xui-i-inputContainer xa-inputContainer\" \n\t\tstyle=\"{% if field.displayName %}width:80%{%else%}width:100%{% endif %}; margin: 5px auto;\"\n\t>\n\t\t<textarea \n\t\t\tclass=\"xui-i-textarea xa-valueInput\" \n\t\t\tdata-plugin=\"rich_text\" \n\t\t\tstyle=\"height: 100px; width: 100%;\" \n\t\t\tdata-field=\"{{field.name}}\"\n\t\t\tdata-force-validate=\"true\"\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{{model.get(field.name)}}</textarea>\n\t\t{%if field.help%}\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\n\t\t\t{{ field.help|format_br|safe }}\n\t\t</div>\n\t\t{% endif %}\n\t</div>\n\n</div>"
+	module.exports = "<!-- rich_text field -->\r\n<div class=\"xui-i-richTextField xui-i-horizontalField\">\r\n\t{% if field.displayName %}\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t{% endif %}\r\n\t<div \r\n\t\tclass=\"xui-i-inputContainer xa-inputContainer\" \r\n\t\tstyle=\"{% if field.displayName %}width:80%{%else%}width:100%{% endif %}; margin: 5px auto;\"\r\n\t>\r\n\t\t<textarea \r\n\t\t\tclass=\"xui-i-textarea xa-valueInput\" \r\n\t\t\tdata-plugin=\"rich_text\" \r\n\t\t\tstyle=\"height: 100px; width: 100%;\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-force-validate=\"true\"\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{{model.get(field.name)}}</textarea>\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n\r\n</div>"
 
 /***/ },
-/* 666 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61240,7 +61763,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:rich_text');
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
 	var plugin = {
 	    type: 'rich_text',
@@ -61269,7 +61792,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 667 */
+/* 671 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61282,20 +61805,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(668);
+	var template = __webpack_require__(672);
 
 	Component.definePropertyField('radio', {
 	  template: template
 	});
 
 /***/ },
-/* 668 */
+/* 672 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- radio field -->\n<div class=\"xui-i-radioField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\n\t{% for radio in field.source %}\n\t<label \n\t\tstyle=\"display:inline-block;\" \n\t\tclass=\"xui-i-selectBtn {% if model.get(field.name) == radio.value %}xui-i-selected{% endif %}\">\n\t\t<input \n\t\t\tstyle=\"margin-top:-3px;\" \n\t\t\tclass=\"xui-i-selectBtn-input\"\n\t\t\ttype=\"radio\" \n\t\t\tdata-field=\"{{field.name}}\" \n\t\t\tname='{{field.name}}' \n\t\t\t{% if model.get(field.name) == radio.value %}checked=\"checked\"{% endif %} \n\t\t\tvalue=\"{{radio.value}}\" />{{radio.name}}\n\t\t<i class=\"xui-i-selectedIcon xui-i-spriteBackground\" {% if model.get(field.name) != radio.value %}style=\"display:none;\"{% endif %}></i>\n\t</label>\n\t{% endfor %}\n\t{{field|generate_field_help|safe}}\n\t</div>\n</div>"
+	module.exports = "<!-- radio field -->\r\n<div class=\"xui-i-radioField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for radio in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"xui-i-selectBtn {% if model.get(field.name) == radio.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"margin-top:-3px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"radio\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) == radio.value %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{radio.value}}\" />{{radio.name}}\r\n\t\t<i class=\"xui-i-selectedIcon xui-i-spriteBackground\" {% if model.get(field.name) != radio.value %}style=\"display:none;\"{% endif %}></i>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 669 */
+/* 673 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61308,20 +61831,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(670);
+	var template = __webpack_require__(674);
 
 	Component.definePropertyField('checkbox_group', {
 	  template: template
 	});
 
 /***/ },
-/* 670 */
+/* 674 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- checkbox group field -->\n<div class=\"xui-i-checkboxGroupField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\n\t{% for checkbox in field.source %}\n\t<label \n\t\tstyle=\"display:inline-block;\" \n\t\tclass=\"{% if model.get(field.name) == checkbox.value %}xui-i-selected{% endif %}\">\n\t\t<input \n\t\t\tstyle=\"vertical-align:middle; margin-top:0px;\" \n\t\t\tclass=\"xui-i-selectBtn-input\"\n\t\t\ttype=\"checkbox\" \n\t\t\tdata-field=\"{{field.name}}\" \n\t\t\tname='{{field.name}}' \n\t\t\t{% if model.get(field.name) === true %}checked=\"checked\"{% endif %} \n\t\t\tvalue=\"{{checkbox.value}}\" /><span class=\"xui-i-checkboxText\">{{checkbox.name}}</span>\n\t</label>\n\t{% endfor %}\n\t{{field|generate_field_help|safe}}\n\t</div>\n</div>"
+	module.exports = "<!-- checkbox group field -->\r\n<div class=\"xui-i-checkboxGroupField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for checkbox in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"{% if model.get(field.name) == checkbox.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"vertical-align:middle; margin-top:0px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"checkbox\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) === true %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{checkbox.value}}\" /><span class=\"xui-i-checkboxText\">{{checkbox.name}}</span>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 671 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61334,9 +61857,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(672);
+	var template = __webpack_require__(676);
 
-	var plugin = __webpack_require__(673);
+	var plugin = __webpack_require__(677);
 
 	Component.definePropertyField('color_picker', {
 	  template: template,
@@ -61344,13 +61867,13 @@
 	});
 
 /***/ },
-/* 672 */
+/* 676 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- color_picker field -->\n<div class=\"xui-i-colorPickerField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\n\t\t<div class=\"\" style=\"padding:3px; background-color:#FFF; border: solid 1px #E6E6E6;\">\n\t\t\t<button class=\"btn btn-small xui-i-triggerButton xa-colorPickerTrigger\"></button>\n\t\t\t<input \n\t\t\t\tclass=\"xa-valueInput\" \n\t\t\t\tdata-plugin=\"colorpicker\" \n\t\t\t\tstyle=\"border: solid 1px #E6E6E6; margin-left:-4px; width:100px;\" \n\t\t\t\tdata-field=\"{{field.name}}\" \n\t\t\t\ttype=\"text\" \n\t\t\t\tvalue=\"{{model.get(field.name)}}\" />\n\t\t\t<a \n\t\t\t\thref='javascript:void(0);' \n\t\t\t\tclass=\"ml5 mr5 xa-protocol-deleteData\" \n\t\t\t\tdata-protocol-deleted-value=\"{{field.default}}\"\n\t\t\t>重置</a>\n\t\t</div>\n\t</div>\n</div>"
+	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-colorPickerField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<div class=\"\" style=\"padding:3px; background-color:#FFF; border: solid 1px #E6E6E6;\">\r\n\t\t\t<button class=\"btn btn-small xui-i-triggerButton xa-colorPickerTrigger\"></button>\r\n\t\t\t<input \r\n\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\tdata-plugin=\"colorpicker\" \r\n\t\t\t\tstyle=\"border: solid 1px #E6E6E6; margin-left:-4px; width:100px;\" \r\n\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\ttype=\"text\" \r\n\t\t\t\tvalue=\"{{model.get(field.name)}}\" />\r\n\t\t\t<a \r\n\t\t\t\thref='javascript:void(0);' \r\n\t\t\t\tclass=\"ml5 mr5 xa-protocol-deleteData\" \r\n\t\t\t\tdata-protocol-deleted-value=\"{{field.default}}\"\r\n\t\t\t>重置</a>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 673 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61397,7 +61920,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 674 */
+/* 678 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61410,9 +61933,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(675);
+	var template = __webpack_require__(679);
 
-	var plugin = __webpack_require__(676);
+	var plugin = __webpack_require__(680);
 
 	Component.definePropertyField('time', {
 	  template: template,
@@ -61420,13 +61943,13 @@
 	});
 
 /***/ },
-/* 675 */
+/* 679 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- time field -->\n<div class=\"xui-i-timeField xui-i-horizontalField\">\n\t<div class=\"xui-i-label mr5 {%if field.validate%}star_show{%endif%}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer pl5\" data-plugin=\"time\">\n\t\t<input \n\t\t\ttype=\"hidden\" \n\t\t\tvalue=\"{{component.model.get(field.name)}}\" \n\t\t\tname=\"{{field.name}}\" \n\t\t\tdata-field=\"{{field.name}}\"\n\t\t\tclass=\"xa-valueInput\" \n\t\t\t{%if field.validate%}data-validate=\"{{field.validate}}\"{%endif%} />\n\n\t\t<input\n\t\t\ttype=\"text\"\n\t\t\tclass=\"form-control xui-i-datePicker xui-inline xa-picker xa-datePicker\"\n\t\t\tid=\"time\"\n\t\t\tname=\"time\"\n\t\t\tvalue=\"{{component.model.get(field.name)}}\"\n\t\t\tdata-field=\"{{field.name}}\"\n\t\t\tdata-enable-select-time=\"true\"\n\t\t\tdata-validate=\"require-notempty\"\n\t\t\tdata-format=\"yy-mm-dd HH:MM\"\n            data-min=\"now\"/>\n\t</div>\n</div>"
+	module.exports = "<!-- time field -->\r\n<div class=\"xui-i-timeField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label mr5 {%if field.validate%}star_show{%endif%}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer pl5\" data-plugin=\"time\">\r\n\t\t<input \r\n\t\t\ttype=\"hidden\" \r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\" \r\n\t\t\tname=\"{{field.name}}\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t{%if field.validate%}data-validate=\"{{field.validate}}\"{%endif%} />\r\n\r\n\t\t<input\r\n\t\t\ttype=\"text\"\r\n\t\t\tclass=\"form-control xui-i-datePicker xui-inline xa-picker xa-datePicker\"\r\n\t\t\tid=\"time\"\r\n\t\t\tname=\"time\"\r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\"\r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-enable-select-time=\"true\"\r\n\t\t\tdata-validate=\"require-notempty\"\r\n\t\t\tdata-format=\"yy-mm-dd HH:MM\"\r\n            data-min=\"now\"/>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 676 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61437,7 +61960,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:time');
 
-	var DatePicker = __webpack_require__(677);
+	var DatePicker = __webpack_require__(681);
 
 	var plugin = {
 	    type: 'time',
@@ -61469,7 +61992,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 677 */
+/* 681 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61576,7 +62099,7 @@
 	module.exports = DatePicker;
 
 /***/ },
-/* 678 */
+/* 682 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61589,9 +62112,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(679);
+	var template = __webpack_require__(683);
 
-	var plugin = __webpack_require__(680);
+	var plugin = __webpack_require__(684);
 
 	Component.definePropertyField('image_selector', {
 	  template: template,
@@ -61599,13 +62122,13 @@
 	});
 
 /***/ },
-/* 679 */
+/* 683 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- color_picker field -->\n<div class=\"xui-i-imageSelectorField xui-i-horizontalField\">\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\n\t<div class=\"xui-i-inputContainer xa-inputContainer\" data-plugin=\"image_selector\">\n\t\t<div class=\"xui-i-selectorZone\">\n\t\t\t<div class=\"xui-i-imageZone {% if not model.get(field.name) %}xui-hide{% endif %}\">\n\t\t\t\t<div class=\"pr xui-i-image\">\n\t\t\t\t\t<img src=\"{{ model.get(field.name) }}\" width=\"100\" height=\"100\" />\n\t\t\t\t\t<button type=\"button\" class=\"close xa-close xa-protocol-deleteData\" data-protocol-deleted-value=\"{{field.default}}\"><span>&times;</span></button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"xui-i-uploaderZone {% if model.get(field.name) %}xui-hide{% endif %}\">\n\t\t\t\t<input \n\t\t\t\t\tclass=\"xa-valueInput\" \n\t\t\t\t\tdata-field=\"{{field.name}}\" \n\t\t\t\t\ttype=\"hidden\" \n\t\t\t\t\tvalue=\"{{model.get(field.name)}}\"\n\t\t\t\t\tdata-force-validate=\"true\"\n\t\t\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\n\n\t\t\t\t<span class=\"btn btn-default fileinput-button\">\n    \t\t\t\t<span> 上传图片</span>\n\t\t\t\t\t<input id=\"fileupload\" type=\"file\" name=\"image\" class=\"xa-uploader\" />\n\t\t\t\t</span>\n\t\t\t\t<div id=\"progress\" class=\"progress mt5 xa-progress xui-hide\" style=\"width:100px\">\n\t\t\t\t\t<div class=\"progress-bar progress-bar-success xa-bar\" style=\"width:0%\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"errorHint\"></div>\n\t\t\t</div>\n\t\t</div>\t\n\t\t{%if field.help%}\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\n\t\t\t{{ field.help|format_br|safe }}\n\t\t</div>\n\t\t{% endif %}\n\t</div>\n</div>"
+	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-imageSelectorField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\" data-plugin=\"image_selector\">\r\n\t\t<div class=\"xui-i-selectorZone\">\r\n\t\t\t<div class=\"xui-i-imageZone {% if not model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<div class=\"pr xui-i-image\">\r\n\t\t\t\t\t<img src=\"{{ model.get(field.name) }}\" width=\"100\" height=\"100\" />\r\n\t\t\t\t\t<button type=\"button\" class=\"close xa-close xa-protocol-deleteData\" data-protocol-deleted-value=\"{{field.default}}\"><span>&times;</span></button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"xui-i-uploaderZone {% if model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<input \r\n\t\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\t\ttype=\"hidden\" \r\n\t\t\t\t\tvalue=\"{{model.get(field.name)}}\"\r\n\t\t\t\t\tdata-force-validate=\"true\"\r\n\t\t\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\r\n\t\t\t\t<span class=\"btn btn-default fileinput-button\">\r\n    \t\t\t\t<span> 上传图片</span>\r\n\t\t\t\t\t<input id=\"fileupload\" type=\"file\" name=\"image\" class=\"xa-uploader\" />\r\n\t\t\t\t</span>\r\n\t\t\t\t<div id=\"progress\" class=\"progress mt5 xa-progress xui-hide\" style=\"width:100px\">\r\n\t\t\t\t\t<div class=\"progress-bar progress-bar-success xa-bar\" style=\"width:0%\"></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"errorHint\"></div>\r\n\t\t\t</div>\r\n\t\t</div>\t\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 680 */
+/* 684 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61663,7 +62186,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 681 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61676,9 +62199,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(682);
+	var template = __webpack_require__(686);
 
-	var plugin = __webpack_require__(683);
+	var plugin = __webpack_require__(687);
 
 	Component.definePropertyField('component_list', {
 	  template: template,
@@ -61686,13 +62209,13 @@
 	});
 
 /***/ },
-/* 682 */
+/* 686 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- component_list field -->\n<div class=\"xui-i-componentListField xui-i-horizontalField\" data-plugin=\"componentadder\">\n\t<ul class=\"xui-i-componentList clearfix xui-i-inputContainer xa-inputContainer\">\n\t\t{% for component in field.components %}\n\t\t{% if component.indicator %}\n\t\t<li class=\"xui-i-component xa-addComponent\" data-component-type=\"{{component.type}}\">\n\t\t\t<div class=\"xui-i-img xui-i-spriteBackground {{component.indicator.imgClass}}\"></div>\n\t\t</li>\n\t\t{% endif %}\n\t\t{% endfor %}\n\t</ul>\n</div>"
+	module.exports = "<!-- component_list field -->\r\n<div class=\"xui-i-componentListField xui-i-horizontalField\" data-plugin=\"componentadder\">\r\n\t<ul class=\"xui-i-componentList clearfix xui-i-inputContainer xa-inputContainer\">\r\n\t\t{% for component in field.components %}\r\n\t\t{% if component.indicator %}\r\n\t\t<li class=\"xui-i-component xa-addComponent\" data-component-type=\"{{component.type}}\">\r\n\t\t\t<div class=\"xui-i-img xui-i-spriteBackground {{component.indicator.imgClass}}\"></div>\r\n\t\t</li>\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</ul>\r\n</div>"
 
 /***/ },
-/* 683 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -61726,13 +62249,13 @@
 	module.exports = plugin;
 
 /***/ },
-/* 684 */
+/* 688 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(685);
+	var content = __webpack_require__(689);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61752,7 +62275,7 @@
 	}
 
 /***/ },
-/* 685 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61760,13 +62283,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n@charset \"utf-8\";\n\n/**\n * 组件图片\n */\n.xui-componentList-component-black {\n    background: url(/static/img/wepage/component/component_black.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-image-adv {\n    background: url(/static/img/wepage/component/component_image_adv.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-showcase {\n    background: url(/static/img/wepage/component/component_showcase.png) no-repeat transparent 10px 4px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-image-nav {\n    background: url(/static/img/wepage/component/component_image_nav.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-product {\n    background: url(/static/img/wepage/component/component_product.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-product-list {\n    background: url(/static/img/wepage/component/component_product_list.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-subline {\n    background: url(/static/img/wepage/component/component_subline.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-relate-link {\n    background: url(/static/img/wepage/component/component_relate_link.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-richtext {\n    background: url(/static/img/wepage/component/component_richtext.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-text-nav {\n    background: url(/static/img/wepage/component/component_text_nav.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-title {\n    background: url(/static/img/wepage/component/component_title.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-page-header {\n    background: url(/static/img/wepage/component/component_page_header.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-componentList-component-header-nav {\n    background: url(/static/img/wepage/component/component_page_header.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n\n\n\n\n\n\n.xui-workbench-rightPanel, .xui-propertyView {\n\tmargin-top: 0px;\n\tmargin-left: 16px;\n\tmax-width: 537px;\n\tpadding: 20px;\n\t/*padding-top: 0;*/\n\t/*公告有影响*/\n\tborder: solid 1px #CCC;\n\tbackground-color: white;\n\t/*辅助空白会影响到样式*/\n\t/*overflow: hidden;*/\n\tz-index: 1000;\n\t/*min-height: 200px;*/\n\t/*公告有影响*/\n\tbackground-color: #F9F9F9;\n\tfont-size: 12px;\n}\n.xui-propertyView .xui-i-header {\n\tposition: relative;\n    padding-bottom: 5px;\n    top: -5px;\n    font-size: 16px;\n    font-weight: bold;\n    color: #333;\n    text-align: center;\n}\n.xui-propertyView .xui-i-fieldHelp {\n\tcolor: #888;\n}\n.xui-propertyView .xui-i-validate:before {\n    font-size: 1.4em;\n    content: \"*\";\n    color: #FF0000;\n    vertical-align: middle;\n    position: relative;\n    top: 3px;\n    right: 5px;\n}\n.xui-propertyView .xui-i-horizontalField {\n\tmin-height: 36px;\n}\n.xui-propertyView .xui-i-horizontalField .xui-i-label {\n\tdisplay: inline-block;\n\tmin-width: 44px;\n\twidth: 58px;\n\t/*background-color: #EFEFEF;*/\n\theight: 24px;\n\tline-height: 24px;\n\ttext-align: right;\n\tmargin-right: 12px;\n\tvertical-align: top;\n}\n.xui-propertyView .xui-i-horizontalField .xui-i-longLabel {\n\twidth: 160px;\n}\n.xui-propertyView .xui-i-horizontalField .xui-i-inputContainer {\n\tdisplay: inline-block;\n    position: relative;\n}\n.xui-propertyView .xui-i-horizontalField .xui-i-input {\n    border: 1px solid #e6e6e6;\n}\n.xui-propertyView .xui-i-horizontalField .has-error .xui-i-input {\n   border-color: #a94442;\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\n}\n.xui-propertyView .xui-i-horizontalField .xui-i-inputContainer input[type=\"text\"] {\n\theight: 22px;\n    padding: 1px 2px;\n    width: 180px;\n    margin: 0px;\n}\n\n\n\n\n\n/**\n * group部分样式\n */\n.xui-propertyView .xui-i-propertyGroup-visibleBounder {\n    border-top: 1px solid #DDDDDD;\n    padding-top: 15px;\n    margin-top: 15px;\n    margin-bottom: 10px;\n}\n.xui-propertyView .xui-i-propertyGroup-topBorder {\n    \n}\n\n\n\n/**\n * sprite background\n */\n.xui-propertyView .xui-i-spriteBackground {\n\tbackground: url(/static/img/wepage/propertyViewSprites.png) no-repeat;\n    -webkit-background-size: 345px 91px;\n    background-size: 345px 91px;\n}\n\n\n\n\n/**\n * component list field\n */\n.xui-propertyView .xui-i-componentListField .xui-i-component {\n    float: left;\n    width: 94px;\n    height: 76px;\n    text-align: center;\n    text-shadow: 0px 1px 0px #eee;\n    cursor: pointer;\n    z-index: 100;\n    margin-bottom: 5px;\n    border: 1px solid #E6E6E6;\n    box-sizing: border-box;\n    background: #fff;\n    margin-right: 5px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-i-img {\n    width: 39px;\n    height: 45px;\n    margin: 14px auto 0px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-black {\n    width: 51px;\n    background-position:-142px -46px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-image-adv {\n    width: 51px;\n    background-position:-143px 0;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-showcase {\n    height: 46px;\n    background-position:-194px -45px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-image-nav {\n    width: 51px;\n    height: 46px;\n    background-position:-92px -45px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-product {\n    background-position:-46px 0;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-product-list {\n    width: 51px;\n    background-position:-91px 0;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-subline {\n    background: url(/static/img/wepage/component/component_subline.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-relate-link {\n    background: url(/static/img/wepage/component/component_relate_link.png) no-repeat transparent 10px 0px;\n    -webkit-background-size: 50px 50px;\n    background-size: 50px 50px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-richtext {\n    background-position:3px 0;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-text-nav {\n    height: 46px;\n    width: 51px;\n    background-position:-40px -45px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-title {\n    background-position: 0 -44px;\n}\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-notice {\n    background-position: -196px 0;\n}\n.xui-propertyView .xui-i-timeField .xui-i-datePicker {\n    width: 132px !important;\n    height: 24px !important;\n    font-size: 12px;\n    line-height: 24px;\n    background: url(/static/img/wepage/calendar.jpg) no-repeat !important;\n    background-position: right !important;\n    background-color: #fff !important;\n    border: 1px solid #E6E6E6;\n    box-shadow: none;\n}\n\n\n\n\n\n/**\n * text field\n */\n.xui-propertyView .xui-i-textField .xui-i-input {\n\n}\n\n\n\n\n\n\n\n/**\n * radio field\n */\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn.xui-i-selected {\n\t   border: 1px solid #2F8A29;\n}\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn {\n\tpadding: 4px 10px;\n    min-width: 58px;\n    text-align: center;\n    border: 1px solid #D9D9D9;\n    background: #fff;\n    color: #656565;\n    box-sizing: border-box;\n    margin: 2px 11px 2px 0;\n    position: relative;\n}\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn .xui-i-selectBtn-input {\n\topacity: 0;\n    position: absolute;\n}\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn .xui-i-selectedIcon {\n\tdisplay: block;\n    width: 16px;\n    height: 18px;\n    background-position: -262px 0;\n    position: absolute;\n    bottom: 0;\n    right: 0;\n}\n\n\n\n\n/*\n * color picker field\n */\n.xui-propertyView .xui-i-colorPickerField .xui-i-triggerButton {\n    background: url(/static/img/wepage/propertyViewSprites.png) no-repeat;\n    -webkit-background-size: 345px 91px;\n    background-size: 345px 91px;\n    width: 18px;\n    min-width: 18px;\n    height: 18px;\n    background-position: -261px -20px;\n    padding: 0;\n}\n\n\n\n\n\n/*\n * color picker field\n */\n.xui-propertyView .xui-i-checkboxGroupField .xui-i-checkboxText {\n    color: #656565;\n    font-weight: normal;\n    margin-left: 5px;\n    height: 18px;\n    line-height: 18px;\n}\n\n\n\n\n\n/*\n * image selector field\n */\n.xui-propertyView .xui-i-imageSelectorField .progress, .xui-form-imageUploader .progress-bar {\n  height: 5px;\n}\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image {\n  padding: 2px;\n  border: solid 1px #EFEFEF;\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\n}\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image .close {\n    width: 16px;\n    height: 16px;\n    font-size: 16px;\n    line-height: 16px;\n    position: absolute;\n    top: -9px;\n    color: #fff;\n    right: -8px;\n    border-radius: 8px;\n    background: #B0B0B0;\n    padding: 0;\n    cursor: pointer;\n    border: 0;\n    opacity: 1.0;\n    display: block;\n}\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image .close span {\n    width: 16px;\n    height: 16px;\n    line-height: 14px;\n    display: block;\n    text-align: center;\n}\n.xui-propertyView .xui-i-imageSelectorField .btn-default {\n    color: #066baf;\n    font-size: 12px;\n}\n\n\n\n\n\n\n/**\n * dynamic component control样式\n */\n.xui-propertyView .xui-i-dynamicControl {\t\n}\n.xui-propertyView .xui-i-dynamicControl .xui-i-component {\t\n\twidth: 480px;\n    border: 1px solid #DDDDDD;\n    background-color: #FFFFFF;\n    padding-bottom: 5px;\n    padding-top: 15px;\n    padding-left: 35px;\n    margin-top: 20px;\n    position: relative;\n}\n.xui-propertyView .xui-i-dynamicControl .xui-i-component .xui-i-removeButton {\n\tposition: absolute;\n\tfont-size: 14px;\n    z-index: 1;\n    top: -10px;\n    right: -10px;\n}\n.xui-propertyView .xui-i-dynamicControl .xui-i-removeButton .xui-i-cross {\n    height: 20px;\n    width: 20px;\n    background-color: rgb(141, 141, 141);\n    background-color: #000;\n    font-weight: normal;\n    line-height: 18px;\n    border-radius: 10px;\n    color: #FFF;\n    display: block;\n}\n.xui-propertyView .xui-i-dynamicControl .xui-i-addDynamicComponentTrigger {\n    padding-left: 20px;\n    width: 480px;\n    height: 40px;\n    border: 1px dashed #CCCCCC;\n    line-height: 40px;\n    color: #1183CA;\n    cursor: pointer;\n    background: #fff;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n@charset \"utf-8\";\r\n\r\n/**\r\n * 组件图片\r\n */\r\n.xui-componentList-component-black {\r\n    background: url(/static/img/wepage/component/component_black.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-image-adv {\r\n    background: url(/static/img/wepage/component/component_image_adv.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-showcase {\r\n    background: url(/static/img/wepage/component/component_showcase.png) no-repeat transparent 10px 4px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-image-nav {\r\n    background: url(/static/img/wepage/component/component_image_nav.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-product {\r\n    background: url(/static/img/wepage/component/component_product.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-product-list {\r\n    background: url(/static/img/wepage/component/component_product_list.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-subline {\r\n    background: url(/static/img/wepage/component/component_subline.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-relate-link {\r\n    background: url(/static/img/wepage/component/component_relate_link.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-richtext {\r\n    background: url(/static/img/wepage/component/component_richtext.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-text-nav {\r\n    background: url(/static/img/wepage/component/component_text_nav.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-title {\r\n    background: url(/static/img/wepage/component/component_title.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-page-header {\r\n    background: url(/static/img/wepage/component/component_page_header.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-componentList-component-header-nav {\r\n    background: url(/static/img/wepage/component/component_page_header.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n.xui-workbench-rightPanel, .xui-propertyView {\r\n\tmargin-top: 0px;\r\n\tmargin-left: 16px;\r\n\tmax-width: 537px;\r\n\tpadding: 20px;\r\n\t/*padding-top: 0;*/\r\n\t/*公告有影响*/\r\n\tborder: solid 1px #CCC;\r\n\tbackground-color: white;\r\n\t/*辅助空白会影响到样式*/\r\n\t/*overflow: hidden;*/\r\n\tz-index: 1000;\r\n\t/*min-height: 200px;*/\r\n\t/*公告有影响*/\r\n\tbackground-color: #F9F9F9;\r\n\tfont-size: 12px;\r\n}\r\n.xui-propertyView .xui-i-header {\r\n\tposition: relative;\r\n    padding-bottom: 5px;\r\n    top: -5px;\r\n    font-size: 16px;\r\n    font-weight: bold;\r\n    color: #333;\r\n    text-align: center;\r\n}\r\n.xui-propertyView .xui-i-fieldHelp {\r\n\tcolor: #888;\r\n}\r\n.xui-propertyView .xui-i-validate:before {\r\n    font-size: 1.4em;\r\n    content: \"*\";\r\n    color: #FF0000;\r\n    vertical-align: middle;\r\n    position: relative;\r\n    top: 3px;\r\n    right: 5px;\r\n}\r\n.xui-propertyView .xui-i-horizontalField {\r\n\tmin-height: 36px;\r\n}\r\n.xui-propertyView .xui-i-horizontalField .xui-i-label {\r\n\tdisplay: inline-block;\r\n\tmin-width: 44px;\r\n\twidth: 58px;\r\n\t/*background-color: #EFEFEF;*/\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: right;\r\n\tmargin-right: 12px;\r\n\tvertical-align: top;\r\n}\r\n.xui-propertyView .xui-i-horizontalField .xui-i-longLabel {\r\n\twidth: 160px;\r\n}\r\n.xui-propertyView .xui-i-horizontalField .xui-i-inputContainer {\r\n\tdisplay: inline-block;\r\n    position: relative;\r\n}\r\n.xui-propertyView .xui-i-horizontalField .xui-i-input {\r\n    border: 1px solid #e6e6e6;\r\n}\r\n.xui-propertyView .xui-i-horizontalField .has-error .xui-i-input {\r\n   border-color: #a94442;\r\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n}\r\n.xui-propertyView .xui-i-horizontalField .xui-i-inputContainer input[type=\"text\"] {\r\n\theight: 22px;\r\n    padding: 1px 2px;\r\n    width: 180px;\r\n    margin: 0px;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * group部分样式\r\n */\r\n.xui-propertyView .xui-i-propertyGroup-visibleBounder {\r\n    border-top: 1px solid #DDDDDD;\r\n    padding-top: 15px;\r\n    margin-top: 15px;\r\n    margin-bottom: 10px;\r\n}\r\n.xui-propertyView .xui-i-propertyGroup-topBorder {\r\n    \r\n}\r\n\r\n\r\n\r\n/**\r\n * sprite background\r\n */\r\n.xui-propertyView .xui-i-spriteBackground {\r\n\tbackground: url(/static/img/wepage/propertyViewSprites.png) no-repeat;\r\n    -webkit-background-size: 345px 91px;\r\n    background-size: 345px 91px;\r\n}\r\n\r\n\r\n\r\n\r\n/**\r\n * component list field\r\n */\r\n.xui-propertyView .xui-i-componentListField .xui-i-component {\r\n    float: left;\r\n    width: 94px;\r\n    height: 76px;\r\n    text-align: center;\r\n    text-shadow: 0px 1px 0px #eee;\r\n    cursor: pointer;\r\n    z-index: 100;\r\n    margin-bottom: 5px;\r\n    border: 1px solid #E6E6E6;\r\n    box-sizing: border-box;\r\n    background: #fff;\r\n    margin-right: 5px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-i-img {\r\n    width: 39px;\r\n    height: 45px;\r\n    margin: 14px auto 0px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-black {\r\n    width: 51px;\r\n    background-position:-142px -46px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-image-adv {\r\n    width: 51px;\r\n    background-position:-143px 0;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-showcase {\r\n    height: 46px;\r\n    background-position:-194px -45px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-image-nav {\r\n    width: 51px;\r\n    height: 46px;\r\n    background-position:-92px -45px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-product {\r\n    background-position:-46px 0;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-product-list {\r\n    width: 51px;\r\n    background-position:-91px 0;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-subline {\r\n    background: url(/static/img/wepage/component/component_subline.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-relate-link {\r\n    background: url(/static/img/wepage/component/component_relate_link.png) no-repeat transparent 10px 0px;\r\n    -webkit-background-size: 50px 50px;\r\n    background-size: 50px 50px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-richtext {\r\n    background-position:3px 0;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-text-nav {\r\n    height: 46px;\r\n    width: 51px;\r\n    background-position:-40px -45px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-title {\r\n    background-position: 0 -44px;\r\n}\r\n.xui-propertyView .xui-i-componentListField .xui-i-component .xui-componentList-component-notice {\r\n    background-position: -196px 0;\r\n}\r\n.xui-propertyView .xui-i-timeField .xui-i-datePicker {\r\n    width: 132px !important;\r\n    height: 24px !important;\r\n    font-size: 12px;\r\n    line-height: 24px;\r\n    background: url(/static/img/wepage/calendar.jpg) no-repeat !important;\r\n    background-position: right !important;\r\n    background-color: #fff !important;\r\n    border: 1px solid #E6E6E6;\r\n    box-shadow: none;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * text field\r\n */\r\n.xui-propertyView .xui-i-textField .xui-i-input {\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * radio field\r\n */\r\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn.xui-i-selected {\r\n\t   border: 1px solid #2F8A29;\r\n}\r\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn {\r\n\tpadding: 4px 10px;\r\n    min-width: 58px;\r\n    text-align: center;\r\n    border: 1px solid #D9D9D9;\r\n    background: #fff;\r\n    color: #656565;\r\n    box-sizing: border-box;\r\n    margin: 2px 11px 2px 0;\r\n    position: relative;\r\n}\r\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn .xui-i-selectBtn-input {\r\n\topacity: 0;\r\n    position: absolute;\r\n}\r\n.xui-propertyView .xui-i-radioField .xui-i-selectBtn .xui-i-selectedIcon {\r\n\tdisplay: block;\r\n    width: 16px;\r\n    height: 18px;\r\n    background-position: -262px 0;\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n}\r\n\r\n\r\n\r\n\r\n/*\r\n * color picker field\r\n */\r\n.xui-propertyView .xui-i-colorPickerField .xui-i-triggerButton {\r\n    background: url(/static/img/wepage/propertyViewSprites.png) no-repeat;\r\n    -webkit-background-size: 345px 91px;\r\n    background-size: 345px 91px;\r\n    width: 18px;\r\n    min-width: 18px;\r\n    height: 18px;\r\n    background-position: -261px -20px;\r\n    padding: 0;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*\r\n * color picker field\r\n */\r\n.xui-propertyView .xui-i-checkboxGroupField .xui-i-checkboxText {\r\n    color: #656565;\r\n    font-weight: normal;\r\n    margin-left: 5px;\r\n    height: 18px;\r\n    line-height: 18px;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*\r\n * image selector field\r\n */\r\n.xui-propertyView .xui-i-imageSelectorField .progress, .xui-form-imageUploader .progress-bar {\r\n  height: 5px;\r\n}\r\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image {\r\n  padding: 2px;\r\n  border: solid 1px #EFEFEF;\r\n  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image .close {\r\n    width: 16px;\r\n    height: 16px;\r\n    font-size: 16px;\r\n    line-height: 16px;\r\n    position: absolute;\r\n    top: -9px;\r\n    color: #fff;\r\n    right: -8px;\r\n    border-radius: 8px;\r\n    background: #B0B0B0;\r\n    padding: 0;\r\n    cursor: pointer;\r\n    border: 0;\r\n    opacity: 1.0;\r\n    display: block;\r\n}\r\n.xui-propertyView .xui-i-imageSelectorField .xui-i-image .close span {\r\n    width: 16px;\r\n    height: 16px;\r\n    line-height: 14px;\r\n    display: block;\r\n    text-align: center;\r\n}\r\n.xui-propertyView .xui-i-imageSelectorField .btn-default {\r\n    color: #066baf;\r\n    font-size: 12px;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * dynamic component control样式\r\n */\r\n.xui-propertyView .xui-i-dynamicControl {\t\r\n}\r\n.xui-propertyView .xui-i-dynamicControl .xui-i-component {\t\r\n\twidth: 480px;\r\n    border: 1px solid #DDDDDD;\r\n    background-color: #FFFFFF;\r\n    padding-bottom: 5px;\r\n    padding-top: 15px;\r\n    padding-left: 35px;\r\n    margin-top: 20px;\r\n    position: relative;\r\n}\r\n.xui-propertyView .xui-i-dynamicControl .xui-i-component .xui-i-removeButton {\r\n\tposition: absolute;\r\n\tfont-size: 14px;\r\n    z-index: 1;\r\n    top: -10px;\r\n    right: -10px;\r\n}\r\n.xui-propertyView .xui-i-dynamicControl .xui-i-removeButton .xui-i-cross {\r\n    height: 20px;\r\n    width: 20px;\r\n    background-color: rgb(141, 141, 141);\r\n    background-color: #000;\r\n    font-weight: normal;\r\n    line-height: 18px;\r\n    border-radius: 10px;\r\n    color: #FFF;\r\n    display: block;\r\n}\r\n.xui-propertyView .xui-i-dynamicControl .xui-i-addDynamicComponentTrigger {\r\n    padding-left: 20px;\r\n    width: 480px;\r\n    height: 40px;\r\n    border: 1px dashed #CCCCCC;\r\n    line-height: 40px;\r\n    color: #1183CA;\r\n    cursor: pointer;\r\n    background: #fff;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 686 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61781,7 +62304,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(654);
+	var CoverManager = __webpack_require__(658);
 
 	var SubmitPanel = React.createClass({
 		displayName: 'SubmitPanel',
@@ -61799,13 +62322,13 @@
 	module.exports = SubmitPanel;
 
 /***/ },
-/* 687 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(688);
+	var content = __webpack_require__(692);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61825,7 +62348,7 @@
 	}
 
 /***/ },
-/* 688 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61833,13 +62356,13 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-wepageEditor {\n\tbackground-color: #EAEEF7;\n\tmargin-left: -15px;\n\tmargin-right: -15px;\n\tmargin-top: 5px;\n\tpadding: 10px;\n\tposition: relative;\n}\n.xui-wepageEditor-phonePanel {\n    position: relative;\n    width: 357px;\n    min-height: 500px;\n}\n.xui-wepageEditor-phonePanel .xui-i-actionBar {\n\tfloat: none;\n\tposition: absolute;\n    right: 10px;\n    top: 4px;    \n}\n.xui-wepageEditor-phonePanel .xui-i-phone {\n\twidth: 414px;\n\tmargin: 0px 0px 20px 0px;\n\tposition: relative;\n\tbackground-image: url('/static/img/wepage/weixin_bg_top.png'),url('/static/img/wepage/weixin_bg_bottom.png'),url('/static/img/wepage/weixin_bg_md.png');\n\tbackground-repeat: no-repeat,no-repeat,repeat-y;\n\tbackground-position: top center,bottom center,center;\n\twidth: 357px;\n\tmin-height: 683px;\n\t/* text-align: center; */\n\tposition: relative;\n\tpadding-top: 154px ;\n\tpadding-bottom: 80px;\n\tpadding-bottom: 100px;\n}\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-skin {\n    padding-left: 18px;\n    padding-right: 19px;\n    position: relative;\n    /*height: 425px;*/\n    min-height: 425px;\n    /*\n    width: 380px;\n    */\n}\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-skinCover {\n\twidth: 380px;\n\tbackground-color: rgba(0, 0, 0, 0.1);\n\theight: 100%;\n\tz-index: 99;\n\tposition: absolute;\n\ttop: 0px;\n\tleft: 15px;\n}\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-title {\n\tfont-size: 1.3em;\n\tfont-weight: bold;\n\tcolor: #FFF;\n\tposition: absolute;\n\ttop: -38px;\n\tleft: 0px;\n\twidth: 100%;\n\ttext-align: center;\n\tcursor: pointer;\n}\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-title span {\n\twidth: 190px;\n\tdisplay: block;\n\tmargin: auto;\n\toverflow: hidden;\n\theight: 20px;\n\twhite-space: nowrap;\n\ttext-overflow: ellipsis;\n}\n\n\n\n\n.xui-propertyEditor {\n\tmargin-top: 160px;\n\tmargin-left: 16px;\n\tmax-width: 537px;\n\tpadding: 20px;\n\t/*padding-top: 0;*/\n\t/*公告有影响*/\n\tborder: solid 1px #CCC;\n\tbackground-color: white;\n\t/*辅助空白会影响到样式*/\n\t/*overflow: hidden;*/\n\tz-index: 1000;\n\t/*min-height: 200px;*/\n\t/*公告有影响*/\n\tbackground-color: #F9F9F9;\n\tfont-size: 12px;\n}\n.xui-propertyEditor .xui-i-header {\n\tposition: relative;\n    padding-bottom: 5px;\n    top: -5px;\n    font-size: 16px;\n    font-weight: bold;\n    color: #333;\n    text-align: center;\n}\n.xui-propertyEditor .xui-i-fieldHelp {\n\tcolor: #888;\n}\n.xui-propertyEditor .xui-i-validate:before {\n    font-size: 1.4em;\n    content: \"*\";\n    color: #FF0000;\n    vertical-align: middle;\n    position: relative;\n    top: 3px;\n    right: 5px;\n}\n.xui-propertyEditor .xui-i-horizontalField {\n\tmin-height: 36px;\n}\n.xui-propertyEditor .xui-i-horizontalField .xui-i-label {\n\tdisplay: inline-block;\n\tmin-width: 44px;\n\twidth: 58px;\n\t/*background-color: #EFEFEF;*/\n\theight: 24px;\n\tline-height: 24px;\n\ttext-align: right;\n\tmargin-right: 12px;\n\tvertical-align: top;\n}\n.xui-propertyEditor .xui-i-horizontalField .xui-i-longLabel {\n\twidth: 160px;\n}\n.xui-propertyEditor .xui-i-horizontalField .xui-i-inputContainer {\n\tdisplay: inline-block;\n    position: relative;\n}\n.xui-propertyEditor .xui-i-horizontalField .xui-i-input {\n    border: 1px solid #e6e6e6;\n}\n.xui-propertyEditor .xui-i-horizontalField .has-error .xui-i-input {\n   border-color: #a94442;\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\n}\n.xui-propertyEditor .xui-i-horizontalField .xui-i-inputContainer input[type=\"text\"] {\n\theight: 22px;\n    padding: 1px 2px;\n    width: 180px;\n    margin: 0px;\n}\n\n.xui-wepageEditor-submitPanel {\n\tposition: fixed;\n\tbackground: rgba(0,0,0,0.2);\n    bottom: 0;\n    z-index: 2000;\n    width: 993px;\n    padding-top: 20px;\n    padding-bottom: 20px;\n    text-align: center;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-wepageEditor {\r\n\tbackground-color: #EAEEF7;\r\n\tmargin-left: -15px;\r\n\tmargin-right: -15px;\r\n\tmargin-top: 5px;\r\n\tpadding: 10px;\r\n\tposition: relative;\r\n}\r\n.xui-wepageEditor-phonePanel {\r\n    position: relative;\r\n    width: 357px;\r\n    min-height: 500px;\r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-actionBar {\r\n\tfloat: none;\r\n\tposition: absolute;\r\n    right: 10px;\r\n    top: 4px;    \r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-phone {\r\n\twidth: 414px;\r\n\tmargin: 0px 0px 20px 0px;\r\n\tposition: relative;\r\n\tbackground-image: url('/static/img/wepage/weixin_bg_top.png'),url('/static/img/wepage/weixin_bg_bottom.png'),url('/static/img/wepage/weixin_bg_md.png');\r\n\tbackground-repeat: no-repeat,no-repeat,repeat-y;\r\n\tbackground-position: top center,bottom center,center;\r\n\twidth: 357px;\r\n\tmin-height: 683px;\r\n\t/* text-align: center; */\r\n\tposition: relative;\r\n\tpadding-top: 154px ;\r\n\tpadding-bottom: 80px;\r\n\tpadding-bottom: 100px;\r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-skin {\r\n    padding-left: 18px;\r\n    padding-right: 19px;\r\n    position: relative;\r\n    /*height: 425px;*/\r\n    min-height: 425px;\r\n    /*\r\n    width: 380px;\r\n    */\r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-skinCover {\r\n\twidth: 380px;\r\n\tbackground-color: rgba(0, 0, 0, 0.1);\r\n\theight: 100%;\r\n\tz-index: 99;\r\n\tposition: absolute;\r\n\ttop: 0px;\r\n\tleft: 15px;\r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-title {\r\n\tfont-size: 1.3em;\r\n\tfont-weight: bold;\r\n\tcolor: #FFF;\r\n\tposition: absolute;\r\n\ttop: -38px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcursor: pointer;\r\n}\r\n.xui-wepageEditor-phonePanel .xui-i-phone .xui-i-title span {\r\n\twidth: 190px;\r\n\tdisplay: block;\r\n\tmargin: auto;\r\n\toverflow: hidden;\r\n\theight: 20px;\r\n\twhite-space: nowrap;\r\n\ttext-overflow: ellipsis;\r\n}\r\n\r\n\r\n\r\n\r\n.xui-propertyEditor {\r\n\tmargin-top: 160px;\r\n\tmargin-left: 16px;\r\n\tmax-width: 537px;\r\n\tpadding: 20px;\r\n\t/*padding-top: 0;*/\r\n\t/*公告有影响*/\r\n\tborder: solid 1px #CCC;\r\n\tbackground-color: white;\r\n\t/*辅助空白会影响到样式*/\r\n\t/*overflow: hidden;*/\r\n\tz-index: 1000;\r\n\t/*min-height: 200px;*/\r\n\t/*公告有影响*/\r\n\tbackground-color: #F9F9F9;\r\n\tfont-size: 12px;\r\n}\r\n.xui-propertyEditor .xui-i-header {\r\n\tposition: relative;\r\n    padding-bottom: 5px;\r\n    top: -5px;\r\n    font-size: 16px;\r\n    font-weight: bold;\r\n    color: #333;\r\n    text-align: center;\r\n}\r\n.xui-propertyEditor .xui-i-fieldHelp {\r\n\tcolor: #888;\r\n}\r\n.xui-propertyEditor .xui-i-validate:before {\r\n    font-size: 1.4em;\r\n    content: \"*\";\r\n    color: #FF0000;\r\n    vertical-align: middle;\r\n    position: relative;\r\n    top: 3px;\r\n    right: 5px;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField {\r\n\tmin-height: 36px;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .xui-i-label {\r\n\tdisplay: inline-block;\r\n\tmin-width: 44px;\r\n\twidth: 58px;\r\n\t/*background-color: #EFEFEF;*/\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: right;\r\n\tmargin-right: 12px;\r\n\tvertical-align: top;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .xui-i-longLabel {\r\n\twidth: 160px;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .xui-i-inputContainer {\r\n\tdisplay: inline-block;\r\n    position: relative;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .xui-i-input {\r\n    border: 1px solid #e6e6e6;\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .has-error .xui-i-input {\r\n   border-color: #a94442;\r\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n}\r\n.xui-propertyEditor .xui-i-horizontalField .xui-i-inputContainer input[type=\"text\"] {\r\n\theight: 22px;\r\n    padding: 1px 2px;\r\n    width: 180px;\r\n    margin: 0px;\r\n}\r\n\r\n.xui-wepageEditor-submitPanel {\r\n\tposition: fixed;\r\n\tbackground: rgba(0,0,0,0.2);\r\n    bottom: 0;\r\n    z-index: 2000;\r\n    width: 993px;\r\n    padding-top: 20px;\r\n    padding-bottom: 20px;\r\n    text-align: center;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 689 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61852,7 +62375,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(690);
+	__webpack_require__(694);
 
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
@@ -61884,7 +62407,7 @@
 	module.exports = Wepage;
 
 /***/ },
-/* 690 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61928,7 +62451,7 @@
 	});
 
 /***/ },
-/* 691 */
+/* 695 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61942,9 +62465,9 @@
 	var _ = __webpack_require__(243);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(586);
+	var RawUEditor = __webpack_require__(590);
 
-	__webpack_require__(692);
+	__webpack_require__(696);
 
 	var UEditor = React.createClass({
 		displayName: 'UEditor',
@@ -61998,13 +62521,13 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 692 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(693);
+	var content = __webpack_require__(697);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -62024,7 +62547,7 @@
 	}
 
 /***/ },
-/* 693 */
+/* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -62032,7 +62555,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\n\n.xui-reactman-ueditor .edui-editor {\n\tz-index: 1000 !important;\n}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\r\n\r\n.xui-reactman-ueditor .edui-editor {\r\n\tz-index: 1000 !important;\r\n}", ""]);
 
 	// exports
 
