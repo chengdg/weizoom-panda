@@ -53,8 +53,11 @@ def send_reject_product_change(product_id=None):
 		image = resource.Image.objects.filter(id=image_relation.image_id).first()
 		if image:
 			image_path = image.path
+	# 驳回原因
+	reject_list = get_product_reject_reason(product=product)
+	# get_product_reject_reason(product=None)
 	data = organize_product_message_info(product=product, user_id=product.owner_id, image_paths=image_path)
-
+	data.update({'reject_list': reject_list})
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
 
 
@@ -165,3 +168,9 @@ def get_product_status(product_id=None):
 		if product_info.is_refused: #未同步状态下的驳回算作入库驳回
 			push_status = '入库驳回'
 	return push_status
+
+
+def get_product_reject_reason(product=None):
+	logs = models.ProductRejectLogs.objects.filter(product_id=product.id)
+	return [{'comment_at': log.created_at,
+			 'reject_info': log.reject_reasons} for log in logs if logs]
