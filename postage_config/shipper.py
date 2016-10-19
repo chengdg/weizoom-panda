@@ -28,7 +28,7 @@ class Shipper(resource.Resource):
 	@login_required
 	def api_get(request):
 		shipper_id = request.GET.get('shipper_id', None)
-		shipper_messages = models.ShipperMessage.objects.filter(owner = request.user)
+		shipper_messages = models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False)
 		if shipper_id:
 			shipper_messages = shipper_messages.filter(id=shipper_id)
 		
@@ -63,7 +63,7 @@ class Shipper(resource.Resource):
 		company_name = request.POST.get('company_name','')
 		remark = request.POST.get('remark','')
 
-		models.ShipperMessage.objects.create(
+		models.ShipperMessages.objects.create(
 			owner = request.user,
 			shipper_name = shipper_name,
 			tel_number = tel_number,
@@ -86,7 +86,7 @@ class Shipper(resource.Resource):
 		company_name = request.POST.get('company_name','')
 		remark = request.POST.get('remark','')
 
-		models.ShipperMessage.objects.filter(id=shipper_id).update(
+		models.ShipperMessages.objects.filter(id=shipper_id).update(
 			shipper_name = shipper_name,
 			tel_number = tel_number,
 			destination = '',
@@ -101,6 +101,6 @@ class Shipper(resource.Resource):
 	@login_required
 	def api_delete(request):
 		shipper_id = request.POST.get('shipper_id',-1)
-		models.ShipperMessage.objects.filter(id=shipper_id).delete()
+		models.ShipperMessages.objects.filter(id=shipper_id).update(is_deleted=True)
 		response = create_response(200)
 		return response.get_response()

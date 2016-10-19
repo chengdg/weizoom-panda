@@ -24,11 +24,11 @@ var AccountTable = React.createClass({
 	},
 
 	onChangeStore: function() {
-		console.log(this.refs.accountTable,"ppppppppppppppp");
 		this.refs.accountTable.refresh();
 	},
 
 	addExpressBillAccount: function() {
+		Action.clearData();
 		Reactman.PageAction.showDialog({
 			title: "电子面单账号",
 			component: AddAccountDialog,
@@ -53,8 +53,14 @@ var AccountTable = React.createClass({
 		},100)
 	},
 
-	deleteExpressBill: function(expressId){
-		Action.deleteExpressBillAccount(expressId);
+	deleteExpressBill: function(expressId, event){
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定删除么？',
+			confirm: _.bind(function() {
+				Action.deleteExpressBillAccount(expressId);
+			}, this)
+		});
 	},
 
 	rowFormatter: function(field, value, data) {
@@ -63,7 +69,7 @@ var AccountTable = React.createClass({
 			return (
 				<div>
 					<a href="javascript:void(0);" onClick={this.editExpressBill.bind(this, expressId)}>编辑</a>
-					<span>|</span>
+					<span className="xui-split-line">|</span>
 					<a href="javascript:void(0);" onClick={this.deleteExpressBill.bind(this, expressId)}>删除</a>
 				</div>
 			);
@@ -88,7 +94,7 @@ var AccountTable = React.createClass({
 					</Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="accountTable">
 						<Reactman.TableColumn name="快递公司" field="expressName" />
-						<Reactman.TableColumn name="商家号/ID(CustomerName)" field="customerName" width="300"/>
+						<Reactman.TableColumn name="商家号/ID(CustomerName)" field="customerName" />
 						<Reactman.TableColumn name="商家密码(CustomerPwd)" field="customerPwd" />
 						<Reactman.TableColumn name="MonthCode" field="logisticsNumber" />
 						<Reactman.TableColumn name="操作" field="action" />

@@ -15,10 +15,8 @@ var Constant = require('./Constant');
 
 var AccountTableStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateAccountMessages': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_MESSAGES,
 		'handleUpdateArea': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_AREA,
 		'handleUpdateAccountTable': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_TABLE,
-		'handleGetExpressBillAccount': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_EXPREEE_ACCOUNT,
 		'handleDeleteExpressBillAccount': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_EXPRESS_ACCOUNT
 	},
 
@@ -28,22 +26,12 @@ var AccountTableStore = StoreUtil.createStore(Dispatcher, {
 		};
 	},
 
-	handleUpdateAccountMessages: function(action) {
-		this.data[action.data.property] = action.data.value;
-		this.__emitChange();
-	},
-
 	handleUpdateArea: function(action){
 		this.data.selectedIds = action.data.selectedIds;
 		this.__emitChange();
 	},
 
 	handleUpdateAccountTable: function(){
-		this.__emitChange();
-	},
-
-	handleGetExpressBillAccount: function(action){
-		this.data = action.data.rows[0];
 		this.__emitChange();
 	},
 

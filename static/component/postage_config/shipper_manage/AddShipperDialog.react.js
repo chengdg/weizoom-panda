@@ -9,24 +9,24 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var ShipperTableStore = require('./ShipperTableStore');
-// var DialogStore = require('./DialogStore');
+// var ShipperTableStore = require('./ShipperTableStore');
+var DialogStore = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
 var AddCatalogDialog = Reactman.createDialog({
 	getInitialState: function() {
-		ShipperTableStore.addListener(this.onChangeStore);
-		return ShipperTableStore.getData();
+		DialogStore.addListener(this.onChangeStore);
+		return DialogStore.getData();
 	},
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateShipperMessages(property, value);
+		Action.updateData(property, value);
 	},
 
 	onChangeStore: function(){
-		this.setState(ShipperTableStore.getData());
+		this.setState(DialogStore.getData());
 	},
 
 	onSelectArea: function(selectedIds, selectedDatas) {
@@ -82,6 +82,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					_.delay(function(){
 						Reactman.PageAction.showHint('success', '添加成功!');
 					},500);
+					Action.clearData();
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMsg);

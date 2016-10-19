@@ -1,6 +1,7 @@
 .xui-shipperManageTable .panel-header a,
 .xui-AccountManagerTable .panel-header a{
 	float: left !important;
+    margin-left: 0px !important;
 }
 .xui-shipperManage-button{
 	display: inline-block;
@@ -28,4 +29,10 @@
     border-color: rgba(22, 155, 213, 1);
     color: #FFF !important;
     text-decoration: none !important;
+}
+
+.xui-split-line{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
 }

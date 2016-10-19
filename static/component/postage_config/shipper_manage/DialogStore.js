@@ -15,38 +15,34 @@ var Constant = require('./Constant');
 
 var DialogStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
-		'handleUpdateShipperMessages': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_SHIPPER_MESSAGES,
-		'handleGetShipperData': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_SHIPPER_DATA,
-
-		'handleUpdateAccountMessages': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_MESSAGES,
-		'handleGetExpressBillAccount': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_EXPREEE_ACCOUNT,
+		'handleUpdateData': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_DATA,
+		'handleGetData': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_DATA,
+		'handleClearData': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CLEAR_DATA
 	},
 
 	init: function() {
 		this.data = {
-			'shipperId': -1
+			'shipperId': -1,
+			'expressId': -1
 		};
 	},
 
-	handleUpdateShipperMessages: function(action) {
+	handleUpdateData: function(action) {
 		this.data[action.data.property] = action.data.value;
 		this.__emitChange();
 	},
 
-	handleUpdateAccountMessages: function(action) {
-		this.data[action.data.property] = action.data.value;
-		this.__emitChange();
-	},
-
-	handleGetExpressBillAccount: function(action){
+	handleGetData: function(action){
+		console.log(action.data.rows[0],"+++++++++");
 		this.data = action.data.rows[0];
 		this.__emitChange();
 	},
 
-	handleGetShipperData: function(action){
-		console.log(action.data.rows[0],"----------");
-		this.data = action.data.rows[0];
-		this.__emitChange();
+	handleClearData: function(){
+		this.data = {
+			'shipperId': -1,
+			'expressId': -1
+		};
 	},
 
 	getData: function() {

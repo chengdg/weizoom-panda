@@ -23,13 +23,12 @@ var ShipperTable = React.createClass({
 		return ShipperTableStore.getData();
 	},
 
-	onChangeStore: function(event) {
-		console.log("sssssssssssssssssss");
-		console.log(this.refs.table,"-------");
+	onChangeStore: function() {
 		this.refs.table.refresh();
 	},
 
 	addShipper: function() {
+		Action.clearData();
 		Reactman.PageAction.showDialog({
 			title: "快递发货人",
 			component: AddShipperDialog,
@@ -40,8 +39,14 @@ var ShipperTable = React.createClass({
 		});
 	},
 
-	deleteShipper: function(shipperId){
-		Action.deleteShipper(shipperId);
+	deleteShipper: function(shipperId, event){
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定删除么？',
+			confirm: _.bind(function() {
+				Action.deleteShipper(shipperId);
+			}, this)
+		});
 	},
 
 	editShipper: function(shipperId){
@@ -64,7 +69,7 @@ var ShipperTable = React.createClass({
 			return (
 				<div>
 					<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
-					<span>|</span>
+					<span className="xui-split-line">|</span>
 					<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
 				</div>
 			);
@@ -87,7 +92,7 @@ var ShipperTable = React.createClass({
 					<Reactman.TableActionBar></Reactman.TableActionBar>
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="table">
 						<Reactman.TableColumn name="发货人" field="shipperName" />
-						<Reactman.TableColumn name="发货人手机" field="telNumber" width="300"/>
+						<Reactman.TableColumn name="发货人手机" field="telNumber" />
 						<Reactman.TableColumn name="发货地区" field="destination" />
 						<Reactman.TableColumn name="详细地址" field="address" />
 						<Reactman.TableColumn name="邮编" field="postcode" />

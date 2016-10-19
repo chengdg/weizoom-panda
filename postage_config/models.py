@@ -88,7 +88,7 @@ class PostageConfigRelation(models.Model):
 		db_table = 'postage_config_relation'
 
 
-class ShipperMessage(models.Model):
+class ShipperMessages(models.Model):
 	"""	
 	发货人信息
 	"""
@@ -100,12 +100,13 @@ class ShipperMessage(models.Model):
 	postcode = models.CharField(max_length=50) #邮政编码
 	company_name = models.CharField(max_length=50) #单位名称
 	remark = models.TextField(null=True) #备注
+	is_deleted = models.BooleanField(default=False) #是否删除
 
 	class Meta(object):
-		db_table = 'shipper_message'
+		db_table = 'shipper_messages'
 
 
-class ExpressBillAccount(models.Model):
+class ExpressBillAccounts(models.Model):
 	"""	
 	电子面单账号
 	"""
@@ -115,6 +116,7 @@ class ExpressBillAccount(models.Model):
 	customer_pwd = models.CharField(max_length=256)  #CustomerPwd
 	logistics_number = models.CharField(max_length=256) #物流月结号
 	remark = models.TextField(null=True) #备注
+	is_deleted = models.BooleanField(default=False) #是否删除
 
 	class Meta(object):
-		db_table = 'express_bill_account'
+		db_table = 'express_bill_accounts'

@@ -13,19 +13,9 @@ var Resource = Reactman.Resource;
 var Constant = require('./Constant');
 
 var Action = {
-	updateShipperMessages: function(property, value) {
+	updateData: function(property, value) {
 		Dispatcher.dispatch({
-			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_SHIPPER_MESSAGES,
-			data: {
-				property: property,
-				value: value
-			}
-		});
-	},
-
-	updateAccountMessages: function(property, value){
-		Dispatcher.dispatch({
-			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_ACCOUNT_MESSAGES,
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_DATA,
 			data: {
 				property: property,
 				value: value
@@ -73,7 +63,7 @@ var Action = {
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_SHIPPER_DATA
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_DATA
 			}
 		});
 	},
@@ -99,7 +89,7 @@ var Action = {
 			},
 			dispatch: {
 				dispatcher: Dispatcher,
-				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_EXPREEE_ACCOUNT
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_GET_DATA
 			}
 		});
 	},
@@ -114,6 +104,13 @@ var Action = {
 				dispatcher: Dispatcher,
 				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_EXPRESS_ACCOUNT
 			}
+		});
+	},
+
+	clearData: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CLEAR_DATA,
+			data: {}
 		});
 	}
 };

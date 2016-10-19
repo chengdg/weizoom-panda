@@ -9,24 +9,24 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-var AccountTableStore = require('./AccountTableStore');
-// var DialogStore = require('./DialogStore');
+// var AccountTableStore = require('./AccountTableStore');
+var DialogStore = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
 var AddCatalogDialog = Reactman.createDialog({
 	getInitialState: function() {
-		AccountTableStore.addListener(this.onChangeStore);
-		return AccountTableStore.getData();
+		DialogStore.addListener(this.onChangeStore);
+		return DialogStore.getData();
 	},
 
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
-		Action.updateAccountMessages(property, value);
+		Action.updateData(property, value);
 	},
 
 	onChangeStore: function(){
-		this.setState(AccountTableStore.getData());
+		this.setState(DialogStore.getData());
 	},
 
 	onBeforeCloseDialog: function() {
@@ -68,6 +68,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					_.delay(function(){
 						Reactman.PageAction.showHint('success', '添加成功!');
 					},500);
+					Action.clearData();
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMsg);
