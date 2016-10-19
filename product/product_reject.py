@@ -1,26 +1,15 @@
 # -*- coding: utf-8 -*-
-import json
-import time
-
-from django.http import HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from django.db.models import F
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
 
 from core import resource
 from core.jsonresponse import create_response
-from core import paginator
+from core.exceptionutil import unicode_full_stack
+from eaglet.core import watchdog
 
-from util import db_util
-from util import string_util
-
-import nav
-import requests
-from eaglet.utils.resource_client import Resource
 from account.models import *
 import models
+from util import send_product_message
+
 
 class ProductReject(resource.Resource):
 	app = 'product'
@@ -40,7 +29,12 @@ class ProductReject(resource.Resource):
 				models.ProductRejectLogs.objects.create(
 					product_id = product_id,
 					reject_reasons = reasons
-				)		
+				)
+				try:
+					send_product_message.send_reject_product_change(product_id=product_id)
+				except:
+					msg = unicode_full_stack()
+					watchdog.error("product_reject.send_reject_product_change: {}".format(msg))
 			data['code'] = 200
 			response = create_response(200)
 		except:

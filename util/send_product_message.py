@@ -9,6 +9,7 @@ from product import models
 from self_shop import models as self_shop_models
 from product_catalog import models as catalog_models
 from account.models import UserProfile
+from resource import models as resource
 
 
 def send_add_product_message(product=None, user_id=None, image_paths=None):
@@ -38,6 +39,22 @@ def send_sync_weapp_account_change(product_id=None):
 		'show_list': product_show_list(product_id=product_id),
 		'push_status': get_product_status(product_id=product_id)
 	}
+	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
+def send_reject_product_change(product_id=None):
+	"""
+	驳回修改待入库的商品
+	"""
+	product = models.Product.objects.filter(id=product_id).first()
+	image_relation = models.ProductImage.objects.filter(product_id=product.id).first()
+	image_path = ''
+	if image_relation:
+		image = resource.Image.objects.filter(id=image_relation.image_id).first()
+		if image:
+			image_path = image.path
+	data = organize_product_message_info(product=product, user_id=product.owner_id, image_paths=image_path)
+
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
 
 
