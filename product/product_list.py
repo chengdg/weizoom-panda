@@ -198,9 +198,19 @@ def getProductData(request, is_export):
 
 	for image in resource_images:
 		image_id2images[image.id] = image.path
+	# 更新商品的库存
+	relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
+	product_2_weapp_product = {int(relation.weapp_product_id): relation.product_id for relation in relations}
+	# 单规格商品id:更新后的库存(已经入库的)解决下边单品库存不是最新问题(因为通过接口更新了)
+	standard_product_to_store = {}
+	if role != YUN_YING:
+		standard_product_to_store = update_product_store(product_2_weapp_product=product_2_weapp_product,
+														 products=products)
 
 	# 获取商品是否上线
-	product_shelve_on = get_shelve_on_product(role=role, product_ids=product_ids, products=products)
+	weapp_product_ids = product_2_weapp_product.keys()
+	product_shelve_on = get_shelve_on_product(weapp_product_ids=weapp_product_ids,
+											  product_2_weapp_product=product_2_weapp_product)
 
 	# 组装数据
 	# 获取多规格商品id和结算价,售价的对应数据
@@ -292,7 +302,9 @@ def getProductData(request, is_export):
 				if product_stores[0] < 20:
 					store_short = True
 		else:
-			product_store = '%s' % product.product_store
+
+			product_store = product.product_store if not standard_product_to_store.get(product.id) \
+				else standard_product_to_store.get(product.id)
 			if product.product_store < 20:
 				store_short = True
 
@@ -383,7 +395,8 @@ def update_product_store(product_2_weapp_product=None, products=None):
 				panda_product_id = product_2_weapp_product.get(str(temp_model.get('product_id')))
 			temp_model_name = temp_model.get('name')
 			panda_product_id_to_socks.update({str(panda_product_id)+'#'+ temp_model_name: temp_model.get('stocks')})
-
+	# 返回单规格的商品的库存id: store
+	standard_product_to_store = {}
 	# panda_product_model_name_to_stocks = {}
 	for product in products:
 		model_properties = get_weapp_model_properties(product=product)
@@ -393,7 +406,9 @@ def update_product_store(product_2_weapp_product=None, products=None):
 			product_store = panda_product_id_to_socks.get(key)
 
 			if product_store and int(product_store) != product.product_store:
+				standard_product_to_store.update({product.id: panda_product_id_to_socks.get(key)})
 				models.Product.objects.filter(id=product.id).update(product_store=panda_product_id_to_socks.get(key))
+
 			continue
 		for _property in model_properties:
 			key = str(product.id) + '#' + _property.get('name')
@@ -402,36 +417,31 @@ def update_product_store(product_2_weapp_product=None, products=None):
 			if stocks and stocks != product.product_store:
 				models.ProductModel.objects.filter(id=_property.get('panda_model_info_id'))\
 					.update(stocks=panda_product_id_to_socks.get(key))
+	return standard_product_to_store
 
 
-def get_shelve_on_product(role=None, product_ids=None, products=None):
+def get_shelve_on_product(weapp_product_ids=None, product_2_weapp_product=None):
     """
     获取上架的商品
     """
     # 获取商品是否上线
-    relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
-    product_2_weapp_product = {}
-    for relation in relations:
-        product_2_weapp_product.update({int(relation.weapp_product_id): relation.product_id})
-    if role != YUN_YING:
-        update_product_store(product_2_weapp_product=product_2_weapp_product, products=products)
-    weapp_product_ids = '_'.join([p.weapp_product_id for p in relations])
-    resp = {}
+
     if weapp_product_ids:
-        params = {
+		weapp_product_ids = '_'.join([str(product_id) for product_id in weapp_product_ids])
+		params = {
             'product_ids': weapp_product_ids
         }
-        resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
             {
                 'resource': 'mall.product_status',
                 'data': params
             }
         )
-    # 已上架商品列表
-    product_shelve_on = []
-    if resp and resp.get('code') == 200:
-        product_status = resp.get('data').get('product_status')
-        product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
-                             for product_statu in product_status
-                             if product_statu.get('status') == 'on']
-    return product_shelve_on
+		# 已上架商品列表
+		product_shelve_on = []
+		if resp and resp.get('code') == 200:
+			product_status = resp.get('data').get('product_status')
+			product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
+								 for product_statu in product_status
+								 if product_statu.get('status') == 'on']
+		return product_shelve_on

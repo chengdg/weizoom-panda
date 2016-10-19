@@ -80,13 +80,15 @@ class NewProduct(resource.Resource):
 		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 
 		if product_id:
+			# 因为是实时从weapp拿更新数据,这个是单规格的商品id:weapp库存
+			standard_product_to_store = {}
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
 
 				# 从云伤痛获取商品详情(已入库的),更新库存
 				product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
 				if product_relation:
-					update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
+					standard_product_to_store = update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
 																	  product_relation.product_id}, products=[product])
 
 				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
@@ -101,7 +103,7 @@ class NewProduct(resource.Resource):
 				# 从云伤痛获取商品详情(已入库的),更新库存
 				product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
 				if product_relation:
-					update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
+					standard_product_to_store = update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
 																	  product_relation.product_id}, products=[product])
 
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
@@ -131,7 +133,8 @@ class NewProduct(resource.Resource):
 			if product_catalog:
 				second_level_name = product_catalog[0].name
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
-
+			product_store = product.product_store if not standard_product_to_store.get(product.id) \
+				else standard_product_to_store.get(product.id)
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -139,7 +142,7 @@ class NewProduct(resource.Resource):
 				'product_price': '%s' % product.product_price if product.product_price>0 else '%s' % product.clear_price,
 				'clear_price': '%s' % product.clear_price,
 				'product_weight': '%s'% product.product_weight,
-				'product_store': product.product_store,
+				'product_store': product_store,
 				'has_limit_time': '%s' %(1 if product.has_limit_time else 0),
 				'valid_time_from': '' if not product.valid_time_from else product.valid_time_from.strftime("%Y-%m-%d %H:%M"),
 				'valid_time_to': '' if not product.valid_time_to else product.valid_time_to.strftime("%Y-%m-%d %H:%M"),
