@@ -48968,6 +48968,31 @@
 						data['second_level_name']
 					)
 				);
+			} else if (field === 'product_store') {
+				var store_short = data['store_short'];
+				if (store_short) {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'span',
+							{ style: { color: 'red' } },
+							data['product_store']
+						),
+						React.createElement('br', null)
+					);
+				} else {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'span',
+							null,
+							data['product_store']
+						),
+						React.createElement('br', null)
+					);
+				}
 			} else {
 				return value;
 			}

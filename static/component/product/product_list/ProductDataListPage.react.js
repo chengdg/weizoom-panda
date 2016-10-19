@@ -147,6 +147,23 @@ var ProductDataListPage = React.createClass({
 					<span style={{paddingLeft:'10px'}}>{line}{data['second_level_name']}</span>
 				</div>
 			);
+		} else if (field === 'product_store') {
+			var store_short = data['store_short'];
+			if (store_short){
+			    return (
+                    <div>
+                        <span style={{color: 'red'}}>{data['product_store']}</span><br></br>
+
+                    </div>
+                );
+			}else{
+			    return (
+                    <div>
+                        <span>{data['product_store']}</span><br></br>
+                    </div>
+                );
+			}
+
 		} else {
 			return value;
 		}

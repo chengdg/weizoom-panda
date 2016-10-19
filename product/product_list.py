@@ -234,16 +234,22 @@ def getProductData(request, is_export):
 				product_price = '%.2f' % product_prices[0]
 		else:
 			product_price = '%.2f' % product.product_price
-
+		store_short = False
 		if product.id in product_id2product_store and product.has_product_model:
 			product_stores = product_id2product_store[product.id]
 			product_stores = sorted(product_stores)
 			if (product_stores[0] != product_stores[-1]) and len(product_stores) > 1:
 				product_store = ('%s ~ %s') % (product_stores[0], product_stores[-1])
+				if product_stores[-1] < 20:
+					store_short = True
 			else:
 				product_store = '%s' % product_stores[0]
+				if product_stores[0] < 20:
+					store_short = True
 		else:
 			product_store = '%s' % product.product_store
+			if product.product_store < 20:
+				store_short = True
 
 		image_paths = []
 		if product.id in product_id2image_id:
@@ -275,6 +281,7 @@ def getProductData(request, is_export):
 			'product_weight': '%.2f' % product.product_weight,
 			'product_name': product.product_name,
 			'product_store': product_store,
+			'store_short': store_short,
 			'image_path': image_path,
 			'image_paths': image_paths if image_paths else '',
 			'remark': product.remark,
