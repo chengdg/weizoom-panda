@@ -312,12 +312,15 @@ def update_product_store(product_2_weapp_product=None, products=None):
 	resp, resp_data = sync_util.sync_zeus(params=params, resource='mall.product', method='get')
 
 	resp_products = resp_data.get('products')
+
 	# 组装(panda商品idweapp规格名: 库存)
 	panda_product_id_to_socks = {}
 	for resp_product in resp_products:
 		temp_models = resp_product.get('models')
 		for temp_model in temp_models:
 			panda_product_id = product_2_weapp_product.get(temp_model.get('product_id'))
+			if not panda_product_id:
+				panda_product_id = product_2_weapp_product.get(str(temp_model.get('product_id')))
 			temp_model_name = temp_model.get('name')
 			panda_product_id_to_socks.update({str(panda_product_id)+'#'+ temp_model_name: temp_model.get('stocks')})
 
@@ -335,6 +338,7 @@ def update_product_store(product_2_weapp_product=None, products=None):
 		for _property in model_properties:
 			key = str(product.id) + '#' + _property.get('name')
 			stocks = panda_product_id_to_socks.get(key)
+
 			if stocks and stocks != product.product_store:
 				models.ProductModel.objects.filter(id=_property.get('panda_model_info_id'))\
 					.update(stocks=panda_product_id_to_socks.get(key))

@@ -28,6 +28,7 @@ import nav
 import models
 from product_limit_zone import models as limit_zone_models
 from util import send_product_message
+from product_list import update_product_store
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -81,6 +82,13 @@ class NewProduct(resource.Resource):
 		if product_id:
 			if role == YUN_YING:
 				product = models.Product.objects.get(id=product_id)
+
+				# 从云伤痛获取商品详情(已入库的),更新库存
+				product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
+				if product_relation:
+					update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
+																	  product_relation.product_id}, products=[product])
+
 				product_models = models.ProductModel.objects.filter(product_id=product_id, is_deleted=False)
 				product_has_model = 1
 				owner_id = product.owner_id
@@ -89,12 +97,20 @@ class NewProduct(resource.Resource):
 				purchase_method = current_owner_info.purchase_method #当前商品所属客户的采购方式
 				points = current_owner_info.points #当前商品所属客户的零售价返点
 			else:
+				product = models.Product.objects.get(owner=request.user, id=product_id)
+				# 从云伤痛获取商品详情(已入库的),更新库存
+				product_relation = models.ProductHasRelationWeapp.objects.filter(product_id=product_id).last()
+				if product_relation:
+					update_product_store(product_2_weapp_product={product_relation.weapp_product_id:
+																	  product_relation.product_id}, products=[product])
+
 				model_properties = models.ProductModelProperty.objects.filter(owner=request.user)
 				property_ids = [model_propertie.id for model_propertie in model_properties]
 				property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 				product_has_model = len(property_values)
-				product = models.Product.objects.get(owner=request.user, id=product_id)
+
 				product_models = models.ProductModel.objects.filter(product_id=product_id, owner=request.user, is_deleted=False)
+
 			limit_clear_price = ''
 			if product.limit_clear_price and product.limit_clear_price != -1:
 				limit_clear_price = product.limit_clear_price
