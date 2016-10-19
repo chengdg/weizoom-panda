@@ -96,7 +96,7 @@ def getOrderDetail(order_id, request):
 	image_id2images = {}
 	for product in product_images:
 		product_id2image_id[product.product_id] = product.image_id
-	for image in resource_models.Image.objects.all():
+	for image in resource_models.Image.objects.filter(user=request.user):
 		image_id2images[image.id] = image.path
 
 	#请求接口获得数据
