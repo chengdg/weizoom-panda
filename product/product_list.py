@@ -339,6 +339,14 @@ def getProductData(request, is_export):
 
 		#入库驳回原因
 		reject_reasons = '' if product_status_value != 3 else json.dumps(product_id2reject_reasons[product.id])
+		
+		sale_status = ''
+		if product.id not in product_shelve_on:
+			if product.product_status in sales_status2text:
+				sale_status = sales_status2text[product.product_status]
+		else:
+			sale_status = u'已上架'
+			
 		rows.append({
 			'id': product.id,
 			'role': role,
@@ -356,7 +364,7 @@ def getProductData(request, is_export):
 			'remark': product.remark,
 			'product_status': product_status_text,
 			'product_status_value': product_status_value,
-			'status': sales_status2text[product.product_status] if product.id not in product_shelve_on else '已上架',
+			'status': sale_status,
 			'sales': '%s' % sales,
 			'has_limit_time': valid_time,
 			'product_has_model': product_has_model,
