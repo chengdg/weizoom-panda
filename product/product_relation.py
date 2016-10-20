@@ -222,6 +222,20 @@ def getProductRelationData(request, is_export):
 	#只取最后一次下架原因
 	product_id2revoke_reasons = {revoke_log.product_id:revoke_log.revoke_reasons for revoke_log in product_revoke_logs}
 
+	reject_logs = models.ProductRejectLogs.objects.filter(product_id__in=p_ids)
+	product_id2reject_reasons = {}
+	for reject_log in reject_logs:
+		if product_id2reject_reasons.has_key(reject_log.product_id):
+			product_id2reject_reasons[reject_log.product_id].append({
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			})
+		else:
+			product_id2reject_reasons[reject_log.product_id] = [{
+				'reject_reasons': reject_log.reject_reasons,
+				'created_at': reject_log.created_at.strftime('%Y-%m-%d %H:%M:%S')
+			}]
+
 	#从渠道接口获得客户来源字段
 	company_name2info = {}
 	company_names = []
@@ -283,8 +297,18 @@ def getProductRelationData(request, is_export):
 			else:
 				customer_from_text = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
 
-			#下架原因
-			revoke_reasons = '' if product.id not in product_id2revoke_reasons else product_id2revoke_reasons[product.id]
+			#驳回原因
+			revoke_reasons = ''
+			if product_status_value == 0: #待入库
+				revoke_reasons = [{
+					'reject_reasons': u'暂无记录',
+					'created_at': ''
+				}]
+				revoke_reasons = json.dumps(revoke_reasons) if product.id not in product_id2reject_reasons else json.dumps(product_id2reject_reasons[product.id])
+			elif product_status_value == 2: #已入库，已停售
+				revoke_reasons = '' if product.id not in product_id2revoke_reasons else product_id2revoke_reasons[product.id]
+			elif product_status_value == 3: #入库驳回
+				revoke_reasons = json.dumps(product_id2reject_reasons[product.id])
 			
 			rows.append({
 				'id': product.id,

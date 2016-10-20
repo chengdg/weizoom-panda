@@ -35,7 +35,8 @@ var Action = {
 			limit_zone_type: data['limit_zone_type'],
 			limit_zone_id: data['limit_zone_id'],
 			has_same_postage: data['has_same_postage'],
-			postage_money: data['postage_money']
+			postage_money: data['postage_money'],
+			resubmit: data['resubmit']
 		};
 		if (data.id === -1) {
 			Resource.put({
