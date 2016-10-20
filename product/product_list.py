@@ -406,7 +406,10 @@ def update_product_store(product_2_weapp_product=None, products=None):
 	# 返回单规格的商品的库存id: store
 	standard_product_to_store = {}
 	# panda_product_model_name_to_stocks = {}
+	panda_ids = product_2_weapp_product.values()
 	for product in products:
+		if product.id not in panda_ids:
+			continue
 		model_properties = get_weapp_model_properties(product=product)
 		if len(model_properties) == 0:
 			# 单规格
