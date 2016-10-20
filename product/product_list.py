@@ -434,7 +434,6 @@ def get_shelve_on_product(weapp_product_ids=None, product_2_weapp_product=None):
     """
     # 获取商品是否上线
 
-    product_shelve_on = []
     if weapp_product_ids:
 		weapp_product_ids = '_'.join([str(product_id) for product_id in weapp_product_ids])
 		params = {
@@ -447,9 +446,10 @@ def get_shelve_on_product(weapp_product_ids=None, product_2_weapp_product=None):
             }
         )
 		# 已上架商品列表
+		product_shelve_on = []
 		if resp and resp.get('code') == 200:
 			product_status = resp.get('data').get('product_status')
 			product_shelve_on = [product_2_weapp_product.get(int(product_statu.get('product_id')))
 								 for product_statu in product_status
 								 if product_statu.get('status') == 'on']
-	return product_shelve_on
+		return product_shelve_on
