@@ -99,10 +99,10 @@ def organize_product_message_info(product=None, user_id=None, image_paths=None):
 		model_prices = sorted([model_info.price for model_info in model_infos])
 		product_price = '0'
 		if model_prices:
-			if len(model_prices) > 1:
-				product_price = str(model_prices[0]) + '~' + str(model_prices[-1])
-			else:
-				product_price = str(model_prices[0])
+			# if len(model_prices) > 1:
+			# 	product_price = str(model_prices[0]) + '~' + str(model_prices[-1])
+			# else:
+			product_price = float(model_prices[0])
 		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 		# print price_info
 		# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
