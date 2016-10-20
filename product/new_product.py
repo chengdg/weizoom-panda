@@ -425,7 +425,10 @@ class NewProduct(resource.Resource):
 			old_remark = product.remark
 			old_has_product_model = product.has_product_model
 			old_catalog_id = int(product.catalog_id)
-
+			old_limit_zone_type = int(product.limit_zone_type)
+			old_limit_zone = int(product.limit_zone)
+			old_has_same_postage = int(product.has_same_postage)
+			old_postage_money = str(product.postage_money)
 			# models.OldProduct.objects.filter(product_id = product.id).delete()
 			models.OldProduct.objects.create(product_id = product.id)
 			#获取图片
@@ -497,6 +500,30 @@ class NewProduct(resource.Resource):
 					catalog_id = old_catalog_id
 				)
 				modify_contents.append(u'商品类目')
+			if old_limit_zone_type != int(limit_zone_type):
+				print '.......................................'
+				print limit_zone_type, old_limit_zone_type
+				old_products.update(
+					limit_zone_type=old_limit_zone_type
+				)
+				modify_contents.append(u'发货地区设置')
+			if old_limit_zone != int(limit_zone_id):
+				old_products.update(
+					limit_zone=limit_zone_id
+				)
+				modify_contents.append(u'地区限制')
+
+			if old_has_same_postage != int(has_same_postage):
+				old_products.update(
+					has_same_postage=old_has_same_postage
+				)
+				modify_contents.append(u'运费设置')
+
+			if str(postage_money) != str(old_postage_money):
+				old_products.update(
+					postage_money=old_postage_money
+				)
+				modify_contents.append(u'统一运费')
 
 		source_product = models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).first()
 
