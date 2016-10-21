@@ -68,12 +68,14 @@ def send_sync_update_product_message(product=None, user_id=None, image_paths=Non
 	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
 
+
 def send_product_change_reject_status(product=None, user_id=None, image_paths=None):
 	"""
 	商品被入库驳回，用户重新提交审核，商品变为待入库状态
 	"""
 	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
 
 def organize_product_message_info(product=None, user_id=None, image_paths=None):
 	"""
