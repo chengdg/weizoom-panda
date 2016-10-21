@@ -25,6 +25,7 @@ from product import models as product_models
 from resource import models as resource_models
 from panda.settings import ZEUS_HOST
 from product import models as product_models
+from postage_config import models as postage_models
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 
 FIRST_NAV = 'order'
@@ -54,7 +55,23 @@ class CustomerOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		jsons = {'items':[]}
+		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(owner=request.user, is_deleted=False)
+		
+		options_for_express = []
+		options_for_express.append({
+			'text': u'请选择',
+			'value': -1
+			})
+		for express_bill_account in express_bill_accounts:
+			options_for_express.append({
+				'text': express_bill_account.express_name,
+				'value': express_bill_account.id,
+				})
+		
+		jsons['items'].append(('optionsForExpress', json.dumps(options_for_express)))
 		c = RequestContext(request, {
+			'jsons': jsons,
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV
@@ -159,6 +176,7 @@ class CustomerOrdersList(resource.Resource):
 		# print('supplier_ids:')
 		# print(supplier_ids)
 		rows = []
+		orders = []
 		if supplier_ids != '':
 			#请求接口获得数据
 			if is_for_list:
@@ -270,6 +288,7 @@ class CustomerOrdersList(resource.Resource):
 
 				if is_for_list:
 					rows.append({
+						'id': order_id,
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],
@@ -283,6 +302,7 @@ class CustomerOrdersList(resource.Resource):
 					})
 				else:
 					rows.append({
+						'id': order_id,
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],

@@ -19,13 +19,23 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleFilterOrders': Constant.ORDER_DATAS_FILTER_ORDERS,
 		//'handleOrderShipInformations': Constant.ORDER_SHIP_INFORMATIONS,
 		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
-		'handleOrderUpdateShip':Constant.ORDER_DATAS_UPDATE_SHIP
+		'handleOrderUpdateShip':Constant.ORDER_DATAS_UPDATE_SHIP,
+		'handlePrintOrder': Constant.ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER,
+		'handleCanPRint': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT
 	},
 
 	init: function() {
 		this.data = {
-			documents: []
+			documents: [],
+			optionsForExpress: [],
+			template: '',
+			canPrint: false
 		};
+		var optionsForExpress = Reactman.loadJSON('optionsForExpress');
+		if(optionsForExpress){
+			console.log(optionsForExpress,"=====");
+			this.data['optionsForExpress'] = optionsForExpress;
+		}
 	},
 
 	handleFilterOrders: function(action) {
@@ -48,6 +58,19 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		filter_str = filter_str.substring(0,filter_str.length-1);
 		window.location.href = '/order/export_orders/?'+filter_str;
 	},
+
+	handlePrintOrder: function(action){
+		var template = action.data['template'];
+		console.log(action.data,"=========");
+		this.data['template'] = template;
+		// this.__emitChange();
+	},
+
+	handleCanPRint: function(){
+		this.data['canPrint'] = true;
+		this.__emitChange();
+	},
+
 	getData: function() {
 		return this.data;
 	}

@@ -155,6 +155,7 @@ def getOrderDetail(order_id, request):
 		express_details = json.dumps(data['express_details']) if data['express_details'] else ''
 	status = '' if not data else data['status']
 	orders = [{
+		'id': '' if not data else data['id'],#订单编号
 		'order_id': '' if not data else data['order_id'],#订单编号
 		'order_status': '' if status not in order_status2text else order_status2text[status],#订单状态
 		'order_express_details': express_details,#订单物流

@@ -69,6 +69,23 @@ var Action = {
 			}
 		});
 	},
+
+	updateExpressCompany: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_UPDATE_EXPRESS_COMPANY,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	pagePrint: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT,
+			data: {}
+		});
+	}
 };
 
 module.exports = Action;
