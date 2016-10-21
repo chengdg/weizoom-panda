@@ -74,7 +74,7 @@ class ProductCatalog(resource.Resource):
 				bulk_create.append(temp_model)
 			message_models.UserMessage.objects.bulk_create(bulk_create)
 		# 查询消息
-		messages = message_models.UserMessage.objects.filter(user_id=request.user.id).order_by('status')
+		messages = message_models.UserMessage.objects.filter(user_id=request.user.id).order_by('status', '-message_id')
 		page_infos, page_user_messages = paginator.paginate(messages, cur_page, 20)
 		# page_messages = page_infos[1]
 		page_message_ids = [user_message.message_id for user_message in page_user_messages]
