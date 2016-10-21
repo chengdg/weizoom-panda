@@ -685,6 +685,15 @@ class NewProduct(resource.Resource):
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				is_refused = False
 			)
+			# 发送mns消息
+			try:
+				image_paths = models.ProductImage.objects.filter(product_id=product.id)
+				send_product_message.send_product_change_reject_status(product=product, user_id=product.owner_id,
+																	  image_paths=image_paths[0])
+			except:
+				message = u"send_product_change_reject_status:new_product:{}".format(unicode_full_stack())
+				watchdog.watchdog_error(message)
+				print unicode_full_stack()
 
 		response = create_response(200)
 		return response.get_response()
