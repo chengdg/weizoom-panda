@@ -460,7 +460,7 @@ def get_shelve_on_product(weapp_product_ids=None, product_2_weapp_product=None):
 
 def get_product_status(product,has_relation_p_ids,has_reject_p_ids):
 	"""
-	获得商品入库状态
+	客户获得商品入库状态
 	"""
 	product_status_text = u'待入库'
 	product_status_value = 0
@@ -468,6 +468,6 @@ def get_product_status(product,has_relation_p_ids,has_reject_p_ids):
 		product_status_text = u'已入库'
 		product_status_value = 1
 	elif product.id in has_reject_p_ids and product_status_value == 0 and product.is_refused:
-		product_status_text = u'入库驳回'
+		product_status_text = u'入库驳回>>'
 		product_status_value = 3
 	return product_status_text,product_status_value
