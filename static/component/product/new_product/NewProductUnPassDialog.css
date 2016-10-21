@@ -1,0 +1,29 @@
+.modal-footer .btn-primary{
+	display: none;
+}
+.xui-unpass-reasons{
+    padding-left: 110px;
+    margin-bottom: 20px;
+}
+
+.xi-unpass-reason{
+	list-style: none;
+	display: inline-block;
+	margin-left: 40px;
+	border: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding: 3px 18px 0 18px;
+	height: 28px;
+	text-align: center;
+}
+.xi-unpass-reason:hover{
+	cursor: pointer;
+}
+
+.xui-product-productUpdatedPage .btn-success{
+	float: left !important;
+	margin-left: 0px !important; 
+}
+textarea#custom_reason {
+    margin-left: -29px;
+}

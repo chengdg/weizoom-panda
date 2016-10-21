@@ -28,7 +28,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleProductSecondCategory': Constant.PRODUCT_SECOND_CATEGORY,
 		'handleProductChooseSecondCategory': Constant.PRODUCT_CHOOSE_SECOND_CATEGORY,
 		'handleProductCancleChooseCatalog': Constant.PRODUCT_CANCLE_CHOOSE_CATALOG,
-		'handleProductSaveChooseCatalog': Constant.PRODUCT_SAVE_CHOOSE_CATALOG
+		'handleProductSaveChooseCatalog': Constant.PRODUCT_SAVE_CHOOSE_CATALOG,
+		'handleProductRefused': Constant.NEW_PRODUCT_REJECT_REFUSED
 	},
 
 	init: function() {
@@ -336,7 +337,24 @@ var Store = StoreUtil.createStore(Dispatcher, {
 
 	getData: function() {
 		return this.data;
-	}
+	},
+
+	handleProductRefused: function(action){
+		if(action.data['code']==200){
+			this.data.reasons = [];
+			this.data.custom_reason = '';
+			Reactman.PageAction.showHint('success', '驳回成功');
+			setTimeout(function() {
+			 	W.gotoPage('/product/product_relation/');
+			}, 500);
+			
+		}else{
+			setTimeout(function() {
+			 	Reactman.PageAction.showHint('error', '驳回失败');
+			}, 10);
+		}
+		this.__emitChange();
+	},
 });
 
 module.exports = Store;
