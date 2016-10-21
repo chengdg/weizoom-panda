@@ -653,7 +653,7 @@ class NewProduct(resource.Resource):
 		# 	models.OldProduct.objects.filter(product_id = product.id).last().delete()
 
 		#发送钉钉消息
-		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		customer_user_profile = UserProfile.objects.get(user_id=owner_id)
 		if product_sync_weapp_accounts and len(modify_contents)>0:
 			product_status = u'待同步更新'
 			#获取已同步自营平台	
@@ -671,7 +671,7 @@ class NewProduct(resource.Resource):
 				product_status = u'已自动更新'
 
 			show_product_name = u"商品名称: " + '%s'%product_name + "\n"
-			show_customer_name = u"商家名称: " + user_profile.name + "\n"
+			show_customer_name = u"商家名称: " + customer_user_profile.name + "\n"
 			show_modify_contents = u"修改内容 :" + u'、'.join(modify_contents) + "\n"
 			show_shop_names = u"涉及平台 :" + u'、'.join(shop_names) + "\n"
 			show_product_status = u"状态: " + product_status + "\n"
