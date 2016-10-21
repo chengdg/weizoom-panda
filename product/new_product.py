@@ -77,6 +77,7 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
+		product_status_value = 0
 		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 
 		if product_id:
