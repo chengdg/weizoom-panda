@@ -41,22 +41,20 @@
         
         <script type="text/javascript" src="/static/lib/jquery/jquery-1.12.2.min.js"></script>
         <script type="text/javascript">
+        	//登录
+        	$("form").submit(function(e){
+				$('.login-btn').css({display:'none'});
+				$('.logining-btn').css({display:'block'});
+			});
 	        $(document).ready(function() {
-		        //登录中
-		        $('.login-btn').bind('click', function () {
-                	$('.login-btn').css({display:'none'});
-                	$('.logining-btn').css({display:'block'});
-				});
-
 		        //错误提示
 				var $error = $('.errorInfo');
 				if('{{errorMsg}}'){
 					$('.login-btn').css({display:'none'});
 					$error.css({display:'block'});
 				}
-                
                 //重新输入
-                $('#username').keyup(function() {
+                $('#username,#password').keyup(function() {
                     $error.css({display:'none'});
                     $('.login-btn').css({display:'block'});
                 });
