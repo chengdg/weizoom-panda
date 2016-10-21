@@ -149,9 +149,22 @@ var ProductRelationPage = React.createClass({
 
 	showRevokeReason: function(event){
 		var revokeReasons = event.target.getAttribute('data-product-reasons');
+		var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reject-reasons'));
+		var content = '';
+		if(revokeReasons){
+			content = revokeReasons;
+		}else{
+			var Li = rejectReasons.map(function(rejectReason,index){
+				if(rejectReason.created_at!=''){
+					content += rejectReason.created_at +'</br>'+rejectReason.reject_reasons +'</br>';
+				}else{
+					content += rejectReason.reject_reasons;  //待入库且没有驳回记录时，时间为空
+				}
+			});
+		}
 		Reactman.PageAction.showPopover({
 			target: event.target,
-			content: '<span style="color:red">' + revokeReasons + '</span>'
+			content: '<span style="color:red">' + content + '</span>'
 		});
 	},
 
@@ -239,9 +252,17 @@ var ProductRelationPage = React.createClass({
 			)
 		}else if (field === 'product_status') {
 			var name = data['product_status_value'];
-			if(data['product_status_value'] == 2){
+			if(data['product_status_value'] == 0){ //待入库
+				return (
+					<a href="javascript:void(0);" onMouseOut={this.hideRevokeReason} onMouseOver={this.showRevokeReason} data-product-reject-reasons={data.revoke_reasons}>{data['product_status']}</a>
+				)
+			}else if(data['product_status_value'] == 2){ //已入库，已停售
 				return (
 					<a href="javascript:void(0);" onMouseOut={this.hideRevokeReason} onMouseOver={this.showRevokeReason} data-product-reasons={data.revoke_reasons}>{data['product_status']}</a>
+				)
+			}else if(data['product_status_value'] == 3){ //入库驳回
+				return (
+					<a href="javascript:void(0);" onMouseOut={this.hideRevokeReason} onMouseOver={this.showRevokeReason} data-product-reject-reasons={data.revoke_reasons}>{data['product_status']}</a>
 				)
 			}else{
 				return (

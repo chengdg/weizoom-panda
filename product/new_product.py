@@ -28,7 +28,7 @@ import nav
 import models
 from product_limit_zone import models as limit_zone_models
 from util import send_product_message
-from product_list import update_product_store
+from product_list import update_product_store, get_product_status
 
 FIRST_NAV = 'product'
 SECOND_NAV = 'product-list'
@@ -77,6 +77,7 @@ class NewProduct(resource.Resource):
 		purchase_method = user_profile.purchase_method #采购方式
 		points = user_profile.points #零售价返点
 		product_has_model = 0
+		product_status_value = 0
 		postage_configs = postage_models.PostageConfig.objects.filter(owner=request.user, is_deleted=False, is_used=True)
 
 		if product_id:
@@ -135,6 +136,14 @@ class NewProduct(resource.Resource):
 				first_level_name = catalog_models.ProductCatalog.objects.get(id=product_catalog[0].father_id).name
 			product_store = product.product_store if not standard_product_to_store.get(product.id) \
 				else standard_product_to_store.get(product.id)
+
+			#入库状态
+			has_relation_weapps = models.ProductHasRelationWeapp.objects.filter(product_id=product.id)
+			has_relation_p_ids = set([has_relation_weapp.product_id for has_relation_weapp in has_relation_weapps])
+			reject_logs = models.ProductRejectLogs.objects.filter(product_id=product.id)
+			has_reject_p_ids = [reject_log.product_id for reject_log in reject_logs]
+			product_status_text, product_status_value = get_product_status(product, has_relation_p_ids, has_reject_p_ids)
+			
 			product_data = {
 				'id': product.id,
 				'product_name': product.product_name,
@@ -158,7 +167,6 @@ class NewProduct(resource.Resource):
 				'limit_zone_id': product.limit_zone,
 				'has_same_postage': '1' if product.has_same_postage else '0',
 				'postage_money': '%s' %('%.2f'%product.postage_money)
-
 			}
 			#组织多规格数据
 			for product_model in product_models:
@@ -231,7 +239,8 @@ class NewProduct(resource.Resource):
 			'points': points,
 			'purchase_method': purchase_method,
 			'product_has_model': product_has_model,
-			'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name)
+			'catalog_name': '' if not first_level_name else ('%s--%s') %(first_level_name,second_level_name),
+			'product_status_value': product_status_value
 		})
 		return render_to_response('product/new_product.html', c)
 
@@ -383,6 +392,7 @@ class NewProduct(resource.Resource):
 		limit_zone_id = post.get('limit_zone_id', 0)
 		has_same_postage = int(post.get('has_same_postage', 0))
 		postage_money = post.get('postage_money', 0)
+		resubmit = post.get('resubmit', '')
 		postage_id = 0
 
 		if not check_product_name_unique(request, product_name ,request.POST['id']):
@@ -671,7 +681,7 @@ class NewProduct(resource.Resource):
 		#判断商品是否是入库驳回状态,且有更新内容
 		is_refused = models.Product.objects.get(id=request.POST['id']).is_refused
 		is_synced = True if product_sync_weapp_accounts else False
-		if not is_synced and is_refused:
+		if not is_synced and is_refused and resubmit=='resubmit':
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				is_refused = False
 			)

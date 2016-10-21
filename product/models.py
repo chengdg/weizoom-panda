@@ -31,7 +31,7 @@ class Product(models.Model):
 	has_product_model = models.BooleanField(default=False) #是否是多规格商品
 	catalog_id = models.IntegerField(default=0) #所属分类id(二级分类id)
 	is_update = models.BooleanField(default=False) #是否更新
-	is_refused = models.BooleanField(default=False) #是否驳回(入库驳回或修改驳回)
+	is_refused = models.BooleanField(default=False) #是否驳回(待入库状态下驳回叫入库驳回，已入库状态下驳回叫修改驳回)
 	refuse_reason = models.TextField(null=True) #驳回原因
 	is_deleted = models.BooleanField(default=False)
 	limit_zone_type = models.IntegerField(default=NO_LIMIT)

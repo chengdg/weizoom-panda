@@ -107,7 +107,16 @@ var NewProductPage = React.createClass({
 			}
 		});
 	},
-
+	onClickResubmit: function(event) {
+		var title = '确定商品信息已按照驳回原因全部修改完成，再次提交审核？';
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: title,
+			confirm: _.bind(function() {
+				this.onSubmit('resubmit');
+			}, this)
+		});
+	},
 	validateProduct: function(){
 		var is_true = false;
 		var product = Store.getData();
@@ -126,7 +135,7 @@ var NewProductPage = React.createClass({
 		return is_true;
 	},
 
-	onSubmit: function(){
+	onSubmit: function(resubmit){
 		var product = Store.getData();
 		if(W.second_level_id!=undefined && W.second_level_id!=0){
 			product['second_level_id'] = this.state.second_id!=0? this.state.second_id: W.second_level_id;
@@ -297,8 +306,14 @@ var NewProductPage = React.createClass({
 			}
 		})
 
-		model_values = model_values.length>0?JSON.stringify(model_values):''
-		Action.saveNewProduct(product,model_values);
+		model_values = model_values.length>0?JSON.stringify(model_values):'';
+		//是否是重新提交审核的
+		if(typeof(resubmit)=='string'){
+			product['resubmit'] = resubmit;
+		}else{
+			product['resubmit'] = '';
+		}
+		Action.saveNewProduct(product, model_values);
 	},
 
 	render:function(){
@@ -313,6 +328,7 @@ var NewProductPage = React.createClass({
 		var role = W.role;
 		var disabled = role == 3 ? 'disabled' : '';
 		var style = (role == 3 && W.purchase_method != 1) ? {margin: '20px 0px 100px 180px'}: {position:'absolute',top:'40px',left:'270px'};
+		var reject_style = (role == 3 && W.purchase_method != 1) ? {margin: '20px 0px 100px 290px'}: {position:'absolute',top:'40px',left:'380px'};
 		var optionsForKind = [{
             text: '',
             value: '-1'
@@ -368,6 +384,7 @@ var NewProductPage = React.createClass({
 						{role == 3 ? '' : <Reactman.FormSubmit onClick={this.onSubmit} />}
 						{role == 3 && W.purchase_method ==1 ? <Reactman.FormSubmit onClick={this.onSubmit} /> : ''}
 						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={style} onClick={this.productPreview}>商品预览</a>
+						{role == 1 && W.product_status_value == 3 ? <a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={reject_style} onClick={this.onClickResubmit}>重新提交审核</a> : ''}
 					</fieldset>
 				</form>
 			</div>

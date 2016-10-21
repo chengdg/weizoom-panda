@@ -90,7 +90,11 @@ var ProductDataListPage = React.createClass({
 		var rejectReasons = JSON.parse(event.target.getAttribute('data-product-reasons'));
 		var content = '';
 		var Li = rejectReasons.map(function(rejectReason,index){
-			content += rejectReason.created_at +'</br>'+rejectReason.reject_reasons +'</br>';
+			if(rejectReason.created_at!=''){
+				content += rejectReason.created_at +'</br>'+rejectReason.reject_reasons +'</br>';
+			}else{
+				content += rejectReason.reject_reasons;  //待入库且没有驳回记录时，时间为空
+			}
 		});
 		Reactman.PageAction.showPopover({
 			target: event.target,
@@ -121,7 +125,11 @@ var ProductDataListPage = React.createClass({
 		}else if (field === 'product_status') {
 			//入库状态
 			var productStatusValue = data['product_status_value'];
-			if(productStatusValue === 3){//入库驳回
+			if(productStatusValue === 0){//待入库
+				return (
+					<a style={{marginBottom:'0px'}} href="javascript:void(0);" onMouseOut={this.hideRejectReason} onMouseOver={this.showRejectReason} data-product-reasons={data.reject_reasons}>{value}</a>
+				)
+			}else if(productStatusValue === 3){//入库驳回
 				return (
 					<a style={{color:'red',marginBottom:'0px'}} href="javascript:void(0);" onMouseOut={this.hideRejectReason} onMouseOver={this.showRejectReason} data-product-reasons={data.reject_reasons}>{value}</a>
 				)
@@ -267,6 +275,9 @@ var ProductDataListPage = React.createClass({
 							</Reactman.FilterField>
 							<Reactman.FilterField>
 								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
+							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormSelect label="入库状态:" name="product_status" options={optionsForProductStatus} match="=" />
 							</Reactman.FilterField>
 						</Reactman.FilterRow>
 					</Reactman.FilterPanel>
