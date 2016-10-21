@@ -276,6 +276,9 @@ var ProductDataListPage = React.createClass({
 							<Reactman.FilterField>
 								<Reactman.FormInput label="商品分类:" name="catalog_query" match='=' />
 							</Reactman.FilterField>
+							<Reactman.FilterField>
+								<Reactman.FormSelect label="入库状态:" name="product_status" options={optionsForProductStatus} match="=" />
+							</Reactman.FilterField>
 						</Reactman.FilterRow>
 					</Reactman.FilterPanel>
 					<Reactman.TablePanel>
