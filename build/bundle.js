@@ -46050,7 +46050,7 @@
 			var role = W.role;
 			var disabled = role == 3 ? 'disabled' : '';
 			var style = role == 3 && W.purchase_method != 1 ? { margin: '20px 0px 100px 180px' } : { position: 'absolute', top: '40px', left: '270px' };
-			var reject_style = role == 3 && W.purchase_method != 1 ? { margin: '20px 0px 100px 290px' } : { position: 'absolute', top: '40px', left: '380px' };
+			var reject_style = role == 3 && W.purchase_method != 1 ? { margin: '20px 0px 100px 0px' } : { position: 'absolute', top: '40px', left: '380px' };
 			var optionsForKind = [{
 				text: '',
 				value: '-1'
