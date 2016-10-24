@@ -32,10 +32,12 @@ class ProductReject(resource.Resource):
 				)
 				try:
 					send_product_message.send_reject_product_change(product_id=product_id)
+					send_product_message.send_reject_product_ding_message(product_id=product_id, reasons=reasons)
 				except:
 					msg = unicode_full_stack()
 					watchdog.error("product_reject.send_reject_product_change: {}".format(msg))
 					print msg
+
 			data['code'] = 200
 			response = create_response(200)
 		except:
