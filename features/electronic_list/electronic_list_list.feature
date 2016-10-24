@@ -77,7 +77,6 @@ Background:
 	Given aini登录系统
 	When aini新增电子账单
 		"""
-		[{
 		"shipper":"测试01",
 		"local_space":"江苏省南京市玄武区",
 		"address":"中央门223号",
@@ -98,6 +97,21 @@ Background:
 		"CustomerName:93005812,
 		"CustomerPwd":20161018001,
 		"monthcode":2016100005,
+		"sendsite":"玄武网点",
+		"comment":"备注"
+		},{
+		"express_company":"圆通快递",
+		"CustomerName:'YT00369',
+		"CustomerPwd":,
+		"monthcode":'P2016k30%ef213dl',
+		"sendsite":"玄武网点"
+		"comment":"备注"
+		},{
+		"express_company":"韵达快递",
+		"CustomerName:'Yd00421',
+		"CustomerPwd":,
+		"monthcode":'P2016k26%sp001at',
+		"sendsite":"秦淮网点"
 		"comment":"备注"
 		}]
 		"""
@@ -106,8 +120,10 @@ Background:
 		|测试01 | 13813984402 |江苏省南京市玄武区| 中央门223号 |  210026  |
 		|测试02 | 13813984403 |江苏省南京市秦淮区|   国创园47  |  210036  |
 
-		|express_company|CustomerName|CustomerPwd|monthcode |
-		|    申通快递   |  93005812  |20161018001|2016100005|
+		|express_company|CustomerName|CustomerPwd|    monthcode   | SendSite |
+		|   申通快递    |  93005812  |20161018001|   2016100005   | 下关网点 |
+		|   圆通快递    |  YT00369   |    --     |P2016k30%ef213dl| 玄武网点 |
+		|   秦淮网点    |  Yd00421   |    --     |P2016k26%sp001at| 秦淮网点 |
 
 @panda @code
 Scenario:1 编辑信息
