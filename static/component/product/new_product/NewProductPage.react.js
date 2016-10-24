@@ -13,6 +13,7 @@ var ProductPreviewDialog = require('./ProductPreviewDialog.react');
 var AddProductModelDialog = require('./AddProductModelDialog.react');
 var SetValidataTimeDialog = require('./SetValidataTimeDialog.react');
 var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
+var NewProductUnPassDialog = require('./NewProductUnPassDialog.react');
 var ProductModelInfo = require('./ProductModelInfo.react');
 var LimitZoneInfo = require('./LimitZoneInfo.react');
 var Store = require('./Store');
@@ -116,6 +117,21 @@ var NewProductPage = React.createClass({
 				this.onSubmit('resubmit');
 			}, this)
 		});
+	},
+	onClickUnPass: function(product_id, event) {
+		Action.cancleCheckedUnpassReason();
+		_.delay(function(){
+			Reactman.PageAction.showDialog({
+				title: "商品驳回",
+				component: NewProductUnPassDialog,
+				data: {
+					product_id: product_id
+				},
+				success: function() {
+					console.log('success');
+				}
+			});
+		},100)
 	},
 	validateProduct: function(){
 		var is_true = false;
@@ -385,6 +401,7 @@ var NewProductPage = React.createClass({
 						{role == 3 && W.purchase_method ==1 ? <Reactman.FormSubmit onClick={this.onSubmit} /> : ''}
 						<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={style} onClick={this.productPreview}>商品预览</a>
 						{role == 1 && W.product_status_value == 3 ? <a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={reject_style} onClick={this.onClickResubmit}>重新提交审核</a> : ''}
+						{role == 3 && W.product_status_value == 0 ? <a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" style={reject_style} onClick={this.onClickUnPass.bind(this,this.state.id)}>驳回修改</a> : ''}
 					</fieldset>
 				</form>
 			</div>

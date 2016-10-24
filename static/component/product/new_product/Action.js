@@ -175,7 +175,45 @@ var Action = {
 				'catalogName': catalogName
 			}
 		});
-	}
+	},
+
+	updateRejectReason: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.NEW_PRODUCT_REJECT_UPDATE_UNPASS_REASON,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	chooseRejectUnpassReason: function(reason){
+		Dispatcher.dispatch({
+			actionType: Constant.NEW_PRODUCT_REJECT_UNPASS_REASON,
+			data: {
+				reason: reason
+			}
+		});
+	},
+	cancleCheckedUnpassReason: function(){
+		Dispatcher.dispatch({
+			actionType: Constant.NEW_PRODUCT_REJECT_UNDATE_CANCLE_CHECKED,
+			data: {}
+		});
+	},
+	refused: function(productId, reasons){
+		Resource.post({
+			resource: 'product.product_reject',
+			data: {
+				reasons: reasons,
+				product_id: productId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.NEW_PRODUCT_REJECT_REFUSED
+			}
+		});
+	},
 };
 
 module.exports = Action;
