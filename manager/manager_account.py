@@ -208,36 +208,6 @@ class ManagerAccount(resource.Resource):
 			response.errMsg = u'该账号不存在，请检查'
 			return response.get_response()
 
-class ExportAccounts(resource.Resource):
-	app = 'manager'
-	resource = 'account_export'
-
-	@login_required
-	def get(request):
-		accounts = ManagerAccount.api_get(request)
-		titles = [
-			u'账号id', u'对应user_id', u'账号类型', u'账号名称', u'登录账号', u'公司名称',
-			u'联系人', u'手机号', u'采购方式', u'备注', u"经营类目", u"创建时间"
-		]
-		table = []
-		table.append(titles)
-		for account in accounts:
-			table.append([
-				account['id'],
-				account['user_id'],
-				account['role'],
-				account['name'],
-				account['username'],
-				account['company_name'],
-				account['contacter'],
-				account['phone'],
-				account['purchase_method'],
-				account['note'],
-				account['companyType'],
-				account['createdAt']
-			])
-		return ExcelResponse(table, output_name=u'账号管理文件'.encode('utf8'), force_csv=False)
-
 #从渠道获得账号列表的客户来源信息
 def get_info_from_axe(company_names):
 	company_name2info = {}
@@ -256,39 +226,3 @@ def get_info_from_axe(company_names):
 	except:
 		pass
 	return company_name2info
-
-#从渠道获得公司信息
-class GetCompanyInfoFromAxe(resource.Resource):
-	app = 'manager'
-	resource = 'get_company_info_from_axe'
-
-	@login_required
-	def api_get(request):
-		company_name = request.GET.get('companyName','')
-		params = {
-			'name': company_name
-		}
-		r = requests.post(AXE_HOST + '/api/customers/', data=params)
-		res = json.loads(r.text)
-
-		rows = []
-		if res and res['code'] == 200:
-			axe_datas = res['data']
-			#因为reactman的FormSelect没有onClick事件，只有onChange事件，不添加第一个默认值的话无法触发onChange事件
-			if len(axe_datas) > 0:
-				rows.append({
-					'text': '请选择已有公司',
-					'value': ''+ '/' +''
-				})
-			for axe_data in axe_datas:
-				for (k,v) in axe_data.items():
-					rows.append({
-						'text': v['name'],
-						'value': v['contact']+ '/' +v['tel']  #把联系人、手机号通过“/”分割开传到前台
-					})
-		data = {
-			'rows': rows
-		}
-		response = create_response(200)
-		response.data = data
-		return response.get_response()

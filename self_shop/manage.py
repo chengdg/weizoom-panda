@@ -133,49 +133,6 @@ class manage(resource.Resource):
 			response.innerErrMsg = unicode_full_stack()
 		return response.get_response()
 
-#得到所有还未同步的自营平台
-class GetAllUnsyncedSelfShops(resource.Resource):
-	app = 'self_shop'
-	resource = 'get_all_unsynced_self_shops'
-
-	@login_required
-	def api_get(request):
-		params = {
-			'status': 'new'
-		}
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-			{
-				'resource': 'panda.proprietary_account_list',
-				'data': params
-			}
-		)
-		rows = []
-		if resp and resp.get('code') == 200:
-			data = resp.get('data').get('profiles')
-			rows = [{'text': profile.get('store_name'),
-					 'value': profile.get('user_id')} for profile in data]
-		data = {
-			'rows': rows
-		}
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
-
-#得到所有已经同步过的自营平台
-class GetAllSyncedSelfShops(resource.Resource):
-	app = 'self_shop'
-	resource = 'get_all_synced_self_shops'
-
-	@login_required
-	def api_get(request):
-		is_for_search = False
-		if request.GET.get('is_for_search', '') == 'true':
-			is_for_search = True
-		data = get_all_synced_self_shops(request, is_for_search)
-		response = create_response(200)
-		response.data = data
-		return response.get_response()
-
 def get_all_synced_self_shops(request,is_for_search):
 	"""
 	得到所有已经同步过的自营平台
