@@ -225,10 +225,13 @@ def organize_product_reject_ding_message(product_id=None):
 		else:
 			customerFrom = '渠道' if account.customer_from == 1 else '--'  # 如果从渠道没有找到匹配的，给默认值
 		push_status = get_product_status(product_id=product_id, )
-
-		data.update({u'客户来源': customerFrom.decode('utf-8'),
+		if isinstance(customerFrom, str):
+			customerFrom = customerFrom.decode('utf-8')
+		if isinstance(push_status, str):
+			push_status = push_status.decode('utf-8')
+		data.update({u'客户来源': customerFrom,
 					 u'商品名称': product.product_name,
 					 u'客户名称': account.company_name,
-					 u'入库状态': push_status.decode('utf-8')})
+					 u'入库状态': push_status})
 
 		return data
