@@ -4,12 +4,14 @@ from bdem import msgutil
 
 from panda.settings import PRODUCT_TOPIC_NAME
 from panda.settings import PRODUCT_MSG_NAME
+from panda.settings import MODE
 
 from product import models
 from self_shop import models as self_shop_models
 from product_catalog import models as catalog_models
 from account.models import UserProfile
 from resource import models as resource
+from manager import manager_account
 
 
 def send_add_product_message(product=None, user_id=None, image_paths=None):
@@ -75,6 +77,26 @@ def send_product_change_reject_status(product=None, user_id=None, image_paths=No
 	"""
 	data = organize_product_message_info(product=product, user_id=user_id, image_paths=image_paths)
 	msgutil.send_message(PRODUCT_TOPIC_NAME, PRODUCT_MSG_NAME, data)
+
+
+def send_reject_product_ding_message(product_id=None, reasons=None):
+	"""
+	发送商品驳回的ding talk 消息
+	"""
+	message = organize_product_reject_ding_message(product_id=product_id)
+	message.update({u'驳回原因': reasons.decode('utf-8')})
+	if MODE == 'deploy':
+		uuid = 240514209
+	else:
+		uuid = 197779706
+
+	content = u'\n'.join([u':'.join(item) for item in message.items()])
+
+	data = {
+		'uuid': uuid,
+		'content': content
+	}
+	msgutil.send_message('notify', 'ding', data)
 
 
 def organize_product_message_info(product=None, user_id=None, image_paths=None):
@@ -182,3 +204,29 @@ def get_product_reject_reason(product=None):
 	logs = models.ProductRejectLogs.objects.filter(product_id=product.id)
 	return [{'comment_at': log.created_at.strftime('%Y-%m-%d %H:%M:%S'),
 			 'reject_info': log.reject_reasons} for log in logs if logs]
+
+
+def organize_product_reject_ding_message(product_id=None):
+	"""
+	组织商品驳回dingding消息
+	"""
+	product = models.Product.objects.filter(id=product_id).first()
+	if product:
+		data = {}
+		account = UserProfile.objects.filter(user_id=product.owner_id).first()
+
+		company_name2info = manager_account.get_info_from_axe(company_names=account.company_name)
+
+		# 客户来源
+		if company_name2info.has_key(account.company_name):
+			customerFrom = company_name2info[account.company_name]
+		else:
+			customerFrom = '渠道' if account.customer_from == 1 else '--'  # 如果从渠道没有找到匹配的，给默认值
+		push_status = get_product_status(product_id=product_id, )
+
+		data.update({u'客户来源': customerFrom.decode('utf-8'),
+					 u'商品名称': product.product_name,
+					 u'客户名称': account.company_name,
+					 u'入库状态': push_status.decode('utf-8')})
+
+		return data
