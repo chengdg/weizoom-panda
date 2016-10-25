@@ -86,7 +86,7 @@ def send_reject_product_ding_message(product_id=None, reasons=None):
 	message = organize_product_reject_ding_message(product_id=product_id)
 	message.update({u'驳回原因': reasons.decode('utf-8')})
 	if MODE == 'deploy':
-		uuid = 197779706
+		uuid = 240514209
 	else:
 		uuid = 197779706
 
