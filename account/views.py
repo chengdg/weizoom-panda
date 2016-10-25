@@ -43,6 +43,8 @@ def index(request):
 			return HttpResponseRedirect('/customer/statistics/')
 		elif role == YUN_YING:
 			return HttpResponseRedirect('/product/product_relation/')
+		elif role == SALES:
+			return HttpResponseRedirect('/customer_profile/list/')
 		else:
 			return HttpResponseRedirect('/product/product_relation/')
 	else:

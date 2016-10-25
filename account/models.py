@@ -18,11 +18,13 @@ MANAGER = 0
 CUSTOMER = 1
 AGENCY = 2
 YUN_YING = 3
+SALES = 4
 ROLES = (
 	(MANAGER, u'管理员'),
 	(CUSTOMER, u'合作客户'),
 	(AGENCY, u'代理商'),
-	(YUN_YING, u'运营')
+	(YUN_YING, u'运营'),
+	(SALES, u'销售')
 )
 ROLE2NAME = dict(ROLES)
 
@@ -73,7 +75,6 @@ class UserProfile(models.Model):
 
 	# add by bert for customer profile
 	source = models.CharField(max_length=32, default='') #客户来源
-	on_shelves_time = models.DateTimeField(null=True) #创建时间
 	on_shelves_time = models.DateTimeField(null=True) # 平台开售商品时间  商品第一次上架时间
 	on_shelves_count = models.IntegerField(default=0) # 在售商品数
 	order_count = models.IntegerField(default=0) # 累计订单

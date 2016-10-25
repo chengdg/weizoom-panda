@@ -130,37 +130,18 @@ def top_navs(request):
 				'icon': 'cog',
 				'href': '/manager/account/'
 			}]
-		else:
+		elif role == SALES:
 			top_navs = [{
-				'name': 'product',
-				'displayName': '商品',
-				'icon': 'credit-card',
-				'href': '/product/product_list/'
-			}, {
-				'name': 'order',
-				'displayName': '订单',
-				'icon': 'list-alt',
-				'href': '/order/yunying_orders_list/'
-			}, {
-				'name': 'manager',
-				'displayName': '账号管理',
+				'name': 'customer_profile',
+				'displayName': '客户商品档案',
 				'icon': 'cog',
-				'href': '/manager/account/'
+				'href': '/customer_profile/list/'
 			}]
+		else:
+			top_navs = []
 		return {'top_navs': top_navs}
 	except Exception,e:
-		top_navs = [{
-			'name': 'product',
-			'displayName': '商品',
-			'icon': 'credit-card',
-			'href': '/product/product_list/'
-		}, {
-			'name': 'order',
-			'displayName': '订单',
-			'icon': 'list-alt',
-			'href': '/order/yunying_orders_list/'
-
-		}]
+		top_navs = []
 	return {'top_navs': top_navs}
 
 def webpack_bundle_js(request):
