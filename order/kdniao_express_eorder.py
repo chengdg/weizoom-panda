@@ -15,7 +15,8 @@ import requests
 express2kdniaocode = {'quanfengkuaidi': 'QFKD', 'shentong': 'STO', 'zhaijisong': 'ZJS', 'rufengda': 'RFD', 
 	'debangwuliu': 'DBL', 'shunfeng': 'SF', 'yunda': 'YD', 'bpost': 'BEL', 'tiantian': 'HHTT', 
 	'suer': 'SURE', 'ems': 'EMS', 'zhongtong': 'ZTO', 'kuaijiesudi': 'FAST', 'yuantong': 'YTO', 
-	'huitongkuaidi': 'HTKY', 'guotongkuaidi': 'GTO', 'youzhengguonei': 'YZPY'}
+	'huitongkuaidi': 'HTKY', 'guotongkuaidi': 'GTO', 'youzhengguonei': 'YZPY', 'guangdongyouzheng': 'YZPY',
+	'youshuwuliu':'UC'}
 
 class KdniaoExpressEorder(object):
 	'''
@@ -97,7 +98,7 @@ class KdniaoExpressEorder(object):
 	result: "true"表示成功，false表示失败
 	'''
 	
-	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id):
+	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id, CustomerName, CustomerPwd):
 		"""
 		orderCode:订单号
 		sender：发件人信息，dict
@@ -109,6 +110,8 @@ class KdniaoExpressEorder(object):
 		self.sender = sender
 		self.receiver = receiver
 		self.commodity = commodity
+		self.CustomerName = CustomerName
+		self.CustomerPwd = CustomerPwd
 		self.order_id = order_id #watch_dog中记录使用
 		self.Business_id = KdniaoExpressConfig.EBusiness_id
 		self.api_key = KdniaoExpressConfig.api_key
@@ -124,6 +127,8 @@ class KdniaoExpressEorder(object):
 			"ShipperCode": self.express_company_name,
 			"PayType": 1,
 			"ExpType": 1,
+			"CustomerName": self.CustomerName,
+			"CustomerPwd": self.CustomerPwd,
 			"Sender": self.sender,
 			"Receiver": self.receiver,
 			"Commodity": self.commodity,

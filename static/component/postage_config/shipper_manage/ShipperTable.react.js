@@ -63,16 +63,46 @@ var ShipperTable = React.createClass({
 		},100)
 	},
 
+	setSelected: function(shipperId, event){
+		//设置默认
+		Reactman.PageAction.showConfirm({
+			target: event.target, 
+			title: '确定设为默认么？',
+			confirm: _.bind(function() {
+				Action.setSelected(shipperId);
+			}, this)
+		});
+	},
+
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			var shipperId = data['shipperId'];
-			return (
-				<div>
-					<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
-					<span className="xui-split-line">|</span>
-					<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
-				</div>
-			);
+			var isActive = data['isActive'];
+			if(isActive){
+				return (
+					<div>
+						<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
+						<span className="xui-split-line">|</span>
+						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
+					</div>
+				)
+			}else{
+				return (
+					<div>
+						<a href="javascript:void(0);" onClick={this.setSelected.bind(this, shipperId)}>设为默认</a>
+						<span className="xui-split-line">|</span>
+						<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
+						<span className="xui-split-line">|</span>
+						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
+					</div>
+				)
+			}	
+		}else if(field === 'shipperName'){
+			var isActive = data['isActive'];
+			var tips = isActive? <span style={{color:'red'}}>(默认)</span>: '';
+			return(
+				<div>{value}{tips}</div>
+			)
 		}else {
 			return value;
 		}

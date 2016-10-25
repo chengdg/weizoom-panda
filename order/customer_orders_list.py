@@ -43,6 +43,20 @@ order_status2text = {
 	8: u'团购退款',
 	9: u'团购退款完成'
 }
+options2text = {
+	'yuantong': '圆通速递',
+	'zhongtong': '中通速递',
+	'shentong': '申通快递',
+	'tiantian': '天天快递',
+	'yunda': '韵达快运',
+	'huitongkuaidi': '百世快递',
+	'shunfeng': '顺丰速运',
+	'debangwuliu': '德邦物流',
+	'zhaijisong': '宅急送',
+	'youshuwuliu': '优速物流',
+	'guangdongyouzheng': '广东邮政',
+	'ems': 'EMS'
+}
 filter2field ={
 }
 
@@ -65,7 +79,7 @@ class CustomerOrdersList(resource.Resource):
 			})
 		for express_bill_account in express_bill_accounts:
 			options_for_express.append({
-				'text': express_bill_account.express_name,
+				'text': options2text[express_bill_account.express_name],
 				'value': express_bill_account.id,
 				})
 		
@@ -288,7 +302,7 @@ class CustomerOrdersList(resource.Resource):
 
 				if is_for_list:
 					rows.append({
-						'id': order_id,
+						'id': len(rows),
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],

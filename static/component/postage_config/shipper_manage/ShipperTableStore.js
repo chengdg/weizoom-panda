@@ -16,7 +16,8 @@ var Constant = require('./Constant');
 var ShipperTableStore = StoreUtil.createStore(Dispatcher, {
 	actions: {
 		'handleUpdateShipperTable': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_UPDATE_SHIPPER_TABLE,
-		'handleDeleteShipper': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_SHIPPER
+		'handleDeleteShipper': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_DELETE_SHIPPER,
+		'handleSetSelected': Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_SET_SELECTED
 	},
 
 	init: function() {
@@ -33,6 +34,10 @@ var ShipperTableStore = StoreUtil.createStore(Dispatcher, {
 		_.delay(function(){
 			Reactman.PageAction.showHint('success', '删除成功');
 		},100)
+		this.__emitChange();
+	},
+
+	handleSetSelected: function(action){
 		this.__emitChange();
 	},
 

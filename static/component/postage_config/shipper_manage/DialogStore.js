@@ -23,7 +23,8 @@ var DialogStore = StoreUtil.createStore(Dispatcher, {
 	init: function() {
 		this.data = {
 			'shipperId': -1,
-			'expressId': -1
+			'expressId': -1,
+			'expressName': -1
 		};
 	},
 
@@ -41,7 +42,8 @@ var DialogStore = StoreUtil.createStore(Dispatcher, {
 	handleClearData: function(){
 		this.data = {
 			'shipperId': -1,
-			'expressId': -1
+			'expressId': -1,
+			'expressName': -1
 		};
 	},
 

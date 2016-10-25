@@ -100,6 +100,7 @@ class ShipperMessages(models.Model):
 	postcode = models.CharField(max_length=50) #邮政编码
 	company_name = models.CharField(max_length=50) #单位名称
 	remark = models.TextField(null=True) #备注
+	is_active = models.BooleanField(default=False) #是否默认
 	is_deleted = models.BooleanField(default=False) #是否删除
 
 	class Meta(object):

@@ -42,7 +42,8 @@ class Shipper(resource.Resource):
 				'address': shipper_message.address,
 				'postcode': shipper_message.postcode,
 				'companyName': shipper_message.company_name,
-				'remark': shipper_message.remark
+				'remark': shipper_message.remark,
+				'isActive': shipper_message.is_active
 			})
 
 		data = {

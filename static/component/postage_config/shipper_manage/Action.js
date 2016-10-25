@@ -112,6 +112,19 @@ var Action = {
 			actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_CLEAR_DATA,
 			data: {}
 		});
+	},
+
+	setSelected: function(shipperId){
+		Resource.post({
+			resource: 'postage_config.shipper_manage',
+			data: {
+				'shipper_id': shipperId
+			},
+			dispatch: {
+				dispatcher: Dispatcher,
+				actionType: Constant.POSTAGE_CONFIG_SHIPPER_MANAGE_SET_SELECTED
+			}
+		});
 	}
 };
 

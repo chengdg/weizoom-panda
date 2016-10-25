@@ -98,7 +98,7 @@ var AddCatalogDialog = Reactman.createDialog({
 				<form className="form-horizontal mt15">
 					<fieldset>
 						<Reactman.FormInput type="text" label="发货人:" name="shipperName" validate="require-notempty" value={this.state.shipperName} onChange={this.onChange} />
-						
+						<Reactman.FormAreaSelect label="区域:" name="regional" resource='account.regional' onChange={this.onChange}/>
 						<Reactman.FormInput type="text" label="详细地址:" name="address" validate="require-notempty" placeholder="街道楼号详细地址" value={this.state.address} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="邮政编码:" name="postcode" validate="" value={this.state.postcode} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="发货人手机号:" name="telNumber" validate="require-notempty" value={this.state.telNumber} onChange={this.onChange} />

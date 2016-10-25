@@ -73,7 +73,26 @@ var AccountTable = React.createClass({
 					<a href="javascript:void(0);" onClick={this.deleteExpressBill.bind(this, expressId)}>删除</a>
 				</div>
 			);
-		}else {
+		}else if(field === 'expressName'){
+			var options = {
+				'yuantong': '圆通速递',
+				'zhongtong': '中通速递',
+				'shentong': '申通快递',
+				'tiantian': '天天快递',
+				'yunda': '韵达快运',
+				'huitongkuaidi': '百世快递',
+				'shunfeng': '顺丰速运',
+				'debangwuliu': '德邦物流',
+				'zhaijisong': '宅急送',
+				'youshuwuliu': '优速物流',
+				'guangdongyouzheng': '广东邮政',
+				'ems': 'EMS'
+			}
+			
+			return(
+				<span>{options[value]}</span>
+			)
+		}else{
 			return value;
 		}
 	},

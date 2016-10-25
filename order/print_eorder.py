@@ -38,8 +38,9 @@ class PrintEorder(resource.Resource):
 			"Address" : shipper_messages[0].address,
 		}
 
-		express_company_name = 'EMS'
-		express_company_name_value = 'ems'
+		CustomerName = express_bill_accounts[0].customer_name
+		CustomerPwd = express_bill_accounts[0].customer_pwd
+		express_company_name_value = express_bill_accounts[0].express_name
 
 		items = []
 		delivery_param = []
@@ -54,33 +55,32 @@ class PrintEorder(resource.Resource):
 			for product in products:
 				goods = {"GoodsName":product['product_name'], "Goodsquantity":product['count'], "GoodsCode":product['user_code']}
 				commodity.append(goods)
-
+			ship_area = orders[0]['ship_area']
+			if ship_area:
+				ship_area = ship_area.split(' ')
+				ProvinceName = ship_area[0]
+				CityName = ship_area[1]
+				ExpAreaName = ship_area[2]
 			receiver = {
 				"Name":orders[0]['ship_name'], 
 				"Mobile": orders[0]['ship_tel'], 
-				"ProvinceName" : '北京', 
-				"CityName" : '北京', 
-				"ExpAreaName" : '朝阳区',
+				"ProvinceName" : ProvinceName, 
+				"CityName" : CityName, 
+				"ExpAreaName" : ExpAreaName,
 				"Address" : orders[0]['ship_address']
 			}
 
 			orderCode = orders[0]['order_id']
 			order_id = orders[0]['id']
-			print orderCode, express_company_name_value, sender, receiver, commodity, order_id,"+++++++++++"
-			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id)
+			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd)
 
 			is_success, template, express_order = eorder.get_express_eorder()
-			# print is_success,template,"================="
-			# express_number = express_order["LogisticCode"]
-			
-			# if is_success:
-			# 	for order in orders:
-			# 		delivery_param.append({'order_id':order.order_id, 'express_company_name':express_company_name, 'express_number':express_number})
+			print is_success,"========"
+			templates.append({'template': template})
 
-		print template,"================="
 		data = {
-			'template': template,
-			'test': '44444'
+			'templates': json.dumps(templates),
+			'is_success': is_success
 		}
 		response = create_response(200)
 		response.data = data

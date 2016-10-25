@@ -31,6 +31,11 @@ var AddCatalogDialog = Reactman.createDialog({
 
 	onBeforeCloseDialog: function() {
 		var expressId = this.state.expressId;
+		console.log(this.state.expressId,"44444444");
+		if(this.state.expressName == -1){
+			Reactman.PageAction.showHint('error', '请选择物流公司 !');
+		}
+
 		if(expressId!=-1){
 			Reactman.Resource.post({
 				resource: 'postage_config.express_bill',
@@ -79,11 +84,51 @@ var AddCatalogDialog = Reactman.createDialog({
 	},
 
 	render:function(){
+		var options = [{
+			text: '请选择物流公司',
+			value: '-1'
+		},{
+			text: '圆通速递',
+			value: 'yuantong'
+		},{
+			text: '中通速递',
+			value: 'zhongtong'
+		},{
+			text: '申通快递',
+			value: 'shentong'
+		},{
+			text: '天天快递',
+			value: 'tiantian'
+		},{
+			text: '韵达快运',
+			value: 'yunda'
+		},{
+			text: '百世快递',
+			value: 'huitongkuaidi'
+		},{
+			text: '顺丰速运',
+			value: 'shunfeng'
+		},{
+			text: '德邦物流',
+			value: 'debangwuliu'
+		},{
+			text: '宅急送',
+			value: 'zhaijisong'
+		},{
+			text: '优速物流',
+			value: 'youshuwuliu'
+		},{
+			text: '广东邮政',
+			value: 'guangdongyouzheng'
+		},{
+			text: 'EMS',
+			value: 'ems'
+		}];
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
 					<fieldset>
-						<Reactman.FormInput type="text" label="快递公司:" name="expressName" validate="require-notempty" value={this.state.expressName} onChange={this.onChange} />
+						<Reactman.FormSelect label="快递公司:" name="expressName" validate="require-notempty" value={this.state.expressName} options={options} onChange={this.onChange}/>
 						<Reactman.FormInput type="text" label="CustomerName:" name="customerName" validate="require-notempty" placeholder="商户代码/编号/ID，此信息由快递网点开通" value={this.state.customerName} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="CustomerPwd:" name="customerPwd" validate="require-notempty" placeholder="客户密码/密钥，此信息由快递网点开通" value={this.state.customerPwd} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="物流月结号:" name="logisticsNumber" validate="" value={this.state.logisticsNumber} onChange={this.onChange} />

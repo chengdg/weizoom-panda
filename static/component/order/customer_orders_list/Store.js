@@ -28,12 +28,12 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data = {
 			documents: [],
 			optionsForExpress: [],
-			template: '',
-			canPrint: false
+			templates: '[]',
+			canPrint: false,
+			isSuccess: false
 		};
 		var optionsForExpress = Reactman.loadJSON('optionsForExpress');
 		if(optionsForExpress){
-			console.log(optionsForExpress,"=====");
 			this.data['optionsForExpress'] = optionsForExpress;
 		}
 	},
@@ -60,14 +60,21 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handlePrintOrder: function(action){
-		var template = action.data['template'];
-		console.log(action.data,"=========");
-		this.data['template'] = template;
-		// this.__emitChange();
+		var templates = action.data['templates'];
+		var isSuccess = action.data['is_success'];
+		this.data['templates'] = templates;
+		this.data['isSuccess'] = isSuccess;
 	},
 
-	handleCanPRint: function(){
-		this.data['canPrint'] = true;
+	handleCanPRint: function(action){
+		var isSuccess = this.data.isSuccess;
+		if(!isSuccess){
+			_.delay(function(){
+				Reactman.PageAction.showHint('error', '打印失败!');
+			},500)
+		}else{
+			this.data['canPrint'] = action.data.canPrint;
+		}
 		this.__emitChange();
 	},
 

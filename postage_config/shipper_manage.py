@@ -33,3 +33,11 @@ class PostageList(resource.Resource):
 			'second_nav_name': SECOND_NAV
 		})
 		return render_to_response('shipper_manage/shipper_manage.html', c)
+
+	@login_required
+	def api_post(request):
+		shipper_id = request.POST.get('shipper_id',-1)
+		models.ShipperMessages.objects.filter(is_active=True, is_deleted=False).update(is_active=False)
+		models.ShipperMessages.objects.filter(id=shipper_id, is_deleted=False).update(is_active=True)
+		response = create_response(200)
+		return response.get_response()

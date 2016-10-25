@@ -40,12 +40,15 @@ var ChooseExpressCompanyDialog = Reactman.createDialog({
 					express_id: expressId
 				},
 				success: function(res) {
-					// this.closeDialog();
+					this.closeDialog();
 					console.log(res,"--ssss--");
-					Dispatcher.dispatch({
+					_.delay(function(){
+						Dispatcher.dispatch({
 							actionType: Constant.ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER,
 							data: res
 						});
+					},10)
+					
 				},
 				error: function(data) {
 					Reactman.PageAction.showHint('error', data.errMsg);
