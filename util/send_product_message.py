@@ -84,7 +84,9 @@ def send_reject_product_ding_message(product_id=None, reasons=None):
 	发送商品驳回的ding talk 消息
 	"""
 	message = organize_product_reject_ding_message(product_id=product_id)
-	message.update({u'驳回原因': reasons.decode('utf-8')})
+	if isinstance(reasons, str):
+		reasons = reasons.decode('utf-8')
+	message.update({u'驳回原因': reasons})
 	if MODE == 'deploy':
 		uuid = 240514209
 	else:
