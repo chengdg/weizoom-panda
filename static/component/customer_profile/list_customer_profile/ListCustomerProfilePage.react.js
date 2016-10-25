@@ -154,14 +154,14 @@ var ListCustomerProfilePage = React.createClass({
 				</Reactman.TableActionBar>
 				<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
 					<Reactman.TableColumn name="客户名称" field="companyName" />
-					<Reactman.TableColumn name="客户来源" field="customerFrom" />
+					<Reactman.TableColumn name="客户来源" field="source" />
 					<Reactman.TableColumn name="入驻类目" field="companyType" />
 					<Reactman.TableColumn name="入驻时间" field="settledTime" />
-					<Reactman.TableColumn name="平台开售" field="startedTime" />
-					<Reactman.TableColumn name="在售商品" field="onsaleNumbers" />
-					<Reactman.TableColumn name="累计订单" field="orderNumbers" />
-					<Reactman.TableColumn name="累计成交额" field="totalMoney" />
-					<Reactman.TableColumn name="效果通" field="isCPS" />
+					<Reactman.TableColumn name="平台开售" field="onShelvesTime" />
+					<Reactman.TableColumn name="在售商品" field="onShelvesCount" />
+					<Reactman.TableColumn name="累计订单" field="orderCount" />
+					<Reactman.TableColumn name="累计成交额" field="orderPrice" />
+					<Reactman.TableColumn name="效果通" field="isCps" />
 					<Reactman.TableColumn name="入驻方式" field="settledMethod"/>
 				</Reactman.Table>
 			</Reactman.TablePanel>

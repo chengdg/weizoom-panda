@@ -53,9 +53,10 @@ class CustomerProfileList(resource.Resource):
 	@login_required
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active=True).exclude(role=MANAGER).order_by('-id')
+		accounts = UserProfile.objects.filter(is_active=True, role=CUSTOMER).order_by('-id')
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
+
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		company_name = filters.get('companyName','')
 		username = filters.get('username','')
@@ -79,13 +80,9 @@ class CustomerProfileList(resource.Resource):
 
 		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
-		user_ids = [account.user_id for account in accounts]
-		user_id2username = {user.id: user.username for user in User.objects.filter(id__in=user_ids)}
 		rows = []
-		date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
 		for account in accounts:
-			customerFrom = '--' 
+			settledMethod = '--' 
 			if account.role == 1 :
 				catalog_names = []
 				if account.company_type != '':
@@ -99,15 +96,17 @@ class CustomerProfileList(resource.Resource):
 
 			rows.append({
 				'id': account.id,
-				'name': account.name,
 				'companyName': account.company_name,
-				'username': user_id2username[account.user_id],
+				'source': account.source,
 				'companyType': catalog_names,
-				'purchaseMethod': METHOD2NAME[account.purchase_method] if account.role == 1 else '--',
-				'createdAt': account.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-				'status': account.status,
-				'maxProduct': account.max_product if account.role == CUSTOMER else '--',
-				'customerFrom': customerFrom
+				'settledTime': account.created_at.strftime("%Y-%m-%d"),
+				'onShelvesTime': account.on_shelves_time.strftime("%Y-%m-%d") if account.on_shelves_time else '--',
+				'onShelvesCount': account.on_shelves_count,
+				'orderCount': account.order_count,
+				'orderPrice': account.order_price,
+				'isOnCps': account.is_on_cps,
+				'isCps': u'已投放' if account.is_cps else u'未投放',
+				'settledMethod': settledMethod
 			})
 
 		data = {
