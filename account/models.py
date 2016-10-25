@@ -71,6 +71,16 @@ class UserProfile(models.Model):
 	product_count = models.IntegerField(default=0) #客户商品数量
 	settlement_period = models.IntegerField(default=SETTLEMENT_PERIOD_MONTH) #结算账期  1【自然月】   2【15天】   3【自然周】
 
+	# add by bert for customer profile
+	source = models.CharField(max_length=32, default='') #客户来源
+	on_shelves_time = models.DateTimeField(null=True) #创建时间
+	on_shelves_time = models.DateTimeField(null=True) # 平台开售商品时间  商品第一次上架时间
+	on_shelves_count = models.IntegerField(default=0) # 在售商品数
+	order_count = models.IntegerField(default=0) # 累计订单
+	order_price = models.FloatField(default=0) # 累计成交金额
+	is_on_cps = models.BooleanField(default=False) #是否效果通投放商品
+	is_cps = models.BooleanField(default=False) #是否在效果图投放过商品
+
 	class Meta(object):
 		db_table = 'account_user_profile'
 		verbose_name = '用户配置'
