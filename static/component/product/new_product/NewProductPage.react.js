@@ -172,20 +172,14 @@ var NewProductPage = React.createClass({
             return
         }
 
-        if(!this.state.has_postage_config){
+        if(!this.state.has_postage_config && this.state.has_same_postage=='1'){
         	Reactman.PageAction.showHint('error', '请先前往设置默认运费模板!');
             return;
         }
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
-		// var has_limit_time = parseInt(product.has_limit_time[0]);
-		// if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
-		// 	if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
-		// 		Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
-		// 		return;
-		// 	}
-		// }
+
 		if(has_product_model===''){
             Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
             return
@@ -197,14 +191,6 @@ var NewProductPage = React.createClass({
 					if(clear_price){
 						product["product_price"] = clear_price;
 					}
-				}
-			}else if(W.purchase_method==2){
-				var product_price = product.product_price;
-				if(product_price){
-					var points = 1-(W.points/100);
-					var product_price = parseFloat(product_price);
-					var clear_price = (Math.round((product_price*points*100).toFixed(2))/100).toFixed(2)
-					product["clear_price"] = clear_price;
 				}
 			}
 			if(product.hasOwnProperty('product_price') && product.product_price.length>0){
@@ -219,27 +205,6 @@ var NewProductPage = React.createClass({
 			}
 		}
 		
-		// if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
-		// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
-		// 	return;
-		// }
-		// if(has_limit_time ==1 && ((product.hasOwnProperty('valid_time_from') && product.valid_time_from.length<=0) 
-		// 	|| (product.hasOwnProperty('valid_time_to')&& product.valid_time_to.length<=0))){
-		// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
-		// 	return;
-		// }
-		// if(has_limit_time ==1 && product.hasOwnProperty('valid_time_from') && product.hasOwnProperty('valid_time_to') && (product.valid_time_from>product.valid_time_to)){
-		// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
-		// 	return;
-		// }
-		// if(has_limit_time ==1 && (!product.hasOwnProperty('limit_clear_price') || product.limit_clear_price.length<=0) ){
-		// 	Reactman.PageAction.showHint('error', '请填写限时结算价!');
-		// 	return;
-		// }
-		// if(product.hasOwnProperty('limit_clear_price') && parseFloat(product.limit_clear_price)>parseFloat(product.clear_price)){
-		// 	Reactman.PageAction.showHint('error', '限时结算价不能大于结算价,请重新输入!');
-		// 	return;
-		// }
 		if(product.product_name.length > 30 || (product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30)){
 			Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 			return;
@@ -275,23 +240,6 @@ var NewProductPage = React.createClass({
 						return;
 					}
 				}
-				// var time_from = product['valid_time_from_'+model.modelId]
-				// var time_to = product['valid_time_to_'+model.modelId]
-				// if(time_from>time_to){
-				// 	is_true = true;
-				// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
-				// 	return;
-				// }
-				// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-				// 	is_true = true;
-				// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-				// 	return;
-				// }
-				// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-				// 	is_true = true;
-				// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-				// 	return;
-				// }
 			})
 		}
 		if(is_true){
@@ -304,20 +252,12 @@ var NewProductPage = React.createClass({
 			model['clear_price_'+model.modelId] = product['clear_price_'+model.modelId]
 			model['product_weight_'+model.modelId] = product['product_weight_'+model.modelId]
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
-			// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
-			// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 			if(W.purchase_method==1){
 				if(W.role==1){ //固定底价用户默认售价==结算价
 					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
 					if(clear_price){
 						model["product_price_"+model.modelId] = clear_price;
 					}
-				}
-			}else if(W.purchase_method==2){
-				var points = 1-(W.points/100);
-				var product_price = parseFloat(product["product_price_"+model.modelId]);
-				if(product_price){
-					model["clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 				}
 			}
 		})
@@ -371,6 +311,8 @@ var NewProductPage = React.createClass({
             value: '1'
         }]
         var optionsForLimitInfo = this.state.limit_zone_info;
+        //固定底价类型客户-商品结算价提示
+        var tipsOfPrice = (role==1 && W.purchase_method==1)? '提示：结算价为商品与微众的结算价格，如无扣点约定，可与售价相同': ''
        	
 		return (
 			<div className="xui-newProduct-page xui-formPage">
@@ -392,8 +334,14 @@ var NewProductPage = React.createClass({
                         <Reactman.FormSelect validate="require" label="发货地区设置:"  name="limit_zone_type" value={this.state.limit_zone_type} options={optionsForKind }  onChange={this.onChange}/>
                         <div> <LimitZoneInfo onChange={this.onChange}/></div>
 						<Reactman.FormRadio label="运费:" type="text" name="has_same_postage" value={this.state.has_same_postage} options={optionsForPostage} onChange={this.onChange} />
+						
 						<div> <PostageTemplate onChange={this.onChange} hasSamePostage={this.state.has_same_postage} postageMoney={this.state.postage_money} hasPostageConfig={this.state.has_postage_config} /></div>
+						
+						
 						<Reactman.FormImageUploader label="商品图片:" name="images" value={this.state.images} onChange={this.onChange} validate="require-string"/>
+						<div style={{paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'-15px'}}>提示：商品轮播图最多6张，200KB以内，建议640-960之间的正方形图片，web格式图片</div>
+						
+						<div style={{paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'20px'}}>提示：商品描述的图片宽度640-960px之间，高度建议小于500px，大小300KB以内，web格式图片</div>
 						<Reactman.FormRichTextInput label="商品描述:" name="remark" value={this.state.remark} width="1260" height="600" onChange={this.onChange} validate="require-notempty"/>
 					</fieldset>
 					<fieldset style={{position:'relative'}}>
