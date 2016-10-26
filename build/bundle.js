@@ -45875,20 +45875,14 @@
 				return;
 			}
 
-			if (!this.state.has_postage_config) {
+			if (!this.state.has_postage_config && this.state.has_same_postage == '1') {
 				Reactman.PageAction.showHint('error', '请先前往设置默认运费模板!');
 				return;
 			}
 			var reg = /^\d{0,9}\.{0,1}(\d{1,2})?$/;
 			var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 			var has_product_model = this.state.has_product_model;
-			// var has_limit_time = parseInt(product.has_limit_time[0]);
-			// if(product.hasOwnProperty('limit_clear_price') && product.limit_clear_price.length>0){
-			// 	if(!isNaN(parseInt(product.limit_clear_price.trim())) && !reg.test(product.limit_clear_price.trim())){
-			// 		Reactman.PageAction.showHint('error', '限时结算价只能保留两位小数,请重新输入!');
-			// 		return;
-			// 	}
-			// }
+
 			if (has_product_model === '') {
 				Reactman.PageAction.showHint('error', '请选择该商品是否多规格!');
 				return;
@@ -45916,27 +45910,6 @@
 				}
 			}
 
-			// if(has_limit_time ==1 && (!product.hasOwnProperty('valid_time_from') || !product.hasOwnProperty('valid_time_to'))){
-			// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
-			// 	return;
-			// }
-			// if(has_limit_time ==1 && ((product.hasOwnProperty('valid_time_from') && product.valid_time_from.length<=0) 
-			// 	|| (product.hasOwnProperty('valid_time_to')&& product.valid_time_to.length<=0))){
-			// 	Reactman.PageAction.showHint('error', '请选择有效期截止日期!');
-			// 	return;
-			// }
-			// if(has_limit_time ==1 && product.hasOwnProperty('valid_time_from') && product.hasOwnProperty('valid_time_to') && (product.valid_time_from>product.valid_time_to)){
-			// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新输入!');
-			// 	return;
-			// }
-			// if(has_limit_time ==1 && (!product.hasOwnProperty('limit_clear_price') || product.limit_clear_price.length<=0) ){
-			// 	Reactman.PageAction.showHint('error', '请填写限时结算价!');
-			// 	return;
-			// }
-			// if(product.hasOwnProperty('limit_clear_price') && parseFloat(product.limit_clear_price)>parseFloat(product.clear_price)){
-			// 	Reactman.PageAction.showHint('error', '限时结算价不能大于结算价,请重新输入!');
-			// 	return;
-			// }
 			if (product.product_name.length > 30 || product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30) {
 				Reactman.PageAction.showHint('error', '商品名称或促销标题最多输入30个字,请重新输入!');
 				return;
@@ -45972,23 +45945,6 @@
 							return;
 						}
 					}
-					// var time_from = product['valid_time_from_'+model.modelId]
-					// var time_to = product['valid_time_to_'+model.modelId]
-					// if(time_from>time_to){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期开始日期不能大于截止日期,请重新选择!');
-					// 	return;
-					// }
-					// if(!product.hasOwnProperty('valid_time_from_'+model.modelId) || !product.hasOwnProperty('valid_time_to_'+model.modelId)){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-					// 	return;
-					// }
-					// if((product.hasOwnProperty('valid_time_from_'+model.modelId) && time_from.length==0) || (product.hasOwnProperty('valid_time_to_'+model.modelId) && time_to.length==0)){
-					// 	is_true = true;
-					// 	Reactman.PageAction.showHint('error', '有效期不能为空,请重新选择!');
-					// 	return;
-					// }
 				});
 			}
 			if (is_true) {
@@ -46001,8 +45957,6 @@
 				model['clear_price_' + model.modelId] = product['clear_price_' + model.modelId];
 				model['product_weight_' + model.modelId] = product['product_weight_' + model.modelId];
 				model['product_store_' + model.modelId] = product['product_store_' + model.modelId];
-				// model['valid_time_from_'+model.modelId] = product['valid_time_from_'+model.modelId]
-				// model['valid_time_to_'+model.modelId] = product['valid_time_to_'+model.modelId]
 				if (W.purchase_method == 1) {
 					if (W.role == 1) {
 						//固定底价用户默认售价==结算价
@@ -46063,6 +46017,8 @@
 				value: '1'
 			}];
 			var optionsForLimitInfo = this.state.limit_zone_info;
+			//固定底价类型客户-商品结算价提示
+			var tipsOfPrice = role == 1 && W.purchase_method == 1 ? '提示：结算价为商品与微众的结算价格，如无扣点约定，可与售价相同' : '';
 
 			return React.createElement(
 				'div',
@@ -46135,6 +46091,16 @@
 							React.createElement(PostageTemplate, { onChange: this.onChange, hasSamePostage: this.state.has_same_postage, postageMoney: this.state.postage_money, hasPostageConfig: this.state.has_postage_config })
 						),
 						React.createElement(Reactman.FormImageUploader, { label: '\u5546\u54C1\u56FE\u7247:', name: 'images', value: this.state.images, onChange: this.onChange, validate: 'require-string' }),
+						React.createElement(
+							'div',
+							{ style: { paddingLeft: '180px', color: 'rgba(138, 43, 43, 0.82)', marginTop: '-15px' } },
+							'\u63D0\u793A\uFF1A\u5546\u54C1\u8F6E\u64AD\u56FE\u6700\u591A6\u5F20\uFF0C200KB\u4EE5\u5185\uFF0C\u5EFA\u8BAE640-960\u4E4B\u95F4\u7684\u6B63\u65B9\u5F62\u56FE\u7247\uFF0Cweb\u683C\u5F0F\u56FE\u7247'
+						),
+						React.createElement(
+							'div',
+							{ style: { paddingLeft: '180px', color: 'rgba(138, 43, 43, 0.82)', marginTop: '20px' } },
+							'\u63D0\u793A\uFF1A\u5546\u54C1\u63CF\u8FF0\u7684\u56FE\u7247\u5BBD\u5EA6640-960px\u4E4B\u95F4\uFF0C\u9AD8\u5EA6\u5EFA\u8BAE\u5C0F\u4E8E500px\uFF0C\u5927\u5C0F300KB\u4EE5\u5185\uFF0Cweb\u683C\u5F0F\u56FE\u7247'
+						),
 						React.createElement(Reactman.FormRichTextInput, { label: '\u5546\u54C1\u63CF\u8FF0:', name: 'remark', value: this.state.remark, width: '1260', height: '600', onChange: this.onChange, validate: 'require-notempty' })
 					),
 					React.createElement(
@@ -46909,19 +46875,13 @@
 						return React.createElement(
 							'div',
 							{ className: 'product_info_fieldset' },
-							React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7:', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
 							React.createElement(
-								'span',
-								{ className: 'money_note' },
-								'\u5143'
+								'div',
+								{ style: { paddingLeft: '180px', color: 'rgba(138, 43, 43, 0.82)' } },
+								'\u63D0\u793A\uFF1A\u7ED3\u7B97\u4EF7\u4E3A\u5546\u54C1\u4E0E\u5FAE\u4F17\u7684\u7ED3\u7B97\u4EF7\u683C\uFF0C\u5982\u65E0\u6263\u70B9\u7EA6\u5B9A\uFF0C\u53EF\u4E0E\u552E\u4EF7\u76F8\u540C'
 							),
-							React.createElement('div', null),
-							React.createElement(Reactman.FormInput, { label: '\u7269\u6D41\u91CD\u91CF:', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
-							React.createElement(
-								'span',
-								{ className: 'money_note' },
-								'Kg'
-							),
+							React.createElement(Reactman.FormInput, { label: '\u7ED3\u7B97\u4EF7(\u5143):', type: 'text', readonly: disabled, name: 'clear_price', value: this.state.clear_price, onChange: this.props.onChange, validate: 'require-float' }),
+							React.createElement(Reactman.FormInput, { label: '\u7269\u6D41\u91CD\u91CF(Kg):', type: 'text', readonly: disabled, name: 'product_weight', value: this.state.product_weight, onChange: this.props.onChange, validate: 'require-float' }),
 							React.createElement(Reactman.FormInput, { label: '\u5E93\u5B58\u6570\u91CF', type: 'text', readonly: disabled, name: 'product_store', value: this.state.product_store, validate: 'require-int', onChange: this.props.onChange })
 						);
 					} else {
