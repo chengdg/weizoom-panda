@@ -198,14 +198,6 @@ var NewProductPage = React.createClass({
 						product["product_price"] = clear_price;
 					}
 				}
-			}else if(W.purchase_method==2){
-				var product_price = product.product_price;
-				if(product_price){
-					var points = 1-(W.points/100);
-					var product_price = parseFloat(product_price);
-					var clear_price = (Math.round((product_price*points*100).toFixed(2))/100).toFixed(2)
-					product["clear_price"] = clear_price;
-				}
 			}
 			if(product.hasOwnProperty('product_price') && product.product_price.length>0){
 				if(!reg_2.test(product.product_price.trim())){
@@ -312,12 +304,6 @@ var NewProductPage = React.createClass({
 					if(clear_price){
 						model["product_price_"+model.modelId] = clear_price;
 					}
-				}
-			}else if(W.purchase_method==2){
-				var points = 1-(W.points/100);
-				var product_price = parseFloat(product["product_price_"+model.modelId]);
-				if(product_price){
-					model["clear_price_"+model.modelId] = (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 				}
 			}
 		})
