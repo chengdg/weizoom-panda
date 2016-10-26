@@ -176,11 +176,6 @@ var NewProductPage = React.createClass({
         	Reactman.PageAction.showHint('error', '请先前往设置默认运费模板!');
             return;
         }
-
-        if(product['images'].length>6){
-        	Reactman.PageAction.showHint('error', '商品图片最多上传6张,请重新设置!');
-            return;
-        }
 		var reg =/^\d{0,9}\.{0,1}(\d{1,2})?$/;
 		var reg_2 = /^[0-9]+(.[0-9]{1,2})?$/;
 		var has_product_model = this.state.has_product_model;
