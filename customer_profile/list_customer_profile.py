@@ -82,7 +82,17 @@ class CustomerProfileList(resource.Resource):
 
 		rows = []
 		for account in accounts:
-			settledMethod = '--' 
+			#入驻方式
+			settledMethod = ''
+			purchase_method = account.purchase_method
+			if purchase_method == 1:
+				settledMethod = u'固定底价'
+			elif purchase_method == 2:
+				settledMethod = u'零售价返点'+ str(account.points) + '%'
+			elif purchase_method == 3:
+				# account_has_rebate_proport
+				settledMethod = u'首月且1000元以内扣点50%，否则按9%'
+
 			if account.role == 1 :
 				catalog_names = []
 				if account.company_type != '':
