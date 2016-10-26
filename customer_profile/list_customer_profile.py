@@ -59,24 +59,22 @@ class CustomerProfileList(resource.Resource):
 
 		filters = dict([(db_util.get_filter_key(key, filter2field), db_util.get_filter_value(key, request)) for key in request.GET if key.startswith('__f-')])
 		company_name = filters.get('companyName','')
-		username = filters.get('username','')
-		role = filters.get('accountType','')
-		status = filters.get('status','')
-		# customer_from = filters.get('customerFrom','')
+		product_name = filters.get('productName','')
+		account_status = filters.get('accountStatus','')
+		isCps = filters.get('isCps','')
 		if company_name:
 			accounts = accounts.filter(company_name__icontains=company_name)
-		if username:
-			user_ids = [user.id for user in User.objects.filter(username__icontains=username)]
-			accounts = accounts.filter(user_id__in=user_ids)
-		if role:
-			accounts = accounts.filter(role=role)
-		if status:
-			if status == '1':
-				accounts = accounts.filter(status=status)
+		if product_name:
+			products = Product.objects.filter(product_name__icontains=product_name)
+			owner_ids = [product.owner_id for product in products]
+			accounts = accounts.filter(user_id__in=owner_ids)
+		if account_status:
+			if account_status == '1': #使用中
+				accounts = accounts.filter(status=1)
 			else:
 				accounts = accounts.exclude(status=1)
-		# if customer_from: 客户来源暂时渠道没有接口实现，先注释
-		# 	print customer_from
+		if isCps:
+			accounts = accounts.filter(is_cps=int(isCps))
 
 		pageinfo, accounts = paginator.paginate(accounts, cur_page, COUNT_PER_PAGE)
 
@@ -88,10 +86,10 @@ class CustomerProfileList(resource.Resource):
 			if purchase_method == 1:
 				settledMethod = u'固定底价'
 			elif purchase_method == 2:
-				settledMethod = u'零售价返点'+ str(account.points) + '%'
+				settledMethod = u'零售价返点'+ str(int(account.points)) + '%'
 			elif purchase_method == 3:
-				# account_has_rebate_proport
-				settledMethod = u'首月且1000元以内扣点50%，否则按9%'
+				rebate_info = AccountHasRebateProport.objects.get(user_id=int(account.user_id))
+				settledMethod = u'首月且' + str(int(rebate_info.order_money)) + u'元以内扣点' + str(int(rebate_info.rebate_proport)) + u'%，否则按'+ str(int(rebate_info.default_rebate_proport)) + u'%'
 
 			if account.role == 1 :
 				catalog_names = []

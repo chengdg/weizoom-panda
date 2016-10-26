@@ -102,29 +102,24 @@ var ListCustomerProfilePage = React.createClass({
 				page: 1
 			}
 		};
-		var typeOptions = [{
-			text: '全部',
-			value: -1
-		}, {
-			text: '客户账号',
-			value: 1
-		}, 
-		// {
-		// 	text: '代理商账号',
-		// 	value: 2
-		// }, 
-		{
-			text: '运营账号',
-			value: 3
-		}];
 		var statusOptions = [{
 			text: '全部',
 			value: -1
 		}, {
-			text: '启用中',
+			text: '使用中',
 			value: 1
 		}, {
 			text: '已关闭',
+			value: 0
+		}];
+		var isCpsOptions = [{
+			text: '不限',
+			value: -1
+		}, {
+			text: '投放',
+			value: 1
+		}, {
+			text: '未投放',
 			value: 0
 		}]
 
@@ -133,18 +128,18 @@ var ListCustomerProfilePage = React.createClass({
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="公司名称:" name="companyName" match='=' />
+						<Reactman.FormInput label="客户名称:" name="companyName" match='=' />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormInput label="登录名:" name="username" match="=" />
+						<Reactman.FormInput label="商品名称:" name="productName" match="=" />
 					</Reactman.FilterField>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="账号类型:" name="accountType" options={typeOptions} match="=" />
+						<Reactman.FormSelect label="客户账号状态:" name="accountStatus" options={statusOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
-						<Reactman.FormSelect label="账号状态:" name="status" options={statusOptions} match="=" />
+						<Reactman.FormSelect label="效果通投放:" name="isCps" options={isCpsOptions} match="=" />
 					</Reactman.FilterField>
 				</Reactman.FilterRow>
 			</Reactman.FilterPanel>
