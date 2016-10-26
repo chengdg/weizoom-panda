@@ -162,10 +162,9 @@ var ProductModelInfo = React.createClass({
 			if(W.purchase_method==1){
 				if(W.role==1){
 					return(
-						<div className="product_info_fieldset">
-							<div style={{paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)'}}>提示：结算价为商品与微众的结算价格，如无扣点约定，可与售价相同</div>
+						<div className="product_info_fieldset">	
 							<Reactman.FormInput label="结算价(元):" type="text" readonly={disabled} name="clear_price" value={this.state.clear_price} onChange={this.props.onChange} validate="require-float"/>
-							
+							<div style={{marginTop:'-15px', marginBottom:'10px', paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)'}}>提示：结算价为商品与微众的结算价格，如无扣点约定，可与售价相同</div>
 							<Reactman.FormInput label="物流重量(Kg):" type="text" readonly={disabled} name="product_weight" value={this.state.product_weight} onChange={this.props.onChange} validate="require-float"/>
 							<Reactman.FormInput label="库存数量" type="text" readonly={disabled} name="product_store" value={this.state.product_store} validate="require-int" onChange={this.props.onChange} />
 						</div>
@@ -257,6 +256,7 @@ var ProductModelInfo = React.createClass({
 							</div>
 							<div style={{paddingLeft:'180px',marginBottom:'10px'}}>
 								{W.role==1?<a className="btn btn-success mr40 xa-submit xui-fontBold" href="javascript:void(0);" onClick={this.addProductModel}>添加商品规格</a>:''}
+								<div style={{display:'inline-block', color:'rgba(138, 43, 43, 0.82)'}}>提示：结算价为商品与微众的结算价格，如无扣点约定，可与售价相同</div>
 							</div>
 						</div>
 					)
