@@ -68,7 +68,6 @@ var OrderDatasPage = React.createClass({
 
 	onClickComplete: function(event) {
 		var orderId = event.target.getAttribute('data-order-id');
-		console.log(orderId);
 		Reactman.PageAction.showConfirm({
 			target: event.target,
 			title: '确认将该订单标记为完成?',
@@ -84,7 +83,6 @@ var OrderDatasPage = React.createClass({
 			component: OrderBatchDelivery,
 			data: {},
 			success: function(inputData, dialogState) {
-				console.log('success');
 				Action.updateOrderShipInformations();
 			}
 		});

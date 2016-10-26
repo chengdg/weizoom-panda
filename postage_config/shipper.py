@@ -34,11 +34,16 @@ class Shipper(resource.Resource):
 		
 		messages = []
 		for shipper_message in shipper_messages:
+			regional = []
+			regional.append(shipper_message.province)
+			regional.append(shipper_message.city)
+			regional.append(shipper_message.district)
+
 			messages.append({
 				'shipperId': shipper_message.id,
 				'shipperName': shipper_message.shipper_name,
 				'telNumber': shipper_message.tel_number,
-				'destination': shipper_message.destination,
+				'regional': '-'.join(regional),
 				'address': shipper_message.address,
 				'postcode': shipper_message.postcode,
 				'companyName': shipper_message.company_name,
@@ -63,16 +68,25 @@ class Shipper(resource.Resource):
 		tel_number = request.POST.get('tel_number','')
 		company_name = request.POST.get('company_name','')
 		remark = request.POST.get('remark','')
+		regional = request.POST.get('regional','')
+		regional = regional.split(',')
+		province = regional[0]
+		city = regional[1]
+		district = regional[2]
 
+		shipper_messages = models.ShipperMessages.objects.filter(is_active=True, is_deleted=False)
 		models.ShipperMessages.objects.create(
 			owner = request.user,
 			shipper_name = shipper_name,
 			tel_number = tel_number,
-			destination = '',
+			province = province,
+			city = city,
+			district = district,
 			address = address,
 			postcode = postcode,
 			company_name= company_name,
-			remark = remark
+			remark = remark,
+			is_active = False if shipper_messages else True
 		)
 		response = create_response(200)
 		return response.get_response()
@@ -86,11 +100,18 @@ class Shipper(resource.Resource):
 		tel_number = request.POST.get('tel_number','')
 		company_name = request.POST.get('company_name','')
 		remark = request.POST.get('remark','')
+		regional = request.POST.get('regional','')
+		regional = regional.split(',')
+		province = regional[0]
+		city = regional[1]
+		district = regional[2]
 
 		models.ShipperMessages.objects.filter(id=shipper_id).update(
 			shipper_name = shipper_name,
 			tel_number = tel_number,
-			destination = '',
+			province = province,
+			city = city,
+			district = district,
 			address = address,
 			postcode = postcode,
 			company_name= company_name,

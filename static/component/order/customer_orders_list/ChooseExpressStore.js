@@ -25,7 +25,6 @@ var ChooseExpressStore = StoreUtil.createStore(Dispatcher, {
 		};
 		var optionsForExpress = Reactman.loadJSON('optionsForExpress');
 		if(optionsForExpress){
-			console.log(optionsForExpress,"=====");
 			this.data['optionsForExpress'] = optionsForExpress;
 		}
 	},

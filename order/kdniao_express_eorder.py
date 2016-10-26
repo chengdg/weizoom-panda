@@ -98,7 +98,7 @@ class KdniaoExpressEorder(object):
 	result: "true"表示成功，false表示失败
 	'''
 	
-	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id, CustomerName, CustomerPwd):
+	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite):
 		"""
 		orderCode:订单号
 		sender：发件人信息，dict
@@ -110,8 +110,10 @@ class KdniaoExpressEorder(object):
 		self.sender = sender
 		self.receiver = receiver
 		self.commodity = commodity
-		self.CustomerName = CustomerName
+		self.CustomerName = CustomerName 
 		self.CustomerPwd = CustomerPwd
+		self.MonthCode = MonthCode
+		self.SendSite = SendSite
 		self.order_id = order_id #watch_dog中记录使用
 		self.Business_id = KdniaoExpressConfig.EBusiness_id
 		self.api_key = KdniaoExpressConfig.api_key
@@ -129,6 +131,8 @@ class KdniaoExpressEorder(object):
 			"ExpType": 1,
 			"CustomerName": self.CustomerName,
 			"CustomerPwd": self.CustomerPwd,
+			"MonthCode": self.MonthCode,
+			"SendSite": self.SendSite,
 			"Sender": self.sender,
 			"Receiver": self.receiver,
 			"Commodity": self.commodity,
@@ -144,21 +148,16 @@ class KdniaoExpressEorder(object):
 		"""
 		# post中的param的json
 		headers = {'content-type': 'application/json'}
-
-		# param_json_data = {'Code': self.express_company_name_kdniao,'Item': [
-		# 				   {'No': str(self.express_number),'Bk': str(self.express.id)},
-		# 				   ]}
 		param_json_data = self._build_post_data()
-		a= json.dumps(param_json_data)
+
 		DataSign= self._encrypt(json.dumps(param_json_data))
 		params = json.dumps({
-		"RequestData": json.dumps(param_json_data),
-		"EBusinessID": self.Business_id ,
-		"RequestType": "1007",
-		"DataSign": DataSign,
-		"DataType": "2"
+			"RequestData": json.dumps(param_json_data),
+			"EBusinessID": self.Business_id ,
+			"RequestType": "1007",
+			"DataSign": DataSign,
+			"DataType": "2"
 		})
-
 
 		verified_result = ''
 		try:

@@ -111,11 +111,12 @@ var AccountTable = React.createClass({
 					<Reactman.TableActionBar>
 						
 					</Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="accountTable">
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="accountTable">
 						<Reactman.TableColumn name="快递公司" field="expressName" />
 						<Reactman.TableColumn name="商家号/ID(CustomerName)" field="customerName" />
 						<Reactman.TableColumn name="商家密码(CustomerPwd)" field="customerPwd" />
-						<Reactman.TableColumn name="MonthCode" field="logisticsNumber" />
+						<Reactman.TableColumn name="MonthCode(月结号)" field="logisticsNumber" />
+						<Reactman.TableColumn name="SendSite(网点名称)" field="sendsite" />
 						<Reactman.TableColumn name="操作" field="action" />
 					</Reactman.Table>
 					<Reactman.TableActionBar>

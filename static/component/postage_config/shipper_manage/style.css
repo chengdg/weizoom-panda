@@ -36,3 +36,38 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.xui-formAreaSelect{
+    height: 35px;
+}
+
+.xui-formAreaSelect label{
+    width: 134px !important;
+    text-align: right;
+}
+
+.xui-i-select-container{
+    padding-left: 30px;
+}
+
+.xui-i-select-container .xui-i-select-groups{
+    display: block;
+}
+
+.xui-i-select-container .xui-i-select-groups select{
+    display: inline-block;
+    margin-left: 5px;
+    width: 98px;
+}
+
+.xui-i-select-container{
+    width: 320px;
+}
+
+.xui-express-account div div.col-sm-5, .xui-shipper div div.col-sm-5{
+    width: 340px !important;
+}
+
+.xui-express-account div select{
+    width: 160px;
+}

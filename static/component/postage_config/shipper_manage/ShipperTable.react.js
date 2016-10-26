@@ -120,10 +120,10 @@ var ShipperTable = React.createClass({
 			<div className="xui-shipperManageTable">
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar></Reactman.TableActionBar>
-					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} enableSelector={true} pagination={true} ref="table">
+					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="发货人" field="shipperName" />
 						<Reactman.TableColumn name="发货人手机" field="telNumber" />
-						<Reactman.TableColumn name="发货地区" field="destination" />
+						<Reactman.TableColumn name="发货地区" field="regional" />
 						<Reactman.TableColumn name="详细地址" field="address" />
 						<Reactman.TableColumn name="邮编" field="postcode" />
 						<Reactman.TableColumn name="操作" field="action" />

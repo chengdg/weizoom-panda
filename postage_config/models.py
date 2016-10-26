@@ -95,7 +95,9 @@ class ShipperMessages(models.Model):
 	owner = models.ForeignKey(User)
 	shipper_name = models.CharField(max_length=50) #发货人
 	tel_number = models.CharField(max_length=15) #手机号
-	destination = models.CharField(max_length=512)  #发货地区 (目的省份的id集合 )
+	province = models.CharField(max_length=50) #发货地区省
+	city = models.CharField(max_length=50) #市
+	district = models.CharField(max_length=512) #区/县
 	address = models.CharField(max_length=256) #详细地址
 	postcode = models.CharField(max_length=50) #邮政编码
 	company_name = models.CharField(max_length=50) #单位名称
@@ -116,6 +118,7 @@ class ExpressBillAccounts(models.Model):
 	customer_name = models.CharField(max_length=256) #CustomerName
 	customer_pwd = models.CharField(max_length=256)  #CustomerPwd
 	logistics_number = models.CharField(max_length=256) #物流月结号
+	sendsite = models.CharField(max_length=256) #网点名称
 	remark = models.TextField(null=True) #备注
 	is_deleted = models.BooleanField(default=False) #是否删除
 

@@ -40,7 +40,8 @@ class ExpressBill(resource.Resource):
 				'customerName': express_bill_account.customer_name,
 				'customerPwd': express_bill_account.customer_pwd,
 				'logisticsNumber': express_bill_account.logistics_number,
-				'remark': express_bill_account.remark
+				'remark': express_bill_account.remark,
+				'sendsite': express_bill_account.sendsite
 			})
 
 		data = {
@@ -59,6 +60,7 @@ class ExpressBill(resource.Resource):
 		customer_pwd = request.POST.get('customer_pwd','')
 		logistics_number = request.POST.get('logistics_number','')
 		remark = request.POST.get('remark','')
+		sendsite = request.POST.get('sendsite','')
 
 		models.ExpressBillAccounts.objects.create(
 			owner = request.user,
@@ -66,7 +68,8 @@ class ExpressBill(resource.Resource):
 			customer_name = customer_name,
 			customer_pwd = customer_pwd,
 			logistics_number = logistics_number,
-			remark = remark
+			remark = remark,
+			sendsite = sendsite
 		)
 		response = create_response(200)
 		return response.get_response()
@@ -79,13 +82,15 @@ class ExpressBill(resource.Resource):
 		customer_pwd = request.POST.get('customer_pwd','')
 		logistics_number = request.POST.get('logistics_number','')
 		remark = request.POST.get('remark','')
+		sendsite = request.POST.get('sendsite','')
 
 		models.ExpressBillAccounts.objects.filter(id=express_id).update(
 			express_name = express_name,
 			customer_name = customer_name,
 			customer_pwd = customer_pwd,
 			logistics_number = logistics_number,
-			remark = remark
+			remark = remark,
+			sendsite = sendsite
 		)
 		response = create_response(200)
 		return response.get_response()

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'justing'
-
 from django.conf import settings
+from panda.settings import MODE
 
 class KdniaoExpressConfig(object):
 	"""
@@ -19,7 +18,12 @@ class KdniaoExpressConfig(object):
 	# 快递鸟订阅请求地址（测试）(无论bdd还是真实环境都是这个url)
 	req_url="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
 	#电子面单地址
-	eorder_url = 'http://testapi.kdniao.cc:8081/api/eorderservice'
+	if 'develop' == MODE:
+		eorder_url = 'http://testapi.kdniao.cc:8081/api/eorderservice'
+	elif 'test' == MODE:
+		eorder_url = 'http://testapi.kdniao.cc:8081/api/eorderservice'
+	else:
+		eorder_url = 'http://api.kdniao.cc/api/EOrderService'
 
 	# api_url = "http://www.kuaidi100.com/poll"
 	# # api_url = "http://{}/tools/api/express/test_kuaidi_poll/?code=1".format(settings.DOMAIN)

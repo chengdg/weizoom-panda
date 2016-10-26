@@ -29,20 +29,22 @@ var AddCatalogDialog = Reactman.createDialog({
 		this.setState(DialogStore.getData());
 	},
 
-	onSelectArea: function(selectedIds, selectedDatas) {
-		if(selectedIds==undefined){
+	onBeforeCloseDialog: function() {
+		var regional = this.state.regional.split('-');
+		var shipperId = this.state.shipperId;
+		var mobileReg = /^1[3|4|5|7|8][0-9]{9}$/; //验证手机
+		if(!mobileReg.test(this.state.telNumber)){
+			Reactman.PageAction.showHint('error', '请输入有效的手机号!');
 			return;
 		}
-        if(selectedIds.length == 0){
-            Reactman.PageAction.showHint('error', '您需要选择地区！');
-            return;
-        }
-        Action.updateArea(selectedIds);
-	},
 
-	onBeforeCloseDialog: function() {
-		console.log(this.state.shipperId);
-		var shipperId = this.state.shipperId;
+		for(var i in regional){
+			if(regional[i]=='' || regional[i]=='1'){
+				Reactman.PageAction.showHint('error', '请选择地区');
+				return;
+			}
+		}
+
 		if(shipperId!=-1){
 			Reactman.Resource.post({
 				resource: 'postage_config.shipper',
@@ -54,6 +56,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					tel_number: this.state.telNumber,
 					company_name: this.state.companyName,
 					remark: this.state.remark,
+					regional: regional.join(',')
 				},
 				success: function() {
 					this.closeDialog();
@@ -76,6 +79,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					tel_number: this.state.telNumber,
 					company_name: this.state.companyName,
 					remark: this.state.remark,
+					regional: regional.join(',')
 				},
 				success: function() {
 					this.closeDialog();
@@ -96,9 +100,9 @@ var AddCatalogDialog = Reactman.createDialog({
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
-					<fieldset>
+					<fieldset className="xui-shipper">
 						<Reactman.FormInput type="text" label="发货人:" name="shipperName" validate="require-notempty" value={this.state.shipperName} onChange={this.onChange} />
-						<Reactman.FormAreaSelect label="区域:" name="regional" resource='account.regional' onChange={this.onChange}/>
+						<Reactman.FormAreaSelect label="区域:" name="regional" resource='account.regional' validate="require-notempty" value={this.state.regional} onChange={this.onChange}/>
 						<Reactman.FormInput type="text" label="详细地址:" name="address" validate="require-notempty" placeholder="街道楼号详细地址" value={this.state.address} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="邮政编码:" name="postcode" validate="" value={this.state.postcode} onChange={this.onChange} />
 						<Reactman.FormInput type="text" label="发货人手机号:" name="telNumber" validate="require-notempty" value={this.state.telNumber} onChange={this.onChange} />

@@ -24,7 +24,8 @@ var DialogStore = StoreUtil.createStore(Dispatcher, {
 		this.data = {
 			'shipperId': -1,
 			'expressId': -1,
-			'expressName': -1
+			'expressName': -1,
+			'regional': ''
 		};
 	},
 
@@ -34,7 +35,7 @@ var DialogStore = StoreUtil.createStore(Dispatcher, {
 	},
 
 	handleGetData: function(action){
-		console.log(action.data.rows[0],"+++++++++");
+		console.log(action.data.rows[0],"+++++ssss++++");
 		this.data = action.data.rows[0];
 		this.__emitChange();
 	},

@@ -9,7 +9,6 @@ var ReactDOM = require('react-dom');
 
 var Reactman = require('reactman');
 
-// var AccountTableStore = require('./AccountTableStore');
 var DialogStore = require('./DialogStore');
 var Constant = require('./Constant');
 var Action = require('./Action');
@@ -31,7 +30,6 @@ var AddCatalogDialog = Reactman.createDialog({
 
 	onBeforeCloseDialog: function() {
 		var expressId = this.state.expressId;
-		console.log(this.state.expressId,"44444444");
 		if(this.state.expressName == -1){
 			Reactman.PageAction.showHint('error', '请选择物流公司 !');
 		}
@@ -46,6 +44,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					customer_pwd: this.state.customerPwd,
 					logistics_number: this.state.logisticsNumber,
 					remark: this.state.remark,
+					sendsite: this.state.sendsite
 				},
 				success: function() {
 					this.closeDialog();
@@ -67,6 +66,7 @@ var AddCatalogDialog = Reactman.createDialog({
 					customer_pwd: this.state.customerPwd,
 					logistics_number: this.state.logisticsNumber,
 					remark: this.state.remark,
+					sendsite: this.state.sendsite
 				},
 				success: function() {
 					this.closeDialog();
@@ -127,11 +127,12 @@ var AddCatalogDialog = Reactman.createDialog({
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
-					<fieldset>
+					<fieldset className="xui-express-account">
 						<Reactman.FormSelect label="快递公司:" name="expressName" validate="require-notempty" value={this.state.expressName} options={options} onChange={this.onChange}/>
-						<Reactman.FormInput type="text" label="CustomerName:" name="customerName" validate="require-notempty" placeholder="商户代码/编号/ID，此信息由快递网点开通" value={this.state.customerName} onChange={this.onChange} />
-						<Reactman.FormInput type="text" label="CustomerPwd:" name="customerPwd" validate="require-notempty" placeholder="客户密码/密钥，此信息由快递网点开通" value={this.state.customerPwd} onChange={this.onChange} />
-						<Reactman.FormInput type="text" label="物流月结号:" name="logisticsNumber" validate="" value={this.state.logisticsNumber} onChange={this.onChange} />
+						<Reactman.FormInput type="text" label="CustomerName" name="customerName" placeholder="商户代码/编号/ID，此信息由快递网点开通" value={this.state.customerName} onChange={this.onChange} />
+						<Reactman.FormInput type="text" label="CustomerPwd" name="customerPwd" placeholder="客户密码/密钥，此信息由快递网点开通" value={this.state.customerPwd} onChange={this.onChange} />
+						<Reactman.FormInput type="text" label="monthcode" name="logisticsNumber" placeholder="密钥串/月结号，此信息由圆通/顺丰网点开通" value={this.state.logisticsNumber} onChange={this.onChange} />
+						<Reactman.FormInput type="text" label="sendsite" name="sendsite" placeholder="网点名称" value={this.state.sendsite} onChange={this.onChange} />
 						<Reactman.FormText type="text" label="备注:" name="remark" value={this.state.remark} onChange={this.onChange} inDialog={true} width={300} height={200}/>
 					</fieldset>
 				</form>

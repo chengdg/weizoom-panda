@@ -31,7 +31,6 @@ var ChooseExpressCompanyDialog = Reactman.createDialog({
 	onBeforeCloseDialog: function() {
 		var orderIds = this.props.data.orderIds;
 		var expressId = this.state.expressName;
-		console.log(orderIds,"++++++++");
 		if(expressName!=-1){
 			Reactman.Resource.get({
 				resource: 'order.print_eorder',
@@ -41,7 +40,6 @@ var ChooseExpressCompanyDialog = Reactman.createDialog({
 				},
 				success: function(res) {
 					this.closeDialog();
-					console.log(res,"--ssss--");
 					_.delay(function(){
 						Dispatcher.dispatch({
 							actionType: Constant.ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER,

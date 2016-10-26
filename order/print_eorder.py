@@ -26,24 +26,24 @@ class PrintEorder(resource.Resource):
 
 		express_id = request.GET.get('express_id','')
 		order_ids = request.GET.get('order_ids','')
-		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False)
+		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_active=True, is_deleted=False)
 		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(id=express_id, is_deleted=False)
 		
 		sender = {
 			"Name" : shipper_messages[0].shipper_name,
 			"Mobile" : shipper_messages[0].tel_number,
-			"ProvinceName" : '上海',
-			"CityName" : '上海',
-			"ExpAreaName" : '青浦区',
+			"ProvinceName" : shipper_messages[0].province,
+			"CityName" : shipper_messages[0].city,
+			"ExpAreaName" : shipper_messages[0].district,
 			"Address" : shipper_messages[0].address,
 		}
 
 		CustomerName = express_bill_accounts[0].customer_name
 		CustomerPwd = express_bill_accounts[0].customer_pwd
+		MonthCode = express_bill_accounts[0].logistics_number
+		SendSite = express_bill_accounts[0].sendsite
 		express_company_name_value = express_bill_accounts[0].express_name
 
-		items = []
-		delivery_param = []
 		templates = []
 		order_ids = order_ids.split(',')
 		#order_ids = request.GET.get('order_ids', '')
@@ -72,10 +72,10 @@ class PrintEorder(resource.Resource):
 
 			orderCode = orders[0]['order_id']
 			order_id = orders[0]['id']
-			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd)
+			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite)
 
 			is_success, template, express_order = eorder.get_express_eorder()
-			print is_success,"========"
+			print is_success,"====is_success===="
 			templates.append({'template': template})
 
 		data = {
