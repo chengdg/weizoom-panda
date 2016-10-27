@@ -193,7 +193,7 @@ class KdniaoExpressEorder(object):
 			return True, print_template,express_order
 		else:
 			if data and data.get('Reason'):
-				print "Reason:",data.get('Reason')
+				print "error"
 
 				watchdog.watchdog_error(u'发送快递鸟 电子面单请求存在问题，url:{},订单id:{},原因:{}'.format(KdniaoExpressConfig.eorder_url,
 					self.order_id,

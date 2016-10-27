@@ -71,7 +71,7 @@ class CustomerOrdersList(resource.Resource):
 		"""
 		jsons = {'items':[]}
 		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(owner=request.user, is_deleted=False)
-		
+		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False)
 		options_for_express = []
 		options_for_express.append({
 			'text': u'请选择',
@@ -82,8 +82,12 @@ class CustomerOrdersList(resource.Resource):
 				'text': options2text[express_bill_account.express_name],
 				'value': express_bill_account.id,
 				})
-		
+
+		hasShipper = {
+			'hasShipper': True if shipper_messages else False
+		}
 		jsons['items'].append(('optionsForExpress', json.dumps(options_for_express)))
+		jsons['items'].append(('hasShipper', json.dumps(hasShipper)))
 		c = RequestContext(request, {
 			'jsons': jsons,
 			'first_nav_name': FIRST_NAV,

@@ -29,8 +29,13 @@ var ChooseExpressCompanyDialog = Reactman.createDialog({
 	},
 
 	onBeforeCloseDialog: function() {
+		var hasShipper = this.state.hasShipper;
 		var orderIds = this.props.data.orderIds;
 		var expressId = this.state.expressName;
+		if(!hasShipper){
+			Reactman.PageAction.showHint('error', '请先去添加发货人!');
+			return false;
+		}
 		if(expressId==-1){
 			Reactman.PageAction.showHint('error', '请先选择快递公司!');
 			return false;

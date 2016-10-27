@@ -40490,8 +40490,13 @@
 		},
 
 		onBeforeCloseDialog: function () {
+			var hasShipper = this.state.hasShipper;
 			var orderIds = this.props.data.orderIds;
 			var expressId = this.state.expressName;
+			if (!hasShipper) {
+				Reactman.PageAction.showHint('error', '请先去添加发货人!');
+				return false;
+			}
 			if (expressId == -1) {
 				Reactman.PageAction.showHint('error', '请先选择快递公司!');
 				return false;
@@ -40561,8 +40566,11 @@
 				optionsForExpress: []
 			};
 			var optionsForExpress = Reactman.loadJSON('optionsForExpress');
+			var hasShipper = Reactman.loadJSON('hasShipper');
+			console.log(hasShipper['hasShipper'], "====");
 			if (optionsForExpress) {
 				this.data['optionsForExpress'] = optionsForExpress;
+				this.data['hasShipper'] = hasShipper['hasShipper'];
 			}
 		},
 
@@ -45358,7 +45366,12 @@
 			});
 		},
 
-		deleteShipper: function (shipperId, event) {
+		deleteShipper: function (shipperId, isActive, event) {
+			if (isActive) {
+				Reactman.PageAction.showHint('error', '默认的发货人不能被删除!');
+				return;
+			}
+
 			Reactman.PageAction.showConfirm({
 				target: event.target,
 				title: '确定删除么？',
@@ -45413,7 +45426,7 @@
 						),
 						React.createElement(
 							'a',
-							{ href: 'javascript:void(0);', onClick: this.deleteShipper.bind(this, shipperId) },
+							{ href: 'javascript:void(0);', onClick: this.deleteShipper.bind(this, shipperId, isActive) },
 							'\u5220\u9664'
 						)
 					);
@@ -45443,7 +45456,7 @@
 						),
 						React.createElement(
 							'a',
-							{ href: 'javascript:void(0);', onClick: this.deleteShipper.bind(this, shipperId) },
+							{ href: 'javascript:void(0);', onClick: this.deleteShipper.bind(this, shipperId, isActive) },
 							'\u5220\u9664'
 						)
 					);

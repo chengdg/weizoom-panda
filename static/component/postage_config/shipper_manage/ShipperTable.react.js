@@ -39,7 +39,12 @@ var ShipperTable = React.createClass({
 		});
 	},
 
-	deleteShipper: function(shipperId, event){
+	deleteShipper: function(shipperId, isActive, event){
+		if(isActive){
+			Reactman.PageAction.showHint('error', '默认的发货人不能被删除!');
+			return;
+		}
+		
 		Reactman.PageAction.showConfirm({
 			target: event.target, 
 			title: '确定删除么？',
@@ -83,7 +88,7 @@ var ShipperTable = React.createClass({
 					<div>
 						<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
 						<span className="xui-split-line">|</span>
-						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
+						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId, isActive)}>删除</a>
 					</div>
 				)
 			}else{
@@ -93,7 +98,7 @@ var ShipperTable = React.createClass({
 						<span className="xui-split-line">|</span>
 						<a href="javascript:void(0);" onClick={this.editShipper.bind(this, shipperId)}>编辑</a>
 						<span className="xui-split-line">|</span>
-						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId)}>删除</a>
+						<a href="javascript:void(0);" onClick={this.deleteShipper.bind(this, shipperId, isActive)}>删除</a>
 					</div>
 				)
 			}	
