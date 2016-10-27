@@ -25,7 +25,6 @@ var ChooseExpressStore = StoreUtil.createStore(Dispatcher, {
 		};
 		var optionsForExpress = Reactman.loadJSON('optionsForExpress');
 		var hasShipper = Reactman.loadJSON('hasShipper');
-		console.log(hasShipper['hasShipper'],"====");
 		if(optionsForExpress){
 			this.data['optionsForExpress'] = optionsForExpress;
 			this.data['hasShipper'] = hasShipper['hasShipper'];

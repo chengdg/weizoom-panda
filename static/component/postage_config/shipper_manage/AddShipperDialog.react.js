@@ -41,7 +41,7 @@ var AddCatalogDialog = Reactman.createDialog({
 			return;
 		}
 
-		if(this.state.postcode!=undefined && !postcodeReg.test(this.state.postcode)){
+		if((this.state.postcode!=undefined && this.state.postcode.length!=0) && !postcodeReg.test(this.state.postcode)){
 			Reactman.PageAction.showHint('error', '请输入有效的邮政编码!');
 			return;
 		}
@@ -52,7 +52,7 @@ var AddCatalogDialog = Reactman.createDialog({
 				return;
 			}
 		}
-		
+
 		if(shipperId!=-1){
 			Reactman.Resource.post({
 				resource: 'postage_config.shipper',

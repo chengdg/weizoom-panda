@@ -98,7 +98,7 @@ class KdniaoExpressEorder(object):
 	result: "true"表示成功，false表示失败
 	'''
 	
-	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite):
+	def __init__(self, orderCode, express_company_name, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode):
 		"""
 		orderCode:订单号
 		sender：发件人信息，dict
@@ -114,6 +114,7 @@ class KdniaoExpressEorder(object):
 		self.CustomerPwd = CustomerPwd
 		self.MonthCode = MonthCode
 		self.SendSite = SendSite
+		self.LogisticCode = LogisticCode
 		self.order_id = order_id #watch_dog中记录使用
 		self.Business_id = KdniaoExpressConfig.EBusiness_id
 		self.api_key = KdniaoExpressConfig.api_key
@@ -133,6 +134,7 @@ class KdniaoExpressEorder(object):
 			"CustomerPwd": self.CustomerPwd,
 			"MonthCode": self.MonthCode,
 			"SendSite": self.SendSite,
+			"LogisticCode": self.LogisticCode,
 			"Sender": self.sender,
 			"Receiver": self.receiver,
 			"Commodity": self.commodity,

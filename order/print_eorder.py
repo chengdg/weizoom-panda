@@ -72,7 +72,8 @@ class PrintEorder(resource.Resource):
 
 			orderCode = orders[0]['order_id']
 			order_id = orders[0]['id']
-			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite)
+			LogisticCode = orders[0]['express_number']
+			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode)
 
 			is_success, template, express_order, reason = eorder.get_express_eorder()
 			print is_success,"====is_success===="

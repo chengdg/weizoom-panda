@@ -40577,7 +40577,6 @@
 			};
 			var optionsForExpress = Reactman.loadJSON('optionsForExpress');
 			var hasShipper = Reactman.loadJSON('hasShipper');
-			console.log(hasShipper['hasShipper'], "====");
 			if (optionsForExpress) {
 				this.data['optionsForExpress'] = optionsForExpress;
 				this.data['hasShipper'] = hasShipper['hasShipper'];
@@ -45103,7 +45102,7 @@
 				return;
 			}
 
-			if (this.state.postcode != undefined && !postcodeReg.test(this.state.postcode)) {
+			if (this.state.postcode != undefined && this.state.postcode.length != 0 && !postcodeReg.test(this.state.postcode)) {
 				Reactman.PageAction.showHint('error', '请输入有效的邮政编码!');
 				return;
 			}
