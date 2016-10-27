@@ -74,7 +74,7 @@ class Shipper(resource.Resource):
 		city = regional[1]
 		district = regional[2]
 
-		shipper_messages = models.ShipperMessages.objects.filter(is_active=True, is_deleted=False)
+		shipper_messages = models.ShipperMessages.objects.filter(owner_id=request.user.id, is_active=True, is_deleted=False)
 		models.ShipperMessages.objects.create(
 			owner = request.user,
 			shipper_name = shipper_name,

@@ -37,7 +37,7 @@ class PostageList(resource.Resource):
 	@login_required
 	def api_post(request):
 		shipper_id = request.POST.get('shipper_id',-1)
-		models.ShipperMessages.objects.filter(is_active=True, is_deleted=False).update(is_active=False)
-		models.ShipperMessages.objects.filter(id=shipper_id, is_deleted=False).update(is_active=True)
+		models.ShipperMessages.objects.filter(owner_id=request.user.id, is_active=True).update(is_active=False)
+		models.ShipperMessages.objects.filter(id=shipper_id, is_deleted=False, owner_id=request.user.id).update(is_active=True)
 		response = create_response(200)
 		return response.get_response()

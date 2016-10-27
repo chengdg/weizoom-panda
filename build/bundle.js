@@ -55783,6 +55783,7 @@
 	            ),
 	            value
 	          )
+<<<<<<< HEAD
 	        );
 	      } else {
 	        return React.createElement(
@@ -55809,6 +55810,34 @@
 	          { className: 'grey_text' },
 	          value
 	        );
+=======
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'bold_text' },
+	          value
+	        );
+	      }
+	    } else {
+	      if (field === 'title') {
+	        var href = '/message/read_message?message_id=' + data.id;
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          React.createElement(
+	            'a',
+	            { href: href, className: 'href_color_gray' },
+	            value
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'grey_text' },
+	          value
+	        );
+>>>>>>> f_default_shipper
 	      }
 	    }
 	  },
