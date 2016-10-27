@@ -18,10 +18,11 @@ class KdniaoExpressConfig(object):
 	# 快递鸟订阅请求地址（测试）(无论bdd还是真实环境都是这个url)
 	req_url="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
 	#电子面单地址
+	#http://testapi.kdniao.cc:8081/api/eorderservice 测试地址(不稳定)
 	if 'develop' == MODE:
-		eorder_url = 'http://testapi.kdniao.cc:8081/api/eorderservice'
+		eorder_url = 'http://api.kdniao.cc/api/EOrderService'
 	elif 'test' == MODE:
-		eorder_url = 'http://testapi.kdniao.cc:8081/api/eorderservice'
+		eorder_url = 'http://api.kdniao.cc/api/EOrderService'
 	else:
 		eorder_url = 'http://api.kdniao.cc/api/EOrderService'
 

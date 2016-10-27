@@ -31,7 +31,11 @@ var ChooseExpressCompanyDialog = Reactman.createDialog({
 	onBeforeCloseDialog: function() {
 		var orderIds = this.props.data.orderIds;
 		var expressId = this.state.expressName;
-		if(expressName!=-1){
+		if(expressId==-1){
+			Reactman.PageAction.showHint('error', '请先选择快递公司!');
+			return false;
+		}
+		if(expressId!=-1){
 			Reactman.Resource.get({
 				resource: 'order.print_eorder',
 				data: {

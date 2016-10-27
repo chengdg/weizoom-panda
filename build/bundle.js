@@ -40492,7 +40492,11 @@
 		onBeforeCloseDialog: function () {
 			var orderIds = this.props.data.orderIds;
 			var expressId = this.state.expressName;
-			if (expressName != -1) {
+			if (expressId == -1) {
+				Reactman.PageAction.showHint('error', '请先选择快递公司!');
+				return false;
+			}
+			if (expressId != -1) {
 				Reactman.Resource.get({
 					resource: 'order.print_eorder',
 					data: {
@@ -45065,8 +45069,16 @@
 			var regional = this.state.regional.split('-');
 			var shipperId = this.state.shipperId;
 			var mobileReg = /^1[3|4|5|7|8][0-9]{9}$/; //验证手机
+			var postcodeReg = /^\+?[0-9][0-9]*$/; //验证非0正整数
+
+
 			if (!mobileReg.test(this.state.telNumber)) {
 				Reactman.PageAction.showHint('error', '请输入有效的手机号!');
+				return;
+			}
+
+			if (this.state.postcode != undefined && !postcodeReg.test(this.state.postcode)) {
+				Reactman.PageAction.showHint('error', '请输入有效的邮政编码!');
 				return;
 			}
 
