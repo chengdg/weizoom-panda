@@ -18,7 +18,7 @@ var OrderPrintPage = Reactman.createDialog({
 		if(templates.length>0) {
 			orderPage = templates.map(function(template, index){
 				return(
-					<div key={index} dangerouslySetInnerHTML={{__html: template.template}}></div>	
+					<div style={{marginBottom:'50px'}} key={index} dangerouslySetInnerHTML={{__html: template.template}}></div>	
 				)
 			})
 		}

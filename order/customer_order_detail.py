@@ -154,11 +154,12 @@ def getOrderDetail(order_id, request):
 	express_details = ''
 	if data:
 		express_details = json.dumps(data['express_details']) if data['express_details'] else ''
-	status = '' if not data else data['status']
+	status = -1 if not data else data['status']
 	orders = [{
 		'id': '' if not data else data['id'],#订单编号
 		'order_id': '' if not data else data['order_id'],#订单编号
 		'order_status': '' if status not in order_status2text else order_status2text[status],#订单状态
+		'status': status,#订单状态
 		'order_express_details': express_details,#订单物流
 		'ship_name': '' if not data else data['ship_name'],#收货人
 		'ship_tel': '' if not data else data['ship_tel'],#收货人电话
