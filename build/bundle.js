@@ -40630,7 +40630,7 @@
 
 
 	// module
-	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}\r\n.col-sm-7.xa-inputs {\r\n    width: auto;\r\n}\r\n\r\n.alert-danger center{\r\n\ttext-align: center;\r\n}", ""]);
+	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}\r\n.col-sm-7.xa-inputs {\r\n    width: auto;\r\n}\r\n\r\n.alert-danger center{\r\n\ttext-align: center;\r\n}\r\n\r\n.xui-print-eorder{\r\n\tfloat: left;\r\n}\r\n\r\n.xui-print-eorder a{\r\n\tmargin-left: 0px !important;\r\n}", ""]);
 
 	// exports
 
@@ -41242,7 +41242,11 @@
 					React.createElement(
 						Reactman.TableActionBar,
 						null,
-						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u6253\u5370\u9762\u5355', onClick: this.printExpressOrder }),
+						React.createElement(
+							'div',
+							{ className: 'xui-print-eorder' },
+							React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u6253\u5370\u9762\u5355', onClick: this.printExpressOrder })
+						),
 						React.createElement(Reactman.TableActionButton, { text: '\u6279\u91CF\u53D1\u8D27', onClick: this.onOrderBatchDelivery }),
 						React.createElement(Reactman.TableActionButton, { text: '\u5BFC\u51FA', onClick: this.onExport })
 					),

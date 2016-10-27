@@ -254,7 +254,7 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
-					<Reactman.TableActionButton text="批量打印面单" onClick={this.printExpressOrder}/>
+					<div className="xui-print-eorder"><Reactman.TableActionButton text="批量打印面单" onClick={this.printExpressOrder}/></div>
 					<Reactman.TableActionButton text="批量发货" onClick={this.onOrderBatchDelivery}/>
 					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>

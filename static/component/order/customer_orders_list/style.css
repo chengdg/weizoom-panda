@@ -24,3 +24,11 @@ img {
 .alert-danger center{
 	text-align: center;
 }
+
+.xui-print-eorder{
+	float: left;
+}
+
+.xui-print-eorder a{
+	margin-left: 0px !important;
+}
