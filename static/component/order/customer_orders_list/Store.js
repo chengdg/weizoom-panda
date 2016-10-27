@@ -67,6 +67,15 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['templates'] = templates;
 		this.data['isSuccess'] = isSuccess;
 		this.data['reason'] = reason;
+		if(!isSuccess){
+			_.delay(function(){
+				Reactman.PageAction.showHint('error', reason);
+			},500)
+		}else{
+			this.data['canPrint'] = true;
+		}
+		this.__emitChange();
+		
 	},
 
 	handleCanPrintTrue: function(action){

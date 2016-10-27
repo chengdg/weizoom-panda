@@ -40892,6 +40892,14 @@
 			this.data['templates'] = templates;
 			this.data['isSuccess'] = isSuccess;
 			this.data['reason'] = reason;
+			if (!isSuccess) {
+				_.delay(function () {
+					Reactman.PageAction.showHint('error', reason);
+				}, 500);
+			} else {
+				this.data['canPrint'] = true;
+			}
+			this.__emitChange();
 		},
 
 		handleCanPrintTrue: function (action) {
@@ -41027,7 +41035,7 @@
 					orderIds: orderIds.join(",")
 				},
 				success: function (inputData, dialogState) {
-					Action.pagePrintTrue(true);
+					// Action.pagePrintTrue(true);
 				}
 			});
 		},
