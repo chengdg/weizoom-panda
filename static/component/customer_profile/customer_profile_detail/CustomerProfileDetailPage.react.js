@@ -3,7 +3,7 @@
  */
 "use strict";
 
-var debug = require('debug')('m:customer_profile.list_customer_profile:ListCustomerProfilePage');
+var debug = require('debug')('m:customer_profile.customer_profile_detail:CustomerProfileDetailPage');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
@@ -14,10 +14,9 @@ var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
 
-var ListCustomerProfilePage = React.createClass({
+var CustomerProfileDetailPage = React.createClass({
 	getInitialState: function() {
-		Store.addListener(this.onChangeStore);
-		return Store.getData();
+		return {};
 	},
 
 	onChangeStore: function(event) {
@@ -26,24 +25,22 @@ var ListCustomerProfilePage = React.createClass({
 	},
 
 	rowFormatter: function(field, value, data) {
-		if (field === 'companyName') {
-			return (
-				<a href={'/customer_profile/detail/?account_id='+data.id}>{value}</a>
-			)
-		} else {
+		// if (field === 'companyName') {
+		// 	return (
+		// 		<a href={'/customer_profile/detail/?account_id='+data.id}>{value}</a>
+		// 	)
+		// } else {
 			return value;
-		}
+		// }
 	},
 
 	onConfirmFilter: function(data) {
 		Action.filterAccounts(data);
 	},
-	onExport: function(){
-		Action.exportAccounts();
-	},
+
 	render:function(){
 		var productsResource = {
-			resource: 'customer_profile.list',
+			resource: 'customer_profile.detail',
 			data: {
 				page: 1
 			}
@@ -110,4 +107,4 @@ var ListCustomerProfilePage = React.createClass({
 		)
 	}
 })
-module.exports = ListCustomerProfilePage;
+module.exports = CustomerProfileDetailPage;

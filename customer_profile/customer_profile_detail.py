@@ -31,9 +31,9 @@ filter2field = {
 }
 
 #账号管理列表
-class CustomerProfileList(resource.Resource):
+class CustomerProfileDetail(resource.Resource):
 	app = 'customer_profile'
-	resource = 'list'
+	resource = 'detail'
 
 	@login_required
 	def get(request):
@@ -46,12 +46,14 @@ class CustomerProfileList(resource.Resource):
 			'second_nav_name': SECOND_NAV
 		})
 		
-		return render_to_response('customer_profile/list_customer_profile.html', c)
+		return render_to_response('customer_profile/customer_profile_detail.html', c)
 
 	@login_required
 	def api_get(request):
 		cur_page = request.GET.get('page', 1)
-		accounts = UserProfile.objects.filter(is_active=True, role=CUSTOMER).order_by('-id')
+		account_id = request.GET.get('account_id', 1)
+		print account_id
+		accounts = UserProfile.objects.filter(id=account_id)
 		catalogs = catalog_models.ProductCatalog.objects.filter(father_id=-1)
 		catalog_id2name = dict((catalog.id,catalog.name) for catalog in catalogs)
 
