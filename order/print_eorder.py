@@ -46,8 +46,6 @@ class PrintEorder(resource.Resource):
 
 		templates = []
 		order_ids = order_ids.split(',')
-		#order_ids = request.GET.get('order_ids', '')
-		# orders = Order.objects.filter(id__in=[int(id) for id in order_ids], status=3)#待发货的订单
 		for order_id in order_ids:
 			commodity = [] #需传递的商品信息
 			orders = getOrderDetail(order_id, request)
@@ -69,15 +67,16 @@ class PrintEorder(resource.Resource):
 				"ExpAreaName" : ExpAreaName,
 				"Address" : orders[0]['ship_address']
 			}
-
 			orderCode = orders[0]['order_id']
 			order_id = orders[0]['id']
 			LogisticCode = orders[0]['express_number']
-			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode)
 
-			is_success, template, express_order, reason = eorder.get_express_eorder()
-			print is_success,"====is_success===="
-			templates.append({'template': template})
+			#订单状态 待发货
+			status = orders[0]['status']
+			if status==3:
+				eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode)
+				is_success, template, express_order, reason = eorder.get_express_eorder()
+				templates.append({'template': template})
 
 		data = {
 			'templates': json.dumps(templates),

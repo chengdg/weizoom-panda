@@ -312,6 +312,7 @@ class CustomerOrdersList(resource.Resource):
 						'ship_name': order['ship_name'],
 						'total_purchase_price': str('%.2f' % total_purchase_price),
 						'status': order_status2text[order['status']],
+						'order_status': order['status'],
 						'product_infos': json.dumps(product_infos),
 						'express_company_name': order['express_company_name'],
 						'express_number': order['express_number'],
