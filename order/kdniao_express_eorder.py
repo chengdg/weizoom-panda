@@ -190,7 +190,7 @@ class KdniaoExpressEorder(object):
 			with open('order.html', 'w') as f:
 				f.write(print_template)
 			print "success"
-			return True, print_template,express_order
+			return True, print_template,express_order,data.get('Reason')
 		else:
 			if data and data.get('Reason'):
 				print "error"
@@ -198,6 +198,6 @@ class KdniaoExpressEorder(object):
 				watchdog.watchdog_error(u'发送快递鸟 电子面单请求存在问题，url:{},订单id:{},原因:{}'.format(KdniaoExpressConfig.eorder_url,
 					self.order_id,
 					data.get('Reason')), "EXPRESS")
-			return False, '', {}
+			return False, '', {}, data.get('Reason')
 
 

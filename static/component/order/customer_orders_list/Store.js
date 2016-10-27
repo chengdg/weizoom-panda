@@ -21,7 +21,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
 		'handleOrderUpdateShip':Constant.ORDER_DATAS_UPDATE_SHIP,
 		'handlePrintOrder': Constant.ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER,
-		'handleCanPRint': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT
+		'handleCanPrintTrue': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE,
+		'handleCanPrintFalse': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE
 	},
 
 	init: function() {
@@ -62,20 +63,27 @@ var Store = StoreUtil.createStore(Dispatcher, {
 	handlePrintOrder: function(action){
 		var templates = action.data['templates'];
 		var isSuccess = action.data['is_success'];
+		var reason = action.data['reason'];
 		this.data['templates'] = templates;
 		this.data['isSuccess'] = isSuccess;
+		this.data['reason'] = reason;
 	},
 
-	handleCanPRint: function(action){
+	handleCanPrintTrue: function(action){
 		var isSuccess = this.data.isSuccess;
+		var reason = this.data.reason;
 		if(!isSuccess){
 			_.delay(function(){
-				Reactman.PageAction.showHint('error', '打印失败!');
+				Reactman.PageAction.showHint('error', reason);
 			},500)
 		}else{
 			this.data['canPrint'] = action.data.canPrint;
 		}
 		this.__emitChange();
+	},
+
+	handleCanPrintFalse: function(action){
+		this.data['canPrint'] = action.data.canPrint;
 	},
 
 	getData: function() {

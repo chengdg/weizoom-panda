@@ -40423,9 +40423,18 @@
 			});
 		},
 
-		pagePrint: function (canPrint) {
+		pagePrintTrue: function (canPrint) {
 			Dispatcher.dispatch({
-				actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT,
+				actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE,
+				data: {
+					canPrint: canPrint
+				}
+			});
+		},
+
+		pagePrintFalse: function (canPrint) {
+			Dispatcher.dispatch({
+				actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE,
 				data: {
 					canPrint: canPrint
 				}
@@ -40452,7 +40461,8 @@
 		ORDER_DATAS_EXPORT: null,
 		ORDER_DATAS_UPDATE_SHIP: null,
 		ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER: null,
-		ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT: null
+		ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE: null,
+		ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE: null
 	});
 
 /***/ },
@@ -40494,7 +40504,7 @@
 			var orderIds = this.props.data.orderIds;
 			var expressId = this.state.expressName;
 			if (!hasShipper) {
-				Reactman.PageAction.showHint('error', '请先去添加发货人!');
+				Reactman.PageAction.showHint('error', '请先去添加并设置默认发货人!');
 				return false;
 			}
 			if (expressId == -1) {
@@ -40621,7 +40631,7 @@
 
 
 	// module
-	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}\r\n.col-sm-7.xa-inputs {\r\n    width: auto;\r\n}", ""]);
+	exports.push([module.id, ".orders-list-btn-group a{\r\n\tdisplay: block;\r\n}\r\n.modal-content{\r\n\twidth: 720px;\r\n}\r\n.orders-list-product-name{\r\n\tmargin-left: 5px;\r\n\tdisplay: inline;\r\n\tvertical-align: top;\r\n}\r\n.orders-list-model-names{\r\n\tmargin-left: 5px;\r\n\tdisplay: block;\r\n\tvertical-align: bottom;\r\n}\r\nimg {\r\n    vertical-align: bottom !important;\r\n}\r\n.col-sm-7.xa-inputs {\r\n    width: auto;\r\n}\r\n\r\n.alert-danger center{\r\n\ttext-align: center;\r\n}", ""]);
 
 	// exports
 
@@ -40837,7 +40847,8 @@
 			'handleOrderDatasExport': Constant.ORDER_DATAS_EXPORT,
 			'handleOrderUpdateShip': Constant.ORDER_DATAS_UPDATE_SHIP,
 			'handlePrintOrder': Constant.ORDER_CUSTOMER_ORDER_LIST_PRINT_ORDER,
-			'handleCanPRint': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT
+			'handleCanPrintTrue': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE,
+			'handleCanPrintFalse': Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE
 		},
 
 		init: function () {
@@ -40878,20 +40889,27 @@
 		handlePrintOrder: function (action) {
 			var templates = action.data['templates'];
 			var isSuccess = action.data['is_success'];
+			var reason = action.data['reason'];
 			this.data['templates'] = templates;
 			this.data['isSuccess'] = isSuccess;
+			this.data['reason'] = reason;
 		},
 
-		handleCanPRint: function (action) {
+		handleCanPrintTrue: function (action) {
 			var isSuccess = this.data.isSuccess;
+			var reason = this.data.reason;
 			if (!isSuccess) {
 				_.delay(function () {
-					Reactman.PageAction.showHint('error', '打印失败!');
+					Reactman.PageAction.showHint('error', reason);
 				}, 500);
 			} else {
 				this.data['canPrint'] = action.data.canPrint;
 			}
 			this.__emitChange();
+		},
+
+		handleCanPrintFalse: function (action) {
+			this.data['canPrint'] = action.data.canPrint;
 		},
 
 		getData: function () {
@@ -41010,7 +41028,7 @@
 					orderIds: orderIds.join(",")
 				},
 				success: function (inputData, dialogState) {
-					Action.pagePrint(true);
+					Action.pagePrintTrue(true);
 				}
 			});
 		},
@@ -41025,7 +41043,7 @@
 				$('.order-print-page').show();
 				$('.order-print-page').printArea();
 				_.delay(function () {
-					Action.pagePrint(false);
+					Action.pagePrintFalse(false);
 				}, 10);
 			}
 		},

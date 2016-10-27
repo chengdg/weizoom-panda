@@ -74,13 +74,14 @@ class PrintEorder(resource.Resource):
 			order_id = orders[0]['id']
 			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite)
 
-			is_success, template, express_order = eorder.get_express_eorder()
+			is_success, template, express_order, reason = eorder.get_express_eorder()
 			print is_success,"====is_success===="
 			templates.append({'template': template})
 
 		data = {
 			'templates': json.dumps(templates),
-			'is_success': is_success
+			'is_success': is_success,
+			'reason': reason
 		}
 		response = create_response(200)
 		response.data = data

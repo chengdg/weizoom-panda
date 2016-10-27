@@ -20,3 +20,7 @@ img {
 .col-sm-7.xa-inputs {
     width: auto;
 }
+
+.alert-danger center{
+	text-align: center;
+}

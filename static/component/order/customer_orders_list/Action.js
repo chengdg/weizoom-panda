@@ -80,9 +80,18 @@ var Action = {
 		});
 	},
 
-	pagePrint: function(canPrint){
+	pagePrintTrue: function(canPrint){
 		Dispatcher.dispatch({
-			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT,
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE,
+			data: {
+				canPrint: canPrint
+			}
+		});
+	},
+
+	pagePrintFalse: function(canPrint){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE,
 			data: {
 				canPrint: canPrint
 			}

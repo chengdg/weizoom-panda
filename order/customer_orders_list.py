@@ -71,7 +71,7 @@ class CustomerOrdersList(resource.Resource):
 		"""
 		jsons = {'items':[]}
 		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(owner=request.user, is_deleted=False)
-		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False)
+		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False, is_active=True)
 		options_for_express = []
 		options_for_express.append({
 			'text': u'请选择',

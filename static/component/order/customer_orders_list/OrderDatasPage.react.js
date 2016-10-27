@@ -101,7 +101,7 @@ var OrderDatasPage = React.createClass({
 				orderIds: orderIds.join(",")
 			},
 			success: function(inputData, dialogState) {
-				Action.pagePrint(true);
+				Action.pagePrintTrue(true);
 			}
 		});
 	},
@@ -116,7 +116,7 @@ var OrderDatasPage = React.createClass({
 			$('.order-print-page').show();
 			$('.order-print-page').printArea();
 			_.delay(function(){
-				Action.pagePrint(false);
+				Action.pagePrintFalse(false);
 			},10)
 		}
 	},	
