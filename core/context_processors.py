@@ -56,7 +56,7 @@ def top_navs(request):
 			# },
 			{
 				'name': 'postage_config',
-				'displayName': '运费模板',
+				'displayName': '商家设置',
 				'icon': 'glyphicon glyphicon-file',
 				'href': '/postage_config/postage_list'
 			},{

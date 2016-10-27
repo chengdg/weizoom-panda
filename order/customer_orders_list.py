@@ -25,6 +25,7 @@ from product import models as product_models
 from resource import models as resource_models
 from panda.settings import ZEUS_HOST
 from product import models as product_models
+from postage_config import models as postage_models
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 
 FIRST_NAV = 'order'
@@ -42,6 +43,20 @@ order_status2text = {
 	8: u'团购退款',
 	9: u'团购退款完成'
 }
+options2text = {
+	'yuantong': '圆通速递',
+	'zhongtong': '中通速递',
+	'shentong': '申通快递',
+	'tiantian': '天天快递',
+	'yunda': '韵达快运',
+	'huitongkuaidi': '百世快递',
+	'shunfeng': '顺丰速运',
+	'debangwuliu': '德邦物流',
+	'zhaijisong': '宅急送',
+	'youshuwuliu': '优速物流',
+	'guangdongyouzheng': '广东邮政',
+	'ems': 'EMS'
+}
 filter2field ={
 }
 
@@ -54,7 +69,27 @@ class CustomerOrdersList(resource.Resource):
 		"""
 		响应GET
 		"""
+		jsons = {'items':[]}
+		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(owner=request.user, is_deleted=False)
+		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False, is_active=True)
+		options_for_express = []
+		options_for_express.append({
+			'text': u'请选择',
+			'value': -1
+			})
+		for express_bill_account in express_bill_accounts:
+			options_for_express.append({
+				'text': options2text[express_bill_account.express_name],
+				'value': express_bill_account.id,
+				})
+
+		hasShipper = {
+			'hasShipper': True if shipper_messages else False
+		}
+		jsons['items'].append(('optionsForExpress', json.dumps(options_for_express)))
+		jsons['items'].append(('hasShipper', json.dumps(hasShipper)))
 		c = RequestContext(request, {
+			'jsons': jsons,
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV
@@ -159,6 +194,7 @@ class CustomerOrdersList(resource.Resource):
 		# print('supplier_ids:')
 		# print(supplier_ids)
 		rows = []
+		orders = []
 		if supplier_ids != '':
 			#请求接口获得数据
 			if is_for_list:
@@ -270,6 +306,7 @@ class CustomerOrdersList(resource.Resource):
 
 				if is_for_list:
 					rows.append({
+						'id': len(rows),
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],
@@ -283,6 +320,7 @@ class CustomerOrdersList(resource.Resource):
 					})
 				else:
 					rows.append({
+						'id': order_id,
 						'order_id': order_id,
 						'order_create_at': order['created_at'],
 						'ship_name': order['ship_name'],

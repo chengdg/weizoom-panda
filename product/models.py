@@ -247,6 +247,14 @@ class Province(models.Model):
 		verbose_name = '省份列表'
 		verbose_name_plural = '省份列表'
 
+class District(models.Model):
+	name = models.CharField(max_length=50)
+	city_id = models.IntegerField(db_index=True)
+
+	class Meta(object):
+		db_table = 'district'
+		verbose_name = '区县列表'
+		verbose_name_plural = '区县列表'
 
 class ProductRevokeLogs(models.Model):
 	"""

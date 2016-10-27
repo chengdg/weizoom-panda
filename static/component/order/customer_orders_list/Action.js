@@ -69,6 +69,34 @@ var Action = {
 			}
 		});
 	},
+
+	updateExpressCompany: function(property, value){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_UPDATE_EXPRESS_COMPANY,
+			data: {
+				property: property,
+				value: value
+			}
+		});
+	},
+
+	pagePrintTrue: function(canPrint){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_TRUE,
+			data: {
+				canPrint: canPrint
+			}
+		});
+	},
+
+	pagePrintFalse: function(canPrint){
+		Dispatcher.dispatch({
+			actionType: Constant.ORDER_CUSTOMER_ORDERS_LIST_CAN_PRINT_FALSE,
+			data: {
+				canPrint: canPrint
+			}
+		});
+	}
 };
 
 module.exports = Action;

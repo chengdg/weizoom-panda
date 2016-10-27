@@ -1,0 +1,73 @@
+.xui-shipperManageTable .panel-header a,
+.xui-AccountManagerTable .panel-header a{
+	float: left !important;
+    margin-left: 0px !important;
+}
+.xui-shipperManage-button{
+	display: inline-block;
+    padding: 0 5px;
+    height: 30px;
+    line-height: 30px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #FFF;
+    color: #333131;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.xui-shipperManage-button:hover{
+    background-color: rgba(25, 158, 216, 1);
+    border-color: rgba(22, 155, 213, 1);
+    color: #FFFFFF;
+    text-decoration: none !important;
+}
+
+.xui-active-btn{
+	background-color: rgba(25, 158, 216, 1);
+    border-color: rgba(22, 155, 213, 1);
+    color: #FFF !important;
+    text-decoration: none !important;
+}
+
+.xui-split-line{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.xui-formAreaSelect{
+    height: 35px;
+}
+
+.xui-formAreaSelect label{
+    width: 134px !important;
+    text-align: right;
+}
+
+.xui-i-select-container{
+    padding-left: 30px;
+}
+
+.xui-i-select-container .xui-i-select-groups{
+    display: block;
+}
+
+.xui-i-select-container .xui-i-select-groups select{
+    display: inline-block;
+    margin-left: 5px;
+    width: 98px;
+}
+
+.xui-i-select-container{
+    width: 320px;
+}
+
+.xui-express-account div div.col-sm-5, .xui-shipper div div.col-sm-5{
+    width: 340px !important;
+}
+
+.xui-express-account div select{
+    width: 160px;
+}

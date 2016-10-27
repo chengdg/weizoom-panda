@@ -15,6 +15,8 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 var ShipDialog = require('./ShipDialog.react');
 var OrderBatchDelivery = require('./OrderBatchDelivery.react');
+var ChooseExpressCompanyDialog = require('./ChooseExpressCompanyDialog.react');
+var OrderPrintPage = require('./OrderPrintPage.react'); 
 require('./style.css');
 
 var OrderDatasPage = React.createClass({
@@ -66,7 +68,6 @@ var OrderDatasPage = React.createClass({
 
 	onClickComplete: function(event) {
 		var orderId = event.target.getAttribute('data-order-id');
-		console.log(orderId);
 		Reactman.PageAction.showConfirm({
 			target: event.target,
 			title: '确认将该订单标记为完成?',
@@ -82,8 +83,25 @@ var OrderDatasPage = React.createClass({
 			component: OrderBatchDelivery,
 			data: {},
 			success: function(inputData, dialogState) {
-				console.log('success');
 				Action.updateOrderShipInformations();
+			}
+		});
+	},
+
+	printExpressOrder: function(){
+		var orderIds = _.pluck(this.refs.table.getSelectedDatas(), 'order_id');
+		if (orderIds.length == 0){
+			Reactman.PageAction.showHint('error', '请先选择要打印的订单!');
+			return false;
+		}
+		Reactman.PageAction.showDialog({
+			title: "打印电子面单",
+			component: ChooseExpressCompanyDialog,
+			data: {
+				orderIds: orderIds.join(",")
+			},
+			success: function(inputData, dialogState) {
+				// Action.pagePrintTrue(true);
 			}
 		});
 	},
@@ -92,6 +110,16 @@ var OrderDatasPage = React.createClass({
 		var filterOptions = Store.getData().filterOptions;
 		this.refs.table.refresh(filterOptions);
 	},
+ 
+	componentDidUpdate: function(){
+		if(this.state.canPrint){
+			$('.order-print-page').show();
+			$('.order-print-page').printArea();
+			_.delay(function(){
+				Action.pagePrintFalse(false);
+			},10)
+		}
+	},	
 
 	getOrderProductsInfo: function(value,data){
 		var _this = this;
@@ -202,7 +230,9 @@ var OrderDatasPage = React.createClass({
 		}];
 
 		return (
-		<div className="mt15 xui-outline-datasPage">
+		<div className="mt15 xui-order-orderDatasPage">
+			<div> <OrderPrintPage templates={this.state.templates}/></div>
+			
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>
@@ -224,10 +254,11 @@ var OrderDatasPage = React.createClass({
 
 			<Reactman.TablePanel>
 				<Reactman.TableActionBar>
+					<div className="xui-print-eorder"><Reactman.TableActionButton text="批量打印面单" onClick={this.printExpressOrder}/></div>
 					<Reactman.TableActionButton text="批量发货" onClick={this.onOrderBatchDelivery}/>
 					<Reactman.TableActionButton text="导出" onClick={this.onExport}/>
 				</Reactman.TableActionBar>
-				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} ref="table">
+				<Reactman.Table resource={ordersResource} formatter={this.rowFormatter} pagination={true} expandRow={true} enableSelector={true} ref="table">
 					<Reactman.TableColumn name="订单编号" field="order_id" />
 					<Reactman.TableColumn name="商品" field="product_name" />
 					<Reactman.TableColumn name="单价/数量" field="product_price" />
