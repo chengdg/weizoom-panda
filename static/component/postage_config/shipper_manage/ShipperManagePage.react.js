@@ -62,7 +62,7 @@ var ShipperManagePage = React.createClass({
 		return (
 			<div className="mt15 xui-shipperManage-productListPage">
 				<div className="pl15">
-					<a className="xui-shipperManage-button" style={style['accountIsActive']} href="javascript:void(0);" onClick={this.changeTable.bind(this, 'shipper')}>电子免单账号配置</a>
+					<a className="xui-shipperManage-button" style={style['accountIsActive']} href="javascript:void(0);" onClick={this.changeTable.bind(this, 'shipper')}>电子面单账号配置</a>
 					<a className="xui-shipperManage-button" style={style['shipperIsActive']} href="javascript:void(0);" onClick={this.changeTable.bind(this, 'account')}>发货人</a>
 				</div>
 				<div style={style['accountIsShow']}><AccountTable /></div>
