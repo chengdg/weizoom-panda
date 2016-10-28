@@ -8,7 +8,6 @@ Feature:运营商过滤订单信息
 	4.运营人员通过下单时间查询
 	5.运营人员通过来源商城查询
 	6.运营人员通过订单状态查询
-	7.客户通过下单时间来查询订单
 """
 
 Background
@@ -99,7 +98,7 @@ Background
 		}]
 		"""
 
-	Then aini添加商品
+	When aini添加商品
 		"""
 		[{
 		"first_classify":"生活用品",
@@ -358,19 +357,7 @@ Scenario6:运营人员通过订单状态查询
 	Then yunying获得订单列表
 		|  order_id  |product_name|   date   | order_price |freight|statute| consumer | businessman |
 
-@penda @tuxiaobao
-Scenario6:客户通过下单时间来查询订单
-	Then aini查看订单列表
-		|  order_id  |product_name|   price/num   |customer| order_price |freight| statute | date |
-		|201606121001|  武汉鸭脖  |    10.00/1.00 |        |    10.00    |  10.00| 待发货  |下单时间|
-		|201606121002|  耐克男鞋  |    29.00/1.00 |        |    29.00    |  15.00| 待发货  |下单时间|
-	When aini设置查询条件
-		"""
-		{
-		"start_time":"",
-		"end_time":""
-		}
-		"""
+
 
 
 
