@@ -478,7 +478,7 @@ Background:
 				"""
 			And bill使用支付方式'微信支付'进行支付::apiserver
 
-Scenario:1 固定底价客户查看订单列表
+Scenario:1 固定底价客户查看订单列表（运营不修改商品售价即售价和结算价相等）
 	Given gddj登录商品管理系统
 	Then gddj获得订单列表
 		"""
@@ -561,7 +561,133 @@ Scenario:1 固定底价客户查看订单列表
 		}]
 		"""
 
-Scenario:2 零售价返点客户查看订单列表
+Scenario:2 固定底价客户查看订单列表（运营修改商品售价即售价不等于结算价）
+	Given yunying登录商品管理系统
+	When yunying修改商品'固定商品1'的售价为
+		"""
+		{
+			"price":10.99
+		}
+		"""
+	When bill访问zy1的webapp::apiserver
+	When bill购买zy1的商品::apiserver
+		"""
+		{
+			"order_id":"106",
+			"date":"2016-10-17",
+			"ship_name": "bill7",
+			"ship_tel": "13811223344",
+			"ship_area": "北京市 北京市 海淀区",
+			"ship_address": "泰兴大厦",
+			"pay_type": "微信支付",
+			"products":[{
+				"name":"固定商品1",
+				"price":10.99,
+				"count":1
+			}],
+			"postage":1.00,
+			"customer_message": "bill的订单备注7"
+		}
+		"""
+	And bill使用支付方式'微信支付'进行支付::apiserver
+	#运营修改商品售价后，客户端订单列表的单价显示的仍是结算价
+	Given gddj登录商品管理系统
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"106-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1",
+					"price":10.00,
+					"count":1
+				}],
+			"ship_name": "bill7",
+			"order_money":10.00,
+			"postage":1.00,
+			"order_status":"待发货",
+			"order_time":"2016-10-17 00:00:00",
+			"actions":["发货"]
+		},{
+			"order_id":"201-自营平台2",
+			"products":
+				[{
+					"name":"固定商品1",
+					"price":10.00,
+					"count":2
+				},{
+					"name":"固定商品2",
+					"model":"黑色 S",
+					"price":21.00,
+					"count":1
+				},{
+					"name":"固定商品2",
+					"model":"白色 S",
+					"price":22.00,
+					"count":1
+				}],
+			"ship_name": "bill6",
+			"order_money":63.00,
+			"postage":7.00,
+			"order_status":"待发货",
+			"order_time":"2016-10-16 00:00:00",
+			"actions":["发货"]
+		},{
+			"order_id":"104-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1",
+					"price":10.00,
+					"count":1
+				}],
+			"ship_name": "bill4",
+			"order_money":10.00,
+			"postage":1.00,
+			"order_status":"待发货",
+			"order_time":"2016-10-14 00:00:00",
+			"actions":["发货"]
+		},{
+			"order_id":"103-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1",
+					"price":10.00,
+					"count":1
+				},{
+					"name":"固定商品2",
+					"model":"黑色 S",
+					"price":21.00,
+					"count":1
+				},{
+					"name":"固定商品2",
+					"model":"白色 S"
+					"price":22.00,
+					"count":1
+				}],
+			"ship_name": "bill3",
+			"order_money":53.00,
+			"postage":4.00,
+			"order_status":"待发货",
+			"order_time":"2016-10-13 00:00:00",
+			"actions":["发货"]
+		},{
+			"order_id":"102-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1",
+					"price":10.00,
+					"count":2
+				}],
+			"ship_name": "bill2",
+			"order_money":20.00,
+			"postage":1.00,
+			"order_status":"待发货",
+			"order_time":"2016-10-12 00:00:00",
+			"actions":["发货"]
+		}]
+		"""
+
+Scenario:3 零售价返点客户查看订单列表
 	Given lsjfd登录商品管理系统
 	Then lsjfd获得订单列表
 		"""
