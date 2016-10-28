@@ -519,11 +519,12 @@ Scenario:2 客户端订单列表按'订单编号'查询
 
 Scenario:3 客户端订单列表按'商品名称'查询
 	Given gddj登录商品管理系统
+	#模糊查询
 	When gddj设置订单列表查询条件
 		"""
 		{
 			"order_id":"",
-			"product_name":"",
+			"product_name":"商品2",
 			"order_status":"全部",
 			"order_time_start":"",
 			"order_time_end":""
@@ -532,8 +533,88 @@ Scenario:3 客户端订单列表按'商品名称'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"103-自营平台1"
+			"order_id":"201-自营平台2",
+			"products":
+				[{
+					"name":"固定商品1"
+				},{
+					"name":"固定商品2"
+				},{
+					"name":"固定商品2"
+				}]
+		},{
+			"order_id":"103-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1"
+				},{
+					"name":"固定商品2"
+				},{
+					"name":"固定商品2"
+				}]
 		}]
+		"""
+	#精确查询
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"固定商品1",
+			"order_status":"全部",
+			"order_time_start":"",
+			"order_time_end":""
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"201-自营平台2",
+			"products":
+				[{
+					"name":"固定商品1"
+				},{
+					"name":"固定商品2"
+				},{
+					"name":"固定商品2"
+				}]
+		},{
+			"order_id":"104-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1"
+				}]
+		},{
+			"order_id":"103-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1"
+				},{
+					"name":"固定商品2"
+				},{
+					"name":"固定商品2"
+				}]
+		},{
+			"order_id":"102-自营平台1",
+			"products":
+				[{
+					"name":"固定商品1"
+				}]
+		}]
+		"""
+	#查询结果为空
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"哈哈",
+			"order_status":"全部",
+			"order_time_start":"",
+			"order_time_end":""
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[]
 		"""
 
 Scenario:4 客户端订单列表按'订单状态'查询
