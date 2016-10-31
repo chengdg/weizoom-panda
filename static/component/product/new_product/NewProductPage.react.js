@@ -231,7 +231,7 @@ var NewProductPage = React.createClass({
 						var product_price = parseFloat(product_price);
 						var clear_price= (Math.round((points*product_price*100).toFixed(2))/100).toFixed(2);
 					}
-				}else if(W.purchase_method==1) {
+				}else if(W.purchase_method==1 && W.role == 3) { //运营修改固定底价用户时候才校验
 					var product_price = product['product_price_'+model.modelId];
 					var clear_price = product['clear_price_'+model.modelId];
 					if(parseFloat(clear_price) > parseFloat(product_price)){
