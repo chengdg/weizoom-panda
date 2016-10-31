@@ -145,7 +145,7 @@ Background:
 					}
 				},
 				"limit_zone_type":"无限制",
-				"postage":2.00
+				"postage":2.00,
 				"image":["love.png"],
 				"detail": "商品1描述信息"
 			}
