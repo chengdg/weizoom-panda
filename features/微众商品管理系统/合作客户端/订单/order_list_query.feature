@@ -1,4 +1,4 @@
-#_author_:张三香 2016.10.28（已完成两个场景）
+#_author_:张三香 2016.10.28
 
 Feature:客户端订单列表查询
 	"""
@@ -618,7 +618,140 @@ Scenario:3 客户端订单列表按'商品名称'查询
 		"""
 
 Scenario:4 客户端订单列表按'订单状态'查询
+	Given gddj登录商品管理系统
+	#待发货状态
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"",
+			"order_status":"待发货",
+			"order_time_start":"",
+			"order_time_end":""
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"201-自营平台2",
+			"order_status":"待发货"
+		},{
+			"order_id":"104-自营平台1",
+			"order_status":"待发货"
+		},{
+			"order_id":"103-自营平台1",
+			"order_status":"待发货"
+		},{
+			"order_id":"102-自营平台1",
+			"order_status":"待发货"
+		}]
+		"""
+	#已发货状态
+	When gddj对订单进行发货
+		"""
+		{
+			"order_no": "102-自营平台1",
+			"logistics": "申通快递",
+			"number": "10201",
+			"shipper": "gddj"
+		}
+		"""
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"",
+			"order_status":"已发货",
+			"order_time_start":"",
+			"order_time_end":""
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"102-自营平台1",
+			"order_status":"已发货"
+		}]
+		"""
 
 Scenario:5 客户端订单列表按'下单时间'查询
+	Given gddj登录商品管理系统
+	#开始时间等于结束时间
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"",
+			"order_status":"全部",
+			"order_time_start":"2016-10-12 00:00",
+			"order_time_end":"2016-10-12 00:00"
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"102-自营平台1",
+			"order_time":"2016-10-12 00:00:00"
+		}]
+		"""
+	#开始时间小于结束时间
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"",
+			"order_status":"全部",
+			"order_time_start":"2016-10-12 00:00",
+			"order_time_end":"2016-10-15 23:59"
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"105-自营平台1",
+			"order_time":"2016-10-15 00:00:00"
+		},{
+			"order_id":"104-自营平台1",
+			"order_time":"2016-10-14 00:00:00"
+		},{
+			"order_id":"103-自营平台1",
+			"order_time":"2016-10-13 00:00:00"
+		},{
+			"order_id":"102-自营平台1",
+			"order_time":"2016-10-12 00:00:00"
+		}]
+		"""
+	#开始时间大于结束时间（系统没做控制，查询结果为空）
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"",
+			"product_name":"",
+			"order_status":"全部",
+			"order_time_start":"2016-10-14 00:00",
+			"order_time_end":"2016-10-12 00:00"
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[]
+		"""
 
 Scenario:6 客户端订单列表组合查询查询
+	Given gddj登录商品管理系统
+	When gddj设置订单列表查询条件
+		"""
+		{
+			"order_id":"102-自营平台1",
+			"product_name":"固定商品",
+			"order_status":"待发货",
+			"order_time_start":"2016-10-12 00:00",
+			"order_time_end":"2016-10-15 00:00"
+		}
+		"""
+	Then gddj获得订单列表
+		"""
+		[{
+			"order_id":"102-自营平台1"
+		}]
+		"""
