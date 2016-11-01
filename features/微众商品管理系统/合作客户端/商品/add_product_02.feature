@@ -182,7 +182,7 @@ Background:
 
 Scenario:1 零售价返点客户添加无规格商品（统一运费、发货设置无限制）
 	Given lsjfd登录商品管理系统
-	Then lsjfd获得客户端商品列表
+	Then lsjfd获得商品列表
 		"""
 		[]
 		"""
@@ -203,7 +203,7 @@ Scenario:1 零售价返点客户添加无规格商品（统一运费、发货设
 			"create_time":"2016-10-18 08:00"
 		}
 		"""
-	Then lsjfd获得客户端商品列表
+	Then lsjfd获得商品列表
 		"""
 		[{
 			"product_info":
@@ -277,7 +277,7 @@ Scenario:2 零售价返点客户添加多规格商品（模板运费、发货设
 			"create_time":"2016-10-18 09:00"
 		}
 		"""
-	Then lsjfd获得客户端商品列表
+	Then lsjfd获得商品列表
 		"""
 		[{
 			"product_info":

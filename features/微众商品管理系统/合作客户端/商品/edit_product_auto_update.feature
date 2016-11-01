@@ -199,7 +199,7 @@ Background:
 
 Scenario:1 客户修改未同步（待入库）的商品
 	Given gddj登录商品管理系统
-	When gddj编辑客户端商品'商品1'
+	When gddj编辑商品'商品1'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -215,7 +215,7 @@ Scenario:1 客户修改未同步（待入库）的商品
 			"detail": "商品1描述信息修改"
 		}
 		"""
-	Then gddj获得客户端商品'商品1修改'
+	Then gddj获得商品'商品1修改'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -233,12 +233,12 @@ Scenario:1 客户修改未同步（待入库）的商品
 		"""
 	#运营端校验-商品更新列表
 	Given yunying登录商品管理系统
-	Then yunying获得运营端商品更新列表
+	Then yunying获得商品更新列表
 		"""
 		[]
 		"""
 	#运营端校验-商品列表及商品详情页
-	Then yunying获得运营端商品列表
+	Then yunying获得商品列表
 		"""
 		[{
 			"name":"商品2",
@@ -260,7 +260,7 @@ Scenario:1 客户修改未同步（待入库）的商品
 			"actions":["同步商品","驳回修改","删除商品"]
 		}]
 		"""
-	Then yunying获得运营端商品'商品1修改'
+	Then yunying获得商品'商品1修改'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -288,7 +288,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 		"""
 	#编辑入库驳回状态商品点击详情页的【保存】，只保存修改信息不更改商品状态
 	Given gddj登录商品管理系统
-	When gddj编辑客户端商品'商品1'
+	When gddj编辑商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -304,7 +304,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then gddj获得客户端商品列表
+	Then gddj获得商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -317,7 +317,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 		}]
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得运营端商品列表
+	Then yunying获得商品列表
 		"""
 		[{
 			"name":"商品2",
@@ -329,7 +329,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 		"""
 	#编辑入库驳回状态商品点击详情页的【重新修改提交】，商品状态由'入库驳回'变为'待入库'
 	Given gddj登录商品管理系统
-	When gddj重新修改提交客户端商品'商品1修改'
+	When gddj重新修改提交商品'商品1修改'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -345,7 +345,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then gddj获得客户端商品列表
+	Then gddj获得商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -358,7 +358,7 @@ Scenario:2 客户端编辑未同步（入库驳回）的商品
 		}]
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得运营端商品列表
+	Then yunying获得商品列表
 		"""
 		[{
 			"name":"商品2",
@@ -392,7 +392,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 		"""
 	Given gddj登录商品管理系统
 	#客户修改已入库/已上架的商品（修改除价格以外的商品信息）
-	When 编辑客户端商品'商品1'
+	When 编辑商品'商品1'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -410,7 +410,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 		}
 		"""
 	#客户修改已入库/未上架的商品（修改除价格以外的商品信息）
-	When 编辑客户端商品'商品2'
+	When 编辑商品'商品2'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -438,7 +438,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 			"detail": "商品2描述信息修改"
 		}
 		"""
-	Then gddj获得客户端商品列表
+	Then gddj获得商品列表
 		"""
 		[{
 			"product_info":
@@ -474,12 +474,12 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 		"""
 	Given yunying登录商品管理系统
 	#运营端'商品更新'列表校验
-	Then yunying获得运营端商品更新列表
+	Then yunying获得商品更新列表
 		"""
 		[]
 		"""
 	#运营端'商品'列表校验
-	Then yunying获得运营端商品列表
+	Then yunying获得商品列表
 		"""
 		[{
 			"name":"商品2修改",
@@ -491,7 +491,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 			"storage_status":"已入库,已同步"
 		}]
 		"""
-	Then yunying获得运营端商品'商品2修改'
+	Then yunying获得商品'商品2修改'
 		"""
 		{
 			"product_category":"食品-泡面",
@@ -519,7 +519,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 			"detail": "商品2描述信息修改"
 		}
 		"""
-	Then yunying获得运营端商品'商品1修改'
+	Then yunying获得商品'商品1修改'
 		"""
 		{
 			"product_category":"食品-泡面",

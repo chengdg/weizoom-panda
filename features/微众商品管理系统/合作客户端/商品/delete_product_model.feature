@@ -206,7 +206,7 @@ Scenario:2 删除商品规格（在被使用）
 		}]
 		"""
 	#校验使用该规格的商品详情页
-	Then gddj获得客户端商品'商品1'
+	Then gddj获得商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -223,7 +223,7 @@ Scenario:2 删除商品规格（在被使用）
 			"create_time":"2016-10-18 08:00"
 		}
 		"""
-	Then gddj获得客户端商品'商品2'
+	Then gddj获得商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -240,7 +240,7 @@ Scenario:2 删除商品规格（在被使用）
 			"create_time":"2016-10-18 09:00"
 		}
 		"""
-	Then gddj获得客户端商品'商品3'
+	Then gddj获得商品'商品3'
 		"""
 		{
 			"product_category":"食品-饼干",

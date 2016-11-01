@@ -263,7 +263,7 @@ Background:
 
 Scenario:1 运营端商品列表默认查询
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"shop_name":"",
@@ -325,7 +325,7 @@ Scenario:1 运营端商品列表默认查询
 Scenario:2 运营端商品列表按'客户名称'查询
 	#模糊匹配
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"shop_name":"零售"
@@ -342,7 +342,7 @@ Scenario:2 运营端商品列表按'客户名称'查询
 		}]
 		"""
 	#精确匹配
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"shop_name":"零售价返点店铺"
@@ -359,7 +359,7 @@ Scenario:2 运营端商品列表按'客户名称'查询
 		}]
 		"""
 	#查询结果为空
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"shop_name":"其他"
@@ -373,7 +373,7 @@ Scenario:2 运营端商品列表按'客户名称'查询
 Scenario:3 运营端商品列表按'商品名称'查询
 	#模糊匹配
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"name":"商品",
@@ -395,7 +395,7 @@ Scenario:3 运营端商品列表按'商品名称'查询
 		"""
 	#精确匹配
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"name":"商品5",
@@ -409,7 +409,7 @@ Scenario:3 运营端商品列表按'商品名称'查询
 		"""
 	#查询结果为空
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"name":"家电",
@@ -423,7 +423,7 @@ Scenario:3 运营端商品列表按'商品名称'查询
 Scenario:4 运营端商品列表按'入库状态'查询
 	#'待入库'状态
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"storage_status":"待入库"
@@ -437,7 +437,7 @@ Scenario:4 运营端商品列表按'入库状态'查询
 		}]
 		"""
 	#'已入库,已同步'状态
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"storage_status":"已入库,已同步"
@@ -451,7 +451,7 @@ Scenario:4 运营端商品列表按'入库状态'查询
 		}]
 		"""
 	#'已入库,已停售'状态
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"storage_status":"已入库,已停售"
@@ -465,7 +465,7 @@ Scenario:4 运营端商品列表按'入库状态'查询
 		}]
 		"""
 	#'入库驳回'状态
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"storage_status":"入库驳回"
@@ -479,7 +479,7 @@ Scenario:4 运营端商品列表按'入库状态'查询
 		}]
 		"""
 	#'驳回修改'状态
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"storage_status":"驳回修改"
@@ -496,7 +496,7 @@ Scenario:4 运营端商品列表按'入库状态'查询
 Scenario:5 运营端商品列表按'商品分类'查询
 	Given yunying登录商品管理系统
 	#一级分类模糊查询
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"product_category":"食"
@@ -522,7 +522,7 @@ Scenario:5 运营端商品列表按'商品分类'查询
 		}]
 		"""
 	#一级分类精确查询
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"product_category":"食品"
@@ -548,7 +548,7 @@ Scenario:5 运营端商品列表按'商品分类'查询
 		}]
 		"""
 	#二级分类模糊查询
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"product_category":"饼"
@@ -568,7 +568,7 @@ Scenario:5 运营端商品列表按'商品分类'查询
 		}]
 		"""
 	#二级分类精确查询
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"product_category":"泡面"
@@ -585,7 +585,7 @@ Scenario:5 运营端商品列表按'商品分类'查询
 		}]
 		"""
 	#查询结果为空
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"product_category":"数码"
@@ -598,7 +598,7 @@ Scenario:5 运营端商品列表按'商品分类'查询
 
 Scenario:6 运营端商品列表组合条件查询
 	Given yunying登录商品管理系统
-	When yunying设置商品管理列表查询条件
+	When yunying设置商品列表查询条件
 		"""
 		{
 			"shop_name":"固定底价店铺",
