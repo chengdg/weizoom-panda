@@ -298,24 +298,24 @@ Background:
 		#101（zy1）-待支付-固定商品1,1
 			When bill访问zy1的webapp::apiserver
 			When bill购买zy1的商品::apiserver
-			"""
-			{
-				"order_id":"101",
-				"date":"2016-10-11",
-				"ship_name": "bill",
-				"ship_tel": "13811223344",
-				"ship_area": "北京市 北京市 海淀区",
-				"ship_address": "泰兴大厦",
-				"pay_type": "微信支付",
-				"products":[{
-					"name":"固定商品1",
-					"price":10.00,
-					"count":1
-				}],
-				"postage": 1.00,
-				"customer_message": "bill的订单备注1"
-			}
-			"""
+				"""
+				{
+					"order_id":"101",
+					"date":"2016-10-11",
+					"ship_name": "bill",
+					"ship_tel": "13811223344",
+					"ship_area": "北京市 北京市 海淀区",
+					"ship_address": "泰兴大厦",
+					"pay_type": "微信支付",
+					"products":[{
+						"name":"固定商品1",
+						"price":10.00,
+						"count":1
+					}],
+					"postage": 1.00,
+					"customer_message": "bill的订单备注1"
+				}
+				"""
 		#102（zy1）-待发货-固定商品1,2
 			When bill购买zy1的商品::apiserver
 				"""
@@ -472,13 +472,13 @@ Scenario:1 客户端订单列表默认查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"201-自营平台2"
+			"order_id":"201-固定底价店铺"
 		},{
-			"order_id":"104-自营平台1"
+			"order_id":"104-固定底价店铺"
 		},{
-			"order_id":"103-自营平台1"
+			"order_id":"103-固定底价店铺"
 		},{
-			"order_id":"102-自营平台1"
+			"order_id":"102-固定底价店铺"
 		}]
 		"""
 
@@ -487,7 +487,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 	When gddj设置订单列表查询条件
 		"""
 		{
-			"order_id":"103-自营平台1",
+			"order_id":"103-固定底价店铺",
 			"product_name":"",
 			"order_status":"全部",
 			"order_time_start":"",
@@ -497,7 +497,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"103-自营平台1"
+			"order_id":"103-固定底价店铺"
 		}]
 		"""
 	#查询结果为空
@@ -505,7 +505,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 	When gddj设置订单列表查询条件
 		"""
 		{
-			"order_id":"111-自营平台1",
+			"order_id":"111-固定底价店铺",
 			"product_name":"",
 			"order_status":"全部",
 			"order_time_start":"",
@@ -533,7 +533,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"201-自营平台2",
+			"order_id":"201-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
@@ -543,7 +543,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 					"name":"固定商品2"
 				}]
 		},{
-			"order_id":"103-自营平台1",
+			"order_id":"103-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
@@ -568,7 +568,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"201-自营平台2",
+			"order_id":"201-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
@@ -578,13 +578,13 @@ Scenario:3 客户端订单列表按'商品名称'查询
 					"name":"固定商品2"
 				}]
 		},{
-			"order_id":"104-自营平台1",
+			"order_id":"104-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
 				}]
 		},{
-			"order_id":"103-自营平台1",
+			"order_id":"103-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
@@ -594,7 +594,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 					"name":"固定商品2"
 				}]
 		},{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"products":
 				[{
 					"name":"固定商品1"
@@ -633,16 +633,16 @@ Scenario:4 客户端订单列表按'订单状态'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"201-自营平台2",
+			"order_id":"201-固定底价店铺",
 			"order_status":"待发货"
 		},{
-			"order_id":"104-自营平台1",
+			"order_id":"104-固定底价店铺",
 			"order_status":"待发货"
 		},{
-			"order_id":"103-自营平台1",
+			"order_id":"103-固定底价店铺",
 			"order_status":"待发货"
 		},{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"order_status":"待发货"
 		}]
 		"""
@@ -650,7 +650,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 	When gddj对订单进行发货
 		"""
 		{
-			"order_no": "102-自营平台1",
+			"order_no": "102-固定底价店铺",
 			"logistics": "申通快递",
 			"number": "10201",
 			"shipper": "gddj"
@@ -669,7 +669,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"order_status":"已发货"
 		}]
 		"""
@@ -690,7 +690,7 @@ Scenario:5 客户端订单列表按'下单时间'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"order_time":"2016-10-12 00:00:00"
 		}]
 		"""
@@ -708,16 +708,16 @@ Scenario:5 客户端订单列表按'下单时间'查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"105-自营平台1",
+			"order_id":"105-固定底价店铺",
 			"order_time":"2016-10-15 00:00:00"
 		},{
-			"order_id":"104-自营平台1",
+			"order_id":"104-固定底价店铺",
 			"order_time":"2016-10-14 00:00:00"
 		},{
-			"order_id":"103-自营平台1",
+			"order_id":"103-固定底价店铺",
 			"order_time":"2016-10-13 00:00:00"
 		},{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"order_time":"2016-10-12 00:00:00"
 		}]
 		"""
@@ -742,7 +742,7 @@ Scenario:6 客户端订单列表组合查询查询
 	When gddj设置订单列表查询条件
 		"""
 		{
-			"order_id":"102-自营平台1",
+			"order_id":"102-固定底价店铺",
 			"product_name":"固定商品",
 			"order_status":"待发货",
 			"order_time_start":"2016-10-12 00:00",
@@ -752,6 +752,6 @@ Scenario:6 客户端订单列表组合查询查询
 	Then gddj获得订单列表
 		"""
 		[{
-			"order_id":"102-自营平台1"
+			"order_id":"102-固定底价店铺"
 		}]
 		"""
