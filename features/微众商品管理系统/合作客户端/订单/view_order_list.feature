@@ -480,7 +480,7 @@ Background:
 
 Scenario:1 固定底价客户查看订单列表（运营不修改商品售价即售价和结算价相等）
 	Given gddj登录商品管理系统
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"201-固定底价店铺",
@@ -592,7 +592,7 @@ Scenario:2 固定底价客户查看订单列表（运营修改商品售价即售
 	And bill使用支付方式'微信支付'进行支付::apiserver
 	#运营修改商品售价后，客户端订单列表的单价显示的仍是结算价
 	Given gddj登录商品管理系统
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"106-固定底价店铺",
@@ -689,7 +689,7 @@ Scenario:2 固定底价客户查看订单列表（运营修改商品售价即售
 
 Scenario:3 零售价返点客户查看订单列表
 	Given lsjfd登录商品管理系统
-	Then lsjfd获得订单列表
+	Then lsjfd获得客户端订单列表
 		"""
 		[{
 			"order_id":"105-零售价返点店铺",

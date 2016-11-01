@@ -460,7 +460,7 @@ Background:
 
 Scenario:1 客户端订单列表默认查询
 	Given gddj登录商品管理系统
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -470,7 +470,7 @@ Scenario:1 客户端订单列表默认查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"201-固定底价店铺"
@@ -485,7 +485,7 @@ Scenario:1 客户端订单列表默认查询
 
 Scenario:2 客户端订单列表按'订单编号'查询
 	Given gddj登录商品管理系统
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"103-固定底价店铺",
@@ -495,7 +495,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"103-固定底价店铺"
@@ -503,7 +503,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 		"""
 	#查询结果为空
 	Given gddj登录商品管理系统
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"111-固定底价店铺",
@@ -513,7 +513,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[]
 		"""
@@ -521,7 +521,7 @@ Scenario:2 客户端订单列表按'订单编号'查询
 Scenario:3 客户端订单列表按'商品名称'查询
 	Given gddj登录商品管理系统
 	#模糊查询
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -531,7 +531,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"201-固定底价店铺",
@@ -556,7 +556,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 		}]
 		"""
 	#精确查询
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -566,7 +566,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"201-固定底价店铺",
@@ -603,7 +603,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 		}]
 		"""
 	#查询结果为空
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -613,7 +613,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[]
 		"""
@@ -621,7 +621,7 @@ Scenario:3 客户端订单列表按'商品名称'查询
 Scenario:4 客户端订单列表按'订单状态'查询
 	Given gddj登录商品管理系统
 	#待发货状态
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -631,7 +631,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"201-固定底价店铺",
@@ -657,7 +657,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 			"shipper": "gddj"
 		}
 		"""
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -667,7 +667,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 			"order_time_end":""
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"102-固定底价店铺",
@@ -678,7 +678,7 @@ Scenario:4 客户端订单列表按'订单状态'查询
 Scenario:5 客户端订单列表按'下单时间'查询
 	Given gddj登录商品管理系统
 	#开始时间等于结束时间
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -688,7 +688,7 @@ Scenario:5 客户端订单列表按'下单时间'查询
 			"order_time_end":"2016-10-12 00:00"
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"102-固定底价店铺",
@@ -696,7 +696,7 @@ Scenario:5 客户端订单列表按'下单时间'查询
 		}]
 		"""
 	#开始时间小于结束时间
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -706,7 +706,7 @@ Scenario:5 客户端订单列表按'下单时间'查询
 			"order_time_end":"2016-10-15 23:59"
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"105-固定底价店铺",
@@ -723,7 +723,7 @@ Scenario:5 客户端订单列表按'下单时间'查询
 		}]
 		"""
 	#开始时间大于结束时间（系统没做控制，查询结果为空）
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"",
@@ -733,14 +733,14 @@ Scenario:5 客户端订单列表按'下单时间'查询
 			"order_time_end":"2016-10-12 00:00"
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[]
 		"""
 
 Scenario:6 客户端订单列表组合查询查询
 	Given gddj登录商品管理系统
-	When gddj设置订单列表查询条件
+	When gddj设置客户端订单列表查询条件
 		"""
 		{
 			"order_id":"102-固定底价店铺",
@@ -750,7 +750,7 @@ Scenario:6 客户端订单列表组合查询查询
 			"order_time_end":"2016-10-15 00:00"
 		}
 		"""
-	Then gddj获得订单列表
+	Then gddj获得客户端订单列表
 		"""
 		[{
 			"order_id":"102-固定底价店铺"
