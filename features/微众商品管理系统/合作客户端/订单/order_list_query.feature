@@ -8,6 +8,7 @@ Feature:客户端订单列表查询
 			订单状态:下拉框形式显示，默认显示全部，下拉框中包含全部、待发货、已发货、已完成、退款中、退款完成、已取消
 			下单时间:必须输入开始时间和结束时间（目前没有控制开始时间小于结束时间这种情况，只是查询时结果为空）
 	"""
+
 Background:
 	Given manager登录商品管理系统
 	When manager添加账号
@@ -237,7 +238,7 @@ Background:
 					}
 				},
 				"limit_zone_type":"无限制",
-				"postage":"运费模板1",
+				"postage":"运费模板2",
 				"image":["love.png"],
 				"detail": "商品2描述信息"
 			}
@@ -292,8 +293,8 @@ Background:
 		["固定商品1","固定商品1"]
 		"""
 
-	Given bill关注zy1的公众号
-	Given bill关注zy2的公众号
+	Given bill关注zy1的公众号::apiserver
+	Given bill关注zy2的公众号::apiserver
 	#订单数据
 		#101（zy1）-待支付-固定商品1,1
 			When bill访问zy1的webapp::apiserver

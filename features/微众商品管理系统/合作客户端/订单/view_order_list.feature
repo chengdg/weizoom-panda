@@ -8,7 +8,7 @@ Feature:客户端查看订单列表
 			商品:显示商品名称和商品图片
 			单价/数量:
 				固定底价客户-显示商品的结算价/商品数量
-				零售价返点客户-限时商品的售价/商品数量
+				零售价返点客户-显示商品的售价/商品数量
 			收货人:显示收货人名称
 			订单金额:单价（结算价/售价）*数量,保留两位小数
 			运费:显示运费,保留两位小数
@@ -258,7 +258,7 @@ Background:
 					}
 				},
 				"limit_zone_type":"无限制",
-				"postage":"运费模板1",
+				"postage":"运费模板2",
 				"image":["love.png"],
 				"detail": "商品2描述信息"
 			}
@@ -313,30 +313,30 @@ Background:
 		["固定商品1","固定商品1"]
 		"""
 
-	Given bill关注zy1的公众号
-	Given bill关注zy2的公众号
+	Given bill关注zy1的公众号::apiserver
+	Given bill关注zy2的公众号::apiserver
 	#订单数据
 		#101（zy1）-待支付-固定商品1,1
 			When bill访问zy1的webapp::apiserver
 			When bill购买zy1的商品::apiserver
-			"""
-			{
-				"order_id":"101",
-				"date":"2016-10-11",
-				"ship_name": "bill",
-				"ship_tel": "13811223344",
-				"ship_area": "北京市 北京市 海淀区",
-				"ship_address": "泰兴大厦",
-				"pay_type": "微信支付",
-				"products":[{
-					"name":"固定商品1",
-					"price":10.00,
-					"count":1
-				}],
-				"postage": 1.00,
-				"customer_message": "bill的订单备注1"
-			}
-			"""
+				"""
+				{
+					"order_id":"101",
+					"date":"2016-10-11",
+					"ship_name": "bill",
+					"ship_tel": "13811223344",
+					"ship_area": "北京市 北京市 海淀区",
+					"ship_address": "泰兴大厦",
+					"pay_type": "微信支付",
+					"products":[{
+						"name":"固定商品1",
+						"price":10.00,
+						"count":1
+					}],
+					"postage": 1.00,
+					"customer_message": "bill的订单备注1"
+				}
+				"""
 		#102（zy1）-待发货-固定商品1,2
 			When bill购买zy1的商品::apiserver
 				"""
