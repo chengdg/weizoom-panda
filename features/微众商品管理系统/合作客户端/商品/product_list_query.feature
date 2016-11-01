@@ -205,7 +205,7 @@ Background:
 
 Scenario:1 固定底价客户商品列表-默认查询
 	Given gddj登录商品管理系统
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"product_name":"",
@@ -213,7 +213,7 @@ Scenario:1 固定底价客户商品列表-默认查询
 			"storage_status":"全部"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":
@@ -266,13 +266,13 @@ Scenario:1 固定底价客户商品列表-默认查询
 Scenario:2 固定底价客户商品列表-商品名称查询
 	Given gddj登录商品管理系统
 	#模糊查询
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"product_name":"多规格"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"多规格商品3"}
@@ -281,26 +281,26 @@ Scenario:2 固定底价客户商品列表-商品名称查询
 		}]
 		"""
 	#精确查询
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"product_name":"无规格商品1"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"无规格商品1"}
 		}]
 		"""
 	#查询结果为空
-		When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"product_name":"哈哈"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[]
 		"""
@@ -308,13 +308,13 @@ Scenario:2 固定底价客户商品列表-商品名称查询
 Scenario:3 固定底价客户商品列表-入库状态查询
 	Given gddj登录商品管理系统
 	#待入库
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"storage_status":"待入库"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"多规格商品3"},
@@ -322,13 +322,13 @@ Scenario:3 固定底价客户商品列表-入库状态查询
 		}]
 		"""
 	#已驳回
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"storage_status":"已驳回"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"多规格商品2"},
@@ -336,13 +336,13 @@ Scenario:3 固定底价客户商品列表-入库状态查询
 		}]
 		"""
 	#已入库
-	When gddj设置商品列表查询条件
+	When gddj设置客户端商品列表查询条件
 		"""
 		{
 			"storage_status":"已入库"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"无规格商品1"},

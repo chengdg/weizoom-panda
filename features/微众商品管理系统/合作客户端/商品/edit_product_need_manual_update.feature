@@ -156,7 +156,7 @@ Background:
 Scenario:1 客户端编辑已同步的商品（修改商品价格）
 	Given gddj登录商品管理系统
 	#固定底价客户修改商品的结算价
-	When gddj编辑商品'商品1'
+	When gddj编辑客户端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -172,7 +172,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -186,7 +186,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 			"purchase_price":"10.99"
 		}]
 		"""
-	Then gddj获得商品'商品1'
+	Then gddj获得客户端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -203,7 +203,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 		}
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得商品列表
+	Then yunying获得运营端商品列表
 		"""
 		[{
 			"name":"商品2"
@@ -211,7 +211,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 			"name":"商品1"
 		}]
 		"""
-	Then yunying获得商品'商品1'
+	Then yunying获得运营端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -228,7 +228,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then yunying获得商品更新列表
+	Then yunying获得运营端商品更新列表
 		"""
 		[{
 			"product_info":
@@ -248,7 +248,7 @@ Scenario:1 客户端编辑已同步的商品（修改商品价格）
 
 Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规格）
 	Given gddj登录商品管理系统
-	When gddj编辑商品'商品1'
+	When gddj编辑客户端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -275,7 +275,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -289,7 +289,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 			"purchase_price":"11.00~12.00"
 		}]
 		"""
-	Then gddj获得商品'商品1'
+	Then gddj获得客户端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -317,7 +317,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 		}
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得商品列表
+	Then yunying获得运营端商品列表
 		"""
 		[{
 			"name":"商品2"
@@ -325,7 +325,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 			"name":"商品1"
 		}]
 		"""
-	Then yunying获得商品'商品1'
+	Then yunying获得运营端商品'商品1'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -352,7 +352,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 			"detail": "商品1描述信息"
 		}
 		"""
-	Then yunying获得商品更新列表
+	Then yunying获得运营端商品更新列表
 		"""
 		[{
 			"product_info":
@@ -372,7 +372,7 @@ Scenario:2 客户端编辑已同步的商品（商品从无规格修改成多规
 
 Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规格）
 	Given gddj登录商品管理系统
-	When gddj编辑商品'商品2'
+	When gddj编辑客户端商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -388,7 +388,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"detail": "商品2描述信息"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -402,7 +402,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"purchase_price":"10.00"
 		}]
 		"""
-	Then gddj获得商品'商品2'
+	Then gddj获得客户端商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -419,7 +419,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 		}
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得商品列表
+	Then yunying获得运营端商品列表
 		"""
 		[{
 			"name":"商品2"
@@ -427,7 +427,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"name":"商品1"
 		}]
 		"""
-	Then yunging获得商品'商品2'
+	Then yunging获得运营端商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -444,7 +444,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"detail": "商品2描述信息"
 		}
 		"""
-	Then yunying获得商品更新列表
+	Then yunying获得运营端商品更新列表
 		"""
 		[{
 			"product_info":
@@ -464,7 +464,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 
 Scenario:4 客户端编辑已同步的商品（多规格商品中增加或减少商品规格）
 	Given gddj登录商品管理系统
-	When gddj编辑商品'商品2'
+	When gddj编辑客户端商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -486,7 +486,7 @@ Scenario:4 客户端编辑已同步的商品（多规格商品中增加或减少
 			"detail": "商品2描述信息"
 		}
 		"""
-	Then gddj获得商品列表
+	Then gddj获得客户端商品列表
 		"""
 		[{
 			"product_info":{"name":"商品2"},
@@ -501,7 +501,7 @@ Scenario:4 客户端编辑已同步的商品（多规格商品中增加或减少
 		}]
 		"""
 	Given yunying登录商品管理系统
-	Then yunying获得商品列表
+	Then yunying获得运营端商品列表
 		"""
 		[{
 			"name":"商品2"
@@ -509,7 +509,7 @@ Scenario:4 客户端编辑已同步的商品（多规格商品中增加或减少
 			"name":"商品1"
 		}]
 		"""
-	Then yunging获得商品'商品2'
+	Then yunging获得运营端商品'商品2'
 		"""
 		{
 			"product_category":"食品-饼干",
@@ -531,7 +531,7 @@ Scenario:4 客户端编辑已同步的商品（多规格商品中增加或减少
 			"detail": "商品2描述信息"
 		}
 		"""
-	Then yunying获得商品更新列表
+	Then yunying获得运营端商品更新列表
 		"""
 		[{
 			"product_info":
