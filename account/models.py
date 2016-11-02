@@ -70,6 +70,7 @@ class UserProfile(models.Model):
 	customer_from = models.IntegerField(default=0) #客户来源 0 PANDA ，1 渠道
 	product_count = models.IntegerField(default=0) #客户商品数量
 	settlement_period = models.IntegerField(default=SETTLEMENT_PERIOD_MONTH) #结算账期  1【自然月】   2【15天】   3【自然周】
+	corpid = models.CharField(max_length=100, default='') #corpid
 
 	class Meta(object):
 		db_table = 'account_user_profile'
