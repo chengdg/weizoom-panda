@@ -8,7 +8,9 @@ from eaglet.core import watchdog
 
 from account.models import *
 import models
+from django.contrib.auth.models import User
 from util import send_product_message
+from util import add_customer_news
 
 
 class ProductReject(resource.Resource):
@@ -25,7 +27,8 @@ class ProductReject(resource.Resource):
 		try:
 			for product_id in product_ids:
 				product_id = int(product_id)
-				models.Product.objects.filter(id=product_id).update(is_refused=True)
+				cur_product = models.Product.objects.filter(id=product_id)
+				cur_product.update(is_refused=True)
 				models.ProductRejectLogs.objects.create(
 					product_id = product_id,
 					reject_reasons = reasons
@@ -33,6 +36,11 @@ class ProductReject(resource.Resource):
 				try:
 					send_product_message.send_reject_product_change(product_id=product_id)
 					send_product_message.send_reject_product_ding_message(product_id=product_id, reasons=reasons)
+
+					# 给客户系统发送日志消息
+					customer_id = cur_product[0].owner_id;
+					customer_name = User.objects.get(id=customer_id).username
+					add_customer_news.send_reject_product_message(product_name=cur_product[0].product_name, reject_reason=reasons, customer_id=customer_id, customer_name=customer_name)
 				except:
 					msg = unicode_full_stack()
 					watchdog.error("product_reject.send_reject_product_change: {}".format(msg))
