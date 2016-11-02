@@ -62,7 +62,6 @@ class WeappRelation(resource.Resource):
 	@login_required
 	def api_get(request):
 		product_id = request.GET.get('product_id',0)
-		product = models.Product.objects.get(id=product_id)
 		product_sync_weapp_account = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
 		product_id2self_user_name = {}
 		for product_has_relation in product_sync_weapp_account:
