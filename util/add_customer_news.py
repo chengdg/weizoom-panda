@@ -47,7 +47,7 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 		}
 	}
 
-	msgutil.send_message(topic_name, func_name, data)
+	msgutil.send_message(test_topic_name, test_func_name, data)
 
 
 def send_stop_sell_product_message(product_name=None, stop_reason=None, customer_id=None, customer_name=None):
@@ -70,4 +70,4 @@ def send_stop_sell_product_message(product_name=None, stop_reason=None, customer
 		}
 	}
 
-	msgutil.send_message(topic_name, func_name, data)
+	msgutil.send_message(test_topic_name, test_func_name, data)
