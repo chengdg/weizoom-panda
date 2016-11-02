@@ -507,7 +507,7 @@ Scenario:3 客户端编辑已同步的商品（修改信息自动更新）
 					},
 					"白色 S": {
 						"purchase_price": 22.00,
-						"weight": 2.2,
+						"weight":2.2,
 						"stocks":220
 					}
 				}

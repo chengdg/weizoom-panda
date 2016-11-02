@@ -381,11 +381,11 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"is_enable_model":false,
 			"purchase_price": 20.00,
 			"weight":1.0,
-			"stocks":100
+			"stocks":100,
 			"limit_zone_type":"无限制",
 			"postage":2.00,
 			"image":["love.png"],
-			"detail": "商品2描述信息"
+			"detail":"商品2描述信息"
 		}
 		"""
 	Then gddj获得商品列表
@@ -411,7 +411,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"is_enable_model":false,
 			"purchase_price": 20.00,
 			"weight":1.0,
-			"stocks":100
+			"stocks":100,
 			"limit_zone_type":"无限制",
 			"postage":2.00,
 			"image":["love.png"],
@@ -437,7 +437,7 @@ Scenario:3 客户端编辑已同步的商品（商品从多规格修改成无规
 			"price":20.00,
 			"purchase_price": 20.00,
 			"weight":1.0,
-			"stocks":100
+			"stocks":100,
 			"limit_zone_type":"无限制",
 			"postage":2.00,
 			"image":["love.png"],
