@@ -5,7 +5,7 @@ Feature:固定底价客户商品列表的查询
 		备注：固定底价客户添加商品页面隐藏'售价'字段，商品列表页中显示售价，其值默认和结算价相等
 		1、商品列表查询条件
 			商品名称:模糊查询
-			商品分类：输入框显示，支持一级和二级分类的模糊查询（后期需求会改动，feature中暂时不写）
+			商品分类：输入框显示，支持一级和二级分类的模糊查询
 			入库状态：下拉框显示全部、待入库、已入库、入库驳回，默认显示全部
 		2、商品列表字段信息
 			商品信息：显示商品图片和名称
@@ -350,6 +350,115 @@ Scenario:3 固定底价客户商品列表-入库状态查询
 		}]
 		"""
 
-Scenario:4 固定底价客户商品列表-商品分类查询（暂时不写）
+Scenario:4 固定底价客户商品列表-商品分类查询
+	Given gddj登录商品管理系统
+	#一级分类模糊查询
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_category":"食"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[{
+				"product_info":{"name":"多规格商品2"},
+				"product_category":"食品-饼干"
+			},{
+				"product_info":{"name":"无规格商品1"},
+				"product_category":"食品-饼干"
+			}]
+			"""
+	#一级分类精确查询
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_category":"服装"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[{
+				"product_info":{"name":"多规格商品3"},
+				"product_category":"服装-男装"
+			}]
+			"""
+	#二级分类模糊查询
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_category":"饼"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[{
+				"product_info":{"name":"多规格商品2"},
+				"product_category":"食品-饼干"
+			},{
+				"product_info":{"name":"无规格商品1"},
+				"product_category":"食品-饼干"
+			}]
+			"""
+	#二级分类精确查询
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_category":"男装"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[{
+				"product_info":{"name":"多规格商品3"},
+				"product_category":"服装-男装"
+			}]
+			"""
+	#查询结果为空
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_category":"品牌"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[]
+			"""
 
-Scenario:5 固定底价客户商品列表-组合查询（暂时不写）
+Scenario:5 固定底价客户商品列表-组合查询
+	Given gddj登录商品管理系统
+	#查询结果非空
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_name":"无规格",
+				"product_category":"食品",
+				"storage_status":"全部"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[{
+				"product_info":
+					{
+						"name":"无规格商品1",
+						"image":"love.png"
+					},
+				"product_category":"食品-饼干",
+				"storage_status":"已入库"
+			}]
+			"""
+	#查询结果为空
+		When gddj设置商品列表查询条件
+			"""
+			{
+				"product_name":"无规格",
+				"product_category":"服装",
+				"storage_status":"全部"
+			}
+			"""
+		Then gddj获得商品列表
+			"""
+			[]
+			"""
