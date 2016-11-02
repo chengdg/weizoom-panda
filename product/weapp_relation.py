@@ -12,7 +12,7 @@ from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from resource.models import Image
 import models
 from django.contrib.auth.models import User
-from self_shop.models import *
+from self_shop.models import SelfShops
 from product_catalog.models import ProductCatalogRelation
 from product_limit_zone import models as limit_zone_models
 from panda.settings import PRODUCT_POOL_OWNER_ID
