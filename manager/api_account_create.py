@@ -52,6 +52,12 @@ class AccountCreateApi(resource.Resource):
 		valid_time_to = args['valid_time_to']
 		note = args.get('note', '')
 
+		customer_id = args.get("customer_id", "")
+		if customer_id:
+			corpid = "wzc_%s" % customer_id
+		else:
+			corpid = ""
+
 		#默认采购方式只是固定低价
 		points = args.get('points', 0)
 		order_money = args.get('order_money', 0)
@@ -114,7 +120,8 @@ class AccountCreateApi(resource.Resource):
 				phone = phone,
 				valid_time_from = valid_time_from,
 				valid_time_to = valid_time_to,
-				customer_from = 1
+				customer_from = 1,
+				corpid = corpid 
 			)
 			#请求接口获得数据
 			try:
