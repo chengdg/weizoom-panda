@@ -423,9 +423,9 @@ class NewProduct(resource.Resource):
 		parser = HTMLParser.HTMLParser()
 		if remark:
 			remark = parser.unescape(remark) if role == 1 else product.remark
-		
+		relation = models.ProductHasRelationWeapp.objects.filter(product_id=request.POST['id']).first()
 		#判断商品是否同步
-		if product_sync_weapp_accounts:
+		if relation:
 			old_product_name = product.product_name
 			old_promotion_title = product.promotion_title
 			old_product_price = '%.2f' %product.product_price
@@ -624,7 +624,7 @@ class NewProduct(resource.Resource):
 							property_value_id = property_value['id']
 						))
 					models.ProductModelHasPropertyValue.objects.bulk_create(list_propery_create)
-		relation = models.ProductHasRelationWeapp.objects.filter(product_id=request.POST['id']).first()
+
 		if relation:
 			sync_weapp_product_store(product_id=int(request.POST['id']), owner_id=owner_id,
 									 source_product=source_product,
@@ -632,18 +632,19 @@ class NewProduct(resource.Resource):
 
 			# sync_product_label(product=product, weapp_product_id=relation.weapp_product_id, method='POST')
 			# sync_product_classification(weapp_product_id=relation.weapp_product_id, classification_id=product.catalog_id)
-		if product_sync_weapp_accounts and (old_has_product_model == has_product_model ==1):
+		if relation and (old_has_product_model == has_product_model ==1):
 			if sorted(old_product_model_ids) != sorted(new_product_model_ids):
 				old_products.update(
 					product_model_ids = ','.join(set(old_product_model_ids))
 				)
 
-		if product_sync_weapp_accounts:
+		if relation:
 			if (old_has_product_model != has_product_model) or ((old_has_product_model == has_product_model ==1) and (sorted(old_product_model_ids) != sorted(new_product_model_ids))):
 				modify_contents.append(u'商品规格')
 
 		#有更新内容
-		if product_sync_weapp_accounts and len(modify_contents)>0: 
+		if relation and len(modify_contents)>0:
+
 			models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 				is_update = True,
 				is_refused = False
@@ -687,9 +688,9 @@ class NewProduct(resource.Resource):
 			)
 			# 发送mns消息
 			try:
-				image_paths = models.ProductImage.objects.filter(product_id=product.id)
+
 				send_product_message.send_product_change_reject_status(product=product, user_id=product.owner_id,
-																	  image_paths=image_paths[0])
+																	  image_paths=product_images[0].get('path'))
 			except:
 				message = u"send_product_change_reject_status:new_product:{}".format(unicode_full_stack())
 				watchdog.watchdog_error(message)

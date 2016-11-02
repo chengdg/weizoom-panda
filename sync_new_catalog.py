@@ -49,10 +49,12 @@ for i in range(0, nrows):
     product_name = table.cell(i, 0).value.strip()
     # first_catalog = table.cell(i, 3).value
     second_catalog = table.cell(i, 2).value.strip()
+
     product_id = product_name_2_id.get(product_name, '')
     # product = product_models.Product.objects.filter(product_name=product_name).first()
     # print '%s' % product_name
-    catalog_id = catalog_name_2_id.get(second_catalog, '')
+    catalog_id = catalog_name_2_id.get(second_catalog, None)
+
     # print '====================================================================='
     # print catalog_id, product_id
     # print '====================================================================='
@@ -63,9 +65,10 @@ for i in range(0, nrows):
         if product:
             product_id = product.id
         else:
+            can_not_find_products.append(product_name)
             continue
     if not catalog_id:
-        can_not_find_catalog.append(product_name)
+        can_not_find_catalog.append(second_catalog)
         continue
     if product_name_2_catalog_id.get(product_name) == catalog_id:
 
@@ -104,4 +107,6 @@ for i in range(0, nrows):
         if not resp or resp.get('code') != 200:
             watchdog.error({'errorMsg': 'Panda product: %s sync catalog failed!' % product.id})
 print 'ALL is Ok'
+print can_not_find_catalog
+print can_not_find_products
 
