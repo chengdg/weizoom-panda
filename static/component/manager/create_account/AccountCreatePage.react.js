@@ -20,6 +20,11 @@ require('./style.css');
 var AccountCreatePage = React.createClass({
 	getInitialState: function() {
 		Store.addListener(this.onChangeStore);
+		var account = Store.getData();
+		
+		if(W.is_edit){
+			Action.getCompanyInfoFromAxe(account.companyName);
+		}
 		return Store.getData();
 	},
 	
@@ -100,6 +105,11 @@ var AccountCreatePage = React.createClass({
 		}
 		if(accountType ==1 && account.companyType.length <= 0){
 			Reactman.PageAction.showHint('error', '请选择经营类目');
+			return;
+		}
+
+		if(accountType == 1 && account.companyName != $('#companyNameOption').find("option:selected").text()){
+			Reactman.PageAction.showHint('error', '请选择公司名称');
 			return;
 		}
 		Action.saveAccount(Store.getData());
@@ -192,7 +202,7 @@ var AccountInfo = React.createClass({
 		if(accountType == '1'){
 			return(
 				<div>
-					<Reactman.FormInput label="公司名称:" type="text" name="companyName" value={this.props.companyName} onChange={this.props.onChange} />
+					<Reactman.FormInput label="公司名称:" validate="require-notempty" type="text" name="companyName" value={this.props.companyName} onChange={this.props.onChange} />
 					<Reactman.FormSelect label="" name="companyNameOption" value={this.props.companyNameOption} options={this.props.optionsForCompanyName } onChange={this.props.onChange} />
 					<Reactman.FormInput label="店铺名称:" type="text" name="name" validate="require-notempty" placeholder="建议填写为客户公司简称，将在微众平台手机端展示给用户" value={this.props.name} onChange={this.props.onChange} />
                     <Reactman.FormRadio label="采购方式:" name="purchaseMethod" value={this.props.purchaseMethod} options={optionsForPurchaseMethod} onChange={this.props.onChange} />
