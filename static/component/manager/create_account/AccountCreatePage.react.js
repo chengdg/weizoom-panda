@@ -102,6 +102,11 @@ var AccountCreatePage = React.createClass({
 			Reactman.PageAction.showHint('error', '请选择经营类目');
 			return;
 		}
+
+		if(!W.is_edit && account.companyName != $('#companyNameOption').find("option:selected").text()){
+			Reactman.PageAction.showHint('error', '请选择公司名称');
+			return;
+		}
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
