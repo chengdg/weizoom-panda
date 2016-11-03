@@ -2,13 +2,13 @@
 
 from bdem import msgutil
 topic_name  = 'customer-news-add'
-test_topic_name = 'test-panda-readmine'
-test_func_name = 'test-panda-new-redmine-log'
+# test_topic_name = 'test-panda-readmine'
+# test_func_name = 'test-panda-new-redmine-log'
 def send_reject_product_message(product_name=None, reject_reason=None, customer_id=None, customer_name=None):
 	"""
 	商品驳回
 	"""
-	func_name = 'add_customer_news'
+	msg_name = 'add_customer_news'
 	data = {
 		"name": "add_customer_news",
 		"data": {
@@ -23,14 +23,14 @@ def send_reject_product_message(product_name=None, reject_reason=None, customer_
 			}
 		}
 	}
-	msgutil.send_message(test_topic_name, test_func_name, data)
+	msgutil.send_message(topic_name, msg_name, data)
 
 
 def send_sync_product_message(product_name=None, platforms=[], customer_id=None, customer_name=None):
 	"""
 	商品同步
 	"""
-	func_name = 'add_customer_news'
+	msg_name = 'add_customer_news'
 	platforms_string = u'、'.join(platforms)
 	data = {
 		"name": "add_customer_news",
@@ -47,14 +47,14 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 		}
 	}
 
-	msgutil.send_message(test_topic_name, test_func_name, data)
+	msgutil.send_message(topic_name, msg_name, data)
 
 
 def send_stop_sell_product_message(product_name=None, stop_reason=None, customer_id=None, customer_name=None):
 	"""
 	商品停售
 	"""
-	func_name = 'add_customer_news'
+	msg_name = 'add_customer_news'
 	data = {
 		"name": "add_customer_news",
 		"data": {
@@ -70,4 +70,4 @@ def send_stop_sell_product_message(product_name=None, stop_reason=None, customer
 		}
 	}
 
-	msgutil.send_message(test_topic_name, test_func_name, data)
+	msgutil.send_message(topic_name, msg_name, data)
