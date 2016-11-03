@@ -36,7 +36,7 @@ class Command(BaseCommand):
         products = product_models.Product.objects.filter(id__in=product_ids)
         tmp_line = 1
         for product in products:
-            name = product.name
+            name = product.product_name
             reason = ""
             for log in product_models.ProductRevokeLogs.objects.filter(product_id=product.id):
                 reason = reason + log.revoke_reasons
