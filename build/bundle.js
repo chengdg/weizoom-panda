@@ -38767,6 +38767,11 @@
 
 		getInitialState: function () {
 			Store.addListener(this.onChangeStore);
+			var account = Store.getData();
+
+			if (W.is_edit) {
+				Action.getCompanyInfoFromAxe(account.companyName);
+			}
 			return Store.getData();
 		},
 
@@ -38850,7 +38855,7 @@
 				return;
 			}
 
-			if (!W.is_edit && account.companyName != $('#companyNameOption').find("option:selected").text()) {
+			if (account.companyName != $('#companyNameOption').find("option:selected").text()) {
 				Reactman.PageAction.showHint('error', '请选择公司名称');
 				return;
 			}
