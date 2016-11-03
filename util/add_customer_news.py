@@ -8,6 +8,7 @@ def send_reject_product_message(product_name=None, reject_reason=None, customer_
 	"""
 	商品驳回
 	"""
+	print '111111111111111111111111111111111111111111111'
 	msg_name = 'add_customer_news'
 	data = {
 		"name": "add_customer_news",
