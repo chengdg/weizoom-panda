@@ -38867,7 +38867,7 @@
 				return;
 			}
 
-			if (account.companyName != $('#companyNameOption').find("option:selected").text()) {
+			if (accountType == 1 && account.companyName != $('#companyNameOption').find("option:selected").text()) {
 				Reactman.PageAction.showHint('error', '请选择公司名称');
 				return;
 			}
@@ -38976,7 +38976,7 @@
 				return React.createElement(
 					'div',
 					null,
-					React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '\u516C\u53F8\u540D\u79F0:', validate: 'require-notempty', type: 'text', name: 'companyName', value: this.props.companyName, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormSelect, { label: '', name: 'companyNameOption', value: this.props.companyNameOption, options: this.props.optionsForCompanyName, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '\u5E97\u94FA\u540D\u79F0:', type: 'text', name: 'name', validate: 'require-notempty', placeholder: '\u5EFA\u8BAE\u586B\u5199\u4E3A\u5BA2\u6237\u516C\u53F8\u7B80\u79F0\uFF0C\u5C06\u5728\u5FAE\u4F17\u5E73\u53F0\u624B\u673A\u7AEF\u5C55\u793A\u7ED9\u7528\u6237', value: this.props.name, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormRadio, { label: '\u91C7\u8D2D\u65B9\u5F0F:', name: 'purchaseMethod', value: this.props.purchaseMethod, options: optionsForPurchaseMethod, onChange: this.props.onChange }),
@@ -39055,6 +39055,7 @@
 					this.data['purchaseMethod'] = String(this.data['purchase_method']);
 					this.data['companyType'] = JSON.parse(this.data['company_type']);
 					this.data['optionsForType'] = [];
+					this.data['companyNameOption'] = this.data['contacter'] + '/' + this.data['phone'];
 					this.data['optionsForCompanyName'] = [];
 					this.data['validTimeFrom'] = this.data['valid_time_from'];
 					this.data['validTimeTo'] = this.data['valid_time_to'];

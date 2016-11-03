@@ -38,6 +38,7 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				this.data['purchaseMethod'] = String(this.data['purchase_method']);
 				this.data['companyType'] = JSON.parse(this.data['company_type']);
 				this.data['optionsForType'] = [];
+				this.data['companyNameOption'] = this.data['contacter']+'/'+this.data['phone'];
 				this.data['optionsForCompanyName'] = [];
 				this.data['validTimeFrom'] = this.data['valid_time_from'];
 				this.data['validTimeTo'] = this.data['valid_time_to'];
