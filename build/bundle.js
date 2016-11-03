@@ -19869,36 +19869,38 @@
 	var FormRangeInput = __webpack_require__(591);
 	var FormDateTimeInput = __webpack_require__(592);
 	var FormDateRangeInput = __webpack_require__(595);
-	var FormSelect = __webpack_require__(596);
-	var FormSubmit = __webpack_require__(597);
-	var FormRadio = __webpack_require__(598);
-	var FormCheckbox = __webpack_require__(599);
-	var BooleanCheckbox = __webpack_require__(600);
-	var FormText = __webpack_require__(601);
-	var FormRichTextInput = __webpack_require__(602);
-	var FormImageUploader = __webpack_require__(607);
-	var FormFileUploader = __webpack_require__(610);
-	var Table = __webpack_require__(613);
-	var TablePanel = __webpack_require__(622);
-	var TableActionBar = __webpack_require__(623);
-	var TableActionButton = __webpack_require__(624);
-	var TableColumn = __webpack_require__(625);
-	var TableAction = __webpack_require__(619);
-	var Tabs = __webpack_require__(626);
-	var Tab = __webpack_require__(629);
-	var Pagination = __webpack_require__(614);
-	var FilterPanel = __webpack_require__(630);
-	var FilterRow = __webpack_require__(636);
-	var FilterField = __webpack_require__(637);
+	var FormDialogInput = __webpack_require__(596);
+	var FormSelect = __webpack_require__(599);
+	var FormAreaSelect = __webpack_require__(602);
+	var FormSubmit = __webpack_require__(605);
+	var FormRadio = __webpack_require__(606);
+	var FormCheckbox = __webpack_require__(607);
+	var BooleanCheckbox = __webpack_require__(608);
+	var FormText = __webpack_require__(609);
+	var FormRichTextInput = __webpack_require__(610);
+	var FormImageUploader = __webpack_require__(615);
+	var FormFileUploader = __webpack_require__(618);
+	var Table = __webpack_require__(621);
+	var TablePanel = __webpack_require__(630);
+	var TableActionBar = __webpack_require__(631);
+	var TableActionButton = __webpack_require__(632);
+	var TableColumn = __webpack_require__(633);
+	var TableAction = __webpack_require__(627);
+	var Tabs = __webpack_require__(634);
+	var Tab = __webpack_require__(637);
+	var Pagination = __webpack_require__(622);
+	var FilterPanel = __webpack_require__(638);
+	var FilterRow = __webpack_require__(644);
+	var FilterField = __webpack_require__(645);
 	var Dialog = __webpack_require__(259);
-	var Widget = __webpack_require__(638);
-	var Chart = __webpack_require__(641);
-	var ChartActionBar = __webpack_require__(647);
-	var ProvinceCitySelect = __webpack_require__(648);
+	var Widget = __webpack_require__(646);
+	var Chart = __webpack_require__(649);
+	var ChartActionBar = __webpack_require__(655);
+	var ProvinceCitySelect = __webpack_require__(656);
 
-	var WepageEditor = __webpack_require__(656);
-	var Wepage = __webpack_require__(706);
-	var UEditor = __webpack_require__(708);
+	var WepageEditor = __webpack_require__(664);
+	var Wepage = __webpack_require__(714);
+	var UEditor = __webpack_require__(716);
 
 	var React = __webpack_require__(3);
 	var createDialog = function (options) {
@@ -19952,7 +19954,9 @@
 		FormRangeInput: FormRangeInput,
 		FormDateTimeInput: FormDateTimeInput,
 		FormDateRangeInput: FormDateRangeInput,
+		FormDialogInput: FormDialogInput,
 		FormSelect: FormSelect,
+		FormAreaSelect: FormAreaSelect,
 		FormSubmit: FormSubmit,
 		FormText: FormText,
 		FormRichTextInput: FormRichTextInput,
@@ -21567,77 +21571,83 @@
 	var dynamicRequire = __webpack_require__(323);
 
 	var Page = React.createClass({
-		displayName: 'Page',
+	    displayName: 'Page',
 
-		getInitialState: function () {
-			System.parseRollbackInfo();
+	    getInitialState: function () {
+	        System.parseRollbackInfo();
 
-			return PageStore.getData();
-		},
+	        return PageStore.getData();
+	    },
 
-		componentDidMount: function () {
-			PageStore.addListener(this.onChangePageStore);
+	    componentDidMount: function () {
+	        PageStore.addListener(this.onChangePageStore);
 
-			Validater.init();
+	        Validater.init();
 
-			var _this = this;
-			$(document).click(function (event) {
-				var $el = $(event.target);
-				var $popover = $el.parents('.xa-popover');
-				if ($popover.length > 0) {
-					debug('click in popover, ignore.');
-				} else {
-					PageAction.hidePopover();
-				}
-			});
+	        var _this = this;
+	        $(document).click(function (event) {
+	            var $el = $(event.target);
+	            var $popover = $el.parents('.xa-popover');
+	            if ($popover.length > 0) {
+	                debug('click in popover, ignore.');
+	            } else {
+	                PageAction.hidePopover();
+	            }
+	        });
 
-			$(document).delegate('._r_xa-backToList', 'click', function (event) {
-				event.stopPropagation();
-				event.preventDefault();
-				var $link = $(event.currentTarget);
-				var backupUrl = $link.attr('data-backup-url');
-				System.gotoPage('${rollback}', backupUrl);
-			});
-		},
+	        $(document).delegate('._r_xa-backToList', 'click', function (event) {
+	            event.stopPropagation();
+	            event.preventDefault();
+	            var $link = $(event.currentTarget);
+	            var backupUrl = $link.attr('data-backup-url');
+	            System.gotoPage('${rollback}', backupUrl);
+	        });
+	    },
 
-		onChangePageStore: function () {
-			var data = PageStore.getData();
-			this.setState(data);
-		},
+	    onChangePageStore: function () {
+	        var data = PageStore.getData();
+	        this.setState(data);
+	    },
 
-		render: function () {
-			var pageContent = '';
-			if (this.props.pageContentComponent) {
-				var pageContentComponent = dynamicRequire(this.props.pageContentComponent);
-				var pageContent = React.createElement(pageContentComponent, {});
-			}
+	    render: function () {
+	        var pageContent = '';
+	        if (this.props.pageContentComponent) {
+	            var pageContentComponent = dynamicRequire(this.props.pageContentComponent);
+	            var pageContent = React.createElement(pageContentComponent, {});
+	        }
+	        if (this.props.footContentComponent) {
+	            var footContentComponent = dynamicRequire(this.props.footContentComponent);
+	            var footContent = React.createElement(footContentComponent, {});
+	        }
 
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(Confirm, { data: this.state.confirm }),
-				React.createElement(Popover, { data: this.state.popover }),
-				React.createElement(Dialog, { data: this.state.dialog }),
-				React.createElement(GlobalLoader, { visible: this.state.isShowLoader }),
-				React.createElement(GlobalHint, { type: this.state.hint.type, hint: this.state.hint.msg }),
-				React.createElement(TopNav, { name: this.props.sitename, navs: this.props.topNavs, activeNav: this.props.activeTopNav, userName: this.props.userName }),
-				React.createElement(
-					'div',
-					{ id: 'main-panel' },
-					React.createElement(
-						'div',
-						{ className: 'xui-contentPanel mt50' },
-						React.createElement(SecondNav, { navs: this.props.secondNavs, activeNav: this.props.activeSecondNav }),
-						React.createElement(
-							'div',
-							{ className: 'xui-container pt10 pb40 pl15 pr15', style: { "overflowX": "hidden" } },
-							React.createElement(Breadcrumb, { items: this.props.breadcrumb }),
-							pageContent
-						)
-					)
-				)
-			);
-		}
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(Confirm, { data: this.state.confirm }),
+	            React.createElement(Popover, { data: this.state.popover }),
+	            React.createElement(Dialog, { data: this.state.dialog }),
+	            React.createElement(GlobalLoader, { visible: this.state.isShowLoader }),
+	            React.createElement(GlobalHint, { type: this.state.hint.type, hint: this.state.hint.msg }),
+	            React.createElement(TopNav, { name: this.props.sitename, navs: this.props.topNavs, activeNav: this.props.activeTopNav,
+	                userName: this.props.userName }),
+	            React.createElement(
+	                'div',
+	                { id: 'main-panel' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'xui-contentPanel mt50' },
+	                    React.createElement(SecondNav, { navs: this.props.secondNavs, activeNav: this.props.activeSecondNav }),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'xui-container pt10 pb40 pl15 pr15', style: { "overflowX": "hidden" } },
+	                        React.createElement(Breadcrumb, { items: this.props.breadcrumb }),
+	                        pageContent
+	                    )
+	                )
+	            ),
+	            footContent
+	        );
+	    }
 	});
 	module.exports = Page;
 
@@ -25445,7 +25455,8 @@
 								React.createElement(
 									'button',
 									{ type: 'button', className: 'btn btn-primary', onClick: this.onClickSubmit },
-									' \u786E\u5B9A '
+									' ',
+									data.okText || '确定'
 								)
 							)
 						)
@@ -32391,6 +32402,7 @@
 
 			var actionData = action.data;
 			dialog.title = actionData.title;
+			dialog.okText = actionData.okText;
 			dialog.type = actionData.type || 'normal';
 			dialog.height = actionData.height || null;
 			dialog.width = actionData.width || null;
@@ -56577,7 +56589,7 @@
 			if (this.props.hasOwnProperty('autoFocus')) {
 				autoFocus = this.props.autoFocus;
 			}
-			var disabled = this.props.readonly ? 'disabled' : '';
+			var disabled = this.props.readonly || this.props.disabled ? 'disabled' : '';
 
 			var labelClasses = classNames({
 				'col-sm-2': true,
@@ -56588,6 +56600,8 @@
 				'errorHint': true,
 				'xui-hide': !this.props.validate
 			});
+
+			var inputClasses = classNames("form-control", this.props.extraClass);
 			return React.createElement(
 				'div',
 				{ className: 'form-group ml15' },
@@ -56601,7 +56615,7 @@
 					{ className: 'col-sm-5' },
 					React.createElement('input', {
 						type: 'text',
-						className: 'form-control',
+						className: inputClasses,
 						id: name,
 						name: name,
 						disabled: disabled,
@@ -56719,6 +56733,7 @@
 			var validate = this.props.validate || '';
 			var placeholder = this.props.placeholder || '';
 			var value = this.props.value || '';
+			var disabled = this.props.disabled;
 			var autoFocus = false;
 			if (this.props.hasOwnProperty('autoFocus')) {
 				autoFocus = this.props.autoFocus;
@@ -56748,6 +56763,7 @@
 						type: 'text',
 						className: 'form-control w60 mr5 xa-low',
 						id: name + "_low",
+						disabled: disabled,
 						name: name,
 						'data-validate': validate,
 						value: this.props.value.low,
@@ -56758,6 +56774,7 @@
 						type: 'text',
 						className: 'form-control w70 ml5 xa-high',
 						id: name + "_high",
+						disabled: disabled,
 						name: name,
 						'data-validate': validate,
 						value: this.props.value.high,
@@ -57043,6 +57060,10 @@
 
 		render: function () {
 			var name = this.props.name;
+			var label = this.props.label;
+			var disabled = this.props.disabled;
+			var isHideLabel = label === undefined;
+
 			var validate = this.props.validate || '';
 			var placeholder = this.props.placeholder || '';
 			var value = this.props.value || '';
@@ -57050,11 +57071,22 @@
 			if (this.props.hasOwnProperty('autoFocus')) {
 				autoFocus = this.props.autoFocus;
 			}
-
+			var cls = classNames(this.props.extraClass, {
+				"xui-formDateRangeInput": true,
+				"form-group": true,
+				"ml15": true
+			});
 			var labelClasses = classNames({
-				'col-sm-2': true,
+				"hide": isHideLabel,
+				"xui-i-label": true,
+				'col-sm-2': !isHideLabel,
 				'control-label': true,
 				'xui-mandatory': validate !== ''
+			});
+			var containerClasses = classNames({
+				"col-sm-7": !isHideLabel,
+				"xui-i-container": true,
+				"xa-inputs": true
 			});
 			var errorHintClasses = classNames({
 				'errorHint': true,
@@ -57063,17 +57095,18 @@
 
 			return React.createElement(
 				'div',
-				{ className: 'form-group ml15' },
+				{ className: cls },
 				React.createElement(
 					'label',
 					{ className: labelClasses, htmlFor: name },
-					this.props.label
+					label
 				),
 				React.createElement(
 					'div',
-					{ className: 'col-sm-7 xa-inputs' },
+					{ className: containerClasses },
 					React.createElement('input', {
 						readOnly: true,
+						disabled: disabled,
 						type: 'text',
 						className: 'form-control xui-datePicker xa-low',
 						id: name + "_low",
@@ -57085,6 +57118,7 @@
 					'~',
 					React.createElement('input', {
 						readOnly: true,
+						disabled: disabled,
 						type: 'text',
 						className: 'form-control xui-datePicker xa-high',
 						id: name + "_high",
@@ -57105,6 +57139,164 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Created by lchysh on 2016/10/18.
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+
+	"use strict";
+
+	var debug = __webpack_require__(235)('reactman:FormDialogInput');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var classNames = __webpack_require__(239);
+
+	var PageAction = __webpack_require__(244);
+	var Validater = __webpack_require__(260);
+
+	__webpack_require__(597);
+
+	var FormDialogInput = React.createClass({
+	    displayName: 'FormDialogInput',
+
+	    getInitialState: function () {
+	        var data = { dialogState: {} };
+	        return data;
+	    },
+	    onChange: function (value) {
+	        if (this.props.onChange) {
+	            var event = { target: this.refs.input };
+	            debug(value);
+	            value = value || '';
+	            this.props.onChange(value, event);
+	        }
+	    },
+
+	    openDialog: function () {
+	        var _this = this;
+	        var dialog = this.props.dialog;
+
+	        var success = function (inputData, dialogState) {
+	            _this.state.dialogState = dialogState;
+	            _this.onChange(dialogState.value);
+	        };
+
+	        dialog.success = success;
+	        PageAction.showDialog(dialog);
+	    },
+
+	    render: function () {
+	        var id = this.props.id;
+	        var name = this.props.name;
+	        var disabled = this.props.disabled;
+	        var validate = this.props.validate || '';
+	        var value = this.props.value || '';
+	        var errorHint = this.props.errorHint || '';
+	        var cBtn = this.props.btn;
+	        var required = this.props.required;
+	        var _this = this;
+	        var formatter = function (value) {
+	            if (_this.props.formatter) {
+	                return _this.props.formatter(value, _this.props.dialog.data || {}, _this.state.dialogState || {});
+	            }
+	            return value;
+	        };
+
+	        var labelClasses = classNames({
+	            'hide': this.props.label === undefined,
+	            'col-sm-2': true,
+	            'control-label': true,
+	            'xui-mandatory': required
+	        });
+	        var errorHintClasses = classNames({
+	            'errorHint': true,
+	            'xui-hide': !this.props.validate
+	        });
+	        var displayValue = formatter(value);
+
+	        var cls = classNames("form-group ml15 xui-formDialogInput", this.props.extraClass);
+
+	        return React.createElement(
+	            'div',
+	            { className: cls },
+	            React.createElement(
+	                'label',
+	                { className: labelClasses, htmlFor: name },
+	                this.props.label
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'col-sm-5' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'xui-i-formDialogInput-value' },
+	                    displayValue
+	                ),
+	                React.createElement(
+	                    'a',
+	                    { className: 'xui-i-formDialogInput-btn',
+	                        disabled: disabled,
+	                        href: 'javascript:void(0)',
+	                        onClick: this.openDialog },
+	                    cBtn
+	                ),
+	                React.createElement('input', { type: 'text',
+	                    style: { height: 0, width: 0, display: 'inline-block', border: 0, padding: 0, margin: 0 },
+	                    name: name,
+	                    'data-validate': validate,
+	                    value: value,
+	                    ref: 'input' }),
+	                React.createElement('div', { className: errorHintClasses, 'data-error-hint': errorHint })
+	            )
+	        );
+	    }
+	});
+	module.exports = FormDialogInput;
+
+/***/ },
+/* 597 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(598);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 598 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".xui-formDialogInput.form-group {\r\n\r\n}\r\n\r\n.xui-formDialogInput a.xui-i-formDialogInput-btn {\r\n  padding-top: 4px;\r\n  vertical-align: sub;\r\n}\r\n\r\n.xui-formDialogInput .xui-i-formDialogInput-value {\r\n  display: inline-block;\r\n  padding-right: 10px;\r\n  vertical-align: sub;\r\n}\r\n\r\n.xui-formDialogInput .xui-i-formDialogInput-value:empty {\r\n  display: none;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 599 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * reactman
 	 *
 	 */
@@ -57114,89 +57306,489 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
+	__webpack_require__(600);
+
 	var FormSelect = React.createClass({
-		displayName: 'FormSelect',
+	    displayName: 'FormSelect',
 
-		onChange: function (event) {
-			if (this.props.onChange) {
-				this.props.onChange(event.target.value, event);
-			}
-		},
+	    onChange: function (event) {
+	        if (this.props.onChange) {
+	            this.props.onChange(event.target.value, event);
+	        }
+	    },
 
-		componentDidMount: function () {
-			if (this.props.autoFocus) {
-				var delay = 100;
-				if (this.props.inDialog) {
-					var delay = 800;
-				}
-				_.delay(_.bind(function () {
-					ReactDOM.findDOMNode(this.refs.input).focus();
-				}, this), delay);
-			}
-		},
+	    componentDidMount: function () {
+	        if (this.props.autoFocus) {
+	            var delay = 100;
+	            if (this.props.inDialog) {
+	                var delay = 800;
+	            }
+	            _.delay(_.bind(function () {
+	                ReactDOM.findDOMNode(this.refs.input).focus();
+	            }, this), delay);
+	        }
+	    },
 
-		render: function () {
-			var name = this.props.name;
-			var validate = this.props.validate || '';
-			var options = this.props.options || '';
-			var autoFocus = false;
-			if (this.props.hasOwnProperty('autoFocus')) {
-				autoFocus = this.props.autoFocus;
-			}
+	    render: function () {
+	        var name = this.props.name;
+	        var validate = this.props.validate || '';
+	        var options = this.props.options || '';
+	        var disabled = this.props.disabled;
+	        var label = this.props.label;
+	        var required = this.props.required === true;
+	        var isVisible = this.props.visible !== false;
 
-			var labelClasses = classNames({
-				'col-sm-2': true,
-				'control-label': true,
-				'xui-mandatory': validate !== ''
-			});
-			var errorHintClasses = classNames({
-				'errorHint': true,
-				'xui-hide': !this.props.validate
-			});
-			var _this = this;
+	        if (!isVisible) {
+	            return React.createElement('span', null);
+	        }
+	        if (required && !validate) {
+	            validate = 'require-notempty';
+	        }
+	        var isHideLable = label === undefined;
 
-			var optionNodes = options.map(function (data, index) {
-				return React.createElement(
-					'option',
-					{ key: index, value: data.value },
-					data.text
-				);
-			});
+	        var autoFocus = false;
+	        if (this.props.hasOwnProperty('autoFocus')) {
+	            autoFocus = this.props.autoFocus;
+	        }
 
-			var value = this.props.value || '-1';
-			return React.createElement(
-				'div',
-				{ className: 'form-group ml15' },
-				React.createElement(
-					'label',
-					{ className: labelClasses, htmlFor: name },
-					this.props.label
-				),
-				React.createElement(
-					'div',
-					{ className: 'col-sm-5' },
-					React.createElement(
-						'select',
-						{
-							value: value,
-							className: 'form-control',
-							id: name,
-							name: name,
-							'data-validate': validate,
-							ref: 'select',
-							onChange: this.onChange
-						},
-						optionNodes
-					),
-					React.createElement('div', { className: errorHintClasses })
-				)
-			);
-		}
+	        var cls = classNames(this.props.extraClass, {
+	            'xui-i-label-hide': true,
+	            'xui-formSelect': true,
+	            'form-group': true,
+	            'ml15': true
+	        });
+
+	        var labelClasses = classNames({
+	            'hide': isHideLable,
+	            'col-sm-2': !isHideLable,
+	            'control-label': true,
+	            'xui-mandatory': required === true || validate // TODO 将统一一改成 根据required设置，暂时兼容
+	        });
+	        var selectContainerCls = classNames({
+	            'xui-i-selectContainer': true,
+	            'col-sm-5': !isHideLable
+	        });
+	        var errorHintClasses = classNames({
+	            'errorHint': true,
+	            'xui-hide': !validate
+	        });
+	        var _this = this;
+	        var optionNodes = options.map(function (data, index) {
+	            return React.createElement(
+	                'option',
+	                { key: index, value: data.value },
+	                data.text
+	            );
+	        });
+
+	        var value = this.props.value || '-1';
+	        return React.createElement(
+	            'div',
+	            { className: cls },
+	            React.createElement(
+	                'label',
+	                { className: labelClasses, htmlFor: name },
+	                label
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: selectContainerCls },
+	                React.createElement(
+	                    'select',
+	                    {
+	                        value: value,
+	                        className: 'form-control',
+	                        id: name,
+	                        disabled: disabled,
+	                        name: name,
+	                        'data-validate': validate,
+	                        ref: 'select',
+	                        onChange: this.onChange
+	                    },
+	                    optionNodes
+	                ),
+	                React.createElement('div', { className: errorHintClasses })
+	            )
+	        );
+	    }
 	});
 	module.exports = FormSelect;
 
 /***/ },
-/* 597 */
+/* 600 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(601);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 601 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".xui-formSelect.xui-i-label-hide select {\r\n  /*width: 100%;*/\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 602 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 省、市、县（区）选择器
+	 * Created by lchysh on 2016/10/25.
+	 * Copyright(c) 2012-2016 weizoom
+	 */
+
+	"use strict";
+
+	var debug = __webpack_require__(235)('webase:FormAreaSelect');
+	var React = __webpack_require__(3);
+	var ReactDOM = __webpack_require__(160);
+	var classNames = __webpack_require__(239);
+	var _ = __webpack_require__(243);
+	var Resource = __webpack_require__(249);
+	var Validater = __webpack_require__(260);
+
+	var dataCache = {};
+
+	__webpack_require__(603);
+	var emptyOptions = {
+	    provinces: [{ value: -1, text: '省' }],
+	    cities: [{ value: -1, text: '市' }],
+	    districts: [{ value: -1, text: '区／县' }]
+	};
+
+	var emptyFunc = function () {};
+	var FormAreaSelect = React.createClass({
+	    displayName: 'FormAreaSelect',
+
+	    getInitialState: function () {
+	        var data = {
+	            provinces: emptyOptions.provinces,
+	            cities: emptyOptions.cities,
+	            districts: emptyOptions.districts
+	        };
+	        return data;
+	    },
+
+	    componentDidMount: function () {
+	        var _this = this;
+	        this.loadAreas({ type: 'provinces', id: 0 }, function (provinces) {
+	            var valueObj = _this.parseValue();
+	            var province = valueObj.province;
+	            var provinceId = _this.findRegionByText(province, provinces);
+	            if (provinceId == -1) {
+	                return;
+	            }
+	            _this.loadAreas({ type: 'cities', id: provinceId }, function (areas) {
+	                var valueObj = _this.parseValue();
+	                var areaId = _this.findRegionByText(valueObj.city, areas);
+	                if (areaId == -1) {
+	                    return;
+	                }
+	                _this.loadAreas({ type: 'districts', id: areaId });
+	            });
+	        });
+
+	        Validater.addRule('require-formareaselect', {
+	            //字母
+	            type: 'regex',
+	            extract: 'value',
+	            regex: /^[^\-]+\-[^\-]+\-[^\-]+$/g,
+	            errorHint: '请选择区域'
+	        });
+	    },
+
+	    findRegionByText: function (text, regions) {
+	        var region = { id: -1 };
+	        var tmpRegion;
+	        for (var i = regions.length - 1; i > -1; i--) {
+	            tmpRegion = regions[i];
+	            if (tmpRegion.text == text) {
+	                region = tmpRegion;
+	                break;
+	            }
+	        }
+	        return region.id;
+	    },
+
+	    loadAreas: function (args, cb) {
+	        cb = cb || function () {};
+	        var cacheKey = args.type + '_' + args.id;
+	        var regions;
+	        if (args.id == -1) {
+	            regions = emptyOptions[args.type];
+	        } else {
+	            regions = dataCache[cacheKey];
+	        }
+	        if (regions) {
+	            var state = {};
+	            state[args.type] = regions;
+	            this.setState(state);
+	            cb(regions);
+	            return;
+	        }
+	        Resource.get({
+	            resource: this.props.resource,
+	            data: args,
+	            scope: this,
+	            success: function (data) {
+	                var regionalMap = data['regional_info'] || data['regionalInfo'] || {};
+	                var regions = Object.keys(regionalMap).map(function (id) {
+	                    var name = regionalMap[id];
+	                    return { id: id, text: name, value: name };
+	                });
+	                regions.sort(function (t1, t2) {
+	                    return t1.id - t2.id;
+	                });
+	                regions = emptyOptions[args.type].concat(regions);
+	                dataCache[cacheKey] = regions;
+	                var state = {};
+	                state[args.type] = regions;
+	                this.setState(state);
+	                cb(regions);
+	            }
+	        });
+	    },
+
+	    parseValue: function () {
+	        var value = (this.props.value || '').split('-');
+	        return {
+	            province: value[0] || '',
+	            city: value[1] || '',
+	            district: value[2] || ''
+	        };
+	    },
+
+	    formatValue: function (valueObj) {
+	        valueObj = valueObj || {};
+	        return [valueObj.province || '', valueObj.city || '', valueObj.district || ''].join('-');
+	    },
+
+	    onChange: function (type, event) {
+	        var valueObj = this.parseValue();
+	        var _this = this;
+	        var onChange = this.props.onChange || emptyFunc;
+	        var args = {};
+	        var target = this.refs.input;
+	        var value = event.target.value || '';
+
+	        if (type == 'province') {
+	            valueObj.province = value;
+	            valueObj.city = '';
+	            valueObj.district = '';
+	            var provinceId = this.findRegionByText(value, this.state.provinces);
+	            value = this.formatValue(valueObj);
+	            this.loadAreas({ id: provinceId, type: 'cities' }, function () {
+	                onChange(value, { target: target });
+	            });
+	        } else if (type == 'city') {
+	            valueObj.city = value;
+	            valueObj.district = '';
+	            var cityId = this.findRegionByText(value, this.state.cities);
+	            value = this.formatValue(valueObj);
+	            this.loadAreas({ id: cityId, type: 'districts' }, function () {
+	                onChange(value, { target: target });
+	            });
+	        } else if (type == 'district') {
+	            valueObj.district = value;
+	            value = this.formatValue(valueObj);
+	            onChange(value, { target: target });
+	        }
+	    },
+
+	    render: function () {
+
+	        var name = this.props.name;
+
+	        var label = this.props.label;
+	        var required = this.props.required;
+
+	        var validate = this.props.validate;
+	        var disabled = this.props.disabled;
+
+	        var errorHint = this.props.errorHint;
+
+	        var isHideLabel = label === undefined || label === false;
+
+	        var valueObj = this.parseValue();
+
+	        var city = valueObj.city;
+
+	        var province = valueObj.province;
+
+	        var district = valueObj.district;
+
+	        if (required && !validate) {
+	            validate = 'require-formareaselect';
+	            errorHint = '请选择区域';
+	        }
+	        var labelClasses = classNames({
+	            'control-label': true,
+	            'xui-i-label': true,
+	            'hide': isHideLabel,
+	            'xui-mandatory': required === true
+	        });
+
+	        var errorHintClasses = classNames({
+	            'errorHint': true,
+	            'xui-hide': !this.props.validate
+	        });
+	        var selectContainerCls = classNames({
+	            "xui-i-select-container": true
+	        });
+	        var cls = classNames(this.props.extraClass, {
+	            'form-group': true,
+	            'ml15': true,
+	            'xui-formAreaSelect': true
+	        });
+	        debug('errorHint:' + errorHint);
+	        return React.createElement(
+	            'div',
+	            { className: cls, name: this.props.name },
+	            React.createElement(
+	                'label',
+	                { className: labelClasses },
+	                this.props.label
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: selectContainerCls },
+	                React.createElement(
+	                    'div',
+	                    { className: 'xui-i-select-groups' },
+	                    React.createElement(
+	                        'select',
+	                        {
+	                            disabled: disabled,
+	                            value: province,
+	                            className: 'form-control xui-i-select-province',
+	                            ref: 'provinces',
+	                            onChange: this.onChange.bind(this, 'province')
+	                        },
+	                        this.state.provinces.map(function (data, index) {
+	                            return React.createElement(
+	                                'option',
+	                                { key: index, value: data.value },
+	                                data.text
+	                            );
+	                        })
+	                    ),
+	                    React.createElement(
+	                        'select',
+	                        {
+	                            disabled: disabled,
+	                            value: city,
+	                            className: 'form-control',
+	                            ref: 'cities',
+	                            onChange: this.onChange.bind(this, 'city')
+	                        },
+	                        this.state.cities.map(function (data, index) {
+	                            return React.createElement(
+	                                'option',
+	                                { key: index, value: data.value },
+	                                data.text
+	                            );
+	                        })
+	                    ),
+	                    React.createElement(
+	                        'select',
+	                        {
+	                            disabled: disabled,
+	                            value: district,
+	                            className: 'form-control',
+	                            ref: 'districts',
+	                            onChange: this.onChange.bind(this, 'district')
+	                        },
+	                        this.state.districts.map(function (data, index) {
+	                            return React.createElement(
+	                                'option',
+	                                { key: index, value: data.value },
+	                                data.text
+	                            );
+	                        })
+	                    )
+	                ),
+	                React.createElement('input', { className: 'xui-i-validate-input',
+	                    onChange: emptyFunc,
+	                    'data-validate': validate,
+	                    value: this.props.value,
+	                    name: this.props.name,
+	                    ref: 'input' }),
+	                React.createElement('div', { className: errorHintClasses, 'data-error-hint': errorHint })
+	            )
+	        );
+	    }
+	});
+	module.exports = FormAreaSelect;
+
+/***/ },
+/* 603 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(604);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 604 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\r\n.xui-formAreaSelect select.form-control {\r\n  -webkit-box-flex: 1;\r\n  -moz-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  -ms-flex: 1;\r\n  flex: 1;\r\n}\r\n\r\n.xui-formAreaSelect .xui-i-select-container {\r\n  -webkit-box-flex: 1;\r\n  -moz-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  -ms-flex: 1;\r\n  flex: 1;\r\n}\r\n\r\n.xui-formAreaSelect .xui-i-validate-input {\r\n  height: 0 !important;\r\n  width: 0 !important;\r\n  padding: 0 !important;\r\n  margin: 0 !important;\r\n  border: 0 !important;\r\n}\r\n\r\n.xui-formAreaSelect.form-group {\r\n  display: -webkit-box;\r\n  display: -moz-box;\r\n  display: -ms-flexbox;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n}\r\n\r\n.xui-formAreaSelect.form-group .control-label {\r\n  width: 16.66666667%;\r\n}\r\n\r\n.xui-i-select-groups {\r\n  display: -webkit-box;\r\n  display: -moz-box;\r\n  display: -ms-flexbox;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57225,9 +57817,10 @@
 
 		render: function () {
 			var text = this.props.text || '保 存';
+			var disabled = this.props.disabled;
 			return React.createElement(
 				'div',
-				{ className: 'form-group ml15 mt40' },
+				{ className: 'form-group ml15 mt40 xui-formSubmit' },
 				React.createElement(
 					'label',
 					{ className: 'col-sm-2 control-label' },
@@ -57238,7 +57831,7 @@
 					{ className: 'col-sm-5' },
 					React.createElement(
 						'a',
-						{ className: 'btn btn-success mr40 xa-submit xui-fontBold', href: 'javascript:void(0);', onClick: this.onClick },
+						{ className: 'btn btn-success mr40 xa-submit xui-fontBold', disabled: disabled, href: 'javascript:void(0);', onClick: this.onClick },
 						text
 					)
 				)
@@ -57248,7 +57841,7 @@
 	module.exports = FormSubmit;
 
 /***/ },
-/* 598 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57273,6 +57866,7 @@
 		render: function () {
 			var name = this.props.name;
 			var value = this.props.value || '';
+			var disabled = !!this.props.disabled;
 
 			var labelClasses = classNames({
 				'col-sm-2': true,
@@ -57289,7 +57883,7 @@
 				return React.createElement(
 					'label',
 					{ className: 'radio-inline', style: { marginRight: '15px' }, key: index },
-					React.createElement('input', { type: 'radio', className: 'radio', name: _this.props.name, value: option.value, onChange: _this.onChange, checked: checked }),
+					React.createElement('input', { type: 'radio', disabled: disabled, className: 'radio', name: _this.props.name, value: option.value, onChange: _this.onChange, checked: checked }),
 					React.createElement(
 						'span',
 						{ style: { height: '27px', lineHeight: '27px' } },
@@ -57322,7 +57916,7 @@
 	module.exports = FormRadio;
 
 /***/ },
-/* 599 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57345,7 +57939,6 @@
 				var item = this.props.value[i];
 				checked[item] = 1;
 			}
-			debug(checked);
 
 			_.each(this.props.options, function (option) {
 				option.strValue = option.value + "";
@@ -57376,7 +57969,7 @@
 		render: function () {
 			var name = this.props.name;
 			var value = this.props.value || '';
-
+			var disabled = this.props.disabled;
 			var labelClasses = classNames({
 				'col-sm-2': true,
 				'control-label': true
@@ -57396,11 +57989,11 @@
 				if (option.hasOwnProperty('selectable')) {
 					selectable = option.selectable;
 				}
-				var disabled = selectable ? '' : 'disabled';
+				var checkboxDisabled = !disabled && selectable ? '' : 'disabled';
 				return React.createElement(
 					'label',
 					{ className: 'checkbox-inline', style: { marginRight: '15px' }, key: index },
-					React.createElement('input', { disabled: disabled, type: 'checkbox', className: 'checkbox', name: option.value, value: option.value, onChange: _this.onChange, checked: option.checked ? 'checked' : '' }),
+					React.createElement('input', { disabled: checkboxDisabled, type: 'checkbox', className: 'checkbox', name: option.value, value: option.value, onChange: _this.onChange, checked: option.checked ? 'checked' : '' }),
 					React.createElement(
 						'span',
 						{ style: { height: '27px', lineHeight: '27px' } },
@@ -57433,7 +58026,7 @@
 	module.exports = FormCheckbox;
 
 /***/ },
-/* 600 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57477,6 +58070,10 @@
 		},
 
 		onChange: function (event) {
+			if (this.props.disabled) {
+				return;
+			}
+
 			if (this.props.onChange) {
 				var name = this.props.name;
 				var value = !this.props.value;
@@ -57494,16 +58091,33 @@
 		render: function () {
 			var name = this.props.name;
 			var value = this.props.value || '';
+			var visible = this.props.visible !== false;
+			var label = this.props.label;
+			var required = this.props.required;
+			var disabled = this.props.disabled;
+			var isLableEmpty = label === undefined;
+			if (!visible) {
+				return React.createElement('span', null);
+			}
 
+			var cls = classNames(this.props.extraClass, {
+				"form-group": true,
+				"ml15": true,
+				"xui-booleanCheckbox": true
+			});
 			var labelClasses = classNames({
-				'col-sm-2': true,
-				'control-label': true
+				'col-sm-2': !isLableEmpty,
+				'control-label': true,
+				'hide': isLableEmpty,
+				'xui-mandatory': required === true
 			});
 			var errorHintClasses = classNames({
 				'errorHint': true,
 				'xui-hide': !this.props.validate
 			});
-
+			var checkboxCls = classNames({
+				"col-sm-5": !isLableEmpty
+			});
 			var option = {
 				text: this.props.option,
 				name: this.props.name,
@@ -57512,22 +58126,27 @@
 
 			return React.createElement(
 				'div',
-				{ className: 'form-group ml15', name: this.props.name },
+				{ className: cls, name: this.props.name },
 				React.createElement(
 					'label',
 					{ className: labelClasses, htmlFor: name, style: { height: '34px', lineHeight: '30px' } },
-					this.props.label
+					label
 				),
 				React.createElement(
 					'div',
-					{ className: 'col-sm-5' },
+					{ className: checkboxCls },
 					React.createElement(
 						'div',
 						{ className: 'xui-i-checkboxContainer' },
 						React.createElement(
 							'label',
 							{ className: 'checkbox-inline', style: { marginRight: '15px' } },
-							React.createElement('input', { type: 'checkbox', className: 'checkbox', name: option.name, value: option.value, onChange: this.onChange, checked: option.checked ? 'checked' : '' }),
+							React.createElement('input', { type: 'checkbox',
+								disabled: disabled,
+								className: 'checkbox',
+								name: option.name, value: option.value,
+								onChange: this.onChange,
+								checked: option.checked ? 'checked' : '' }),
 							React.createElement(
 								'span',
 								{ style: { height: '27px', lineHeight: '27px' } },
@@ -57543,7 +58162,7 @@
 	module.exports = BooleanCheckbox;
 
 /***/ },
-/* 601 */
+/* 609 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57587,6 +58206,7 @@
 			var type = this.props.type;
 			var placeholder = this.props.placeholder || '';
 			var value = this.props.value || '';
+			var disabled = this.props.disabled;
 			var autoFocus = false;
 			if (this.props.hasOwnProperty('autoFocus')) {
 				autoFocus = this.props.autoFocus;
@@ -57623,6 +58243,7 @@
 						className: 'form-control',
 						id: name,
 						name: name,
+						disabled: disabled,
 						'data-validate': validate,
 						placeholder: placeholder,
 						value: value,
@@ -57637,7 +58258,7 @@
 	module.exports = FormText;
 
 /***/ },
-/* 602 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57650,7 +58271,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(603);
+	var RawUEditor = __webpack_require__(611);
 
 	var FormRichTextInput = React.createClass({
 		displayName: 'FormRichTextInput',
@@ -57706,6 +58327,7 @@
 
 		render: function () {
 			var name = this.props.name;
+			var disabled = this.props.disabled;
 			var value = this.props.value || '';
 			value = value.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 			var width = this.props.width || 500;
@@ -57745,6 +58367,7 @@
 					help,
 					React.createElement('textarea', {
 						'data-type': 'full',
+						disabled: disabled,
 						'data-height': height,
 						'data-width': width,
 						name: name,
@@ -57762,7 +58385,7 @@
 	module.exports = FormRichTextInput;
 
 /***/ },
-/* 603 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57770,7 +58393,7 @@
 	 *
 	 */
 
-	var inherits = __webpack_require__(604).inherits;
+	var inherits = __webpack_require__(612).inherits;
 	var EventEmitter = __webpack_require__(303).EventEmitter;
 
 	var debug = __webpack_require__(235)('reactman:FormRichTextInput');
@@ -58050,7 +58673,7 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 604 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -58543,7 +59166,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(605);
+	exports.isBuffer = __webpack_require__(613);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -58580,7 +59203,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(606);
+	exports.inherits = __webpack_require__(614);
 
 	exports._extend = function (origin, add) {
 	  // Don't do anything if add isn't an object
@@ -58600,7 +59223,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(6)))
 
 /***/ },
-/* 605 */
+/* 613 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -58608,7 +59231,7 @@
 	};
 
 /***/ },
-/* 606 */
+/* 614 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -58636,7 +59259,7 @@
 	}
 
 /***/ },
-/* 607 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58650,7 +59273,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(608);
+	__webpack_require__(616);
 
 	var FormImageUploader = React.createClass({
 		displayName: 'FormImageUploader',
@@ -58713,6 +59336,7 @@
 		render: function () {
 			var name = this.props.name;
 			var value = this.props.value || '';
+			var disabled = this.props.disabled;
 
 			var labelClasses = classNames({
 				'col-sm-2': true,
@@ -58774,7 +59398,7 @@
 								null,
 								' \u4E0A\u4F20\u56FE\u7247'
 							),
-							React.createElement('input', { id: 'fileupload', type: 'file', name: 'image', className: 'xa-uploader' })
+							React.createElement('input', { id: 'fileupload', type: 'file', disabled: disabled, name: 'image', className: 'xa-uploader' })
 						),
 						React.createElement(
 							'div',
@@ -58790,13 +59414,13 @@
 	module.exports = FormImageUploader;
 
 /***/ },
-/* 608 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(609);
+	var content = __webpack_require__(617);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -58816,7 +59440,7 @@
 	}
 
 /***/ },
-/* 609 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -58830,7 +59454,7 @@
 
 
 /***/ },
-/* 610 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58844,7 +59468,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(611);
+	__webpack_require__(619);
 
 	var FormFileUploader = React.createClass({
 		displayName: 'FormFileUploader',
@@ -58991,13 +59615,13 @@
 	module.exports = FormFileUploader;
 
 /***/ },
-/* 611 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(612);
+	var content = __webpack_require__(620);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59017,7 +59641,7 @@
 	}
 
 /***/ },
-/* 612 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59031,7 +59655,7 @@
 
 
 /***/ },
-/* 613 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59045,15 +59669,15 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	var Pagination = __webpack_require__(614);
+	var Pagination = __webpack_require__(622);
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(617);
-	var Action = __webpack_require__(619);
-	var Constant = __webpack_require__(618);
+	var Store = __webpack_require__(625);
+	var Action = __webpack_require__(627);
+	var Constant = __webpack_require__(626);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(620);
+	__webpack_require__(628);
 
 	var Old = null;
 
@@ -59147,8 +59771,7 @@
 			this.__refresh(this.filterOptions);
 		},
 
-		onClickSelectRow: function (event) {
-			var id = parseInt(event.currentTarget.getAttribute('data-id'));
+		onClickSelectRow: function (id, event) {
 			var isSelected = event.currentTarget.checked;
 			this.Action.selectData({ id: id }, isSelected);
 		},
@@ -59225,6 +59848,7 @@
 		},
 
 		createHeadAndRow: function () {
+			var _this = this;
 			var cHeadBar = void 0;
 			if (_.isArray(this.props.children)) {
 				var heads = _.filter(this.props.children, function (head) {
@@ -59292,8 +59916,8 @@
 			var headCount = ths.length;
 			var enableExpandRow = this.props.expandRow;
 			var enableSelector = this.props.enableSelector;
-			var selectRowHandler = this.onClickSelectRow;
 			var trs = this.state.rows.map(function (row, index) {
+				var selectRowHandler = _this.onClickSelectRow.bind(_this, row.id);
 				if (enableExpandRow) {
 					row['index'] = index / 2 + 1;
 					if (row.isExpandRow) {
@@ -59301,7 +59925,7 @@
 						var data = rowFormatter('expand-row', null, row);
 						return React.createElement(
 							'tr',
-							{ key: "expand-tr-" + index, className: 'xui-i-expandRow', style: { padding: '0px' } },
+							{ key: "expand-bottom-tr-" + index, className: 'xui-i-expandRow', style: { padding: '0px' } },
 							React.createElement(
 								'td',
 								{ colSpan: headCount, style: { padding: '0px' } },
@@ -59424,7 +60048,7 @@
 	module.exports = Table;
 
 /***/ },
-/* 614 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59437,7 +60061,7 @@
 	var debug = __webpack_require__(235)('reactman:Pagination');
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(615);
+	__webpack_require__(623);
 
 	var Pagination = React.createClass({
 		displayName: 'Pagination',
@@ -59582,13 +60206,13 @@
 	module.exports = Pagination;
 
 /***/ },
-/* 615 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(616);
+	var content = __webpack_require__(624);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59608,7 +60232,7 @@
 	}
 
 /***/ },
-/* 616 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59622,7 +60246,7 @@
 
 
 /***/ },
-/* 617 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59636,7 +60260,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(618);
+	var Constant = __webpack_require__(626);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -59739,7 +60363,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 618 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59754,7 +60378,7 @@
 	});
 
 /***/ },
-/* 619 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -59763,7 +60387,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Table:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(618);
+	var Constant = __webpack_require__(626);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -59830,13 +60454,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 620 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(621);
+	var content = __webpack_require__(629);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -59856,7 +60480,7 @@
 	}
 
 /***/ },
-/* 621 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -59870,7 +60494,7 @@
 
 
 /***/ },
-/* 622 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59914,7 +60538,7 @@
 	module.exports = TablePanel;
 
 /***/ },
-/* 623 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59940,7 +60564,7 @@
 	module.exports = TableActionBar;
 
 /***/ },
-/* 624 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59979,7 +60603,7 @@
 	module.exports = TableActionButton;
 
 /***/ },
-/* 625 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60001,7 +60625,7 @@
 	module.exports = TableColumn;
 
 /***/ },
-/* 626 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60014,7 +60638,7 @@
 	var classNames = __webpack_require__(239);
 	var _ = __webpack_require__(243);
 
-	__webpack_require__(627);
+	__webpack_require__(635);
 
 	var Tabs = React.createClass({
 		displayName: 'Tabs',
@@ -60077,13 +60701,13 @@
 	module.exports = Tabs;
 
 /***/ },
-/* 627 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(628);
+	var content = __webpack_require__(636);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60103,7 +60727,7 @@
 	}
 
 /***/ },
-/* 628 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60117,7 +60741,7 @@
 
 
 /***/ },
-/* 629 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60221,7 +60845,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 630 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60236,16 +60860,17 @@
 
 	var System = __webpack_require__(267);
 
-	var Store = __webpack_require__(631);
-	var Action = __webpack_require__(633);
-	var Constant = __webpack_require__(632);
+	var Store = __webpack_require__(639);
+	var Action = __webpack_require__(641);
+	var Constant = __webpack_require__(640);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(634);
+	__webpack_require__(642);
 
 	var matchMap = {
 		'=': 'equal',
 		'~': 'contain',
+		'in': 'in',
 		'[]': 'range',
 		'[t]': 'timerange'
 	};
@@ -60253,6 +60878,7 @@
 	var reverseMatchMap = {
 		'equal': '=',
 		'contain': '~',
+		'in': 'in',
 		'range': '[]',
 		'timerange': '[t]'
 	};
@@ -60355,6 +60981,41 @@
 			this.replaceState(data);
 		},
 
+		/**
+	  * 更新 {field:value}
+	  * @param obj
+	  */
+		updateFields: function (obj) {
+			if (!obj) {
+				return;
+			}
+			var fields = Object.keys(obj);
+
+			var cFields = [];
+			var fieldValues = [];
+			React.Children.forEach(this.props.children, function (cFilterRow) {
+				var cFields = cFilterRow && cFilterRow.props && cFilterRow.props.children;
+				if (cFields) {
+					React.Children.forEach(cFields, function (cField) {
+						var cChild = cField && cField.props && cField.props.children;
+						if (!cChild) {
+							return;
+						}
+						var name = cChild.props.name;
+						var value = obj[name];
+						if (value === undefined) {
+							return;
+						}
+						fieldValues.push({ field: name, value: { value: value, match: cChild.props.match || '=' } });
+					});
+				}
+			});
+			if (!fieldValues.length) {
+				return;
+			}
+			this.Action.updateField(fieldValues);
+		},
+
 		onChangeField: function (value, event) {
 			var $input = $(event.target);
 			var $field = $input.parents('.xa-field').eq(0);
@@ -60382,8 +61043,18 @@
 					}
 
 					if (match === 'range') {
-						data['__f-' + key + '-gte'] = value.low || -999999999;
-						data['__f-' + key + '-lte'] = value.high || 999999999;
+						var lowValue = value.low;
+
+						if (!lowValue && lowValue !== 0) {
+							lowValue = -999999999;
+						}
+						var highValue = value.high;
+
+						if (!highValue && highValue !== 0) {
+							highValue = 999999999;
+						}
+						data['__f-' + key + '-gte'] = lowValue;
+						data['__f-' + key + '-lte'] = highValue;
 					} else if (match === 'timerange') {
 						var dateRange = [null, null];
 						if (value.low) {
@@ -60395,6 +61066,19 @@
 						}
 
 						data['__f-' + key + '-range'] = JSON.stringify(dateRange);
+					} else if (match === 'in') {
+						var dataSet = [];
+						if (value instanceof String) {
+							value = JSON.parse(value);
+						}
+
+						if (value instanceof Array) {
+							dataSet = value;
+						} else if (value !== undefined) {
+							dataSet.push(value);
+						}
+
+						data['__f-' + key + '-in'] = JSON.stringify(dataSet);
 					} else {
 						data['__f-' + key + '-' + match] = value;
 					}
@@ -60450,7 +61134,7 @@
 	module.exports = FilterPanel;
 
 /***/ },
-/* 631 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -60463,7 +61147,7 @@
 	var _ = __webpack_require__(243);
 
 	var StoreUtil = __webpack_require__(305);
-	var Constant = __webpack_require__(632);
+	var Constant = __webpack_require__(640);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -60483,19 +61167,38 @@
 
 			handleUpdateField: function (action) {
 				var value = action.data.value;
-				if (_.isString(value.value)) {
-					value.value = value.value.trim();
-				} else {
-					_.each(value.value, function (aValue, key) {
-						value.value[key] = aValue.trim();
-					});
-				}
+				var field = action.data.field;
 
-				if (value.value === '-1' || value.value.length === 0) {
-					delete this.data[action.data.field];
+				var fieldValueList;
+				if (field instanceof Array) {
+					fieldValueList = field;
 				} else {
-					this.data[action.data.field] = action.data.value;
+					fieldValueList = [{ field: field, value: value }];
 				}
+				var _this = this;
+				fieldValueList.forEach(function (fieldValue) {
+					var field = fieldValue.field;
+					var value = fieldValue.value;
+					var purifyValue = value.value;
+
+					if (_.isString(purifyValue)) {
+						value.value = purifyValue.trim();
+					} else {
+						_.each(purifyValue, function (aValue, key) {
+							if (_.isString(aValue)) {
+								aValue = aValue.trim();
+							}
+							purifyValue[key] = aValue;
+						});
+					}
+
+					if (purifyValue === '-1' || purifyValue.length === 0) {
+						delete _this.data[field];
+					} else {
+						_this.data[field] = value;
+					}
+				});
+
 				this.__emitChange();
 			},
 
@@ -60517,7 +61220,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 632 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -60531,14 +61234,14 @@
 	});
 
 /***/ },
-/* 633 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
 	Copyright (c) 2011-2012 Weizoom Inc
 	*/
 	var debug = __webpack_require__(235)('reactman:FilterPanel:Action');
-	var Constant = __webpack_require__(632);
+	var Constant = __webpack_require__(640);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -60564,13 +61267,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 634 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(635);
+	var content = __webpack_require__(643);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60590,7 +61293,7 @@
 	}
 
 /***/ },
-/* 635 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60604,7 +61307,7 @@
 
 
 /***/ },
-/* 636 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60659,7 +61362,7 @@
 	module.exports = FilterRow;
 
 /***/ },
-/* 637 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60673,7 +61376,7 @@
 
 	var FormInput = __webpack_require__(589);
 
-	__webpack_require__(634);
+	__webpack_require__(642);
 
 	var FilterField = React.createClass({
 		displayName: 'FilterField',
@@ -60704,7 +61407,7 @@
 	module.exports = FilterField;
 
 /***/ },
-/* 638 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60717,7 +61420,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(639);
+	__webpack_require__(647);
 
 	var Widget = React.createClass({
 		displayName: 'Widget',
@@ -60748,13 +61451,13 @@
 	module.exports = Widget;
 
 /***/ },
-/* 639 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(640);
+	var content = __webpack_require__(648);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -60774,7 +61477,7 @@
 	}
 
 /***/ },
-/* 640 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -60788,7 +61491,7 @@
 
 
 /***/ },
-/* 641 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60802,12 +61505,12 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(642);
-	var Action = __webpack_require__(644);
-	var Constant = __webpack_require__(643);
+	var Store = __webpack_require__(650);
+	var Action = __webpack_require__(652);
+	var Constant = __webpack_require__(651);
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	__webpack_require__(645);
+	__webpack_require__(653);
 
 	var Chart = React.createClass({
 		displayName: 'Chart',
@@ -60907,7 +61610,7 @@
 	module.exports = Chart;
 
 /***/ },
-/* 642 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -60923,7 +61626,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(643);
+	var Constant = __webpack_require__(651);
 
 	var createStore = function (Dispatcher) {
 		return StoreUtil.createStore(Dispatcher, {
@@ -60949,7 +61652,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 643 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -60962,7 +61665,7 @@
 	});
 
 /***/ },
-/* 644 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -60973,7 +61676,7 @@
 	var Dispatcher = __webpack_require__(245);
 	var debug = __webpack_require__(235)('reactman:Chart:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(643);
+	var Constant = __webpack_require__(651);
 	var _ = __webpack_require__(243);
 
 	var createAction = function (Dispatcher) {
@@ -60995,13 +61698,13 @@
 	module.exports = createAction;
 
 /***/ },
-/* 645 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(646);
+	var content = __webpack_require__(654);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61021,7 +61724,7 @@
 	}
 
 /***/ },
-/* 646 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61035,7 +61738,7 @@
 
 
 /***/ },
-/* 647 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61061,7 +61764,7 @@
 	module.exports = ChartActionBar;
 
 /***/ },
-/* 648 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61073,10 +61776,10 @@
 	var debug = __webpack_require__(235)('m:reactman.province_city_select.ProvinceCity');
 	var classNames = __webpack_require__(239);
 
-	var ProvinceCityDialog = __webpack_require__(649);
+	var ProvinceCityDialog = __webpack_require__(657);
 	var PageAction = __webpack_require__(244);
 
-	__webpack_require__(654);
+	__webpack_require__(662);
 
 	var ProvinceCitySelect = React.createClass({
 	    displayName: 'ProvinceCitySelect',
@@ -61111,10 +61814,12 @@
 
 	    render: function () {
 	        var cBtn = this.props.children;
+	        var disabled = this.props.disabled;
 	        if (typeof cBtn == 'string' || cBtn == null) {
 	            cBtn = React.createElement(
 	                'a',
 	                { href: 'javascript:void(0)', className: 'xui-province-city-select-btn',
+	                    disabled: disabled,
 	                    onClick: this.onClick },
 	                cBtn || '选择地区'
 	            );
@@ -61128,7 +61833,7 @@
 	module.exports = ProvinceCitySelect;
 
 /***/ },
-/* 649 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61140,13 +61845,13 @@
 
 	var classNames = __webpack_require__(239);
 
-	var Store = __webpack_require__(650);
-	var Action = __webpack_require__(652);
-	var Constant = __webpack_require__(651);
+	var Store = __webpack_require__(658);
+	var Action = __webpack_require__(660);
+	var Constant = __webpack_require__(659);
 
 	var FluxDispatcher = __webpack_require__(246).Dispatcher;
 
-	var IconLabel = __webpack_require__(653);
+	var IconLabel = __webpack_require__(661);
 
 	var ProvinceCityDialog = React.createClass({
 	    displayName: 'ProvinceCityDialog',
@@ -61327,7 +62032,7 @@
 	module.exports = ProvinceCityDialog;
 
 /***/ },
-/* 650 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61342,7 +62047,7 @@
 
 	var StoreUtil = __webpack_require__(305);
 
-	var Constant = __webpack_require__(651);
+	var Constant = __webpack_require__(659);
 	var createStore = function (Dispatcher) {
 	    return StoreUtil.createStore(Dispatcher, {
 	        actions: {
@@ -61546,7 +62251,7 @@
 	module.exports = createStore;
 
 /***/ },
-/* 651 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61563,7 +62268,7 @@
 	});
 
 /***/ },
-/* 652 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61571,7 +62276,7 @@
 	 */
 	var debug = __webpack_require__(235)('m:reactman:ProvinceCitySelect:Action');
 	var Resource = __webpack_require__(249);
-	var Constant = __webpack_require__(651);
+	var Constant = __webpack_require__(659);
 	var _ = __webpack_require__(243);
 	var createAction = function (Dispatcher) {
 	    return {
@@ -61632,7 +62337,7 @@
 	module.exports = createAction;
 
 /***/ },
-/* 653 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61666,13 +62371,13 @@
 	module.exports = IconLabel;
 
 /***/ },
-/* 654 */
+/* 662 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(655);
+	var content = __webpack_require__(663);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61692,7 +62397,7 @@
 	}
 
 /***/ },
-/* 655 */
+/* 663 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61706,7 +62411,7 @@
 
 
 /***/ },
-/* 656 */
+/* 664 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61722,14 +62427,14 @@
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
 	var ComponentFactory = __webpack_require__(268);
-	__webpack_require__(657);
-	var WepageSimulator = __webpack_require__(670); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
+	__webpack_require__(665);
+	var WepageSimulator = __webpack_require__(678); //WepageSimulator必须位于ComponentLoader之后，因为它需要ComponentLoader中加载的组件列表
 	var Render = __webpack_require__(300);
 	var PageManager = __webpack_require__(301);
-	var PropertyEditor = __webpack_require__(672);
-	var SubmitPanel = __webpack_require__(703);
+	var PropertyEditor = __webpack_require__(680);
+	var SubmitPanel = __webpack_require__(711);
 
-	__webpack_require__(704);
+	__webpack_require__(712);
 
 	var WepageEditor = React.createClass({
 		displayName: 'WepageEditor',
@@ -61816,7 +62521,7 @@
 	module.exports = WepageEditor;
 
 /***/ },
-/* 657 */
+/* 665 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61825,13 +62530,13 @@
 	 */
 	'use strict';
 
-	__webpack_require__(658);
-	__webpack_require__(662);
-	__webpack_require__(664);
+	__webpack_require__(666);
+	__webpack_require__(670);
+	__webpack_require__(672);
 	//require('./component/wepage/title/Title');
 
 /***/ },
-/* 658 */
+/* 666 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61840,11 +62545,11 @@
 	 */
 	"use strict";
 
-	var template = __webpack_require__(659);
+	var template = __webpack_require__(667);
 
 	var ComponentFactory = __webpack_require__(268);
 
-	__webpack_require__(660);
+	__webpack_require__(668);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.runtime_component_container'
@@ -61855,19 +62560,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 659 */
+/* 667 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type == 'wepage.runtime_component_container' %}\r\n    {% for sub_component in component.components %}\r\n    <div \r\n        class=\"xa-componentContainer xa-selectable xui-componentContainer xui-componentContainer-{{sub_component.displayIndex}}\" \r\n        data-contained-cid=\"{{sub_component.cid}}\" \r\n        data-cid=\"{{sub_component.cid}}\" \r\n        data-type=\"{{sub_component.type}}\" \r\n        data-widget-sortable=\"true\" \r\n        data-ui-behavior=\"xub-selectable\" \r\n        data-auto-select=\"{%if sub_component.model.auto_select %}true{% else %}false{% endif %}\"\r\n        style=\"\"\r\n    >\r\n        {{ sub_component.html|safe }}\r\n        <div class=\"xui-componentContainer-actionPanel xa-actionPanel\" style=\"display:none;\">\r\n            <span class=\"xui-i-action xui-i-addAction xa-add xa-action\">添加模块</span>\r\n            <span class=\"xui-i-action xui-i-editAction xa-edit xa-action\">编辑</span>\r\n            {% if sub_component.canDelete %}\r\n            <span class=\"xui-i-action xui-i-deleteAction xa-delete xa-action\">删除</span>\r\n            {% endif %}\r\n        </div>\r\n        <div class=\"xui-componentContainer-selectIndicator xa-selectIndicator\" style=\"display:none;\">\r\n        </div>\r\n    </div>\r\n    {% endfor %}\r\n{% endif %}\r\n"
 
 /***/ },
-/* 660 */
+/* 668 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(661);
+	var content = __webpack_require__(669);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -61887,7 +62592,7 @@
 	}
 
 /***/ },
-/* 661 */
+/* 669 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -61901,7 +62606,7 @@
 
 
 /***/ },
-/* 662 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61914,7 +62619,7 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(663);
+	var template = __webpack_require__(671);
 
 	var Component = ComponentFactory.define({
 	    type: 'wepage.page',
@@ -61969,13 +62674,13 @@
 	module.exports = Component;
 
 /***/ },
-/* 663 */
+/* 671 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.page' %}\r\n\r\n{% if in_production_mode %}\r\n\t{% for sub_component in component.components %}\r\n\t{{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n{% else %}\r\n<div \r\n\tdata-type=\"wepage.page\"\r\n\tclass=\"xa-component xa-component-page xui-component xui-component-page\" \r\n\tdata-component-cid=\"{{component.cid}}\"\r\n\tdata-cid=\"{{component.cid}}\"\r\n\t{% if component.model.site_title === '微页面标题' %}\r\n\tdata-auto-select=\"true\"\r\n\t{% endif %}\r\n\t{% if component.model.background %}style=\"background-image: url({{component.model.background}})\"{% endif %}\r\n>\r\n    {% for sub_component in component.components %}\r\n    {{ sub_component.html|safe }}\r\n\t{% endfor %}\r\n</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 664 */
+/* 672 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61989,10 +62694,10 @@
 
 	var ComponentFactory = __webpack_require__(268);
 
-	var template = __webpack_require__(665);
+	var template = __webpack_require__(673);
 
-	__webpack_require__(666);
-	__webpack_require__(668);
+	__webpack_require__(674);
+	__webpack_require__(676);
 
 	var Component = ComponentFactory.define({
 		type: 'wepage.componentadder',
@@ -62020,19 +62725,19 @@
 	module.exports = Component;
 
 /***/ },
-/* 665 */
+/* 673 */
 /***/ function(module, exports) {
 
 	module.exports = "{% if component.type === 'wepage.componentadder' %}\r\n\r\n{% if in_production_mode %}\r\n{% else %}\r\n\t<div \r\n\t\thref=\"javascript:void(0);\" \r\n\t\tdata-component-cid=\"{{component.cid}}\" \r\n\t\tdata-index=\"{{component.model.index}}\" \r\n\t\tid=\"{{component.model.id}}\" \r\n\t\tclass=\"\r\n\t\t\t{{component.model.class}} \r\n\t\t\twui-componentadder \r\n\t\t\twa-componentadder \r\n\t\t\t{% if component.parent_component.components.length > 1 %}xui-hide{% endif %}\r\n\t\t\" \r\n\t>\r\n\t\t+添加模块\r\n\t</div>\r\n{% endif %}\r\n\r\n{% endif %}\r\n"
 
 /***/ },
-/* 666 */
+/* 674 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(667);
+	var content = __webpack_require__(675);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -62052,7 +62757,7 @@
 	}
 
 /***/ },
-/* 667 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -62066,13 +62771,13 @@
 
 
 /***/ },
-/* 668 */
+/* 676 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(669);
+	var content = __webpack_require__(677);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -62092,7 +62797,7 @@
 	}
 
 /***/ },
-/* 669 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -62106,7 +62811,7 @@
 
 
 /***/ },
-/* 670 */
+/* 678 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62121,7 +62826,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(671);
+	var CoverManager = __webpack_require__(679);
 
 	var WepageSimulator = React.createClass({
 		displayName: 'WepageSimulator',
@@ -62359,7 +63064,7 @@
 	module.exports = WepageSimulator;
 
 /***/ },
-/* 671 */
+/* 679 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62584,7 +63289,7 @@
 	module.exports = CoverManagerClass;
 
 /***/ },
-/* 672 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62598,12 +63303,12 @@
 
 	var Backbone = __webpack_require__(269);
 	var Broadcaster = __webpack_require__(299);
-	var PropertyPanelRender = __webpack_require__(673);
+	var PropertyPanelRender = __webpack_require__(681);
 	var Component = __webpack_require__(270);
 	var Validater = __webpack_require__(260);
-	__webpack_require__(674);
+	__webpack_require__(682);
 
-	__webpack_require__(701);
+	__webpack_require__(709);
 
 	var PropertyEditorClass = Backbone.View.extend({
 	    events: {
@@ -63008,7 +63713,7 @@
 	module.exports = PropertyEditorClass;
 
 /***/ },
-/* 673 */
+/* 681 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63116,7 +63821,7 @@
 	module.exports = render;
 
 /***/ },
-/* 674 */
+/* 682 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63125,19 +63830,19 @@
 	 */
 	'use strict';
 
-	__webpack_require__(675);
-	__webpack_require__(677);
-	__webpack_require__(679);
-	__webpack_require__(681);
-	__webpack_require__(684);
-	__webpack_require__(686);
-	__webpack_require__(688);
-	__webpack_require__(691);
-	__webpack_require__(695);
-	__webpack_require__(698);
+	__webpack_require__(683);
+	__webpack_require__(685);
+	__webpack_require__(687);
+	__webpack_require__(689);
+	__webpack_require__(692);
+	__webpack_require__(694);
+	__webpack_require__(696);
+	__webpack_require__(699);
+	__webpack_require__(703);
+	__webpack_require__(706);
 
 /***/ },
-/* 675 */
+/* 683 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63150,20 +63855,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(676);
+	var template = __webpack_require__(684);
 
 	Component.definePropertyField('component', {
 	  template: template
 	});
 
 /***/ },
-/* 676 */
+/* 684 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"propertyView\" class=\"xa-propertyView-actionTarget\">\r\n\t{% if component.shouldShowPropertyViewTitle %}\r\n\t<div class=\"xui-i-header\">\r\n\t\t{{title}}\r\n\t</div>\r\n\t{% endif %}\r\n\r\n\t<div id=\"propertyEditor\" class=\"xa-propertyView-actionTarget\">\r\n\t\t{% for property_group in propertyGroups %}\r\n\t\t{% if !onlyShowUserProperty || property_group.isUserProperty %}\r\n\t\t<div class=\"{{property_group.groupClass}}-topGap xui-i-propertyGroup-topGap\"></div>\r\n\r\n\t\t<div \r\n\t\t\tclass=\"\r\n\t\t\t\txui-i-propertyGroup \r\n\t\t\t\t{% if property_group.groupConfig && property_group.groupConfig.enableBounder %}\r\n\t\t\t\txui-i-propertyGroup-visibleBounder\r\n\t\t\t\t{% endif %}\r\n\t\t\t\t{{property_group.groupClass}}\" \r\n\t\t>\r\n\t\t\t{% if loop.index > 1 %}\r\n\t\t\t<div class=\"ml5 fb\">{{property_group.group}}\r\n                {% if property_group.groupHelp %}\r\n                    <span \r\n                    \tid=\"{{property_group.groupHelp.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.className}}\"\r\n                    >\r\n                    {% if property_group.groupHelp.link %}\r\n                    <a \r\n                    \tid=\"{{property_group.groupHelp.link.id}}\" \r\n                    \tclass=\"{{property_group.groupHelp.link.className}}\" \r\n                    \tdata-func=\"{{property_group.groupHelp.link.handler}}\" \r\n                    >{{property_group.groupHelp.link.text}}</a>\r\n                    {% endif %}\r\n\r\n                    {% if property_group.groupHelp.tip %}\r\n                        <a \r\n                        \tclass=\"xui-i-propertyGroup-helpTip\" \r\n                        \tdata-container=\"body\" \r\n                        \tdata-trigger=\"focus\" \r\n                        \tdata-toggle=\"popover\" \r\n                        \tdata-placement=\"bottom\" \r\n                        \tdata-content=\"{{property_group.groupHelp.tip.text}}\">&#63;</a>\r\n                    {% endif %} <!-- end of \"if property_group.groupHelp.tip\" -->\r\n                    </span>\r\n                {% endif %} <!-- end of \"if property_group.groupHelp\" -->\r\n\t\t\t</div>\r\n\t\t\t{% endif %} <!-- end of \"if loop.index > 0\" -->\r\n\r\n\t\t\t{% for field in property_group.fields %}\r\n\t\t\t{% if !onlyShowUserProperty || field.isUserProperty %}\r\n\t\t\t<div class=\"xui-i-field xa-field xui-i-field-{{field.className}}\" data-component-cid=\"{{component.cid}}\" data-component-field=\"{{component.cid}}-{{field.name}}\" >\r\n\t\t\t\t{{field|render_field(component, model, onlyShowUserProperty)|safe}}\r\n\t\t\t</div>\r\n\t\t\t{% endif %}\r\n\t\t\t{% endfor %}\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 677 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63176,20 +63881,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(678);
+	var template = __webpack_require__(686);
 
 	Component.definePropertyField('text', {
 	  template: template
 	});
 
 /***/ },
-/* 678 */
+/* 686 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<input \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-textInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tvalue=\"{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 679 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63202,20 +63907,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(680);
+	var template = __webpack_require__(688);
 
 	Component.definePropertyField('multiline_text', {
 	  template: template
 	});
 
 /***/ },
-/* 680 */
+/* 688 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- text field -->\r\n<div class=\"xui-i-textField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<textarea \r\n\t\t\ttype=\"text\" \r\n\t\t\tclass=\"xui-i-multilineTextInput xui-i-input xa-valueInput\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tplaceholder=\"{{field.placeholder}}\"\r\n\t\t\t{%if field.maxLength%}maxlength=\"{{field.maxLength}}\"{%endif%}\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{% if field.placeholder != model.get(field.name) %}{{model.get(field.name)}}{% endif %}</textarea>\r\n\t\t{{field|generate_field_help|safe}}\r\n\t\t<div class=\"errorHint\"></div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 681 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63228,9 +63933,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(682);
+	var template = __webpack_require__(690);
 
-	var plugin = __webpack_require__(683);
+	var plugin = __webpack_require__(691);
 
 	Component.definePropertyField('rich_text', {
 	  template: template,
@@ -63238,13 +63943,13 @@
 	});
 
 /***/ },
-/* 682 */
+/* 690 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- rich_text field -->\r\n<div class=\"xui-i-richTextField xui-i-horizontalField\">\r\n\t{% if field.displayName %}\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t{% endif %}\r\n\t<div \r\n\t\tclass=\"xui-i-inputContainer xa-inputContainer\" \r\n\t\tstyle=\"{% if field.displayName %}width:80%{%else%}width:100%{% endif %}; margin: 5px auto;\"\r\n\t>\r\n\t\t<textarea \r\n\t\t\tclass=\"xui-i-textarea xa-valueInput\" \r\n\t\t\tdata-plugin=\"rich_text\" \r\n\t\t\tstyle=\"height: 100px; width: 100%;\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-force-validate=\"true\"\r\n\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%}>{{model.get(field.name)}}</textarea>\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n\r\n</div>"
 
 /***/ },
-/* 683 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63255,7 +63960,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:rich_text');
 
-	var RawUEditor = __webpack_require__(603);
+	var RawUEditor = __webpack_require__(611);
 
 	var plugin = {
 	    type: 'rich_text',
@@ -63284,7 +63989,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 684 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63297,20 +64002,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(685);
+	var template = __webpack_require__(693);
 
 	Component.definePropertyField('radio', {
 	  template: template
 	});
 
 /***/ },
-/* 685 */
+/* 693 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- radio field -->\r\n<div class=\"xui-i-radioField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for radio in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"xui-i-selectBtn {% if model.get(field.name) == radio.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"margin-top:-3px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"radio\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) == radio.value %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{radio.value}}\" />{{radio.name}}\r\n\t\t<i class=\"xui-i-selectedIcon xui-i-spriteBackground\" {% if model.get(field.name) != radio.value %}style=\"display:none;\"{% endif %}></i>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 686 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63323,20 +64028,20 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(687);
+	var template = __webpack_require__(695);
 
 	Component.definePropertyField('checkbox_group', {
 	  template: template
 	});
 
 /***/ },
-/* 687 */
+/* 695 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- checkbox group field -->\r\n<div class=\"xui-i-checkboxGroupField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t{% for checkbox in field.source %}\r\n\t<label \r\n\t\tstyle=\"display:inline-block;\" \r\n\t\tclass=\"{% if model.get(field.name) == checkbox.value %}xui-i-selected{% endif %}\">\r\n\t\t<input \r\n\t\t\tstyle=\"vertical-align:middle; margin-top:0px;\" \r\n\t\t\tclass=\"xui-i-selectBtn-input\"\r\n\t\t\ttype=\"checkbox\" \r\n\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\tname='{{field.name}}' \r\n\t\t\t{% if model.get(field.name) === true %}checked=\"checked\"{% endif %} \r\n\t\t\tvalue=\"{{checkbox.value}}\" /><span class=\"xui-i-checkboxText\">{{checkbox.name}}</span>\r\n\t</label>\r\n\t{% endfor %}\r\n\t{{field|generate_field_help|safe}}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 688 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63349,9 +64054,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(689);
+	var template = __webpack_require__(697);
 
-	var plugin = __webpack_require__(690);
+	var plugin = __webpack_require__(698);
 
 	Component.definePropertyField('color_picker', {
 	  template: template,
@@ -63359,13 +64064,13 @@
 	});
 
 /***/ },
-/* 689 */
+/* 697 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-colorPickerField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\">\r\n\t\t<div class=\"\" style=\"padding:3px; background-color:#FFF; border: solid 1px #E6E6E6;\">\r\n\t\t\t<button class=\"btn btn-small xui-i-triggerButton xa-colorPickerTrigger\"></button>\r\n\t\t\t<input \r\n\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\tdata-plugin=\"colorpicker\" \r\n\t\t\t\tstyle=\"border: solid 1px #E6E6E6; margin-left:-4px; width:100px;\" \r\n\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\ttype=\"text\" \r\n\t\t\t\tvalue=\"{{model.get(field.name)}}\" />\r\n\t\t\t<a \r\n\t\t\t\thref='javascript:void(0);' \r\n\t\t\t\tclass=\"ml5 mr5 xa-protocol-deleteData\" \r\n\t\t\t\tdata-protocol-deleted-value=\"{{field.default}}\"\r\n\t\t\t>重置</a>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 690 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63412,7 +64117,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 691 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63425,9 +64130,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(692);
+	var template = __webpack_require__(700);
 
-	var plugin = __webpack_require__(693);
+	var plugin = __webpack_require__(701);
 
 	Component.definePropertyField('time', {
 	  template: template,
@@ -63435,13 +64140,13 @@
 	});
 
 /***/ },
-/* 692 */
+/* 700 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- time field -->\r\n<div class=\"xui-i-timeField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label mr5 {%if field.validate%}star_show{%endif%}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer pl5\" data-plugin=\"time\">\r\n\t\t<input \r\n\t\t\ttype=\"hidden\" \r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\" \r\n\t\t\tname=\"{{field.name}}\" \r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t{%if field.validate%}data-validate=\"{{field.validate}}\"{%endif%} />\r\n\r\n\t\t<input\r\n\t\t\ttype=\"text\"\r\n\t\t\tclass=\"form-control xui-i-datePicker xui-inline xa-picker xa-datePicker\"\r\n\t\t\tid=\"time\"\r\n\t\t\tname=\"time\"\r\n\t\t\tvalue=\"{{component.model.get(field.name)}}\"\r\n\t\t\tdata-field=\"{{field.name}}\"\r\n\t\t\tdata-enable-select-time=\"true\"\r\n\t\t\tdata-validate=\"require-notempty\"\r\n\t\t\tdata-format=\"yy-mm-dd HH:MM\"\r\n            data-min=\"now\"/>\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 693 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63452,7 +64157,7 @@
 
 	var debug = __webpack_require__(235)('reactman:WepageEditor:wepage.field.plugin:time');
 
-	var DatePicker = __webpack_require__(694);
+	var DatePicker = __webpack_require__(702);
 
 	var plugin = {
 	    type: 'time',
@@ -63484,7 +64189,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 694 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63591,7 +64296,7 @@
 	module.exports = DatePicker;
 
 /***/ },
-/* 695 */
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63604,9 +64309,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(696);
+	var template = __webpack_require__(704);
 
-	var plugin = __webpack_require__(697);
+	var plugin = __webpack_require__(705);
 
 	Component.definePropertyField('image_selector', {
 	  template: template,
@@ -63614,13 +64319,13 @@
 	});
 
 /***/ },
-/* 696 */
+/* 704 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- color_picker field -->\r\n<div class=\"xui-i-imageSelectorField xui-i-horizontalField\">\r\n\t<div class=\"xui-i-label {{field|generate_label_class}}\">{{field.displayName}}</div>\r\n\t<div class=\"xui-i-inputContainer xa-inputContainer\" data-plugin=\"image_selector\">\r\n\t\t<div class=\"xui-i-selectorZone\">\r\n\t\t\t<div class=\"xui-i-imageZone {% if not model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<div class=\"pr xui-i-image\">\r\n\t\t\t\t\t<img src=\"{{ model.get(field.name) }}\" width=\"100\" height=\"100\" />\r\n\t\t\t\t\t<button type=\"button\" class=\"close xa-close xa-protocol-deleteData\" data-protocol-deleted-value=\"{{field.default}}\"><span>&times;</span></button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"xui-i-uploaderZone {% if model.get(field.name) %}xui-hide{% endif %}\">\r\n\t\t\t\t<input \r\n\t\t\t\t\tclass=\"xa-valueInput\" \r\n\t\t\t\t\tdata-field=\"{{field.name}}\" \r\n\t\t\t\t\ttype=\"hidden\" \r\n\t\t\t\t\tvalue=\"{{model.get(field.name)}}\"\r\n\t\t\t\t\tdata-force-validate=\"true\"\r\n\t\t\t\t\t{%if field.validate%}{{field.validate|safe}}{%endif%} />\r\n\r\n\t\t\t\t<span class=\"btn btn-default fileinput-button\">\r\n    \t\t\t\t<span> 上传图片</span>\r\n\t\t\t\t\t<input id=\"fileupload\" type=\"file\" name=\"image\" class=\"xa-uploader\" />\r\n\t\t\t\t</span>\r\n\t\t\t\t<div id=\"progress\" class=\"progress mt5 xa-progress xui-hide\" style=\"width:100px\">\r\n\t\t\t\t\t<div class=\"progress-bar progress-bar-success xa-bar\" style=\"width:0%\"></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"errorHint\"></div>\r\n\t\t\t</div>\r\n\t\t</div>\t\r\n\t\t{%if field.help%}\r\n\t\t<div style=\"color: #888;\" class=\"xui-i-help\">\r\n\t\t\t{{ field.help|format_br|safe }}\r\n\t\t</div>\r\n\t\t{% endif %}\r\n\t</div>\r\n</div>"
 
 /***/ },
-/* 697 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63678,7 +64383,7 @@
 	module.exports = plugin;
 
 /***/ },
-/* 698 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63691,9 +64396,9 @@
 
 	var Component = __webpack_require__(270);
 
-	var template = __webpack_require__(699);
+	var template = __webpack_require__(707);
 
-	var plugin = __webpack_require__(700);
+	var plugin = __webpack_require__(708);
 
 	Component.definePropertyField('component_list', {
 	  template: template,
@@ -63701,13 +64406,13 @@
 	});
 
 /***/ },
-/* 699 */
+/* 707 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- component_list field -->\r\n<div class=\"xui-i-componentListField xui-i-horizontalField\" data-plugin=\"componentadder\">\r\n\t<ul class=\"xui-i-componentList clearfix xui-i-inputContainer xa-inputContainer\">\r\n\t\t{% for component in field.components %}\r\n\t\t{% if component.indicator %}\r\n\t\t<li class=\"xui-i-component xa-addComponent\" data-component-type=\"{{component.type}}\">\r\n\t\t\t<div class=\"xui-i-img xui-i-spriteBackground {{component.indicator.imgClass}}\"></div>\r\n\t\t</li>\r\n\t\t{% endif %}\r\n\t\t{% endfor %}\r\n\t</ul>\r\n</div>"
 
 /***/ },
-/* 700 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63741,13 +64446,13 @@
 	module.exports = plugin;
 
 /***/ },
-/* 701 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(702);
+	var content = __webpack_require__(710);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -63767,7 +64472,7 @@
 	}
 
 /***/ },
-/* 702 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -63781,7 +64486,7 @@
 
 
 /***/ },
-/* 703 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63796,7 +64501,7 @@
 
 	var Broadcaster = __webpack_require__(299);
 	var Render = __webpack_require__(300);
-	var CoverManager = __webpack_require__(671);
+	var CoverManager = __webpack_require__(679);
 
 	var SubmitPanel = React.createClass({
 		displayName: 'SubmitPanel',
@@ -63814,13 +64519,13 @@
 	module.exports = SubmitPanel;
 
 /***/ },
-/* 704 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(705);
+	var content = __webpack_require__(713);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -63840,7 +64545,7 @@
 	}
 
 /***/ },
-/* 705 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
@@ -63854,7 +64559,7 @@
 
 
 /***/ },
-/* 706 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63867,7 +64572,7 @@
 	var ReactDOM = __webpack_require__(160);
 	var classNames = __webpack_require__(239);
 
-	__webpack_require__(707);
+	__webpack_require__(715);
 
 	var Resource = __webpack_require__(249);
 	var PageAction = __webpack_require__(244);
@@ -63899,7 +64604,7 @@
 	module.exports = Wepage;
 
 /***/ },
-/* 707 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63943,7 +64648,7 @@
 	});
 
 /***/ },
-/* 708 */
+/* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63957,9 +64662,9 @@
 	var _ = __webpack_require__(243);
 	var classNames = __webpack_require__(239);
 
-	var RawUEditor = __webpack_require__(603);
+	var RawUEditor = __webpack_require__(611);
 
-	__webpack_require__(709);
+	__webpack_require__(717);
 
 	var UEditor = React.createClass({
 		displayName: 'UEditor',
@@ -64013,13 +64718,13 @@
 	module.exports = UEditor;
 
 /***/ },
-/* 709 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(710);
+	var content = __webpack_require__(718);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(255)(content, {});
@@ -64039,7 +64744,7 @@
 	}
 
 /***/ },
-/* 710 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(254)();
