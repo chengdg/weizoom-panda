@@ -31,7 +31,7 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 	商品同步
 	"""
 	func_name = 'add_customer_news'
-	platforms_string = '、'.join(platforms)
+	platforms_string = u'、'.join(platforms)
 	print type(platforms_string,'9999999999999999999999999999')
 	data = {
 		"name": "add_customer_news",
