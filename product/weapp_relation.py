@@ -11,12 +11,15 @@ from eaglet.utils.resource_client import Resource
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from resource.models import Image
 import models
+from django.contrib.auth.models import User
+from self_shop.models import SelfShops
 from product_catalog.models import ProductCatalogRelation
 from product_limit_zone import models as limit_zone_models
 from panda.settings import PRODUCT_POOL_OWNER_ID
 from product_catalog import models as catalog_models
 from label import models as label_models
 from util import send_product_message
+from util import add_customer_news
 from postage_config import models as postage_models
 
 
@@ -59,7 +62,6 @@ class WeappRelation(resource.Resource):
 	@login_required
 	def api_get(request):
 		product_id = request.GET.get('product_id',0)
-		product = models.Product.objects.get(id=product_id)
 		product_sync_weapp_account = models.ProductSyncWeappAccount.objects.filter(product_id=product_id)
 		product_id2self_user_name = {}
 		for product_has_relation in product_sync_weapp_account:
@@ -96,7 +98,7 @@ class WeappRelation(resource.Resource):
 				# 获取商品要同步到哪个平台
 				weizoom_self = product_data[0].get('weizoom_self').split(',')
 				weapp_user_ids = [k.weapp_account_id for k in models.SelfUsernameWeappAccount.objects.filter(self_user_name__in=weizoom_self)]
-				
+				self_shop_names = [k.self_shop_name for k in SelfShops.objects.filter(weapp_user_id__in=weizoom_self)]
 				# 判断是更新还是新曾商品同步
 				product_relations = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
 				product_id2relation = {product_relation.product_id:product_relation for product_relation in product_relations}
@@ -147,6 +149,16 @@ class WeappRelation(resource.Resource):
 					if return_data['is_error'] == True:
 						data['is_error'] = True
 						data['error_product_id'].append(str(return_data['error_product_id']))
+					try:
+						# 发送同步消息给客户档案系统
+						customer_id = product.owner_id;
+						customer_name = User.objects.get(id=customer_id).username
+						add_customer_news.send_sync_product_message(product_name=product.product_name, platforms=self_shop_names, customer_id=customer_id, customer_name=customer_name)
+					except:
+						msg = unicode_full_stack()
+						print '+++++++++++++++++++++++++++++++++++++'
+						print msg
+						print '+++++++++++++++++++++++++++++++++++++'
 				#如果没有选择自营平台,删除表中相关数据
 				if not product_data[0].get('weizoom_self'):
 					models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids).delete()
@@ -159,6 +171,18 @@ class WeappRelation(resource.Resource):
 					if revoke_reasons:
 						for product_id in product_ids:
 							models.ProductRevokeLogs.objects.create(product_id=product_id, revoke_reasons=revoke_reasons)
+							try:
+								# 停售时发送消息给客户档案
+								product_id = int(product_id)
+								product = product_id2product[product_id]
+								customer_id = product.owner_id;
+								customer_name = User.objects.get(id=customer_id).username
+								add_customer_news.send_stop_sell_product_message(product_name=product.product_name, stop_reason=revoke_reasons, customer_id=customer_id, customer_name=customer_name)
+							except Exception as e:
+								msg = unicode_full_stack()
+								print '+++++++++++++++++++++++++++++++++++++'
+								print msg
+								print '+++++++++++++++++++++++++++++++++++++'
 		except:
 			data['is_error'] = True
 			msg = unicode_full_stack()
