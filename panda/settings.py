@@ -322,4 +322,4 @@ EAGLET_CLIENT_ZEUS_HOST = 'api.zeus.com'
 ZEUS_SERVICE_NAME = 'zeus'
 SYNC_ACCOUNTS = ['5', '3']
 
-CESHI_USERNAMES = ['yunying','zhifuyy1','docyy1','yunying1']
+CESHI_USERNAMES = ['yunying','zhifuyy1','docyy1','yunying1','yunyingxuzihao','zhangsanxiang','tianfengmin','guozhenzhen']
