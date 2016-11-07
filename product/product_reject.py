@@ -38,7 +38,8 @@ class ProductReject(resource.Resource):
 					send_product_message.send_reject_product_ding_message(product_id=product_id, reasons=reasons)
 
 					# 给客户系统发送日志消息
-					customer_id = cur_product[0].owner_id;
+					owner_id = cur_product[0].owner_id;
+					customer_id = UserProfile.objects.get(user_id=owner_id).corpid
 					customer_name = User.objects.get(id=customer_id).username
 					add_customer_news.send_reject_product_message(product_name=cur_product[0].product_name, reject_reason=reasons, customer_id=customer_id, customer_name=customer_name)
 				except:
