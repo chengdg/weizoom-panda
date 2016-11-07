@@ -73,10 +73,10 @@ class PrintEorder(resource.Resource):
 
 			#订单状态 待发货
 			status = orders[0]['status']
-			if status==3:
-				eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode)
-				is_success, template, express_order, reason = eorder.get_express_eorder()
-				templates.append({'template': template})
+			# if status==3:
+			eorder=KdniaoExpressEorder(orderCode, express_company_name_value, sender, receiver, commodity, order_id, CustomerName, CustomerPwd, MonthCode, SendSite, LogisticCode)
+			is_success, template, express_order, reason = eorder.get_express_eorder()
+			templates.append({'template': template})
 
 		data = {
 			'templates': json.dumps(templates),

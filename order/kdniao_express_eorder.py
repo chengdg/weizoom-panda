@@ -184,22 +184,23 @@ class KdniaoExpressEorder(object):
 		data = data.json()
 		result = True if data.get('Success') == "true" or data.get('Success') is True else False
 
-		if result:
-			# 修改快递信息状态,self.express.status = 200订阅成功，0未订阅
-			print_template = data['PrintTemplate']
-			express_order = data["Order"]
+		# if result:
+		# 修改快递信息状态,self.express.status = 200订阅成功，0未订阅
+		print_template = '' if 'PrintTemplate' not in data.keys() else data['PrintTemplate']
+		express_order = '' if 'Order' not in data.keys() else  data["Order"]
+		if print_template:
 			print_template = ('<meta charset="utf-8">\n' + print_template).encode('utf-8')
 			with open('order.html', 'w') as f:
 				f.write(print_template)
-			print "success"
-			return True, print_template,express_order,data.get('Reason')
-		else:
-			if data and data.get('Reason'):
-				print "error"
+		print "success",result
+		return result, print_template,express_order,data.get('Reason')
+		# else:
+		# 	if data and data.get('Reason'):
+		# 		print "error"
 
-				watchdog.watchdog_error(u'发送快递鸟 电子面单请求存在问题，url:{},订单id:{},原因:{}'.format(KdniaoExpressConfig.eorder_url,
-					self.order_id,
-					data.get('Reason')), "EXPRESS")
-			return False, '', {}, data.get('Reason')
+		# 		watchdog.watchdog_error(u'发送快递鸟 电子面单请求存在问题，url:{},订单id:{},原因:{}'.format(KdniaoExpressConfig.eorder_url,
+		# 			self.order_id,
+		# 			data.get('Reason')), "EXPRESS")
+		# 	return False, '', {}, data.get('Reason')
 
 

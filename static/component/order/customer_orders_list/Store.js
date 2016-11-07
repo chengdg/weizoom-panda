@@ -67,7 +67,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 		this.data['templates'] = templates;
 		this.data['isSuccess'] = isSuccess;
 		this.data['reason'] = reason;
-		if(!isSuccess){
+		//判断是不是第二次打印(返回的模板是否为空)
+		if(!isSuccess && JSON.parse(templates)[0]['template'].length==0){
 			_.delay(function(){
 				Reactman.PageAction.showHint('error', reason);
 			},500)

@@ -91,12 +91,12 @@ var OrderDatasPage = React.createClass({
 	printExpressOrder: function(){
 		var orderIds = _.pluck(this.refs.table.getSelectedDatas(), 'order_id');
 		var orderStatus = _.pluck(this.refs.table.getSelectedDatas(), 'order_status');
-		for(var i in orderStatus) {
-			if(orderStatus[i]!=3){
-				Reactman.PageAction.showHint('error', '只能打印待发货状态的订单!');
-				return false;
-			}
-		}
+		// for(var i in orderStatus) {
+		// 	if(orderStatus[i]!=3){
+		// 		Reactman.PageAction.showHint('error', '只能打印待发货状态的订单!');
+		// 		return false;
+		// 	}
+		// }
 
 		if (orderIds.length == 0){
 			Reactman.PageAction.showHint('error', '请先选择要打印的订单!');
