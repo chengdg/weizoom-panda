@@ -214,6 +214,11 @@ var NewProductPage = React.createClass({
 			return ;
 		}
 
+		if(product.product_store>99999){
+			Reactman.PageAction.showHint('error', '库存最多输入99999,请重新输入!');
+			return ;
+		}
+
 		var model_values = this.state.model_values;
 		product['has_product_model'] = this.state.has_product_model;
 		if(has_product_model==='1' && model_values.length==0){
@@ -239,6 +244,12 @@ var NewProductPage = React.createClass({
 						Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 						return;
 					}
+				}
+
+				if(product['product_store_'+model.modelId]>99999) {
+					is_true = true;
+					Reactman.PageAction.showHint('error', '库存最多输入99999,请重新输入!');
+					return;
 				}
 			})
 		}

@@ -24861,8 +24861,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25289,8 +25289,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25872,8 +25872,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -26242,8 +26242,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -35523,8 +35523,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -36674,8 +36674,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37047,8 +37047,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37303,8 +37303,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37544,8 +37544,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -37838,8 +37838,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -39506,8 +39506,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40181,8 +40181,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40640,8 +40640,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -40734,8 +40734,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./OrderBatchDelivery.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./OrderBatchDelivery.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42703,8 +42703,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -43237,8 +43237,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44457,8 +44457,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44868,8 +44868,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -44928,8 +44928,35 @@
 
 		onBeforeCloseDialog: function () {
 			var expressId = this.state.expressId;
-			if (this.state.expressName == -1) {
+			var expressName = this.state.expressName;
+			var customerName = this.state.customerName;
+			var customerPwd = this.state.customerPwd;
+			var monthcode = this.state.logisticsNumber;
+
+			if (expressName == -1) {
 				Reactman.PageAction.showHint('error', '请选择物流公司 !');
+				return;
+			}
+
+			if (expressName == 'zhongtong' || expressName == 'huitongkuaidi' || expressName == 'yunda' || expressName == 'shentong' || expressName == 'youshuwuliu' || expressName == 'zhaijisong') {
+				if (customerName == '' || customerPwd == '') {
+					Reactman.PageAction.showHint('error', '请填写CustomerName、CustomerPwd !');
+					return;
+				}
+			}
+
+			if (expressName == 'yuantong') {
+				if (customerName == '' || monthcode == '') {
+					Reactman.PageAction.showHint('error', '请填写CustomerName、Monthcode !');
+					return;
+				}
+			}
+
+			if (expressName == 'debangwuliu') {
+				if (customerName == '') {
+					Reactman.PageAction.showHint('error', '请填写CustomerName !');
+					return;
+				}
 			}
 
 			if (expressId != -1) {
@@ -44937,10 +44964,10 @@
 					resource: 'postage_config.express_bill',
 					data: {
 						express_id: expressId,
-						express_name: this.state.expressName,
-						customer_name: this.state.customerName,
-						customer_pwd: this.state.customerPwd,
-						logistics_number: this.state.logisticsNumber,
+						express_name: expressName,
+						customer_name: customerName,
+						customer_pwd: customerPwd,
+						logistics_number: monthcode,
 						remark: this.state.remark,
 						sendsite: this.state.sendsite
 					},
@@ -45075,7 +45102,10 @@
 				'shipperId': -1,
 				'expressId': -1,
 				'expressName': -1,
-				'regional': ''
+				'regional': '',
+				'customerName': '',
+				'customerPwd': '',
+				'logisticsNumber': ''
 			};
 		},
 
@@ -45085,7 +45115,6 @@
 		},
 
 		handleGetData: function (action) {
-			console.log(action.data.rows[0], "+++++ssss++++");
 			this.data = action.data.rows[0];
 			this.__emitChange();
 		},
@@ -45094,7 +45123,11 @@
 			this.data = {
 				'shipperId': -1,
 				'expressId': -1,
-				'expressName': -1
+				'expressName': -1,
+				'regional': '',
+				'customerName': '',
+				'customerPwd': '',
+				'logisticsNumber': ''
 			};
 		},
 
@@ -46575,8 +46608,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./modelDialogStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./modelDialogStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46615,8 +46648,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46791,8 +46824,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./SetValidataTime.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./SetValidataTime.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46831,8 +46864,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -47079,6 +47112,11 @@
 				return;
 			}
 
+			if (product.product_store > 99999) {
+				Reactman.PageAction.showHint('error', '库存最多输入99999,请重新输入!');
+				return;
+			}
+
 			var model_values = this.state.model_values;
 			product['has_product_model'] = this.state.has_product_model;
 			if (has_product_model === '1' && model_values.length == 0) {
@@ -47105,6 +47143,12 @@
 							Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
 							return;
 						}
+					}
+
+					if (product['product_store_' + model.modelId] > 99999) {
+						is_true = true;
+						Reactman.PageAction.showHint('error', '库存最多输入99999,请重新输入!');
+						return;
 					}
 				});
 			}
@@ -47551,8 +47595,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -47793,8 +47837,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./NewProductUnPassDialog.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./NewProductUnPassDialog.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./NewProductUnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./NewProductUnPassDialog.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -47896,12 +47940,7 @@
 						value.name
 					);
 				});
-				// var valid_time_from = _this.state["valid_time_from_"+model.modelId];
-				// var valid_time_to = _this.state["valid_time_to_"+model.modelId];
-				// var src = '/static/img/panda_img/icon2.png';
-				// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
-				// 	src = '/static/img/panda_img/icon1.png';
-				// }
+
 				if (W.purchase_method == 1) {
 					if (W.role == 1) {
 						return React.createElement(
@@ -48979,8 +49018,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductModelInfo.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductModelInfo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49470,8 +49509,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -49854,8 +49893,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./CategoryStyle.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./CategoryStyle.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50199,8 +50238,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -50960,8 +50999,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52094,8 +52133,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./RevokeSelfShop.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./RevokeSelfShop.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52134,8 +52173,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52174,8 +52213,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelation.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelation.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -52848,8 +52887,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./ProductRelationUnPassDialog.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelationUnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./ProductRelationUnPassDialog.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -53393,8 +53432,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54046,8 +54085,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./UnPassDialog.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./UnPassDialog.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54086,8 +54125,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55157,8 +55196,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55409,8 +55448,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -55721,8 +55760,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56116,8 +56155,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56430,8 +56469,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../node_modules/.npminstall/css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56944,8 +56983,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57071,10 +57110,6 @@
 
 		render: function () {
 			var name = this.props.name;
-			var label = this.props.label;
-			var disabled = this.props.disabled;
-			var isHideLabel = label === undefined;
-
 			var validate = this.props.validate || '';
 			var placeholder = this.props.placeholder || '';
 			var value = this.props.value || '';
@@ -57082,22 +57117,11 @@
 			if (this.props.hasOwnProperty('autoFocus')) {
 				autoFocus = this.props.autoFocus;
 			}
-			var cls = classNames(this.props.extraClass, {
-				"xui-formDateRangeInput": true,
-				"form-group": true,
-				"ml15": true
-			});
+
 			var labelClasses = classNames({
-				"hide": isHideLabel,
-				"xui-i-label": true,
-				'col-sm-2': !isHideLabel,
+				'col-sm-2': true,
 				'control-label': true,
 				'xui-mandatory': validate !== ''
-			});
-			var containerClasses = classNames({
-				"col-sm-7": !isHideLabel,
-				"xui-i-container": true,
-				"xa-inputs": true
 			});
 			var errorHintClasses = classNames({
 				'errorHint': true,
@@ -57106,18 +57130,17 @@
 
 			return React.createElement(
 				'div',
-				{ className: cls },
+				{ className: 'form-group ml15' },
 				React.createElement(
 					'label',
 					{ className: labelClasses, htmlFor: name },
-					label
+					this.props.label
 				),
 				React.createElement(
 					'div',
-					{ className: containerClasses },
+					{ className: 'col-sm-7 xa-inputs' },
 					React.createElement('input', {
 						readOnly: true,
-						disabled: disabled,
 						type: 'text',
 						className: 'form-control xui-datePicker xa-low',
 						id: name + "_low",
@@ -57129,7 +57152,6 @@
 					'~',
 					React.createElement('input', {
 						readOnly: true,
-						disabled: disabled,
 						type: 'text',
 						className: 'form-control xui-datePicker xa-high',
 						id: name + "_high",
@@ -57279,8 +57301,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57441,8 +57463,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -57774,8 +57796,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59440,8 +59462,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59641,8 +59663,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -59936,7 +59958,7 @@
 						var data = rowFormatter('expand-row', null, row);
 						return React.createElement(
 							'tr',
-							{ key: "expand-bottom-tr-" + index, className: 'xui-i-expandRow', style: { padding: '0px' } },
+							{ key: "expand-tr-" + index, className: 'xui-i-expandRow', style: { padding: '0px' } },
 							React.createElement(
 								'td',
 								{ colSpan: headCount, style: { padding: '0px' } },
@@ -60232,8 +60254,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -60480,8 +60502,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -60727,8 +60749,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -60992,41 +61014,6 @@
 			this.replaceState(data);
 		},
 
-		/**
-	  * 更新 {field:value}
-	  * @param obj
-	  */
-		updateFields: function (obj) {
-			if (!obj) {
-				return;
-			}
-			var fields = Object.keys(obj);
-
-			var cFields = [];
-			var fieldValues = [];
-			React.Children.forEach(this.props.children, function (cFilterRow) {
-				var cFields = cFilterRow && cFilterRow.props && cFilterRow.props.children;
-				if (cFields) {
-					React.Children.forEach(cFields, function (cField) {
-						var cChild = cField && cField.props && cField.props.children;
-						if (!cChild) {
-							return;
-						}
-						var name = cChild.props.name;
-						var value = obj[name];
-						if (value === undefined) {
-							return;
-						}
-						fieldValues.push({ field: name, value: { value: value, match: cChild.props.match || '=' } });
-					});
-				}
-			});
-			if (!fieldValues.length) {
-				return;
-			}
-			this.Action.updateField(fieldValues);
-		},
-
 		onChangeField: function (value, event) {
 			var $input = $(event.target);
 			var $field = $input.parents('.xa-field').eq(0);
@@ -61178,38 +61165,22 @@
 
 			handleUpdateField: function (action) {
 				var value = action.data.value;
-				var field = action.data.field;
-
-				var fieldValueList;
-				if (field instanceof Array) {
-					fieldValueList = field;
+				if (_.isString(value.value)) {
+					value.value = value.value.trim();
 				} else {
-					fieldValueList = [{ field: field, value: value }];
+					_.each(value.value, function (aValue, key) {
+						if (_.isString(aValue)) {
+							aValue = aValue.trim();
+						}
+						value.value[key] = aValue;
+					});
 				}
-				var _this = this;
-				fieldValueList.forEach(function (fieldValue) {
-					var field = fieldValue.field;
-					var value = fieldValue.value;
-					var purifyValue = value.value;
 
-					if (_.isString(purifyValue)) {
-						value.value = purifyValue.trim();
-					} else {
-						_.each(purifyValue, function (aValue, key) {
-							if (_.isString(aValue)) {
-								aValue = aValue.trim();
-							}
-							purifyValue[key] = aValue;
-						});
-					}
-
-					if (purifyValue === '-1' || purifyValue.length === 0) {
-						delete _this.data[field];
-					} else {
-						_this.data[field] = value;
-					}
-				});
-
+				if (value.value === '-1' || value.value.length === 0) {
+					delete this.data[action.data.field];
+				} else {
+					this.data[action.data.field] = action.data.value;
+				}
 				this.__emitChange();
 			},
 
@@ -61293,8 +61264,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61477,8 +61448,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61724,8 +61695,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -62397,8 +62368,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -62592,8 +62563,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../.0.23.1@css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -62757,8 +62728,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -62797,8 +62768,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css", function() {
-				var newContent = require("!!./../../../../../../../../.0.23.1@css-loader/index.js!./design.css");
+			module.hot.accept("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css", function() {
+				var newContent = require("!!./../../../../../../../../../../css-loader/0.23.1/css-loader/index.js!./design.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -64472,8 +64443,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -64545,8 +64516,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -64744,8 +64715,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../.0.23.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../../.0.23.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../../../../../css-loader/0.23.1/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});

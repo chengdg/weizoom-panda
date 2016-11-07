@@ -69,12 +69,7 @@ var ProductModelInfo = React.createClass({
 					<td key={index} style={{verticalAlign:'middle',width:'100px',paddingLeft:'6px !important'}}>{value.name}</td>
 				)
 			})
-			// var valid_time_from = _this.state["valid_time_from_"+model.modelId];
-			// var valid_time_to = _this.state["valid_time_to_"+model.modelId];
-			// var src = '/static/img/panda_img/icon2.png';
-			// if((valid_time_from!= undefined && valid_time_from.length> 0) &&(valid_time_to!= undefined && valid_time_to.length> 0)){
-			// 	src = '/static/img/panda_img/icon1.png';
-			// }
+
 			if(W.purchase_method==1){
 				if(W.role==1){
 					return(

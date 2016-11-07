@@ -30,8 +30,36 @@ var AddCatalogDialog = Reactman.createDialog({
 
 	onBeforeCloseDialog: function() {
 		var expressId = this.state.expressId;
-		if(this.state.expressName == -1){
+		var expressName = this.state.expressName;
+		var customerName = this.state.customerName;
+		var customerPwd = this.state.customerPwd;
+		var monthcode = this.state.logisticsNumber;
+
+		if(expressName == -1){
 			Reactman.PageAction.showHint('error', '请选择物流公司 !');
+			return;
+		}
+
+		if(expressName == 'zhongtong' || expressName == 'huitongkuaidi' || expressName=='yunda' 
+			|| expressName=='shentong'|| expressName=='youshuwuliu'||expressName=='zhaijisong') {
+			if(customerName == '' || customerPwd == ''){
+				Reactman.PageAction.showHint('error', '请填写CustomerName、CustomerPwd !');
+				return;
+			}
+		}
+
+		if(expressName == 'yuantong' ) {
+			if(customerName == '' || monthcode == ''){
+				Reactman.PageAction.showHint('error', '请填写CustomerName、Monthcode !');
+				return;
+			}
+		}
+
+		if(expressName == 'debangwuliu' ) {
+			if(customerName == ''){
+				Reactman.PageAction.showHint('error', '请填写CustomerName !');
+				return;
+			}
 		}
 
 		if(expressId!=-1){
@@ -39,10 +67,10 @@ var AddCatalogDialog = Reactman.createDialog({
 				resource: 'postage_config.express_bill',
 				data: {
 					express_id: expressId,
-					express_name: this.state.expressName,
-					customer_name: this.state.customerName,
-					customer_pwd: this.state.customerPwd,
-					logistics_number: this.state.logisticsNumber,
+					express_name: expressName,
+					customer_name: customerName,
+					customer_pwd: customerPwd,
+					logistics_number: monthcode,
 					remark: this.state.remark,
 					sendsite: this.state.sendsite
 				},
