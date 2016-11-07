@@ -125,9 +125,6 @@ var AddCatalogDialog = Reactman.createDialog({
 			text: '申通快递',
 			value: 'shentong'
 		},{
-			text: '天天快递',
-			value: 'tiantian'
-		},{
 			text: '韵达快运',
 			value: 'yunda'
 		},{
