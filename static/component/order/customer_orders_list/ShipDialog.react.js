@@ -171,6 +171,9 @@ var ShipInfo = Reactman.createDialog({
 		},{
 			text: '优速物流',
 			value: 'youshuwuliu'
+		},{
+			text: '安能物流',
+			value: 'annengwuliu'
 		}];
 		var isNeedShip = this.props.isNeedShip;
 		if(isNeedShip=='0'){

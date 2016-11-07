@@ -55,7 +55,9 @@ options2text = {
 	'zhaijisong': '宅急送',
 	'youshuwuliu': '优速物流',
 	'guangdongyouzheng': '广东邮政',
-	'ems': 'EMS'
+	'ems': 'EMS',
+	'youshuwuliu':'优速物流',
+	'annengwuliu':'安能物流'
 }
 filter2field ={
 }
