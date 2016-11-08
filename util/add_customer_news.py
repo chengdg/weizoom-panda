@@ -8,6 +8,7 @@ def send_reject_product_message(product_name=None, reject_reason=None, customer_
 	"""
 	商品驳回
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	data = {
 		'news': {
@@ -27,6 +28,7 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 	"""
 	商品同步
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	platforms_string = u'、'.join(platforms)
 	data = {
@@ -48,6 +50,7 @@ def send_stop_sell_product_message(product_name=None, stop_reason=None, customer
 	"""
 	商品停售
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	data = {
 		'news': {
