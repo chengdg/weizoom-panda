@@ -153,7 +153,7 @@ class WeappRelation(resource.Resource):
 						# 发送同步消息给客户档案系统
 						owner_id = product.owner_id;
 						customer_id = UserProfile.objects.get(user_id=owner_id).corpid
-						customer_name = User.objects.get(id=customer_id).username
+						customer_name = UserProfile.objects.get(user_id=owner_id) .company_name
 						add_customer_news.send_sync_product_message(product_name=product.product_name, platforms=self_shop_names, customer_id=customer_id, customer_name=customer_name)
 					except:
 						msg = unicode_full_stack()
@@ -178,7 +178,7 @@ class WeappRelation(resource.Resource):
 								product = product_id2product[product_id]
 								owner_id = product.owner_id;
 								customer_id = UserProfile.objects.get(user_id=owner_id).corpid
-								customer_name = User.objects.get(id=customer_id).username
+								customer_name = UserProfile.objects.get(user_id=owner_id) .company_name
 								add_customer_news.send_stop_sell_product_message(product_name=product.product_name, stop_reason=revoke_reasons, customer_id=customer_id, customer_name=customer_name)
 							except Exception as e:
 								msg = unicode_full_stack()
