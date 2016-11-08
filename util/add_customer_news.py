@@ -8,6 +8,7 @@ def send_reject_product_message(product_name=None, reject_reason=None, customer_
 	"""
 	商品驳回
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	data = {
 		'news': {
@@ -16,7 +17,7 @@ def send_reject_product_message(product_name=None, reject_reason=None, customer_
 			'title': '审核通知',
 			'summary': '商品审核未通过（已通过）',
 			'description': '商品名：%s，已被操作为：入库审核驳回，驳回原因：%s' % (product_name.encode('utf8'), reject_reason.encode('utf8')),
-			'customer_id': 'wzc_%s' % (str(customer_id).encode('utf8')),
+			'customer_id': str(customer_id).encode('utf8'),
 			'customer_name': customer_name.encode('utf8')
 		}
 	}
@@ -27,6 +28,7 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 	"""
 	商品同步
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	platforms_string = u'、'.join(platforms)
 	data = {
@@ -36,7 +38,7 @@ def send_sync_product_message(product_name=None, platforms=[], customer_id=None,
 			'title': '审核通知',
 			'summary': '商品审核已通过',
 			'description': '商品名：%s，已被操作为：已入库，已同步，同步同平台分别为：%s' % (product_name.encode('utf8'), platforms_string.encode('utf8')),
-			'customer_id': 'wzc_%s' % (str(customer_id).encode('utf8')),
+			'customer_id': str(customer_id).encode('utf8'),
 			'customer_name': customer_name.encode('utf8')
 		}
 	}
@@ -48,6 +50,7 @@ def send_stop_sell_product_message(product_name=None, stop_reason=None, customer
 	"""
 	商品停售
 	"""
+	customer_id = customer_id if customer_id.startswith('wzc_') else ''
 	msg_name = 'add_customer_news'
 	data = {
 		'news': {
@@ -56,7 +59,7 @@ def send_stop_sell_product_message(product_name=None, stop_reason=None, customer
 			'title': '停售通知',
 			'summary': '商品撤架停售',
 			'description': '商品名：%s，已被操作为：已入库，已停售，停售原因：%s' % (product_name.encode('utf8'), stop_reason.encode('utf8')),
-			'customer_id': 'wzc_%s' % (str(customer_id).encode('utf8')),
+			'customer_id': str(customer_id).encode('utf8'),
 			'customer_name': customer_name.encode('utf8')
 		}
 	}
