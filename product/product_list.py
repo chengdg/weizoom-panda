@@ -108,11 +108,6 @@ def getProductData(request, is_export):
 	if user_info:
 		role = user_info[0].role
 		if role == YUN_YING:
-			# product_sync_weapps = models.ProductSyncWeappAccount.objects.all()
-			# sync_product_ids = []
-			# for product_sync_weapp in product_sync_weapps:
-			# 	if product_sync_weapp.product_id not in sync_product_ids:
-			# 		sync_product_ids.append(product_sync_weapp.product_id)
 			products = models.Product.objects.filter(is_deleted=False, is_update=True, is_refused=False).order_by('-id')
 		else:
 			products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
@@ -122,7 +117,7 @@ def getProductData(request, is_export):
 	# 查询
 	if product_name:
 		products = products.filter(product_name__icontains=product_name)
-	if is_update:
+	if is_update:	
 		products = products.filter(is_update=is_update)
 	if catalog_name:
 		product_catalogs = catalog_models.ProductCatalog.objects.filter(name__icontains=catalog_name)
@@ -245,8 +240,8 @@ def getProductData(request, is_export):
 	rows = []
 
 	#入库状态数据
-	sync_weapp_accounts = models.ProductSyncWeappAccount.objects.filter(product_id__in=product_ids)
-	has_relation_p_ids = set([sync_weapp_account.product_id for sync_weapp_account in sync_weapp_accounts])
+	has_relation_weapps = models.ProductHasRelationWeapp.objects.filter(product_id__in=product_ids)
+	has_relation_p_ids = set([has_relation_weapp.product_id for has_relation_weapp in has_relation_weapps])
 	reject_logs = models.ProductRejectLogs.objects.filter(product_id__in=product_ids)
 	has_reject_p_ids = [reject_log.product_id for reject_log in reject_logs]
 	product_id2reject_reasons = {}
