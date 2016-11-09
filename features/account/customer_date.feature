@@ -10,75 +10,90 @@ Feature:运营人员查看客户报告所需数据
 """
 Background:
 	Given manager登录管理系统
-	Then manager添加账号
-	"""
-		[{
-			"account_type":"体验客户",
-			"company_name":"爱昵咖啡有限责任公司",
-			"shop_name":"爱昵咖啡",
-			"manage_type":"休闲食品",
-			"purchase_type":"固定底价",
-			"connect_man":"aini",
-			"mobile_number":"13813985506",
-			"login_account":"aini",
-			"password":"123456",
-			"valid_time":"2016-07-15"至"2017-07-15",
-			"ramarks":"爱昵咖啡客户体验账号"
-		},{
+	When manager添加账号
+		"""
+		{
 			"account_type":"运营",
 			"account_name":"运营部门",
 			"login_account":"yunying",
 			"password":123456,
 			"ramarks":"运营部门"
-		}]
-	"""
-	When tuxiaobao使用密码123456登录管理系统
-	When tuxiaobao添加商品
-	"""
+		}
+		"""
+	Given yunying登录系统
+	When yunying添加分类
+		"""
+		{
+		"head_classify":"无",
+		"classify_name":"电子数码",
+		"comments":"1"
+		},{
+		"head_classify":"无",
+		"classify_name":"生活用品",
+		"comments":"1"
+		},{
+		"head_classify":"电子数码",
+		"classify_name":"手机",
+		"comments":""
+		},{
+		"head_classify":"电子数码",
+		"classify_name":"平板电脑",
+		"comments":""
+		},{
+		"head_classify":"电子数码",
+		"classify_name":"耳机",
+		"comments":""
+		},{
+		"head_classify":"生活用品",
+		"classify_name":"零食",
+		"comments":""
+		},{
+		"head_classify":"生活用品",
+		"classify_name":"肥皂",
+		"comments":""
+		},{
+		"head_classify":"生活用品",
+		"classify_name":"清洗用品,
+		"comments":""
+		}
+		"""
+	Given manager登录管理系统
+	When manager添加账号
+		"""
 		[{
-		"first_classify":"生活用品",
-		"second_classify":"零食",
-		"name": "武汉鸭脖",
-		"promotion_name":"武汉鸭脖",
-		"introduction": "这是一种很好吃的鸭脖"
-		"standard_promotion":"是",
-		"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-		"standard_price":{
-						|standard_1|standard_2|purchase_price|sale_price|weight|stock_number|
-						|   黑色   |     X    |     14.90    |   29.00  | 0.50 |   2500.00  |
-						|   黑色   |    XL    |     14.90    |   29.00  | 0.50 |   2000.00  |    
-						|   红色   |     X    |     14.90    |   29.00  | 0.50 |   1000.00  |
-						|   红色   |    XL    |     14.90    |   29.00  | 0.50 |   1300.00  |
-			},{
-			"first_classify":"居家",
-			"second_classify":"鞋子",			
-			"name": "耐克男鞋",
-			"promotion_name":"耐克男鞋",
-			"introduction": "耐克男鞋"
-			"standard_promotion":"是",
-			"standard":{
-						"standard_name":"颜色",
-						"standard":"黑色","红色"
-						},{
-						"standard_name":"尺码",
-						"standard":"X,XL"
-						}
-			"standard_price":{
-						|standard_1|standard_2|purchase_price|sale_price|weight|stock_number|
-						|   黑色   |     X    |     14.90    |   29.00  | 0.50 |   2500.00  |
-						|   黑色   |    XL    |     14.90    |   29.00  | 0.50 |   2000.00  |   
-						|   红色   |     X    |     14.90    |   29.00  | 0.50 |   1000.00  |
-						|   红色   |    XL    |     14.90    |   29.00  | 0.50 |   1300.00  |
-						}
-						
+		"account_type":"体验客户",
+		"product_style":{
+						"电子数码"，
+						"生活用品"
+						},
+		"business_limit":"5.00",
+		"company_name":"周黑鸭",
+		"shop_name":"周黑鸭旗舰店",
+		"purchase_type":"固定底价",
+		"connect_man":"周黑鸭",
+		"mobile_number":"13813985507",
+		"login_account":"zhouheiya",
+		"password":"123456",
+		"valid_time":"2016-07-15"至"2017-07-15",
+		"ramarks":"周黑鸭"
+		},{
+		"account_type":"体验客户",
+		"purchase_type":{
+						"电子数码"，
+						"生活用品"
+						},
+		"business_limit":"6.00",
+		"company_name":"爱昵咖啡有限责任公司",
+		"shop_name":"爱昵咖啡",
+		"purchase_type":"固定底价",
+		"connect_man":"aini",
+		"mobile_number":"13813985506",
+		"login_account":"aini",
+		"password":"123456",
+		"valid_time":"2016-07-15"至"2017-07-15",
+		"ramarks":"爱昵咖啡客户体验账号"
 		}]
-	"""
+		"""	s
 		
 	Given yunying使用密码123456登录系统
 	When yunying绑定商品关联的云商通商品

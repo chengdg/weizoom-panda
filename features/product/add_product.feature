@@ -70,7 +70,6 @@ Background:
 						},
 		"company_name":"爱昵咖啡有限责任公司",
 		"shop_name":"爱昵咖啡",
-		"manage_type":"休闲食品",
 		"purchase_type":"固定底价",
 		"connect_man":"aini",
 		"mobile_number":"13813985506",

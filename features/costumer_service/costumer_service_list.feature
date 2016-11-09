@@ -1,7 +1,6 @@
-#_author_::徐梓豪 2016-08-12
-Feature:客户账号修改密码
-	#旧密码必须与目前密码相同
-	#要输入两次新密码，并且新密码必须相同
+#_author_:徐梓豪 2016-11-09
+Feature:客户端查看自己对应的客服
+	#进入账号后，在线客服模块默认为收起状态
 Background:
 	Given manager登录管理系统
 	When manager添加账号
@@ -54,55 +53,60 @@ Background:
 	Given manager登录管理系统
 	When manager添加账号
 		"""
-		[{
+		{
 		"account_type":"体验客户",
-		"product_style":{
+		'product_style':{
 						"电子数码"，
 						"生活用品"
 						},
-		"business_limit":"5.00",
-		"company_name":"周黑鸭",
-		"shop_name":"周黑鸭旗舰店",
-		"purchase_type":"固定底价",
-		"connect_man":"周黑鸭",
-		"mobile_number":"13813985507",
-		"login_account":"zhouheiya",
-		"password":"123456",
-		"valid_time":"2016-07-15"至"2017-07-15",
-		"ramarks":"周黑鸭"
-		},{
-		"account_type":"体验客户",
-		"purchase_type":{
-						"电子数码"，
-						"生活用品"
-						},
-		"business_limit":"6.00",
 		"company_name":"爱昵咖啡有限责任公司",
 		"shop_name":"爱昵咖啡",
-		"manage_type":"休闲食品",
 		"purchase_type":"固定底价",
 		"connect_man":"aini",
 		"mobile_number":"13813985506",
 		"login_account":"aini",
 		"password":"123456",
 		"valid_time":"2016-07-15"至"2017-07-15",
-		"ramarks":"爱昵咖啡客户体验账号"
-		}]
-		"""	
-@panda @password
-Scenario:客户账号修改密码
-	Given aini使用密码123456登录系统
-	When aini修改密码
-		"""
-		{
-		"old_password":123456,
-		"new_password":654321,
-		"again_password":654321,
+		"ramarks":"爱昵咖啡客户体验账号",
+		"costumer_service_telphone":13813984402,
+		"costumer_service_qq1":445068326,
+		"costumer_service_qq2":1417102986
+		},{
+		"account_type":"体验客户",
+		'product_style':{
+						"电子数码"，
+						"耳机"
+						},
+		"company_name":"土小宝食品有限公司",
+		"shop_name":"土小宝食品",
+		"purchase_type":"固定底价",
+		"connect_man":"tuxiaobao",
+		"mobile_number":"13813985506",
+		"login_account":"aini",
+		"password":"123456",
+		"valid_time":"2016-07-15"至"2017-07-15",
+		"ramarks":"土小宝客户体验账号",
+		"costumer_service_telphone":15951921193,
+		"costumer_service_qq1":445068326,
+		"costumer_service_qq2":1417102986
 		}
+		"""	
+@panda @costumer_service
+Scenario:1 客户端查看自己对应的客服
+	Given aini登录系统
+	When aini查看自己的在线客服
 		"""
-	Given aini使用密码123456登录系统
-	#无法登录
-	Given aini使用密码654321登录系统
-	#登录成功
+		[{
+			"qq_service":"445068326",
+			"costumer_service_telphone":13813984402
+		}]
+		"""
 
-
+	Given tuxiaobao登录系统
+	When tuxiaobao查看自己的在线客服
+		"""
+		[{
+			"qq_service":"445068326",
+			"costumer_service_telphone":15951921193
+		}]
+		"""
