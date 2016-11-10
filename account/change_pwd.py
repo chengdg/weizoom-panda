@@ -16,7 +16,7 @@ class ChangePassword(resource.Resource):
 	resource = 'password'
 	
 	@login_required
-	def api_put(request):
+	def api_post(request):
 		old_pwd = request.POST.get('old_pwd', '')
 		new_pwd = request.POST.get('new_pwd', '')
 		user_id = int(request.user.id)
