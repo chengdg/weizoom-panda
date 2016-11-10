@@ -21764,7 +21764,7 @@
 	  } catch (e) {}
 
 	  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-	  if ('env' in (process || {})) {
+	  if ('env' in (typeof process === 'undefined' ? {} : process)) {
 	    r = process.env.DEBUG;
 	  }
 
@@ -22386,7 +22386,10 @@
 	                new_pwd: this.state.newPwd
 	            },
 	            success: function () {
-	                this.closeDialog();
+	                _.delay(function () {
+	                    this.closeDialog();
+	                }, 200);
+	                PageAction.showHint('success', '修改密码成功');
 	            },
 	            error: function (data) {
 	                PageAction.showHint('error', data.errMsg);
