@@ -13,7 +13,7 @@ class ChangePassword(resource.Resource):
 	修改密码
 	"""
 	app = 'account'
-	resource = 'change_pwd'
+	resource = 'password'
 	
 	@login_required
 	def api_put(request):
