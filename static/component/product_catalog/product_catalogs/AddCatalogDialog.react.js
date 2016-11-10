@@ -109,7 +109,7 @@ var AddCatalogDialog = Reactman.createDialog({
 		<div className="xui-formPage">
 			<form className="form-horizontal mt15">
 				<fieldset>
-					<Reactman.FormSelect disabled='true' label="上级分类:" name="fatherCatalog" value={this.state.fatherCatalog} options={this.state.options} onChange={this.onChange}/>
+					<Reactman.FormSelect label="上级分类:" name="fatherCatalog" value={this.state.fatherCatalog} options={this.state.options} onChange={this.onChange}/>
 					<Reactman.FormInput label="分类名称:" name="catalogName" validate="require-notempty" value={this.state.catalogName} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" type="text" name="note" value={this.state.note} onChange={this.onChange} inDialog={true} width={300} height={200}/>
 				</fieldset>

@@ -67,6 +67,8 @@ var AccountCreatePage = React.createClass({
 		var reg = /^(0|[1-9]|[1-9]\d|99)$/;
 		var regPhone = /^0{0,1}(13[0-9]|15[0-9]|17[0-9]|18[0-9])[0-9]{8}$/g;
 		var regUsername = /^[0-9a-zA-Z]*$/g;
+		var regServiceTel = /^[0-9 -]+$/;
+		var regServiceQQ = /^[0-9]*$/;
 
 		if(accountType == 1 && purchaseMethod == 2 && account.hasOwnProperty('points') && account.points.length > 0){
 			if((parseFloat(account.points.trim())==0) || !reg.test(account.points.trim())){
@@ -110,6 +112,19 @@ var AccountCreatePage = React.createClass({
 
 		if(accountType == 1 && account.companyName != $('#companyNameOption').find("option:selected").text()){
 			Reactman.PageAction.showHint('error', '请选择公司名称');
+			return;
+		}
+
+		if(account.customerServiceTel.length>0 && !regServiceTel.test(account.customerServiceTel)){
+			Reactman.PageAction.showHint('error', '请输入有效的客服联系号码');
+			return;
+		}
+		if(account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQFirst)){
+			Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
+			return;
+		}
+		if(account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQSecond)){
+			Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
 			return;
 		}
 		Action.saveAccount(Store.getData());
@@ -165,6 +180,10 @@ var AccountCreatePage = React.createClass({
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
 					<Reactman.FormInput label={labelName} type="password" name="password" validate={validate} placeholder="" value={this.state.password} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" name="note" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
+					<div style={{margin:'30px 0px 15px 70px', color:'#000'}}>客户后台显示的在线客服联系方式</div>
+					<Reactman.FormInput label="客服电话:" name="customerServiceTel" placeholder="" value={this.state.customerServiceTel} onChange={this.onChange} />
+					<Reactman.FormInput label="客服qq-1:" name="customerServiceQQFirst" placeholder="" value={this.state.customerServiceQQFirst} onChange={this.onChange} />
+					<Reactman.FormInput label="客服qq-2:" name="customerServiceQQSecond" placeholder="" value={this.state.customerServiceQQSecond} onChange={this.onChange} />
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>

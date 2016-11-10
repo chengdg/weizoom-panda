@@ -34,8 +34,14 @@ var Store = StoreUtil.createStore(Dispatcher, {
 			isSuccess: false
 		};
 		var optionsForExpress = Reactman.loadJSON('optionsForExpress');
+		var customerServiceContact = Reactman.loadJSON('customerServiceContact');
 		if(optionsForExpress){
 			this.data['optionsForExpress'] = optionsForExpress;
+		}
+		if(customerServiceContact){
+			this.data['serviceTel'] = optionsForExpress['service_tel'];
+			this.data['serviceQQSecond'] = optionsForExpress['service_qq_first'];
+			this.data['serviceQQFirst'] = optionsForExpress['service_qq_second'];
 		}
 	},
 

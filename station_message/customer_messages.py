@@ -38,10 +38,14 @@ class ProductCatalog(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': SECOND_NAVS,
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'service_tel': account_user_profile.customer_service_tel,
+			'service_qq_first': account_user_profile.customer_service_qq_first,
+			'service_qq_second': account_user_profile.customer_service_qq_second
 		})
 		return render_to_response('customer_messages.html', c)
 

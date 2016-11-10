@@ -15,6 +15,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 
 var TableListPage = require('./TableListPage.react');
+var QQOnlineService = require('../.././qq_online/online/QQOnlineService.react');
 
 require('./style.css');
 var W = Reactman.W;
@@ -35,6 +36,9 @@ var PostageListPage = React.createClass({
 
 	render:function(){
 		var postages = W.postages;
+		var serviceTel = W.serviceTel;
+		var serviceQQFirst = W.serviceQQFirst;
+		var serviceQQSecond = W.serviceQQSecond;
 		var postageId = this.state.postageId;
 		var postageTemplateCount = JSON.parse(postages).length;
 		var tableList = JSON.parse(postages).map(function(postage, index){
@@ -59,6 +63,7 @@ var PostageListPage = React.createClass({
 
 		return (
 			<div className="mt15 xui-postageConfig-postageListPage">
+				<div> <QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
 				{tableList}
 				<Reactman.TableActionBar>
 					<Reactman.TableActionButton text="添加新模板" icon="plus" onClick={this.addPostageTemplate}/>

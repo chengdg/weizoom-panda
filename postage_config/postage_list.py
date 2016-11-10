@@ -29,6 +29,7 @@ class PostageList(resource.Resource):
 
 	@login_required
 	def get(request):
+		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		postage_configs = models.PostageConfig.objects.filter(owner_id=request.user.id, is_deleted=False).order_by('-id')
 		postages = []
 		for postage_config in postage_configs:
@@ -44,7 +45,10 @@ class PostageList(resource.Resource):
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
 			'second_nav_name': SECOND_NAV,
-			'postages': json.dumps(postages)
+			'postages': json.dumps(postages),
+			'service_tel': account_user_profile.customer_service_tel,
+			'service_qq_first': account_user_profile.customer_service_qq_first,
+			'service_qq_second': account_user_profile.customer_service_qq_second
 		})
 		return render_to_response('postage_list/postage_list.html', c)
 

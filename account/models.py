@@ -71,6 +71,9 @@ class UserProfile(models.Model):
 	product_count = models.IntegerField(default=0) #客户商品数量
 	settlement_period = models.IntegerField(default=SETTLEMENT_PERIOD_MONTH) #结算账期  1【自然月】   2【15天】   3【自然周】
 	corpid = models.CharField(max_length=100, default='') #corpid
+	customer_service_tel = models.CharField(max_length=32, default='') #客服电话
+	customer_service_qq_first = models.CharField(max_length=32, default='') #客服qq-1
+	customer_service_qq_second = models.CharField(max_length=32, default='') #客服qq-2
 
 	class Meta(object):
 		db_table = 'account_user_profile'

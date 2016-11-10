@@ -14,6 +14,7 @@ var Constant = require('./Constant');
 var Action = require('./Action');
 var AddLimitZoneTemplateDialog = require('./AddLimitZoneTemplateDialog.react');
 var LimitZoneText = require('./LimitZoneText.react');
+var QQOnlineService = require('.././qq_online/online/QQOnlineService.react');
 
 var ProductCatalogPage = React.createClass({
 	getInitialState: function() {
@@ -118,8 +119,12 @@ var ProductCatalogPage = React.createClass({
 			data: {}
 		};
 
+		var serviceTel = W.serviceTel;
+		var serviceQQFirst = W.serviceQQFirst;
+		var serviceQQSecond = W.serviceQQSecond;
 		return (
 			<div className="mt15 xui-product-productListPage">
+				<div> <QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加模板" icon="plus" onClick={this.onAddTemplate}/>

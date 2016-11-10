@@ -11,6 +11,7 @@ var W = Reactman.W;
 var Store = require('./Store');
 var Constant = require('./Constant');
 var Action = require('./Action');
+var QQOnlineService = require('../.././qq_online/online/QQOnlineService.react');
 require('./style.css');
 
 var StationMessageList = React.createClass({
@@ -79,9 +80,12 @@ var StationMessageList = React.createClass({
 				page: 1
 			}
 		};
+		var serviceTel = W.serviceTel;
+		var serviceQQFirst = W.serviceQQFirst;
+		var serviceQQSecond = W.serviceQQSecond;
 		return (
 			<div className="mt15 xui-product-productListPage">
-
+				<div> <QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
 				<Reactman.TablePanel>
                     <Reactman.TableActionBar>
 					</Reactman.TableActionBar>

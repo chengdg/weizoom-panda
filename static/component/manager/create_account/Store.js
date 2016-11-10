@@ -70,7 +70,10 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'orderMoney': '',
 				'rebateProport': '',
 				'defaultRebateProport': '',
-				'maxProduct': 3
+				'maxProduct': 3,
+				'customerServiceTel': '',
+				'customerServiceQQFirst': '',
+				'customerServiceQQSecond': '' 
 			};
 		}
 	},

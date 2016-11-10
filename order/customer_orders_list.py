@@ -72,6 +72,7 @@ class CustomerOrdersList(resource.Resource):
 		响应GET
 		"""
 		jsons = {'items':[]}
+		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		express_bill_accounts = postage_models.ExpressBillAccounts.objects.filter(owner=request.user, is_deleted=False)
 		shipper_messages = postage_models.ShipperMessages.objects.filter(owner=request.user, is_deleted=False, is_active=True)
 		options_for_express = []
@@ -88,8 +89,14 @@ class CustomerOrdersList(resource.Resource):
 		hasShipper = {
 			'hasShipper': True if shipper_messages else False
 		}
+		contact ={
+			'service_tel': account_user_profile.customer_service_tel,
+			'service_qq_first': account_user_profile.customer_service_qq_first,
+			'service_qq_second': account_user_profile.customer_service_qq_second,
+		}
 		jsons['items'].append(('optionsForExpress', json.dumps(options_for_express)))
 		jsons['items'].append(('hasShipper', json.dumps(hasShipper)))
+		jsons['items'].append(('customerServiceContact', json.dumps(contact)))
 		c = RequestContext(request, {
 			'jsons': jsons,
 			'first_nav_name': FIRST_NAV,

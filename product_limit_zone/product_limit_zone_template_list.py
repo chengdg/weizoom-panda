@@ -13,6 +13,7 @@ from core import resource
 from core.jsonresponse import create_response
 
 from product import models as product_models
+from account import models as account_models
 from panda.settings import EAGLET_CLIENT_ZEUS_HOST, ZEUS_SERVICE_NAME
 
 import models
@@ -32,10 +33,14 @@ class ProductLimitZone(resource.Resource):
 		"""
 		显示商品列表
 		"""
+		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		c = RequestContext(request, {
 			'first_nav_name': FIRST_NAV,
 			'second_navs': nav.get_second_navs(),
-			'second_nav_name': SECOND_NAV
+			'second_nav_name': SECOND_NAV,
+			'service_tel': account_user_profile.customer_service_tel,
+			'service_qq_first': account_user_profile.customer_service_qq_first,
+			'service_qq_second': account_user_profile.customer_service_qq_second
 		})
 		return render_to_response('product_limit_zone/product_limit_zone.html', c)
 
