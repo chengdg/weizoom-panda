@@ -22164,119 +22164,117 @@
 	var PageAction = __webpack_require__(245);
 
 	var TopNav = React.createClass({
-	    displayName: 'TopNav',
+					displayName: 'TopNav',
 
-	    onChangePwd: function () {
-	        PageAction.showDialog({
-	            title: "修改密码",
-	            component: ChangePwdDialog,
-	            data: {},
-	            success: function () {
-	                PageAction.showHint('success', '修改密码成功');
-	            }
-	        });
-	    },
+					onChangePwd: function () {
+									PageAction.showDialog({
+													title: "修改密码",
+													component: ChangePwdDialog,
+													data: {},
+													success: function () {}
+									});
+					},
 
-	    render: function () {
-	        var activeNav = this.props.activeNav;
-	        var lis = '';
-	        if (this.props.navs) {
-	            var lis = this.props.navs.map(function (nav) {
-	                var liClasses = classNames({
-	                    active: nav.name === activeNav
-	                });
+					render: function () {
+									var activeNav = this.props.activeNav;
+									var lis = '';
+									if (this.props.navs) {
+													var lis = this.props.navs.map(function (nav) {
+																	var liClasses = classNames({
+																					active: nav.name === activeNav
+																	});
 
-	                if (nav.icon.contains('fa-')) {
-	                    var iconClasses = classNames('fa', 'fa-5', nav.icon);
-	                } else {
-	                    var iconClasses = classNames('glyphicon', 'glyphicon-' + nav.icon);
-	                }
+																	if (nav.icon.contains('fa-')) {
+																					var iconClasses = classNames('fa', 'fa-5', nav.icon);
+																	} else {
+																					var iconClasses = classNames('glyphicon', 'glyphicon-' + nav.icon);
+																	}
 
-	                var target = nav.target || '';
+																	var target = nav.target || '';
 
-	                return React.createElement(
-	                    'li',
-	                    { className: liClasses, key: "li-" + nav.name },
-	                    React.createElement(
-	                        'a',
-	                        { href: nav.href, target: target },
-	                        React.createElement('span', {
-	                            className: iconClasses }),
-	                        ' ',
-	                        nav.displayName
-	                    )
-	                );
-	            });
-	        }
+																	return React.createElement(
+																					'li',
+																					{ className: liClasses, key: "li-" + nav.name },
+																					React.createElement(
+																									'a',
+																									{ href: nav.href, target: target },
+																									React.createElement('span', {
+																													className: iconClasses }),
+																									' ',
+																									nav.displayName
+																					)
+																	);
+													});
+									}
 
-	        return React.createElement(
-	            'div',
-	            { id: 'header' },
-	            React.createElement(
-	                'nav',
-	                { className: 'navbar navbar-default navbar-fixed-top xui-navbar' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'container-fluid' },
-	                    React.createElement(
-	                        'div',
-	                        { className: 'navbar-header mr20' },
-	                        React.createElement(
-	                            'a',
-	                            { className: 'navbar-brand', href: '/' },
-	                            this.props.name
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'collapse navbar-collapse', id: '' },
-	                        React.createElement(
-	                            'ul',
-	                            { className: 'nav navbar-nav' },
-	                            lis
-	                        ),
-	                        React.createElement(
-	                            'div',
-	                            { className: 'btn-group navbar-form navbar-right' },
-	                            React.createElement(
-	                                'button',
-	                                { type: 'button', className: 'btn btn-default dropdown-toggle',
-	                                    'data-toggle': 'dropdown' },
-	                                React.createElement('span', { className: 'glyphicon glyphicon-user' }),
-	                                ' ',
-	                                this.props.userName,
-	                                ' ',
-	                                React.createElement('span', {
-	                                    className: 'caret' })
-	                            ),
-	                            React.createElement(
-	                                'ul',
-	                                { className: 'dropdown-menu', role: 'menu' },
-	                                React.createElement(
-	                                    'li',
-	                                    null,
-	                                    React.createElement(
-	                                        'a',
-	                                        { href: '#', onClick: this.onChangePwd },
-	                                        '\u4FEE\u6539\u5BC6\u7801'
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'li',
-	                                    null,
-	                                    React.createElement(
-	                                        'a',
-	                                        { href: '/account/logout/' },
-	                                        '\u9000\u51FA'
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
+									return React.createElement(
+													'div',
+													{ id: 'header' },
+													React.createElement(
+																	'nav',
+																	{ className: 'navbar navbar-default navbar-fixed-top xui-navbar' },
+																	React.createElement(
+																					'div',
+																					{ className: 'container-fluid' },
+																					React.createElement(
+																									'div',
+																									{ className: 'navbar-header mr20' },
+																									React.createElement(
+																													'a',
+																													{ className: 'navbar-brand', href: '/' },
+																													this.props.name
+																									)
+																					),
+																					React.createElement(
+																									'div',
+																									{ className: 'collapse navbar-collapse', id: '' },
+																									React.createElement(
+																													'ul',
+																													{ className: 'nav navbar-nav' },
+																													lis
+																									),
+																									React.createElement(
+																													'div',
+																													{ className: 'btn-group navbar-form navbar-right' },
+																													React.createElement(
+																																	'button',
+																																	{ type: 'button', className: 'btn btn-default dropdown-toggle',
+																																					'data-toggle': 'dropdown' },
+																																	React.createElement('span', { className: 'glyphicon glyphicon-user' }),
+																																	' ',
+																																	this.props.userName,
+																																	' ',
+																																	React.createElement('span', {
+																																					className: 'caret' })
+																													),
+																													React.createElement(
+																																	'ul',
+																																	{ className: 'dropdown-menu', role: 'menu' },
+																																	React.createElement(
+																																					'li',
+																																					null,
+																																					React.createElement(
+																																									'a',
+																																									{ href: '#', onClick: this.onChangePwd },
+																																									'\u4FEE\u6539\u5BC6\u7801'
+																																					)
+																																	),
+																																	React.createElement(
+																																					'li',
+																																					null,
+																																					React.createElement(
+																																									'a',
+																																									{ href: '/account/logout/' },
+																																									'\u9000\u51FA'
+																																					)
+																																	)
+																													)
+																									)
+																					)
+																	)
+													)
+									);
+					}
 	});
 	module.exports = TopNav;
 
@@ -22379,6 +22377,7 @@
 	    },
 
 	    onBeforeCloseDialog: function () {
+	        var _this = this;
 	        Resource.post({
 	            resource: 'account.password',
 	            data: {
@@ -22387,8 +22386,8 @@
 	            },
 	            success: function () {
 	                _.delay(function () {
-	                    this.closeDialog();
-	                }, 200);
+	                    _this.closeDialog();
+	                }, 500);
 	                PageAction.showHint('success', '修改密码成功');
 	            },
 	            error: function (data) {
