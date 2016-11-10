@@ -68,6 +68,7 @@ var ProductDataListPage = React.createClass({
 				title: "请选择商品分类",
 				component: AddProductCategoryDialog,
 				data: {},
+				okText:false,
 				success: function(inputData, dialogState) {
 					console.log("success");
 				}
