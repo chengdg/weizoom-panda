@@ -51,7 +51,7 @@ class ProductList(resource.Resource):
 		"""
 
 		user_has_products = models.Product.objects.filter(owner_id=request.user.id, is_deleted=False).count()
-
+		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		user_profile = request.user.get_profile()
 		if user_profile.max_product <= user_has_products:
 			can_created = False
@@ -64,9 +64,9 @@ class ProductList(resource.Resource):
 			'user_has_products': user_has_products,
 			'can_created': can_created,
 			'purchaseMethod': user_profile.purchase_method,
-			'service_tel': user_profile.customer_service_tel,
-			'service_qq_first': user_profile.customer_service_qq_first,
-			'service_qq_second': user_profile.customer_service_qq_second
+			'service_tel': account_user_profile.customer_service_tel,
+			'service_qq_first': account_user_profile.customer_service_qq_first,
+			'service_qq_second': account_user_profile.customer_service_qq_second
 		})
 
 		return render_to_response('product/product_list.html', c)

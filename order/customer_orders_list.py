@@ -92,7 +92,7 @@ class CustomerOrdersList(resource.Resource):
 		contact ={
 			'service_tel': account_user_profile.customer_service_tel,
 			'service_qq_first': account_user_profile.customer_service_qq_first,
-			'service_qq_second': account_user_profile.customer_service_qq_second,
+			'service_qq_second': account_user_profile.customer_service_qq_second
 		}
 		jsons['items'].append(('optionsForExpress', json.dumps(options_for_express)))
 		jsons['items'].append(('hasShipper', json.dumps(hasShipper)))
