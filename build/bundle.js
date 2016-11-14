@@ -39120,18 +39120,19 @@
 				return;
 			}
 
-			if (account.customerServiceTel.length > 0 && !regServiceTel.test(account.customerServiceTel)) {
+			if (account.customerServiceTel.length > 0 && !regServiceTel.test(account.customerServiceTel) || account.customerServiceTel.length > 20) {
 				Reactman.PageAction.showHint('error', '请输入有效的客服联系号码');
 				return;
 			}
-			if (account.customerServiceQQFirst.length > 0 && !regServiceQQ.test(account.customerServiceQQFirst)) {
+			if (account.customerServiceQQFirst.length > 0 && !regServiceQQ.test(account.customerServiceQQFirst) || account.customerServiceQQFirst.length > 20) {
 				Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
 				return;
 			}
-			if (account.customerServiceQQFirst.length > 0 && !regServiceQQ.test(account.customerServiceQQSecond)) {
+			if (account.customerServiceQQFirst.length > 0 && !regServiceQQ.test(account.customerServiceQQSecond) || account.customerServiceQQFirst.length > 20) {
 				Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
 				return;
 			}
+
 			Action.saveAccount(Store.getData());
 		},
 		render: function () {
@@ -39196,14 +39197,7 @@
 						React.createElement(Reactman.FormInput, { label: '\u767B\u5F55\u540D:', readonly: disabled, name: 'username', validate: 'require-notempty', placeholder: '', value: this.state.username, onChange: this.onChange }),
 						React.createElement(Reactman.FormInput, { label: labelName, type: 'password', name: 'password', validate: validate, placeholder: '', value: this.state.password, onChange: this.onChange }),
 						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8:', name: 'note', value: this.state.note, inDialog: true, width: 320, height: 200, onChange: this.onChange }),
-						React.createElement(
-							'div',
-							{ style: { margin: '30px 0px 15px 70px', color: '#000' } },
-							'\u5BA2\u6237\u540E\u53F0\u663E\u793A\u7684\u5728\u7EBF\u5BA2\u670D\u8054\u7CFB\u65B9\u5F0F'
-						),
-						React.createElement(Reactman.FormInput, { label: '\u5BA2\u670D\u7535\u8BDD:', name: 'customerServiceTel', placeholder: '', value: this.state.customerServiceTel, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-1:', name: 'customerServiceQQFirst', placeholder: '', value: this.state.customerServiceQQFirst, onChange: this.onChange }),
-						React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-2:', name: 'customerServiceQQSecond', placeholder: '', value: this.state.customerServiceQQSecond, onChange: this.onChange })
+						React.createElement(CustomerService, { onChange: this.onChange, Type: this.state.accountType, customerServiceTel: this.state.customerServiceTel, customerServiceQQFirst: this.state.customerServiceQQFirst, customerServiceQQSecond: this.state.customerServiceQQSecond })
 					),
 					React.createElement(
 						'fieldset',
@@ -39212,6 +39206,30 @@
 					)
 				)
 			);
+		}
+	});
+
+	var CustomerService = React.createClass({
+		displayName: 'CustomerService',
+
+		render: function () {
+			var accountType = this.props.Type;
+			if (accountType == '1') {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'div',
+						{ style: { margin: '30px 0px 15px 70px', color: '#000' } },
+						'\u5BA2\u6237\u540E\u53F0\u663E\u793A\u7684\u5728\u7EBF\u5BA2\u670D\u8054\u7CFB\u65B9\u5F0F'
+					),
+					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670D\u7535\u8BDD:', name: 'customerServiceTel', placeholder: '', value: this.props.customerServiceTel, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-1:', name: 'customerServiceQQFirst', placeholder: '', value: this.props.customerServiceQQFirst, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-2:', name: 'customerServiceQQSecond', placeholder: '', value: this.props.customerServiceQQSecond, onChange: this.props.onChange })
+				);
+			} else {
+				return React.createElement('div', null);
+			}
 		}
 	});
 

@@ -115,18 +115,19 @@ var AccountCreatePage = React.createClass({
 			return;
 		}
 
-		if(account.customerServiceTel.length>0 && !regServiceTel.test(account.customerServiceTel)){
+		if((account.customerServiceTel.length>0 && !regServiceTel.test(account.customerServiceTel)) || account.customerServiceTel.length>20){
 			Reactman.PageAction.showHint('error', '请输入有效的客服联系号码');
 			return;
 		}
-		if(account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQFirst)){
+		if((account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQFirst)) || account.customerServiceQQFirst.length>20){
 			Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
 			return;
 		}
-		if(account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQSecond)){
+		if((account.customerServiceQQFirst.length>0 && !regServiceQQ.test(account.customerServiceQQSecond)) || account.customerServiceQQFirst.length>20){
 			Reactman.PageAction.showHint('error', '请输入有效的客服QQ号码');
 			return;
 		}
+
 		Action.saveAccount(Store.getData());
 	},
 	render:function(){
@@ -180,10 +181,7 @@ var AccountCreatePage = React.createClass({
 					<Reactman.FormInput label="登录名:" readonly={disabled} name="username" validate="require-notempty" placeholder="" value={this.state.username} onChange={this.onChange} />
 					<Reactman.FormInput label={labelName} type="password" name="password" validate={validate} placeholder="" value={this.state.password} onChange={this.onChange} />
 					<Reactman.FormText label="备注:" name="note" value={this.state.note} inDialog={true} width={320} height={200} onChange={this.onChange} />
-					<div style={{margin:'30px 0px 15px 70px', color:'#000'}}>客户后台显示的在线客服联系方式</div>
-					<Reactman.FormInput label="客服电话:" name="customerServiceTel" placeholder="" value={this.state.customerServiceTel} onChange={this.onChange} />
-					<Reactman.FormInput label="客服qq-1:" name="customerServiceQQFirst" placeholder="" value={this.state.customerServiceQQFirst} onChange={this.onChange} />
-					<Reactman.FormInput label="客服qq-2:" name="customerServiceQQSecond" placeholder="" value={this.state.customerServiceQQSecond} onChange={this.onChange} />
+					<CustomerService onChange = {this.onChange} Type = {this.state.accountType} customerServiceTel = {this.state.customerServiceTel} customerServiceQQFirst = {this.state.customerServiceQQFirst} customerServiceQQSecond = {this.state.customerServiceQQSecond}/>
 				</fieldset>
 				<fieldset>
 					<Reactman.FormSubmit onClick={this.onSubmit} text="保 存"/>
@@ -191,6 +189,26 @@ var AccountCreatePage = React.createClass({
 			</form>
 		</div>
 		)
+	}
+});
+
+var CustomerService = React.createClass({
+	render: function(){
+		var accountType = this.props.Type;
+		if(accountType == '1'){
+			return(
+				<div>
+					<div style={{margin:'30px 0px 15px 70px', color:'#000'}}>客户后台显示的在线客服联系方式</div>
+					<Reactman.FormInput label="客服电话:" name="customerServiceTel" placeholder="" value={this.props.customerServiceTel} onChange={this.props.onChange} />
+					<Reactman.FormInput label="客服qq-1:" name="customerServiceQQFirst" placeholder="" value={this.props.customerServiceQQFirst} onChange={this.props.onChange} />
+					<Reactman.FormInput label="客服qq-2:" name="customerServiceQQSecond" placeholder="" value={this.props.customerServiceQQSecond} onChange={this.props.onChange} />
+				</div>
+			)
+		}else{
+			return(
+				<div></div>
+			)
+		}
 	}
 });
 
