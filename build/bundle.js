@@ -51169,6 +51169,11 @@
 					'div',
 					{ className: 'mt15 xui-product-productListPage' },
 					React.createElement(
+						'div',
+						null,
+						React.createElement(QQOnlineService, { serviceQQFirst: serviceQQFirst, serviceQQSecond: serviceQQSecond, serviceTel: serviceTel })
+					),
+					React.createElement(
 						Reactman.FilterPanel,
 						{ onConfirm: this.onConfirmFilter },
 						React.createElement(
