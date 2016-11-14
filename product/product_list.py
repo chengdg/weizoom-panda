@@ -51,7 +51,7 @@ class ProductList(resource.Resource):
 		"""
 
 		user_has_products = models.Product.objects.filter(owner_id=request.user.id, is_deleted=False).count()
-		account_user_profile = account_models.UserProfile.objects.get(user_id=request.user.id, is_active=True)
+		account_user_profile = UserProfile.objects.get(user_id=request.user.id, is_active=True)
 		user_profile = request.user.get_profile()
 		if user_profile.max_product <= user_has_products:
 			can_created = False
