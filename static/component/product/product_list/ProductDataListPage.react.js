@@ -11,6 +11,7 @@ var _ = require('underscore');
 var Reactman = require('reactman');
 var AddProductCategoryDialog = require('./AddProductCategoryDialog.react');
 var LookProductModelDetail = require('./LookProductModelDetail.react');
+var QQOnlineService = require('../.././qq_online/online/QQOnlineService.react');
 
 var Store = require('./Store');
 var Constant = require('./Constant');
@@ -228,11 +229,14 @@ var ProductDataListPage = React.createClass({
 			}
 		};
 		var optionsForProductStatus = [{text: '全部', value: '0'},{text: '待入库', value: '2'},{text: '已入库', value: '1'},{text: '入库驳回', value: '4'}];
-		
+		var serviceTel = W.serviceTel;
+		var serviceQQFirst = W.serviceQQFirst;
+		var serviceQQSecond = W.serviceQQSecond;
 		//返点用户
 		if(W.purchaseMethod == '1') {
 			return (
 				<div className="mt15 xui-product-productListPage">
+					<QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/>
 					<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 						<Reactman.FilterRow>
 							<Reactman.FilterField>
@@ -269,6 +273,7 @@ var ProductDataListPage = React.createClass({
 		}else{
 			return (
 				<div className="mt15 xui-product-productListPage">
+					<div><QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
 					<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 						<Reactman.FilterRow>
 							<Reactman.FilterField>

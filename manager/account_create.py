@@ -91,7 +91,10 @@ class AccountCreate(resource.Resource):
 					'self_user_names': [] if not self_user_names else json.dumps(self_user_names),
 					'rebates': [] if not rebates else json.dumps(rebates),
 					'max_product': user_profile.max_product,
-					'settlement_period': user_profile.settlement_period
+					'settlement_period': user_profile.settlement_period,
+					'customerServiceTel': user_profile.customer_service_tel,
+					'customerServiceQQFirst': user_profile.customer_service_qq_first,
+					'customerServiceQQSecond': user_profile.customer_service_qq_second
 				}
 				if rebate_proports and user_profile.purchase_method == 3:#采购方式:首月55分成
 					for rebate_proport in rebate_proports:
@@ -141,6 +144,9 @@ class AccountCreate(resource.Resource):
 			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
 			settlement_period = int(post.get('settlement_period',1))
+			customer_service_tel = post.get('customer_service_tel','')
+			customer_service_qq_first = post.get('customer_service_qq_first','')
+			customer_service_qq_second = post.get('customer_service_qq_second','')
 
 		name = post.get('name','')
 		username = post.get('username','')
@@ -215,7 +221,10 @@ class AccountCreate(resource.Resource):
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
 					max_product = max_product,
-					settlement_period = settlement_period
+					settlement_period = settlement_period,
+					customer_service_tel = customer_service_tel,
+					customer_service_qq_first = customer_service_qq_first,
+					customer_service_qq_second = customer_service_qq_second
 				)
 				#请求接口获得数据
 				try:
@@ -304,6 +313,9 @@ class AccountCreate(resource.Resource):
 			rebates = post.get('rebates','')
 			max_product = post.get('max_product',3)
 			settlement_period = int(post.get('settlement_period',1))
+			customer_service_tel = post.get('customer_service_tel','')
+			customer_service_qq_first = post.get('customer_service_qq_first','')
+			customer_service_qq_second = post.get('customer_service_qq_second','')
 
 		try:
 			user_profile = UserProfile.objects.get(id=request.POST['id'])
@@ -339,7 +351,10 @@ class AccountCreate(resource.Resource):
 					valid_time_from = valid_time_from,
 					valid_time_to = valid_time_to,
 					max_product = max_product,
-					settlement_period = settlement_period
+					settlement_period = settlement_period,
+					customer_service_tel = customer_service_tel,
+					customer_service_qq_first = customer_service_qq_first,
+					customer_service_qq_second = customer_service_qq_second
 				)
 
 				if self_user_names and purchase_method == 2: #采购方式:零售价返点

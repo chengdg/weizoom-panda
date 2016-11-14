@@ -17,6 +17,7 @@ var ShipDialog = require('./ShipDialog.react');
 var OrderBatchDelivery = require('./OrderBatchDelivery.react');
 var ChooseExpressCompanyDialog = require('./ChooseExpressCompanyDialog.react');
 var OrderPrintPage = require('./OrderPrintPage.react'); 
+var QQOnlineService = require('../.././qq_online/online/QQOnlineService.react');
 require('./style.css');
 
 var OrderDatasPage = React.createClass({
@@ -241,7 +242,7 @@ var OrderDatasPage = React.createClass({
 		return (
 		<div className="mt15 xui-order-orderDatasPage">
 			<div> <OrderPrintPage templates={this.state.templates}/></div>
-			
+			<div> <QQOnlineService serviceQQFirst={this.state.serviceQQFirst} serviceQQSecond={this.state.serviceQQSecond} serviceTel={this.state.serviceTel}/></div>
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>

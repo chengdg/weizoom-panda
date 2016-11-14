@@ -1,0 +1,218 @@
+.xui-info-form {
+	overflow: hidden;
+	margin-left: 155px;
+	padding: 40px 20px;
+	border: 1px solid #000;
+}
+.xui-info-div{
+	width: 155px;
+	height: 155px;
+	float: left;
+	background-color:  rgb(26, 179, 148);
+	line-height: 130px;
+	text-align: center;
+}
+.xui-info-div p{
+	padding-top: 10px;
+	font-size: 18px;
+	font-weight: 100;
+	color: white;
+}
+.xui-info-form .xui-info-list {
+	float: left;
+    width: 25%;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+.xui-info-form .xui-info-list p {
+	padding-top: 10px;
+	font-size: 18px;
+	font-weight: 100;
+}
+
+.xui-div-money {
+	font-size: larger;
+}
+.xui-div-money span{
+	color: dodgerblue;
+}
+
+.xui-i-text{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-family: "楷体";
+	font-size: large;
+}
+.xui-indexIndex-page {
+	position: relative;
+}
+.xui-contact-box {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+    z-index: 10;
+}
+.xui-contact-box p {
+	margin: 0;
+}
+.xui-contact-box a{display:inline-block;margin:0;padding:0;text-decoration:none;background:transparent;outline:none;color:#000;}
+.xui-contact-box a:link,a:visited,a:hover,a:active{text-decoration:none;color:currentColor;}
+.xui-close {
+	display: inline-block;
+	vertical-align: text-bottom;
+	width: 28px;
+	height: 140px;
+	cursor: pointer;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	background-color: #d5d5d5 !important;
+}
+.xui-close-text {
+	padding: 20px 8px 0;
+	margin-bottom: 9px !important;
+}
+.xui-close-icon {
+	position: relative;
+	width: 100%;
+    height: 30px;
+    -webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+    background-color: #999;
+}
+.xui-close-icon:after {
+	content: url('http://cps.weapp.weizzz.com/static/img/kefu/pic6.png');
+	position: absolute;
+	margin-top: -7px;
+	margin-left: -4px;
+	top: 50%;
+	left: 50%;
+	width: 8px;
+	height: 14px;
+}
+.xui-open {
+	display: none;
+	width: 120px;
+    height: auto;
+    min-height: 250px;
+	white-space: nowrap;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	background-color: #d5d5d5 !important;
+}
+.xui-open .xui-header-box {
+    padding: 8px 0;
+	width: 100%;
+	height: 60px;
+	font-size: 16px;
+	color: #fff;
+	border-bottom: 1px solid #999;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	background-color: #293846;
+	line-height: 40px;
+}
+.xui-open .xui-qq {
+	display: block;
+	padding: 8px 0 6px;
+	width: 100%;
+	color: #666;
+	border-bottom: 1px solid #999;
+}
+.xui-open .xui-qq:hover {
+	color: #fff;
+	background-color: #19aa8d;
+}
+.xui-open .xui-qq:hover .xui-qq-img {
+	background: url(/static/img/panda_img/qq_pic.png) no-repeat;
+}
+.xui-open .xui-qq-box {
+    margin: 0 35px;
+    width: 50px;
+    height: 50px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.xui-open .xui-qq-img {
+    display: inline-block;
+    margin: 10px 0;
+    width: 30px;
+    height: 30px;
+    background: url(/static/img/panda_img/qq_pic.png) no-repeat;
+    background-size: 30px; 
+}
+.xui-open .xui-qq-text {
+    padding-top: 2px;
+}
+.xui-open .xui-wechat {
+    padding: 8px 0 6px;
+	border-bottom: 1px solid #999;
+}
+.xui-open .xui-wechat-img {
+    display: inline-block;
+    padding: 6px;
+    background-color: #fff;
+}
+.xui-open .xui-wechat-text {
+	padding-top: 2px;
+	color: #666;
+}
+.xui-open .xui-phone {
+    padding-top: 24px;
+	color: #333;
+}
+.xui-open .xui-phone-text {
+	color: #666;
+}
+.xui-open .xui-phone-text i {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 2px;
+	width: 14px;
+	height: 14px;
+	background: url('http://cps.weapp.weizzz.com/static/img/kefu/pic4.png') no-repeat;
+	background-size: 14px;
+}
+.xui-open-icon {
+	position: absolute;
+    left: -28px;
+    bottom: 28px;
+	width: 28px;
+    height: 30px;
+    -webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+    background-color: #999 !important;
+}
+.xui-open-icon:after {
+	content: url('http://cps.weapp.weizzz.com/static/img/kefu/pic5.png');
+	position: absolute;
+	margin-top: -7px;
+	margin-left: -4px;
+	top: 50%;
+	left: 50%;
+	width: 8px;
+	height: 14px;
+}
+
