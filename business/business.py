@@ -258,8 +258,16 @@ class Business(resource.Resource):
 			try:
 				business = models.Business.objects.get(id=business_id)
 				if business.phone:
-					content = u'%s【微众传媒】' %  reason
-					rs = send_phone_msg.send_phone_captcha(phones=str(business.phone), content=content)
+					# content = u'%s【微众传媒】' %  
+					data = {
+						"content" : {
+							"reason": reason
+						},
+						"phones": str(business.phone),
+						"sms_code": "SMS_27200001"
+					}
+					
+					rs = send_phone_msg.send_phone_captcha(data)
 			except:
 				watchdog.info(u"发送驳回信息异常 id：%s" % business_id)
 				

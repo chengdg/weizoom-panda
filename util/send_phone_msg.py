@@ -45,21 +45,10 @@ from bdem import msgutil
 # 		watchdog.alert(notify_msg)
 # 		return False
 
-def send_phone_captcha(phones, content):
-	data = {
-		"content": content,
-		"phones": phones  
-	}
+def send_phone_captcha(data):
+	# data = {
+	# 	"content": content,
+	# 	"phones": phones  
+	# }
 	msgutil.send_message('notify', 'phone', data)
 
-
-def send_captcha(phone_number, company_name=u'微众传媒'):
-	"""
-		send_phone_msg: 发送手机验证码
-	"""
-	MSG_CONTENT = u"您的验证码为[%s]，请不要泄露给任何人【%s】"
-	captcha = ''.join(random.sample(string.digits, 4))
-	content = MSG_CONTENT % (captcha, company_name)
-	#result = True
-	result = send_phone_captcha(phone_number, content)
-	return result,captcha

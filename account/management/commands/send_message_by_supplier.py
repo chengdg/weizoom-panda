@@ -58,7 +58,14 @@ class Command(BaseCommand):
                     account_ids.append([account.user_id, supplier_ids, count])
                     # print '++++++++++++++++++++++++++++++++++++=', phone, count
                     if count > 0:
-                        rs = send_phone_msg.send_phone_captcha(phones=str(phone), content=content % count)
+                        data = {
+                            "phones": str(phone),
+                            "content": {
+                                "number": count
+                            },
+                            "sms_code": "SMS_26535049"
+                        }
+                        rs = send_phone_msg.send_phone_captcha(data)
                         # print content % count
                         if rs:
                             number_message += 1
