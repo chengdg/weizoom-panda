@@ -47,6 +47,7 @@ var OrderDatasPage = React.createClass({
 	onClickChangeShip: function(event) {
 		var order_id = event.target.getAttribute('data-order-id');
 		var express_company_name = event.target.getAttribute('data-order-express_company_name');
+		var express_company_storename = event.target.getAttribute('data-order-express_company_storename');
 		var express_number = event.target.getAttribute('data-order-express_number');
 		var isNeedShip = express_number.length>0? '1': '0';
 		var leader_name = event.target.getAttribute('data-order-leader_name');
@@ -56,6 +57,7 @@ var OrderDatasPage = React.createClass({
 			data: {
 				order_id: order_id,
 				express_company_name: express_company_name,
+				express_company_storename: express_company_storename,
 				express_number: express_number,
 				leader_name: leader_name,
 				is_need_ship: isNeedShip,
@@ -176,7 +178,7 @@ var OrderDatasPage = React.createClass({
 				return (
 					<div className="orders-list-btn-group">
 						<a className="btn btn-link btn-xs" onClick={this.onClickComplete} data-order-id={data.order_id}>标记完成</a>
-						<a className="btn btn-link btn-xs" onClick={this.onClickChangeShip} data-order-id={data.order_id} data-order-express_company_name={data.express_company_name} data-order-express_number={data.express_number} data-order-leader_name={data.leader_name}>修改物流</a>
+						<a className="btn btn-link btn-xs" onClick={this.onClickChangeShip} data-order-id={data.order_id} data-order-express_company_name={data.express_company_name} data-order-express_company_storename={data.express_company_storename}data-order-express_number={data.express_number} data-order-leader_name={data.leader_name}>修改物流</a>
 					</div>
 				);
 			}else{

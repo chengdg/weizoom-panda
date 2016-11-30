@@ -16,7 +16,7 @@ express2kdniaocode = {'quanfengkuaidi': 'QFKD', 'shentong': 'STO', 'zhaijisong':
 	'debangwuliu': 'DBL', 'shunfeng': 'SF', 'yunda': 'YD', 'bpost': 'BEL', 'tiantian': 'HHTT', 
 	'suer': 'SURE', 'ems': 'EMS', 'zhongtong': 'ZTO', 'kuaijiesudi': 'FAST', 'yuantong': 'YTO', 
 	'huitongkuaidi': 'HTKY', 'guotongkuaidi': 'GTO', 'youzhengguonei': 'YZPY', 'guangdongyouzheng': 'YZPY',
-	'youshuwuliu':'UC'}
+	'youshuwuliu':'UC','yuanchengkuaiyun':'YCGKY'}
 
 class KdniaoExpressEorder(object):
 	'''
