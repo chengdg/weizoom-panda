@@ -151,6 +151,9 @@ var AddCatalogDialog = Reactman.createDialog({
 		},{
 			text: 'ANE',
 			value: 'anenngwuliu'
+		},{
+			text: '远成快运',
+			value: 'yuanchengkuaiyun'
 		}];
 		return (
 			<div className="xui-formPage">

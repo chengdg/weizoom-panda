@@ -57,7 +57,8 @@ options2text = {
 	'guangdongyouzheng': '广东邮政',
 	'ems': 'EMS',
 	'youshuwuliu':'优速物流',
-	'annengwuliu':'安能物流'
+	'annengwuliu':'安能物流',
+	'yuanchengkuaiyun':'远成快运'
 }
 filter2field ={
 }

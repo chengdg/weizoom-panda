@@ -45,7 +45,9 @@ text2express_company_name = {
 	u'邮政包裹/平邮': 'youzhengguonei',
 	u'如风达': 'rufengda',
 	u'优速物流': 'youshuwuliu',
-	u'安能物流': 'annengwuliu'
+	u'安能物流': 'annengwuliu',
+	u'远成快运': 'yuanchengkuaiyun'
+	
 }
 
 class OrderShipInformations(resource.Resource):
