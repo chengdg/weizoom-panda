@@ -39,6 +39,9 @@ var ShipDialog = Reactman.createDialog({
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		var newState = {};
+		if(value == 'qita'){
+			newState['ship_company'] = value
+		}
 		newState[property] = value;
 		this.setState(newState);
 	},
@@ -177,6 +180,9 @@ var ShipInfo = Reactman.createDialog({
 		},{
 			text: '远成快运',
 			value: 'yuanchengkuaiyun'
+		},{
+			text: '其他',
+			value: 'qita'
 		}];
 		var isNeedShip = this.props.isNeedShip;
 		if(isNeedShip=='0'){
@@ -186,9 +192,11 @@ var ShipInfo = Reactman.createDialog({
 				</div>
 			)
 		}else{
+			var qita_Nodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name" placeholder="不能跟踪物流信息,且需手动完成订单" value={this.props.shipCompany} onChange={this.props.onChange} /> : ''
 			return(
 				<div>
 					<Reactman.FormSelect label="物流公司:" name="ship_company" validate="require-notempty" value={this.props.shipCompany} options={options} onChange={this.props.onChange}/>
+					{qita_Nodebody}
 					<Reactman.FormInput label="快递单号:" name="ship_number" validate="require-string" value={this.props.shipNumber} onChange={this.props.onChange} />
 					<Reactman.FormInput label="发货人:" name="shiper_name" placeholder="备注请用竖线隔开" value={this.props.shiperName} onChange={this.props.onChange} />
 				</div>
