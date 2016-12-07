@@ -41911,7 +41911,7 @@
 					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
 				);
 			} else {
-				var qitaNodebody = this.props.shipCompany == 'qita' ? React.createElement(Reactman.FormInput, { label: '\u7269\u6D41\u516C\u53F8\u540D\u79F0:', name: 'ship_companyr_name', value: this.props.shipCompanyrName, onChange: this.props.onChange }) : '';
+				var qitaNodebody = this.props.shipCompany == 'qita' ? React.createElement(Reactman.FormInput, { label: '\u7269\u6D41\u516C\u53F8\u540D\u79F0:', name: 'ship_companyr_name', validate: 'require-string', value: this.props.shipCompanyrName, onChange: this.props.onChange }) : '';
 				var waringNodebody = this.props.shipCompany == 'qita' ? React.createElement(
 					'div',
 					{ style: { padding: '10px 180px', color: 'rgba(138, 43, 43, 0.82)', marginTop: '-15px' } },

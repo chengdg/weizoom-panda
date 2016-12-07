@@ -199,7 +199,7 @@ var ShipInfo = Reactman.createDialog({
 				</div>
 			)
 		}else{
-			var qitaNodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name"  value={this.props.shipCompanyrName} onChange={this.props.onChange} /> : ''
+			var qitaNodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name" validate="require-string" value={this.props.shipCompanyrName} onChange={this.props.onChange} /> : ''
 			var waringNodebody = this.props.shipCompany == 'qita'? <div style={{padding:'10px 180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'-15px'}}>提示：不能跟踪物流信息,且需手动完成订单</div> : ''
 			return(
 				<div>
