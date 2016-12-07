@@ -198,7 +198,7 @@ var ShipInfo = Reactman.createDialog({
 			return(
 				<div>
 					<Reactman.FormSelect label="物流公司:" name="ship_company" validate="require-notempty" value={this.props.shipCompany} options={options} onChange={this.props.onChange}/>
-					{qita_Nodebody}
+					{qitaNodebody}
 					{waringNodebody}
 					<Reactman.FormInput label="快递单号:" name="ship_number" validate="require-string" value={this.props.shipNumber} onChange={this.props.onChange} />
 					<Reactman.FormInput label="发货人:" name="shiper_name" placeholder="备注请用竖线隔开" value={this.props.shiperName} onChange={this.props.onChange} />

@@ -41913,7 +41913,7 @@
 					'div',
 					null,
 					React.createElement(Reactman.FormSelect, { label: '\u7269\u6D41\u516C\u53F8:', name: 'ship_company', validate: 'require-notempty', value: this.props.shipCompany, options: options, onChange: this.props.onChange }),
-					qita_Nodebody,
+					qitaNodebody,
 					waringNodebody,
 					React.createElement(Reactman.FormInput, { label: '\u5FEB\u9012\u5355\u53F7:', name: 'ship_number', validate: 'require-string', value: this.props.shipNumber, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
