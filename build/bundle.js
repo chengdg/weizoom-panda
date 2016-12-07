@@ -41742,7 +41742,7 @@
 			var property = event.target.getAttribute('name');
 			var newState = {};
 			if (property == 'ship_companyr_name') {
-				newState['ship_company'] = 'qita';
+				newState['ship_company'] = value;
 			}
 			newState[property] = value;
 			this.setState(newState);

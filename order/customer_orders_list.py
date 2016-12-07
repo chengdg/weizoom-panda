@@ -60,6 +60,8 @@ options2text = {
 	'annengwuliu':'安能物流',
 	'yuanchengkuaiyun':'远成快运'
 }
+haved_express_company_name = ['shentong','ems','yuantong','shunfeng','zhongtong','tiantian','yunda','huitongkuaidi','quanfengkuaidi','debangwuliu','zhaijisong','kuaijiesudi','bpost','suer','guotongkuaidi','youzhengguonei','rufengda','youshuwuliu','annengwuliu','yuanchengkuaiyun']
+
 filter2field ={
 }
 
@@ -324,7 +326,7 @@ class CustomerOrdersList(resource.Resource):
 						'status': order_status2text[order['status']],
 						'order_status': order['status'],
 						'product_infos': json.dumps(product_infos),
-						'express_company_name': order['express_company_name'],
+						'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
 						'express_number': order['express_number'],
 						'leader_name': order['leader_name'],
 						'postage': str('%.2f' % order['postage'])
@@ -339,7 +341,7 @@ class CustomerOrdersList(resource.Resource):
 						'total_weight': total_weight,
 						'status': order_status2text[order['status']],
 						'product_infos': json.dumps(product_infos),
-						'express_company_name': order['express_company_name'],
+						'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
 						'express_number': order['express_number'],
 						'leader_name': order['leader_name'],
 						'ship_tel': order['ship_tel'],
