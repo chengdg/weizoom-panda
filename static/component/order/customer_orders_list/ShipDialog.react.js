@@ -41,7 +41,7 @@ var ShipDialog = Reactman.createDialog({
 		var property = event.target.getAttribute('name');
 		var newState = {};
 		if(property == 'ship_companyr_name'){
-			newState['ship_company'] = value
+			newState['ship_company'] = 'qita'
 		}
 		newState[property] = value;
 		this.setState(newState);
@@ -62,7 +62,12 @@ var ShipDialog = Reactman.createDialog({
 			Reactman.PageAction.showHint('error', '请选择物流公司');
 		} else {
 			//给接口传递发货信息的参数
-			var shipCompany = this.state.ship_company;
+			if (this.state.ship_company =='qita'){
+				var shipCompany = this.state.ship_companyr_name;
+			}else{
+				var shipCompany = this.state.ship_company;
+			}
+			
 			var shipNumber = this.state.ship_number;
 			if(this.state.is_need_ship=='0'){
 				shipCompany = '';
