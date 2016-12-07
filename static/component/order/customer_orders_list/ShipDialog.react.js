@@ -108,7 +108,7 @@ var ShipDialog = Reactman.createDialog({
 			<form className="form-horizontal mt15">
 				<fieldset>
 					<Reactman.FormRadio label="发货方式:" type="text" name="is_need_ship" value={this.state.is_need_ship} options={optionsForShip} onChange={this.onChange} />
-					<div><ShipInfo onChange={this.onChange} isNeedShip={this.state.is_need_ship} shiperName={this.state.shiper_name} shipNumber={this.state.ship_number} shipCompany={this.state.ship_company}/> </div>
+					<div><ShipInfo onChange={this.onChange} isNeedShip={this.state.is_need_ship} shiperName={this.state.shiper_name} shipNumber={this.state.ship_number} shipCompany={this.state.ship_company} shipCompanyrName={this.state.ship_companyr_name}/> </div>
 				</fieldset>
 			</form>
 		</div>
@@ -193,8 +193,8 @@ var ShipInfo = Reactman.createDialog({
 				</div>
 			)
 		}else{
-			var qitaNodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name"  value={this.props.ship_companyr_name} onChange={this.props.onChange} /> : ''
-			var waringNodebody = this.props.shipCompany == 'qita'? <div style={{paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'-15px'}}>提示：不能跟踪物流信息,且需手动完成订单</div> : ''
+			var qitaNodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name"  value={this.props.shipCompanyrName} onChange={this.props.onChange} /> : ''
+			var waringNodebody = this.props.shipCompany == 'qita'? <div style={{padding:'10px 180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'-15px'}}>提示：不能跟踪物流信息,且需手动完成订单</div> : ''
 			return(
 				<div>
 					<Reactman.FormSelect label="物流公司:" name="ship_company" validate="require-notempty" value={this.props.shipCompany} options={options} onChange={this.props.onChange}/>
