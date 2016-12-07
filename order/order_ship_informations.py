@@ -192,8 +192,6 @@ def _read_file(file_path):
 		
 		if (order_id and express_company_name and express_number) != '':
 			item['order_id'] = order_id
-			print express_company_name,66666
-			print text2express_company_name,555555
 			if express_company_name not in text2express_company_name:
 				error_rows.append(str(i))
 			else:
