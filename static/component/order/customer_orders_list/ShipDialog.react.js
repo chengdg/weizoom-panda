@@ -30,7 +30,7 @@ var ShipDialog = Reactman.createDialog({
 		return {
 			order_id: order_id,
 			ship_company: ship_company,
-			ship_companyr_name: ship_company,
+			ship_companyr_name: ship_companyr_name,
 			ship_number: ship_number,
 			shiper_name: shiper_name,
 			__method: __method,
