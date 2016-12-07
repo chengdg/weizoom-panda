@@ -41383,6 +41383,7 @@
 		onClickChangeShip: function (event) {
 			var order_id = event.target.getAttribute('data-order-id');
 			var express_company_name = event.target.getAttribute('data-order-express_company_name');
+			var express_company_storename = event.target.getAttribute('data-order-express_company_storename');
 			var express_number = event.target.getAttribute('data-order-express_number');
 			var isNeedShip = express_number.length > 0 ? '1' : '0';
 			var leader_name = event.target.getAttribute('data-order-leader_name');
@@ -41392,6 +41393,7 @@
 				data: {
 					order_id: order_id,
 					express_company_name: express_company_name,
+					express_company_storename: express_company_storename,
 					express_number: express_number,
 					leader_name: leader_name,
 					is_need_ship: isNeedShip,
@@ -41547,7 +41549,7 @@
 						),
 						React.createElement(
 							'a',
-							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeShip, 'data-order-id': data.order_id, 'data-order-express_company_name': data.express_company_name, 'data-order-express_number': data.express_number, 'data-order-leader_name': data.leader_name },
+							{ className: 'btn btn-link btn-xs', onClick: this.onClickChangeShip, 'data-order-id': data.order_id, 'data-order-express_company_name': data.express_company_name, 'data-order-express_company_storename': data.express_company_storename, 'data-order-express_number': data.express_number, 'data-order-leader_name': data.leader_name },
 							'\u4FEE\u6539\u7269\u6D41'
 						)
 					);
@@ -41723,6 +41725,7 @@
 			} else {
 				var ship_company = '-1';
 			}
+			var ship_companyr_name = this.props.data.express_company_storename;
 			var ship_number = this.props.data.express_number;
 			var shiper_name = this.props.data.leader_name;
 			var isNeedShip = this.props.data.is_need_ship;

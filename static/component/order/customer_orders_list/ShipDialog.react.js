@@ -22,6 +22,7 @@ var ShipDialog = Reactman.createDialog({
 		}else{
 			var ship_company = '-1';
 		}
+		var ship_companyr_name = this.props.data.express_company_storename;
 		var ship_number = this.props.data.express_number;
 		var shiper_name = this.props.data.leader_name;
 		var isNeedShip = this.props.data.is_need_ship;
