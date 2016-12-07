@@ -41730,6 +41730,7 @@
 			return {
 				order_id: order_id,
 				ship_company: ship_company,
+				ship_companyr_name: ship_company,
 				ship_number: ship_number,
 				shiper_name: shiper_name,
 				__method: __method,
@@ -41740,6 +41741,9 @@
 		onChange: function (value, event) {
 			var property = event.target.getAttribute('name');
 			var newState = {};
+			if (property == 'ship_companyr_name') {
+				newState['ship_company'] = 'qita';
+			}
 			newState[property] = value;
 			this.setState(newState);
 		},
@@ -41887,6 +41891,9 @@
 			}, {
 				text: '远成快运',
 				value: 'yuanchengkuaiyun'
+			}, {
+				text: '其他',
+				value: 'qita'
 			}];
 			var isNeedShip = this.props.isNeedShip;
 			if (isNeedShip == '0') {
@@ -41896,10 +41903,18 @@
 					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
 				);
 			} else {
+				var qitaNodebody = this.props.shipCompany == 'qita' ? React.createElement(Reactman.FormInput, { label: '\u7269\u6D41\u516C\u53F8\u540D\u79F0:', name: 'ship_companyr_name', value: this.props.ship_companyr_name, onChange: this.props.onChange }) : '';
+				var waringNodebody = this.props.shipCompany == 'qita' ? React.createElement(
+					'div',
+					{ style: { paddingLeft: '180px', color: 'rgba(138, 43, 43, 0.82)', marginTop: '-15px' } },
+					'\u63D0\u793A\uFF1A\u4E0D\u80FD\u8DDF\u8E2A\u7269\u6D41\u4FE1\u606F,\u4E14\u9700\u624B\u52A8\u5B8C\u6210\u8BA2\u5355'
+				) : '';
 				return React.createElement(
 					'div',
 					null,
 					React.createElement(Reactman.FormSelect, { label: '\u7269\u6D41\u516C\u53F8:', name: 'ship_company', validate: 'require-notempty', value: this.props.shipCompany, options: options, onChange: this.props.onChange }),
+					qita_Nodebody,
+					waringNodebody,
 					React.createElement(Reactman.FormInput, { label: '\u5FEB\u9012\u5355\u53F7:', name: 'ship_number', validate: 'require-string', value: this.props.shipNumber, onChange: this.props.onChange }),
 					React.createElement(Reactman.FormInput, { label: '\u53D1\u8D27\u4EBA:', name: 'shiper_name', placeholder: '\u5907\u6CE8\u8BF7\u7528\u7AD6\u7EBF\u9694\u5F00', value: this.props.shiperName, onChange: this.props.onChange })
 				);

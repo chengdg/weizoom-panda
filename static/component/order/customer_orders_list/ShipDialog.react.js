@@ -29,6 +29,7 @@ var ShipDialog = Reactman.createDialog({
 		return {
 			order_id: order_id,
 			ship_company: ship_company,
+			ship_companyr_name: ship_company,
 			ship_number: ship_number,
 			shiper_name: shiper_name,
 			__method: __method,
@@ -39,8 +40,8 @@ var ShipDialog = Reactman.createDialog({
 	onChange: function(value, event) {
 		var property = event.target.getAttribute('name');
 		var newState = {};
-		if(value == 'qita'){
-			newState['ship_company'] = value
+		if(property == 'ship_companyr_name'){
+			newState['ship_company'] = 'qita'
 		}
 		newState[property] = value;
 		this.setState(newState);
@@ -192,11 +193,13 @@ var ShipInfo = Reactman.createDialog({
 				</div>
 			)
 		}else{
-			var qita_Nodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name" placeholder="不能跟踪物流信息,且需手动完成订单" value={this.props.shipCompany} onChange={this.props.onChange} /> : ''
+			var qitaNodebody = this.props.shipCompany == 'qita'? <Reactman.FormInput label="物流公司名称:" name="ship_companyr_name"  value={this.props.ship_companyr_name} onChange={this.props.onChange} /> : ''
+			var waringNodebody = this.props.shipCompany == 'qita'? <div style={{paddingLeft:'180px', color:'rgba(138, 43, 43, 0.82)', marginTop:'-15px'}}>提示：不能跟踪物流信息,且需手动完成订单</div> : ''
 			return(
 				<div>
 					<Reactman.FormSelect label="物流公司:" name="ship_company" validate="require-notempty" value={this.props.shipCompany} options={options} onChange={this.props.onChange}/>
 					{qita_Nodebody}
+					{waringNodebody}
 					<Reactman.FormInput label="快递单号:" name="ship_number" validate="require-string" value={this.props.shipNumber} onChange={this.props.onChange} />
 					<Reactman.FormInput label="发货人:" name="shiper_name" placeholder="备注请用竖线隔开" value={this.props.shiperName} onChange={this.props.onChange} />
 				</div>
