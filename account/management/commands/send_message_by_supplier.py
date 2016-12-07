@@ -61,7 +61,7 @@ class Command(BaseCommand):
                         data = {
                             "phones": str(phone),
                             "content": {
-                                "number": str(count)
+                                "number": count
                             },
                             "sms_code": "SMS_26535049"
                         }
