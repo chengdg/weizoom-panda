@@ -327,7 +327,7 @@ class CustomerOrdersList(resource.Resource):
 						'order_status': order['status'],
 						'product_infos': json.dumps(product_infos),
 						'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
-						'express_company_storename': order['express_company_name']
+						'express_company_storename': order['express_company_name'],
 						'express_number': order['express_number'],
 						'leader_name': order['leader_name'],
 						'postage': str('%.2f' % order['postage'])
@@ -343,7 +343,7 @@ class CustomerOrdersList(resource.Resource):
 						'status': order_status2text[order['status']],
 						'product_infos': json.dumps(product_infos),
 						'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
-						'express_company_storename': order['express_company_name']
+						'express_company_storename': order['express_company_name'],
 						'express_number': order['express_number'],
 						'leader_name': order['leader_name'],
 						'ship_tel': order['ship_tel'],
