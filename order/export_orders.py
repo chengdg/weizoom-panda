@@ -44,7 +44,6 @@ express_company_name2text = {
 	'youshuwuliu': u'优速物流',
 	'annengwuliu': u'安能物流',
 	'yuanchengkuaiyun':'远成快运',
-	'qita':'其他'
 }
 haved_express_company_name = ['shentong','ems','yuantong','shunfeng','zhongtong','tiantian','yunda','huitongkuaidi','quanfengkuaidi','debangwuliu','zhaijisong','kuaijiesudi','bpost','suer','guotongkuaidi','youzhengguonei','rufengda','youshuwuliu','annengwuliu','yuanchengkuaiyun']
 
