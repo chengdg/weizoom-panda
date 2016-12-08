@@ -76,6 +76,10 @@ class ExportOrders(resource.Resource):
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 				# print order['express_company_name']
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
+				if express_company_name == 'qita':
+					cur_express_company_name = order['express_company_name']
+				else:
+					cur_express_company_name = express_company_name2text[order['express_company_name']]
 				table.append([
 					order['order_id'],
 					order['order_create_at'],
@@ -91,7 +95,7 @@ class ExportOrders(resource.Resource):
 					order['ship_area']+' '+order['ship_address'],
 					leader_name,
 					leader_name_message,
-					express_company_name2text[order['express_company_name']],
+					cur_express_company_name,
 					order['express_number'],
 					order['delivery_time'],
 					order['customer_message']
@@ -110,10 +114,15 @@ class YunyingExportOrders(resource.Resource):
 		]
 		table = []
 		table.append(titles)
+
 		for order in orders:
+			if express_company_name == 'qita':
+				cur_express_company_name = order['express_company_name']
+			else:
+				cur_express_company_name = express_company_name2text[order['express_company_name']]
 			table.append([
 				order['order_id'],
-				express_company_name2text[order['express_company_name']],
+				cur_express_company_name,
 				order['express_number']
 			])
 		return ExcelResponse(table,output_name=u'发货文件'.encode('utf8'),force_csv=False)
