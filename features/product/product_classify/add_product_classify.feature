@@ -263,6 +263,7 @@ Scenario:4 运营编辑二级类目
 
 @penda @lhy
 Scenario:5 运营删除二级类目
+	#删除没有商品的二级类目
 	Given yunying登录系统
 	When yunying新建类目
 	"""
@@ -273,13 +274,57 @@ Scenario:5 运营删除二级类目
 		},{
 		"head_classify":"育婴产品",
 		"classify_name":"奶粉",
+		"comments":"国产",
+		},{
+		"head_classify":"育婴产品",
+		"classify_name":"婴儿服饰",
 		"comments":"国产"
 	}
 	"""
 	When yunying删除'奶粉'
 	Then yunying获得类目列表
-	|classify_name|     creat_time    | business_number |
-	|   育婴产品  |2016-07-21 15:30:08|      0.00       |
+		|classify_name|     creat_time    | business_number |
+		|   育婴产品  |2016-07-21 15:30:08|      0.00       |
+		|   婴儿服饰  |2016-07-21 15:30:08|      1.00       |
+
+	#删除有商品的二级类目
+	Given aini登录系统
+	When aini新增商品
+		"""
+		[{
+			"firest_classify":"育婴产品"
+			"second_classify":"婴儿服饰"
+			"name": "婴儿服饰",
+			"promotion_name":"婴儿服饰",
+			"price": 198.00,
+			"weight": 1.00,
+			"stock_number": "5000",
+			"settlement_price":200.00,
+			"introduction": "婴儿服饰"
+			"standard_promotion":"是",
+			"standard":{
+						"standard_name":"颜色",
+						"standard":"黑色","红色"
+						},{
+						"standard_name":"尺码",
+						"standard":"X,XL"
+						}
+			"standard_price":{
+						|standard_1|standard_2|purchase_price|timelimit_price|sale_price|weight|stock_number|product_id|
+						|   黑色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   2500.00  |    001   |
+						|   黑色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   2000.00  |    002   |    
+						|   红色   |     X    |     14.90    |      14.90    |   29.00  | 0.50 |   1000.00  |    003   |
+						|   红色   |    XL    |     14.90    |      14.90    |   29.00  | 0.50 |   1300.00  |    004   | 
+						}
+		}]
+		"""
+	When yunying删除'奶粉'
+	#提示'该分类正在被使用，请先将商品调整分类后再删除分类'
+	Then yunying获得类目列表
+		|classify_name|     creat_time    | business_number |
+		|   育婴产品  |2016-07-21 15:30:08|      0.00       |
+		|   婴儿服饰  |2016-07-21 15:30:08|      1.00       |
+
 
 @penda @hj
 Scenario:6 新增带有类别的商品后查看列表
