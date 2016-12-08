@@ -41,6 +41,7 @@ order_status2text = {
 }
 filter2field ={
 }
+haved_express_company_name = ['shentong','ems','yuantong','shunfeng','zhongtong','tiantian','yunda','huitongkuaidi','quanfengkuaidi','debangwuliu','zhaijisong','kuaijiesudi','bpost','suer','guotongkuaidi','youzhengguonei','rufengda','youshuwuliu','annengwuliu','yuanchengkuaiyun']
 
 class YunyingOrdersList(resource.Resource):
 	app = 'order'
@@ -448,7 +449,7 @@ class YunyingOrdersList(resource.Resource):
 						#导出订单字段
 						rows.append({
 							'order_id': order['order_id'],
-							'express_company_name': order['express_company_name'],
+							'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
 							'express_number': order['express_number']
 						})
 				# print rows, '------------------------------------------------'

@@ -40432,7 +40432,7 @@
 			var express_number = orde_datas['express_number'] ? orde_datas['express_number'] : '';
 			var order_status = orde_datas['order_status'] ? orde_datas['order_status'] : '';
 			var order_express_details = orde_datas['order_express_details'] ? orde_datas['order_express_details'] : '';
-			express_company_name = options.hasOwnProperty(express_company_name) ? options[express_company_name] : '';
+			express_company_name = options.hasOwnProperty(express_company_name) ? options[express_company_name] : express_company_name;
 			var order_express = '';
 			if (order_express_details.length > 0) {
 				order_express = JSON.parse(order_express_details).map(function (order_expres, index) {
