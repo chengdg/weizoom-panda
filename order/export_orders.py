@@ -46,6 +46,7 @@ express_company_name2text = {
 	'yuanchengkuaiyun':'远成快运',
 	'qita':'其他'
 }
+haved_express_company_name = ['shentong','ems','yuantong','shunfeng','zhongtong','tiantian','yunda','huitongkuaidi','quanfengkuaidi','debangwuliu','zhaijisong','kuaijiesudi','bpost','suer','guotongkuaidi','youzhengguonei','rufengda','youshuwuliu','annengwuliu','yuanchengkuaiyun']
 
 class ExportOrders(resource.Resource):
 	app = 'order'
@@ -76,7 +77,7 @@ class ExportOrders(resource.Resource):
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 				# print order['express_company_name']
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
-				if express_company_name == 'qita':
+				if order['express_company_name'] not in haved_express_company_name:
 					cur_express_company_name = order['express_company_name']
 				else:
 					cur_express_company_name = express_company_name2text[order['express_company_name']]
@@ -116,7 +117,7 @@ class YunyingExportOrders(resource.Resource):
 		table.append(titles)
 
 		for order in orders:
-			if express_company_name == 'qita':
+			if order['express_company_name'] not in haved_express_company_name:
 				cur_express_company_name = order['express_company_name']
 			else:
 				cur_express_company_name = express_company_name2text[order['express_company_name']]
