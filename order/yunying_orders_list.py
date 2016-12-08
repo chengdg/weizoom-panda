@@ -450,6 +450,7 @@ class YunyingOrdersList(resource.Resource):
 						rows.append({
 							'order_id': order['order_id'],
 							'express_company_name': order['express_company_name'] if order['express_company_name']  in haved_express_company_name else 'qita',
+							'express_company_storename': order['express_company_name'],
 							'express_number': order['express_number']
 						})
 				# print rows, '------------------------------------------------'

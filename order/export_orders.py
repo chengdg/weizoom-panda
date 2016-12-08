@@ -77,7 +77,7 @@ class ExportOrders(resource.Resource):
 				# print order['express_company_name']
 				# print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.'
 				if order['express_company_name'] not in haved_express_company_name:
-					cur_express_company_name = order['express_company_name']
+					cur_express_company_name = order['express_company_storename']
 				else:
 					cur_express_company_name = express_company_name2text[order['express_company_name']]
 				table.append([
@@ -117,7 +117,7 @@ class YunyingExportOrders(resource.Resource):
 
 		for order in orders:
 			if order['express_company_name'] not in haved_express_company_name:
-				cur_express_company_name = order['express_company_name']
+				cur_express_company_name = order['express_company_storename']
 			else:
 				cur_express_company_name = express_company_name2text[order['express_company_name']]
 			table.append([
