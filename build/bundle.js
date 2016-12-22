@@ -47751,10 +47751,10 @@
 						return;
 					}
 				}
-				if (product.hasOwnProperty('product_price') && parseFloat(product.clear_price) > parseFloat(product.product_price)) {
-					Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
-					return;
-				}
+				// if(product.hasOwnProperty('product_price') && parseFloat(product.clear_price)>parseFloat(product.product_price)){
+				// 	Reactman.PageAction.showHint('error', '结算价不能大于商品售价,请重新输入!');
+				// 	return;
+				// }
 			}
 
 			if (product.product_name.length > 30 || product.hasOwnProperty('promotion_title') && product.promotion_title.length > 30) {
