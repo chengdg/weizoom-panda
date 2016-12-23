@@ -56,8 +56,7 @@ class ProductModel(resource.Resource):
 		else:
 			product_model_properties = models.ProductModelProperty.objects.filter(owner=request.user,
 																				  is_deleted=False)
-		pageinfo, product_model_properties = paginator.paginate(product_model_properties, cur_page, 50,
-																query_string=request.META['QUERY_STRING'])
+		pageinfo, product_model_properties = paginator.paginate(product_model_properties, cur_page, 50,query_string=request.META['QUERY_STRING'])
 		property_ids = [product_model_property.id for product_model_property in product_model_properties]
 		product_model_property_values = models.ProductModelPropertyValue.objects.filter(property_id__in=property_ids)
 		product_models = models.ProductModel.objects.filter(owner=request.user, is_deleted=False)

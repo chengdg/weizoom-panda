@@ -91,13 +91,14 @@ var AddProductModelDialog = Reactman.createDialog({
 			return (
 				<div className="mt15 xui-product-productListPage">
 					<Reactman.TablePanel>
-						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} ref="table">
-							<Reactman.TableColumn name="规格名" field="product_model_name" width="100px"/>
-							<Reactman.TableColumn name="规格值" field="product_model_value" />
-						</Reactman.Table>
 						<Reactman.TableActionBar>
 							<Reactman.TableActionButton text="确定" onClick={this.saveModelValue}/>
 						</Reactman.TableActionBar>
+						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
+							<Reactman.TableColumn name="规格名" field="product_model_name" width="100px"/>
+							<Reactman.TableColumn name="规格值" field="product_model_value" />
+						</Reactman.Table>
+						
 					</Reactman.TablePanel>
 				</div>
 			)
