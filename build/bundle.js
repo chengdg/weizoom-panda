@@ -47173,7 +47173,7 @@
 						var value_id = model['id'];
 						var checked = value_ids.indexOf(value_id) != -1 ? 'checked' : null;
 						return React.createElement(
-							'li',
+							'div',
 							{ 'data-model-name': model['name'], className: 'model_li', key: index },
 							React.createElement('input', { type: 'checkbox', checked: checked, onChange: _this.chooseProductModelValue.bind(null, model['id']) }),
 							React.createElement(
@@ -47191,7 +47191,7 @@
 						'ul',
 						{ className: 'xui-propertyValueList' },
 						React.createElement(
-							'li',
+							'div',
 							null,
 							model_name_li
 						)
@@ -47217,15 +47217,15 @@
 						Reactman.TablePanel,
 						null,
 						React.createElement(
-							Reactman.TableActionBar,
-							null,
-							React.createElement(Reactman.TableActionButton, { text: '\u786E\u5B9A', onClick: this.saveModelValue })
-						),
-						React.createElement(
 							Reactman.Table,
 							{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
 							React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u540D', field: 'product_model_name', width: '100px' }),
 							React.createElement(Reactman.TableColumn, { name: '\u89C4\u683C\u503C', field: 'product_model_value' })
+						),
+						React.createElement(
+							Reactman.TableActionBar,
+							null,
+							React.createElement(Reactman.TableActionButton, { text: '\u786E\u5B9A', onClick: this.saveModelValue })
 						)
 					)
 				);

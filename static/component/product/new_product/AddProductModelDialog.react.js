@@ -61,17 +61,17 @@ var AddProductModelDialog = Reactman.createDialog({
 					var value_id = model['id'];
 					var checked = value_ids.indexOf(value_id)!=-1?'checked':null;
 					return(
-						<li data-model-name={model['name']} className="model_li" key={index}>
+						<div data-model-name={model['name']} className="model_li" key={index}>
 	                        <input type="checkbox" checked={checked} onChange={_this.chooseProductModelValue.bind(null,model['id'])}/><span style={{verticalAlign: 'top'}}>{model["name"]}</span>
-	                    </li>
+	                    </div>
 					)
 				})
 			}
 			return(
 				<div>
 					<ul className="xui-propertyValueList">
-						<li>
-						{model_name_li}</li>
+						<div>
+						{model_name_li}</div>
 					</ul>
 				</div>
 			)
@@ -91,14 +91,13 @@ var AddProductModelDialog = Reactman.createDialog({
 			return (
 				<div className="mt15 xui-product-productListPage">
 					<Reactman.TablePanel>
-						<Reactman.TableActionBar>
-							<Reactman.TableActionButton text="确定" onClick={this.saveModelValue}/>
-						</Reactman.TableActionBar>
 						<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 							<Reactman.TableColumn name="规格名" field="product_model_name" width="100px"/>
 							<Reactman.TableColumn name="规格值" field="product_model_value" />
 						</Reactman.Table>
-						
+						<Reactman.TableActionBar>
+							<Reactman.TableActionButton text="确定" onClick={this.saveModelValue}/>
+						</Reactman.TableActionBar>
 					</Reactman.TablePanel>
 				</div>
 			)
