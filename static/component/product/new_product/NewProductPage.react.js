@@ -187,9 +187,11 @@ var NewProductPage = React.createClass({
 		if(has_product_model==='0'){ //不是多规格商品
 			if(W.purchase_method==1){
 				if(W.role==1){	//固定底价用户默认售价==结算价
-					var clear_price = product.clear_price;
-					if(clear_price){
-						product["product_price"] = clear_price;
+					var clear_price = parseFloat(product.clear_price);
+					var product_price = parseFloat(product.product_price)
+					if(clear_price <=product_price*0.01 || product_price*0.03 <=clear_price ){
+						Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+						return false;
 					}
 				}
 			}
@@ -256,7 +258,7 @@ var NewProductPage = React.createClass({
 		if(is_true){
 			return false;
 		}
-
+		var i = 0
 		_.each(model_values, function(model) {
 			model['product_price_'+model.modelId] = product['product_price_'+model.modelId]
 			model['limit_clear_price_'+model.modelId] = product['limit_clear_price_'+model.modelId]
@@ -265,14 +267,24 @@ var NewProductPage = React.createClass({
 			model['product_store_'+model.modelId] = product['product_store_'+model.modelId]
 			if(W.purchase_method==1){
 				if(W.role==1){ //固定底价用户默认售价==结算价
+					// var clear_price = parseFloat(product["clear_price_"+model.modelId]);
+					// if(clear_price){
+					// 	model["product_price_"+model.modelId] = clear_price;
+					// }
 					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
-					if(clear_price){
-						model["product_price_"+model.modelId] = clear_price;
+					var product_price = parseFloat(product["product_price_"+model.modelId]);
+
+					if(clear_price <=product_price*0.01 || product_price*0.03 <=clear_price ){
+						i++
+						return false;
 					}
 				}
 			}
 		})
-
+		if(i>0){
+			Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+			return false;
+		}
 		model_values = model_values.length>0?JSON.stringify(model_values):'';
 		//是否是重新提交审核的
 		if(typeof(resubmit)=='string'){
