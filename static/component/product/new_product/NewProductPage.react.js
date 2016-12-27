@@ -189,8 +189,8 @@ var NewProductPage = React.createClass({
 				if(W.role==1){	//固定底价用户默认售价==结算价
 					var clear_price = parseFloat(product.clear_price);
 					var product_price = parseFloat(product.product_price)
-					if(clear_price <=product_price*0.01 || product_price*0.03 <=clear_price ){
-						Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+					if(product_price*0.97 < clear_price ){
+						Reactman.PageAction.showHint('error', '商品价格设置错误，商品毛利率不低于3%，请重新设置');
 						return false;
 					}
 				}
@@ -274,15 +274,16 @@ var NewProductPage = React.createClass({
 					var clear_price = parseFloat(product["clear_price_"+model.modelId]);
 					var product_price = parseFloat(product["product_price_"+model.modelId]);
 
-					if(clear_price <=product_price*0.01 || product_price*0.03 <=clear_price ){
+					if(product_price*0.97 < clear_price){
 						i++
 						return false;
 					}
 				}
 			}
 		})
+		console.l
 		if(i>0){
-			Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+			Reactman.PageAction.showHint('error', '商品价格设置错误，商品毛利率不低于3%，请重新设置');
 			return false;
 		}
 		model_values = model_values.length>0?JSON.stringify(model_values):'';

@@ -71,25 +71,28 @@ var ProductModelInfo = React.createClass({
 			})
 
 			if(W.purchase_method==1){
-				// if(W.role==1){
-				// 	return(
-				// 		<tr key={index} ref={model.modelId} className="model-table-tr">
-				// 			{td}
-				// 			<td>
-				// 				<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-				// 			</td>
-				// 			<td>
-				// 				<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-				// 			</td>
-				// 			<td>
-				// 				<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-				// 			</td>
-				// 			<td className="show-active" style={{width:'80px'}}>
-				// 				<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
-				// 			</td>
-				// 		</tr>
-				// 	)
-				// }else{
+				if(W.role==1){
+					return(
+						<tr key={index} ref={model.modelId} className="model-table-tr">
+							{td}
+							<td>
+								<Reactman.FormInput label="" type="text"  name={"product_price_"+model.modelId} value={_this.state["product_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+							</td>
+							<td>
+								<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+							</td>
+							<td>
+								<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
+							</td>
+							<td>
+								<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
+							</td>
+							<td className="show-active" style={{width:'80px'}}>
+								<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
+							</td>
+						</tr>
+					)
+				}else{
 					return(
 						<tr key={index} ref={model.modelId} className="model-table-tr">
 							{td}
@@ -109,7 +112,7 @@ var ProductModelInfo = React.createClass({
 							</td>
 						</tr>
 					)
-				// }
+				}
 			}else{
 				if(W.role==1){
 					return(

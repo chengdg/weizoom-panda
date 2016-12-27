@@ -47741,8 +47741,8 @@
 						//固定底价用户默认售价==结算价
 						var clear_price = parseFloat(product.clear_price);
 						var product_price = parseFloat(product.product_price);
-						if (clear_price <= product_price * 0.01 || product_price * 0.03 <= clear_price) {
-							Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+						if (product_price * 0.97 < clear_price) {
+							Reactman.PageAction.showHint('error', '商品价格设置错误，商品毛利率不低于3%，请重新设置');
 							return false;
 						}
 					}
@@ -47827,15 +47827,16 @@
 						var clear_price = parseFloat(product["clear_price_" + model.modelId]);
 						var product_price = parseFloat(product["product_price_" + model.modelId]);
 
-						if (clear_price <= product_price * 0.01 || product_price * 0.03 <= clear_price) {
+						if (product_price * 0.97 < clear_price) {
 							i++;
 							return false;
 						}
 					}
 				}
 			});
+			console.l;
 			if (i > 0) {
-				Reactman.PageAction.showHint('error', '商品的结算价和售价差价毛利不低于3% 即售价=结算价/(1-3%)');
+				Reactman.PageAction.showHint('error', '商品价格设置错误，商品毛利率不低于3%，请重新设置');
 				return false;
 			}
 			model_values = model_values.length > 0 ? JSON.stringify(model_values) : '';
@@ -48607,52 +48608,69 @@
 				});
 
 				if (W.purchase_method == 1) {
-					// if(W.role==1){
-					// 	return(
-					// 		<tr key={index} ref={model.modelId} className="model-table-tr">
-					// 			{td}
-					// 			<td>
-					// 				<Reactman.FormInput label="" type="text" name={"clear_price_"+model.modelId} value={_this.state["clear_price_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					// 			</td>
-					// 			<td>
-					// 				<Reactman.FormInput label="" type="text" name={"product_weight_"+model.modelId} value={_this.state["product_weight_"+model.modelId]} onChange={_this.props.onChange} validate="require-float"/>
-					// 			</td>
-					// 			<td>
-					// 				<Reactman.FormInput label="" type="text" name={"product_store_"+model.modelId} value={_this.state["product_store_"+model.modelId]} validate="require-int" onChange={_this.props.onChange} />
-					// 			</td>
-					// 			<td className="show-active" style={{width:'80px'}}>
-					// 				<a className="btn cursorPointer" onClick={_this.deleteModelValue.bind(_this,model.modelId)}>删除</a>
-					// 			</td>
-					// 		</tr>
-					// 	)
-					// }else{
-					return React.createElement(
-						'tr',
-						{ key: index, ref: model.modelId, className: 'model-table-tr' },
-						td,
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-						),
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-						),
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
-						),
-						React.createElement(
-							'td',
-							null,
-							React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
-						),
-						React.createElement('td', { className: 'show-active', style: { width: '80px' } })
-					);
-					// }
+					if (W.role == 1) {
+						return React.createElement(
+							'tr',
+							{ key: index, ref: model.modelId, className: 'model-table-tr' },
+							td,
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+							),
+							React.createElement(
+								'td',
+								{ className: 'show-active', style: { width: '80px' } },
+								React.createElement(
+									'a',
+									{ className: 'btn cursorPointer', onClick: _this.deleteModelValue.bind(_this, model.modelId) },
+									'\u5220\u9664'
+								)
+							)
+						);
+					} else {
+						return React.createElement(
+							'tr',
+							{ key: index, ref: model.modelId, className: 'model-table-tr' },
+							td,
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_price_" + model.modelId, value: _this.state["product_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "clear_price_" + model.modelId, value: _this.state["clear_price_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_weight_" + model.modelId, value: _this.state["product_weight_" + model.modelId], onChange: _this.props.onChange, validate: 'require-float' })
+							),
+							React.createElement(
+								'td',
+								null,
+								React.createElement(Reactman.FormInput, { label: '', type: 'text', readonly: disabled, name: "product_store_" + model.modelId, value: _this.state["product_store_" + model.modelId], validate: 'require-int', onChange: _this.props.onChange })
+							),
+							React.createElement('td', { className: 'show-active', style: { width: '80px' } })
+						);
+					}
 				} else {
 					if (W.role == 1) {
 						return React.createElement(
