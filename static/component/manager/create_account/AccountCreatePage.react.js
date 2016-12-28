@@ -200,8 +200,8 @@ var CustomerService = React.createClass({
 				<div>
 					<div style={{margin:'30px 0px 15px 70px', color:'#000'}}>客户后台显示的在线客服联系方式</div>
 					<Reactman.FormInput label="客服电话:" name="customerServiceTel" placeholder="" value={this.props.customerServiceTel} onChange={this.props.onChange} />
-					<Reactman.FormInput label="客服qq-1:" name="customerServiceQQFirst" placeholder="" value={this.props.customerServiceQQFirst} onChange={this.props.onChange} />
-					<Reactman.FormInput label="客服qq-2:" name="customerServiceQQSecond" placeholder="" value={this.props.customerServiceQQSecond} onChange={this.props.onChange} />
+					<Reactman.FormInput label="客服qq-1:" name="customerServiceQQFirst" placeholder="" value={0} onChange={this.props.onChange} />
+					<Reactman.FormInput label="客服qq-2:" name="customerServiceQQSecond" placeholder="" value={1} onChange={this.props.onChange} />
 				</div>
 			)
 		}else{
