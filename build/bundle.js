@@ -39975,7 +39975,8 @@
 				// 		<div><GroupPointsDialog /></div>
 				// 	</div>
 				// )
-				var cur_points = this.props.points ? this.props.points : 0;
+				console.log(this.props.points, 22222222);
+				var cur_points = this.props.points == ' ' ? this.props.points : 0;
 				return React.createElement(
 					'div',
 					{ className: 'account-create-purchase-method' },
