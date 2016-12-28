@@ -39928,7 +39928,6 @@
 		onChangeStore: function () {
 			this.setState(Store.getData());
 		},
-
 		onChangeValue: function (index, value, event) {
 			var property = event.target.getAttribute('name');
 			Action.updateRebates(index, property, value);
@@ -39975,10 +39974,11 @@
 				// 		<div><GroupPointsDialog /></div>
 				// 	</div>
 				// )
+				var cur_points = this.props.points ? this.props.points : '0';
 				return React.createElement(
 					'div',
 					{ className: 'account-create-purchase-method' },
-					React.createElement(Reactman.FormInput, { label: '\u96F6\u552E\u6263\u70B9:', type: 'text', name: 'points', validate: 'require-notempty', value: this.props.points, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '\u96F6\u552E\u6263\u70B9:', type: 'text', name: 'points', validate: 'require-notempty', value: cur_points, onChange: this.props.onChange }),
 					React.createElement(
 						'span',
 						{ className: 'money_note' },
