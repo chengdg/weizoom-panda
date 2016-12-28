@@ -73,9 +73,10 @@ var PurchaseMethod = React.createClass({
 			// 		<div><GroupPointsDialog /></div>
 			// 	</div>
 			// )
+			var cur_points = this.props.points? this.props.points: 0;
 			return(
 				<div className="account-create-purchase-method">
-					<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={this.props.points} onChange={this.props.onChange} />
+					<Reactman.FormInput label="零售扣点:" type="text" name="points" validate="require-notempty" value={cur_points} onChange={this.props.onChange} />
 					<span className="money_note">%</span>
 				</div>
 			)
