@@ -71,7 +71,7 @@ var AccountCreatePage = React.createClass({
 		var regServiceQQ = /^[0-9]*$/;
 
 		if(accountType == 1 && purchaseMethod == 2 && account.hasOwnProperty('points') && account.points.length > 0){
-			if((parseFloat(account.points.trim())==0) || !reg.test(account.points.trim())){
+			if(!reg.test(account.points.trim())){
 				Reactman.PageAction.showHint('error', '零售价返点数字需在1-99之间的整数');
 				return;
 			}
