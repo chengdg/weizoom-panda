@@ -39295,8 +39295,8 @@
 						'\u5BA2\u6237\u540E\u53F0\u663E\u793A\u7684\u5728\u7EBF\u5BA2\u670D\u8054\u7CFB\u65B9\u5F0F'
 					),
 					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670D\u7535\u8BDD:', name: 'customerServiceTel', placeholder: '', value: this.props.customerServiceTel, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-1:', name: 'customerServiceQQFirst', placeholder: '', value: 0, onChange: this.props.onChange }),
-					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-2:', name: 'customerServiceQQSecond', placeholder: '', value: 1, onChange: this.props.onChange })
+					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-1:', name: 'customerServiceQQFirst', placeholder: '', value: this.props.customerServiceQQFirst, onChange: this.props.onChange }),
+					React.createElement(Reactman.FormInput, { label: '\u5BA2\u670Dqq-2:', name: 'customerServiceQQSecond', placeholder: '', value: this.props.customerServiceQQSecond, onChange: this.props.onChange })
 				);
 			} else {
 				return React.createElement('div', null);
