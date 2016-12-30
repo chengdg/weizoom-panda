@@ -50,5 +50,5 @@ def send_phone_captcha(data):
 	# 	"content": content,
 	# 	"phones": phones  
 	# }
-	msgutil.send_message('notify', 'phone', data)
+	return msgutil.send_message('notify', 'phone', data)
 
