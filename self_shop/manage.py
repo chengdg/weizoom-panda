@@ -22,6 +22,7 @@ from product import models as product_models
 from panda.settings import ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST
 from util import db_util
 from panda.settings import CESHI_USERNAMES
+from get_all_unsynced_self_shops import get_self_shops_dict
 
 import nav
 import models
@@ -53,12 +54,20 @@ class manage(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		pageinfo, self_shops = paginator.paginate(self_shops, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		
+		that_rows,store_name2id=get_self_shops_dict()
+
 		rows = []
 		for self_shop in self_shops:
+			self_shop_id = store_name2id.get(self_shop.self_shop_name)
 			rows.append({
+				'selfShopId': self_shop_id,
 				'selfShopName': self_shop.self_shop_name,
 				'userName': self_shop.weapp_user_id,
-				'isSynced': self_shop.is_synced
+				'settlementType': self_shop.settlement_type,
+				'splitRatio': self_shop.split_atio,
+				'remark': self_shop.remark,
+				'isSynced': self_shop.is_synced,
+				'corpAccount':	self_shop.corp_account
 				})
 		data = {
 			'rows': rows,
@@ -74,6 +83,9 @@ class manage(resource.Resource):
 	def api_put(request):
 		self_shop_name = request.POST.get('self_shop_name','')
 		weapp_user_id = request.POST.get('weapp_user_id','')
+		settlement_type = int(request.POST.get('settlement_type',1))
+		corp_account = int(request.POST.get('corp_account',1))
+		split_atio = float(request.POST.get('split_atio',0))
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
 		if models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).count() > 0:
@@ -84,6 +96,9 @@ class manage(resource.Resource):
 			models.SelfShops.objects.create(
 				self_shop_name = self_shop_name,
 				weapp_user_id = weapp_user_id,
+				settlement_type = settlement_type,
+				split_atio = split_atio,
+				corp_account = corp_account,
 				remark = remark
 			)
 			product_models.SelfUsernameWeappAccount.objects.create(
@@ -116,22 +131,62 @@ class manage(resource.Resource):
 	#同步自营平台下的商品
 	def api_post(request):
 		user_name = request.POST.get('self_user_name','')
-		try:
-			is_synced = sync_all_product_2_new_self_shop(user_name)
-			sync_all_product_2_weapp(user_name)
-			if is_synced:
-				models.SelfShops.objects.filter(weapp_user_id=user_name).update(
-					is_synced = True
-					)
-				response = create_response(200)
-			else:
+
+		if user_name:
+			try:
+				is_synced = sync_all_product_2_new_self_shop(user_name)
+				sync_all_product_2_weapp(user_name)
+				if is_synced:
+					models.SelfShops.objects.filter(weapp_user_id=user_name).update(
+						is_synced = True
+						)
+					response = create_response(200)
+				else:
+					response = create_response(500)
+					response.innerErrMsg = unicode_full_stack()
+			except Exception, e:
+				print e
 				response = create_response(500)
 				response.innerErrMsg = unicode_full_stack()
-		except Exception, e:
-			print e
-			response = create_response(500)
-			response.innerErrMsg = unicode_full_stack()
-		return response.get_response()
+			return response.get_response()
+
+		else:
+			self_shop_name = request.POST.get('self_shop_name','')
+			weapp_user_id = request.POST.get('weapp_user_id','')
+			settlement_type = int(request.POST.get('settlement_type',1))
+			corp_account = int(request.POST.get('corp_account',1))
+			split_atio = float(request.POST.get('split_atio',0))
+			is_sync = request.POST.get('is_sync','')
+			remark = request.POST.get('remark','')
+			try:
+				models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
+					settlement_type = settlement_type,
+					split_atio = split_atio,
+					remark = remark,
+					corp_account = corp_account,
+				)
+				is_sync = True if is_sync == 'is_sync' else False
+				if is_sync: #需要在创建时候同步
+					is_synced = sync_all_product_2_new_self_shop(weapp_user_id)
+					sync_all_product_2_weapp(weapp_user_id)
+					if is_synced:
+						models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
+							is_synced = True
+							)
+						response = create_response(200)
+					else:
+						response = create_response(500)
+						response.errMsg = u'同步失败'
+						response.innerErrMsg = unicode_full_stack()
+				else:
+					response = create_response(200)
+			except Exception, e:
+				msg = unicode_full_stack()
+				response = create_response(500)
+				response.errMsg = u'添加自营平台失败'
+				print msg
+			return response.get_response()
+
 
 def get_all_synced_self_shops(request,is_for_search):
 	"""

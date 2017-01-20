@@ -27,23 +27,31 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-		params = {
-			'status': 'new'
-		}
-		resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
-			{
-				'resource': 'panda.proprietary_account_list',
-				'data': params
-			}
-		)
-		rows = []
-		if resp and resp.get('code') == 200:
-			data = resp.get('data').get('profiles')
-			rows = [{'text': profile.get('store_name'),
-					 'value': profile.get('user_id')} for profile in data]
+
+		rows,store_name2id=get_self_shops_dict()
 		data = {
 			'rows': rows
 		}
 		response = create_response(200)
 		response.data = data
 		return response.get_response()
+
+def get_self_shops_dict():
+	params = {
+		'status': 'new'
+	}
+	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
+		{
+			'resource': 'panda.proprietary_account_list',
+			'data': params
+		}
+	)
+	rows = []
+	store_name2id ={}
+	if resp and resp.get('code') == 200:
+		data = resp.get('data').get('profiles')
+		rows= [{'text':'请选择','value':'-1'}]
+		for profile in data:
+			rows.append({'text': profile.get('store_name'),'value': profile.get('user_id')})
+			store_name2id[profile.get('store_name')] = profile.get('user_id')
+	return rows,store_name2id

@@ -1,0 +1,20 @@
+.xui-product-productListPage {
+    background: #fff;
+}
+.moneyNote {
+    position: absolute;
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+.account-create-purchase-method div:nth-child(1) {
+    display: inline-block;
+}
+input[name=splitRatio] {
+    width: 200px;
+}
+.account-create-settlement-ype .col-sm-5{
+	width: 61%
+}

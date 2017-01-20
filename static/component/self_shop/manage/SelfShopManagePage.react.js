@@ -39,7 +39,34 @@ var SelfShopManagePage = React.createClass({
 					title: "添加自营平台",
 					component: AddSelfShopDialog,
 					data: {
-						options: options
+						options: options,
+						selfInfo:{},
+						curModel: 'put'
+					},
+					success: function() {
+						Action.updateSelfShopDialog();
+					}
+				});
+			},
+			error: function(data) {
+				Reactman.PageAction.showHint('error', data.errMsg);
+			},
+			scope: this
+		})
+	},
+	updateSelfInfo:function(selfInfo){
+		Reactman.Resource.get({
+			resource: 'self_shop.get_all_unsynced_self_shops',
+			data: {},
+			success: function(data) {
+				var options = data.rows;
+				Reactman.PageAction.showDialog({
+					title: "添加自营平台",
+					component: AddSelfShopDialog,
+					data: {
+						options: options,
+						selfInfo:selfInfo,
+						curModel: 'post'
 					},
 					success: function() {
 						Action.updateSelfShopDialog();
@@ -57,20 +84,52 @@ var SelfShopManagePage = React.createClass({
 	chooseSyncSelfShopProduct: function(userName){
 		Action.syncSelfShopProduct(userName);
 	},
-
+		
 	rowFormatter: function(field, value, data) {
 		if (field === 'action') {
 			if(data.isSynced){
 				return (
-					<div>已同步</div>
+					<div>
+						<a className="btn btn-link btn-xs ml15" onClick={this.updateSelfInfo.bind(this,data)}>修改</a>
+					</div>
 				);
 			}else{
 				return (
 					<div>
-						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShopProduct.bind(this,data['userName'])}>批量同步现有商品</a>
+						<a className="btn btn-link btn-xs" onClick={this.chooseSyncSelfShopProduct.bind(this,data['userName'])}>批量同步</a>
+						<a className="btn btn-link btn-xs ml15" onClick={this.updateSelfInfo.bind(this,data)}>修改</a>
 					</div>
 				);
 			}
+		}else if(field === 'settlementType'){
+			var settlementTypeName = ['固定扣点','毛利分成','固定底价']
+			var curSettlementTypeName = settlementTypeName[data['settlementType']-1]
+			return (
+					<div>
+						{curSettlementTypeName}
+					</div>
+				);
+		}else if(field === 'splitRatio'){
+			if (data['settlementType'] == 2){
+				return (
+					<div>
+						X*{data['splitRatio']}%
+					</div>
+				);
+			}else if(data['settlementType'] == 1){
+				return (
+					<div>
+						0%
+					</div>
+				);
+			}else{
+				return (
+					<div>
+						{data['splitRatio']}%
+					</div>
+				);
+			}
+			
 		}else{
 			return value;
 		}
@@ -91,7 +150,9 @@ var SelfShopManagePage = React.createClass({
 					<Reactman.Table resource={productsResource} formatter={this.rowFormatter} pagination={true} ref="table">
 						<Reactman.TableColumn name="平台名称" field="selfShopName" width="200px"/>
 						<Reactman.TableColumn name="user_name" field="userName" />
-						<Reactman.TableColumn name="操作" field="action" width="100px"/>
+						<Reactman.TableColumn name="结算类型" field="settlementType" />
+						<Reactman.TableColumn name="分成比例" field="splitRatio" />
+						<Reactman.TableColumn name="操作" field="action" width="300px"/>
 					</Reactman.Table>
 				</Reactman.TablePanel>
 			</div>
