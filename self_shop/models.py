@@ -12,6 +12,7 @@ class SelfShops(models.Model):
 	settlement_type = models.IntegerField(default=1) #结算类型
 	corp_account = models.IntegerField(default=1) #收款账户
 	split_atio = models.FloatField(default=0) #扣点比例 /分成比例/同时批量加价
+	risk_money = models.FloatField(default=0) #风险金额
 	remark = models.TextField(null=True) #备注
 	is_synced = models.BooleanField(default=False) #是否已同步过
 	is_deleted = models.BooleanField(default=False)

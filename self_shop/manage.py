@@ -65,6 +65,7 @@ class manage(resource.Resource):
 				'userName': self_shop.weapp_user_id,
 				'settlementType': self_shop.settlement_type,
 				'splitRatio': self_shop.split_atio,
+				'riskMoney': self_shop.risk_money,
 				'remark': self_shop.remark,
 				'isSynced': self_shop.is_synced,
 				'corpAccount':	self_shop.corp_account
@@ -86,6 +87,7 @@ class manage(resource.Resource):
 		settlement_type = int(request.POST.get('settlement_type',1))
 		corp_account = int(request.POST.get('corp_account',1))
 		split_atio = float(request.POST.get('split_atio',0))
+		risk_money = float(request.POST.get('risk_money',0))
 		is_sync = request.POST.get('is_sync','')
 		remark = request.POST.get('remark','')
 		if models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).count() > 0:
@@ -98,6 +100,7 @@ class manage(resource.Resource):
 				weapp_user_id = weapp_user_id,
 				settlement_type = settlement_type,
 				split_atio = split_atio,
+				risk_money = risk_money,
 				corp_account = corp_account,
 				remark = remark
 			)
@@ -156,12 +159,14 @@ class manage(resource.Resource):
 			settlement_type = int(request.POST.get('settlement_type',1))
 			corp_account = int(request.POST.get('corp_account',1))
 			split_atio = float(request.POST.get('split_atio',0))
+			risk_money = float(request.POST.get('risk_money',0))
 			is_sync = request.POST.get('is_sync','')
 			remark = request.POST.get('remark','')
 			try:
 				models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
 					settlement_type = settlement_type,
 					split_atio = split_atio,
+					risk_money = risk_money,
 					remark = remark,
 					corp_account = corp_account,
 				)

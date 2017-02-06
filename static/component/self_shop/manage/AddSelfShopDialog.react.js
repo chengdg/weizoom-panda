@@ -23,6 +23,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 		var settlementType = selfInfo.settlementType || 1
 		var corpAccount = selfInfo.corpAccount || 1
 		var splitRatio = selfInfo.splitRatio || 0
+		var riskMoney = selfInfo.riskMoney || 0
 		var curModel = this.props.data.curModel;
 		var oldWeappUserId = selfInfo.selfShopId
 		return {
@@ -32,6 +33,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 			options: options,
 			settlementType : settlementType.toString(),
 			splitRatio:splitRatio,
+			riskMoney:riskMoney,
 			curModel:curModel,
 			corpAccount : corpAccount
 		};
@@ -60,6 +62,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 						settlement_type: this.state.settlementType,
 						corp_account: this.state.corpAccount,
 						split_atio: this.state.splitRatio,
+						risk_money: this.state.riskMoney,
 						is_sync: this.state.isSync.length > 0 ? 'is_sync': ''
 					},
 					success: function(action) {
@@ -83,6 +86,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 						settlement_type: this.state.settlementType,
 						corp_account: this.state.corpAccount,
 						split_atio: this.state.splitRatio,
+						risk_money: this.state.riskMoney,
 						is_sync: this.state.isSync.length > 0 ? 'is_sync': '',
 					},
 					success: function(action) {
@@ -207,6 +211,10 @@ var AddSelfShopDialog = Reactman.createDialog({
 						<div className="account-create-purchase-method">
 							<Reactman.FormInput label={splitRatioName} name="splitRatio" value={this.state.splitRatio} onChange={this.onChange} />
 							<span className="moneyNote">%</span>
+						</div>
+						<div className="account-create-purchase-method">
+							<Reactman.FormInput label="风险金额:" name="riskMoney" value={this.state.riskMoney} onChange={this.onChange} />
+							<span className="moneyNote">元</span>
 						</div>
 						<Reactman.FormText label="备注说明:" name="remark" value={this.state.remark} onChange={this.onChange} width={300} height={150}/>
 						<Reactman.FormCheckbox label="" name="isSync" value={this.state.isSync} options={optionsForSync} onChange={this.onChange} />

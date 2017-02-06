@@ -18,3 +18,6 @@ input[name=splitRatio] {
 .account-create-settlement-ype .col-sm-5{
 	width: 61%
 }
+input[name=riskMoney] {
+    width: 200px;
+}
