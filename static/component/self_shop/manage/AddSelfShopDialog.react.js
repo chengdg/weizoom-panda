@@ -224,8 +224,8 @@ var AddSelfShopDialog = Reactman.createDialog({
 				<form className="form-horizontal mt15">
 					<fieldset>
 						<Reactman.FormSelect label="公司名称:" name="corpAccount" value={this.state.corpAccount} options={optionsForcompany} onChange={this.onChange} />
-						<Reactman.FormSelect label="开户行:" name="corpAccount" value={this.state.corpAccount} options={optionsForaccount} onChange={this.onChange} />
-						<Reactman.FormSelect label="账户:" name="corpAccount" value={this.state.corpAccount} options={optionsForbank} onChange={this.onChange} />
+						<Reactman.FormSelect label="开户行:" name="corpAccount" value={this.state.corpAccount} options={optionsForbank} onChange={this.onChange} />
+						<Reactman.FormSelect label="账户:" name="corpAccount" value={this.state.corpAccount} options={optionsForaccount} onChange={this.onChange} />
 					</fieldset>		
 				</form>
 			</div>
