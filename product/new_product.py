@@ -267,6 +267,12 @@ class NewProduct(resource.Resource):
 		postage_money = post.get('postage_money', 0)
 		postage_id = 0
 
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		cur_user_purchase_method = user_profile.purchase_method #采购方式
+		cur_user_points = float((user_profile.points)/100) #零售价返点
+		if cur_user_purchase_method == 2:
+			if product_price >=0:
+				clear_price = round((float(1)-cur_user_points)*float(product_price)*100)/100
 		if not check_product_name_unique(request, product_name , product_id=-1):
 			response = create_response(500)
 			response.errMsg = u'商品名已存在，请重新输入'
@@ -327,6 +333,9 @@ class NewProduct(resource.Resource):
 					user_code = model_value.get('product_code_'+model_Id,0)
 					valid_from = model_value.get('valid_time_from_'+model_Id,None)
 					valid_to = model_value.get('valid_time_to_'+model_Id,None)
+					if cur_user_purchase_method == 2:
+						if market_price >=0:
+							market_price = round((float(1)-cur_user_points)*float(price)*100)/100
 					product_model = models.ProductModel.objects.create(
 						owner = request.user,
 						product = product,
@@ -394,6 +403,10 @@ class NewProduct(resource.Resource):
 		postage_money = post.get('postage_money', 0)
 		resubmit = post.get('resubmit', '')
 		postage_id = 0
+
+		user_profile = UserProfile.objects.get(user_id=request.user.id)
+		cur_user_purchase_method = user_profile.purchase_method #采购方式
+		cur_user_points = float((user_profile.points)/100) #零售价返点
 
 		if not check_product_name_unique(request, product_name ,request.POST['id']):
 			response = create_response(500)
@@ -556,6 +569,9 @@ class NewProduct(resource.Resource):
 			)
 
 			if has_product_model == 0:
+				if cur_user_purchase_method == 2:
+					if product_price >=0:
+						clear_price = round((float(1)-cur_user_points)*float(product_price)*100)/100
 				models.Product.objects.filter(owner_id=owner_id, id=request.POST['id']).update(
 					product_price = product_price,
 					clear_price = clear_price,
@@ -600,6 +616,9 @@ class NewProduct(resource.Resource):
 				user_code = model_value.get('product_code_'+model_Id,0)
 				valid_from = model_value.get('valid_time_from_'+model_Id,None)
 				valid_to = model_value.get('valid_time_to_'+model_Id,None)
+				if cur_user_purchase_method == 2:
+					if market_price >=0:
+						market_price = round((float(1)-cur_user_points)*float(price)*100)/100
 				product_model = models.ProductModel.objects.create(
 					owner_id = owner_id,
 					product_id = int(request.POST['id']),
