@@ -108,6 +108,21 @@ class manage(resource.Resource):
 				self_user_name = weapp_user_id,
 				weapp_account_id = weapp_user_id
 			)
+
+			data = {
+				'user_id': weapp_user_id,
+				'settlement_type': settlement_type,
+				'divide_rebate': split_atio,
+				'risk_money': risk_money,
+				'remark': remark
+			}
+			resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put(
+				{
+					'resource': 'account.divide_info',
+					'data': data
+				}
+			)
+			print resp.get('code'),'+++++++++++++++'
 			is_sync = True if is_sync == 'is_sync' else False
 			if is_sync: #需要在创建时候同步
 				is_synced = sync_all_product_2_new_self_shop(weapp_user_id)
@@ -170,6 +185,20 @@ class manage(resource.Resource):
 					remark = remark,
 					corp_account = corp_account,
 				)
+				data = {
+					'user_id': weapp_user_id,
+					'settlement_type': settlement_type,
+					'divide_rebate': split_atio,
+					'risk_money': risk_money,
+					'remark': remark
+				}
+				resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).post(
+					{
+						'resource': 'account.divide_info',
+						'data': data
+					}
+				)
+				print resp.get('code'),'+++++++++++++++'
 				is_sync = True if is_sync == 'is_sync' else False
 				if is_sync: #需要在创建时候同步
 					is_synced = sync_all_product_2_new_self_shop(weapp_user_id)

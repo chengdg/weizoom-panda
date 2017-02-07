@@ -38,7 +38,7 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 
 def get_self_shops_dict():
 	params = {
-		'status': 'new'
+		'status': 'all'
 	}
 	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
 		{
