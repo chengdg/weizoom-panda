@@ -27,8 +27,8 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 
 	@login_required
 	def api_get(request):
-
-		rows,store_name2id=get_self_shops_dict()
+		status = request.GET.get('status','all')
+		rows,store_name2id=get_self_shops_dict(status)
 		data = {
 			'rows': rows
 		}
@@ -36,9 +36,9 @@ class GetAllUnsyncedSelfShops(resource.Resource):
 		response.data = data
 		return response.get_response()
 
-def get_self_shops_dict():
+def get_self_shops_dict(status):
 	params = {
-		'status': 'all'
+		'status': status
 	}
 	resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).get(
 		{

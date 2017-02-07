@@ -32,7 +32,9 @@ var SelfShopManagePage = React.createClass({
 	addSelfShop:function(){
 		Reactman.Resource.get({
 			resource: 'self_shop.get_all_unsynced_self_shops',
-			data: {},
+			data: {
+				status:'new'
+			},
 			success: function(data) {
 				var options = data.rows;
 				Reactman.PageAction.showDialog({
@@ -57,7 +59,9 @@ var SelfShopManagePage = React.createClass({
 	updateSelfInfo:function(selfInfo){
 		Reactman.Resource.get({
 			resource: 'self_shop.get_all_unsynced_self_shops',
-			data: {},
+			data: {
+				status:'all'
+			},
 			success: function(data) {
 				var options = data.rows;
 				Reactman.PageAction.showDialog({

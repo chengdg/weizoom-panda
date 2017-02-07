@@ -54,7 +54,7 @@ class manage(resource.Resource):
 		cur_page = request.GET.get('page', 1)
 		pageinfo, self_shops = paginator.paginate(self_shops, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		
-		that_rows,store_name2id=get_self_shops_dict()
+		that_rows,store_name2id=get_self_shops_dict('all')
 
 		rows = []
 		for self_shop in self_shops:
