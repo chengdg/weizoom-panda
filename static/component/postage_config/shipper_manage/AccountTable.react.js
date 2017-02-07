@@ -87,7 +87,7 @@ var AccountTable = React.createClass({
 				'youshuwuliu': '优速物流',
 				'guangdongyouzheng': '广东邮政',
 				'ems': 'EMS',
-				'annengwuliu': 'ANE',
+				'annengwuliu': '安能物流',
 				'yuanchengkuaiyun':'远成快运'
 			}
 			
