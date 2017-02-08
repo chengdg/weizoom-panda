@@ -150,7 +150,7 @@ var AddCatalogDialog = Reactman.createDialog({
 			value: 'ems'
 		},{
 			text: '安能物流',
-			value: 'anenngwuliu'
+			value: 'annengwuliu'
 		},{
 			text: '远成快运',
 			value: 'yuanchengkuaiyun'
