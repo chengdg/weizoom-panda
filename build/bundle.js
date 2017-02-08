@@ -45237,7 +45237,7 @@
 					'youshuwuliu': '优速物流',
 					'guangdongyouzheng': '广东邮政',
 					'ems': 'EMS',
-					'annengwuliu': '安能物流',
+					'anenngwuliu': '安能物流',
 					'yuanchengkuaiyun': '远成快运'
 				};
 
