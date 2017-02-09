@@ -55958,17 +55958,27 @@
 
 	var AddSelfShopDialog = Reactman.createDialog({
 		getInitialState: function () {
-			Store.addListener(this.onChangeStore);
 			var options = this.props.data.options;
-			var selfUserName = '';
-			if (options.length > 0) {
-				selfUserName = options[0]['value'];
-			}
+			var selfInfo = this.props.data.selfInfo;
+			var selfUserName = selfInfo.selfShopId || '-1';
+			var remark = selfInfo.remark || '';
+			var isSync = selfInfo.isSynced ? ['isSync'] : '';
+			var settlementType = selfInfo.settlementType || 1;
+			var corpAccount = selfInfo.corpAccount || 1;
+			var splitRatio = selfInfo.splitRatio || 0;
+			var riskMoney = selfInfo.riskMoney || 0;
+			var curModel = this.props.data.curModel;
+			var oldWeappUserId = selfInfo.selfShopId;
 			return {
 				selfUserName: selfUserName,
-				remark: '',
-				isSync: '',
-				options: options
+				remark: remark,
+				isSync: isSync,
+				options: options,
+				settlementType: settlementType.toString(),
+				splitRatio: splitRatio,
+				riskMoney: riskMoney,
+				curModel: curModel,
+				corpAccount: corpAccount
 			};
 		},
 
@@ -55979,44 +55989,159 @@
 			this.setState(newState);
 		},
 
-		onChangeStore: function () {
-			var infomations = Store.getData();
-			this.setState(Store.getData());
-		},
-
 		onBeforeCloseDialog: function () {
-			if (this.state.selfUserName == '') {
+			if (this.state.selfUserName == '-1') {
 				Reactman.PageAction.showHint('error', '请选择自营平台');
 			} else {
 				var selfShopName = $('#selfUserName').find("option:selected").text();
 				//添加自营平台
-				Reactman.Resource.put({
-					resource: 'self_shop.manage',
-					data: {
-						self_shop_name: selfShopName,
-						weapp_user_id: this.state.selfUserName,
-						remark: this.state.remark,
-						is_sync: this.state.isSync.length > 0 ? 'is_sync' : ''
-					},
-					success: function (action) {
-						this.closeDialog();
-						_.delay(function () {
-							Reactman.PageAction.showHint('success', '添加自营平台成功');
-						}, 500);
-					},
-					error: function (data) {
-						Reactman.PageAction.showHint('error', data.errMsg);
-					},
-					scope: this
-				});
+				if (this.state.curModel == 'put') {
+					Reactman.Resource.put({
+						resource: 'self_shop.manage',
+						data: {
+							self_shop_name: selfShopName,
+							weapp_user_id: this.state.selfUserName,
+							remark: this.state.remark,
+							settlement_type: this.state.settlementType,
+							corp_account: this.state.corpAccount,
+							split_atio: this.state.splitRatio,
+							risk_money: this.state.riskMoney,
+							is_sync: this.state.isSync.length > 0 ? 'is_sync' : ''
+						},
+						success: function (action) {
+							this.closeDialog();
+							_.delay(function () {
+								Reactman.PageAction.showHint('success', '添加自营平台成功');
+							}, 500);
+						},
+						error: function (data) {
+							Reactman.PageAction.showHint('error', data.errMsg);
+						},
+						scope: this
+					});
+				} else {
+					Reactman.Resource.post({
+						resource: 'self_shop.manage',
+						data: {
+							self_shop_name: selfShopName,
+							weapp_user_id: this.state.selfUserName,
+							remark: this.state.remark,
+							settlement_type: this.state.settlementType,
+							corp_account: this.state.corpAccount,
+							split_atio: this.state.splitRatio,
+							risk_money: this.state.riskMoney,
+							is_sync: this.state.isSync.length > 0 ? 'is_sync' : ''
+						},
+						success: function (action) {
+							this.closeDialog();
+							_.delay(function () {
+								Reactman.PageAction.showHint('success', '修改自营平台成功');
+							}, 500);
+						},
+						error: function (data) {
+							Reactman.PageAction.showHint('error', data.errMsg);
+						},
+						scope: this
+					});
+				}
 			}
 		},
 
 		render: function () {
+			var selectable = this.state.curModel == 'put' ? true : false;
 			var optionsForSync = [{
 				text: '批量同步已有的商品',
-				value: 'isSync'
+				value: 'isSync',
+				selectable: selectable
 			}];
+			var optionsForsettlementType = [{
+				text: '固定扣点',
+				value: '1'
+			}, {
+				text: '毛利分成',
+				value: '2'
+			}, {
+				text: '固定底价',
+				value: '3'
+			}];
+			if (this.state.settlementType == '1') {
+				var splitRatioName = '扣点比例:';
+			} else if (this.state.settlementType == '2') {
+				var splitRatioName = '分成比例:';
+			} else {
+				var splitRatioName = '同时批量加价:';
+			}
+			var disabled = this.state.curModel == 'put' ? '' : 'disabled';
+
+			var optionsForcompany = [{
+				text: '北京微众文化传媒有限公司',
+				value: '1'
+			}, {
+				text: '北京微众文化传媒有限公司',
+				value: '2'
+			}, {
+				text: '北京微众文化传媒有限公司',
+				value: '3'
+			}, {
+				text: '北京微众文化传媒有限公司',
+				value: '4'
+			}, {
+				text: '北京微众精选电子商务有限公司',
+				value: '5'
+			}, {
+				text: '北京微众中海企业孵化器有限公司',
+				value: '6'
+			}, {
+				text: '北京微众英才电子商务有限公司',
+				value: '7'
+			}];
+
+			var optionsForaccount = [{
+				text: '20000028368800010843909',
+				value: '1'
+			}, {
+				text: '20000028368800009669199',
+				value: '2'
+			}, {
+				text: '20000028368800012875903',
+				value: '3'
+			}, {
+				text: '321190100100179840',
+				value: '4'
+			}, {
+				text: '3211 9010 0100 1973 25',
+				value: '5'
+			}, {
+				text: '11050163510000000014',
+				value: '6'
+			}, {
+				text: '20000032109300011190749',
+				value: '7'
+			}];
+
+			var optionsForbank = [{
+				text: '北京银行清华园支行 ',
+				value: '1'
+			}, {
+				text: '北京银行中关村科技园区支行',
+				value: '2'
+			}, {
+				text: '北京银行友谊支行 ',
+				value: '3'
+			}, {
+				text: '兴业银行股份有限公司北京花园路支行',
+				value: '4'
+			}, {
+				text: '兴业银行股份有限公司北京花园路支行',
+				value: '5'
+			}, {
+				text: '中国建设银行北京中关村南大街支行',
+				value: '6'
+			}, {
+				text: '北京银行友谊支行 ',
+				value: '7'
+			}];
+
 			return React.createElement(
 				'div',
 				{ className: 'xui-formPage' },
@@ -56026,9 +56151,50 @@
 					React.createElement(
 						'fieldset',
 						null,
-						React.createElement(Reactman.FormSelect, { label: '\u9009\u62E9\u5E73\u53F0:', name: 'selfUserName', value: this.state.selfUserName, options: this.state.options, onChange: this.onChange }),
+						React.createElement(Reactman.FormSelect, { label: '\u9009\u62E9\u5E73\u53F0:', name: 'selfUserName', disabled: disabled, value: this.state.selfUserName, options: this.state.options, onChange: this.onChange }),
+						React.createElement(
+							'div',
+							{ className: 'account-create-settlement-ype' },
+							React.createElement(Reactman.FormRadio, { label: '\u7ED3\u7B97\u7C7B\u578B:', name: 'settlementType', value: this.state.settlementType, options: optionsForsettlementType, onChange: this.onChange })
+						),
+						React.createElement(
+							'div',
+							{ className: 'account-create-purchase-method' },
+							React.createElement(Reactman.FormInput, { label: splitRatioName, name: 'splitRatio', value: this.state.splitRatio, onChange: this.onChange }),
+							React.createElement(
+								'span',
+								{ className: 'moneyNote' },
+								'%'
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'account-create-purchase-method' },
+							React.createElement(Reactman.FormInput, { label: '\u98CE\u9669\u91D1\u989D:', name: 'riskMoney', value: this.state.riskMoney, onChange: this.onChange }),
+							React.createElement(
+								'span',
+								{ className: 'moneyNote' },
+								'\u5143'
+							)
+						),
 						React.createElement(Reactman.FormText, { label: '\u5907\u6CE8\u8BF4\u660E:', name: 'remark', value: this.state.remark, onChange: this.onChange, width: 300, height: 150 }),
 						React.createElement(Reactman.FormCheckbox, { label: '', name: 'isSync', value: this.state.isSync, options: optionsForSync, onChange: this.onChange })
+					)
+				),
+				React.createElement(
+					'legend',
+					{ className: 'pl10 pt10 pb10' },
+					'\u6536\u6B3E\u8D26\u6237'
+				),
+				React.createElement(
+					'form',
+					{ className: 'form-horizontal mt15' },
+					React.createElement(
+						'fieldset',
+						null,
+						React.createElement(Reactman.FormSelect, { label: '\u516C\u53F8\u540D\u79F0:', name: 'corpAccount', value: this.state.corpAccount, options: optionsForcompany, onChange: this.onChange }),
+						React.createElement(Reactman.FormSelect, { label: '\u5F00\u6237\u884C:', name: 'corpAccount', value: this.state.corpAccount, options: optionsForbank, onChange: this.onChange }),
+						React.createElement(Reactman.FormSelect, { label: '\u8D26\u6237:', name: 'corpAccount', value: this.state.corpAccount, options: optionsForaccount, onChange: this.onChange })
 					)
 				)
 			);
@@ -56118,7 +56284,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.moneyNote {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=splitRatio] {\r\n    width: 200px;\r\n}\r\n.account-create-settlement-ype .col-sm-5{\r\n\twidth: 61%\r\n}\r\ninput[name=riskMoney] {\r\n    width: 200px;\r\n}", ""]);
 
 	// exports
 
@@ -56163,14 +56329,45 @@
 		addSelfShop: function () {
 			Reactman.Resource.get({
 				resource: 'self_shop.get_all_unsynced_self_shops',
-				data: {},
+				data: {
+					status: 'new'
+				},
 				success: function (data) {
 					var options = data.rows;
 					Reactman.PageAction.showDialog({
 						title: "添加自营平台",
 						component: AddSelfShopDialog,
 						data: {
-							options: options
+							options: options,
+							selfInfo: {},
+							curModel: 'put'
+						},
+						success: function () {
+							Action.updateSelfShopDialog();
+						}
+					});
+				},
+				error: function (data) {
+					Reactman.PageAction.showHint('error', data.errMsg);
+				},
+				scope: this
+			});
+		},
+		updateSelfInfo: function (selfInfo) {
+			Reactman.Resource.get({
+				resource: 'self_shop.get_all_unsynced_self_shops',
+				data: {
+					status: 'all'
+				},
+				success: function (data) {
+					var options = data.rows;
+					Reactman.PageAction.showDialog({
+						title: "添加自营平台",
+						component: AddSelfShopDialog,
+						data: {
+							options: options,
+							selfInfo: selfInfo,
+							curModel: 'post'
 						},
 						success: function () {
 							Action.updateSelfShopDialog();
@@ -56195,7 +56392,11 @@
 					return React.createElement(
 						'div',
 						null,
-						'\u5DF2\u540C\u6B65'
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs ml15', onClick: this.updateSelfInfo.bind(this, data) },
+							'\u4FEE\u6539'
+						)
 					);
 				} else {
 					return React.createElement(
@@ -56204,8 +56405,44 @@
 						React.createElement(
 							'a',
 							{ className: 'btn btn-link btn-xs', onClick: this.chooseSyncSelfShopProduct.bind(this, data['userName']) },
-							'\u6279\u91CF\u540C\u6B65\u73B0\u6709\u5546\u54C1'
+							'\u6279\u91CF\u540C\u6B65'
+						),
+						React.createElement(
+							'a',
+							{ className: 'btn btn-link btn-xs ml15', onClick: this.updateSelfInfo.bind(this, data) },
+							'\u4FEE\u6539'
 						)
+					);
+				}
+			} else if (field === 'settlementType') {
+				var settlementTypeName = ['固定扣点', '毛利分成', '固定底价'];
+				var curSettlementTypeName = settlementTypeName[data['settlementType'] - 1];
+				return React.createElement(
+					'div',
+					null,
+					curSettlementTypeName
+				);
+			} else if (field === 'splitRatio') {
+				if (data['settlementType'] == 2) {
+					return React.createElement(
+						'div',
+						null,
+						'X*',
+						data['splitRatio'],
+						'%'
+					);
+				} else if (data['settlementType'] == 3) {
+					return React.createElement(
+						'div',
+						null,
+						'0%'
+					);
+				} else {
+					return React.createElement(
+						'div',
+						null,
+						data['splitRatio'],
+						'%'
 					);
 				}
 			} else {
@@ -56235,7 +56472,9 @@
 						{ resource: productsResource, formatter: this.rowFormatter, pagination: true, ref: 'table' },
 						React.createElement(Reactman.TableColumn, { name: '\u5E73\u53F0\u540D\u79F0', field: 'selfShopName', width: '200px' }),
 						React.createElement(Reactman.TableColumn, { name: 'user_name', field: 'userName' }),
-						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '100px' })
+						React.createElement(Reactman.TableColumn, { name: '\u7ED3\u7B97\u7C7B\u578B', field: 'settlementType' }),
+						React.createElement(Reactman.TableColumn, { name: '\u5206\u6210\u6BD4\u4F8B', field: 'splitRatio' }),
+						React.createElement(Reactman.TableColumn, { name: '\u64CD\u4F5C', field: 'action', width: '300px' })
 					)
 				)
 			);
