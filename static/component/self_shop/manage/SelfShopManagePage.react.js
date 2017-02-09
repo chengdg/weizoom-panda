@@ -120,7 +120,7 @@ var SelfShopManagePage = React.createClass({
 						X*{data['splitRatio']}%
 					</div>
 				);
-			}else if(data['settlementType'] == 1){
+			}else if(data['settlementType'] == 3){
 				return (
 					<div>
 						0%
