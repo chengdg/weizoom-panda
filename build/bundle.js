@@ -44862,12 +44862,6 @@
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-postageConfig-postageListPage' },
-				React.createElement(
-					'div',
-					null,
-					' ',
-					React.createElement(QQOnlineService, { serviceQQFirst: serviceQQFirst, serviceQQSecond: serviceQQSecond, serviceTel: serviceTel })
-				),
 				tableList,
 				React.createElement(
 					Reactman.TableActionBar,
@@ -55805,12 +55799,6 @@
 				'div',
 				{ className: 'mt15 xui-product-productListPage' },
 				React.createElement(
-					'div',
-					null,
-					' ',
-					React.createElement(QQOnlineService, { serviceQQFirst: serviceQQFirst, serviceQQSecond: serviceQQSecond, serviceTel: serviceTel })
-				),
-				React.createElement(
 					Reactman.TablePanel,
 					null,
 					React.createElement(
@@ -56536,12 +56524,6 @@
 			return React.createElement(
 				'div',
 				{ className: 'mt15 xui-product-productListPage' },
-				React.createElement(
-					'div',
-					null,
-					' ',
-					React.createElement(QQOnlineService, { serviceQQFirst: serviceQQFirst, serviceQQSecond: serviceQQSecond, serviceTel: serviceTel })
-				),
 				React.createElement(
 					Reactman.TablePanel,
 					null,
