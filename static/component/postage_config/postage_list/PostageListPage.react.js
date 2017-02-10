@@ -63,7 +63,7 @@ var PostageListPage = React.createClass({
 
 		return (
 			<div className="mt15 xui-postageConfig-postageListPage">
-				<div> <QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
+				
 				{tableList}
 				<Reactman.TableActionBar>
 					<Reactman.TableActionButton text="添加新模板" icon="plus" onClick={this.addPostageTemplate}/>

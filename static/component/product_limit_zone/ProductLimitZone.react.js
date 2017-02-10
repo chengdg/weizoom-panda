@@ -124,7 +124,7 @@ var ProductCatalogPage = React.createClass({
 		var serviceQQSecond = W.serviceQQSecond;
 		return (
 			<div className="mt15 xui-product-productListPage">
-				<div> <QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/></div>
+				
 				<Reactman.TablePanel>
 					<Reactman.TableActionBar>
 						<Reactman.TableActionButton text="添加模板" icon="plus" onClick={this.onAddTemplate}/>
