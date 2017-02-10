@@ -244,7 +244,7 @@ var OrderDatasPage = React.createClass({
 		return (
 		<div className="mt15 xui-order-orderDatasPage">
 			<div> <OrderPrintPage templates={this.state.templates}/></div>
-			<div> <QQOnlineService serviceQQFirst={this.state.serviceQQFirst} serviceQQSecond={this.state.serviceQQSecond} serviceTel={this.state.serviceTel}/></div>
+	
 			<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 				<Reactman.FilterRow>
 					<Reactman.FilterField>

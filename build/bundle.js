@@ -41627,12 +41627,6 @@
 					React.createElement(OrderPrintPage, { templates: this.state.templates })
 				),
 				React.createElement(
-					'div',
-					null,
-					' ',
-					React.createElement(QQOnlineService, { serviceQQFirst: this.state.serviceQQFirst, serviceQQSecond: this.state.serviceQQSecond, serviceTel: this.state.serviceTel })
-				),
-				React.createElement(
 					Reactman.FilterPanel,
 					{ onConfirm: this.onConfirmFilter },
 					React.createElement(
@@ -51242,11 +51236,6 @@
 				return React.createElement(
 					'div',
 					{ className: 'mt15 xui-product-productListPage' },
-					React.createElement(
-						'div',
-						null,
-						React.createElement(QQOnlineService, { serviceQQFirst: serviceQQFirst, serviceQQSecond: serviceQQSecond, serviceTel: serviceTel })
-					),
 					React.createElement(
 						Reactman.FilterPanel,
 						{ onConfirm: this.onConfirmFilter },
