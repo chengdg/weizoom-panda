@@ -236,7 +236,6 @@ var ProductDataListPage = React.createClass({
 		if(W.purchaseMethod == '1') {
 			return (
 				<div className="mt15 xui-product-productListPage">
-					<QQOnlineService serviceQQFirst={serviceQQFirst} serviceQQSecond={serviceQQSecond} serviceTel={serviceTel}/>
 					<Reactman.FilterPanel onConfirm={this.onConfirmFilter}>
 						<Reactman.FilterRow>
 							<Reactman.FilterField>
