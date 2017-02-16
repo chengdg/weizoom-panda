@@ -74,7 +74,7 @@ class TmallProduct(resource.Resource):
 			# limit_zone_type=limit_zone_type,
 			# limit_zone=limit_zone_id,
 			# has_same_postage=has_same_postage,
-			# postage_money=postage_money,
+			postage_money=0,
 			# postage_id=postage_id
 		)
 		
