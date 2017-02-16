@@ -20,6 +20,12 @@ from product import models as product_models
 #####################################
 class Command(BaseCommand):
 	def handle(self, **options):
+		all_users_55rebatep = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER,purchase_method =3)
+		user_ids_55rebateps = [user.user_id for user in all_users_55rebatep]		
+		account_has_rebatep_roports = account_models.AccountHasRebateProport.objects.filter(user_id__in=user_ids_55rebateps)
+		for account_has_rebatep_roport in account_has_rebatep_roports:
+			account_models.UserProfile.objects.filter(user_id = account_has_rebatep_roport.user_id).update(purchase_method =2,points=account_has_rebatep_roport.default_rebate_proport)
+
 		all_users = account_models.UserProfile.objects.filter(role=account_models.CUSTOMER,purchase_method =2)
 		user_ids = [user.user_id for user in all_users]
 		user_id2points = {user.user_id:user.points for user in all_users}
