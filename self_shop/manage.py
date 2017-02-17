@@ -177,7 +177,9 @@ class manage(resource.Resource):
 			is_sync = request.POST.get('is_sync','')
 			remark = request.POST.get('remark','')
 			try:
-				models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
+				self_shops = product_models.SelfUsernameWeappAccount.objects.filter(weapp_account_id=weapp_user_id)
+				username_or_ids = [s.self_user_name for s in self_shops]
+				models.SelfShops.objects.filter(weapp_user_id__in=username_or_ids).update(
 					settlement_type = settlement_type,
 					split_atio = split_atio,
 					risk_money = risk_money,
