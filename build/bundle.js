@@ -56284,7 +56284,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.moneyNote {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=splitRatio] {\r\n    width: 200px;\r\n}\r\n.account-create-settlement-ype .col-sm-5{\r\n\twidth: 61%\r\n}\r\ninput[name=riskMoney] {\r\n    width: 200px;\r\n}\r\n.xui-i-selectContainer select {\r\n  width: 134%;\r\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.moneyNote {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=splitRatio] {\r\n    width: 200px;\r\n}\r\n.account-create-settlement-ype .col-sm-5{\r\n\twidth: 61%\r\n}\r\ninput[name=riskMoney] {\r\n    width: 200px;\r\n}\r\n.xui-i-selectContainer select {\r\n  width: 145%;\r\n}", ""]);
 
 	// exports
 
