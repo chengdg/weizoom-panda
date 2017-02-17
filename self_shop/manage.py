@@ -177,9 +177,7 @@ class manage(resource.Resource):
 			is_sync = request.POST.get('is_sync','')
 			remark = request.POST.get('remark','')
 			try:
-				self_shops = product_models.SelfUsernameWeappAccount.objects.filter(weapp_account_id=weapp_user_id)
-				username_or_ids = [s.self_user_name for s in self_shops]
-				models.SelfShops.objects.filter(weapp_user_id__in=username_or_ids).update(
+				models.SelfShops.objects.filter(weapp_user_id=weapp_user_id).update(
 					settlement_type = settlement_type,
 					split_atio = split_atio,
 					risk_money = risk_money,
@@ -278,12 +276,9 @@ def sync_all_product_2_new_self_shop(self_user_name):
 		return False
 
 def sync_all_product_2_weapp(self_user_name):
-	if self_user_name.isdigit():
-		relation = product_models.SelfUsernameWeappAccount.objects.\
+
+	relation = product_models.SelfUsernameWeappAccount.objects.\
 		filter(weapp_account_id=self_user_name).order_by('-id').first()
-	else:
-		relation = product_models.SelfUsernameWeappAccount.objects.\
-		filter(self_user_name=self_user_name).order_by('-id').first()
 	weapp_account_id = relation.weapp_account_id
 	params = {
 		'new_proprietary_id': weapp_account_id
