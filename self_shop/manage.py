@@ -216,6 +216,7 @@ class manage(resource.Resource):
 				msg = unicode_full_stack()
 				response = create_response(500)
 				response.errMsg = u'添加自营平台失败'
+				response.innerErrMsg = unicode_full_stack()
 				print msg
 			return response.get_response()
 
