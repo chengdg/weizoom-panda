@@ -276,8 +276,11 @@ def sync_all_product_2_new_self_shop(self_user_name):
 		return False
 
 def sync_all_product_2_weapp(self_user_name):
-
-	relation = product_models.SelfUsernameWeappAccount.objects.\
+	if self_user_name.isdigit():
+		relation = product_models.SelfUsernameWeappAccount.objects.\
+		filter(self_user_name=self_user_name).order_by('-id').first()
+	else:
+		relation = product_models.SelfUsernameWeappAccount.objects.\
 		filter(self_user_name=self_user_name).order_by('-id').first()
 	weapp_account_id = relation.weapp_account_id
 	params = {
