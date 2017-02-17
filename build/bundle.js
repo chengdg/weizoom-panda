@@ -56074,7 +56074,7 @@
 			var disabled = this.state.curModel == 'put' ? '' : 'disabled';
 
 			var optionsForcompany = [{
-				text: '北京微众文化传媒有限公司',
+				text: '北京微众精选电子商务有限公司',
 				value: '1'
 			}, {
 				text: '北京微众文化传媒有限公司',
@@ -56086,7 +56086,7 @@
 				text: '北京微众文化传媒有限公司',
 				value: '4'
 			}, {
-				text: '北京微众精选电子商务有限公司',
+				text: '北京微众文化传媒有限公司',
 				value: '5'
 			}, {
 				text: '北京微众中海企业孵化器有限公司',
@@ -56097,7 +56097,7 @@
 			}];
 
 			var optionsForaccount = [{
-				text: '20000028368800010843909',
+				text: '3211 9010 0100 1973 25',
 				value: '1'
 			}, {
 				text: '20000028368800009669199',
@@ -56109,7 +56109,7 @@
 				text: '321190100100179840',
 				value: '4'
 			}, {
-				text: '3211 9010 0100 1973 25',
+				text: '20000028368800010843909',
 				value: '5'
 			}, {
 				text: '11050163510000000014',
@@ -56120,7 +56120,7 @@
 			}];
 
 			var optionsForbank = [{
-				text: '北京银行清华园支行 ',
+				text: '兴业银行股份有限公司北京花园路支行',
 				value: '1'
 			}, {
 				text: '北京银行中关村科技园区支行',
@@ -56132,7 +56132,7 @@
 				text: '兴业银行股份有限公司北京花园路支行',
 				value: '4'
 			}, {
-				text: '兴业银行股份有限公司北京花园路支行',
+				text: '北京银行清华园支行',
 				value: '5'
 			}, {
 				text: '中国建设银行北京中关村南大街支行',
@@ -56284,7 +56284,7 @@
 
 
 	// module
-	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.moneyNote {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=splitRatio] {\r\n    width: 200px;\r\n}\r\n.account-create-settlement-ype .col-sm-5{\r\n\twidth: 61%\r\n}\r\ninput[name=riskMoney] {\r\n    width: 200px;\r\n}", ""]);
+	exports.push([module.id, ".xui-product-productListPage {\r\n    background: #fff;\r\n}\r\n.moneyNote {\r\n    position: absolute;\r\n    display: inline-block;\r\n    height: 34px;\r\n    line-height: 34px;\r\n    margin-bottom: 15px;\r\n    margin-left: 15px;\r\n}\r\n.account-create-purchase-method div:nth-child(1) {\r\n    display: inline-block;\r\n}\r\ninput[name=splitRatio] {\r\n    width: 200px;\r\n}\r\n.account-create-settlement-ype .col-sm-5{\r\n\twidth: 61%\r\n}\r\ninput[name=riskMoney] {\r\n    width: 200px;\r\n}\r\n.xui-i-selectContainer select {\r\n  width: 134%;\r\n}", ""]);
 
 	// exports
 

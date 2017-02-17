@@ -132,7 +132,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 		var disabled =this.state.curModel == 'put'?'':'disabled'
 
 		var optionsForcompany = [{
-			text: '北京微众文化传媒有限公司',
+			text: '北京微众精选电子商务有限公司',
 			value: '1'
 		}, {
 			text: '北京微众文化传媒有限公司',
@@ -144,7 +144,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 			text: '北京微众文化传媒有限公司',
 			value: '4'
 		}, {
-			text: '北京微众精选电子商务有限公司',
+			text: '北京微众文化传媒有限公司',
 			value: '5'
 		}, {
 			text: '北京微众中海企业孵化器有限公司',
@@ -155,7 +155,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 		}];
 
 		var optionsForaccount = [{
-			text: '20000028368800010843909',
+			text: '3211 9010 0100 1973 25',
 			value: '1'
 		}, {
 			text: '20000028368800009669199',
@@ -167,7 +167,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 			text: '321190100100179840',
 			value: '4'
 		}, {
-			text: '3211 9010 0100 1973 25',
+			text: '20000028368800010843909',
 			value: '5'
 		}, {
 			text: '11050163510000000014',
@@ -178,7 +178,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 		}];
 
 		var optionsForbank = [{
-			text: '北京银行清华园支行 ',
+			text: '兴业银行股份有限公司北京花园路支行',
 			value: '1'
 		}, {
 			text: '北京银行中关村科技园区支行',
@@ -190,7 +190,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 			text: '兴业银行股份有限公司北京花园路支行',
 			value: '4'
 		}, {
-			text: '兴业银行股份有限公司北京花园路支行',
+			text: '北京银行清华园支行',
 			value: '5'
 		}, {
 			text: '中国建设银行北京中关村南大街支行',
