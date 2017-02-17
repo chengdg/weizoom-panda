@@ -87,7 +87,6 @@ var AddSelfShopDialog = Reactman.createDialog({
 						corp_account: this.state.corpAccount,
 						split_atio: this.state.splitRatio,
 						risk_money: this.state.riskMoney,
-						is_sync: this.state.isSync.length > 0 ? 'is_sync': '',
 					},
 					success: function(action) {
 						this.closeDialog();
