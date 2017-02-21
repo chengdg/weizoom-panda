@@ -72,7 +72,7 @@ var OrderProduct = React.createClass({
 				<table className="table table-bordered">
 					<thead>
 						<tr>
-							<th>商品</th>
+							<th style={{width:'504px'}}>商品</th>
 							<th>单价/数量</th>
 							<th>商品件数</th>
 							<th>订单金额(元)</th>
