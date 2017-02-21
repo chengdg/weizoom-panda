@@ -55,12 +55,12 @@ class manage(resource.Resource):
 		pageinfo, self_shops = paginator.paginate(self_shops, cur_page, COUNT_PER_PAGE, query_string=request.META['QUERY_STRING'])
 		
 		that_rows,store_name2id=get_self_shops_dict('all')
-
 		rows = []
 		for self_shop in self_shops:
-			self_shop_id = store_name2id.get(self_shop.self_shop_name)
+
+			# self_shop_id = store_name2id.get(self_shop.weapp_user_id)
 			rows.append({
-				'selfShopId': self_shop_id,
+				'selfShopId': self_shop.weapp_user_id,
 				'selfShopName': self_shop.self_shop_name,
 				'userName': self_shop.weapp_user_id,
 				'settlementType': self_shop.settlement_type,
