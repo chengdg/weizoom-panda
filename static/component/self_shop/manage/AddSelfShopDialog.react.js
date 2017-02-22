@@ -23,7 +23,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 		var settlementType = selfInfo.settlementType || 1
 		var corpAccount = selfInfo.corpAccount || 1
 		var splitRatio = selfInfo.splitRatio || 0
-		var riskMoney = selfInfo.riskMoney || 0
+		var riskMoney = selfInfo.riskMoney || 100000
 		var curModel = this.props.data.curModel;
 		var oldWeappUserId = selfInfo.selfShopId
 		return {
@@ -198,7 +198,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 			text: '北京银行友谊支行 ',
 			value: '7'
 		}];
-   
+   		var curSplitRatio = this.state.splitRatio?this.state.splitRatio:'0';
 		return (
 			<div className="xui-formPage">
 				<form className="form-horizontal mt15">
@@ -208,7 +208,7 @@ var AddSelfShopDialog = Reactman.createDialog({
 							<Reactman.FormRadio label="结算类型:" name="settlementType" value={this.state.settlementType} options={optionsForsettlementType} onChange={this.onChange} />
 						</div>
 						<div className="account-create-purchase-method">
-							<Reactman.FormInput label={splitRatioName} name="splitRatio" value={this.state.splitRatio} onChange={this.onChange} />
+							<Reactman.FormInput label={splitRatioName} name="splitRatio" value={curSplitRatio} onChange={this.onChange} />
 							<span className="moneyNote">%</span>
 						</div>
 						<div className="account-create-purchase-method">

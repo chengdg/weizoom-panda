@@ -60602,7 +60602,7 @@
 			var settlementType = selfInfo.settlementType || 1;
 			var corpAccount = selfInfo.corpAccount || 1;
 			var splitRatio = selfInfo.splitRatio || 0;
-			var riskMoney = selfInfo.riskMoney || 0;
+			var riskMoney = selfInfo.riskMoney || 100000;
 			var curModel = this.props.data.curModel;
 			var oldWeappUserId = selfInfo.selfShopId;
 			return {
@@ -60776,7 +60776,7 @@
 				text: '北京银行友谊支行 ',
 				value: '7'
 			}];
-
+			var curSplitRatio = this.state.splitRatio ? this.state.splitRatio : '0';
 			return React.createElement(
 				'div',
 				{ className: 'xui-formPage' },
@@ -60795,7 +60795,7 @@
 						React.createElement(
 							'div',
 							{ className: 'account-create-purchase-method' },
-							React.createElement(Reactman.FormInput, { label: splitRatioName, name: 'splitRatio', value: this.state.splitRatio, onChange: this.onChange }),
+							React.createElement(Reactman.FormInput, { label: splitRatioName, name: 'splitRatio', value: curSplitRatio, onChange: this.onChange }),
 							React.createElement(
 								'span',
 								{ className: 'moneyNote' },
