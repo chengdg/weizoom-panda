@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'zph'
 
+
 import json
 import math
 import os
@@ -16,6 +17,8 @@ from resource import models as resource_models
 
 import upyun
 
+import urllib
+import re
 #####################################
 #将老数据上传到upai云
 #####################################
@@ -31,16 +34,16 @@ class Command(BaseCommand):
 			cur_path = path.split('http://chaozhi.weizoom.com')
 			if len(cur_path) >1:
 				upyun_path = 'http://weappimg.b0.upaiyun.com'+cur_path[1]
-			else:
-				upyun_path = cur_path[0]
-			image.path = upyun_path
-			image.save()
-			file_path ='http://chaozhi.weizoom.com' + upyun_path
-			up = upyun.UpYun(BUCKETNAME, USERNAME, PASSWORD, timeout=300,endpoint=upyun.ED_AUTO)
+				image.path = upyun_path
+				image.save()				
 
-			with open(file_path, 'rb') as f:
-				try:
-					res = up.put(upyun_path, f)
-				except:
-					print image.user,666666
+				dir_path = os.path.abspath('.')+ '/static/upload/' + path.split('/')[-2]
+				if not os.path.exists(dir_path):
+					os.makedirs(dir_path)
+				file_name = path.split('/')[-1]
+				file_path = os.path.abspath('.')+ '/static/upload/'+ path.split('/')[-2]+'/' +file_name
+				urllib.urlretrieve(path,file_path)
 
+				up = upyun.UpYun(BUCKETNAME, USERNAME, PASSWORD, timeout=300,endpoint=upyun.ED_AUTO)
+				with open(file_path, 'rb') as f:
+					res = up.put(cur_path[1], f)
