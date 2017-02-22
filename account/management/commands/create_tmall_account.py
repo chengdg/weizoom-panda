@@ -23,10 +23,30 @@ class Command(BaseCommand):
             is_active=True,
             status=1,
             corpid='tmall_weizoom',
-            name='天猫商城'
-            
-            
+            name='微众直采天猫'
         )
+        params = {
+            'name': '微众直采天猫',
+            'remark': '',
+            'responsible_person': u'8000FT',
+            'supplier_tel': '',
+            'supplier_address': u'中国 北京',
+            'type': 'fixed'
+        }
+        resp = Resource.use(ZEUS_SERVICE_NAME, EAGLET_CLIENT_ZEUS_HOST).put({
+            'resource': 'mall.supplier',
+            "data": params
+        })
+        if resp and resp['code'] == 200:
+            supplier_datas = resp['data']
+            if supplier_datas:
+                user_profile = account_models.UserProfile.objects.filter(user=user).first()
+                account_relation = account_models.AccountHasSupplier.objects.create(
+                    user_id=user.id,
+                    account_id=user_profile.id,
+                    # store_name = account_zypt_info['store_name'].encode('utf8'),
+                    supplier_id=int(supplier_datas['id'])
+                )
         print '==================is OK========================'
         
         

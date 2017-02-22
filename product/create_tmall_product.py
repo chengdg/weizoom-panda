@@ -33,6 +33,7 @@ class TmallProduct(resource.Resource):
 	app = 'product'
 	resource = 'tmall_product'
 
+	@login_required
 	def api_put(request):
 		
 		post = request.POST
