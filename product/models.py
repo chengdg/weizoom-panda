@@ -278,3 +278,17 @@ class ProductRejectLogs(models.Model):
 
 	class Meta(object):
 		db_table = 'product_reject_logs'
+
+
+class TmallProductInfo(models.Model):
+	"""
+	天猫同步过来的商品,一些必备信息
+	"""
+	product_id = models.IntegerField(default=-1) # 商品id
+	remark = models.TextField(null=True)  # 备注
+	tmall_id = models.CharField(max_length=150, default='') # 天猫的id
+	created_at = models.DateTimeField(auto_now_add=True)
+	
+	class Meta(object):
+		db_table = 'tmall_product_info'
+	
