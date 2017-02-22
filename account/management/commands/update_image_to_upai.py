@@ -28,7 +28,7 @@ class Command(BaseCommand):
 		USERNAME = 'weizoom'
 		PASSWORD = 'weizoom_weapp'
 		BUCKETNAME = 'weappimg'
-		images = resource_models.Image.objects.all()
+		images = resource_models.Image.objects.all(path__contains='http://chaozhi.weizoom.com')
 		for image in images:
 			path = image.path
 			cur_path = path.split('http://chaozhi.weizoom.com')
@@ -47,3 +47,4 @@ class Command(BaseCommand):
 				up = upyun.UpYun(BUCKETNAME, USERNAME, PASSWORD, timeout=300,endpoint=upyun.ED_AUTO)
 				with open(file_path, 'rb') as f:
 					res = up.put(cur_path[1], f)
+
