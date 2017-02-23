@@ -24,13 +24,14 @@ import re
 #####################################
 class Command(BaseCommand):
 	def handle(self, **options):
-		image_path = "http://%s.b0.upaiyun.com%s"
 		USERNAME = 'weizoom'
 		PASSWORD = 'weizoom_weapp'
 		BUCKETNAME = 'weappimg'
 		images = resource_models.Image.objects.all(path__contains='http://chaozhi.weizoom.com')
+		print images.count()
 		for image in images:
 			path = image.path
+			print path
 			cur_path = path.split('http://chaozhi.weizoom.com')
 			if len(cur_path) >1:
 				upyun_path = 'http://weappimg.b0.upaiyun.com'+cur_path[1]
