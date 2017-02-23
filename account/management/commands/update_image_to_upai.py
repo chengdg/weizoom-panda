@@ -34,9 +34,7 @@ class Command(BaseCommand):
 			print path
 			cur_path = path.split('http://chaozhi.weizoom.com')
 			if len(cur_path) >1:
-				upyun_path = 'http://weappimg.b0.upaiyun.com'+cur_path[1]
-				image.path = upyun_path
-				image.save()				
+				upyun_path = 'http://weappimg.b0.upaiyun.com'+cur_path[1]				
 
 				dir_path = os.path.abspath('.')+ '/static/upload/' + path.split('/')[-2]
 				if not os.path.exists(dir_path):
@@ -48,4 +46,6 @@ class Command(BaseCommand):
 				up = upyun.UpYun(BUCKETNAME, USERNAME, PASSWORD, timeout=300,endpoint=upyun.ED_AUTO)
 				with open(file_path, 'rb') as f:
 					res = up.put(cur_path[1], f)
+					image.path = upyun_path
+					image.save()
 
