@@ -49,7 +49,7 @@ class TmallProduct(resource.Resource):
 		price = post.get('price')
 		detail = post.get('detail')
 		remark = post.get('remark')
-		user = User.objects.filter(username='tmall_weizoom').first()
+		user = User.objects.filter(username='tmallweizoom').first()
 		
 		# 处理图片
 		images = json.loads(images)
