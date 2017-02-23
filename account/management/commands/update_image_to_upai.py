@@ -27,7 +27,7 @@ class Command(BaseCommand):
 		USERNAME = 'weizoom'
 		PASSWORD = 'weizoom_weapp'
 		BUCKETNAME = 'weappimg'
-		images = resource_models.Image.objects.all(path__contains='http://chaozhi.weizoom.com')
+		images = resource_models.Image.objects.filter(path__contains='http://chaozhi.weizoom.com')
 		print images.count()
 		for image in images:
 			path = image.path
