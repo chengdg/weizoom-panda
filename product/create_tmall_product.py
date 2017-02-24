@@ -91,7 +91,7 @@ class TmallProduct(resource.Resource):
 		response = create_response(200)
 		return response.get_response()
 
-	def api_get(request):
+	def api_post(request):
 		"""
 		临时加接口返回这些天猫id是否已经添加过了
 		"""
