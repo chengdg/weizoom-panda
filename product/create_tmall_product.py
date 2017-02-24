@@ -91,12 +91,13 @@ class TmallProduct(resource.Resource):
 		response = create_response(200)
 		return response.get_response()
 
-	def api_get(request):
+	def api_post(request):
 		"""
 		临时加接口返回这些天猫id是否已经添加过了
 		"""
-		tmall_ids = request.GET.get('tmall_ids')
-		print '======================', type(tmall_ids)
+		tmall_ids = request.POST.get('tmall_ids')
+		# print '======================', type(tmall_ids)
+		# print '-------------------------------', json.loads(tmall_ids)
 		tmall_info = models.TmallProductInfo.objects.filter(tmall_id__in=json.loads(tmall_ids))
 		# 暂时就返回这个吧
 		tmall_info_ids = [db_model.tmall_id for db_model in tmall_info]
