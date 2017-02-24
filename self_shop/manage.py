@@ -245,14 +245,14 @@ def get_all_synced_self_shops(request,is_for_search):
 	if username in CESHI_USERNAMES:
 		rows.append({
 			'text': u'开发测试',
-			'value': 'devceshi'
+			'value': '930'
 		})
 		rows.append({
 			'text': u'财务测试',
-			'value': 'caiwuceshi'
+			'value': '968'
 		})
-		all_self_shop_value.append('devceshi')
-		all_self_shop_value.append('caiwuceshi')
+		all_self_shop_value.append('930')
+		all_self_shop_value.append('968')
 	data = {
 		'rows': rows,
 		'allSelfShopsValue' : all_self_shop_value
