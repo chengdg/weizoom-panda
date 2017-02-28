@@ -111,7 +111,7 @@ var PurchaseMethod = React.createClass({
 						<span>元前提下，返点比例为</span>
 						<Reactman.FormInput label="" type="text" name="rebateProport" validate="require-percent" value={this.state.rebateProport} onChange={this.props.onChange} />
 						<span>%，否则，将按</span>
-						<Reactman.FormInput label="" type="text" name="defaultRebateProport" validate="require-percent" value={this.state.defaultRebateProport} onChange={this.props.onChange} />
+						<Reactman.FormInput label="效果通最低让利" type="text" name="defaultRebateProport" validate="require-percent" value={this.state.defaultRebateProport} onChange={this.props.onChange} />
 						<span>%基础扣点结算。</span>
 					</div>
 					{rebateDialog}
@@ -134,6 +134,20 @@ var PurchaseMethod = React.createClass({
 			// )
 			return(
 				<div></div>
+			)
+		}if(type == '4'){
+			return(
+				<div>
+					<div className="account-create-purchase-method">
+						<Reactman.FormInput label="扣点比例" type="text" name="rebateProport" validate="require-percent" value={this.state.rebateProport} onChange={this.props.onChange} />
+						<span className="rebate_money_note">%</span>
+					</div>
+					<div className="account-create-purchase-method">
+						<Reactman.FormInput label="效果通最低让利" type="text" name="defaultRebateProport" validate="require-percent" value={this.state.defaultRebateProport} onChange={this.props.onChange} />
+						<span className="rebate_money_note">%</span>
+					</div>
+				</div>
+			
 			)
 		}else {
 			return(

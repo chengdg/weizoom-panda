@@ -50,6 +50,11 @@ var Store = StoreUtil.createStore(Dispatcher, {
 					this.data['rebateProport'] = this.data['rebate_proport'];
 					this.data['defaultRebateProport'] = this.data['default_rebate_proport'];
 				}
+				if (this.data['purchaseMethod'] == '4'){
+					this.data['orderMoney'] = this.data['order_money'];
+					this.data['rebateProport'] = this.data['rebate_proport'];
+					this.data['defaultRebateProport'] = this.data['default_rebate_proport'];
+				}
 				this.data['rebates'] = this.data['rebates'].length > 0 ?JSON.parse(this.data['rebates']): [];
 				this.data['selfUserNames'] = this.data['self_user_names'].length>0?JSON.parse(this.data['self_user_names']): [];
 				this.data['maxProduct'] = this.data['max_product'];
@@ -68,8 +73,8 @@ var Store = StoreUtil.createStore(Dispatcher, {
 				'points': '',
 				'rebates': [],
 				'orderMoney': '',
-				'rebateProport': '',
-				'defaultRebateProport': '',
+				'rebateProport': 10,
+				'defaultRebateProport': 15,
 				'maxProduct': 3,
 				'customerServiceTel': '',
 				'customerServiceQQFirst': '',

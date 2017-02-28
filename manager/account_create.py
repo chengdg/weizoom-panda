@@ -102,6 +102,10 @@ class AccountCreate(resource.Resource):
 							user_profile_data['order_money'] = '%.0f' % rebate_proport.order_money
 							user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
 							user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
+				if rebate_proports and user_profile.purchase_method == 4:#采购方式:首月55分成
+					for rebate_proport in rebate_proports:
+						user_profile_data['rebate_proport'] = rebate_proport.rebate_proport
+						user_profile_data['default_rebate_proport'] = rebate_proport.default_rebate_proport
 			else:
 				user_profile_data = {
 					'id': user_profile.id,
@@ -188,12 +192,11 @@ class AccountCreate(resource.Resource):
 							group_points = float(self_user[self_user_name + '_value'])
 						))
 					AccountHasGroupPoint.objects.bulk_create(list_create)
-				# 采购方式:首月55分成
-				if purchase_method == 3:
-					weapp_account_type = 'divide'
+				# 高佣直采
+				if purchase_method == 4:
+					# weapp_account_type = 'divide'
 					AccountHasRebateProport.objects.create(
 						user_id = user_id,
-						order_money = order_money,
 						rebate_proport = rebate_proport,
 						default_rebate_proport = default_rebate_proport
 					)
@@ -375,8 +378,8 @@ class AccountCreate(resource.Resource):
 					sync_delete_retail_rebate_info(supplier_relation)
 					sync_add_retail_rebate_info(supplier_relation, user_id=-1, rebate=points)
 
-				# 采购方式:首月55分成
-				if purchase_method == 3:
+				# 高佣直采
+				if purchase_method == 4:
 					weapp_account_type = 'divide'
 					AccountHasRebateProport.objects.create(
 						user_id = user_id,

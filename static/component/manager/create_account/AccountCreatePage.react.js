@@ -222,8 +222,8 @@ var AccountInfo = React.createClass({
 			text: '零售价返点',
 			value: '2'
 		}, {
-			text: '首月55分成',
-			value: '3'
+			text: '高佣直采',
+			value: '4'
 		}];
 		var optionsForSettlementPeriod =  [{
 			text: '自然月',

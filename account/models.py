@@ -35,7 +35,8 @@ STATUS_NOT_IN_VALID_TIME = 2
 METHOD = (
 	(1, u'固定底价'),
 	(2, u'零售价返点'),
-	(3, u'首月55分成')
+	(3, u'首月55分成'),
+	(4, u'高佣直采')
 )
 METHOD2NAME = dict(METHOD)
 
@@ -129,8 +130,8 @@ class AccountHasRebateProport(models.Model):
 	valid_time_from = models.DateTimeField(null=True) #有效范围开始时间
 	valid_time_to = models.DateTimeField(null=True) #有效范围结束时间
 	order_money = models.DecimalField(max_digits=65, decimal_places=2, null=True) #销售额
-	rebate_proport = models.FloatField(default=0.0) #返点比例
-	default_rebate_proport = models.FloatField(default=0.0) #基础扣点
+	rebate_proport = models.FloatField(default=0.0) #扣点比例
+	default_rebate_proport = models.FloatField(default=0.0) ##效果通最低让利
 	order_money_condition = models.DecimalField(max_digits=65, decimal_places=2, null=True) #(添加条件)销售额
 	rebate_proport_condition = models.FloatField(default=0.0) #(添加条件)返点比例
 	default_rebate_proport_condition = models.FloatField(default=0.0) #(添加条件)基础扣点
