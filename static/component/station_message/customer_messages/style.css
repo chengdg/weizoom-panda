@@ -30,6 +30,11 @@
     padding: 10px 20px;
     color: #fff;
     font-size: 16px;
+    border-radius: 5px;
+}
+
+.xui-unread-panel li {
+    margin-bottom: 5px;
 }
 
 .xui-unread-panel a {
