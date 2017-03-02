@@ -102,20 +102,9 @@ class ProductCatalog(resource.Resource):
 			results.append(temp_dict)
 		# return results, page_infos
 
-		messages = message_models.UserMessage.objects.filter(user_id=request.user.id,status=0)
-		message_ids = [message.message_id for message in messages] 
-		page_messages = message_models.MessageText.objects.filter(message_id__in=message_ids)
-
-		unmessage_list = []
-		for page_message in page_messages:
-			unmessage_list.append({
-				'id' : page_message.id,
-				'title' : page_message.title
-			})
 
 		data = {
 			'rows': results,
-			'unmessageList': unmessage_list,
 			'pagination_info': page_infos.to_dict()
 		}
 

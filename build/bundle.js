@@ -61185,6 +61185,19 @@
 	                Reactman.PageAction.showHint('error', 'FAILED!');
 	            }
 	        });
+	    },
+
+	    getUnreadMes: function () {
+	        Reactman.Resource.get({
+	            resource: 'message.customer_messages',
+	            data: {},
+	            success: function (data) {
+	                Dispatcher.dispatch({
+	                    actionType: Constant.GET_UNREAD_MESSAGE,
+	                    data: data
+	                });
+	            }
+	        });
 	    }
 	};
 
@@ -61203,7 +61216,8 @@
 
 	module.exports = keyMirror({
 	  ADD_REBATE_VALUE: null,
-	  MESSAGE_FILTER: null
+	  MESSAGE_FILTER: null,
+	  GET_UNREAD_MESSAGE: null
 	});
 
 /***/ },
@@ -61286,10 +61300,18 @@
 	var Store = StoreUtil.createStore(Dispatcher, {
 		actions: {
 			//		'handleAddRebateValue': Constant.ADD_REBATE_VALUE,
+			'handleGetUnreadMes': Constant.GET_UNREAD_MESSAGE
 		},
 
 		init: function () {
-			this.data = {};
+			this.data = {
+				unmessageList: []
+			};
+		},
+
+		handleGetUnreadMes: function (data) {
+			this.data.unmessageList = data.data.unmessageList;
+			this.__emitChange();
 		},
 
 		getData: function () {
@@ -61334,7 +61356,7 @@
 
 
 	// module
-	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.bold_text{\r\n    font-weight:bold;\r\n    text-decoration: none;\r\n}\r\n.red_color{\r\n    color:red;\r\n}\r\n.grey_text {\r\n    color:#747474;\r\n}\r\n.href_color {\r\n    color:#404040;\r\n}\r\n\r\n.href_color_gray {\r\n    color:#747474;\r\n}\r\n", ""]);
+	exports.push([module.id, ".rebate_tips{\r\n    width: 78%;\r\n    margin: 0 auto;\r\n    margin-left: 90px;\r\n    margin-bottom: 15px;\r\n}\r\n.bold_text{\r\n    font-weight:bold;\r\n    text-decoration: none;\r\n}\r\n.red_color{\r\n    color:red;\r\n}\r\n.grey_text {\r\n    color:#747474;\r\n}\r\n.href_color {\r\n    color:#404040;\r\n}\r\n\r\n.href_color_gray {\r\n    color:#747474;\r\n}\r\n\r\n.xui-unread-panel {\r\n    width: 800px;\r\n    margin: 0 auto;\r\n    border: 1px solid transparent;\r\n    background: #ff9931;\r\n    padding: 10px 20px;\r\n    color: #fff;\r\n    font-size: 16px;\r\n    border-radius: 5px;\r\n}\r\n\r\n.xui-unread-panel li {\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.xui-unread-panel a {\r\n    color: #fff;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -61375,6 +61397,10 @@
 		onChangeStore: function () {
 			this.setState(Store.getData());
 		},
+
+		// componentDidMount: function() {
+		// 	Action.getUnreadMes();
+		// },
 
 		rowFormatter: function (field, value, data) {
 			if (data.status == 0) {
@@ -61454,6 +61480,7 @@
 			);
 		}
 	});
+
 	module.exports = StationMessageList;
 
 /***/ },
