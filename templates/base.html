@@ -35,7 +35,7 @@
 		{% if user|get_messages %}
 			<div style="float: left;position: absolute;left: 500px; top: 50px; z-index: 10;width: 800px;margin: 0 auto;border: 1px solid transparent;background: #ff9931;padding: 10px 20px;color: #fff;font-size: 16px;border-radius: 5px;">
 				{% for message in user|get_messages %}
-					<div><a style="color: #fff;" href="/message/read_message?message_id={{message.id }}">{{message.title }}</a></div>
+					<div><a style="color: #fff;" href="/message/read_message?message_id={{message.cur_id }}">{{message.title }}</a></div>
 				{% endfor %}
 			</div>
 		{% endif %}
