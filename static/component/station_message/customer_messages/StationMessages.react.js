@@ -28,6 +28,10 @@ var StationMessageList = React.createClass({
 		this.setState(Store.getData());
 	},
 
+	componentDidMount: function() {
+		Action.getUnreadMes();
+	},
+
     rowFormatter: function(field, value, data) {
         if (data.status==0){
             var status = '(未读)';
@@ -85,7 +89,7 @@ var StationMessageList = React.createClass({
 		var serviceQQSecond = W.serviceQQSecond;
 		return (
 			<div className="mt15 xui-product-productListPage">
-				
+				<UnreadPanel />
 				<Reactman.TablePanel>
                     <Reactman.TableActionBar>
 					</Reactman.TableActionBar>
@@ -99,4 +103,35 @@ var StationMessageList = React.createClass({
 		)
 	}
 })
+
+var UnreadPanel = React.createClass({
+	getInitialState: function() {
+		Store.addListener(this.onChangeStore);
+		return Store.getData();
+	},
+
+	onChangeStore: function(){
+		this.setState(Store.getData());
+	},
+
+	render: function() {
+		var unReadMesList = this.state.unmessageList;
+		var className = "xui-unread-panel mt15";
+		if (unReadMesList.length == 0) {
+			className = 'xui-hide';
+		}
+		var unReadMesLi = unReadMesList.map(function(val, idx, arr) {
+			var mesHref = '/message/read_message?message_id='+val['id'];
+			return <li><a href={mesHref}>{val['title']}</a></li>
+		});
+		return (
+			<div className={className}>
+				<ul>
+				{unReadMesLi}
+				</ul>
+			</div>
+		)
+	}
+}) 
+
 module.exports = StationMessageList;

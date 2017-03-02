@@ -32,7 +32,20 @@ var Action = {
                 Reactman.PageAction.showHint('error', 'FAILED!');
             }
         })
-	}
+	},
+
+    getUnreadMes: function() {
+        Reactman.Resource.get({
+            resource: 'message.customer_messages',
+            data: {},
+            success: function(data) {
+                Dispatcher.dispatch({
+                    actionType: Constant.GET_UNREAD_MESSAGE,
+                    data: data
+                });
+            }
+        })        
+    }
 };
 
 module.exports = Action;

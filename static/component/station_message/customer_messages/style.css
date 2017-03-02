@@ -21,3 +21,17 @@
 .href_color_gray {
     color:#747474;
 }
+
+.xui-unread-panel {
+    width: 800px;
+    margin: 0 auto;
+    border: 1px solid transparent;
+    background: #ff9931;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.xui-unread-panel a {
+    color: #fff;
+}

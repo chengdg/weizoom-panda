@@ -7,5 +7,6 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
 	ADD_REBATE_VALUE: null,
-	MESSAGE_FILTER: null
+	MESSAGE_FILTER: null,
+	GET_UNREAD_MESSAGE: null
 });
