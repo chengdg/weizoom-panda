@@ -114,6 +114,7 @@ def getProductData(request, is_export):
 		else:
 			products = models.Product.objects.filter(owner=request.user, is_deleted=False).order_by('-id')
 	else:
+		role = YUN_YING
 		products = []
 
 	# 查询

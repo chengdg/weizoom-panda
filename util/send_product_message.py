@@ -88,7 +88,7 @@ def send_reject_product_ding_message(product_id=None, reasons=None):
 		reasons = reasons.decode('utf-8')
 	message.update({u'驳回原因': reasons})
 	if MODE == 'deploy':
-		uuid = 17169165556
+		uuid = 317014264
 	else:
 		uuid = 197779706
 
@@ -98,6 +98,7 @@ def send_reject_product_ding_message(product_id=None, reasons=None):
 		'uuid': uuid,
 		'content': content
 	}
+	print uuid,'======================='
 	msgutil.send_message('notify', 'ding', data)
 
 
