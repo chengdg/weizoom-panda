@@ -98,7 +98,6 @@ def send_reject_product_ding_message(product_id=None, reasons=None):
 		'uuid': uuid,
 		'content': content
 	}
-	print uuid,'======================='
 	msgutil.send_message('notify', 'ding', data)
 
 

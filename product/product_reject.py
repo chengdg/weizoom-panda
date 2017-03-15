@@ -24,7 +24,6 @@ class ProductReject(resource.Resource):
 		reasons = request.POST.get('reasons','')
 		data = {}
 		product_ids = product_ids.split(',')
-		print '================================!'
 		try:
 			for product_id in product_ids:
 				product_id = int(product_id)
@@ -34,8 +33,6 @@ class ProductReject(resource.Resource):
 					product_id = product_id,
 					reject_reasons = reasons
 				)
-				print '------------------------'
-				send_product_message.send_reject_product_ding_message(product_id=product_id, reasons=reasons)
 				try:
 					send_product_message.send_reject_product_change(product_id=product_id)
 					send_product_message.send_reject_product_ding_message(product_id=product_id, reasons=reasons)
