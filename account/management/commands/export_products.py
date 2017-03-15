@@ -60,7 +60,7 @@ class Command(BaseCommand):
 		filter_dict = {}
 		product_name = ''
 		customer_name = ''
-		product_status_value = 3
+		product_status_value = 0
 		catalog_name = ''
 		#查询
 		if product_name:
@@ -126,8 +126,8 @@ class Command(BaseCommand):
 		has_reject_p_ids = [reject_log.product_id for reject_log in models.ProductRejectLogs.objects.filter(product_id__in=p_ids)]
 
 		#从weapp获取销量sales_from_weapp
-		# id2sales = sales_from_weapp(p_has_relations)
-		id2sales = {}
+		id2sales = sales_from_weapp(p_has_relations)
+		# id2sales = {}
 
 		#获取标签
 		property_ids = []
@@ -261,7 +261,7 @@ class Command(BaseCommand):
 				if company_name2info.has_key(account.company_name):
 					customer_from_text = company_name2info[account.company_name]
 				else:
-					customer_from_text = '渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
+					customer_from_text = u'渠道' if account.customer_from == 1 else '--' #如果从渠道没有找到匹配的，给默认值
 
 				#驳回原因
 				revoke_reasons = ''
@@ -277,11 +277,13 @@ class Command(BaseCommand):
 					revoke_reasons = json.dumps(product_id2reject_reasons[product.id])
 				
 				rows.append({
-					'id': product.id,
+					'id': str(product.id),
 					'role': role,
 					'owner_id': owner_id,
 					'catalogId': catalog_id,
 					'product_name': product.product_name,
+					'product_price': str(product.product_price),
+					'clear_price': str(product.clear_price),
 					'customer_name': '' if owner_id not in user_id2name else user_id2name[owner_id],
 					'total_sales': '%s' %sales,
 					'product_status': product_status_text,
@@ -297,7 +299,7 @@ class Command(BaseCommand):
 		product_list = rows
 
 		titles = [
-			u'编号', u'商品名称', u'一级分类', u'二级分类', u'供货商', u'当月销售数量', u'当月销售金额'
+			u'编号', u'商品名称', u'一级分类', u'二级分类', u'供货商', u'售价', u'结算价'
 			, u'累计销售数量', u'累计销售金额', u'客户来源', u'商品状态', u'停售原因'
 		]
 		product_table = []
@@ -308,13 +310,13 @@ class Command(BaseCommand):
 				revoke_reasons = product['revoke_reasons']
 
 			info = [
-				'',
+				product['id'],
 				product['product_name'],
 				product['first_level_name'],
 				product['second_level_name'],
 				product['customer_name'],
-				'-',
-				'-',
+				product['product_price'],
+				product['clear_price'],
 				product['total_sales'],
 				'-',
 				product['customer_from_text'],
@@ -324,7 +326,7 @@ class Command(BaseCommand):
 			product_table.append(u'	'.join(info))
 		filename = u'商品统计列表'
 		f = open('a.txt', 'wb')
-		f.write(u'/n'.join(product_table).encode('utf8'))
+		f.write(u'\n'.join(product_table).encode('utf8'))
 		f.close()
 		
 		# return ExcelResponse(product_table,output_name=filename.encode('utf8'),force_csv=False)
